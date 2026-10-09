@@ -143,6 +143,31 @@
       "exit_code": 1,
       "seconds": 18.47,
       "label": "successor-tsan"
+    },
+    {
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "native",
+        "--scratch-path",
+        ".build/preflight-native",
+        "--filter",
+        "RoundTripGrayscaleLosslessTests|JPEGLSRobustnessRegressionTests|JPEGLSFillByteTests|ContractImageLayerTests",
+        "--disable-sandbox",
+        "--cache-path",
+        "<workspace>/work/caches/JLSwift/spm",
+        "--config-path",
+        "<workspace>/work/caches/JLSwift/config",
+        "--security-path",
+        "<workspace>/work/caches/JLSwift/security",
+        "--jobs",
+        "2"
+      ],
+      "cwd": "<workspace>/work/JLSwift",
+      "exit_code": 1,
+      "seconds": 31.67,
+      "label": "predecessor-test-native"
     }
   ],
   "implementation_sha256": {

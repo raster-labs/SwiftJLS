@@ -97,7 +97,9 @@ Swift Build engine was used unless the recorded command explicitly says otherwis
   because the selected Command Line Tools environment could not load
   `TestingMacros` in those builds. These are unexecuted sanitizer gates locally.
 - The selected predecessor's filtered scalar/robustness test build encountered
-  the same macro-plugin problem. This is not a passing predecessor baseline.
+  the same macro-plugin problem. An explicitly recorded native-engine retry also
+  failed before execution with `no such module Testing`. Neither attempt is a
+  passing predecessor baseline.
 - All seven shared-document checksums and `git diff --check`: pass.
 
 The change adds one atomic flag per writable owner and an atomic admission/release
