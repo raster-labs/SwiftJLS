@@ -1,5 +1,11 @@
 # Change log
 
+## Migration preparation — 2026-10-09 (unreleased)
+
+- Reject re-entrant and competing writable-storage operations before acquiring the mutex, avoiding the Swift 6.2 Linux try-lock trap while retaining exclusive leases and cleanup after throwing borrows.
+- Correct the independent CI consumer's local package identity; retain the `SwiftJLS` product name.
+- Pin the next predecessor candidate, inventory source/test provenance and record executed checks and outstanding migration gates in [the preparation record](Documentation/Engineering/MigrationPreflight/README.md). No codec source or codec capability is added.
+
 ## 1.1.0-dev.1 — Swift 6.4 upgrade, 2026-09-19 (unreleased)
 
 - Require Swift tools/compiler 6.4, retaining Swift 6 language mode and OS 26 deployment floors.

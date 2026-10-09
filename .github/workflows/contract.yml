@@ -98,7 +98,8 @@ jobs:
             echo '    name: "Consumer",'
             echo "    dependencies: [.package(path: \"$GITHUB_WORKSPACE/package\")],"
             echo '    targets: [.executableTarget(name: "Consumer", dependencies: ['
-            echo "        .product(name: \"$NAME\", package: \"$NAME\")])]"
+            # SwiftPM derives a local dependency's identity from its directory.
+            echo "        .product(name: \"$NAME\", package: \"package\")])]"
             echo ')'
           } > Package.swift
           printf 'import %s\nprint("consumer built")\n' "$NAME" > Sources/Consumer/main.swift

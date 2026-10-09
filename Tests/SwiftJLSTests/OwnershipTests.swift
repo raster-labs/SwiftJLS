@@ -112,11 +112,33 @@ private final class ReadAdapter: ReadOnlyImageStorage {
     }
     storageFailure { try storage.withUnsafeMutableBytes(lease: lease) { _ in } }
     storageFailure { _ = try storage.finishAndSeal(lease: lease) }
+    storageFailure { try storage.abortAndInvalidate(lease: lease) }
+    storageFailure { _ = try storage.reserveWrite() }
     release.signal()
     #expect(done.wait(timeout: .now() + 5) == .success)
     #expect(result.withLock { $0 })
     let sealed = try storage.finishAndSeal(lease: lease)
     #expect(try sealed.withUnsafeBytes { $0[0] } == 29)
+}
+
+@Test func throwingBorrowReleasesAdmissionWithoutPublishingStorage() throws {
+    let storage = try OwnedImageStorage(byteCount: 2)
+    let lease = try storage.reserveWrite()
+    #expect(throws: CancellationError.self) {
+        try storage.withUnsafeMutableBytes(lease: lease) { bytes in
+            bytes[0] = 42
+            throw CancellationError()
+        }
+    }
+    // A scoped provider borrow does not consume the lease; the destination owns
+    // failure invalidation. It must still be possible to clean up after a throw.
+    try storage.withUnsafeMutableBytes(lease: lease) { bytes in
+        #expect(bytes[0] == 42)
+        bytes[1] = 17
+    }
+    try storage.abortAndInvalidate(lease: lease)
+    storageFailure { _ = try storage.finishAndSeal(lease: lease) }
+    storageFailure { try storage.withUnsafeMutableBytes(lease: lease) { _ in } }
 }
 
 @Test func concurrentAdaptersReserveExactlyOneWriter() async throws {
