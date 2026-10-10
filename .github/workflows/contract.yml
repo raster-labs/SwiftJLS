@@ -54,6 +54,8 @@ jobs:
       - run: swift test
       - run: swift build -c release
       - run: swift test -c release
+      - name: Install payload test runtime
+        run: apt-get update && apt-get install -y --no-install-recommends python3
       - name: Payload CLI regression
         run: python3 Scripts/test-payload-cli.py --binary .build/release/swiftjls-cli --output /tmp/payload-cli.json
 
