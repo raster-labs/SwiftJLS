@@ -4,6 +4,7 @@
 
 - Add bounded LSE mapping tables and continuations, explicit mapped output precision, and index-image re-encoding with required table metadata.
 - Preserve ordered binary APP/COM payloads and SPIFF header/directory data under the common metadata policy.
+- Correct native integer bounds and unsigned wire-field parsing for 32-bit Watch device targets; qualify the physical-device architecture with its SDK.
 - Support extended dimensions and subsampled line decoding with explicit plane sampling factors and validated caller layouts.
 - Add explicit compatibility for the pinned predecessor's mapping continuations, extended dimension order, low-range defaults and combined mapping/HP interpretation. Standard syntax remains the output format.
 - Add independent mapping/extended fixtures, actual predecessor profile regressions, simulator runtime jobs and a copy probe with deliberate-copy controls. See [profile coverage](Documentation/Engineering/CodecMigration/Parity.md) and [qualification evidence](Documentation/Engineering/CodecMigration/Validation.md); stable release qualification remains open.

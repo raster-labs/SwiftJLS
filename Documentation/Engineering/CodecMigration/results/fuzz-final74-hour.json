@@ -1,0 +1,109 @@
+{
+  "workflow": "https://github.com/raster-labs/SwiftJLS/actions/runs/38052649425",
+  "revision": "7f93b8e8c5ecb1cf1fa293aac8801203e2074a87",
+  "scope": "Final source with native Watch integer corrections, 981 seeds, standard/explicit legacy/mapped output configurations; ASan RSS is not ordinary workspace accounting",
+  "cases": [
+    {
+      "entry": "mutation-inspect",
+      "result": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "inspect",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.1617268620003,
+        "peak_process_rss_bytes": 454361088,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 3018393,
+        "complete": true,
+        "decodeCalls": 0,
+        "entry": "inspect",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 8995485,
+        "rejected": 5977092,
+        "seconds": 3600.000143622,
+        "seedCount": 981
+      },
+      "artifact_file_sha256": {
+        "campaign-result.json": "ba0ae0e8be463511db2092cf6dfcc6c9afaa5e250fab773d1f5f5de97bf72583",
+        "campaign.jsonl": "eccbaec7bbae1e85fc87f0ff0cca50e732ea08fbb945afb42704545f7768029b",
+        "campaign-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "last-input.jls": "63f3270423b94e60fcff203be114ae2ecac8f99a9b48709db64d5e311b20dfae"
+      }
+    },
+    {
+      "entry": "mutation-into",
+      "result": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "into",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.138043801,
+        "peak_process_rss_bytes": 507990016,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 1657458,
+        "complete": true,
+        "decodeCalls": 3352806,
+        "entry": "into",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 9990916,
+        "rejected": 8333458,
+        "seconds": 3600.000306782,
+        "seedCount": 981
+      },
+      "artifact_file_sha256": {
+        "campaign-result.json": "66ad4437af1522827d1e9a339b5dd3476fb92934cc1ca8915526db59dc41abb1",
+        "campaign.jsonl": "35b6afc396a574b0b2a62975a93e671e75b4134170fe71d03bf3f3a48cdf0f3e",
+        "campaign-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "last-input.jls": "7e8ddeef8d0c3eed47520f01c8b070cee3f4bc35608f34890d185a2e4fda76f1"
+      }
+    },
+    {
+      "entry": "mutation-owned",
+      "result": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "owned",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.1271486839996,
+        "peak_process_rss_bytes": 482562048,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 1206342,
+        "complete": true,
+        "decodeCalls": 7272261,
+        "entry": "owned",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 7272261,
+        "rejected": 6065919,
+        "seconds": 3600.000301822,
+        "seedCount": 981
+      },
+      "artifact_file_sha256": {
+        "campaign-result.json": "d5a3073077aaa1604b79c706d3185563e1f366cb22933c73e22883d635348525",
+        "campaign.jsonl": "e3f99674b8fbfe4804162bf57772266bc8f3f716d6ea685ac7c0e4f5eb02b76e",
+        "campaign-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "last-input.jls": "98b9b7fa2634eecde26aafe5c3ae29453261e5f57ce8c0abba498da6ab3e9234"
+      }
+    }
+  ]
+}

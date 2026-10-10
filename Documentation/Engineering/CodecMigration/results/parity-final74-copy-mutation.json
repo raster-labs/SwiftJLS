@@ -1,0 +1,36 @@
+{
+  "commands": [
+    {
+      "command": [
+        "swift",
+        "build",
+        "-c",
+        "release",
+        "-Xswiftc",
+        "-g",
+        "--package-path",
+        "/tmp/swiftjls-copy-mutation-acpbg2y6/SwiftJLS/Examples/CrossCodecConsumer"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "python3",
+        "/__w/SwiftJLS/SwiftJLS/Scripts/StorageEvidence/trace-heap.py",
+        "--binary",
+        "/tmp/swiftjls-copy-mutation-acpbg2y6/SwiftJLS/Examples/CrossCodecConsumer/.build/release/CrossCodecConsumer",
+        "--output",
+        "/tmp/copy-mutation/mutant"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "detected": true,
+  "injected_sample_array_allocations": 10,
+  "source_sha256": "ca6c0fc13c9c60e476fc222a64f0916679433b52166a20b7b2f0800b4bfc0692",
+  "mutated_sha256": "77a09315f276b83586c45372bb4e573e565cde809a9e38a74a3e83de7a39ef57",
+  "baseline_has_injected_allocator": false,
+  "mutant_consumer_passed": true,
+  "mutation": "One full descriptor-capacity copy into a new owner before every scalar encode; reports intentionally unchanged.",
+  "scope": "Allocator stack sensitivity; whole-process totals are not copy byte counts."
+}
