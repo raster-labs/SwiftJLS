@@ -32,7 +32,8 @@ let names = ["p12-17x13-noise", "n3-p12-17x13-noise", "c3-i2-p12-n0-17x13-noise"
 var results: [[String: Any]] = []
 for name in names {
     let data = try Data(contentsOf: directory.appendingPathComponent(name + ".jls"))
-    let decoded = try await Decoder().decode(data)
+    let sourceDestination = try ImageDestination.allocate(descriptor: Decoder().inspect(data).descriptor)
+    let decoded = try await Decoder().decode(data, into: sourceDestination)
     let isHP = name.hasPrefix("hp1")
     let modes: [CodecOptions.InterleaveMode] = decoded.image.descriptor.components.count == 1 ? [.none] : (isHP ? [.line, .sample] : [.none, .line, .sample])
     let near = name.hasPrefix("n3-") ? 3 : 0
