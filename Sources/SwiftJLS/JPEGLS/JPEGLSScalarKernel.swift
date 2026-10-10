@@ -75,8 +75,7 @@ struct JPEGLSScalarKernel {
                         var i = rowBase + col
                         while i + 4 <= rowEnd {
                             if (i - rowBase - col) & 255 == 0 { try checkpoint() }
-                            if buf[i] != rv16 || buf[i + 1] != rv16
-                                || buf[i + 2] != rv16 || buf[i + 3] != rv16 {
+                            if !buf.fourEqual(at: i, to: rv16) {
                                 break
                             }
                             i += 4
@@ -561,9 +560,10 @@ struct JPEGLSScalarKernel {
                         )
                         if runLength > 0 {
                             let rv = UInt16(truncatingIfNeeded: a)
-                            for i in (rowBase + col)..<(rowBase + col + runLength) {
-                                if i & 255 == 0 { try checkpoint() }
-                                buf[i] = rv
+                            let end = rowBase + col + runLength
+                            for first in stride(from: rowBase + col, to: end, by: 256) {
+                                try checkpoint()
+                                buf.fill(rv, range: first..<min(end, first + 256))
                             }
                             col += runLength
                         }

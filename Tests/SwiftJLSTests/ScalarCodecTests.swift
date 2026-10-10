@@ -229,6 +229,30 @@ struct ScalarCodecTests {
             }
         }
     }
+    @Test func precisionValidationChecksPackedBlocksAndTailsWithoutPadding() async throws {
+        let width = 259, height = 2, rowBytes = 526
+        for order: ByteOrder in [.littleEndian, .bigEndian] {
+            let plane = try PlaneDescriptor(width: width, height: height, rowBytes: rowBytes, byteCount: rowBytes * height)
+            let shape = try ImageDescriptor(width: width, height: height, meaningfulBits: 12, byteOrder: order, planes: [plane])
+            for badX in [-1, 0, 1, 2, 3, 4, 255, 256, 258] {
+                let image = try ImageDestination.allocate(descriptor: shape).write { bytes in
+                    bytes.initializeMemory(as: UInt8.self, repeating: 255)
+                    for y in 0..<height { for x in 0..<width {
+                        let value: UInt16 = y == 1 && x == badX ? 4096 : 4095
+                        let i = y * rowBytes + x * 2
+                        bytes[i] = UInt8(truncatingIfNeeded: order == .littleEndian ? value : value >> 8)
+                        bytes[i + 1] = UInt8(truncatingIfNeeded: order == .littleEndian ? value >> 8 : value)
+                    } }
+                }
+                if badX < 0 {
+                    let encoded = try await Encoder().encode(image)
+                    #expect(try await Decoder().decode(encoded.data).image.sampleUInt16(x: 258, y: 1) == 4095)
+                } else {
+                    await #expect(throws: CodecError.self) { try await Encoder().encode(image) }
+                }
+            }
+        }
+    }
     @Test func eightBitStorageUsesDirectPaddedRows() async throws {
         let width = 17, height = 13, rowBytes = 23
         let plane = try PlaneDescriptor(width: width, height: height, sampleStride: 1,

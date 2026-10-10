@@ -114,15 +114,9 @@ enum ScalarCodec {
                 }
                 let view = ScalarSampleReader(bytes: .init(rebasing: bytes[plane.offset..<descriptor.requiredByteCount]),
                     littleEndian: descriptor.byteOrder == .littleEndian, sampleBytes: descriptor.storageBits / 8)
-                // Validate all logical samples before encoding; padding is never read.
-                for y in 0..<descriptor.height {
-                    for x in 0..<descriptor.width {
-                        if x & 255 == 0 { try budget.check() }
-                        guard view[y * (plane.rowBytes / (descriptor.storageBits / 8)) + x] <= parameters.maxValue else {
-                            throw CodecError(.invalidArgument, "Sample exceeds declared meaningful precision.")
-                        }
-                    }
-                }
+                try view.validate(width: descriptor.width, height: descriptor.height,
+                    rowStride: plane.rowBytes / view.sampleBytes, maximum: parameters.maxValue,
+                    checkpoint: { try budget.check() })
                 let regular = try JPEGLSRegularMode(parameters: parameters)
                 let run = try JPEGLSRunMode(parameters: parameters)
                 let coding = kernel.computeGolombLimitInternal(parameters: parameters, near: near, bitsPerSample: descriptor.meaningfulBits)
