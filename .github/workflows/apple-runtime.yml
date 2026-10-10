@@ -59,11 +59,15 @@ jobs:
           SDK_PATH=$(xcrun --sdk "$SDK_NAME" --show-sdk-path)
           BIN_DIR=$(swift build --package-path Examples/AppleRuntimeConsumer -c release --triple "$TARGET_TRIPLE" --sdk "$SDK_PATH" --show-bin-path)
           if [ "$SDK_NAME" = xrsimulator ]; then
-            # This runner's SwiftPM executable linker treats the XR triple as
-            # ELF (--defsym/$ORIGIN). Compile the same library target, then
-            # invoke the Swift driver with the explicit XR SDK for Mach-O linking.
-            swift build --package-path Examples/AppleRuntimeConsumer -c release --target SwiftJLS --triple "$TARGET_TRIPLE" --sdk "$SDK_PATH"
-            xcrun swiftc -O -swift-version 6 -target "$TARGET_TRIPLE" -sdk "$SDK_PATH" -I "$BIN_DIR/Modules" Examples/AppleRuntimeConsumer/Sources/AppleRuntimeConsumer/main.swift "$BIN_DIR/SwiftJLS.build/"*.o -o "$BIN_DIR/AppleRuntimeConsumer"
+            # Record the SwiftPM XR failure rather than calling its output a
+            # runtime pass: it produced a 26.26.0 minimum and ELF linker flags.
+            # Compile/link the exact package library sources with the explicit
+            # Swift driver and SDK at the actual 26.0 deployment target.
+            BIN_DIR="$RUNNER_TEMP/xr-runtime"
+            mkdir -p "$BIN_DIR"
+            xcrun swiftc -O -swift-version 6 -strict-concurrency=complete -parse-as-library -emit-library -emit-module -module-name SwiftJLS -target "$TARGET_TRIPLE" -sdk "$SDK_PATH" Sources/SwiftJLS/*.swift Sources/SwiftJLS/JPEGLS/*.swift -emit-module-path "$BIN_DIR/SwiftJLS.swiftmodule" -Xlinker -install_name -Xlinker @rpath/libSwiftJLS.dylib -o "$BIN_DIR/libSwiftJLS.dylib"
+            codesign --force --sign - "$BIN_DIR/libSwiftJLS.dylib"
+            xcrun swiftc -O -swift-version 6 -target "$TARGET_TRIPLE" -sdk "$SDK_PATH" -I "$BIN_DIR" -L "$BIN_DIR" -lSwiftJLS -Xlinker -rpath -Xlinker "$BIN_DIR" Examples/AppleRuntimeConsumer/Sources/AppleRuntimeConsumer/main.swift -o "$BIN_DIR/AppleRuntimeConsumer"
           else
             swift build --package-path Examples/AppleRuntimeConsumer -c release --product AppleRuntimeConsumer --triple "$TARGET_TRIPLE" --sdk "$SDK_PATH"
           fi
