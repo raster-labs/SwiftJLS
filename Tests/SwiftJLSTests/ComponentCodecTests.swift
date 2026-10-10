@@ -118,6 +118,10 @@ struct ComponentCodecTests {
                     let encoded = try await Encoder(configuration: .init(mode: f.near == 0 ? .lossless : .nearLossless(maximumAbsoluteError: f.near),
                         codecOptions: .init(restartIntervalLines: 0, interleaveMode: interleave,
                             colourTransform: try #require(CodecOptions.ColourTransform(rawValue: UInt8(f.transform ?? 0)))))).encode(source)
+                    if let transform = f.transform {
+                        let marker = Data([255, 232, 0, 7, 109, 114, 102, 120, UInt8(transform)])
+                        #expect(encoded.data.range(of: marker) != nil)
+                    }
                     if let baseline { #expect(encoded.data == baseline) } else { baseline = encoded.data }
                     #expect(encoded.report.copyEvents.isEmpty && encoded.report.pixelAllocationCount == 0)
                     let target = try descriptor(f, planar: !planar, storageBits: 16, order: order, extra: 7)

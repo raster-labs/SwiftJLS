@@ -132,7 +132,7 @@ jobs:
       - name: Collect ordinary-release allocator stacks
         run: |
           apt-get install -y --no-install-recommends heaptrack
-          swift build -c release -g --package-path Examples/CrossCodecConsumer
+          swift build -c release -Xswiftc -g --package-path Examples/CrossCodecConsumer
           python3 Scripts/StorageEvidence/trace-heap.py --binary Examples/CrossCodecConsumer/.build/release/CrossCodecConsumer --output /tmp/heap-observation
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()

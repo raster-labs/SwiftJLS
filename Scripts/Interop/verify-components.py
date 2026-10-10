@@ -15,6 +15,9 @@ with tempfile.TemporaryDirectory() as temporary:
         expected = struct.unpack('<' + 'H' * (len(raw) // 2), raw)
         for restart in ([0, 3] if f['interleave'] == 0 else [0]):
             name = f['name'] + ('' if restart == 0 else '-r3')
+            if f.get('transform'):
+                encoded = (a.encoded / (name + '.jls')).read_bytes()
+                assert bytes([255, 232, 0, 7, 109, 114, 102, 120, f['transform']]) in encoded
             r = subprocess.run([str(a.oracle.resolve()), 'decode', str(a.encoded / (name + '.jls')), str(output)], capture_output=True, check=True)
             assert list(map(int, r.stdout.split())) == [f['width'], f['height'], f['meaningfulBits'], f['near']]
             decoded = output.read_bytes()
