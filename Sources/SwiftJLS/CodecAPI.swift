@@ -2,7 +2,38 @@
 import Foundation
 
 /// Codec-specific controls are added only with independently tested behaviour.
-public struct CodecOptions: Sendable, Equatable { public init() {} }
+public struct CodecOptions: Sendable, Equatable {
+    /// Explicit JPEG-LS coding parameters. These do not change sample signedness
+    /// or the declared precision of the image container.
+    public struct Preset: Sendable, Equatable {
+        public let maximumSampleValue: Int
+        public let threshold1: Int, threshold2: Int, threshold3: Int, reset: Int
+        public init(maximumSampleValue: Int, threshold1: Int, threshold2: Int, threshold3: Int,
+                    reset: Int = 64) throws {
+            guard (1...65535).contains(maximumSampleValue),
+                  (1...maximumSampleValue).contains(threshold1),
+                  (threshold1...maximumSampleValue).contains(threshold2),
+                  (threshold2...maximumSampleValue).contains(threshold3),
+                  (3...max(255, maximumSampleValue)).contains(reset) else {
+                throw CodecError(.invalidArgument, "Invalid JPEG-LS preset parameters.")
+            }
+            self.maximumSampleValue = maximumSampleValue
+            self.threshold1 = threshold1; self.threshold2 = threshold2
+            self.threshold3 = threshold3; self.reset = reset
+        }
+    }
+    /// JPEG-LS restart interval in sample rows. Zero disables restart markers.
+    public let restartIntervalLines: Int
+    public let preset: Preset?
+    public init() { restartIntervalLines = 0; preset = nil }
+    public init(restartIntervalLines: Int, preset: Preset? = nil) throws {
+        guard (0...65535).contains(restartIntervalLines) else {
+            throw CodecError(.invalidArgument, "Restart interval must be 0...65535 sample rows.")
+        }
+        self.restartIntervalLines = restartIntervalLines; self.preset = preset
+    }
+}
+
 public struct EncoderConfiguration: Sendable, Equatable {
     public let mode: CompressionMode
     public let codecOptions: CodecOptions
@@ -115,7 +146,12 @@ public struct Decoder: Sendable {
     public let configuration: DecoderConfiguration
     public static let capabilities = ScalarCodec.capabilities
     public var capabilities: CodecCapabilities { Self.capabilities }
-    public init(configuration: DecoderConfiguration = .init()) throws { self.configuration = configuration }
+    public init(configuration: DecoderConfiguration = .init()) throws {
+        guard configuration.codecOptions == CodecOptions() else {
+            throw CodecError(.invalidArgument, "Decode parameters come from the codestream; preset and restart overrides are encoder-only.")
+        }
+        self.configuration = configuration
+    }
 
     public func inspect(_ data: Data, options: DecodeOptions = .init()) throws -> ImageInfo {
         try validateInput(data, options)

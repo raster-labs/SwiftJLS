@@ -2,7 +2,7 @@
 
 JPEG-LS for the **Swift Image Compression Suite**.
 
-**Status: native scalar migration in progress.** The common API now inspects, encodes and decodes unsigned 2–16-bit greyscale JPEG-LS in lossless and near-lossless modes. Compatible 16-bit image storage is borrowed directly; decode can write directly into caller storage. Colour/interleaving, restart and mapping extensions, metadata and remaining platform/release qualification are still pending. See [migration evidence](Documentation/Engineering/CodecMigration/README.md). No stable release has been published.
+**Status: native scalar migration in progress.** The common API now inspects, encodes and decodes unsigned 2–16-bit greyscale JPEG-LS in lossless and near-lossless modes. Compatible 8-bit or 16-bit image storage is borrowed directly; decode can write directly into caller storage. Explicit presets and row restart intervals are supported. Colour/interleaving, mapping extensions, metadata and remaining platform/release qualification are still pending. See [migration evidence](Documentation/Engineering/CodecMigration/README.md). No stable release has been published.
 
 SwiftJLS is the standalone successor to [JLSwift](https://github.com/Raster-Lab/JLSwift). The successor is intended to provide a harmonised API, explicit memory ownership, high-precision sample preservation and efficient shared-storage integration. It has no mandatory dependency on another suite library or CompressionFamily. Apache-2.0 licensing applies to these documents and subsequent authorised in-house implementation; third-party material retains its own terms.
 

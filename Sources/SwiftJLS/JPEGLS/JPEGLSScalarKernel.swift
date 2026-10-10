@@ -411,7 +411,8 @@ struct JPEGLSScalarKernel {
             r >>= 1
         }
         qbppBits = max(qbppBits, 1)
-        let limit = 2 * (bitsPerSample + max(8, bitsPerSample))
+        let bpp = max(2, Int.bitWidth - parameters.maxValue.leadingZeroBitCount)
+        let limit = 2 * (bpp + max(8, bpp))
         return (limit, qbppBits)
     }
 

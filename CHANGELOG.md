@@ -6,7 +6,9 @@
 - Encode directly from borrowed samples and decode into final caller storage; near-lossless prediction uses two rows.
 - Bound entropy parsing, output growth, cancellation and custom predictor-table admission. Correct low-precision default thresholds.
 - Implement `swiftjls-cli` payload commands, bounded NRRD streams, atomic output and cancellation; align help/manual/install with the required executable name.
-- Add 258 synthetic independent-oracle cases and source provenance. See [executed evidence and remaining gates](Documentation/Engineering/CodecMigration/README.md).
+- Add 518 synthetic independent-oracle cases and source provenance.
+- Add direct 8-bit storage, explicit presets/MAXVAL and lossless/near-lossless row restarts; correct error sign normalisation and reject invalid decoder overrides.
+- Exercise real SwiftJ2K ↔ SwiftJLS storage adapters in an isolated development consumer. See [executed evidence and remaining gates](Documentation/Engineering/CodecMigration/README.md).
 
 ## Migration preparation — 2026-10-09 (unreleased)
 

@@ -109,3 +109,14 @@ jobs:
           cp "$GITHUB_WORKSPACE/package/Examples/IndependentConsumer/Sources/Consumer/main.swift" Sources/Consumer/main.swift
           swift build
           swift run Consumer
+
+  cross-codec-consumer:
+    name: Pinned development-only cross-codec consumer
+    runs-on: ubuntu-24.04
+    container: swift:6.2-noble
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - run: swift run --package-path Examples/CrossCodecConsumer

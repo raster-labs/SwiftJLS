@@ -6,7 +6,7 @@ Source: JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`. Target base: SwiftJL
 
 ## Implemented and independently checked
 
-- Native scalar single-component JPEG-LS, 2–16 meaningful bits in unsigned 16-bit storage, lossless and NEAR 1…min(255, MAXVAL/2).
+- Native scalar single-component JPEG-LS, 2–16 meaningful bits in unsigned 8-bit or 16-bit storage, lossless and NEAR 1…min(255, MAXVAL/2).
 - Inspection, owned decode and direct caller-destination decode; padded rows, offsets and both byte orders.
 - Encode uses a scoped read of the sealed owner. Decode uses one scoped destination write. No full-image conversion or Int matrix is constructed. Lossless has no predictor pixel allocation; near-lossless has two UInt16 predictor rows. Reported zero pixel allocations refers to full-image allocations; workspace is reported unknown rather than fabricated.
 - Native `swiftjls-cli` encode/decode/inspect/validate, bounded attached raw UInt16 NRRD, pipe cancellation/deadlines, atomic file publication and aligned manual/installer. NRRD output rejects lower declared precision rather than widening it.
@@ -24,4 +24,20 @@ Local host: macOS 27.0.1 arm64, Apple Swift 6.4 (`swiftlang-6.4.0.34.1`), Comman
 
 ## Remaining migration and release gates
 
-Multi-component layouts and interleaving, restart/mapping/colour-transform extensions, metadata semantics, cross-codec shared-storage harness, fuzz duration, controlled performance/memory measurements, complete native platform/device qualification and fresh remote consumption remain work in progress. Unsupported combinations throw; no runtime reference codec is used. Stable release/tagging is a separate explicit task.
+Multi-component layouts and interleaving, mapping/colour-transform extensions, metadata semantics, complete cross-codec allocation/copy instrumentation and mutation proof, fuzz duration, controlled performance/memory measurements, complete native platform/device qualification and fresh remote consumption remain work in progress. Unsupported combinations throw; no runtime reference codec is used. Stable release/tagging is a separate explicit task.
+
+## Preset, restart and storage extension
+
+The next checkpoint adds explicit MAXVAL/T1/T2/T3/RESET, cyclic RST0–RST7 row restarts in both fidelity modes, and direct 8-bit caller storage. Sign normalisation now precedes modular error reduction, as required by T.87. Malformed preset thresholds below NEAR + 1 and attempted decoder overrides are rejected.
+
+The accepted corpus now contains 518 vectors: 90 ordinary lossless, 168 ordinary near-lossless, 224 restart vectors and 36 explicit presets encoded by the published T.87 HP reference V1.00. The reference independently accepted all 36 successor preset candidates. The CharLS adapter independently decoded all 482 non-preset successor streams. CharLS 2.4.2 prediction correction assumes a power-of-two alphabet for some custom MAXVAL cases; those diagnostic outputs are not accepted as conformance fixtures. The published reference refuses MAXVAL below 3: six candidates remain explicitly unsupported by that oracle, with local sample-bound tests only. This gap is not reported as an oracle pass.
+
+The reference workflow downloads the official ITU archive with SHA-256 verification and retains the HP conformance-only licence in its isolated temporary directory. No reference implementation or executable is shipped. Original synthetic samples and their reference-coded outputs are recorded in the fixture manifest. Reproduction uses `Scripts/Interop/reference-windows.py` followed by `generate-preset-fixtures.py`; the reference encoder chooses the SOF precision from MAXVAL, recorded separately from the original candidate precision.
+
+`Examples/CrossCodecConsumer` depends on SwiftJ2K only in its separate development package, pinned to `be4e7a3ad352759e7a78a90f6a2e2c3b7aa0f748`. The library dependency graph remains empty. Its real 37×23 12/16-bit routes check every sample, both allocation identities, observed caller writes and adapter reads, sentinel padding, different row strides, concurrent reader codestream identity, cancellation invalidation and sealed-write rejection. OpenJPEG 2.5.4 and CharLS 2.4.2 independently decoded the exported validation codestreams exactly. This is integration evidence; report counters and address identity alone do not close the separate allocator telemetry/mutation/file-I/O observation gates.
+
+Hosted checkpoint `be98b30` passed all seven contract jobs and the published-reference workflow. Later working-tree extensions require their own CI results; those older runs are not attributed to uncommitted code.
+
+Local extension validation passed 46 declarations in debug, AddressSanitizer and ThreadSanitizer builds. The preceding release run passed 45 declarations; the final extra test covers invalid preset thresholds and decoder overrides. Exact commands and exit codes are in `results/advanced-*.json`. The pinned predecessor comparison remains 78/90 byte-identical, with the same twelve low-precision threshold corrections.
+
+The new mutation harness and hosted workflow retain the last input, deterministic seed/ordinal, heartbeat-supervised execution, per-entry counts and peak process RSS. It is a deterministic mutation campaign, not coverage-guided fuzzing. The workflow runs one hour separately for owned decode, caller-destination decode and inspection under AddressSanitizer. Until those jobs finish, the duration gate remains unexecuted. Sanitizer RSS is recorded as process memory including instrumentation, never used as ordinary allocator/copy accounting.

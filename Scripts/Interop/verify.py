@@ -2,9 +2,10 @@
 # SPDX-License-Identifier: Apache-2.0
 """Decode successor outputs with the separately built oracle and check each sample."""
 import argparse,json,pathlib,struct,subprocess,tempfile
-p=argparse.ArgumentParser();p.add_argument('--oracle',type=pathlib.Path,required=True);p.add_argument('--encoded',type=pathlib.Path,required=True);p.add_argument('--fixtures',type=pathlib.Path,required=True);p.add_argument('--report',type=pathlib.Path,required=True);a=p.parse_args();records=[]
+p=argparse.ArgumentParser();p.add_argument('--oracle',type=pathlib.Path,required=True);p.add_argument('--encoded',type=pathlib.Path,required=True);p.add_argument('--fixtures',type=pathlib.Path,required=True);p.add_argument('--report',type=pathlib.Path,required=True);p.add_argument('--exclude-presets',action='store_true',help='Use the separately recorded T.87 reference gate for presets');a=p.parse_args();records=[]
 with tempfile.TemporaryDirectory(prefix='swiftjls-oracle-') as temp:
  for f in json.loads((a.fixtures/'manifest.json').read_text())['cases']:
+  if f.get('preset') and a.exclude_presets:continue
   output=pathlib.Path(temp)/'decoded.raw';r=subprocess.run([str(a.oracle.resolve()),'decode',str(a.encoded/(f['name']+'.jls')),str(output)],capture_output=True,check=True)
   assert list(map(int,r.stdout.split()))==[f['width'],f['height'],f['meaningfulBits'],f.get('near',0)]
   source=(a.fixtures/(f['name']+'.u16le')).read_bytes();expected=struct.unpack('<'+'H'*(len(source)//2),source);raw=output.read_bytes();actual=raw if f['meaningfulBits']<=8 else struct.unpack('<'+'H'*(len(raw)//2),raw)

@@ -28,7 +28,9 @@ struct CodecBudget {
 struct JPEGLSHeader {
     let width: Int, height: Int, bits: Int, near: Int
     let parameters: JPEGLSPresetParameters
-    let scan: Range<Int>
+    let scans: [Range<Int>]
+    let restartInterval: Int
+    var scan: Range<Int> { scans[0] }
 
     static func parse(_ data: Data, budget: CodecBudget) throws -> Self {
         try budget.admit(pixelBytes: 0, workspaceBytes: 0, compressedBytes: data.count)
@@ -39,6 +41,8 @@ struct JPEGLSHeader {
             var cursor = 2
             var frame: (width: Int, height: Int, bits: Int, id: UInt8)?
             var preset: [Int]?
+            var restartInterval = 0
+            var hasRestartDefinition = false
             func malformed() -> CodecError { CodecError(.malformedInput, "Invalid or truncated JPEG-LS header.") }
             func word(_ offset: Int) -> Int { Int(bytes[offset]) << 8 | Int(bytes[offset + 1]) }
             while cursor < bytes.count {
@@ -67,6 +71,10 @@ struct JPEGLSHeader {
                         throw CodecError(.unsupportedFeature, "JPEG-LS extension is not implemented.")
                     }
                     preset = stride(from: payload + 1, to: end, by: 2).map { word($0) }
+                case 0xdd:
+                    guard length == 4, !hasRestartDefinition else { throw malformed() }
+                    restartInterval = word(payload)
+                    hasRestartDefinition = true
                 case 0xda:
                     guard let frame, length == 8, bytes[payload] == 1,
                           bytes[payload + 1] == frame.id else { throw malformed() }
@@ -84,23 +92,35 @@ struct JPEGLSHeader {
                         params = try JPEGLSPresetParameters(maxValue: p[0] == 0 ? defaults.maxValue : p[0],
                             threshold1: p[1] == 0 ? defaults.threshold1 : p[1], threshold2: p[2] == 0 ? defaults.threshold2 : p[2],
                             threshold3: p[3] == 0 ? defaults.threshold3 : p[3], reset: p[4] == 0 ? defaults.reset : p[4])
-                        guard params.maxValue <= defaults.maxValue else { throw malformed() }
+                        guard params.maxValue <= defaults.maxValue, params.threshold1 > near else { throw malformed() }
                     } else { params = defaults }
-                    var scanEnd = end
-                    while scanEnd + 1 < bytes.count {
-                        if scanEnd & 4095 == 0 { try budget.check() }
-                        if bytes[scanEnd] == 255 && bytes[scanEnd + 1] >= 128 { break }
-                        scanEnd += 1
+                    var scanStart = end
+                    var scans: [Range<Int>] = []
+                    let expected = restartInterval > 0 ? (frame.height + restartInterval - 1) / restartInterval : 1
+                    try budget.admit(pixelBytes: 0,
+                        workspaceBytes: checkedMultiply(expected, MemoryLayout<Range<Int>>.stride * 2), compressedBytes: data.count)
+                    while true {
+                        var scanEnd = scanStart
+                        while scanEnd + 1 < bytes.count {
+                            if scanEnd & 4095 == 0 { try budget.check() }
+                            if bytes[scanEnd] == 255 && bytes[scanEnd + 1] >= 128 { break }
+                            scanEnd += 1
+                        }
+                        var terminal = scanEnd
+                        while terminal < bytes.count && bytes[terminal] == 255 {
+                            terminal += 1
+                            if terminal & 4095 == 0 { try budget.check() }
+                        }
+                        guard terminal < bytes.count, scanEnd > scanStart, scans.count < expected else { throw malformed() }
+                        scans.append(scanStart..<scanEnd)
+                        if scans.count == expected {
+                            guard bytes[terminal] == 0xd9, terminal + 1 == bytes.count else { throw malformed() }
+                            return Self(width: frame.width, height: frame.height, bits: frame.bits, near: near,
+                                parameters: params, scans: scans, restartInterval: restartInterval)
+                        }
+                        guard bytes[terminal] == 0xd0 + UInt8((scans.count - 1) % 8) else { throw malformed() }
+                        scanStart = terminal + 1
                     }
-                    var terminal = scanEnd
-                    while terminal < bytes.count && bytes[terminal] == 255 {
-                        terminal += 1
-                        if terminal & 4095 == 0 { try budget.check() }
-                    }
-                    guard terminal < bytes.count, bytes[terminal] == 0xd9,
-                          terminal + 1 == bytes.count, scanEnd > end else { throw malformed() }
-                    return Self(width: frame.width, height: frame.height, bits: frame.bits, near: near,
-                                parameters: params, scan: end..<scanEnd)
                 default:
                     throw CodecError(.unsupportedFeature, "JPEG-LS marker or metadata is not yet implemented by this migrated path.")
                 }

@@ -12,21 +12,21 @@ enum ScalarCodec {
     }
     static let capabilities = CodecCapabilities(formats: ["JPEG-LS"], compressionModes: [.lossless] + (1...255).map { .nearLossless(maximumAbsoluteError: $0) },
         sampleTypes: [.unsignedInteger], meaningfulPrecision: 2...16,
-        layouts: ["greyscale16"], availableBackends: [.scalarCPU],
+        layouts: ["greyscale8", "greyscale16"], availableBackends: [.scalarCPU],
         canInspect: true, canEncode: true, canDecode: true)
 
     static func layout(_ descriptor: ImageDescriptor, limits: ResourceLimits) throws -> PlaneDescriptor {
         try descriptor.validate(limits: limits)
-        guard descriptor.sampleType == .unsignedInteger, descriptor.storageBits == 16,
+        guard descriptor.sampleType == .unsignedInteger, (descriptor.storageBits == 8 || descriptor.storageBits == 16),
               (2...16).contains(descriptor.meaningfulBits), descriptor.planes.count == 1,
               descriptor.components == [.grey], descriptor.colour == .greyscale,
               descriptor.alpha == .absent, descriptor.iccProfile == nil,
               descriptor.width <= 65535, descriptor.height <= 65535 else {
-            throw CodecError(.unsupportedFeature, "The migrated scalar profile requires unsigned greyscale16 without ICC metadata.")
+            throw CodecError(.unsupportedFeature, "The migrated scalar profile requires unsigned greyscale without ICC metadata.")
         }
         let plane = descriptor.planes[0]
-        guard plane.pixelStride == 2, plane.sampleStride == 2 else {
-            throw CodecError(.incompatibleImageLayout, "Scalar samples require two-byte pixel and sample strides.")
+        guard plane.pixelStride == descriptor.storageBits / 8, plane.sampleStride == descriptor.storageBits / 8 else {
+            throw CodecError(.incompatibleImageLayout, "Scalar sample and pixel strides must match their storage width.")
         }
         return plane
     }
@@ -62,11 +62,24 @@ enum ScalarCodec {
             guard near <= min(255, ((1 << descriptor.meaningfulBits) - 1) / 2) else {
                 throw CodecError(.invalidArgument, "NEAR exceeds the maximum for this sample precision.")
             }
-            let parameters = try JPEGLSPresetParameters.defaultParameters(bitsPerSample: descriptor.meaningfulBits, near: near)
+            let parameters: JPEGLSPresetParameters
+            if let preset = configuration.codecOptions.preset {
+                guard preset.maximumSampleValue <= (1 << descriptor.meaningfulBits) - 1,
+                      near <= min(255, preset.maximumSampleValue / 2), preset.threshold1 > near else {
+                    throw CodecError(.invalidArgument, "Preset parameters are incompatible with precision or NEAR.")
+                }
+                parameters = try JPEGLSPresetParameters(maxValue: preset.maximumSampleValue,
+                    threshold1: preset.threshold1, threshold2: preset.threshold2,
+                    threshold3: preset.threshold3, reset: preset.reset)
+            } else {
+                parameters = try JPEGLSPresetParameters.defaultParameters(bitsPerSample: descriptor.meaningfulBits, near: near)
+            }
             let samples = try checkedMultiply(descriptor.width, descriptor.height)
             // Limited Golomb words are at most 64 bits per sample, with stuffing
             // and marker allowance. Account for both the writer and final Data.
-            let worstOutput = try checkedAdd(checkedMultiply(samples, 10), 64)
+            let interval = configuration.codecOptions.restartIntervalLines
+            let chunks = interval > 0 ? (descriptor.height + interval - 1) / interval : 1
+            let worstOutput = try checkedAdd(checkedAdd(checkedMultiply(samples, 10), 64), checkedMultiply(chunks, 4))
             let outputLimit = min(worstOutput, budget.limits.maximumCompressedBytes)
             let workspace = try checkedAdd(checkedAdd(contextBytes, tableBytes(parameters)), checkedAdd(checkedMultiply(outputLimit, 2), near > 0 ? checkedMultiply(descriptor.width, 4) : 0))
             try budget.admit(pixelBytes: image.storage.byteCount, workspaceBytes: workspace, compressedBytes: outputLimit)
@@ -81,36 +94,62 @@ enum ScalarCodec {
                 near: near, interleaveMode: .none, pointTransform: 0)
             writer.writeMarker(.startOfImage)
             try kernel.writeFrameHeaderInternal(frame, to: writer)
+            if configuration.codecOptions.preset != nil {
+                writer.writeMarker(.jpegLSExtension)
+                writer.writeUInt16(13)
+                writer.writeByte(1)
+                for value in [parameters.maxValue, parameters.threshold1, parameters.threshold2, parameters.threshold3, parameters.reset] {
+                    writer.writeUInt16(UInt16(value))
+                }
+            }
+            if interval > 0 {
+                writer.writeMarker(.defineRestartInterval)
+                writer.writeUInt16(4)
+                writer.writeUInt16(UInt16(interval))
+            }
             try kernel.writeScanHeaderInternal(scan, to: writer)
             try image.storage.withUnsafeBytes { bytes in
                 guard bytes.count == image.storage.byteCount, bytes.count >= descriptor.requiredByteCount else {
                     throw CodecError(.storageUnavailable, "Input provider changed its capacity.")
                 }
                 let view = ScalarSampleReader(bytes: .init(rebasing: bytes[plane.offset..<descriptor.requiredByteCount]),
-                    littleEndian: descriptor.byteOrder == .littleEndian)
+                    littleEndian: descriptor.byteOrder == .littleEndian, sampleBytes: descriptor.storageBits / 8)
                 // Validate all logical samples before encoding; padding is never read.
                 for y in 0..<descriptor.height {
                     for x in 0..<descriptor.width {
                         if x & 255 == 0 { try budget.check() }
-                        guard view[y * (plane.rowBytes / 2) + x] <= parameters.maxValue else {
+                        guard view[y * (plane.rowBytes / (descriptor.storageBits / 8)) + x] <= parameters.maxValue else {
                             throw CodecError(.invalidArgument, "Sample exceeds declared meaningful precision.")
                         }
                     }
                 }
-                if near > 0 {
-                    try kernel.encodeNearLossless(buf: view, rowStride: plane.rowBytes / 2,
-                        width: descriptor.width, height: descriptor.height, near: near,
-                        parameters: parameters, writer: writer, bits: descriptor.meaningfulBits,
-                        checkpoint: { try budget.check(); try writer.checkLimit() })
-                } else {
-                    let regular = try JPEGLSRegularMode(parameters: parameters)
-                    let run = try JPEGLSRunMode(parameters: parameters)
-                    var context = try JPEGLSContextModel(parameters: parameters)
-                    let coding = kernel.computeGolombLimitInternal(parameters: parameters, near: 0, bitsPerSample: descriptor.meaningfulBits)
-                    try kernel.encodeFlatRowsLossless(buf: view, rowStride: plane.rowBytes / 2,
-                        rowRange: 0..<descriptor.height, width: descriptor.width, regularMode: regular,
-                        runMode: run, context: &context, writer: writer, limit: coding.limit,
-                        qbppBits: coding.qbppBits, checkpoint: { try budget.check(); try writer.checkLimit() })
+                let regular = try JPEGLSRegularMode(parameters: parameters)
+                let run = try JPEGLSRunMode(parameters: parameters)
+                let coding = kernel.computeGolombLimitInternal(parameters: parameters, near: near, bitsPerSample: descriptor.meaningfulBits)
+                for chunk in 0..<chunks {
+                    let first = interval > 0 ? chunk * interval : 0
+                    let last = interval > 0 ? min(first + interval, descriptor.height) : descriptor.height
+                    if near > 0 {
+                        let rowView = ScalarSampleReader(bytes: .init(rebasing: view.bytes[(first * plane.rowBytes)...]),
+                            littleEndian: view.littleEndian, sampleBytes: view.sampleBytes)
+                        try kernel.encodeNearLossless(buf: rowView, rowStride: plane.rowBytes / view.sampleBytes,
+                            width: descriptor.width, height: last - first, near: near,
+                            parameters: parameters, writer: writer, bits: descriptor.meaningfulBits,
+                            checkpoint: { try budget.check(); try writer.checkLimit() })
+                    } else {
+                        var context = try JPEGLSContextModel(parameters: parameters)
+                        try kernel.encodeFlatRowsLossless(buf: view, rowStride: plane.rowBytes / view.sampleBytes,
+                            rowRange: first..<last, width: descriptor.width, regularMode: regular,
+                            runMode: run, context: &context, writer: writer, limit: coding.limit,
+                            qbppBits: coding.qbppBits, checkpoint: { try budget.check(); try writer.checkLimit() })
+                    }
+                    if chunk + 1 < chunks {
+                        writer.flush()
+                        guard let marker = JPEGLSMarker(rawValue: 0xd0 + UInt8(chunk % 8)) else {
+                            throw CodecError(.internalFailure, "Restart marker unavailable.")
+                        }
+                        writer.writeMarker(marker)
+                    }
                 }
             }
             writer.flush(); writer.writeMarker(.endOfImage)
@@ -136,25 +175,30 @@ enum ScalarCodec {
                   descriptor.meaningfulBits == header.bits else {
                 throw CodecError(.incompatibleImageLayout, "Destination geometry or precision does not match the codestream.")
             }
-            let workspace = try checkedAdd(checkedAdd(contextBytes, tableBytes(header.parameters)), checkedMultiply(data.count, 2))
+            let workspace = try checkedAdd(checkedAdd(contextBytes, tableBytes(header.parameters)), checkedAdd(checkedMultiply(data.count, 2), checkedMultiply(header.scans.count, MemoryLayout<Range<Int>>.stride * 2)))
             let pixelBytes = supplied?.storage.byteCount ?? descriptor.requiredByteCount
             try budget.admit(pixelBytes: pixelBytes, workspaceBytes: workspace, compressedBytes: data.count)
             let samples = try checkedMultiply(header.width, header.height)
             options.progress?(try ProgressUpdate(phase: .processing, completedUnits: 0, totalUnits: samples))
             try budget.check()
             let destination = try supplied ?? ImageDestination.allocate(descriptor: descriptor, limits: budget.limits)
-            let start = data.index(data.startIndex, offsetBy: header.scan.lowerBound)
-            let end = data.index(data.startIndex, offsetBy: header.scan.upperBound)
-            let reader = JPEGLSBitstreamReader(data: data[start..<end])
             let kernel = JPEGLSScalarKernel()
             let coding = kernel.computeGolombLimitInternal(parameters: header.parameters, near: header.near, bitsPerSample: header.bits)
             let image = try destination.write { bytes in
-                let view = ScalarSampleWriter(bytes: .init(rebasing: bytes[plane.offset..<descriptor.requiredByteCount]),
-                    littleEndian: descriptor.byteOrder == .littleEndian)
-                try kernel.decodeFlatRegion(into: view, rowStride: plane.rowBytes / 2, reader: reader,
-                    rows: header.height, width: header.width, parameters: header.parameters, near: header.near,
-                    limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
-                try reader.validateEndOfScan()
+                for (chunk, scan) in header.scans.enumerated() {
+                    let firstRow = header.restartInterval > 0 ? chunk * header.restartInterval : 0
+                    let rows = header.restartInterval > 0 ? min(header.restartInterval, header.height - firstRow) : header.height
+                    let offset = plane.offset + firstRow * plane.rowBytes
+                    let view = ScalarSampleWriter(bytes: .init(rebasing: bytes[offset..<descriptor.requiredByteCount]),
+                        littleEndian: descriptor.byteOrder == .littleEndian, sampleBytes: descriptor.storageBits / 8)
+                    let start = data.index(data.startIndex, offsetBy: scan.lowerBound)
+                    let end = data.index(data.startIndex, offsetBy: scan.upperBound)
+                    let reader = JPEGLSBitstreamReader(data: data[start..<end])
+                    try kernel.decodeFlatRegion(into: view, rowStride: plane.rowBytes / (descriptor.storageBits / 8), reader: reader,
+                        rows: rows, width: header.width, parameters: header.parameters, near: header.near,
+                        limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
+                    try reader.validateEndOfScan()
+                }
                 try budget.check()
             }
             let result = DecodedImage(image: image, report: OperationReport(backend: .scalarCPU,

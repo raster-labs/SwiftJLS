@@ -98,15 +98,41 @@ struct ScalarCodecTests {
         "p16-33x9-zero",
         "p16-33x9-max"
     ]
+    struct Preset: Decodable, Sendable {
+        let maximumSampleValue: Int, threshold1: Int, threshold2: Int, threshold3: Int, reset: Int
+        var options: CodecOptions.Preset { get throws {
+            try .init(maximumSampleValue: maximumSampleValue, threshold1: threshold1,
+                      threshold2: threshold2, threshold3: threshold3, reset: reset)
+        } }
+    }
     struct Fixture: Decodable, Sendable {
         let name: String, width: Int, height: Int, meaningfulBits: Int
         let near: Int?
+        let restartInterval: Int?
+        let preset: Preset?
     }
     struct Manifest: Decodable { let cases: [Fixture] }
+    @Test func independentRestartIntervalsAndMarkerSequence() async throws {
+        let manifest = try JSONDecoder().decode(Manifest.self, from: fixture("manifest", ext: "json"))
+        for f in manifest.cases where (f.restartInterval ?? 0) > 0 && (f.near ?? 0) == 0 {
+            try await independentlyEncodedSamplesDecodeExactly(f.name)
+            let data = try fixture(f.name, ext: "jls")
+            let image = try await Decoder().decode(data).image
+            let options = try CodecOptions(restartIntervalLines: f.restartInterval ?? 0)
+            let encoded = try await Encoder(configuration: .init(codecOptions: options)).encode(image)
+            let decoded = try await Decoder().decode(encoded.data)
+            #expect(try decoded.image.sampleUInt16(x: f.width - 1, y: f.height - 1) == image.sampleUInt16(x: f.width - 1, y: f.height - 1))
+        }
+        var invalid = try fixture("r1-p12-17x13-noise", ext: "jls")
+        let header = try JPEGLSHeader.parse(invalid, budget: .init(limits: .default))
+        invalid[header.scan.upperBound + 1] = 0xd7
+        await #expect(throws: CodecError.self) { try await Decoder().decode(invalid) }
+        #expect(throws: CodecError.self) { try CodecOptions(restartIntervalLines: 65536) }
+    }
     @Test func independentlyEncodedNearLosslessSamples() async throws {
         let manifest = try JSONDecoder().decode(Manifest.self, from: fixture("manifest", ext: "json"))
-        for f in manifest.cases where (f.near ?? 0) > 0 {
-            let near = try #require(f.near)
+        for f in manifest.cases where (f.near ?? 0) > 0 || f.preset != nil {
+            let near = f.near ?? 0
             let reference = try fixture(f.name, ext: "decoded.u16le")
             let source = try fixture(f.name, ext: "u16le")
             let decoded = try await Decoder().decode(fixture(f.name, ext: "jls"))
@@ -116,10 +142,10 @@ struct ScalarCodecTests {
                 let i = (y * f.width + x) * 2
                 return UInt16(source[i]) | UInt16(source[i + 1]) << 8
             }
-            let encoded = try await Encoder(configuration: .init(mode: .nearLossless(maximumAbsoluteError: near))).encode(image)
+            let encoded = try await Encoder(configuration: .init(mode: near == 0 ? .lossless : .nearLossless(maximumAbsoluteError: near), codecOptions: .init(restartIntervalLines: f.restartInterval ?? 0, preset: f.preset?.options))).encode(image)
             let roundTrip = try await Decoder().decode(encoded.data)
-            #expect(encoded.report.fidelity == .boundedError(near))
-            #expect(decoded.report.fidelity == .boundedError(near))
+            #expect(encoded.report.fidelity == (near == 0 ? .exactSamples : .boundedError(near)))
+            #expect(decoded.report.fidelity == (near == 0 ? .exactSamples : .boundedError(near)))
             for y in 0..<f.height {
                 for x in 0..<f.width {
                     let i = (y * f.width + x) * 2
@@ -164,6 +190,62 @@ struct ScalarCodecTests {
             for x in 0..<d.width {
                 #expect(try decoded.image.sampleUInt16(x: x, y: y) == result.image.sampleUInt16(x: x, y: y))
             }
+        }
+    }
+    // The published reference refuses alphabets below four symbols. This is
+    // explicitly local invariant coverage, not an independent oracle claim.
+    @Test func invalidPresetThresholdAndDecoderOverridesAreRejected() async throws {
+        var stream = try fixture("custom-p4-m10-n3-reset3", ext: "jls")
+        let marker = try #require(stream.range(of: Data([255, 248])))
+        // LSE T1 = 1 is smaller than NEAR + 1 = 4.
+        stream[marker.lowerBound + 7] = 0
+        stream[marker.lowerBound + 8] = 1
+        await #expect(throws: CodecError.self) { try await Decoder().decode(stream) }
+        #expect(throws: CodecError.self) {
+            try Decoder(configuration: .init(codecOptions: .init(restartIntervalLines: 1)))
+        }
+    }
+    @Test func smallAlphabetPresetSampleBounds() async throws {
+        for maximum in [1, 2] {
+            for near in 0...(maximum / 2) {
+                for reset in [3, 255] {
+                    let preset = try CodecOptions.Preset(maximumSampleValue: maximum,
+                        threshold1: near + 1, threshold2: maximum, threshold3: maximum, reset: reset)
+                    let encoder = try Encoder(configuration: .init(
+                        mode: near == 0 ? .lossless : .nearLossless(maximumAbsoluteError: near),
+                        codecOptions: .init(restartIntervalLines: 3, preset: preset)))
+                    let shape = try ImageDescriptor.greyscale16(width: 17, height: 13, meaningfulBits: 2)
+                    let source = try ImageDestination.allocate(descriptor: shape).writeUInt16 { x, y in
+                        UInt16(((x * 1733) ^ (y * 7919)) % (maximum + 1))
+                    }
+                    let encoded = try await encoder.encode(source)
+                    let decoded = try await Decoder().decode(encoded.data)
+                    for y in 0..<13 { for x in 0..<17 {
+                        let value = try Int(decoded.image.sampleUInt16(x: x, y: y))
+                        #expect(value <= maximum)
+                        #expect(try abs(value - Int(source.sampleUInt16(x: x, y: y))) <= near)
+                    } }
+                }
+            }
+        }
+    }
+    @Test func eightBitStorageUsesDirectPaddedRows() async throws {
+        let width = 17, height = 13, rowBytes = 23
+        let plane = try PlaneDescriptor(width: width, height: height, sampleStride: 1,
+            pixelStride: 1, rowBytes: rowBytes, byteCount: rowBytes * height)
+        let shape = try ImageDescriptor(width: width, height: height, storageBits: 8, meaningfulBits: 7, planes: [plane])
+        let source = try fixture("p7-17x13-noise", ext: "u16le")
+        let image = try ImageDestination.allocate(descriptor: shape).write { bytes in
+            for y in 0..<height { for x in 0..<width { bytes[y * rowBytes + x] = source[(y * width + x) * 2] } }
+        }
+        let encoded = try await Encoder().encode(image)
+        let destination = try ImageDestination.allocate(descriptor: shape)
+        let id = destination.storage.allocationID
+        let decoded = try await Decoder().decode(encoded.data, into: destination)
+        #expect(decoded.image.storage.allocationID == id)
+        #expect(decoded.report.copyEvents.isEmpty && decoded.report.pixelAllocationCount == 0)
+        try decoded.image.storage.withUnsafeBytes { bytes in
+            for y in 0..<height { for x in 0..<width { #expect(bytes[y * rowBytes + x] == source[(y * width + x) * 2]) } }
         }
     }
     @Test func sampleOrderAndPaddingDoNotChangeCodestream() async throws {

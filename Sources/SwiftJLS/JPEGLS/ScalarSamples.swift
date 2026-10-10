@@ -8,8 +8,10 @@ import Foundation
 struct ScalarSampleReader {
     let bytes: UnsafeRawBufferPointer
     let littleEndian: Bool
-    var count: Int { bytes.count / 2 }
+    var sampleBytes: Int = 2
+    var count: Int { bytes.count / sampleBytes }
     subscript(index: Int) -> UInt16 {
+        if sampleBytes == 1 { return UInt16(bytes[index]) }
         let lo = UInt16(bytes[index * 2]), hi = UInt16(bytes[index * 2 + 1])
         return littleEndian ? lo | hi << 8 : lo << 8 | hi
     }
@@ -18,13 +20,16 @@ struct ScalarSampleReader {
 struct ScalarSampleWriter {
     let bytes: UnsafeMutableRawBufferPointer
     let littleEndian: Bool
-    var count: Int { bytes.count / 2 }
+    var sampleBytes: Int = 2
+    var count: Int { bytes.count / sampleBytes }
     subscript(index: Int) -> UInt16 {
         get {
+            if sampleBytes == 1 { return UInt16(bytes[index]) }
             let lo = UInt16(bytes[index * 2]), hi = UInt16(bytes[index * 2 + 1])
             return littleEndian ? lo | hi << 8 : lo << 8 | hi
         }
         nonmutating set {
+            if sampleBytes == 1 { bytes[index] = UInt8(truncatingIfNeeded: newValue); return }
             let lo = UInt8(truncatingIfNeeded: newValue), hi = UInt8(newValue >> 8)
             bytes[index * 2] = littleEndian ? lo : hi
             bytes[index * 2 + 1] = littleEndian ? hi : lo

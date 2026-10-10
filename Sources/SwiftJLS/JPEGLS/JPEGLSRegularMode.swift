@@ -423,13 +423,11 @@ struct JPEGLSRegularMode: Sendable {
             sign: sign
         )
 
-        // Step 6: Compute quantised (near-lossless) or exact (lossless) prediction error
-        let quantisedError = computePredictionError(actual: actual, prediction: correctedPrediction)
-
-        // Step 6a: Apply sign to normalise the error per ITU-T.87 Section 4.3.3.
-        // When the context sign is negative the error is negated so that the encoded
-        // error is always relative to the normalised (positive-sign) context.
-        let error = sign * quantisedError
+        // Normalise the raw error BEFORE quantisation/modular reduction
+        // (T.87 A.4.3–A.4.5). Reversing these steps selects the wrong side
+        // of the half-range boundary when the context sign is negative.
+        let error = computePredictionError(actual: sign * actual, prediction: sign * correctedPrediction)
+        let quantisedError = sign * error
 
         // Step 7a: Apply error correction XOR per ITU-T.87 §A.4.1
         let correctedError = error ^ errorCorrection

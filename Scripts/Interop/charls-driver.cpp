@@ -15,10 +15,11 @@ static void write(const char* p, const std::vector<unsigned char>& b) {
 }
 int main(int argc, char** argv) {
     try {
-        if (argc == 8 && std::string(argv[1]) == "encode") {
+        if ((argc == 8 || argc == 13) && std::string(argv[1]) == "encode") {
             auto source = read(argv[6]);
             charls::jpegls_encoder e;
             e.frame_info({static_cast<uint32_t>(std::stoul(argv[2])), static_cast<uint32_t>(std::stoul(argv[3])), std::stoi(argv[4]), 1}).near_lossless(std::stoi(argv[5]));
+            if (argc == 13) e.preset_coding_parameters({std::stoi(argv[8]), std::stoi(argv[9]), std::stoi(argv[10]), std::stoi(argv[11]), std::stoi(argv[12])});
             std::vector<unsigned char> bytes(e.estimated_destination_size());
             e.destination(bytes); bytes.resize(e.encode(source)); write(argv[7], bytes);
         } else if (argc == 4 && std::string(argv[1]) == "decode") {
