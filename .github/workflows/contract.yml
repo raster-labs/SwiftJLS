@@ -120,6 +120,13 @@ jobs:
         with:
           persist-credentials: false
       - run: swift run -c release --package-path Examples/CrossCodecConsumer
+      - name: Measure scoped pixel copies and verify an injected copy is detected
+        run: swift run -c release --package-path Examples/CopyProbe CopyProbe Tests/SwiftJLSTests/Fixtures > /tmp/copy-probe.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: scoped-pixel-copy-probe
+          path: /tmp/copy-probe.json
       - name: Observe file access during the in-process routes
         run: |
           apt-get update && apt-get install -y --no-install-recommends strace python3
@@ -184,7 +191,15 @@ jobs:
         env:
           SDK_NAME: ${{ matrix.sdk }}
           TARGET_TRIPLE: ${{ matrix.triple }}
-        run: swift build --target SwiftJLS -c release --triple "$TARGET_TRIPLE" --sdk "$(xcrun --sdk "$SDK_NAME" --show-sdk-path)"
+        run: |
+          SDK_PATH=$(xcrun --sdk "$SDK_NAME" --show-sdk-path)
+          if [ "$SDK_NAME" = xrsimulator ]; then
+            # See apple-runtime.yml: SwiftPM on this runner misparses XR's
+            # deployment target as 26.26.0. Keep the explicit 26.0 driver check.
+            xcrun swiftc -O -swift-version 6 -strict-concurrency=complete -parse-as-library -emit-library -emit-module -module-name SwiftJLS -target "$TARGET_TRIPLE" -sdk "$SDK_PATH" Sources/SwiftJLS/*.swift Sources/SwiftJLS/JPEGLS/*.swift -emit-module-path /tmp/SwiftJLS.swiftmodule -o /tmp/libSwiftJLS.dylib
+          else
+            swift build --target SwiftJLS -c release --triple "$TARGET_TRIPLE" --sdk "$SDK_PATH"
+          fi
 
   remote-consumer:
     name: Fresh URL-pinned standalone consumer
