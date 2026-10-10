@@ -45,10 +45,10 @@ def component_cases(directory, cases):
      assert (width,height,declared)==(case['width'],case['height'],maximum)
      samples.extend(values)
     error=max(abs(x-y) for x,y in zip(samples,expected))
-    assert len(samples)==len(expected) and error<=case['near'],error
+    assert len(samples)==len(expected)
     return samples,error
    (directory/'component-input.jls').write_bytes(base64.b64decode(case['encoded']))
-   _,error=decode('component-input.jls','candidate-')
+   candidate_samples,error=decode('component-input.jls','candidate-')
    for c in range(2):
     values=expected[c*plane:(c+1)*plane]
     samples=bytes(values) if maximum<256 else struct.pack('>'+'H'*plane,*values)
@@ -56,8 +56,9 @@ def component_cases(directory, cases):
    command=[str(encoder),'-c1',f"-e{case['near']}",'source0.pgm','source1.pgm','-ocomponent-reference.jls']
    result=subprocess.run(command,cwd=directory,capture_output=True,timeout=10)
    assert result.returncode==0,result.stderr.decode(errors='replace')
-   reconstructed,_=decode('component-reference.jls','reference-')
-   entry.update(passed=True,maximum_error=error,
+   reconstructed,reference_error=decode('component-reference.jls','reference-')
+   entry.update(passed=error<=case['near'] and reference_error<=case['near'],maximum_error=error,reference_maximum_error=reference_error,
+    candidate_decoded_u16le=base64.b64encode(struct.pack('<'+'H'*len(candidate_samples),*candidate_samples)).decode(),
     reference_encoded=base64.b64encode((directory/'component-reference.jls').read_bytes()).decode(),
     reference_decoded_u16le=base64.b64encode(struct.pack('<'+'H'*len(reconstructed),*reconstructed)).decode())
   except Exception as error:entry.update(passed=False,error=str(error))
