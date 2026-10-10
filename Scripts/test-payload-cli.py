@@ -17,6 +17,13 @@ with tempfile.TemporaryDirectory(prefix='swiftjls payload λ ') as directory:
   run(['validate','-i','-'],colour)
   rejected=run(['decode','-i','-','-o','-'],colour,4);assert rejected.stdout==b''
 
+ for bits in [8,16]:
+  for transform in [1,2,3]:
+   colour=(pathlib.Path(__file__).resolve().parents[1]/'Tests/SwiftJLSTests/Fixtures'/f'hp{transform}-c3-i2-p{bits}-n0-17x13-noise.jls').read_bytes()
+   details=json.loads(run(['inspect','-i','-','--json'],colour).stdout);assert details['components']==3 and details['meaningfulBits']==bits
+   run(['validate','-i','-'],colour)
+   rejected=run(['decode','-i','-','-o','-'],colour,4);assert rejected.stdout==b''
+
  for endian in ['big','little']:
   alternate=header.replace(b'little',endian.encode()).replace(b'\n',b'\r\n')+(raw if endian=='little' else b''.join(raw[i:i+2][::-1] for i in range(0,len(raw),2)))
   assert run(['encode','-i','-','-o','-'],alternate).stdout==encoded.stdout
