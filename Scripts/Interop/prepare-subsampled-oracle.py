@@ -10,6 +10,7 @@ import argparse,hashlib,json,pathlib,shutil,subprocess
 p=argparse.ArgumentParser();p.add_argument('--predecessor',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args()
 revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=a.predecessor,text=True).strip()
 assert revision=='15aa75164145414f3d5ffb801401c52d40cc5bcc',revision
+assert not subprocess.check_output(['git','status','--porcelain','--','Sources/JPEGLS'],cwd=a.predecessor), 'Predecessor sources must be pristine'
 root=a.output;root.mkdir(parents=True,exist_ok=True)
 shutil.copytree(a.predecessor/'Sources/JPEGLS',root/'Sources/JPEGLS',dirs_exist_ok=True)
 p=root/'Sources/JPEGLS/JPEGLSEncoder.swift';source=p.read_text();start=source.index('    private func encodeLineInterleaved(');end=source.index('    /// Encode sample-interleaved scan',start);section=source[start:end]

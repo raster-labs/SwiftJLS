@@ -1,6 +1,6 @@
 # Codec migration checkpoint — 10 October 2026
 
-Current feature and compatibility status is in [Predecessor parity](Parity.md); the sections below preserve the sequence of implementation checkpoints.
+Current feature and compatibility status is in [Predecessor parity](Parity.md), and current executed/outstanding gates are in [Validation](Validation.md). The sections below preserve the sequence of implementation checkpoints; older pending/unsupported statements are historical.
 
 The user authorised completion of the library migration. This checkpoint implements part of that work; it is not a release or a claim that all five milestones are complete.
 
@@ -26,7 +26,7 @@ Local host: macOS 27.0.1 arm64, Apple Swift 6.4 (`swiftlang-6.4.0.34.1`), Comman
 
 ## Remaining migration and release gates
 
-Mapping, colour transforms and metadata have since been implemented (see Parity.md). Final latest-source validation, complete production allocation/copy classification, controlled performance/memory measurements and Apple runtime qualification remain open. Earlier mutation proof, native hosted platforms and fresh remote consumers have passed at their recorded revisions. Unsupported combinations throw; no runtime reference codec is used. Stable release/tagging is a separate explicit task.
+Mapping, colour transforms and metadata have since been implemented (see Parity.md). The up-to-date gate status is maintained in Validation.md rather than inferred from this chronological log. Unsupported combinations throw; no runtime reference codec is used. Stable release/tagging is a separate explicit task.
 
 ## Preset, restart and storage extension
 

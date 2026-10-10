@@ -1,0 +1,38 @@
+{
+  "commands": [
+    {
+      "command": [
+        "swift",
+        "build",
+        "-c",
+        "release",
+        "-Xswiftc",
+        "-g",
+        "--package-path",
+        "/tmp/swiftjls-copy-mutation-qanus4g2/SwiftJLS/Examples/CrossCodecConsumer"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "python3",
+        "/__w/SwiftJLS/SwiftJLS/Scripts/StorageEvidence/trace-heap.py",
+        "--binary",
+        "/tmp/swiftjls-copy-mutation-qanus4g2/SwiftJLS/Examples/CrossCodecConsumer/.build/release/CrossCodecConsumer",
+        "--output",
+        "/tmp/copy-mutation/mutant"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "detected": true,
+  "injected_sample_array_allocations": 10,
+  "source_sha256": "50fdc0b44e51fc096dba6f14ffd879e2b828d1781ef0fec4cc51d63c34092ca4",
+  "mutated_sha256": "b1a6663c5bca067f4f2f09d0defff125702abde83cc4cfc1e9042843f08a6191",
+  "baseline_has_injected_allocator": false,
+  "mutant_consumer_passed": true,
+  "mutation": "One full descriptor-capacity copy into a new owner before every scalar encode; reports intentionally unchanged.",
+  "scope": "Allocator stack sensitivity; whole-process totals are not copy byte counts.",
+  "workflow": "https://github.com/raster-labs/SwiftJLS/actions/runs/38049181031",
+  "codec_revision": "da5bd84b13430226a3cbee192f2c32792da368a1"
+}

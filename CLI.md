@@ -2,7 +2,7 @@
 
 Version 1.1.0-dev.2. Swift tools 6.2 minimum, Swift 6 mode, Apple OS 26. Hosts: macOS and Linux. The CLI has no external parser or codec dependencies.
 
-`encode` reads an attached raw 2D unsigned 16-bit NRRD and writes JPEG-LS. `decode` writes that NRRD profile from a 16-bit JPEG-LS source. `inspect` validates the header and reports dimensions/precision; `validate` additionally decodes all samples. The library also supports 2–15 meaningful bits, but CLI NRRD output rejects these because a plain uint16 NRRD cannot preserve the narrower declared precision.
+`encode` reads an attached raw 2D unsigned 16-bit NRRD and writes JPEG-LS. `decode` writes that NRRD profile from a 16-bit JPEG-LS source. `inspect` validates the header and reports dimensions/precision; `validate` additionally decodes all samples. The library also supports 2–15 meaningful bits, but CLI NRRD output rejects these because a plain uint16 NRRD cannot preserve the narrower declared precision. Mapping tables and APP/COM/SPIFF metadata can be inspected and validated through the library-supported profiles. NRRD export rejects retained metadata with status 4 before writing payload bytes or replacing an existing file; this interchange profile cannot preserve that interpretation. Explicit predecessor compatibility and mapped-output options are library APIs, not CLI flags.
 
 ```sh
 swift run swiftjls-cli encode -i input.nrrd -o output.jls

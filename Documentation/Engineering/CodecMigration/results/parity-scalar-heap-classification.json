@@ -1,0 +1,34 @@
+{
+  "profile_sha256": "db72e7bf9ac8744a7449dcd2c021d4708f04c457b5bf2f81180694a58114e33b",
+  "allocation_stack_count": 138,
+  "allocation_calls": 364,
+  "groups": {
+    "validated header and descriptor containers": 193,
+    "caller/runtime stacks referencing SwiftJLS types": 14,
+    "metadata validation containers": 13,
+    "codec boundary values, closures and errors (not byte-count classified)": 23,
+    "compressed output writer and final Data": 26,
+    "bounded gradient tables": 13,
+    "bounded entropy contexts": 51,
+    "caller-created pixel owners (outside codec boundaries)": 6,
+    "owner and lease control/error allocations": 25
+  },
+  "full_sample_arrays_under_encode_or_caller_decode": 0,
+  "revision": "da5bd84b13430226a3cbee192f2c32792da368a1",
+  "scope": "Ordinary release 37x23 scalar 12/16-bit real cross-codec routes, with cancellation and concurrent reads",
+  "limitations": [
+    "Whole-process counts include setup/runtime. Stack classification does not measure arbitrary memcpy bytes.",
+    "Stack counts do not establish per-operation peak workspace or identify arbitrary inlined copies."
+  ],
+  "source_review": [
+    "IntoJLS and IntoJ2K adapters forward scoped borrows directly without allocating or repacking samples.",
+    "ScalarSampleReader/Writer retain only borrowed pointer and layout values.",
+    "Scalar lossless kernels read the source owner and reconstruct in the final caller destination; no full sample array is created.",
+    "Parser/header, gradient/context and compressed-data allocations are not decoded-image hand-off storage."
+  ],
+  "stack_evidence": {
+    "archive": "parity-scalar-heap-classification.stacks.json.gz",
+    "uncompressed_sha256": "07cc842d47903709094035bf6211b11f2b275a56e86d33e264ca7886c272074c",
+    "archive_sha256": "60939fe4f99d5c1fa0dce604f2d80317e2d554e3a2b83c1f3ccbf9f70cdfb8b3"
+  }
+}

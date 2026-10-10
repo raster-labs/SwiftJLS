@@ -2,7 +2,7 @@
 
 JPEG-LS for the **Swift Image Compression Suite**.
 
-**Status: native scalar migration in progress.** The common API now inspects, encodes and decodes unsigned 2–16-bit greyscale JPEG-LS in lossless and near-lossless modes. Compatible 8-bit or 16-bit image storage is borrowed directly; decode can write directly into caller storage. Explicit presets and row restart intervals are supported. Two-to-four-component planar/pixel layouts and non-interleaved/line/sample scans are implemented; RGB interpretation uses explicit SPIFF metadata or a supported HP transform marker. Lossless interleaved RGB supports HP1/HP2/HP3 for full-range 8/16-bit samples. Mapping tables, ordered APP/COM and SPIFF metadata, extended dimensions, explicit predecessor compatibility and subsampled line decoding are implemented; final qualification remains in progress. See the [parity record](Documentation/Engineering/CodecMigration/Parity.md). See [migration evidence](Documentation/Engineering/CodecMigration/README.md). No stable release has been published.
+**Status: native codec and predecessor profiles implemented; qualification in progress.** The common API now inspects, encodes and decodes unsigned 2–16-bit greyscale JPEG-LS in lossless and near-lossless modes. Compatible 8-bit or 16-bit image storage is borrowed directly; decode can write directly into caller storage. Explicit presets and row restart intervals are supported. Two-to-four-component planar/pixel layouts and non-interleaved/line/sample scans are implemented; RGB interpretation uses explicit SPIFF metadata or a supported HP transform marker. Lossless interleaved RGB supports HP1/HP2/HP3 for full-range 8/16-bit samples. Mapping tables, ordered APP/COM and SPIFF metadata, extended dimensions, explicit predecessor compatibility and subsampled line decoding are implemented; final qualification remains in progress. See the [parity record](Documentation/Engineering/CodecMigration/Parity.md). See [current validation](Documentation/Engineering/CodecMigration/Validation.md). No stable release has been published.
 
 SwiftJLS is the standalone successor to [JLSwift](https://github.com/Raster-Lab/JLSwift). The successor is intended to provide a harmonised API, explicit memory ownership, high-precision sample preservation and efficient shared-storage integration. It has no mandatory dependency on another suite library or CompressionFamily. Apache-2.0 licensing applies to these documents and subsequent authorised in-house implementation; third-party material retains its own terms.
 
@@ -16,7 +16,7 @@ Swift 6.2 manifest minimum with Swift 6.4 as the qualified primary toolchain, Sw
 
 ## Start reading
 
-**Moving an application from JLSwift? Read [MIGRATION.md](MIGRATION.md)** for dependency/import changes, the current API mapping, a runnable storage trial and the gates before production cutover. Codec replacement remains blocked until later milestones supply the required JPEG-LS capabilities.
+**Moving an application from JLSwift? Read [MIGRATION.md](MIGRATION.md)** for dependency/import changes, the current API mapping, a runnable storage trial and the gates before production cutover. Production cutover requires the application acceptance matrix and the outstanding release qualification gates.
 
 The scalar and component codec paths and predecessor extensions are migrated; qualification and complete shared-storage telemetry remain in progress. Start with [current evidence](Documentation/Engineering/CodecMigration/README.md) and [AGENTS.md](AGENTS.md).
 

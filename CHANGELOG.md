@@ -1,5 +1,13 @@
 # Change log
 
+## Predecessor profile parity — 2026-10-10 (unreleased)
+
+- Add bounded LSE mapping tables and continuations, explicit mapped output precision, and index-image re-encoding with required table metadata.
+- Preserve ordered binary APP/COM payloads and SPIFF header/directory data under the common metadata policy.
+- Support extended dimensions and subsampled line decoding with explicit plane sampling factors and validated caller layouts.
+- Add explicit compatibility for the pinned predecessor's mapping continuations, extended dimension order, low-range defaults and combined mapping/HP interpretation. Standard syntax remains the output format.
+- Add independent mapping/extended fixtures, actual predecessor profile regressions, simulator runtime jobs and a copy probe with deliberate-copy controls. See [profile coverage](Documentation/Engineering/CodecMigration/Parity.md) and [qualification evidence](Documentation/Engineering/CodecMigration/Validation.md); stable release qualification remains open.
+
 ## Scalar codec migration — 2026-10-10 (unreleased)
 
 - Adapt the pinned JLSwift scalar kernels behind the common owning API; add lossless and near-lossless greyscale coding for 2–16 meaningful bits.
