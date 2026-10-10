@@ -52,7 +52,7 @@ enum ScalarCodec {
         return try mapped {
             let descriptor = image.descriptor
             let plane = try layout(descriptor, limits: budget.limits)
-            guard configuration.codecOptions.interleaveMode == .none else {
+            guard configuration.codecOptions.interleaveMode == .none, configuration.codecOptions.colourTransform == .none else {
                 throw CodecError(.unsupportedFeature, "Greyscale requires non-interleaved coding.")
             }
             guard image.metadata.requiredKeys.isEmpty,

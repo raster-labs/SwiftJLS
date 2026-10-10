@@ -25,7 +25,7 @@ extension JPEGLSScalarKernel {
                 c: x == 0 ? oldEdge : Int(previous[x - 1]), d: Int(previous[min(x + 1, previous.count - 1)]))
         }
     }
-    func encodeInterleaved(views: [ComponentSampleReader], width: Int, height: Int,
+    func encodeInterleaved<Reader: JPEGSampleReader>(views: [Reader], width: Int, height: Int,
                            mode: CodecOptions.InterleaveMode, near: Int, parameters: JPEGLSPresetParameters,
                            bits: Int, writer: JPEGLSBitstreamWriter, checkpoint: () throws -> Void) throws {
         let regular = try JPEGLSRegularMode(parameters: parameters, near: near)

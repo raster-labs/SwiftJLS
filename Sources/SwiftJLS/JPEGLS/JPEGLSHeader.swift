@@ -37,6 +37,7 @@ struct JPEGLSHeader {
     let width: Int, height: Int, bits: Int
     let componentIDs: [UInt8]
     let rgb: Bool
+    let colourTransform: CodecOptions.ColourTransform
     let records: [Scan]
     var near: Int { records[0].near }
     var parameters: JPEGLSPresetParameters { records[0].parameters }
@@ -84,6 +85,8 @@ struct JPEGLSHeader {
             var covered = Set<Int>()
             var spiff: (width: Int, height: Int, bits: Int, components: Int, rgb: Bool)?
             var needsDirectoryEnd = false
+            var transform: CodecOptions.ColourTransform?
+            var metadataBytes = 0
             while cursor < bytes.count {
                 try budget.check()
                 guard bytes[cursor] == 255 else { throw malformed() }
@@ -95,7 +98,8 @@ struct JPEGLSHeader {
                     guard let f = frame, !records.isEmpty, covered.count == f.ids.count,
                           cursor == bytes.count, !needsDirectoryEnd else { throw malformed() }
                     let header = Self(width: f.width, height: f.height, bits: f.bits,
-                        componentIDs: f.ids, rgb: spiff?.rgb ?? false, records: records)
+                        componentIDs: f.ids, rgb: spiff?.rgb ?? (transform.map { $0 != .none } ?? false),
+                        colourTransform: transform ?? .none, records: records)
                     _ = try header.descriptor(limits: budget.limits)
                     return header
                 }
@@ -114,6 +118,18 @@ struct JPEGLSHeader {
                 }
                 switch marker {
                 case 0xe8:
+                    if length == 7, Array(bytes[payload..<(payload + 4)]) == [109, 114, 102, 120] {
+                        guard transform == nil, records.isEmpty else { throw malformed() }
+                        guard let value = CodecOptions.ColourTransform(rawValue: bytes[payload + 4]) else {
+                            throw unsupported("Unknown HP colour transform.")
+                        }
+                        metadataBytes = try checkedAdd(metadataBytes, 5)
+                        guard metadataBytes <= budget.limits.maximumMetadataBytes else {
+                            throw CodecError(.resourceLimitExceeded, "Application headers exceed metadata budget.")
+                        }
+                        transform = value
+                        break
+                    }
                     guard frame == nil, spiff == nil, length == 32,
                           Array(bytes[payload..<(payload + 6)]) == [83, 80, 73, 70, 70, 0],
                           bytes[payload + 6] == 2, bytes[payload + 7] == 0,
@@ -122,7 +138,8 @@ struct JPEGLSHeader {
                           longWord(payload + 26) == 1 else {
                         throw unsupported("Unsupported JPEG-LS application metadata or SPIFF profile.")
                     }
-                    guard budget.limits.maximumMetadataBytes >= 30 else {
+                    metadataBytes = try checkedAdd(metadataBytes, 30)
+                    guard budget.limits.maximumMetadataBytes >= metadataBytes else {
                         throw CodecError(.resourceLimitExceeded, "SPIFF header exceeds the metadata budget.")
                     }
                     let count = Int(bytes[payload + 9]), colour = bytes[payload + 18]
@@ -187,6 +204,13 @@ struct JPEGLSHeader {
                     guard records.isEmpty || near == records[0].near else {
                         throw unsupported("Different NEAR values across component scans are not implemented.")
                     }
+                    if let transform, transform != .none {
+                        guard f.ids.count == 3, [8, 16].contains(f.bits), near == 0,
+                              interleave != .none, indices == [0, 1, 2],
+                              spiff == nil || spiff?.rgb == true else {
+                            throw unsupported("HP transforms require lossless full-range 8/16-bit interleaved RGB.")
+                        }
+                    }
                     let maximum = (1 << f.bits) - 1
                     let declared = preset.map { $0[0] == 0 ? maximum : $0[0] } ?? maximum
                     guard declared <= maximum else { throw malformed() }
@@ -198,6 +222,9 @@ struct JPEGLSHeader {
                             threshold3: p[3] == 0 ? defaults.threshold3 : p[3], reset: p[4] == 0 ? defaults.reset : p[4])
                         guard params.threshold1 > near else { throw malformed() }
                     } else { params = defaults }
+                    if let transform, transform != .none, params.maxValue != maximum {
+                        throw unsupported("HP transforms require the full sample range.")
+                    }
                     let expected = restartInterval > 0 ? (f.height + restartInterval - 1) / restartInterval : 1
                     try budget.admit(pixelBytes: 0, workspaceBytes: checkedMultiply(checkedMultiply(expected, f.ids.count), MemoryLayout<Range<Int>>.stride * 2), compressedBytes: data.count)
                     var ranges: [Range<Int>] = [], scanStart = end

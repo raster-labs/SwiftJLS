@@ -24,6 +24,7 @@ struct ComponentCodecTests {
     struct Fixture: Decodable {
         let name: String, width: Int, height: Int, meaningfulBits: Int, near: Int, components: Int, interleave: Int
         let rgb: Bool
+        var transform: Int? = nil
     }
     struct Manifest: Decodable { let cases: [Fixture] }
     func fixture(_ name: String, ext: String) throws -> Data {
@@ -82,7 +83,8 @@ struct ComponentCodecTests {
     @Test func independentPlanarAndPixelLayouts() async throws {
         let manifest = try JSONDecoder().decode(Manifest.self, from: fixture("components", ext: "json"))
         let published = try JSONDecoder().decode(Manifest.self, from: fixture("components-reference", ext: "json"))
-        for f in manifest.cases + published.cases {
+        let hp = try JSONDecoder().decode(Manifest.self, from: fixture("components-hp", ext: "json"))
+        for f in manifest.cases + published.cases + hp.cases {
             var baseline: Data?
             let original = try fixture(f.name, ext: "u16le")
             let expected = try fixture(f.name, ext: "decoded.u16le")
@@ -114,7 +116,8 @@ struct ComponentCodecTests {
                     }
                     let interleave = try #require(CodecOptions.InterleaveMode(rawValue: UInt8(f.interleave)))
                     let encoded = try await Encoder(configuration: .init(mode: f.near == 0 ? .lossless : .nearLossless(maximumAbsoluteError: f.near),
-                        codecOptions: .init(restartIntervalLines: 0, interleaveMode: interleave))).encode(source)
+                        codecOptions: .init(restartIntervalLines: 0, interleaveMode: interleave,
+                            colourTransform: try #require(CodecOptions.ColourTransform(rawValue: UInt8(f.transform ?? 0)))))).encode(source)
                     if let baseline { #expect(encoded.data == baseline) } else { baseline = encoded.data }
                     #expect(encoded.report.copyEvents.isEmpty && encoded.report.pixelAllocationCount == 0)
                     let target = try descriptor(f, planar: !planar, storageBits: 16, order: order, extra: 7)

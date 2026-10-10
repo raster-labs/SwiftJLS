@@ -15,11 +15,12 @@ static void write(const char* p, const std::vector<unsigned char>& b) {
 }
 int main(int argc, char** argv) {
     try {
-        if (argc == 11 && std::string(argv[1]) == "encode-components") {
+        if ((argc == 11 || argc == 12) && std::string(argv[1]) == "encode-components") {
             auto source = read(argv[9]);
             charls::jpegls_encoder e;
             e.frame_info({static_cast<uint32_t>(std::stoul(argv[2])), static_cast<uint32_t>(std::stoul(argv[3])), std::stoi(argv[4]), std::stoi(argv[6])})
                 .near_lossless(std::stoi(argv[5])).interleave_mode(static_cast<charls::interleave_mode>(std::stoi(argv[7])));
+            if (argc == 12) e.color_transformation(static_cast<charls::color_transformation>(std::stoi(argv[11])));
             std::vector<unsigned char> bytes(e.estimated_destination_size());
             e.destination(bytes);
             if (std::stoi(argv[8])) e.write_standard_spiff_header(charls::spiff_color_space::rgb);

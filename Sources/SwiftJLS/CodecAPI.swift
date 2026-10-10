@@ -3,6 +3,9 @@ import Foundation
 
 /// Codec-specific controls are added only with independently tested behaviour.
 public struct CodecOptions: Sendable, Equatable {
+    /// HP reversible RGB transforms signalled by the private APP8 `mrfx` convention.
+    /// Supported only for lossless, interleaved RGB with 8 or 16 meaningful bits.
+    public enum ColourTransform: UInt8, Sendable { case none = 0, hp1 = 1, hp2 = 2, hp3 = 3 }
     public enum InterleaveMode: UInt8, Sendable { case none = 0, line = 1, sample = 2 }
     /// Explicit JPEG-LS coding parameters. These do not change sample signedness
     /// or the declared precision of the image container.
@@ -27,12 +30,14 @@ public struct CodecOptions: Sendable, Equatable {
     public let restartIntervalLines: Int
     public let preset: Preset?
     public let interleaveMode: InterleaveMode
-    public init() { restartIntervalLines = 0; preset = nil; interleaveMode = .none }
-    public init(restartIntervalLines: Int, preset: Preset? = nil, interleaveMode: InterleaveMode = .none) throws {
+    public let colourTransform: ColourTransform
+    public init() { restartIntervalLines = 0; preset = nil; interleaveMode = .none; colourTransform = .none }
+    public init(restartIntervalLines: Int, preset: Preset? = nil, interleaveMode: InterleaveMode = .none, colourTransform: ColourTransform = .none) throws {
         guard (0...65535).contains(restartIntervalLines) else {
             throw CodecError(.invalidArgument, "Restart interval must be 0...65535 sample rows.")
         }
         self.restartIntervalLines = restartIntervalLines; self.preset = preset; self.interleaveMode = interleaveMode
+        self.colourTransform = colourTransform
     }
 }
 
@@ -51,6 +56,10 @@ public struct EncoderConfiguration: Sendable, Equatable {
         }
         guard codecOptions.restartIntervalLines == 0 || codecOptions.interleaveMode == .none else {
             throw CodecError(.unsupportedFeature, "Restart intervals require non-interleaved scans.")
+        }
+        guard codecOptions.colourTransform == .none ||
+              (mode == .lossless && codecOptions.interleaveMode != .none && codecOptions.preset == nil) else {
+            throw CodecError(.unsupportedFeature, "HP transforms require lossless interleaved coding without explicit presets.")
         }
         self.mode = mode; self.codecOptions = codecOptions
     }

@@ -1,11 +1,13 @@
 // SPDX-License-Identifier: Apache-2.0
 // Append to Consumer.swift in the isolated oracle consumer package.
 struct ComponentFixture: Decodable {
+    let transform: Int?
     let name: String, width: Int, height: Int, meaningfulBits: Int, near: Int, components: Int, interleave: Int
 }
 struct ComponentManifest: Decodable { let cases: [ComponentFixture] }
 let componentManifest = try JSONDecoder().decode(ComponentManifest.self, from: Data(contentsOf: directory.appendingPathComponent("components.json")))
-for f in componentManifest.cases {
+let hpManifest = try JSONDecoder().decode(ComponentManifest.self, from: Data(contentsOf: directory.appendingPathComponent("components-hp.json")))
+for f in componentManifest.cases + hpManifest.cases {
     let raw = try Data(contentsOf: directory.appendingPathComponent(f.name + ".u16le"))
     let info = try Decoder().inspect(Data(contentsOf: directory.appendingPathComponent(f.name + ".jls")))
     let row = f.width * 2 + 14, planeSize = row * f.height + 8
@@ -26,7 +28,7 @@ for f in componentManifest.cases {
         throw CodecError(.invalidArgument, "Unknown fixture interleave mode")
     }
     for restart in (f.interleave == 0 ? [0, 3] : [0]) {
-        let options = try CodecOptions(restartIntervalLines: restart, interleaveMode: interleave)
+        let options = try CodecOptions(restartIntervalLines: restart, interleaveMode: interleave, colourTransform: CodecOptions.ColourTransform(rawValue: UInt8(f.transform ?? 0)) ?? .none)
         let encoded = try await Encoder(configuration: .init(mode: f.near == 0 ? .lossless : .nearLossless(maximumAbsoluteError: f.near), codecOptions: options)).encode(image)
         let name = f.name + (restart == 0 ? "" : "-r3")
         try encoded.data.write(to: output.appendingPathComponent(name + ".jls"))

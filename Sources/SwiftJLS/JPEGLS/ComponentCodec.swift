@@ -61,6 +61,10 @@ enum ComponentCodec {
             let d = image.descriptor
             let locations = try locations(d, limits: budget.limits)
             let componentIDs = try ids(d)
+            let transform = configuration.codecOptions.colourTransform
+            guard transform == .none || (d.colour == .rgb && [8, 16].contains(d.meaningfulBits)) else {
+                throw CodecError(.unsupportedFeature, "HP transforms require RGB with 8 or 16 meaningful bits.")
+            }
             guard image.metadata.requiredKeys.isEmpty,
                   image.metadata.entries.isEmpty || options.metadataPolicy == .discardAncillary else {
                 throw CodecError(.unsupportedFeature, "Component metadata preservation is not implemented.")
@@ -90,7 +94,7 @@ enum ComponentCodec {
             let workspace = try checkedAdd(checkedAdd(ScalarCodec.contextBytes, ScalarCodec.tableBytes(parameters)),
                 checkedAdd(checkedMultiply(outputLimit, 2), predictorBytes))
             try budget.admit(pixelBytes: image.storage.byteCount, workspaceBytes: workspace, compressedBytes: outputLimit)
-            if d.colour == .rgb && budget.limits.maximumMetadataBytes < 30 {
+            if budget.limits.maximumMetadataBytes < (d.colour == .rgb ? 30 : 0) + (transform == .none ? 0 : 5) {
                 throw CodecError(.resourceLimitExceeded, "SPIFF header exceeds the metadata budget.")
             }
             options.progress?(try .init(phase: .processing, completedUnits: 0, totalUnits: samples))
@@ -99,6 +103,10 @@ enum ComponentCodec {
             let kernel = JPEGLSScalarKernel()
             writer.writeMarker(.startOfImage)
             if d.colour == .rgb { writeRGBHeader(width: d.width, height: d.height, bits: d.meaningfulBits, writer: writer) }
+            if transform != .none {
+                writer.writeByte(255); writer.writeByte(0xe8); writer.writeUInt16(7)
+                for byte: UInt8 in [109, 114, 102, 120, transform.rawValue] { writer.writeByte(byte) }
+            }
             let frame = try JPEGLSFrameHeader(bitsPerSample: d.meaningfulBits, height: d.height,
                 width: d.width, componentCount: componentIDs.count, components: componentIDs.map { .init(id: $0) })
             try kernel.writeFrameHeaderInternal(frame, to: writer)
@@ -134,9 +142,18 @@ enum ComponentCodec {
                         components: componentIDs.map { .init(id: $0, mappingTableID: 0) },
                         near: near, interleaveMode: mode, pointTransform: 0)
                     try kernel.writeScanHeaderInternal(scan, to: writer)
-                    try kernel.encodeInterleaved(views: views, width: d.width, height: d.height,
+                    if transform == .none {
+                        try kernel.encodeInterleaved(views: views, width: d.width, height: d.height,
                         mode: configuration.codecOptions.interleaveMode, near: near, parameters: parameters,
                         bits: d.meaningfulBits, writer: writer, checkpoint: { try budget.check(); try writer.checkLimit() })
+                    } else {
+                        let transformed = (0..<3).map { component in
+                            HPComponentReader(views: views, component: component, transform: transform, bits: d.meaningfulBits)
+                        }
+                        try kernel.encodeInterleaved(views: transformed, width: d.width, height: d.height,
+                            mode: configuration.codecOptions.interleaveMode, near: 0, parameters: parameters,
+                            bits: d.meaningfulBits, writer: writer, checkpoint: { try budget.check(); try writer.checkLimit() })
+                    }
                     writer.flush()
                     return
                 }
@@ -229,6 +246,21 @@ enum ComponentCodec {
                         rows: last - first, width: d.width, parameters: scan.parameters, near: scan.near,
                         limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
                     try reader.validateEndOfScan()
+                }
+            }
+            if header.colourTransform != .none {
+                let views = locations.map { location in
+                    ComponentSampleWriter(bytes: bytes, width: d.width, height: d.height,
+                        offset: location.offset, rowBytes: location.rowBytes, pixelStride: location.pixelStride,
+                        sampleBytes: d.storageBits / 8, littleEndian: d.byteOrder == .littleEndian)
+                }
+                // Prediction is complete. Invert in the final caller allocation,
+                // before sealing; no transformed frame or repack is allocated.
+                for i in 0..<(d.width * d.height) {
+                    if i & 63 == 0 { try budget.check() }
+                    let rgb = HPTransform.inverse(Int(views[0][i]), Int(views[1][i]), Int(views[2][i]),
+                        transform: header.colourTransform, bits: d.meaningfulBits)
+                    views[0][i] = UInt16(rgb.0); views[1][i] = UInt16(rgb.1); views[2][i] = UInt16(rgb.2)
                 }
             }
             try budget.check()
