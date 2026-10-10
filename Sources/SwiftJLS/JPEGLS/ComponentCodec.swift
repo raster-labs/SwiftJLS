@@ -7,20 +7,22 @@ import Foundation
 enum ComponentCodec {
     struct Location {
         let offset: Int, rowBytes: Int, pixelStride: Int
+        let width: Int, height: Int, horizontal: Int, vertical: Int
     }
     static func locations(_ descriptor: ImageDescriptor, limits: ResourceLimits) throws -> [Location] {
         try descriptor.validate(limits: limits)
         guard descriptor.sampleType == .unsignedInteger, [8, 16].contains(descriptor.storageBits),
-              (2...16).contains(descriptor.meaningfulBits), (2...4).contains(descriptor.components.count),
+              (2...16).contains(descriptor.meaningfulBits), (1...4).contains(descriptor.components.count),
               descriptor.alpha == .absent, descriptor.iccProfile == nil,
-              descriptor.width <= 65535, descriptor.height <= 65535 else {
-            throw CodecError(.unsupportedFeature, "Component coding requires two to four unsigned, unsubsampled components without alpha or ICC.")
+              descriptor.width <= Int(UInt32.max), descriptor.height <= Int(UInt32.max) else {
+            throw CodecError(.unsupportedFeature, "Component coding requires one to four unsigned components without alpha or ICC.")
         }
         return try descriptor.components.indices.map { component in
             for plane in descriptor.planes {
                 if let index = plane.components.firstIndex(of: component) {
                     return Location(offset: plane.offset + index * plane.sampleStride,
-                        rowBytes: plane.rowBytes, pixelStride: plane.pixelStride)
+                        rowBytes: plane.rowBytes, pixelStride: plane.pixelStride, width: plane.width, height: plane.height,
+                        horizontal: plane.horizontalSamplingFactor, vertical: plane.verticalSamplingFactor)
                 }
             }
             throw CodecError(.incompatibleImageLayout, "Component has no plane.")
@@ -60,14 +62,21 @@ enum ComponentCodec {
         return try ScalarCodec.mapped {
             let d = image.descriptor
             let locations = try locations(d, limits: budget.limits)
+            guard locations.allSatisfy({ $0.width == d.width && $0.height == d.height }) else {
+                throw CodecError(.unsupportedFeature, "Subsampled encoding was not implemented by the predecessor and is not advertised.")
+            }
             let componentIDs = try ids(d)
+            guard componentIDs.count > 1 || configuration.codecOptions.interleaveMode == .none else {
+                throw CodecError(.unsupportedFeature, "A single component requires non-interleaved coding.")
+            }
             let transform = configuration.codecOptions.colourTransform
             guard transform == .none || (d.colour == .rgb && [8, 16].contains(d.meaningfulBits)) else {
                 throw CodecError(.unsupportedFeature, "HP transforms require RGB with 8 or 16 meaningful bits.")
             }
-            guard image.metadata.requiredKeys.isEmpty,
-                  image.metadata.entries.isEmpty || options.metadataPolicy == .discardAncillary else {
-                throw CodecError(.unsupportedFeature, "Component metadata preservation is not implemented.")
+            let metadata = try JPEGMetadataEncoding(image, options: options,
+                additionalBytes: (d.colour == .rgb ? 30 : 0) + (transform == .none ? 0 : 5))
+            guard metadata.mapping == nil || transform == .none else {
+                throw CodecError(.unsupportedFeature, "Mapping tables and HP transforms cannot be combined.")
             }
             let near: Int
             if case .nearLossless(let value) = configuration.mode { near = value } else { near = 0 }
@@ -83,17 +92,18 @@ enum ComponentCodec {
                 parameters = try JPEGLSPresetParameters(maxValue: p.maximumSampleValue,
                     threshold1: p.threshold1, threshold2: p.threshold2, threshold3: p.threshold3, reset: p.reset)
             } else { parameters = try .defaultParameters(bitsPerSample: d.meaningfulBits, near: near) }
+            try metadata.mapping?.validate(components: componentIDs.count, maximum: parameters.maxValue)
             let interval = configuration.codecOptions.restartIntervalLines
             let chunks = interval > 0 ? (d.height + interval - 1) / interval : 1
             let samples = try checkedMultiply(checkedMultiply(d.width, d.height), componentIDs.count)
-            let worstOutput = try checkedAdd(checkedMultiply(samples, 10), checkedAdd(256, checkedMultiply(chunks, componentIDs.count * 4)))
+            let worstOutput = try checkedAdd(checkedMultiply(samples, 10), checkedAdd(checkedAdd(256, metadata.byteCount), checkedMultiply(chunks, componentIDs.count * 4)))
             let outputLimit = min(worstOutput, budget.limits.maximumCompressedBytes)
             let predictorBytes = configuration.codecOptions.interleaveMode == .none
                 ? (near > 0 ? try checkedMultiply(d.width, 4) : 0)
                 : try checkedMultiply(d.width, componentIDs.count * 4)
             let workspace = try checkedAdd(checkedAdd(ScalarCodec.contextBytes, ScalarCodec.tableBytes(parameters)),
                 checkedAdd(checkedMultiply(outputLimit, 2), predictorBytes))
-            try budget.admit(pixelBytes: image.storage.byteCount, workspaceBytes: workspace, compressedBytes: outputLimit)
+            try budget.admit(pixelBytes: image.storage.byteCount, workspaceBytes: checkedAdd(workspace, checkedMultiply(metadata.byteCount, 32)), compressedBytes: outputLimit)
             if budget.limits.maximumMetadataBytes < (d.colour == .rgb ? 30 : 0) + (transform == .none ? 0 : 5) {
                 throw CodecError(.resourceLimitExceeded, "SPIFF header exceeds the metadata budget.")
             }
@@ -102,11 +112,13 @@ enum ComponentCodec {
             let writer = JPEGLSBitstreamWriter(capacity: min(outputLimit, 4096), maximumBytes: outputLimit)
             let kernel = JPEGLSScalarKernel()
             writer.writeMarker(.startOfImage)
-            if d.colour == .rgb { writeRGBHeader(width: d.width, height: d.height, bits: d.meaningfulBits, writer: writer) }
+            try metadata.writeSPIFF(to: writer)
+            if d.colour == .rgb && metadata.spiff == nil { writeRGBHeader(width: d.width, height: d.height, bits: d.meaningfulBits, writer: writer) }
             if transform != .none {
                 writer.writeByte(255); writer.writeByte(0xe8); writer.writeUInt16(7)
                 for byte: UInt8 in [109, 114, 102, 120, transform.rawValue] { writer.writeByte(byte) }
             }
+            try metadata.ancillary.write(to: writer)
             let frame = try JPEGLSFrameHeader(bitsPerSample: d.meaningfulBits, height: d.height,
                 width: d.width, componentCount: componentIDs.count, components: componentIDs.map { .init(id: $0) })
             try kernel.writeFrameHeaderInternal(frame, to: writer)
@@ -119,6 +131,7 @@ enum ComponentCodec {
             if interval > 0 {
                 writer.writeMarker(.defineRestartInterval); writer.writeUInt16(4); writer.writeUInt16(UInt16(interval))
             }
+            try metadata.mapping?.write(to: writer, budget: budget)
             try image.storage.withUnsafeBytes { bytes in
                 guard bytes.count == image.storage.byteCount, bytes.count >= d.requiredByteCount else {
                     throw CodecError(.storageUnavailable, "Provider returned inconsistent storage.")
@@ -139,7 +152,7 @@ enum ComponentCodec {
                         throw CodecError(.internalFailure, "Interleave mapping failed.")
                     }
                     let scan = try JPEGLSScanHeader(componentCount: componentIDs.count,
-                        components: componentIDs.map { .init(id: $0, mappingTableID: 0) },
+                        components: componentIDs.enumerated().map { .init(id: $0.element, mappingTableID: metadata.mapping?.componentTableIDs[$0.offset] ?? 0) },
                         near: near, interleaveMode: mode, pointTransform: 0)
                     try kernel.writeScanHeaderInternal(scan, to: writer)
                     if transform == .none {
@@ -159,7 +172,7 @@ enum ComponentCodec {
                 }
                 for (component, view) in views.enumerated() {
                     let scan = try JPEGLSScanHeader(componentCount: 1,
-                        components: [.init(id: componentIDs[component], mappingTableID: 0)],
+                        components: [.init(id: componentIDs[component], mappingTableID: metadata.mapping?.componentTableIDs[component] ?? 0)],
                         near: near, interleaveMode: .none, pointTransform: 0)
                     try kernel.writeScanHeaderInternal(scan, to: writer)
                     let coding = kernel.computeGolombLimitInternal(parameters: parameters, near: near, bitsPerSample: d.meaningfulBits)
@@ -197,27 +210,36 @@ enum ComponentCodec {
                        budget: CodecBudget, hpInterpretation: CodecOptions.HPInterpretation) throws -> DecodedImage {
         let d = try supplied?.descriptor ?? header.descriptor(limits: budget.limits)
         let locations = try locations(d, limits: budget.limits)
-        guard d.width == header.width, d.height == header.height, d.meaningfulBits == header.bits,
+        guard d.width == header.width, d.height == header.height, d.meaningfulBits == header.outputBits, d.storageBits >= header.bits,
               d.components == header.roles, d.colour == (header.rgb ? .rgb : .unknown) else {
             throw CodecError(.incompatibleImageLayout, "Destination geometry, precision or interpretation does not match the codestream.")
+        }
+        for (i, location) in locations.enumerated() {
+            let hMax = header.sampling.map { Int($0 >> 4) }.max() ?? 1
+            let vMax = header.sampling.map { Int($0 & 15) }.max() ?? 1
+            guard location.width == (header.width * Int(header.sampling[i] >> 4) + hMax - 1) / hMax,
+                  location.height == (header.height * Int(header.sampling[i] & 15) + vMax - 1) / vMax else {
+                throw CodecError(.incompatibleImageLayout, "Destination component sampling does not match the codestream.")
+            }
         }
         let table = try header.records.map { try ScalarCodec.tableBytes($0.parameters) }.max() ?? 0
         let ranges = header.records.reduce(0) { $0 + $1.ranges.count }
         let workspace = try checkedAdd(checkedAdd(ScalarCodec.contextBytes, table),
             checkedAdd(checkedMultiply(data.count, 2), checkedMultiply(ranges, MemoryLayout<Range<Int>>.stride * 2)))
         let pixelBytes = supplied?.storage.byteCount ?? d.requiredByteCount
-        try budget.admit(pixelBytes: pixelBytes, workspaceBytes: workspace, compressedBytes: data.count)
+        try budget.admit(pixelBytes: pixelBytes, workspaceBytes: checkedAdd(workspace, checkedMultiply(header.metadataBytes, 32)), compressedBytes: data.count)
         let samples = try checkedMultiply(checkedMultiply(d.width, d.height), d.components.count)
         options.progress?(try .init(phase: .processing, completedUnits: 0, totalUnits: samples))
         try budget.check()
         let destination = try supplied ?? ImageDestination.allocate(descriptor: d, limits: budget.limits)
         let kernel = JPEGLSScalarKernel()
-        let image = try destination.write { bytes in
+        let fidelity = try header.fidelity(budget: budget)
+        let image = try destination.write(metadata: header.retainedMetadata(options.metadataPolicy)) { bytes in
             for scan in header.records {
                 if scan.interleave != .none {
                     let views = scan.components.map { c in
                         let location = locations[c]
-                        return ComponentSampleWriter(bytes: bytes, width: d.width, height: d.height,
+                        return ComponentSampleWriter(bytes: bytes, width: location.width, height: location.height,
                             offset: location.offset, rowBytes: location.rowBytes, pixelStride: location.pixelStride,
                             sampleBytes: d.storageBits / 8, littleEndian: d.byteOrder == .littleEndian)
                     }
@@ -227,7 +249,7 @@ enum ComponentCodec {
                     let reader = JPEGLSBitstreamReader(data: data[start..<end])
                     try kernel.decodeInterleaved(views: views, width: d.width, height: d.height,
                         mode: scan.interleave, near: scan.near, parameters: scan.parameters,
-                        bits: d.meaningfulBits, reader: reader, checkpoint: { try budget.check() })
+                        bits: header.bits, reader: reader, verticalSampling: scan.components.map { Int(header.sampling[$0] & 15) }, checkpoint: { try budget.check() })
                     try reader.validateEndOfScan()
                     continue
                 }
@@ -235,7 +257,7 @@ enum ComponentCodec {
                 let whole = ComponentSampleWriter(bytes: bytes, width: d.width, height: d.height,
                     offset: location.offset, rowBytes: location.rowBytes, pixelStride: location.pixelStride,
                     sampleBytes: d.storageBits / 8, littleEndian: d.byteOrder == .littleEndian)
-                let coding = kernel.computeGolombLimitInternal(parameters: scan.parameters, near: scan.near, bitsPerSample: d.meaningfulBits)
+                let coding = kernel.computeGolombLimitInternal(parameters: scan.parameters, near: scan.near, bitsPerSample: header.bits)
                 for (chunk, range) in scan.ranges.enumerated() {
                     let first = scan.restartInterval > 0 ? chunk * scan.restartInterval : 0
                     let last = scan.restartInterval > 0 ? min(first + scan.restartInterval, d.height) : d.height
@@ -259,16 +281,17 @@ enum ComponentCodec {
                 for i in 0..<(d.width * d.height) {
                     if i & 63 == 0 { try budget.check() }
                     let rgb = HPTransform.inverse(Int(views[0][i]), Int(views[1][i]), Int(views[2][i]),
-                        transform: header.colourTransform, bits: d.meaningfulBits, interpretation: hpInterpretation)
+                        transform: header.colourTransform, bits: header.bits, interpretation: hpInterpretation)
                     views[0][i] = UInt16(rgb.0); views[1][i] = UInt16(rgb.1); views[2][i] = UInt16(rgb.2)
                 }
             }
+            try header.mapSamples(in: bytes, descriptor: d, budget: budget)
             try budget.check()
         }
         options.progress?(try .init(phase: .completed, completedUnits: samples, totalUnits: samples))
         try budget.check()
         return DecodedImage(image: image, report: OperationReport(backend: .scalarCPU,
-            fallbackReason: ScalarCodec.fallback(options.executionPolicy), fidelity: header.near == 0 ? .exactSamples : .boundedError(header.near),
+            fallbackReason: ScalarCodec.fallback(options.executionPolicy), fidelity: fidelity,
             pixelAllocationCount: supplied == nil ? 1 : 0, peakPixelBytes: supplied == nil ? pixelBytes : 0,
             peakWorkspaceBytes: nil, elapsedSeconds: ProcessInfo.processInfo.systemUptime - budget.started))
     }

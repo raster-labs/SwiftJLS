@@ -34,14 +34,29 @@ public struct CodecOptions: Sendable, Equatable {
     public let preset: Preset?
     public let interleaveMode: InterleaveMode
     public let colourTransform: ColourTransform
+    /// Explicit unsigned interpretation of mapping entries; nil preserves indices and required tables.
+    public let mappingOutputPrecision: Int?
+    /// Pinned JLSwift omitted Wt from continuation segments. Opt in only for known legacy assets.
+    public let legacyMappingContinuations: Bool
+    /// Pinned JLSwift wrote Xe before Ye in LSE type 4.
+    public let legacyExtendedDimensions: Bool
+    /// Pinned JLSwift used the high-range threshold formula below MAXVAL 128.
+    public let legacyPresetDefaults: Bool
     public let hpInterpretation: HPInterpretation
-    public init() { restartIntervalLines = 0; preset = nil; interleaveMode = .none; colourTransform = .none; hpInterpretation = .standard }
-    public init(restartIntervalLines: Int, preset: Preset? = nil, interleaveMode: InterleaveMode = .none, colourTransform: ColourTransform = .none, hpInterpretation: HPInterpretation = .standard) throws {
+    public init() { restartIntervalLines = 0; preset = nil; interleaveMode = .none; colourTransform = .none; hpInterpretation = .standard; mappingOutputPrecision = nil; legacyMappingContinuations = false; legacyExtendedDimensions = false; legacyPresetDefaults = false }
+    public init(restartIntervalLines: Int, preset: Preset? = nil, interleaveMode: InterleaveMode = .none, colourTransform: ColourTransform = .none, hpInterpretation: HPInterpretation = .standard, mappingOutputPrecision: Int? = nil, legacyMappingContinuations: Bool = false, legacyExtendedDimensions: Bool = false, legacyPresetDefaults: Bool = false) throws {
         guard (0...65535).contains(restartIntervalLines) else {
             throw CodecError(.invalidArgument, "Restart interval must be 0...65535 sample rows.")
         }
         self.restartIntervalLines = restartIntervalLines; self.preset = preset; self.interleaveMode = interleaveMode
         self.colourTransform = colourTransform
+        guard mappingOutputPrecision.map({ (2...16).contains($0) }) ?? true else {
+            throw CodecError(.invalidArgument, "Mapping output precision must be 2...16.")
+        }
+        self.mappingOutputPrecision = mappingOutputPrecision
+        self.legacyMappingContinuations = legacyMappingContinuations
+        self.legacyExtendedDimensions = legacyExtendedDimensions
+        self.legacyPresetDefaults = legacyPresetDefaults
         self.hpInterpretation = hpInterpretation
     }
 }
@@ -62,7 +77,7 @@ public struct EncoderConfiguration: Sendable, Equatable {
         guard codecOptions.restartIntervalLines == 0 || codecOptions.interleaveMode == .none else {
             throw CodecError(.unsupportedFeature, "Restart intervals require non-interleaved scans.")
         }
-        guard codecOptions.hpInterpretation == .standard else {
+        guard codecOptions.hpInterpretation == .standard, codecOptions.mappingOutputPrecision == nil, !codecOptions.legacyMappingContinuations, !codecOptions.legacyExtendedDimensions, !codecOptions.legacyPresetDefaults else {
             throw CodecError(.invalidArgument, "Legacy HP interpretation is decoder-only.")
         }
         guard codecOptions.colourTransform == .none ||
@@ -159,7 +174,7 @@ public struct Encoder: Sendable {
               image.storage.byteCount <= options.resourceLimits.maximumMemoryBytes else {
             throw CodecError(.resourceLimitExceeded, "Image exceeds operation limits.")
         }
-        if image.descriptor.components.count > 1 {
+        if image.descriptor.components != [.grey] {
             return try ComponentCodec.encode(image, configuration: configuration, options: options)
         }
         return try ScalarCodec.encode(image, configuration: configuration, options: options)
@@ -182,19 +197,19 @@ public struct Decoder: Sendable {
 
     public func inspect(_ data: Data, options: DecodeOptions = .init()) throws -> ImageInfo {
         try validateInput(data, options)
-        return try ScalarCodec.inspect(data, options: options)
+        return try ScalarCodec.inspect(data, options: options, codecOptions: configuration.codecOptions)
     }
     @concurrent public func decode(_ data: Data, options: DecodeOptions = .init()) async throws -> DecodedImage {
         try Task.checkCancellation()
         try validateInput(data, options)
-        return try ScalarCodec.decode(data, into: nil, options: options, hpInterpretation: configuration.codecOptions.hpInterpretation)
+        return try ScalarCodec.decode(data, into: nil, options: options, codecOptions: configuration.codecOptions)
     }
     @concurrent public func decode(_ data: Data, into destination: ImageDestination,
                                   options: DecodeOptions = .init()) async throws -> DecodedImage {
         try Task.checkCancellation()
         try validateInput(data, options)
         // Preflight rejection performs no write; the caller may still initialise it.
-        return try ScalarCodec.decode(data, into: destination, options: options, hpInterpretation: configuration.codecOptions.hpInterpretation)
+        return try ScalarCodec.decode(data, into: destination, options: options, codecOptions: configuration.codecOptions)
     }
 }
 

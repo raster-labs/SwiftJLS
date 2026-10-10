@@ -101,7 +101,7 @@ extension JPEGLSScalarKernel {
     }
     func decodeInterleaved(views: [ComponentSampleWriter], width: Int, height: Int,
                            mode: JPEGLSInterleaveMode, near: Int, parameters: JPEGLSPresetParameters,
-                           bits: Int, reader: JPEGLSBitstreamReader, checkpoint: () throws -> Void) throws {
+                           bits: Int, reader: JPEGLSBitstreamReader, verticalSampling: [Int]? = nil, checkpoint: () throws -> Void) throws {
         let decoder = try JPEGLSRegularModeDecoder(parameters: parameters, near: near)
         let run = try JPEGLSRunModeDecoder(parameters: parameters, near: near)
         var context = try JPEGLSContextModel(parameters: parameters, near: near)
@@ -110,15 +110,22 @@ extension JPEGLSScalarKernel {
         var edges = [Int](repeating: 0, count: views.count)
         var oldEdges = edges
         var neighbours = [Neighbours](repeating: .zero, count: views.count)
-        for y in 0..<height {
-            try checkpoint()
-            for c in views.indices {
-                oldEdges[c] = edges[c]
-                if y > 0 { edges[c] = Int(views[c][(y - 1) * width]) }
-            }
+        let vertical = verticalSampling ?? Array(repeating: 1, count: views.count)
+        let vMax = vertical.max() ?? 1
+        let stripes = mode == .line ? (height + vMax - 1) / vMax : height
+        for stripe in 0..<stripes {
             for group in 0..<(mode == .line ? views.count : 1) {
                 let active = mode == .line ? group..<(group + 1) : 0..<views.count
-                if mode == .line { context.setRunIndex(indices[group]) }
+                for row in 0..<(mode == .line ? vertical[group] : 1) {
+                    let y = mode == .line ? stripe * vertical[group] + row : stripe
+                    if y >= views[group].height { continue }
+                    let width = mode == .line ? views[group].width : width
+                    try checkpoint()
+                    for c in active {
+                        oldEdges[c] = edges[c]
+                        if y > 0 { edges[c] = Int(views[c][(y - 1) * width]) }
+                    }
+                    if mode == .line { context.setRunIndex(indices[group]) }
                 var x = 0
                 while x < width {
                     if x & 63 == 0 { try checkpoint() }
@@ -165,6 +172,7 @@ extension JPEGLSScalarKernel {
                     }
                 }
                 if mode == .line { indices[group] = context.currentRunIndex }
+                }
             }
         }
     }

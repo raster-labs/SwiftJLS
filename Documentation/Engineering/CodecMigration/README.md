@@ -1,5 +1,7 @@
 # Codec migration checkpoint — 10 October 2026
 
+Current feature and compatibility status is in [Predecessor parity](Parity.md); the sections below preserve the sequence of implementation checkpoints.
+
 The user authorised completion of the library migration. This checkpoint implements part of that work; it is not a release or a claim that all five milestones are complete.
 
 Source: JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`. Target base: SwiftJLS `91092f78b492e332a7ec200e68b76604088e44fb`. Suite policy 0.10.0 governs over stale repository-specific platform prose. The manifest remains tools 6.2, Swift 6 mode and Apple OS 26. The seven common documents remain unchanged.
@@ -24,7 +26,7 @@ Local host: macOS 27.0.1 arm64, Apple Swift 6.4 (`swiftlang-6.4.0.34.1`), Comman
 
 ## Remaining migration and release gates
 
-Mapping/colour-transform extensions, general metadata semantics, complete cross-codec allocation/copy instrumentation and mutation proof, fuzz duration, controlled performance/memory measurements, complete native platform/device qualification and fresh remote consumption remain work in progress. Unsupported combinations throw; no runtime reference codec is used. Stable release/tagging is a separate explicit task.
+Mapping, colour transforms and metadata have since been implemented (see Parity.md). Final latest-source validation, complete production allocation/copy classification, controlled performance/memory measurements and Apple runtime qualification remain open. Earlier mutation proof, native hosted platforms and fresh remote consumers have passed at their recorded revisions. Unsupported combinations throw; no runtime reference codec is used. Stable release/tagging is a separate explicit task.
 
 ## Preset, restart and storage extension
 

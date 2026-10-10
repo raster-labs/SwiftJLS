@@ -21,7 +21,7 @@ enum ScalarCodec {
               (2...16).contains(descriptor.meaningfulBits), descriptor.planes.count == 1,
               descriptor.components == [.grey], descriptor.colour == .greyscale,
               descriptor.alpha == .absent, descriptor.iccProfile == nil,
-              descriptor.width <= 65535, descriptor.height <= 65535 else {
+              descriptor.width <= Int(UInt32.max), descriptor.height <= Int(UInt32.max) else {
             throw CodecError(.unsupportedFeature, "The migrated scalar profile requires unsigned greyscale without ICC metadata.")
         }
         let plane = descriptor.planes[0]
@@ -38,13 +38,13 @@ enum ScalarCodec {
         do { return try body() }
         catch is JPEGLSError { throw CodecError(.malformedInput, "Invalid JPEG-LS coding data.") }
     }
-    static func inspect(_ data: Data, options: DecodeOptions) throws -> ImageInfo {
+    static func inspect(_ data: Data, options: DecodeOptions, codecOptions: CodecOptions = .init()) throws -> ImageInfo {
         let budget = CodecBudget(limits: options.resourceLimits)
         return try mapped {
-            let header = try JPEGLSHeader.parse(data, budget: budget)
+            let header = try JPEGLSHeader.parse(data, budget: budget, codecOptions: codecOptions)
             let descriptor = try header.descriptor(limits: options.resourceLimits)
             try budget.check()
-            return ImageInfo(format: "JPEG-LS", descriptor: descriptor, frameCount: 1, metadata: .empty)
+            return ImageInfo(format: "JPEG-LS", descriptor: descriptor, frameCount: 1, metadata: header.retainedMetadata(options.metadataPolicy))
         }
     }
     static func encode(_ image: Image, configuration: EncoderConfiguration, options: EncodeOptions) throws -> EncodedImage {
@@ -55,10 +55,7 @@ enum ScalarCodec {
             guard configuration.codecOptions.interleaveMode == .none, configuration.codecOptions.colourTransform == .none else {
                 throw CodecError(.unsupportedFeature, "Greyscale requires non-interleaved coding.")
             }
-            guard image.metadata.requiredKeys.isEmpty,
-                  image.metadata.entries.isEmpty || options.metadataPolicy == .discardAncillary else {
-                throw CodecError(.unsupportedFeature, "JPEG-LS metadata preservation is not implemented by this profile.")
-            }
+            let metadata = try JPEGMetadataEncoding(image, options: options)
             let near: Int
             if case .nearLossless(let bound) = configuration.mode { near = bound } else { near = 0 }
             guard near <= min(255, ((1 << descriptor.meaningfulBits) - 1) / 2) else {
@@ -76,15 +73,16 @@ enum ScalarCodec {
             } else {
                 parameters = try JPEGLSPresetParameters.defaultParameters(bitsPerSample: descriptor.meaningfulBits, near: near)
             }
+            try metadata.mapping?.validate(components: 1, maximum: parameters.maxValue)
             let samples = try checkedMultiply(descriptor.width, descriptor.height)
             // Limited Golomb words are at most 64 bits per sample, with stuffing
             // and marker allowance. Account for both the writer and final Data.
             let interval = configuration.codecOptions.restartIntervalLines
             let chunks = interval > 0 ? (descriptor.height + interval - 1) / interval : 1
-            let worstOutput = try checkedAdd(checkedAdd(checkedMultiply(samples, 10), 64), checkedMultiply(chunks, 4))
+            let worstOutput = try checkedAdd(checkedAdd(checkedMultiply(samples, 10), checkedAdd(64, metadata.byteCount)), checkedMultiply(chunks, 4))
             let outputLimit = min(worstOutput, budget.limits.maximumCompressedBytes)
             let workspace = try checkedAdd(checkedAdd(contextBytes, tableBytes(parameters)), checkedAdd(checkedMultiply(outputLimit, 2), near > 0 ? checkedMultiply(descriptor.width, 4) : 0))
-            try budget.admit(pixelBytes: image.storage.byteCount, workspaceBytes: workspace, compressedBytes: outputLimit)
+            try budget.admit(pixelBytes: image.storage.byteCount, workspaceBytes: checkedAdd(workspace, checkedMultiply(metadata.byteCount, 32)), compressedBytes: outputLimit)
             options.progress?(try ProgressUpdate(phase: .processing, completedUnits: 0, totalUnits: samples))
             try budget.check()
             let writer = JPEGLSBitstreamWriter(capacity: min(outputLimit, 4096), maximumBytes: outputLimit)
@@ -92,9 +90,11 @@ enum ScalarCodec {
             let frame = try JPEGLSFrameHeader(bitsPerSample: descriptor.meaningfulBits,
                 height: descriptor.height, width: descriptor.width, componentCount: 1,
                 components: [.init(id: 1)])
-            let scan = try JPEGLSScanHeader(componentCount: 1, components: [.init(id: 1, mappingTableID: 0)],
+            let scan = try JPEGLSScanHeader(componentCount: 1, components: [.init(id: 1, mappingTableID: metadata.mapping?.componentTableIDs[0] ?? 0)],
                 near: near, interleaveMode: .none, pointTransform: 0)
             writer.writeMarker(.startOfImage)
+            try metadata.writeSPIFF(to: writer)
+            try metadata.ancillary.write(to: writer)
             try kernel.writeFrameHeaderInternal(frame, to: writer)
             if configuration.codecOptions.preset != nil {
                 writer.writeMarker(.jpegLSExtension)
@@ -109,6 +109,7 @@ enum ScalarCodec {
                 writer.writeUInt16(4)
                 writer.writeUInt16(UInt16(interval))
             }
+            try metadata.mapping?.write(to: writer, budget: budget)
             try kernel.writeScanHeaderInternal(scan, to: writer)
             try image.storage.withUnsafeBytes { bytes in
                 guard bytes.count == image.storage.byteCount, bytes.count >= descriptor.requiredByteCount else {
@@ -161,30 +162,30 @@ enum ScalarCodec {
         }
     }
     static func decode(_ data: Data, into supplied: ImageDestination?, options: DecodeOptions,
-                       hpInterpretation: CodecOptions.HPInterpretation = .standard) throws -> DecodedImage {
+                       codecOptions: CodecOptions = .init()) throws -> DecodedImage {
         let budget = CodecBudget(limits: options.resourceLimits)
         return try mapped {
-            let header = try JPEGLSHeader.parse(data, budget: budget)
-            if header.componentIDs.count > 1 {
-                return try ComponentCodec.decode(data, header: header, into: supplied, options: options, budget: budget, hpInterpretation: hpInterpretation)
+            let header = try JPEGLSHeader.parse(data, budget: budget, codecOptions: codecOptions)
+            if !header.grey {
+                return try ComponentCodec.decode(data, header: header, into: supplied, options: options, budget: budget, hpInterpretation: codecOptions.hpInterpretation)
             }
-            let descriptor = try supplied?.descriptor ?? ImageDescriptor.greyscale16(width: header.width,
-                height: header.height, meaningfulBits: header.bits, limits: budget.limits)
+            let descriptor = try supplied?.descriptor ?? header.descriptor(limits: budget.limits)
             let plane = try layout(descriptor, limits: budget.limits)
             guard descriptor.width == header.width, descriptor.height == header.height,
-                  descriptor.meaningfulBits == header.bits else {
+                  descriptor.meaningfulBits == header.outputBits, descriptor.storageBits >= header.bits else {
                 throw CodecError(.incompatibleImageLayout, "Destination geometry or precision does not match the codestream.")
             }
             let workspace = try checkedAdd(checkedAdd(contextBytes, tableBytes(header.parameters)), checkedAdd(checkedMultiply(data.count, 2), checkedMultiply(header.scans.count, MemoryLayout<Range<Int>>.stride * 2)))
             let pixelBytes = supplied?.storage.byteCount ?? descriptor.requiredByteCount
-            try budget.admit(pixelBytes: pixelBytes, workspaceBytes: workspace, compressedBytes: data.count)
+            try budget.admit(pixelBytes: pixelBytes, workspaceBytes: checkedAdd(workspace, checkedMultiply(header.metadataBytes, 32)), compressedBytes: data.count)
             let samples = try checkedMultiply(header.width, header.height)
             options.progress?(try ProgressUpdate(phase: .processing, completedUnits: 0, totalUnits: samples))
             try budget.check()
             let destination = try supplied ?? ImageDestination.allocate(descriptor: descriptor, limits: budget.limits)
             let kernel = JPEGLSScalarKernel()
             let coding = kernel.computeGolombLimitInternal(parameters: header.parameters, near: header.near, bitsPerSample: header.bits)
-            let image = try destination.write { bytes in
+            let fidelity = try header.fidelity(budget: budget)
+            let image = try destination.write(metadata: header.retainedMetadata(options.metadataPolicy)) { bytes in
                 for (chunk, scan) in header.scans.enumerated() {
                     let firstRow = header.restartInterval > 0 ? chunk * header.restartInterval : 0
                     let rows = header.restartInterval > 0 ? min(header.restartInterval, header.height - firstRow) : header.height
@@ -199,10 +200,11 @@ enum ScalarCodec {
                         limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
                     try reader.validateEndOfScan()
                 }
+                try header.mapSamples(in: bytes, descriptor: descriptor, budget: budget)
                 try budget.check()
             }
             let result = DecodedImage(image: image, report: OperationReport(backend: .scalarCPU,
-                fallbackReason: fallback(options.executionPolicy), fidelity: header.near == 0 ? .exactSamples : .boundedError(header.near),
+                fallbackReason: fallback(options.executionPolicy), fidelity: fidelity,
                 pixelAllocationCount: supplied == nil ? 1 : 0, peakPixelBytes: supplied == nil ? pixelBytes : 0,
                 peakWorkspaceBytes: nil, elapsedSeconds: ProcessInfo.processInfo.systemUptime - budget.started))
             options.progress?(try ProgressUpdate(phase: .completed, completedUnits: samples, totalUnits: samples))

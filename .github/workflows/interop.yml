@@ -23,7 +23,7 @@ jobs:
       - name: Encode through standalone public API consumer
         run: |
           mkdir -p /tmp/interop/Sources/Consumer
-          cat Scripts/Interop/Consumer.swift Scripts/Interop/ComponentConsumer.swift Scripts/Interop/LegacyMigrationConsumer.swift > /tmp/interop/Sources/Consumer/main.swift
+          cat Scripts/Interop/Consumer.swift Scripts/Interop/ComponentConsumer.swift Scripts/Interop/LegacyMigrationConsumer.swift Scripts/Interop/MappingConsumer.swift > /tmp/interop/Sources/Consumer/main.swift
           cat > /tmp/interop/Package.swift <<EOF_PACKAGE
           // swift-tools-version: 6.2
           import PackageDescription
@@ -34,6 +34,11 @@ jobs:
         run: |
           python3 Scripts/Interop/verify.py --oracle /tmp/charls-driver --fixtures Tests/SwiftJLSTests/Fixtures --encoded /tmp/encoded --report scalar-results.json --exclude-presets
           python3 Scripts/Interop/verify-components.py --oracle /tmp/charls-driver --fixtures Tests/SwiftJLSTests/Fixtures --encoded /tmp/encoded --report component-results.json
+      - name: Independently verify mapping and extended profiles
+        run: |
+          git -C /tmp/charls checkout --detach 04e44bb760632104ab1209593eea3f8c20ac11e5
+          g++ -std=c++17 -O2 -DNDEBUG -DCHARLS_STATIC -DCHARLS_LIBRARY_BUILD -I/tmp/charls/include -I/tmp/charls/src /tmp/charls/src/*.cpp Scripts/Interop/mapping-driver.cpp -o /tmp/mapping-driver
+          python3 Scripts/Interop/verify-mapping.py --oracle /tmp/mapping-driver --fixtures Tests/SwiftJLSTests/Fixtures --encoded /tmp/encoded --report mapping-results.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: independent-interoperability

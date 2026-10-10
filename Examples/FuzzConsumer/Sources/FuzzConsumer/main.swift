@@ -25,13 +25,15 @@ let seeds = try FileManager.default.contentsOfDirectory(at: directory, including
     .filter { $0.pathExtension == "jls" }.sorted { $0.lastPathComponent < $1.lastPathComponent }
     .map { try Data(contentsOf: $0) }
 guard !seeds.isEmpty else { throw CampaignFailure(reason: "No seeds") }
-let limits = try ResourceLimits(maximumCompressedBytes: 65536, maximumDecodedBytes: 131072,
-    maximumWorkspaceBytes: 2 * 1024 * 1024, maximumPixels: 65536, maximumDimension: 256,
-    maximumMetadataBytes: 4096, maximumICCBytes: 1024, maximumWorkers: 1,
-    deadlineSeconds: 0.1, maximumMemoryBytes: 8 * 1024 * 1024)
+let limits = try ResourceLimits(maximumCompressedBytes: 1024 * 1024, maximumDecodedBytes: 2 * 1024 * 1024,
+    maximumWorkspaceBytes: 32 * 1024 * 1024, maximumPixels: 262144, maximumDimension: 70000,
+    maximumMetadataBytes: 1024 * 1024, maximumICCBytes: 1024, maximumWorkers: 1,
+    deadlineSeconds: 0.1, maximumMemoryBytes: 64 * 1024 * 1024)
 let options = DecodeOptions(resourceLimits: limits)
 let decoders = [try Decoder(), try Decoder(configuration: .init(codecOptions:
-    .init(restartIntervalLines: 0, hpInterpretation: .legacyJLSwift)))]
+    .init(restartIntervalLines: 0, hpInterpretation: .legacyJLSwift, legacyMappingContinuations: true,
+          legacyExtendedDimensions: true, legacyPresetDefaults: true))),
+    try Decoder(configuration: .init(codecOptions: .init(restartIntervalLines: 0, mappingOutputPrecision: 16)))]
 var generator = Generator()
 var iterations = 0, accepted = 0, rejected = 0, decodeCalls = 0
 let start = ProcessInfo.processInfo.systemUptime

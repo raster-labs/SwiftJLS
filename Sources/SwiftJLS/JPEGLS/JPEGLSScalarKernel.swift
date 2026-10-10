@@ -429,8 +429,8 @@ struct JPEGLSScalarKernel {
         writer.writeByte(UInt8(frameHeader.bitsPerSample))
 
         // Dimensions — use 0 for any dimension > 65535 (encoded in preceding LSE type 4)
-        writer.writeUInt16(UInt16(frameHeader.height > 65535 ? 0 : frameHeader.height))
-        writer.writeUInt16(UInt16(frameHeader.width  > 65535 ? 0 : frameHeader.width))
+        writer.writeUInt16(UInt16(frameHeader.height > 65535 || frameHeader.width > 65535 ? 0 : frameHeader.height))
+        writer.writeUInt16(UInt16(frameHeader.height > 65535 || frameHeader.width > 65535 ? 0 : frameHeader.width))
 
         // Component count
         writer.writeByte(UInt8(frameHeader.componentCount))
@@ -443,6 +443,14 @@ struct JPEGLSScalarKernel {
             writer.writeByte(samplingByte)
             writer.writeByte(0)  // Quantization table ID (unused in JPEG-LS, always 0)
         }
+        if frameHeader.width > 65535 || frameHeader.height > 65535 {
+            writer.writeMarker(.jpegLSExtension); writer.writeUInt16(12)
+            writer.writeByte(4); writer.writeByte(4)
+            for value in [frameHeader.height, frameHeader.width] {
+                writer.writeUInt16(UInt16(value >> 16)); writer.writeUInt16(UInt16(value & 65535))
+            }
+        }
+
     }
 
     func writeScanHeaderInternal(
