@@ -81,7 +81,8 @@ struct ComponentCodecTests {
     }
     @Test func independentPlanarAndPixelLayouts() async throws {
         let manifest = try JSONDecoder().decode(Manifest.self, from: fixture("components", ext: "json"))
-        for f in manifest.cases {
+        let published = try JSONDecoder().decode(Manifest.self, from: fixture("components-reference", ext: "json"))
+        for f in manifest.cases + published.cases {
             var baseline: Data?
             let original = try fixture(f.name, ext: "u16le")
             let expected = try fixture(f.name, ext: "decoded.u16le")
@@ -134,7 +135,8 @@ struct ComponentCodecTests {
         await #expect(throws: CodecError.self) { try await Decoder().decode(bad) }
     }
     // CharLS 2.4.2 cannot decode this profile: these are local invariants,
-    // deliberately separate from independent conformance evidence.
+    // deliberately separate from independent conformance evidence. Published
+    // reference fixtures independently cover the line mode with explicit presets.
     @Test func twoComponentInterleaveLocalInvariants() async throws {
         let data = try fixture("c2-i0-p12-n0-17x13-noise", ext: "jls")
         let original = try fixture("c2-i0-p12-n0-17x13-noise", ext: "u16le")
@@ -175,5 +177,6 @@ struct ComponentCodecTests {
         await #expect(throws: CodecError.self) { try await Decoder().decode(corrupt, into: destination) }
         #expect(throws: CodecError.self) { try destination.storage.reserveWrite() }
     }
+
 
 }

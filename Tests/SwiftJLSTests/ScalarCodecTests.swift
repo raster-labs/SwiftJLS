@@ -349,4 +349,20 @@ struct ScalarCodecTests {
         let short = try ResourceLimits(deadlineSeconds: .leastNonzeroMagnitude)
         await #expect(throws: CodecError.self) { try await Encoder().encode(image, options: .init(resourceLimits: short)) }
     }
+    @Test func lowMaximumNearDefaultsMatchSpecificationAndIndependentVector() async throws {
+        let defaults = try JPEGLSPresetParameters.defaultParameters(maxValue: 3, near: 1)
+        // T.87 Figure C.5: max(2, floor(3/64) + 3*NEAR) = 3.
+        #expect(defaults.threshold1 == 3)
+        #expect(defaults.threshold2 == 3)
+        #expect(defaults.threshold3 == 3)
+        let data = try fixture("low-max-near-default", ext: "jls")
+        let samples = try fixture("low-max-near-default", ext: "decoded.u16le")
+        let decoded = try await Decoder().decode(data).image
+        for y in 0..<19 { #expect(try decoded.sampleUInt16(x: 0, y: y) == UInt16(samples[y * 2])) }
+        let image = try ImageDestination.allocate(descriptor: .greyscale16(width: 1, height: 19, meaningfulBits: 2))
+            .writeUInt16 { _, y in UInt16(1 + 2 * (y % 2)) }
+        let encoded = try await Encoder(configuration: .init(mode: .nearLossless(maximumAbsoluteError: 1))).encode(image)
+        #expect(encoded.data == data)
+    }
+
 }

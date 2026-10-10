@@ -1,0 +1,82 @@
+{
+  "workflow": 38033407016,
+  "commit": "7383b123134db3b9b16285b838018fb3000684d4",
+  "scope": "Earlier scalar checkpoint; expanded component campaign is recorded separately.",
+  "entries": [
+    {
+      "command": [
+        "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+        "Tests/SwiftJLSTests/Fixtures",
+        "inspect",
+        "3600",
+        "last-input.jls"
+      ],
+      "exit_code": 0,
+      "failure": null,
+      "wall_seconds": 3600.169254285,
+      "peak_process_rss_bytes": 482287616,
+      "build": "release with AddressSanitizer; RSS includes sanitizer overhead",
+      "final_heartbeat": {
+        "accepted": 2456767,
+        "complete": true,
+        "decodeCalls": 0,
+        "entry": "inspect",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 7112553,
+        "rejected": 4655786,
+        "seconds": 3600.000122679,
+        "seedCount": 518
+      }
+    },
+    {
+      "command": [
+        "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+        "Tests/SwiftJLSTests/Fixtures",
+        "into",
+        "3600",
+        "last-input.jls"
+      ],
+      "exit_code": 0,
+      "failure": null,
+      "wall_seconds": 3600.07326184,
+      "peak_process_rss_bytes": 466382848,
+      "build": "release with AddressSanitizer; RSS includes sanitizer overhead",
+      "final_heartbeat": {
+        "accepted": 1413626,
+        "complete": true,
+        "decodeCalls": 2955890,
+        "entry": "into",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 8555857,
+        "rejected": 7142231,
+        "seconds": 3600.0004058040004,
+        "seedCount": 518
+      }
+    },
+    {
+      "command": [
+        "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+        "Tests/SwiftJLSTests/Fixtures",
+        "owned",
+        "3600",
+        "last-input.jls"
+      ],
+      "exit_code": 0,
+      "failure": null,
+      "wall_seconds": 3600.0904627729997,
+      "peak_process_rss_bytes": 471777280,
+      "build": "release with AddressSanitizer; RSS includes sanitizer overhead",
+      "final_heartbeat": {
+        "accepted": 1347731,
+        "complete": true,
+        "decodeCalls": 8156564,
+        "entry": "owned",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 8156564,
+        "rejected": 6808833,
+        "seconds": 3600.0001436889997,
+        "seedCount": 518
+      }
+    }
+  ]
+}
