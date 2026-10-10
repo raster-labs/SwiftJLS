@@ -1,0 +1,24 @@
+name: Published JPEG-LS reference oracle
+on:
+  push:
+    paths:
+      - "Scripts/Interop/reference-*"
+      - ".github/workflows/reference-oracle.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  reference:
+    runs-on: windows-2025
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Decode synthetic custom-preset candidates
+        run: python Scripts/Interop/reference-windows.py --candidates Scripts/Interop/reference-candidates.json --report reference-results.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: reference-results
+          path: reference-results.json
