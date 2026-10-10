@@ -120,3 +120,64 @@ jobs:
         with:
           persist-credentials: false
       - run: swift run --package-path Examples/CrossCodecConsumer
+
+  macos-intel:
+    name: macOS 26 Intel scalar runtime
+    runs-on: macos-26-intel
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - run: swift --version && uname -m
+      - run: swift test -c release
+
+  apple-sdk-builds:
+    name: Apple SDK compile / ${{ matrix.sdk }}
+    runs-on: macos-26
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - sdk: iphonesimulator
+            triple: arm64-apple-ios26.0-simulator
+          - sdk: appletvsimulator
+            triple: arm64-apple-tvos26.0-simulator
+          - sdk: watchsimulator
+            triple: arm64-apple-watchos26.0-simulator
+          - sdk: xrsimulator
+            triple: arm64-apple-xros26.0-simulator
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - run: swift --version && xcodebuild -version
+      - name: Compile library target only
+        env:
+          SDK_NAME: ${{ matrix.sdk }}
+          TARGET_TRIPLE: ${{ matrix.triple }}
+        run: swift build --target SwiftJLS -c release --triple "$TARGET_TRIPLE" --sdk "$(xcrun --sdk "$SDK_NAME" --show-sdk-path)"
+
+  remote-consumer:
+    name: Fresh URL-pinned standalone consumer
+    runs-on: ubuntu-24.04
+    container: swift:6.2-noble
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Resolve and run without a local path dependency
+        env:
+          REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          mkdir -p /tmp/swiftjls-remote/Sources/Consumer
+          cp Examples/IndependentConsumer/Sources/Consumer/main.swift /tmp/swiftjls-remote/Sources/Consumer/main.swift
+          cat > /tmp/swiftjls-remote/Package.swift <<EOF
+          // swift-tools-version: 6.2
+          import PackageDescription
+          let package = Package(name: "RemoteConsumer", dependencies: [.package(url: "https://github.com/raster-labs/SwiftJLS.git", revision: "$REVISION")], targets: [.executableTarget(name: "Consumer", dependencies: [.product(name: "SwiftJLS", package: "SwiftJLS")])], swiftLanguageModes: [.v6])
+          EOF
+          cd /tmp/swiftjls-remote
+          swift run -c release
