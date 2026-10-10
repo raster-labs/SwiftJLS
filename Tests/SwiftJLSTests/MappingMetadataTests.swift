@@ -133,4 +133,29 @@ struct MappingMetadataTests {
         #expect(throws: CodecError.self) { try precision.inspect(mapping) }
     }
 
+    @Test func unsignedWireFieldsStayBoundedOnNativeWordSizes() async throws {
+        let original = try helper.fixture("p12-17x13-noise", ext: "jls")
+        var largeRestart = original
+        largeRestart.insert(contentsOf: [255,221,0,6,255,255,255,255], at: 2)
+        let decoded = try await Decoder().decode(largeRestart)
+        try helper.check(decoded.image, against: helper.fixture("p12-17x13-noise", ext: "u16le"), maximumError: 0, padding: false)
+
+        var spiff = try helper.fixture("c3-i0-p8-n0-17x13-noise", ext: "jls")
+        spiff.replaceSubrange(28..<36, with: Array(repeating: UInt8(255), count: 8))
+        let image = try await Decoder().decode(spiff).image
+        let encoded = try await Encoder().encode(image)
+        #expect(try Decoder().inspect(encoded.data).metadata == image.metadata)
+
+        let tables = try JPEGLSMappingTables(tables: [.init(id: 7, entryWidth: 1, entries: [0,1,2,3])], componentTableIDs: [7])
+        var archive = try #require(tables.metadata.entries[JPEGLSMappingTables.key])
+        archive[5] = 0x80 // UInt32 byte count cannot be represented by a 32-bit Int.
+        #expect(throws: CodecError.self) {
+            try JPEGLSMappingTables(metadata: .init(entries: [JPEGLSMappingTables.key: archive]))
+        }
+        var extended = try helper.fixture("extended-p8-65537x2", ext: "jls")
+        let marker = try #require(extended.range(of: Data([255,248,0,12,4,4])))
+        extended.replaceSubrange(marker.upperBound..<(marker.upperBound+4), with: [255,255,255,255])
+        #expect(throws: CodecError.self) { try Decoder().inspect(extended) }
+    }
+
 }

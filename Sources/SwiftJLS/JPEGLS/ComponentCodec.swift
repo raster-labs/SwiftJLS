@@ -14,7 +14,7 @@ enum ComponentCodec {
         guard descriptor.sampleType == .unsignedInteger, [8, 16].contains(descriptor.storageBits),
               (2...16).contains(descriptor.meaningfulBits), (1...4).contains(descriptor.components.count),
               descriptor.alpha == .absent, descriptor.iccProfile == nil,
-              descriptor.width <= Int(UInt32.max), descriptor.height <= Int(UInt32.max) else {
+              descriptor.width <= Int(clamping: UInt32.max), descriptor.height <= Int(clamping: UInt32.max) else {
             throw CodecError(.unsupportedFeature, "Component coding requires one to four unsigned components without alpha or ICC.")
         }
         return try descriptor.components.indices.map { component in
@@ -178,7 +178,7 @@ enum ComponentCodec {
                     let coding = kernel.computeGolombLimitInternal(parameters: parameters, near: near, bitsPerSample: d.meaningfulBits)
                     for chunk in 0..<chunks {
                         let first = interval > 0 ? chunk * interval : 0
-                        let last = interval > 0 ? min(first + interval, d.height) : d.height
+                        let last = interval > 0 ? first + min(interval, d.height - first) : d.height
                         if near > 0 {
                             try kernel.encodeNearLossless(buf: view.rows(first..<last), rowStride: d.width,
                                 width: d.width, height: last - first, near: near, parameters: parameters,
@@ -264,7 +264,7 @@ enum ComponentCodec {
                 let coding = kernel.computeGolombLimitInternal(parameters: scan.parameters, near: scan.near, bitsPerSample: header.bits)
                 for (chunk, range) in scan.ranges.enumerated() {
                     let first = scan.restartInterval > 0 ? chunk * scan.restartInterval : 0
-                    let last = scan.restartInterval > 0 ? min(first + scan.restartInterval, d.height) : d.height
+                    let last = scan.restartInterval > 0 ? first + min(scan.restartInterval, d.height - first) : d.height
                     let start = data.index(data.startIndex, offsetBy: range.lowerBound)
                     let end = data.index(data.startIndex, offsetBy: range.upperBound)
                     let reader = JPEGLSBitstreamReader(data: data[start..<end])

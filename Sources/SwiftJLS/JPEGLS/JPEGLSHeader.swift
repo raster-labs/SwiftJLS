@@ -124,7 +124,7 @@ struct JPEGLSHeader {
             func malformed() -> CodecError { .init(.malformedInput, "Invalid or truncated JPEG-LS header.") }
             func unsupported(_ message: String) -> CodecError { .init(.unsupportedFeature, message) }
             func word(_ offset: Int) -> Int { Int(bytes[offset]) << 8 | Int(bytes[offset + 1]) }
-            func longWord(_ offset: Int) -> Int { word(offset) << 16 | word(offset + 2) }
+            func longWord(_ offset: Int) -> UInt32 { UInt32(word(offset)) << 16 | UInt32(word(offset + 2)) }
             guard bytes.count >= 2, bytes[0] == 255, bytes[1] == 216 else {
                 throw CodecError(.unsupportedFormat, "Input is not a JPEG-LS codestream.")
             }
@@ -252,7 +252,11 @@ struct JPEGLSHeader {
                     }
                     let count = Int(bytes[payload + 9]), colour = bytes[payload + 18]
                     guard (1...4).contains(count), (colour != 10 || count == 3), (colour != 8 || count == 1) else { throw malformed() }
-                    spiff = (longWord(payload + 14), longWord(payload + 10), Int(bytes[payload + 19]), count, colour == 10, colour == 8)
+                    guard let spiffWidth = Int(exactly: longWord(payload + 14)),
+                          let spiffHeight = Int(exactly: longWord(payload + 10)) else {
+                        throw CodecError(.resourceLimitExceeded, "SPIFF dimensions exceed native addressable limits.")
+                    }
+                    spiff = (spiffWidth, spiffHeight, Int(bytes[payload + 19]), count, colour == 10, colour == 8)
                     spiffData.append(contentsOf: [255, 232]); spiffData.append(contentsOf: bytes[cursor..<end])
                     needsDirectoryEnd = true
                 case 0xf7:
@@ -320,12 +324,15 @@ struct JPEGLSHeader {
                         guard length >= 8, records.isEmpty, extendedSize == nil else { throw malformed() }
                         let size = Int(bytes[payload + 1])
                         guard (2...4).contains(size), length == 4 + 2 * size else { throw malformed() }
-                        func dimension(_ start: Int) -> Int {
-                            var value = 0
-                            for offset in 0..<size { value = (value << 8) | Int(bytes[start + offset]) }
-                            return value
+                        func dimension(_ start: Int) throws -> Int {
+                            var value: UInt32 = 0
+                            for offset in 0..<size { value = (value << 8) | UInt32(bytes[start + offset]) }
+                            guard let result = Int(exactly: value) else {
+                                throw CodecError(.resourceLimitExceeded, "Extended dimensions exceed native addressable limits.")
+                            }
+                            return result
                         }
-                        let first = dimension(payload + 2), second = dimension(payload + 2 + size)
+                        let first = try dimension(payload + 2), second = try dimension(payload + 2 + size)
                         let width = codecOptions.legacyExtendedDimensions ? first : second
                         let height = codecOptions.legacyExtendedDimensions ? second : first
                         _ = try ImageDescriptor.greyscale16(width: width, height: height, limits: budget.limits)
@@ -337,8 +344,11 @@ struct JPEGLSHeader {
                     } else { throw unsupported("JPEG-LS extension is not implemented.") }
                 case 0xdd:
                     guard (4...6).contains(length) else { throw malformed() }
-                    restartInterval = 0
-                    for i in payload..<end { restartInterval = (restartInterval << 8) | Int(bytes[i]) }
+                    var wireInterval: UInt32 = 0
+                    for i in payload..<end { wireInterval = (wireInterval << 8) | UInt32(bytes[i]) }
+                    // An interval beyond native Int.max is also beyond every
+                    // representable frame height, so it still describes one scan.
+                    restartInterval = Int(clamping: wireInterval)
                 case 0xda:
                     guard let f = frame, length >= 6, f.width > 0, f.height > 0 else { throw malformed() }
                     _ = try ImageDescriptor.greyscale16(width: f.width, height: f.height, meaningfulBits: f.bits, limits: budget.limits)
@@ -404,7 +414,7 @@ struct JPEGLSHeader {
                         guard let table = tables[selectors[component]], table.count == params.maxValue + 1 else { throw malformed() }
                         guard transform == nil || transform == CodecOptions.ColourTransform.none || codecOptions.hpInterpretation == .legacyJLSwift else { throw unsupported("Mapping tables with HP require explicit predecessor interpretation.") }
                     }
-                    let expected = restartInterval > 0 ? (f.height + restartInterval - 1) / restartInterval : 1
+                    let expected = restartInterval > 0 ? 1 + (f.height - 1) / restartInterval : 1
                     directoryBytes = try checkedAdd(directoryBytes, checkedMultiply(expected, MemoryLayout<Range<Int>>.stride * 2))
                     try budget.admit(pixelBytes: 0, workspaceBytes: checkedAdd(directoryBytes, checkedMultiply(metadataBytes, 32)), compressedBytes: data.count)
                     var ranges: [Range<Int>] = [], scanStart = end

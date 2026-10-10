@@ -133,7 +133,7 @@ struct JPEGLSFrameHeader: Sendable, Equatable {
             throw JPEGLSError.invalidDimensions(width: width, height: height)
         }
 
-        guard width <= 0xFFFF_FFFF && height <= 0xFFFF_FFFF else {
+        guard width <= Int(clamping: UInt32.max) && height <= Int(clamping: UInt32.max) else {
             throw JPEGLSError.invalidDimensions(width: width, height: height)
         }
 

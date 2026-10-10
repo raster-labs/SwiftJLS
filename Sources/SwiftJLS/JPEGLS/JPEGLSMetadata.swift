@@ -117,8 +117,8 @@ public struct JPEGLSMappingTables: Sendable, Equatable {
             var tables: [JPEGLSMappingTable] = []
             while i < bytes.count {
                 guard bytes.count - i >= 6 else { throw CodecError(.invalidArgument, "Truncated mapping table archive.") }
-                let count = (Int(bytes[i + 2]) << 24) | (Int(bytes[i + 3]) << 16) | (Int(bytes[i + 4]) << 8) | Int(bytes[i + 5])
-                guard count <= bytes.count - i - 6 else { throw CodecError(.invalidArgument, "Truncated mapping table data.") }
+                let wireCount = (UInt32(bytes[i + 2]) << 24) | (UInt32(bytes[i + 3]) << 16) | (UInt32(bytes[i + 4]) << 8) | UInt32(bytes[i + 5])
+                guard let count = Int(exactly: wireCount), count <= bytes.count - i - 6 else { throw CodecError(.invalidArgument, "Truncated mapping table data.") }
                 tables.append(try .init(id: bytes[i], entryWidth: Int(bytes[i + 1]), data: Data(bytes[(i + 6)..<(i + 6 + count)])))
                 i += 6 + count
             }
@@ -181,10 +181,10 @@ struct JPEGMetadataEncoding {
         try data.withUnsafeBytes { (b: UnsafeRawBufferPointer) in
             func invalid() -> CodecError { .init(.invalidArgument, "SPIFF metadata disagrees with the image or is malformed.") }
             func word(_ i: Int) -> Int { Int(b[i]) << 8 | Int(b[i + 1]) }
-            func long(_ i: Int) -> Int { word(i) << 16 | word(i + 2) }
+            func long(_ i: Int) -> UInt32 { UInt32(word(i)) << 16 | UInt32(word(i + 2)) }
             guard b.count >= 44, Array(b[0..<12]) == [255, 232, 0, 32, 83, 80, 73, 70, 70, 0, 2, 0],
                   Int(b[13]) == descriptor.components.count,
-                  long(14) == descriptor.height, long(18) == descriptor.width,
+                  UInt64(long(14)) == UInt64(descriptor.height), UInt64(long(18)) == UInt64(descriptor.width),
                   Int(b[23]) == descriptor.meaningfulBits, b[24] == 6, b[25] <= 2,
                   long(26) > 0, long(30) > 0,
                   (b[22] == 8 && descriptor.colour == .greyscale) || (b[22] == 10 && descriptor.colour == .rgb) || (b[22] != 8 && b[22] != 10 && descriptor.colour == .unknown) else { throw invalid() }

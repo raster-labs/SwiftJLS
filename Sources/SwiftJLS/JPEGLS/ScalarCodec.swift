@@ -21,7 +21,7 @@ enum ScalarCodec {
               (2...16).contains(descriptor.meaningfulBits), descriptor.planes.count == 1,
               descriptor.components == [.grey], descriptor.colour == .greyscale,
               descriptor.alpha == .absent, descriptor.iccProfile == nil,
-              descriptor.width <= Int(UInt32.max), descriptor.height <= Int(UInt32.max) else {
+              descriptor.width <= Int(clamping: UInt32.max), descriptor.height <= Int(clamping: UInt32.max) else {
             throw CodecError(.unsupportedFeature, "The migrated scalar profile requires unsigned greyscale without ICC metadata.")
         }
         let plane = descriptor.planes[0]
@@ -125,7 +125,7 @@ enum ScalarCodec {
                 let coding = kernel.computeGolombLimitInternal(parameters: parameters, near: near, bitsPerSample: descriptor.meaningfulBits)
                 for chunk in 0..<chunks {
                     let first = interval > 0 ? chunk * interval : 0
-                    let last = interval > 0 ? min(first + interval, descriptor.height) : descriptor.height
+                    let last = interval > 0 ? first + min(interval, descriptor.height - first) : descriptor.height
                     if near > 0 {
                         let rowView = ScalarSampleReader(bytes: .init(rebasing: view.bytes[(first * plane.rowBytes)...]),
                             littleEndian: view.littleEndian, sampleBytes: view.sampleBytes)
