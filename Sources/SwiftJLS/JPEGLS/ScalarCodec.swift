@@ -78,7 +78,7 @@ enum ScalarCodec {
             // Limited Golomb words are at most 64 bits per sample, with stuffing
             // and marker allowance. Account for both the writer and final Data.
             let interval = configuration.codecOptions.restartIntervalLines
-            let chunks = interval > 0 ? (descriptor.height + interval - 1) / interval : 1
+            let chunks = interval > 0 ? 1 + (descriptor.height - 1) / interval : 1
             let worstOutput = try checkedAdd(checkedAdd(checkedMultiply(samples, 10), checkedAdd(64, metadata.byteCount)), checkedMultiply(chunks, 4))
             let outputLimit = min(worstOutput, budget.limits.maximumCompressedBytes)
             let workspace = try checkedAdd(checkedAdd(contextBytes, tableBytes(parameters)), checkedAdd(checkedMultiply(outputLimit, 2), near > 0 ? checkedMultiply(descriptor.width, 4) : 0))

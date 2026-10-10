@@ -94,7 +94,7 @@ enum ComponentCodec {
             } else { parameters = try .defaultParameters(bitsPerSample: d.meaningfulBits, near: near) }
             try metadata.mapping?.validate(components: componentIDs.count, maximum: parameters.maxValue)
             let interval = configuration.codecOptions.restartIntervalLines
-            let chunks = interval > 0 ? (d.height + interval - 1) / interval : 1
+            let chunks = interval > 0 ? 1 + (d.height - 1) / interval : 1
             let samples = try checkedMultiply(checkedMultiply(d.width, d.height), componentIDs.count)
             let worstOutput = try checkedAdd(checkedMultiply(samples, 10), checkedAdd(checkedAdd(256, metadata.byteCount), checkedMultiply(chunks, componentIDs.count * 4)))
             let outputLimit = min(worstOutput, budget.limits.maximumCompressedBytes)
