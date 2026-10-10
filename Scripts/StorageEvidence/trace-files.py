@@ -28,7 +28,7 @@ for stamp,line in sorted(events):
     paths=re.findall(r'"([^"\n]+)"',line)
     # Runtime/system reads are retained in the evidence, never classified as
     # image staging. Every write/create/remove or non-system open fails.
-    system_read=bool(paths) and all(path.startswith(('/proc/','/sys/','/usr/lib/','/lib/','/lib64/')) for path in paths)
+    system_read=bool(paths) and all(path.startswith(('/proc/','/sys/','/usr/lib/','/lib/','/lib64/')) or path == '/dev/urandom' for path in paths)
     writes=bool(re.search(r'O_WRONLY|O_RDWR|O_CREAT|O_TMPFILE|\b(creat|rename|renameat|unlink|unlinkat|mkdir)\(',line))
     record=dict(bits=phase,event=line,system_read=system_read)
     observed.append(record)

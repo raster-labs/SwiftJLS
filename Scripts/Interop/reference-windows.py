@@ -53,7 +53,8 @@ def component_cases(directory, cases):
     values=expected[c*plane:(c+1)*plane]
     samples=bytes(values) if maximum<256 else struct.pack('>'+'H'*plane,*values)
     (directory/f'source{c}.pgm').write_bytes(f"P5\n{case['width']} {case['height']}\n{maximum}\n".encode()+samples)
-   command=[str(encoder),'-c1',f"-e{case['near']}",'source0.pgm','source1.pgm','-ocomponent-reference.jls']
+   preset=case['preset']
+   command=[str(encoder),'-c1',f"-e{case['near']}",f"-Ta{preset['threshold1']}",f"-Tb{preset['threshold2']}",f"-Tc{preset['threshold3']}",f"-r{preset['reset']}",'source0.pgm','source1.pgm','-ocomponent-reference.jls']
    result=subprocess.run(command,cwd=directory,capture_output=True,timeout=10)
    assert result.returncode==0,result.stderr.decode(errors='replace')
    reconstructed,reference_error=decode('component-reference.jls','reference-')

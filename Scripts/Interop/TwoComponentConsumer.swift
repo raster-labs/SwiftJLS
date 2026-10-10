@@ -17,11 +17,19 @@ for f in manifest.cases where f.components == 2 && f.interleave == 0 {
     let descriptor = try ImageDescriptor(width: f.width, height: f.height, meaningfulBits: f.meaningfulBits,
         components: [.uninterpreted("JPEG-LS:1"), .uninterpreted("JPEG-LS:2")], colour: .unknown, planes: planes)
     let image = try ImageDestination.allocate(descriptor: descriptor).write { bytes in samples.withUnsafeBytes { bytes.copyMemory(from: $0) } }
+    let maximum = (1 << f.meaningfulBits) - 1
+    func clamp(_ value: Int, _ lower: Int) -> Int { value < lower || value > maximum ? lower : value }
+    let factor = maximum < 128 ? 256 / (maximum + 1) : (min(maximum, 4095) + 128) / 256
+    let t1 = clamp(maximum < 128 ? max(2, 3 / factor + 3 * f.near) : factor + 2 + 3 * f.near, f.near + 1)
+    let t2 = clamp(maximum < 128 ? max(3, 7 / factor + 5 * f.near) : factor * 4 + 3 + 5 * f.near, t1)
+    let t3 = clamp(maximum < 128 ? max(4, 21 / factor + 7 * f.near) : factor * 17 + 4 + 7 * f.near, t2)
+    let preset = try CodecOptions.Preset(maximumSampleValue: maximum, threshold1: t1, threshold2: t2, threshold3: t3)
     let encoded = try await Encoder(configuration: .init(mode: f.near == 0 ? .lossless : .nearLossless(maximumAbsoluteError: f.near),
-        codecOptions: .init(restartIntervalLines: 0, interleaveMode: .line))).encode(image)
+        codecOptions: .init(restartIntervalLines: 0, preset: preset, interleaveMode: .line))).encode(image)
     candidates.append(["name": f.name.replacingOccurrences(of: "-i0-", with: "-i1-"),
         "source_fixture": f.name, "width": f.width, "height": f.height, "meaningfulBits": f.meaningfulBits,
         "near": f.near, "components": 2, "interleave": 1, "rgb": false,
+        "preset": ["maximumSampleValue": maximum, "threshold1": t1, "threshold2": t2, "threshold3": t3, "reset": 64],
         "samples": samples.base64EncodedString(), "encoded": encoded.data.base64EncodedString()])
 }
 let report: [String: Any] = ["licence": "Apache-2.0 original synthetic samples", "encoder_revision": "9ca35c57c6f355af547f48a6598ad4efa7f9f492", "cases": candidates]
