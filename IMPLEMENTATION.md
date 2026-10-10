@@ -1,12 +1,14 @@
 # SwiftJLS — staged implementation instructions
 
-Read AGENTS.md and every common contract document first. Milestone 1 feasibility is implemented; later codec milestones require an owner-assigned coding task. Follow the common contract when predecessor conventions differ. Maintain performance, reliability and security together.
+Read AGENTS.md and every common contract document first. The owner-assigned migration now includes the native codec, mapping tables, metadata and predecessor compatibility profiles. Follow the common contract when predecessor conventions differ. Maintain performance, reliability and security together. The implemented feature matrix is in [Parity.md](Documentation/Engineering/CodecMigration/Parity.md); executed and outstanding qualification is in [Validation.md](Documentation/Engineering/CodecMigration/Validation.md). Implementation completion does not authorise a stable release or consumer cutover.
 
-For applications replacing the predecessor dependency, use [MIGRATION.md](MIGRATION.md). It records current Milestone 1 APIs and deferred features; this document governs implementation inside SwiftJLS. Refresh the application guide as later milestones become available and tested.
+For applications replacing the predecessor dependency, use [MIGRATION.md](MIGRATION.md). It records current owning APIs, codec profiles, compatibility options and deferred features; this document governs implementation inside SwiftJLS. Refresh the application guide as later milestones become available and tested.
 
 ## Source and destination
 
-Predecessor: [Raster-Lab/JLSwift](https://github.com/Raster-Lab/JLSwift) at inspected SHA `299b9a2e5bfe36ef104a3464a27d6c4c82874cc2`. Highest stable-shaped tag observed: `v0.9.1` (resolve independently before choosing it as a baseline). Target module/product: `SwiftJLS`. Target CLI: `swiftjls`. Intended first stable library version: `1.1.0`.
+Current migration baseline: [raster-labs/JLSwift](https://github.com/raster-labs/JLSwift) at `15aa75164145414f3d5ffb801401c52d40cc5bcc`. Target module/product: `SwiftJLS`. Target CLI: `swiftjls-cli`. Suite policy 0.10.0: tools 6.2, qualified primary Swift 6.4, Swift 6 language mode and Apple OS 26.0 floors. Intended first stable library version: `1.1.0`; this work remains unreleased.
+
+The older inventory at `299b9a2e5bfe36ef104a3464a27d6c4c82874cc2` and the September product decisions below are historical inputs, not the selected codec baseline. CLI-01 renamed the executable after that inventory.
 
 Do not migrate code from moving main without recording the selected revision. Reproduce relevant source tests and inspect source-level capabilities. Existing test totals and benchmark claims are historical, not successor acceptance evidence.
 
@@ -60,7 +62,7 @@ POL-05 requires every product to be explicitly **retained** (migrates, stays a p
 | ↳ `TIFFSupport.swift` | 20 KB | — | Deferred | none | as `PNGSupport` |
 | `jpegls` (exec) | 14 / 4,298 | — | Adapted — renamed | `swiftjls` | CLI-01 |
 
-**Product list after migration:** `SwiftJLS` (library) and `swiftjls` (executable).
+**Current product list after CLI-01 naming reconciliation:** `SwiftJLS` (library) and `swiftjls-cli` (executable). The historical table above records the September decision before the naming amendment.
 
 This codec is the migration pilot. It is the smallest of the four, it has no package dependency to extract, and it is the codec named in the suite's first cross-codec proof, so the shape of these decisions is settled here first and applied to the other three.
 
@@ -74,6 +76,8 @@ This codec is the migration pilot. It is the smallest of the four, it has no pac
 
 Update CHANGELOG.md and migration provenance. Provide the exact commands, commits, fixture hashes and outcomes; report tests not run and why, unsupported cases, allocation/copy evidence and performance impact. Map each advertised feature to a test and capability entry. Keep DICOMKit/Voxelia source changes outside this repository task unless the owner separately assigns them.
 
-## Owner-authorised OS 27 and CLI foundation
+## Historical owner-authorised OS 27 and CLI foundation
 
 Before codec migration, the owner raised Apple floors to 27.0 and requested executable help, verbosity and UNIX manuals. This bounded CLI foundation implements help/version/capabilities only; codec commands remain explicitly unavailable. See [CLI.md](CLI.md) and [new evidence](Documentation/Engineering/OS27CLI/README.md). The later codec/CLI milestones still govern real payload operations.
+
+The preceding OS 27 paragraph is retained as history. Contract 0.5.0 restored OS 26.0, and the current migration implements the bounded greyscale NRRD payload commands. Current scope and qualification are linked at the top of this document.

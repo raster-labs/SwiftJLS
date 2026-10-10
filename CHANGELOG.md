@@ -1,5 +1,31 @@
 # Change log
 
+## Predecessor profile parity — 2026-10-10 (unreleased)
+
+- Add bounded LSE mapping tables and continuations, explicit mapped output precision, and index-image re-encoding with required table metadata.
+- Preserve ordered binary APP/COM payloads and SPIFF header/directory data under the common metadata policy.
+- Correct native integer bounds and unsigned wire-field parsing for 32-bit Watch device targets; qualify the physical-device architecture with its SDK.
+- Support extended dimensions and subsampled line decoding with explicit plane sampling factors and validated caller layouts.
+- Add explicit compatibility for the pinned predecessor's mapping continuations, extended dimension order, low-range defaults and combined mapping/HP interpretation. Standard syntax remains the output format.
+- Add independent mapping/extended fixtures, actual predecessor profile regressions, simulator runtime jobs and a copy probe with deliberate-copy controls. See [profile coverage](Documentation/Engineering/CodecMigration/Parity.md) and [qualification evidence](Documentation/Engineering/CodecMigration/Validation.md); stable release qualification remains open.
+
+## Scalar codec migration — 2026-10-10 (unreleased)
+
+- Adapt the pinned JLSwift scalar kernels behind the common owning API; add lossless and near-lossless greyscale coding for 2–16 meaningful bits.
+- Encode directly from borrowed samples and decode into final caller storage; near-lossless prediction uses two rows.
+- Bound entropy parsing, output growth, cancellation and custom predictor-table admission. Correct low-precision default thresholds.
+- Implement `swiftjls-cli` payload commands, bounded NRRD streams, atomic output and cancellation; align help/manual/install with the required executable name.
+- Add independent scalar, preset, component and HP-transform fixtures with hashes and source provenance.
+- Add two-to-four-component planar/pixel layouts, line/sample scans, SPIFF RGB and lossless HP1/HP2/HP3 RGB transforms. Add explicit legacy HP decoding for known predecessor assets; preserve standard HP as the default.
+- Add direct 8-bit storage, explicit presets/MAXVAL and lossless/near-lossless row restarts; correct error sign normalisation and reject invalid decoder overrides.
+- Exercise real SwiftJ2K ↔ SwiftJLS storage adapters in an isolated development consumer. See [executed evidence and remaining gates](Documentation/Engineering/CodecMigration/README.md).
+
+## Migration preparation — 2026-10-09 (unreleased)
+
+- Reject re-entrant and competing writable-storage operations before acquiring the mutex, avoiding the Swift 6.2 Linux try-lock trap while retaining exclusive leases and cleanup after throwing borrows.
+- Correct the independent CI consumer's local package identity; retain the `SwiftJLS` product name.
+- Pin the next predecessor candidate, inventory source/test provenance and record executed checks and outstanding migration gates in [the preparation record](Documentation/Engineering/MigrationPreflight/README.md). No codec source or codec capability is added.
+
 ## 1.1.0-dev.1 — Swift 6.4 upgrade, 2026-09-19 (unreleased)
 
 - Require Swift tools/compiler 6.4, retaining Swift 6 language mode and OS 26 deployment floors.

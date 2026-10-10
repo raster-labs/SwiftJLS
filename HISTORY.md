@@ -80,3 +80,7 @@ Decision D3 keeps the Apple deployment floor at 26.0 and places the cost of adop
 This repository is the pilot: Milestones 2 to 5 run here first, and what they teach is applied to the other three. The predecessor's current release candidate is v0.10.0-rc.1 (tag at `a5757d3`; `main` has since advanced to `13591f9` with SPDX header corrections); its promotion is the predecessor's own release task and is not authorised here.
 
 The continuous-integration precondition from 0.8.0 stands. Actions billing remained locked on 22 September 2026, so every workflow in the suite is written and unexecuted. No codec source moves here before CI executes and passes here.
+
+## Predecessor parity extensions — 10 October 2026
+
+Added bounded mapping tables/continuations, ordered APP/COM and SPIFF metadata, extended dimensions, explicit predecessor syntax/default compatibility, and subsampled line decoding with declared plane sampling. The [parity record](Documentation/Engineering/CodecMigration/Parity.md) distinguishes normative output, known-producer legacy input, hardened malformed-input rejection and remaining qualification. New codec code is native; CharLS mapping support remains an isolated pinned test oracle. No release, consumer cutover or predecessor change is implied.

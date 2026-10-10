@@ -1,8 +1,66 @@
 // SPDX-License-Identifier: Apache-2.0
 import Foundation
 
-/// No codec-specific controls are implemented during contract feasibility.
-public struct CodecOptions: Sendable, Equatable { public init() {} }
+/// Codec-specific controls are added only with independently tested behaviour.
+public struct CodecOptions: Sendable, Equatable {
+    /// Decoder-only interpretation for assets whose producer is known.
+    /// Never inferred from the ambiguous `mrfx` marker.
+    public enum HPInterpretation: Sendable { case standard, legacyJLSwift }
+    /// HP reversible RGB transforms signalled by the private APP8 `mrfx` convention.
+    /// Supported only for lossless, interleaved RGB with 8 or 16 meaningful bits.
+    public enum ColourTransform: UInt8, Sendable { case none = 0, hp1 = 1, hp2 = 2, hp3 = 3 }
+    public enum InterleaveMode: UInt8, Sendable { case none = 0, line = 1, sample = 2 }
+    /// Explicit JPEG-LS coding parameters. These do not change sample signedness
+    /// or the declared precision of the image container.
+    public struct Preset: Sendable, Equatable {
+        public let maximumSampleValue: Int
+        public let threshold1: Int, threshold2: Int, threshold3: Int, reset: Int
+        public init(maximumSampleValue: Int, threshold1: Int, threshold2: Int, threshold3: Int,
+                    reset: Int = 64) throws {
+            guard (1...65535).contains(maximumSampleValue),
+                  (1...maximumSampleValue).contains(threshold1),
+                  (threshold1...maximumSampleValue).contains(threshold2),
+                  (threshold2...maximumSampleValue).contains(threshold3),
+                  (3...max(255, maximumSampleValue)).contains(reset) else {
+                throw CodecError(.invalidArgument, "Invalid JPEG-LS preset parameters.")
+            }
+            self.maximumSampleValue = maximumSampleValue
+            self.threshold1 = threshold1; self.threshold2 = threshold2
+            self.threshold3 = threshold3; self.reset = reset
+        }
+    }
+    /// JPEG-LS restart interval in sample rows. Zero disables restart markers.
+    public let restartIntervalLines: Int
+    public let preset: Preset?
+    public let interleaveMode: InterleaveMode
+    public let colourTransform: ColourTransform
+    /// Explicit unsigned interpretation of mapping entries; nil preserves indices and required tables.
+    public let mappingOutputPrecision: Int?
+    /// Pinned JLSwift omitted Wt from continuation segments. Opt in only for known legacy assets.
+    public let legacyMappingContinuations: Bool
+    /// Pinned JLSwift wrote Xe before Ye in LSE type 4.
+    public let legacyExtendedDimensions: Bool
+    /// Pinned JLSwift used the high-range threshold formula below MAXVAL 128.
+    public let legacyPresetDefaults: Bool
+    public let hpInterpretation: HPInterpretation
+    public init() { restartIntervalLines = 0; preset = nil; interleaveMode = .none; colourTransform = .none; hpInterpretation = .standard; mappingOutputPrecision = nil; legacyMappingContinuations = false; legacyExtendedDimensions = false; legacyPresetDefaults = false }
+    public init(restartIntervalLines: Int, preset: Preset? = nil, interleaveMode: InterleaveMode = .none, colourTransform: ColourTransform = .none, hpInterpretation: HPInterpretation = .standard, mappingOutputPrecision: Int? = nil, legacyMappingContinuations: Bool = false, legacyExtendedDimensions: Bool = false, legacyPresetDefaults: Bool = false) throws {
+        guard (0...65535).contains(restartIntervalLines) else {
+            throw CodecError(.invalidArgument, "Restart interval must be 0...65535 sample rows.")
+        }
+        self.restartIntervalLines = restartIntervalLines; self.preset = preset; self.interleaveMode = interleaveMode
+        self.colourTransform = colourTransform
+        guard mappingOutputPrecision.map({ (2...16).contains($0) }) ?? true else {
+            throw CodecError(.invalidArgument, "Mapping output precision must be 2...16.")
+        }
+        self.mappingOutputPrecision = mappingOutputPrecision
+        self.legacyMappingContinuations = legacyMappingContinuations
+        self.legacyExtendedDimensions = legacyExtendedDimensions
+        self.legacyPresetDefaults = legacyPresetDefaults
+        self.hpInterpretation = hpInterpretation
+    }
+}
+
 public struct EncoderConfiguration: Sendable, Equatable {
     public let mode: CompressionMode
     public let codecOptions: CodecOptions
@@ -10,8 +68,21 @@ public struct EncoderConfiguration: Sendable, Equatable {
         if case .nearLossless(let bound) = mode, bound <= 0 {
             throw CodecError(.invalidArgument, "Near-lossless error must be positive.")
         }
-        guard mode == .lossless else {
-            throw CodecError(.unsupportedFeature, "Only the default lossless configuration is modelled in Milestone 1.")
+        if case .nearLossless(let bound) = mode, bound > 255 {
+            throw CodecError(.invalidArgument, "JPEG-LS NEAR must not exceed 255.")
+        }
+        guard mode != .lossy else {
+            throw CodecError(.unsupportedFeature, "JPEG-LS supports lossless and bounded near-lossless coding.")
+        }
+        guard codecOptions.restartIntervalLines == 0 || codecOptions.interleaveMode == .none else {
+            throw CodecError(.unsupportedFeature, "Restart intervals require non-interleaved scans.")
+        }
+        guard codecOptions.hpInterpretation == .standard, codecOptions.mappingOutputPrecision == nil, !codecOptions.legacyMappingContinuations, !codecOptions.legacyExtendedDimensions, !codecOptions.legacyPresetDefaults else {
+            throw CodecError(.invalidArgument, "Legacy HP interpretation is decoder-only.")
+        }
+        guard codecOptions.colourTransform == .none ||
+              (mode == .lossless && codecOptions.interleaveMode != .none && codecOptions.preset == nil) else {
+            throw CodecError(.unsupportedFeature, "HP transforms require lossless interleaved coding without explicit presets.")
         }
         self.mode = mode; self.codecOptions = codecOptions
     }
@@ -88,10 +159,10 @@ public struct DecodedImage: Sendable {
     public let report: OperationReport
 }
 
-/// Contract feasibility holder. No real compressed format is supported yet.
+/// Native JPEG-LS encoder. Capabilities describe the currently migrated profile.
 public struct Encoder: Sendable {
     public let configuration: EncoderConfiguration
-    public static let capabilities = CodecCapabilities.contractOnly
+    public static let capabilities = ScalarCodec.capabilities
     public var capabilities: CodecCapabilities { Self.capabilities }
     public init(configuration: EncoderConfiguration = .default) throws { self.configuration = configuration }
 
@@ -103,32 +174,42 @@ public struct Encoder: Sendable {
               image.storage.byteCount <= options.resourceLimits.maximumMemoryBytes else {
             throw CodecError(.resourceLimitExceeded, "Image exceeds operation limits.")
         }
-        throw CodecError(.unsupportedFeature, "Codec algorithms are deferred; Milestone 1 provides API and storage only.")
+        if image.descriptor.components != [.grey] {
+            return try ComponentCodec.encode(image, configuration: configuration, options: options)
+        }
+        return try ScalarCodec.encode(image, configuration: configuration, options: options)
     }
 }
 
-/// Inspection and both decode call shapes deliberately reject compressed input.
+/// Bounded inspection and native decoding into owned sample storage.
 public struct Decoder: Sendable {
     public let configuration: DecoderConfiguration
-    public static let capabilities = CodecCapabilities.contractOnly
+    public static let capabilities = ScalarCodec.capabilities
     public var capabilities: CodecCapabilities { Self.capabilities }
-    public init(configuration: DecoderConfiguration = .init()) throws { self.configuration = configuration }
+    public init(configuration: DecoderConfiguration = .init()) throws {
+        guard configuration.codecOptions.restartIntervalLines == 0,
+              configuration.codecOptions.preset == nil, configuration.codecOptions.interleaveMode == .none,
+              configuration.codecOptions.colourTransform == .none else {
+            throw CodecError(.invalidArgument, "Decode parameters come from the codestream; preset and restart overrides are encoder-only.")
+        }
+        self.configuration = configuration
+    }
 
     public func inspect(_ data: Data, options: DecodeOptions = .init()) throws -> ImageInfo {
         try validateInput(data, options)
-        throw CodecError(.unsupportedFeature, "Format inspection is deferred until codec migration.")
+        return try ScalarCodec.inspect(data, options: options, codecOptions: configuration.codecOptions)
     }
     @concurrent public func decode(_ data: Data, options: DecodeOptions = .init()) async throws -> DecodedImage {
         try Task.checkCancellation()
         try validateInput(data, options)
-        throw CodecError(.unsupportedFeature, "Codec algorithms are deferred; no image was decoded.")
+        return try ScalarCodec.decode(data, into: nil, options: options, codecOptions: configuration.codecOptions)
     }
     @concurrent public func decode(_ data: Data, into destination: ImageDestination,
                                   options: DecodeOptions = .init()) async throws -> DecodedImage {
         try Task.checkCancellation()
         try validateInput(data, options)
         // Preflight rejection performs no write; the caller may still initialise it.
-        throw CodecError(.unsupportedFeature, "Codec algorithms are deferred; destination was not written.")
+        return try ScalarCodec.decode(data, into: destination, options: options, codecOptions: configuration.codecOptions)
     }
 }
 

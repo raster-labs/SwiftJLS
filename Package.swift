@@ -6,11 +6,11 @@ let package = Package(
     name: "SwiftJLS",
     platforms: [.macOS(.v26), .iOS(.v26), .tvOS(.v26), .visionOS(.v26), .watchOS(.v26)],
     products: [.library(name: "SwiftJLS", targets: ["SwiftJLS"]),
-               .executable(name: "swiftjls", targets: ["SwiftJLSCLI"])],
+               .executable(name: "swiftjls-cli", targets: ["SwiftJLSCLI"])],
     targets: [
         .target(name: "SwiftJLS"),
         .executableTarget(name: "SwiftJLSCLI", dependencies: ["SwiftJLS"]),
-        .testTarget(name: "SwiftJLSTests", dependencies: ["SwiftJLS"])
+        .testTarget(name: "SwiftJLSTests", dependencies: ["SwiftJLS"], resources: [.copy("Fixtures")])
     ],
     swiftLanguageModes: [.v6]
 )

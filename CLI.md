@@ -1,50 +1,28 @@
-# swiftjls: help, diagnostics and installation
+# swiftjls-cli
 
-Version **1.1.0-dev.2**; Swift 6.2 minimum with Swift 6.4 qualified / Swift 6, Apple OS minimum **26.0**. The CLI targets macOS and Linux; Linux execution remains a qualification requirement. No external parser package or sibling codec is required. Current commands report help, version and the library's actual capabilities. Encode/decode/inspect/validate remain unavailable (exit 4), without opening input, consuming stdin or creating output. Their help describes reserved syntax only.
+Version 1.1.0-dev.2. Swift tools 6.2 minimum, Swift 6 mode, Apple OS 26. Hosts: macOS and Linux. The CLI has no external parser or codec dependencies.
 
-```sh
-swift run swiftjls --help
-swift run swiftjls -h
-swift run swiftjls help capabilities
-swift run swiftjls capabilities --help
-swift run swiftjls --version
-swift run swiftjls capabilities --json
-swift run swiftjls capabilities -vv
-swift run swiftjls capabilities -verbose: 3
-swift run swiftjls capabilities --verbose=+++++
-```
-
-Both global and command-local help include availability, examples, option ranges/defaults, streams, errors and manual discovery. No arguments also show help. Use `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer` with the qualified Xcode on macOS.
-
-## Verbosity
-
-| Level | Cumulative stderr diagnostics |
-| --- | --- |
-| 0 (default) | Errors only |
-| 1 | Version/operation summary |
-| 2 | Command stages |
-| 3 | Capability/configuration details |
-| 4 | Elapsed timing |
-| 5 | Bounded execution trace |
-
-`-v` increments, `-vv` through `-vvvvv` group increments, and `--verbose LEVEL`, `--verbose=LEVEL`, `-verbose: LEVEL` or `-verbose:LEVEL` set an explicit level. Digits 1..5 and `+`..`+++++` are equivalent. Bare `--verbose` / `-verbose` increment once. Options apply in order; exceeding 5 or supplying an invalid level returns 2. `--quiet` / `-q` conflicts with any positive verbosity. Errors still print in quiet mode. Help, version and capability output remain stdout data. Diagnostics never contaminate JSON or log payload bytes, metadata, raw addresses or input/output paths.
-
-## Install or update the binary and UNIX manual
-
-Run the installer from this source checkout. It builds the release executable and installs both the binary and matching manual every time; rerunning updates both. No administrator command runs automatically.
+`encode` reads an attached raw 2D unsigned 16-bit NRRD and writes JPEG-LS. `decode` writes that NRRD profile from a 16-bit JPEG-LS source. `inspect` validates the header and reports dimensions/precision; `validate` additionally decodes all samples. The library also supports 2–15 meaningful bits, but CLI NRRD output rejects these because a plain uint16 NRRD cannot preserve the narrower declared precision. Mapping tables and APP/COM/SPIFF metadata can be inspected and validated through the library-supported profiles. NRRD export rejects retained metadata with status 4 before writing payload bytes or replacing an existing file; this interchange profile cannot preserve that interpretation. Explicit predecessor compatibility and mapped-output options are library APIs, not CLI flags.
 
 ```sh
-DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer ./Scripts/install-cli.sh --prefix "$HOME/.local"
-"$HOME/.local/bin/swiftjls" --help
-man -M "$HOME/.local/share/man" swiftjls
+swift run swiftjls-cli encode -i input.nrrd -o output.jls
+swift run swiftjls-cli inspect -i output.jls --json
+swift run swiftjls-cli validate -i output.jls
+swift run swiftjls-cli decode -i output.jls -o restored.nrrd
+swift run swiftjls-cli encode -i input.nrrd -o near.jls --mode near-lossless --max-error 3
+swift run swiftjls-cli capabilities --json
 ```
 
-Default prefix is `/usr/local`; choose an absolute writable prefix. Add its `bin` directory to PATH. For ordinary `man swiftjls` lookup with a custom prefix, configure MANPATH to include `PREFIX/share/man` while retaining system defaults (for example `export MANPATH="$HOME/.local/share/man:${MANPATH:-}"`). Direct `man -M` needs no index refresh. The page is [ManPages/swiftjls.1](ManPages/swiftjls.1). A packaging recipe must install both `PREFIX/bin/swiftjls` (0755) and `PREFIX/share/man/man1/swiftjls.1` (0644).
+`-` means stdin/stdout. Binary payloads use stdout exclusively; encode/decode `--json` reports use stderr. Pipe serialisation involves copies. Slow pipes obey the deadline and cancellation; a failed binary stdout operation may leave partial bytes. Files use a sibling final-output transaction, atomic no-replace publication by default and atomic replacement with `--overwrite`; failure removes the incomplete transaction.
 
-`--destdir /absolute/staging` (or DESTDIR) stages those same prefix-relative locations for packaging. `--binary /absolute/built/swiftjls` avoids a rebuild and verifies `--version` against VERSION before writing. `--scratch-path` selects a build directory; `--disable-package-sandbox` is only an explicit workaround for nested sandbox restrictions. An existing destination symlink/directory is refused. Merely copying the executable does not install its manual.
+The bounded NRRD profile follows the [official specification](https://teem.sourceforge.net/nrrd/format.html), reviewed 10 October 2026 (format versions 1–5, attached header, type, dimensions, sizes, raw encoding and explicit endian). Headers are limited to 16 KiB, 32 lines and 1024 bytes per line. Duplicate/unknown fields, detached files/URLs, key-value extensions, compression, signed/colour types and ancillary interpretation fields are rejected. LF and CRLF and both endians are accepted. Comments are ignored. This is a deliberately restricted interchange profile, not a general NRRD implementation.
 
-## Exit codes and validation
+Use `help [command]` or `--help` for command-local options. `--threads` is a ceiling; this scalar implementation uses one worker. `--max-memory` defaults to 1 GiB and `--timeout` to 120 seconds. Unsupported acceleration fails before input opens. Lossless is the default; near-lossless requires `--max-error 1...255`.
 
-Implemented exit statuses: 0 success/help/version, 2 invalid usage, 4 unavailable codec operation, 6 output failure including closed pipes. Reserved future codec codes: 3 malformed input, 5 resource/deadline, 7 internal failure, 130 user cancellation. No successful compression is inferred from a zero-exit capability query. Library errors cannot terminate the host application; exit handling exists only in this executable.
+Diagnostics are on stderr: `-v` through `-vvvvv`, repeated `-v`, `--verbose LEVEL`, `--verbose=LEVEL`, `-verbose: LEVEL` and plus strings select levels 1–5. Explicit values set; repeated flags increment. Quiet conflicts with verbosity. No payload bytes, metadata, addresses or filenames are logged.
 
-`Scripts/test-cli.py --binary /absolute/built/swiftjls --output /new/evidence/directory` checks the real executable, help, verbosity, JSON separation, invalid inputs, unavailable operations, closed pipes and staged manual install/update/rendering. [Qualification](Documentation/Engineering/OS27CLI/README.md) records exact executed commands and platform limits. Later codec milestones must add real stream/format/overwrite/cancellation tests before advertising those operations.
+Exit statuses: 0 success, 2 usage, 3 malformed input, 4 unsupported format/feature/layout/backend, 5 resource/deadline, 6 I/O, 7 internal failure, 130 cancellation.
+
+`Scripts/install-cli.sh --prefix /absolute/prefix` installs the executable and [manual](ManPages/swiftjls-cli.1) together. `--destdir /absolute/staging` stages packaging. `--binary /absolute/swiftjls-cli` uses a prebuilt matching version. No system installation is performed by tests. `man -M PREFIX/share/man swiftjls-cli` finds a custom-prefix manual.
+
+`Scripts/test-cli.py` checks help, diagnostics and staged installation. `Scripts/test-payload-cli.py` checks real round trips, streams, malformed headers, overwrite refusal, cleanup and cancellation. Both accept `--binary` and `--output`; see [migration evidence](Documentation/Engineering/CodecMigration/README.md) for executed results and open gates.

@@ -1,0 +1,38 @@
+{
+  "profile_sha256": "783bb13a7285615a19c10d51561d5e6489f00d6da6cc0f9526b100599258360b",
+  "allocation_stack_count": 922,
+  "allocation_calls": 17213,
+  "groups": {
+    "resource configuration containers": 68,
+    "validated header and descriptor containers": 15644,
+    "caller-created pixel owners (outside codec boundaries)": 113,
+    "owner and lease control/error allocations": 172,
+    "bounded gradient tables": 180,
+    "bounded entropy contexts": 822,
+    "caller/runtime stacks referencing SwiftJLS types": 1,
+    "metadata validation containers": 74,
+    "codec boundary values, closures and errors (not byte-count classified)": 52,
+    "compressed output writer and final Data": 87
+  },
+  "full_sample_arrays_under_encode_or_caller_decode": 0,
+  "revision": "984d164f09233f3f180a1b600d1f19037e4c5457",
+  "scope": "Ten encode/caller-decode profiles plus legacy, extended, mapping and subsampled caller decodes",
+  "limitations": [
+    "Whole-process counts include setup/runtime. Stack classification does not measure arbitrary memcpy bytes.",
+    "Stack counts do not establish per-operation peak workspace or identify arbitrary inlined copies."
+  ],
+  "source_review": [
+    "IntoJLS and IntoJ2K adapters forward scoped borrows directly without allocating or repacking samples.",
+    "ScalarSampleReader/Writer retain only borrowed pointer and layout values.",
+    "Scalar lossless kernels read the source owner and reconstruct in the final caller destination; no full sample array is created.",
+    "Parser/header, gradient/context and compressed-data allocations are not decoded-image hand-off storage."
+  ],
+  "workflow": "https://github.com/raster-labs/SwiftJLS/actions/runs/38050318859",
+  "head_revision": "1886dbfd8bf3af92cdc19a1d1bf0fc72ab99a82f",
+  "codec_revision": "da5bd84b13430226a3cbee192f2c32792da368a1",
+  "stack_evidence": {
+    "archive": "parity-profile-heap-classification.stacks.json.gz",
+    "uncompressed_sha256": "5378b33f219dcf2b590bc38f3bba72d3181107fdbc87ec2b65f475bd1e2adb46",
+    "archive_sha256": "13e56a485662c0bc1562edcc44b46745ae0c1ba052a36fdfcb24d0ef6d0852f1"
+  }
+}
