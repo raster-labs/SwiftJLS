@@ -54,6 +54,8 @@ jobs:
       - run: swift test
       - run: swift build -c release
       - run: swift test -c release
+      - name: Payload CLI regression
+        run: python3 Scripts/test-payload-cli.py --binary .build/release/swiftjls-cli --output /tmp/payload-cli.json
 
   macos:
     name: macOS 26 / Swift 6.2
@@ -102,6 +104,6 @@ jobs:
             echo "        .product(name: \"$NAME\", package: \"package\")])]"
             echo ')'
           } > Package.swift
-          printf 'import %s\nprint("consumer built")\n' "$NAME" > Sources/Consumer/main.swift
+          cp "$GITHUB_WORKSPACE/package/Examples/IndependentConsumer/Sources/Consumer/main.swift" Sources/Consumer/main.swift
           swift build
           swift run Consumer

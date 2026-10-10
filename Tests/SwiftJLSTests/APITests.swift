@@ -4,31 +4,16 @@ import Testing
 import SwiftJLS
 
 @Suite struct APITests {
-    @Test func noSyntheticBytesAdvertisedAsCompressedFormats() async throws {
+    @Test func nativeCodecCapabilitiesAndMalformedInputAreExplicit() async throws {
         let encoder = try SwiftJLS.Encoder()
         let decoder = try SwiftJLS.Decoder()
-        #expect(encoder.capabilities.formats.isEmpty)
-        #expect(!encoder.capabilities.canEncode)
-        #expect(!decoder.capabilities.canInspect)
-        #expect(!decoder.capabilities.canDecode)
+        #expect(encoder.capabilities.formats == ["JPEG-LS"])
+        #expect(encoder.capabilities.canEncode && decoder.capabilities.canDecode && decoder.capabilities.canInspect)
+        #expect(throws: CodecError.self) { try decoder.inspect(Data()) }
+        await #expect(throws: CodecError.self) { try await decoder.decode(Data()) }
         let descriptor = try ImageDescriptor.greyscale16(width: 3, height: 2)
-        let image = try ImageDestination.allocate(descriptor: descriptor).writeUInt16 { x, y in
-            UInt16(x + y * 3)
-        }
-        await #expect(throws: CodecError(.unsupportedFeature, "Codec algorithms are deferred; Milestone 1 provides API and storage only.")) {
-            try await encoder.encode(image)
-        }
-        #expect(throws: CodecError(.unsupportedFeature, "Format inspection is deferred until codec migration.")) {
-            try decoder.inspect(Data())
-        }
-        await #expect(throws: CodecError(.unsupportedFeature, "Codec algorithms are deferred; no image was decoded.")) {
-            try await decoder.decode(Data())
-        }
         let destination = try ImageDestination.allocate(descriptor: descriptor)
-        await #expect(throws: CodecError(.unsupportedFeature, "Codec algorithms are deferred; destination was not written.")) {
-            try await decoder.decode(Data(), into: destination)
-        }
-        // Preflight rejection leaves caller storage unwritten and still usable.
+        await #expect(throws: CodecError.self) { try await decoder.decode(Data(), into: destination) }
         let after = try destination.writeUInt16 { _, _ in 42 }
         #expect(try after.sampleUInt16(x: 2, y: 1) == 42)
     }
@@ -38,7 +23,7 @@ import SwiftJLS
         #expect(EncodeOptions().copyPolicy == .requireSharedStorage)
         #expect(DecodeOptions().metadataPolicy == .preserve)
         #expect(throws: CodecError.self) { try EncoderConfiguration(mode: .nearLossless(maximumAbsoluteError: 0)) }
-        #expect(throws: CodecError.self) { try EncoderConfiguration(mode: .nearLossless(maximumAbsoluteError: 1)) }
+        #expect(try EncoderConfiguration(mode: .nearLossless(maximumAbsoluteError: 1)).mode == .nearLossless(maximumAbsoluteError: 1))
         #expect(throws: CodecError.self) { try EncoderConfiguration(mode: .lossy) }
         let unknown = OperationReport(backend: .scalarCPU, fidelity: .exactSamples)
         #expect(unknown.pixelAllocationCount == nil)

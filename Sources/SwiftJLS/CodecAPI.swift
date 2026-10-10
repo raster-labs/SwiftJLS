@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import Foundation
 
-/// No codec-specific controls are implemented during contract feasibility.
+/// Codec-specific controls are added only with independently tested behaviour.
 public struct CodecOptions: Sendable, Equatable { public init() {} }
 public struct EncoderConfiguration: Sendable, Equatable {
     public let mode: CompressionMode
@@ -10,8 +10,11 @@ public struct EncoderConfiguration: Sendable, Equatable {
         if case .nearLossless(let bound) = mode, bound <= 0 {
             throw CodecError(.invalidArgument, "Near-lossless error must be positive.")
         }
-        guard mode == .lossless else {
-            throw CodecError(.unsupportedFeature, "Only the default lossless configuration is modelled in Milestone 1.")
+        if case .nearLossless(let bound) = mode, bound > 255 {
+            throw CodecError(.invalidArgument, "JPEG-LS NEAR must not exceed 255.")
+        }
+        guard mode != .lossy else {
+            throw CodecError(.unsupportedFeature, "JPEG-LS supports lossless and bounded near-lossless coding.")
         }
         self.mode = mode; self.codecOptions = codecOptions
     }
@@ -88,10 +91,10 @@ public struct DecodedImage: Sendable {
     public let report: OperationReport
 }
 
-/// Contract feasibility holder. No real compressed format is supported yet.
+/// Native JPEG-LS encoder. Capabilities describe the currently migrated profile.
 public struct Encoder: Sendable {
     public let configuration: EncoderConfiguration
-    public static let capabilities = CodecCapabilities.contractOnly
+    public static let capabilities = ScalarCodec.capabilities
     public var capabilities: CodecCapabilities { Self.capabilities }
     public init(configuration: EncoderConfiguration = .default) throws { self.configuration = configuration }
 
@@ -103,32 +106,32 @@ public struct Encoder: Sendable {
               image.storage.byteCount <= options.resourceLimits.maximumMemoryBytes else {
             throw CodecError(.resourceLimitExceeded, "Image exceeds operation limits.")
         }
-        throw CodecError(.unsupportedFeature, "Codec algorithms are deferred; Milestone 1 provides API and storage only.")
+        return try ScalarCodec.encode(image, configuration: configuration, options: options)
     }
 }
 
-/// Inspection and both decode call shapes deliberately reject compressed input.
+/// Bounded inspection and native decoding into owned sample storage.
 public struct Decoder: Sendable {
     public let configuration: DecoderConfiguration
-    public static let capabilities = CodecCapabilities.contractOnly
+    public static let capabilities = ScalarCodec.capabilities
     public var capabilities: CodecCapabilities { Self.capabilities }
     public init(configuration: DecoderConfiguration = .init()) throws { self.configuration = configuration }
 
     public func inspect(_ data: Data, options: DecodeOptions = .init()) throws -> ImageInfo {
         try validateInput(data, options)
-        throw CodecError(.unsupportedFeature, "Format inspection is deferred until codec migration.")
+        return try ScalarCodec.inspect(data, options: options)
     }
     @concurrent public func decode(_ data: Data, options: DecodeOptions = .init()) async throws -> DecodedImage {
         try Task.checkCancellation()
         try validateInput(data, options)
-        throw CodecError(.unsupportedFeature, "Codec algorithms are deferred; no image was decoded.")
+        return try ScalarCodec.decode(data, into: nil, options: options)
     }
     @concurrent public func decode(_ data: Data, into destination: ImageDestination,
                                   options: DecodeOptions = .init()) async throws -> DecodedImage {
         try Task.checkCancellation()
         try validateInput(data, options)
         // Preflight rejection performs no write; the caller may still initialise it.
-        throw CodecError(.unsupportedFeature, "Codec algorithms are deferred; destination was not written.")
+        return try ScalarCodec.decode(data, into: destination, options: options)
     }
 }
 

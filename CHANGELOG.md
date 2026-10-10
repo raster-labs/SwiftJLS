@@ -1,5 +1,13 @@
 # Change log
 
+## Scalar codec migration — 2026-10-10 (unreleased)
+
+- Adapt the pinned JLSwift scalar kernels behind the common owning API; add lossless and near-lossless greyscale coding for 2–16 meaningful bits.
+- Encode directly from borrowed samples and decode into final caller storage; near-lossless prediction uses two rows.
+- Bound entropy parsing, output growth, cancellation and custom predictor-table admission. Correct low-precision default thresholds.
+- Implement `swiftjls-cli` payload commands, bounded NRRD streams, atomic output and cancellation; align help/manual/install with the required executable name.
+- Add 258 synthetic independent-oracle cases and source provenance. See [executed evidence and remaining gates](Documentation/Engineering/CodecMigration/README.md).
+
 ## Migration preparation — 2026-10-09 (unreleased)
 
 - Reject re-entrant and competing writable-storage operations before acquiring the mutex, avoiding the Swift 6.2 Linux try-lock trap while retaining exclusive leases and cleanup after throwing borrows.
