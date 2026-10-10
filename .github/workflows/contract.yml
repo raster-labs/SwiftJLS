@@ -139,6 +139,13 @@ jobs:
         with:
           name: cross-codec-heap-observation
           path: /tmp/heap-observation
+      - name: Verify allocator evidence detects a hidden frame copy
+        run: python3 Scripts/StorageEvidence/mutate-copy.py --baseline /tmp/heap-observation --output /tmp/copy-mutation
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: cross-codec-copy-mutation
+          path: /tmp/copy-mutation
 
 
   macos-intel:
