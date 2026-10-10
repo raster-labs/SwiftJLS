@@ -4,7 +4,7 @@ import argparse,hashlib,json,pathlib,struct,subprocess,tempfile
 p=argparse.ArgumentParser();p.add_argument('--oracle',type=pathlib.Path,required=True);p.add_argument('--fixtures',type=pathlib.Path,required=True);p.add_argument('--encoded',type=pathlib.Path,required=True);p.add_argument('--report',type=pathlib.Path,required=True);a=p.parse_args();results=[]
 with tempfile.TemporaryDirectory() as tmp:
  tmp=pathlib.Path(tmp)
- for manifest in ['mapping','extended','legacy-profiles']:
+ for manifest in ['mapping','extended','legacy-profiles','legacy-combined']:
   for case in json.loads((a.fixtures/(manifest+'.json')).read_text())['cases']:
    name=case['name'];reference=(a.fixtures/(name+'.u16le')).read_bytes()
    assert hashlib.sha256(reference).hexdigest()==case['u16le_sha256']
@@ -12,7 +12,7 @@ with tempfile.TemporaryDirectory() as tmp:
    subprocess.run([str(a.oracle.resolve()),'decode',str(source),str(dest)],check=True,stdout=subprocess.DEVNULL)
    decoded=dest.read_bytes();values=list(decoded) if case['meaningfulBits']<=8 else list(struct.unpack('<'+'H'*(len(decoded)//2),decoded))
    c=case['components'];plane=case['width']*case['height']
-   if manifest!='legacy-profiles' and case['interleave']:
+   if manifest in ['mapping','extended'] and case['interleave']:
     values=[values[i*c+channel] for channel in range(c) for i in range(plane)]
    actual=struct.pack('<'+'H'*len(values),*values)
    assert actual==reference,name

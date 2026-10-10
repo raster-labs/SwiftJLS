@@ -72,3 +72,12 @@ do {
     throw CodecError(.internalFailure, "Runtime cancellation was ignored")
 } catch is CancellationError {}
 print("Apple runtime passed: direct storage, RGB/HP, mapping, metadata, Watch limits and cancellation.")
+
+let legacyDecoder = try Decoder(configuration: .init(codecOptions: .init(restartIntervalLines: 0, hpInterpretation: .legacyJLSwift)))
+let combined = try Data(contentsOf: fixtureDirectory.appendingPathComponent("legacy-combined-p8-i2-hp3-n1.jls"))
+let expected = try Data(contentsOf: fixtureDirectory.appendingPathComponent("legacy-combined-p8-i2-hp3-n1.u16le"))
+let legacyResult = try await legacyDecoder.decode(combined, options: bounded)
+try legacyResult.image.storage.withUnsafeBytes { bytes in
+    guard bytes.elementsEqual(expected) else { throw CodecError(.internalFailure, "Runtime legacy mapping/HP order failed") }
+}
+print("Combined legacy mapping/HP runtime passed.")

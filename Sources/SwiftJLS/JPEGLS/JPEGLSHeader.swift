@@ -46,7 +46,7 @@ struct JPEGLSHeader {
     let outputBits: Int
     let mapsSamples: Bool
     let metadataBytes: Int
-    var near: Int { records.map(\.near).max() ?? 0 }
+    var near: Int { records.reduce(0) { max($0, $1.near) } }
     var parameters: JPEGLSPresetParameters { records[0].parameters }
     var scans: [Range<Int>] { records[0].ranges }
     var restartInterval: Int { records[0].restartInterval }
@@ -101,7 +101,7 @@ struct JPEGLSHeader {
         }
     }
     func fidelity(budget: CodecBudget) throws -> Fidelity {
-        if near > 0 && colourTransform != .none { return .boundedError((1 << bits) - 1) }
+        if near > 0 && colourTransform != .none { return .boundedError((1 << outputBits) - 1) }
         guard near > 0 else { return .exactSamples }
         guard mapsSamples, let mapping else { return .boundedError(near) }
         // NEAR bounds index error. A nonlinear lookup requires a separately
@@ -163,8 +163,10 @@ struct JPEGLSHeader {
                           cursor == bytes.count, !needsDirectoryEnd else { throw malformed() }
                     let mapping = try tables.isEmpty ? nil : JPEGLSMappingTables(tables: Array(tables.values), componentTableIDs: selectors)
                     let outputBits = codecOptions.mappingOutputPrecision ?? f.bits
-                    let mapsSamples = codecOptions.mappingOutputPrecision != nil && selectors.contains(where: { $0 != 0 })
+                    let legacyMappedHP = codecOptions.hpInterpretation == .legacyJLSwift && transform != nil && transform != CodecOptions.ColourTransform.none
+                    let mapsSamples = (codecOptions.mappingOutputPrecision != nil || legacyMappedHP) && selectors.contains(where: { $0 != 0 })
                     if mapsSamples {
+                        guard !legacyMappedHP || outputBits >= f.bits else { throw unsupported("Legacy HP output precision must hold the inverse transform range.") }
                         for id in selectors {
                             if id == 0 {
                                 guard outputBits >= f.bits else { throw unsupported("Unmapped components do not fit the requested precision.") }
@@ -400,7 +402,7 @@ struct JPEGLSHeader {
                     }
                     for component in indices where selectors[component] != 0 {
                         guard let table = tables[selectors[component]], table.count == params.maxValue + 1 else { throw malformed() }
-                        guard transform == nil || transform == CodecOptions.ColourTransform.none else { throw unsupported("Mapping tables and HP transforms cannot be combined.") }
+                        guard transform == nil || transform == CodecOptions.ColourTransform.none || codecOptions.hpInterpretation == .legacyJLSwift else { throw unsupported("Mapping tables with HP require explicit predecessor interpretation.") }
                     }
                     let expected = restartInterval > 0 ? (f.height + restartInterval - 1) / restartInterval : 1
                     directoryBytes = try checkedAdd(directoryBytes, checkedMultiply(expected, MemoryLayout<Range<Int>>.stride * 2))

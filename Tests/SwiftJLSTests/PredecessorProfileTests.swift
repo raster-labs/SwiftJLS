@@ -74,4 +74,18 @@ struct PredecessorProfileTests {
         }
     }
 
+    @Test func predecessorCombinedMappingAndHPOrder() async throws {
+        let manifest = try JSONDecoder().decode(ComponentCodecTests.Manifest.self, from: helper.fixture("legacy-combined", ext: "json"))
+        let decoder = try Decoder(configuration: .init(codecOptions: .init(restartIntervalLines: 0, hpInterpretation: .legacyJLSwift)))
+        for f in manifest.cases {
+            let data = try helper.fixture(f.name, ext: "jls")
+            let decoded = try await decoder.decode(data)
+            try helper.check(decoded.image, against: helper.fixture(f.name, ext: "u16le"), maximumError: 0, padding: false)
+            #expect(decoded.image.metadata.entries[JPEGLSMappingTables.key] == nil)
+            #expect(decoded.report.fidelity == (f.near == 0 ? .exactSamples : .boundedError((1 << f.meaningfulBits) - 1)))
+            let encoded = try await Encoder().encode(decoded.image)
+            try helper.check(try await Decoder().decode(encoded.data).image, against: helper.fixture(f.name, ext: "u16le"), maximumError: 0, padding: false)
+        }
+    }
+
 }

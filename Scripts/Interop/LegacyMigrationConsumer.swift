@@ -17,11 +17,13 @@ for f in legacyManifest.cases {
 }
 print("Wrote six explicitly decoded legacy HP migrations for independent sample verification.")
 
+for manifestName in ["legacy-profiles", "legacy-combined"] {
 let legacyProfiles = try JSONDecoder().decode(ComponentManifest.self,
-    from: Data(contentsOf: directory.appendingPathComponent("legacy-profiles.json")))
+    from: Data(contentsOf: directory.appendingPathComponent(manifestName + ".json")))
 for f in legacyProfiles.cases {
     let data = try Data(contentsOf: directory.appendingPathComponent(f.name + ".jls"))
     let image = try await legacyDecoder.decode(data).image
     let encoded = try await Encoder().encode(image)
     try encoded.data.write(to: output.appendingPathComponent(f.name + ".jls"))
+}
 }

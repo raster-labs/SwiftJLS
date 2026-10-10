@@ -59,3 +59,9 @@ for near in [0,3]:
  name=f'subsampled-zero-n{near}';data=(out/(name+'.jls')).read_bytes()
  extras.append(dict(name=name,sha256=hashlib.sha256(data).hexdigest()))
 (out/'legacy-extra.json').write_text(json.dumps(dict(licence='Apache-2.0 synthetic samples; subsampled generator adapted from pinned predecessor tests',predecessor='15aa75164145414f3d5ffb801401c52d40cc5bcc',cases=extras),indent=2)+'\n')
+
+m=json.loads((a.legacy/'legacy-combined.json').read_text());m.update(predecessor='15aa75164145414f3d5ffb801401c52d40cc5bcc',licence='Apache-2.0 original synthetic samples')
+for c in m['cases']:
+ for ext in ['jls','u16le']:
+  data=(a.legacy/(c['name']+'.'+ext)).read_bytes();(out/(c['name']+'.'+ext)).write_bytes(data);c[ext+'_sha256']=hashlib.sha256(data).hexdigest()
+(out/'legacy-combined.json').write_text(json.dumps(m,indent=2)+'\n')

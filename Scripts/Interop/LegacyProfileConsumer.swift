@@ -60,3 +60,30 @@ if CommandLine.arguments.count > 2 {
     }
     print("Predecessor verified both subsampled zero-run fixtures")
 }
+
+var combined: [[String: Any]] = []
+for bits in [8, 12] {
+    let maximum = (1 << bits) - 1
+    let planes = (0..<3).map { c in (0..<3).map { y in (0..<7).map { x in (x * 73 + y * 251 + c * 113) & maximum } } }
+    let image = try MultiComponentImageData.rgb(redPixels: planes[0], greenPixels: planes[1], bluePixels: planes[2], bitsPerSample: bits)
+    let table = try JPEGLSMappingTable(id: 7, entryWidth: 2, entries: (0...maximum).map { maximum - $0 })
+    for mode: JPEGLSInterleaveMode in [.none, .line, .sample] {
+        for transform: JPEGLSColorTransformation in [.hp1, .hp2, .hp3] {
+            for near in [0, 1] {
+                let name = "legacy-combined-p\(bits)-i\(mode.rawValue)-hp\(transform.rawValue)-n\(near)"
+                let encoded = try JPEGLSEncoder().encode(image, configuration: .init(near: near, interleaveMode: mode, colorTransformation: transform, mappingTable: table))
+                let decoded = try JPEGLSDecoder().decode(encoded)
+                var raw = Data()
+                for component in decoded.components { for row in component.pixels { for value in row {
+                    raw.append(UInt8(value & 255)); raw.append(UInt8(value >> 8))
+                } } }
+                try encoded.write(to: output.appendingPathComponent(name + ".jls"))
+                try raw.write(to: output.appendingPathComponent(name + ".u16le"))
+                combined.append(["name": name, "width": 7, "height": 3, "meaningfulBits": bits, "near": near,
+                    "components": 3, "interleave": mode.rawValue, "rgb": true, "transform": transform.rawValue])
+            }
+        }
+    }
+}
+try JSONSerialization.data(withJSONObject: ["cases": combined], options: [.prettyPrinted, .sortedKeys])
+    .write(to: output.appendingPathComponent("legacy-combined.json"))

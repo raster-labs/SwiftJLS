@@ -276,16 +276,24 @@ enum ComponentCodec {
                         offset: location.offset, rowBytes: location.rowBytes, pixelStride: location.pixelStride,
                         sampleBytes: d.storageBits / 8, littleEndian: d.byteOrder == .littleEndian)
                 }
+                let mappingTables: [JPEGLSMappingTable?] = (0..<3).map { component in
+                    guard header.mapsSamples, let mapping = header.mapping else { return nil }
+                    return mapping.tables.first { $0.id == mapping.componentTableIDs[component] }
+                }
                 // Prediction is complete. Invert in the final caller allocation,
                 // before sealing; no transformed frame or repack is allocated.
                 for i in 0..<(d.width * d.height) {
                     if i & 63 == 0 { try budget.check() }
-                    let rgb = HPTransform.inverse(Int(views[0][i]), Int(views[1][i]), Int(views[2][i]),
+                    func value(_ component: Int) -> Int {
+                        let sample = Int(views[component][i])
+                        return mappingTables[component].map { Int($0.sample(sample)) } ?? sample
+                    }
+                    let rgb = HPTransform.inverse(value(0), value(1), value(2),
                         transform: header.colourTransform, bits: header.bits, interpretation: hpInterpretation)
                     views[0][i] = UInt16(rgb.0); views[1][i] = UInt16(rgb.1); views[2][i] = UInt16(rgb.2)
                 }
             }
-            try header.mapSamples(in: bytes, descriptor: d, budget: budget)
+            if header.colourTransform == .none { try header.mapSamples(in: bytes, descriptor: d, budget: budget) }
             try budget.check()
         }
         options.progress?(try .init(phase: .completed, completedUnits: samples, totalUnits: samples))

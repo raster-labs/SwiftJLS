@@ -56,8 +56,17 @@ jobs:
           SDK_NAME: ${{ matrix.sdk }}
           TARGET_TRIPLE: ${{ matrix.triple }}
         run: |
-          swift build --package-path Examples/AppleRuntimeConsumer -c release --product AppleRuntimeConsumer --triple "$TARGET_TRIPLE" --sdk "$(xcrun --sdk "$SDK_NAME" --show-sdk-path)"
-          BIN_DIR=$(swift build --package-path Examples/AppleRuntimeConsumer -c release --triple "$TARGET_TRIPLE" --sdk "$(xcrun --sdk "$SDK_NAME" --show-sdk-path)" --show-bin-path)
+          SDK_PATH=$(xcrun --sdk "$SDK_NAME" --show-sdk-path)
+          BIN_DIR=$(swift build --package-path Examples/AppleRuntimeConsumer -c release --triple "$TARGET_TRIPLE" --sdk "$SDK_PATH" --show-bin-path)
+          if [ "$SDK_NAME" = xrsimulator ]; then
+            # This runner's SwiftPM executable linker treats the XR triple as
+            # ELF (--defsym/$ORIGIN). Compile the same library target, then
+            # invoke the Swift driver with the explicit XR SDK for Mach-O linking.
+            swift build --package-path Examples/AppleRuntimeConsumer -c release --target SwiftJLS --triple "$TARGET_TRIPLE" --sdk "$SDK_PATH"
+            xcrun swiftc -O -swift-version 6 -target "$TARGET_TRIPLE" -sdk "$SDK_PATH" -I "$BIN_DIR/Modules" Examples/AppleRuntimeConsumer/Sources/AppleRuntimeConsumer/main.swift "$BIN_DIR/SwiftJLS.build/"*.o -o "$BIN_DIR/AppleRuntimeConsumer"
+          else
+            swift build --package-path Examples/AppleRuntimeConsumer -c release --product AppleRuntimeConsumer --triple "$TARGET_TRIPLE" --sdk "$SDK_PATH"
+          fi
           codesign --force --sign - "$BIN_DIR/AppleRuntimeConsumer"
           echo "RUNTIME_BINARY=$BIN_DIR/AppleRuntimeConsumer" >> "$GITHUB_ENV"
       - name: Execute inside the booted simulator
