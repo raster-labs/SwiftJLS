@@ -1,0 +1,71 @@
+name: Apple simulator runtime qualification
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+jobs:
+  runtime:
+    runs-on: macos-26
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - sdk: iphonesimulator
+            runtime: iOS-26
+            triple: arm64-apple-ios26.0-simulator
+          - sdk: appletvsimulator
+            runtime: tvOS-26
+            triple: arm64-apple-tvos26.0-simulator
+          - sdk: watchsimulator
+            runtime: watchOS-26
+            triple: arm64-apple-watchos26.0-simulator
+          - sdk: xrsimulator
+            runtime: xrOS-26
+            triple: arm64-apple-xros26.0-simulator
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Record and select available OS 26 runtime
+        env:
+          RUNTIME: ${{ matrix.runtime }}
+        run: |
+          swift --version
+          xcodebuild -version
+          xcrun simctl list runtimes --json > runtimes.json
+          xcrun simctl list devices available --json > devices.json
+          python3 - <<'PY'
+          import json,os
+          devices=json.load(open('devices.json'))['devices']
+          candidates=[d for runtime,rows in devices.items() if os.environ['RUNTIME'] in runtime for d in rows if d.get('isAvailable')]
+          if not candidates: raise SystemExit('Required simulator runtime/device unavailable; gate unexecuted')
+          device=candidates[0]
+          with open(os.environ['GITHUB_ENV'],'a') as f:f.write('SIMULATOR_ID='+device['udid']+'\n')
+          print(json.dumps(device))
+          PY
+      - name: Build ordinary release executable for the simulator SDK
+        env:
+          SDK_NAME: ${{ matrix.sdk }}
+          TARGET_TRIPLE: ${{ matrix.triple }}
+        run: |
+          swift build --package-path Examples/AppleRuntimeConsumer -c release --product AppleRuntimeConsumer --triple "$TARGET_TRIPLE" --sdk "$(xcrun --sdk "$SDK_NAME" --show-sdk-path)"
+          BIN_DIR=$(swift build --package-path Examples/AppleRuntimeConsumer -c release --triple "$TARGET_TRIPLE" --sdk "$(xcrun --sdk "$SDK_NAME" --show-sdk-path)" --show-bin-path)
+          codesign --force --sign - "$BIN_DIR/AppleRuntimeConsumer"
+          echo "RUNTIME_BINARY=$BIN_DIR/AppleRuntimeConsumer" >> "$GITHUB_ENV"
+      - name: Execute inside the booted simulator
+        run: |
+          xcrun simctl boot "$SIMULATOR_ID" || true
+          xcrun simctl bootstatus "$SIMULATOR_ID" -b
+          xcrun simctl spawn "$SIMULATOR_ID" "$RUNTIME_BINARY" "$GITHUB_WORKSPACE/Tests/SwiftJLSTests/Fixtures" | tee runtime.log
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: runtime-${{ matrix.sdk }}
+          path: |
+            runtimes.json
+            devices.json
+            runtime.log
