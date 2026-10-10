@@ -214,10 +214,14 @@ enum ComponentCodec {
               d.components == header.roles, d.colour == (header.rgb ? .rgb : .unknown) else {
             throw CodecError(.incompatibleImageLayout, "Destination geometry, precision or interpretation does not match the codestream.")
         }
+        let hMax = header.sampling.map { Int($0 >> 4) }.max() ?? 1
+        let vMax = header.sampling.map { Int($0 & 15) }.max() ?? 1
+        let destinationHMax = locations.map(\.horizontal).max() ?? 1
+        let destinationVMax = locations.map(\.vertical).max() ?? 1
         for (i, location) in locations.enumerated() {
-            let hMax = header.sampling.map { Int($0 >> 4) }.max() ?? 1
-            let vMax = header.sampling.map { Int($0 & 15) }.max() ?? 1
-            guard location.width == (header.width * Int(header.sampling[i] >> 4) + hMax - 1) / hMax,
+            guard location.horizontal * hMax == Int(header.sampling[i] >> 4) * destinationHMax,
+                  location.vertical * vMax == Int(header.sampling[i] & 15) * destinationVMax,
+                  location.width == (header.width * Int(header.sampling[i] >> 4) + hMax - 1) / hMax,
                   location.height == (header.height * Int(header.sampling[i] & 15) + vMax - 1) / vMax else {
                 throw CodecError(.incompatibleImageLayout, "Destination component sampling does not match the codestream.")
             }

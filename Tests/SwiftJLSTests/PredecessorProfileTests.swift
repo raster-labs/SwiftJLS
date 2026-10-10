@@ -88,4 +88,21 @@ struct PredecessorProfileTests {
         }
     }
 
+    @Test func smallPlanesCannotHideDifferentSamplingRatios() async throws {
+        var data = try helper.fixture("subsampled-zero-n0", ext: "jls")
+        data[7] = 0; data[8] = 1; data[9] = 0; data[10] = 1
+        let parsed = try JPEGLSHeader.parse(data, budget: .init(limits: .default))
+        data = data.prefix(parsed.records[0].ranges[0].lowerBound) + Data([0xe0, 255, 217])
+        let info = try Decoder().inspect(data)
+        _ = try await Decoder().decode(data)
+        let planes = try (0..<3).map { i in
+            try PlaneDescriptor(width: 1, height: 1, components: [i], offset: i * 2, rowBytes: 2, byteCount: (i + 1) * 2)
+        }
+        let wrong = try ImageDescriptor(width: 1, height: 1, meaningfulBits: 8,
+            components: info.descriptor.components, colour: .unknown, planes: planes)
+        let destination = try ImageDestination.allocate(descriptor: wrong)
+        await #expect(throws: CodecError.self) { try await Decoder().decode(data, into: destination) }
+        _ = try destination.write { $0.initializeMemory(as: UInt8.self, repeating: 0) }
+    }
+
 }
