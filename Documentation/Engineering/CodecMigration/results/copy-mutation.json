@@ -1,0 +1,52 @@
+{
+  "commands": [
+    {
+      "command": [
+        "swift",
+        "build",
+        "-c",
+        "release",
+        "-Xswiftc",
+        "-g",
+        "--package-path",
+        "/tmp/swiftjls-copy-mutation-483on4zz/SwiftJLS/Examples/CrossCodecConsumer"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "python3",
+        "/__w/SwiftJLS/SwiftJLS/Scripts/StorageEvidence/trace-heap.py",
+        "--binary",
+        "/tmp/swiftjls-copy-mutation-483on4zz/SwiftJLS/Examples/CrossCodecConsumer/.build/release/CrossCodecConsumer",
+        "--output",
+        "/tmp/copy-mutation/mutant"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "detected": true,
+  "source_sha256": "a63846d23fdc331fba8e967baeb5ca6dcdfcd8da1021f78805acf84c27b69663",
+  "mutated_sha256": "00aae47c1abba2dbefe2033ec36823d06d3b8f4464340c3df12d23519e432838",
+  "baseline_has_injected_allocator": false,
+  "mutant_consumer_passed": true,
+  "mutation": "One full descriptor-capacity copy into a new owner before every scalar encode; reports intentionally unchanged.",
+  "scope": "Allocator stack sensitivity; whole-process totals are not copy byte counts.",
+  "workflow": "https://github.com/raster-labs/SwiftJLS/actions/runs/38038658214",
+  "revision": "91ad84c2dee377c4075c3b81aa3b5b3f0a1e0add",
+  "injected_sample_array_allocations": 10,
+  "allocation_size_deltas": [
+    {
+      "requested_bytes": 1734,
+      "baseline_count": 4,
+      "mutant_count": 6
+    },
+    {
+      "requested_bytes": 2058,
+      "baseline_count": 4,
+      "mutant_count": 12
+    }
+  ],
+  "baseline_histogram_sha256": "fb476ceddc1242d58b05964a50515443aeff5f3ec156bc9d6dabd23b5e369c57",
+  "mutant_histogram_sha256": "4d66da467f35e120cf753dced4a60c766a8d7c5fbc1abae184d215c72cfb9faf"
+}

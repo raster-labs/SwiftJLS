@@ -68,8 +68,16 @@ with tempfile.TemporaryDirectory(prefix='swiftjls-copy-mutation-') as temporary:
     # Only the allocation section is used. Presence of a symbol in the binary,
     # a stack dump elsewhere, or a failed build is not detection.
     allocation_section = analysis.split('PEAK MEMORY CONSUMERS')[0]
-    detected = marker in allocation_section
-    report = dict(commands=commands, detected=detected,
+    stacks = subprocess.run(['swift', 'demangle'],
+        input=(output / 'mutant/allocation-stacks.txt').read_bytes(), capture_output=True, check=True).stdout.decode()
+    (output / 'mutant/allocation-stacks-demangled.txt').write_text(stacks)
+    # A small error/closure allocation in the helper is insufficient. Require
+    # the ten actual UInt8 sample-array allocations (five encodes per precision).
+    sample_arrays = sum(int(line.rsplit(';', 1)[1]) for line in stacks.splitlines()
+        if marker in line and 'SwiftJLS.OwnedImageStorage.init' in line
+        and 'Swift.Array.init(repeating:' in line)
+    detected = marker in allocation_section and sample_arrays == 10
+    report = dict(commands=commands, detected=detected, injected_sample_array_allocations=sample_arrays,
                   source_sha256=hashlib.sha256(original.encode()).hexdigest(),
                   mutated_sha256=hashlib.sha256(mutated.encode()).hexdigest(),
                   baseline_has_injected_allocator=False,
