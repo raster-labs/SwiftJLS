@@ -1,5 +1,9 @@
 name: Apple simulator runtime qualification
 on:
+  push:
+    paths:
+      - '.github/workflows/apple-runtime.yml'
+      - 'Examples/AppleRuntimeConsumer/**'
   workflow_dispatch:
 permissions:
   contents: read
