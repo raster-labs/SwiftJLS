@@ -3,7 +3,7 @@ import Foundation
 import Testing
 @testable import SwiftJLS
 
-private final class ComponentSentinelStorage: WritableImageStorage {
+final class ComponentSentinelStorage: WritableImageStorage {
     let owner: OwnedImageStorage
     init(count: Int) throws { owner = try .init(byteCount: count) }
     var byteCount: Int { owner.byteCount }

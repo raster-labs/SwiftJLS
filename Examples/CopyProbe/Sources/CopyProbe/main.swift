@@ -79,10 +79,10 @@ if heapOnly {
     let legacy = try Decoder(configuration: .init(codecOptions: .init(restartIntervalLines: 0,
         hpInterpretation: .legacyJLSwift, legacyMappingContinuations: true,
         legacyExtendedDimensions: true, legacyPresetDefaults: true)))
-    for manifest in ["legacy-combined", "legacy-profiles", "legacy-extra", "extended"] {
+    for manifest in ["legacy-combined", "legacy-profiles", "legacy-extra", "extended", "subsampled-nonzero"] {
         let cases = try JSONDecoder().decode(Manifest.self, from: Data(contentsOf: directory.appendingPathComponent(manifest + ".json"))).cases
         for item in cases {
-            let decoder = manifest == "extended" ? try Decoder() : legacy
+            let decoder = manifest.hasPrefix("legacy") ? legacy : try Decoder()
             let data = try Data(contentsOf: directory.appendingPathComponent(item.name + ".jls"))
             let destination = try ImageDestination.allocate(descriptor: decoder.inspect(data).descriptor)
             let output = try await decoder.decode(data, into: destination)

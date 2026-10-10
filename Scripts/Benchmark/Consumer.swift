@@ -60,8 +60,15 @@ func decode(_ data: Data, verify: Bool) async throws {
     }
 }
 #endif
+if let path = ProcessInfo.processInfo.environment["SWIFTJLS_BENCHMARK_DECODE"] {
+    try await decode(Data(contentsOf: URL(fileURLWithPath: path)), verify: true)
+}
 let reference = try await encode()
 try await decode(reference, verify: true)
+// Optional export is for a separate oracle experiment, never a timed benchmark.
+if let path = ProcessInfo.processInfo.environment["SWIFTJLS_BENCHMARK_EXPORT"] {
+    try reference.write(to: URL(fileURLWithPath: path))
+}
 for _ in 0..<warmups { _ = try await encode(); try await decode(reference, verify: false) }
 var encoding: [Double] = [], decoding: [Double] = []
 for _ in 0..<iterations {

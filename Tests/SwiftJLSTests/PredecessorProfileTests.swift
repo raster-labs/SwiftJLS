@@ -88,6 +88,43 @@ struct PredecessorProfileTests {
         }
     }
 
+    @Test func nonzeroSubsamplingMatchesPinnedPredecessor() async throws {
+        let manifest = try JSONDecoder().decode(ComponentCodecTests.Manifest.self, from: helper.fixture("subsampled-nonzero", ext: "json"))
+        for fixture in manifest.cases {
+            let data = try helper.fixture(fixture.name, ext: "jls")
+            let expected = try helper.fixture(fixture.name, ext: "u16le")
+            let info = try Decoder().inspect(data)
+            #expect(info.descriptor.planes.map(\.width) == [17,17,9])
+            #expect(info.descriptor.planes.map(\.height) == [19,5,10])
+            for order: ByteOrder in [.littleEndian, .bigEndian] {
+                let planes = try info.descriptor.planes.enumerated().map { i, p in
+                    try PlaneDescriptor(width: p.width, height: p.height, components: [i], offset: i * 2048 + 4,
+                        rowBytes: p.width * 2 + 10, byteCount: (i + 1) * 2048,
+                        horizontalSamplingFactor: p.horizontalSamplingFactor, verticalSamplingFactor: p.verticalSamplingFactor)
+                }
+                let shape = try ImageDescriptor(width: 17, height: 19, meaningfulBits: fixture.meaningfulBits,
+                    byteOrder: order, components: info.descriptor.components, colour: .unknown, planes: planes)
+                let storage = try ComponentSentinelStorage(count: shape.requiredByteCount)
+                let destination = try ImageDestination(descriptor: shape, storage: storage)
+                let decoded = try await Decoder().decode(data, into: destination)
+                #expect(decoded.image.storage.allocationID == destination.storage.allocationID)
+                #expect(decoded.report.fidelity == (fixture.near == 0 ? .exactSamples : .boundedError(fixture.near)))
+                try decoded.image.storage.withUnsafeBytes { bytes in
+                    var cursor = 0, touched = Set<Int>(), differences = 0
+                    for p in planes { for y in 0..<p.height { for x in 0..<p.width {
+                        let at = p.offset + y * p.rowBytes + x * 2
+                        let actual = order == .littleEndian ? Int(bytes[at]) | Int(bytes[at+1]) << 8 : Int(bytes[at]) << 8 | Int(bytes[at+1])
+                        let reference = Int(expected[cursor]) | Int(expected[cursor+1]) << 8
+                        if actual != reference { differences += 1 }
+                        cursor += 2; touched.insert(at); touched.insert(at+1)
+                    } } }
+                    #expect(cursor == expected.count && differences == 0)
+                    #expect(bytes.indices.filter { !touched.contains($0) }.allSatisfy { bytes[$0] == 0xa5 })
+                }
+            }
+        }
+    }
+
     @Test func smallPlanesCannotHideDifferentSamplingRatios() async throws {
         var data = try helper.fixture("subsampled-zero-n0", ext: "jls")
         data[7] = 0; data[8] = 1; data[9] = 0; data[10] = 1
