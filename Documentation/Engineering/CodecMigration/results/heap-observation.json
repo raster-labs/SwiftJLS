@@ -1,0 +1,48 @@
+{
+  "tool": "heaptrack 1.5.0",
+  "binary_sha256": "a1ba2ddb1a7f82c5795f5436e105f06ab360bcf74e8b9ec0b0b514c868e4d331",
+  "profile": "allocations.gz",
+  "profile_sha256": "5a74a5bda069e17cedd6a3fb00a6e026a4aa572aacb9a38aef0c4e5cafc1f6d8",
+  "build": "Swift release with debug symbols, no sanitizers",
+  "scope": "Whole-process real cross-codec consumer including setup and runtime allocations; not a zero-copy verdict.",
+  "commands": [
+    {
+      "command": [
+        "heaptrack",
+        "--version"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "heaptrack",
+        "-o",
+        "/tmp/heap-observation/allocations",
+        "/__w/SwiftJLS/SwiftJLS/Examples/CrossCodecConsumer/.build/x86_64-unknown-linux-gnu/release/CrossCodecConsumer"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "heaptrack_print",
+        "-f",
+        "/tmp/heap-observation/allocations.gz",
+        "-n",
+        "1000",
+        "-s",
+        "1000",
+        "-H",
+        "/tmp/heap-observation/sizes.tsv",
+        "-F",
+        "/tmp/heap-observation/allocation-stacks.txt"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "workflow": "https://github.com/raster-labs/SwiftJLS/actions/runs/38038243877",
+  "revision": "c2b5ce2114d16d7f4b74803604aafc7644a3cc9b",
+  "whole_process_allocator_calls": 5383,
+  "temporary_allocations": 644,
+  "reported_peak_heap": "160.54 KB",
+  "pixel_copy_accounting": "not yet classified"
+}

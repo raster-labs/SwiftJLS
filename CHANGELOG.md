@@ -7,7 +7,7 @@
 - Bound entropy parsing, output growth, cancellation and custom predictor-table admission. Correct low-precision default thresholds.
 - Implement `swiftjls-cli` payload commands, bounded NRRD streams, atomic output and cancellation; align help/manual/install with the required executable name.
 - Add independent scalar, preset, component and HP-transform fixtures with hashes and source provenance.
-- Add two-to-four-component planar/pixel layouts, line/sample scans, SPIFF RGB and lossless HP1/HP2/HP3 RGB transforms. Keep predecessor transform wire incompatibility explicit in the migration guide.
+- Add two-to-four-component planar/pixel layouts, line/sample scans, SPIFF RGB and lossless HP1/HP2/HP3 RGB transforms. Add explicit legacy HP decoding for known predecessor assets; preserve standard HP as the default.
 - Add direct 8-bit storage, explicit presets/MAXVAL and lossless/near-lossless row restarts; correct error sign normalisation and reject invalid decoder overrides.
 - Exercise real SwiftJ2K ↔ SwiftJLS storage adapters in an isolated development consumer. See [executed evidence and remaining gates](Documentation/Engineering/CodecMigration/README.md).
 

@@ -67,4 +67,31 @@ struct HPTransformTests {
         try ComponentCodecTests().check(decoded.image,
             against: ComponentCodecTests().fixture("hp3-c3-i1-p16-n0-1x19-edge", ext: "u16le"), maximumError: 0, padding: false)
     }
+    @Test func explicitLegacyMigrationPreservesSamplesAndLayout() async throws {
+        let helpers = ComponentCodecTests()
+        let manifest = try JSONDecoder().decode(ComponentCodecTests.Manifest.self,
+            from: helpers.fixture("components-legacy-hp", ext: "json"))
+        let options = try CodecOptions(restartIntervalLines: 0, hpInterpretation: .legacyJLSwift)
+        #expect(throws: CodecError.self) { try EncoderConfiguration(codecOptions: options) }
+        let decoder = try Decoder(configuration: .init(codecOptions: options))
+        for f in manifest.cases {
+            let original = try helpers.fixture(f.name, ext: "u16le")
+            let data = try helpers.fixture(f.name, ext: "jls")
+            for planar in [false, true] {
+                for order: ByteOrder in [.littleEndian, .bigEndian] {
+                    let descriptor = try helpers.descriptor(f, planar: planar, storageBits: 16, order: order)
+                    let destination = try ImageDestination.allocate(descriptor: descriptor)
+                    let image = try await decoder.decode(data, into: destination).image
+                    #expect(image.storage.allocationID == destination.storage.allocationID)
+                    try helpers.check(image, against: original, maximumError: 0, padding: false)
+                    let transform = try #require(CodecOptions.ColourTransform(rawValue: UInt8(f.transform ?? 0)))
+                    let migrated = try await Encoder(configuration: .init(codecOptions:
+                        .init(restartIntervalLines: 0, interleaveMode: .sample, colourTransform: transform))).encode(image)
+                    let decoded = try await Decoder().decode(migrated.data).image
+                    try helpers.check(decoded, against: original, maximumError: 0, padding: false)
+                }
+            }
+        }
+    }
+
 }

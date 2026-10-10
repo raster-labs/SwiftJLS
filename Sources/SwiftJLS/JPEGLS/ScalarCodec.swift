@@ -160,12 +160,13 @@ enum ScalarCodec {
             return result
         }
     }
-    static func decode(_ data: Data, into supplied: ImageDestination?, options: DecodeOptions) throws -> DecodedImage {
+    static func decode(_ data: Data, into supplied: ImageDestination?, options: DecodeOptions,
+                       hpInterpretation: CodecOptions.HPInterpretation = .standard) throws -> DecodedImage {
         let budget = CodecBudget(limits: options.resourceLimits)
         return try mapped {
             let header = try JPEGLSHeader.parse(data, budget: budget)
             if header.componentIDs.count > 1 {
-                return try ComponentCodec.decode(data, header: header, into: supplied, options: options, budget: budget)
+                return try ComponentCodec.decode(data, header: header, into: supplied, options: options, budget: budget, hpInterpretation: hpInterpretation)
             }
             let descriptor = try supplied?.descriptor ?? ImageDescriptor.greyscale16(width: header.width,
                 height: header.height, meaningfulBits: header.bits, limits: budget.limits)

@@ -22,8 +22,23 @@ enum HPTransform {
         }
     }
     static func inverse(_ first: Int, _ second: Int, _ third: Int,
-                        transform: CodecOptions.ColourTransform, bits: Int) -> (Int, Int, Int) {
+                        transform: CodecOptions.ColourTransform, bits: Int,
+                        interpretation: CodecOptions.HPInterpretation = .standard) -> (Int, Int, Int) {
         let modulus = 1 << bits, mask = modulus - 1, bias = modulus / 2
+        if interpretation == .legacyJLSwift {
+            // Adapted from JLSwift 15aa75164145414f3d5ffb801401c52d40cc5bcc,
+            // Core/JPEGLSColorTransformation.swift; explicit opt-in only.
+            switch transform {
+            case .none: return (first, second, third)
+            case .hp1: return ((first + second) & mask, second, (third + second) & mask)
+            case .hp2:
+                let red = (first + second) & mask
+                return (red, second, (third + (red + second) / 2) & mask)
+            case .hp3:
+                let red = (first + third) & mask
+                return (red, (second + (red + third) / 2) & mask, third)
+            }
+        }
         switch transform {
         case .none: return (first, second, third)
         case .hp1: return ((first + second - bias) & mask, second, (third + second - bias) & mask)

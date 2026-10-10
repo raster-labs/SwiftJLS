@@ -23,7 +23,7 @@ jobs:
       - name: Encode through standalone public API consumer
         run: |
           mkdir -p /tmp/interop/Sources/Consumer
-          cat Scripts/Interop/Consumer.swift Scripts/Interop/ComponentConsumer.swift > /tmp/interop/Sources/Consumer/main.swift
+          cat Scripts/Interop/Consumer.swift Scripts/Interop/ComponentConsumer.swift Scripts/Interop/LegacyMigrationConsumer.swift > /tmp/interop/Sources/Consumer/main.swift
           cat > /tmp/interop/Package.swift <<EOF_PACKAGE
           // swift-tools-version: 6.2
           import PackageDescription

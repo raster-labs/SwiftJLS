@@ -3,6 +3,9 @@ import Foundation
 
 /// Codec-specific controls are added only with independently tested behaviour.
 public struct CodecOptions: Sendable, Equatable {
+    /// Decoder-only interpretation for assets whose producer is known.
+    /// Never inferred from the ambiguous `mrfx` marker.
+    public enum HPInterpretation: Sendable { case standard, legacyJLSwift }
     /// HP reversible RGB transforms signalled by the private APP8 `mrfx` convention.
     /// Supported only for lossless, interleaved RGB with 8 or 16 meaningful bits.
     public enum ColourTransform: UInt8, Sendable { case none = 0, hp1 = 1, hp2 = 2, hp3 = 3 }
@@ -31,13 +34,15 @@ public struct CodecOptions: Sendable, Equatable {
     public let preset: Preset?
     public let interleaveMode: InterleaveMode
     public let colourTransform: ColourTransform
-    public init() { restartIntervalLines = 0; preset = nil; interleaveMode = .none; colourTransform = .none }
-    public init(restartIntervalLines: Int, preset: Preset? = nil, interleaveMode: InterleaveMode = .none, colourTransform: ColourTransform = .none) throws {
+    public let hpInterpretation: HPInterpretation
+    public init() { restartIntervalLines = 0; preset = nil; interleaveMode = .none; colourTransform = .none; hpInterpretation = .standard }
+    public init(restartIntervalLines: Int, preset: Preset? = nil, interleaveMode: InterleaveMode = .none, colourTransform: ColourTransform = .none, hpInterpretation: HPInterpretation = .standard) throws {
         guard (0...65535).contains(restartIntervalLines) else {
             throw CodecError(.invalidArgument, "Restart interval must be 0...65535 sample rows.")
         }
         self.restartIntervalLines = restartIntervalLines; self.preset = preset; self.interleaveMode = interleaveMode
         self.colourTransform = colourTransform
+        self.hpInterpretation = hpInterpretation
     }
 }
 
@@ -56,6 +61,9 @@ public struct EncoderConfiguration: Sendable, Equatable {
         }
         guard codecOptions.restartIntervalLines == 0 || codecOptions.interleaveMode == .none else {
             throw CodecError(.unsupportedFeature, "Restart intervals require non-interleaved scans.")
+        }
+        guard codecOptions.hpInterpretation == .standard else {
+            throw CodecError(.invalidArgument, "Legacy HP interpretation is decoder-only.")
         }
         guard codecOptions.colourTransform == .none ||
               (mode == .lossless && codecOptions.interleaveMode != .none && codecOptions.preset == nil) else {
@@ -164,7 +172,9 @@ public struct Decoder: Sendable {
     public static let capabilities = ScalarCodec.capabilities
     public var capabilities: CodecCapabilities { Self.capabilities }
     public init(configuration: DecoderConfiguration = .init()) throws {
-        guard configuration.codecOptions == CodecOptions() else {
+        guard configuration.codecOptions.restartIntervalLines == 0,
+              configuration.codecOptions.preset == nil, configuration.codecOptions.interleaveMode == .none,
+              configuration.codecOptions.colourTransform == .none else {
             throw CodecError(.invalidArgument, "Decode parameters come from the codestream; preset and restart overrides are encoder-only.")
         }
         self.configuration = configuration
@@ -177,14 +187,14 @@ public struct Decoder: Sendable {
     @concurrent public func decode(_ data: Data, options: DecodeOptions = .init()) async throws -> DecodedImage {
         try Task.checkCancellation()
         try validateInput(data, options)
-        return try ScalarCodec.decode(data, into: nil, options: options)
+        return try ScalarCodec.decode(data, into: nil, options: options, hpInterpretation: configuration.codecOptions.hpInterpretation)
     }
     @concurrent public func decode(_ data: Data, into destination: ImageDestination,
                                   options: DecodeOptions = .init()) async throws -> DecodedImage {
         try Task.checkCancellation()
         try validateInput(data, options)
         // Preflight rejection performs no write; the caller may still initialise it.
-        return try ScalarCodec.decode(data, into: destination, options: options)
+        return try ScalarCodec.decode(data, into: destination, options: options, hpInterpretation: configuration.codecOptions.hpInterpretation)
     }
 }
 

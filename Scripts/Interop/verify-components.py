@@ -8,7 +8,7 @@ a = p.parse_args()
 results = []
 with tempfile.TemporaryDirectory() as temporary:
     output = pathlib.Path(temporary) / 'decoded'
-    for f in json.loads((a.fixtures / 'components.json').read_text())['cases'] + json.loads((a.fixtures / 'components-hp.json').read_text())['cases']:
+    for f in json.loads((a.fixtures / 'components.json').read_text())['cases'] + json.loads((a.fixtures / 'components-hp.json').read_text())['cases'] + json.loads((a.fixtures / 'components-legacy-hp.json').read_text())['cases']:
         for ext, key in [('jls', 'encoded_sha256'), ('u16le', 'samples_sha256'), ('decoded.u16le', 'decoded_sha256')]:
             assert hashlib.sha256((a.fixtures / (f['name'] + '.' + ext)).read_bytes()).hexdigest() == f[key]
         raw = (a.fixtures / (f['name'] + '.u16le')).read_bytes()

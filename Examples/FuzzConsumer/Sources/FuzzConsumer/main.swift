@@ -30,7 +30,8 @@ let limits = try ResourceLimits(maximumCompressedBytes: 65536, maximumDecodedByt
     maximumMetadataBytes: 4096, maximumICCBytes: 1024, maximumWorkers: 1,
     deadlineSeconds: 0.1, maximumMemoryBytes: 8 * 1024 * 1024)
 let options = DecodeOptions(resourceLimits: limits)
-let decoder = try Decoder()
+let decoders = [try Decoder(), try Decoder(configuration: .init(codecOptions:
+    .init(restartIntervalLines: 0, hpInterpretation: .legacyJLSwift)))]
 var generator = Generator()
 var iterations = 0, accepted = 0, rejected = 0, decodeCalls = 0
 let start = ProcessInfo.processInfo.systemUptime
@@ -67,6 +68,7 @@ while ProcessInfo.processInfo.systemUptime - start < seconds {
     }
     try candidate.write(to: lastInput)
     do {
+        let decoder = decoders[(iterations / 8) % decoders.count]
         switch entry {
         case "inspect": _ = try decoder.inspect(candidate, options: options)
         case "owned":

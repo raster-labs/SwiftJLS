@@ -194,7 +194,7 @@ enum ComponentCodec {
         }
     }
     static func decode(_ data: Data, header: JPEGLSHeader, into supplied: ImageDestination?, options: DecodeOptions,
-                       budget: CodecBudget) throws -> DecodedImage {
+                       budget: CodecBudget, hpInterpretation: CodecOptions.HPInterpretation) throws -> DecodedImage {
         let d = try supplied?.descriptor ?? header.descriptor(limits: budget.limits)
         let locations = try locations(d, limits: budget.limits)
         guard d.width == header.width, d.height == header.height, d.meaningfulBits == header.bits,
@@ -259,7 +259,7 @@ enum ComponentCodec {
                 for i in 0..<(d.width * d.height) {
                     if i & 63 == 0 { try budget.check() }
                     let rgb = HPTransform.inverse(Int(views[0][i]), Int(views[1][i]), Int(views[2][i]),
-                        transform: header.colourTransform, bits: d.meaningfulBits)
+                        transform: header.colourTransform, bits: d.meaningfulBits, interpretation: hpInterpretation)
                     views[0][i] = UInt16(rgb.0); views[1][i] = UInt16(rgb.1); views[2][i] = UInt16(rgb.2)
                 }
             }
