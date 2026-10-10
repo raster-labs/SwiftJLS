@@ -4,7 +4,7 @@
 The HP reference executables and their licence remain outside this repository.
 """
 import argparse,base64,hashlib,io,json,pathlib,struct,subprocess,tempfile,urllib.request,zipfile
-p=argparse.ArgumentParser();p.add_argument('--candidates',type=pathlib.Path,required=True);p.add_argument('--report',type=pathlib.Path,required=True);a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--candidates',type=pathlib.Path,required=True);p.add_argument('--report',type=pathlib.Path,required=True);p.add_argument('--component-candidates',type=pathlib.Path);a=p.parse_args()
 url='https://www.itu.int/rec/dologin_pub.asp?id=T-REC-T.87-199806-I%21%21ZPF-E&lang=e&type=items';digest='c54f20d167485399d2094d3375151d2ec31535d4c32d92fb929b15fc364ea41a'
 archive=urllib.request.urlopen(url,timeout=120).read();assert hashlib.sha256(archive).hexdigest()==digest
 outer=zipfile.ZipFile(io.BytesIO(archive));software=zipfile.ZipFile(io.BytesIO(outer.read('software/T87/Software.zip')));reference=zipfile.ZipFile(io.BytesIO(software.read('software/T87/jlsrefV100.zip')))
@@ -23,7 +23,48 @@ def pgm(data):
  samples=list(raw) if maximum<256 else list(struct.unpack('>'+'H'*(len(raw)//2),raw))
  assert len(samples)==width*height
  return width,height,maximum,samples
+def component_cases(directory, cases):
+ results=[]
+ for case in cases:
+  entry=dict(name=case['name'])
+  try:
+   maximum=(1<<case['meaningfulBits'])-1
+   encoder=directory/('nlocoe.exe' if maximum<256 else 'nloco16e.exe')
+   decoder=directory/('nlocod.exe' if maximum<256 else 'nloco16d.exe')
+   plane=case['width']*case['height']
+   raw=base64.b64decode(case['samples']);expected=list(struct.unpack('<'+'H'*(len(raw)//2),raw))
+   assert len(expected)==plane*2 and case['interleave']==1 and case['components']==2
+   def decode(name,prefix):
+    outputs=[f'{prefix}{c}.pgm' for c in range(2)]
+    for file in outputs:(directory/file).unlink(missing_ok=True)
+    result=subprocess.run([str(decoder),name,*outputs],cwd=directory,capture_output=True,timeout=10)
+    assert result.returncode==0,result.stderr.decode(errors='replace')
+    samples=[]
+    for file in outputs:
+     width,height,declared,values=pgm((directory/file).read_bytes())
+     assert (width,height,declared)==(case['width'],case['height'],maximum)
+     samples.extend(values)
+    error=max(abs(x-y) for x,y in zip(samples,expected))
+    assert len(samples)==len(expected) and error<=case['near'],error
+    return samples,error
+   (directory/'component-input.jls').write_bytes(base64.b64decode(case['encoded']))
+   _,error=decode('component-input.jls','candidate-')
+   for c in range(2):
+    values=expected[c*plane:(c+1)*plane]
+    samples=bytes(values) if maximum<256 else struct.pack('>'+'H'*plane,*values)
+    (directory/f'source{c}.pgm').write_bytes(f"P5\n{case['width']} {case['height']}\n{maximum}\n".encode()+samples)
+   command=[str(encoder),'-c1',f"-e{case['near']}",'source0.pgm','source1.pgm','-ocomponent-reference.jls']
+   result=subprocess.run(command,cwd=directory,capture_output=True,timeout=10)
+   assert result.returncode==0,result.stderr.decode(errors='replace')
+   reconstructed,_=decode('component-reference.jls','reference-')
+   entry.update(passed=True,maximum_error=error,
+    reference_encoded=base64.b64encode((directory/'component-reference.jls').read_bytes()).decode(),
+    reference_decoded_u16le=base64.b64encode(struct.pack('<'+'H'*len(reconstructed),*reconstructed)).decode())
+  except Exception as error:entry.update(passed=False,error=str(error))
+  results.append(entry)
+ return results
 results=[]
+component_results=[]
 with tempfile.TemporaryDirectory(prefix='t87-conformance-') as temporary:
  directory=pathlib.Path(temporary)
  # Extract only named oracle resources, with original notices retained.
@@ -61,6 +102,8 @@ with tempfile.TemporaryDirectory(prefix='t87-conformance-') as temporary:
   except Exception as error:
    entry.update(passed=False,error=str(error),stdout=result.stdout.decode(errors='replace'),stderr=result.stderr.decode(errors='replace'))
   results.append(entry)
-report=dict(oracle='ITU T.87 HP conformance reference V1.00',archive_sha256=digest,source=url,cases=results)
+ if a.component_candidates:
+  component_results=component_cases(directory,json.loads(a.component_candidates.read_text())['cases'])
+report=dict(component_cases=component_results,oracle='ITU T.87 HP conformance reference V1.00',archive_sha256=digest,source=url,cases=results)
 a.report.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
-assert all(r['passed'] or r.get('unsupported',False) for r in results)
+assert all(r['passed'] or r.get('unsupported',False) for r in results + component_results)

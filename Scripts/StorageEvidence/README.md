@@ -1,0 +1,9 @@
+# Storage evidence tools
+
+These tools are development-only. No instrumentation or dependency enters the library target.
+
+`python3 Scripts/StorageEvidence/mutate-layouts.py --output /tmp/layout-evidence -- [extra Swift flags]` copies package sources/tests into an isolated temporary directory. It first runs four ordinary-release expectations without mutations, then runs eight deliberately broken encode/decode stride/order variants. Each must execute tests and fail. Build errors, empty test runs and surviving mutations fail the script. The checkout is never modified. Final source hashes, commands, issue/expectation counts and summaries are retained alongside each log.
+
+The focused run detected all eight variants: scalar encode/decode stride produced 2/1 failing expectations, scalar encode/decode order 1/1, component encode/decode stride 2/1 and component encode/decode order 1/1. An earlier focused test compared two outputs that were both wrong under a global byte-order mutation. It was strengthened with fixed-configuration codestream goldens already decoded exactly by CharLS; their hashes and provenance are in `Tests/SwiftJLSTests/Fixtures/storage-goldens.json`. The final report records ten aggregate failing expectations. This is mutation sensitivity evidence, not allocation/copy telemetry.
+
+On Linux, `python3 Scripts/StorageEvidence/trace-files.py --binary PATH --output DIRECTORY` uses `strace` across all consumer threads. Markers emitted around the actual 12/16-bit in-process routes delimit the observation interval. Runtime/system reads remain in the report; any application file open or write/create/remove in the interval fails. Optional validation exports happen after each interval. The command, raw syscall traces, consumer stdout/stderr and classified events are retained. File observation does not measure pixel allocation/copy counts, and no sanitizer heap figures are used.

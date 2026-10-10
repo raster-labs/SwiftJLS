@@ -16,7 +16,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Decode synthetic custom-preset candidates
-        run: python Scripts/Interop/reference-windows.py --candidates Scripts/Interop/reference-candidates.json --report reference-results.json
+        run: python Scripts/Interop/reference-windows.py --candidates Scripts/Interop/reference-candidates.json --report reference-results.json --component-candidates Scripts/Interop/reference-component-candidates.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:

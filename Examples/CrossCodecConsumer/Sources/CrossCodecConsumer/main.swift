@@ -7,14 +7,20 @@ import SwiftJLS
 // The adapters retain an immutable owner. Only descriptors and small wrappers
 // are constructed; raw pointers are forwarded synchronously and never stored.
 final class IntoJLS: SwiftJLS.ReadOnlyImageStorage {
-    init(owner: any SwiftJ2K.ReadOnlyImageStorage) { self.owner = owner }
+    init(owner: any SwiftJ2K.ReadOnlyImageStorage, cancelOnRead: Int? = nil) {
+        self.owner = owner; self.cancelOnRead = cancelOnRead
+    }
+    let cancelOnRead: Int?
     let owner: any SwiftJ2K.ReadOnlyImageStorage
     let reads: Mutex<Int> = Mutex(0)
     var byteCount: Int { owner.byteCount }
     var allocationID: UUID { owner.allocationID }
     func withUnsafeBytes<R>(_ body: (UnsafeRawBufferPointer) throws -> R) throws -> R {
-        reads.withLock { $0 += 1 }
-        return try owner.withUnsafeBytes(body)
+        let ordinal = reads.withLock { $0 += 1; return $0 }
+        return try owner.withUnsafeBytes { bytes in
+            if ordinal == cancelOnRead { withUnsafeCurrentTask { $0?.cancel() } }
+            return try body(bytes)
+        }
     }
 }
 struct IntoJ2K: SwiftJ2K.ReadOnlyImageStorage {
@@ -91,6 +97,8 @@ func sample(_ x: Int, _ y: Int, bits: Int) -> UInt16 {
 let width = 37, height = 23
 var results: [[String: Int]] = []
 for bits in [12, 16] {
+    // strace evidence delimits API work from optional exported validation files.
+    try FileHandle.standardError.write(contentsOf: Data("STORAGE_BEGIN_\(bits)\n".utf8))
     let j2kShape = try SwiftJ2K.ImageDescriptor.greyscale16(width: width, height: height,
         meaningfulBits: bits, rowBytes: width * 2 + 14, offset: 2)
     let original = try SwiftJ2K.ImageDestination.allocate(descriptor: j2kShape)
@@ -172,6 +180,21 @@ for bits in [12, 16] {
         _ = try cancelledProvider.reserveWrite()
         throw CheckFailure(message: "Cancelled destination was reusable")
     } catch is SwiftJLS.CodecError { }
+    // Cancel after encode admission, inside the actual owner borrow. Constructing
+    // Image performs read 1; the encoder's sample borrow is read 2.
+    let encodeCancelledBridge = IntoJLS(owner: first.image.storage, cancelOnRead: 2)
+    let encodeCancelledImage = try SwiftJLS.Image(descriptor: jlsShape, storage: encodeCancelledBridge)
+    let encodeCancellation = Task { try await SwiftJLS.Encoder().encode(encodeCancelledImage) }
+    do {
+        _ = try await encodeCancellation.value
+        throw CheckFailure(message: "Cancelled encode published a codestream")
+    } catch is CancellationError { }
+    // Compatible allowCopy must remain direct; the option is not permission to
+    // insert an unnecessary frame conversion.
+    let allowed = try await SwiftJLS.Encoder().encode(shared, options: .init(copyPolicy: .allowCopy))
+    try check(allowed.data == jls.data && allowed.report.copyEvents.isEmpty,
+              "Compatible allowCopy changed shared coding")
+    try FileHandle.standardError.write(contentsOf: Data("STORAGE_END_\(bits)\n".utf8))
     // Optional output is validation material written only after both in-memory
     // routes finish. No intermediate file participates in the codec hand-off.
     if CommandLine.arguments.count == 2 {
