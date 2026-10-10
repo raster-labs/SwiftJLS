@@ -96,5 +96,19 @@
     "source_sha256": "09665dca4fd6640674aa739665504e530be1862b060c15309415035992d36ec9",
     "destination": "Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift",
     "adaptation": "Selected scalar kernels and header/entropy helpers; scoped byte-order-aware sample views, throwing extent checks and bounded checkpoints."
+  },
+  {
+    "source_commit": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+    "source_path": "Sources/JPEGLS/JPEGLSEncoder.swift",
+    "source_sha256": "2b1f62704c00435bef33cf26e0d25e5a2402730d674fa2de51cb7e24e3e2646b",
+    "destination": "Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift",
+    "adaptation": "Line/sample scan scheduling; scoped strided component views, two UInt16 predictor rows per component, bounded cancellation and direct final output writes replace full-frame Int matrices."
+  },
+  {
+    "source_commit": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+    "source_path": "Sources/JPEGLS/JPEGLSDecoder.swift",
+    "source_sha256": "09665dca4fd6640674aa739665504e530be1862b060c15309415035992d36ec9",
+    "destination": "Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift",
+    "adaptation": "Line/sample scan scheduling; scoped strided component views, two UInt16 predictor rows per component, bounded cancellation and direct final output writes replace full-frame Int matrices."
   }
 ]

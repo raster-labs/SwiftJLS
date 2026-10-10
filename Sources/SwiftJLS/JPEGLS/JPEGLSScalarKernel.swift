@@ -5,8 +5,8 @@
 import Foundation
 
 struct JPEGLSScalarKernel {
-    func encodeFlatRowsLossless(
-        buf: ScalarSampleReader,
+    func encodeFlatRowsLossless<Reader: JPEGSampleReader>(
+        buf: Reader,
         rowStride: Int,
         rowRange: Range<Int>,
         width: Int,
@@ -158,7 +158,7 @@ struct JPEGLSScalarKernel {
 
     /// Near-lossless prediction uses reconstructed neighbours. Two UInt16 rows
     /// are sufficient; original image storage remains borrowed and immutable.
-    func encodeNearLossless(buf: ScalarSampleReader, rowStride: Int, width: Int, height: Int,
+    func encodeNearLossless<Reader: JPEGSampleReader>(buf: Reader, rowStride: Int, width: Int, height: Int,
                             near: Int, parameters: JPEGLSPresetParameters,
                             writer: JPEGLSBitstreamWriter, bits: Int,
                             checkpoint: () throws -> Void) throws {
@@ -219,7 +219,7 @@ struct JPEGLSScalarKernel {
         }
     }
 
-    private func encodePixel(
+    func encodePixel(
         actual: Int,
         a: Int,
         b: Int,
@@ -279,7 +279,7 @@ struct JPEGLSScalarKernel {
         }
     }
 
-    private func writeRunInterruptionBits(
+    func writeRunInterruptionBits(
         interruptionValue: Int,
         runValue: Int,
         rb: Int,
@@ -381,7 +381,7 @@ struct JPEGLSScalarKernel {
         regularMode.presetParameters
     }
 
-    private func writeRunTermination(
+    func writeRunTermination(
         encoded: EncodedRun,
         writer: JPEGLSBitstreamWriter
     ) {
@@ -480,8 +480,8 @@ struct JPEGLSScalarKernel {
         writer.writeByte(UInt8(scanHeader.pointTransform))
     }
 
-    func decodeFlatRegion(
-        into buf: ScalarSampleWriter,
+    func decodeFlatRegion<Writer: JPEGSampleWriter>(
+        into buf: Writer,
         rowStride: Int,
         reader: JPEGLSBitstreamReader,
         rows: Int,
@@ -623,7 +623,7 @@ struct JPEGLSScalarKernel {
         }
     }
 
-    private func decodeSinglePixel(
+    func decodeSinglePixel(
         reader: JPEGLSBitstreamReader,
         decoder: JPEGLSRegularModeDecoder,
         runDecoder: JPEGLSRunModeDecoder,
@@ -664,7 +664,7 @@ struct JPEGLSScalarKernel {
         return result.sample
     }
 
-    private func readGolombCode(
+    func readGolombCode(
         reader: JPEGLSBitstreamReader,
         k: Int,
         limit: Int,
@@ -693,7 +693,7 @@ struct JPEGLSScalarKernel {
         return mapped
     }
 
-    private func readRunLength(
+    func readRunLength(
         reader: JPEGLSBitstreamReader,
         runDecoder: JPEGLSRunModeDecoder,
         context: inout JPEGLSContextModel,

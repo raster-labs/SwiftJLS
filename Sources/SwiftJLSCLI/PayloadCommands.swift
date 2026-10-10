@@ -83,9 +83,10 @@ func runPayload(_ options: Options) async throws {
         let info = try decoder.inspect(data, options: decodeOptions)
         report["format"] = info.format; report["width"] = info.descriptor.width
         report["height"] = info.descriptor.height; report["meaningfulBits"] = info.descriptor.meaningfulBits
+        report["components"] = info.descriptor.components.count
         if command == "decode" {
-            guard info.descriptor.meaningfulBits == 16 else {
-                throw CodecError(.unsupportedFeature, "NRRD output requires 16 meaningful bits; lower precision cannot be silently widened.")
+            guard info.descriptor.meaningfulBits == 16, info.descriptor.components == [.grey] else {
+                throw CodecError(.unsupportedFeature, "NRRD output requires one greyscale component with 16 meaningful bits.")
             }
             let decoded = try await decoder.decode(data, options: decodeOptions)
             try publish(path: values["--output", default: "-"], overwrite: options.overwrite, budget: budget) { fd in

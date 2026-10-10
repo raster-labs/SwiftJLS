@@ -12,7 +12,7 @@ enum ScalarCodec {
     }
     static let capabilities = CodecCapabilities(formats: ["JPEG-LS"], compressionModes: [.lossless] + (1...255).map { .nearLossless(maximumAbsoluteError: $0) },
         sampleTypes: [.unsignedInteger], meaningfulPrecision: 2...16,
-        layouts: ["greyscale8", "greyscale16"], availableBackends: [.scalarCPU],
+        layouts: ["greyscale8", "greyscale16", "components8", "components16"], availableBackends: [.scalarCPU],
         canInspect: true, canEncode: true, canDecode: true)
 
     static func layout(_ descriptor: ImageDescriptor, limits: ResourceLimits) throws -> PlaneDescriptor {
@@ -42,8 +42,7 @@ enum ScalarCodec {
         let budget = CodecBudget(limits: options.resourceLimits)
         return try mapped {
             let header = try JPEGLSHeader.parse(data, budget: budget)
-            let descriptor = try ImageDescriptor.greyscale16(width: header.width, height: header.height,
-                meaningfulBits: header.bits, limits: options.resourceLimits)
+            let descriptor = try header.descriptor(limits: options.resourceLimits)
             try budget.check()
             return ImageInfo(format: "JPEG-LS", descriptor: descriptor, frameCount: 1, metadata: .empty)
         }
@@ -53,6 +52,9 @@ enum ScalarCodec {
         return try mapped {
             let descriptor = image.descriptor
             let plane = try layout(descriptor, limits: budget.limits)
+            guard configuration.codecOptions.interleaveMode == .none else {
+                throw CodecError(.unsupportedFeature, "Greyscale requires non-interleaved coding.")
+            }
             guard image.metadata.requiredKeys.isEmpty,
                   image.metadata.entries.isEmpty || options.metadataPolicy == .discardAncillary else {
                 throw CodecError(.unsupportedFeature, "JPEG-LS metadata preservation is not implemented by this profile.")
@@ -162,6 +164,9 @@ enum ScalarCodec {
         let budget = CodecBudget(limits: options.resourceLimits)
         return try mapped {
             let header = try JPEGLSHeader.parse(data, budget: budget)
+            if header.componentIDs.count > 1 {
+                return try ComponentCodec.decode(data, header: header, into: supplied, options: options, budget: budget)
+            }
             let descriptor = try supplied?.descriptor ?? ImageDescriptor.greyscale16(width: header.width,
                 height: header.height, meaningfulBits: header.bits, limits: budget.limits)
             let plane = try layout(descriptor, limits: budget.limits)

@@ -11,6 +11,12 @@ with tempfile.TemporaryDirectory(prefix='swiftjls payload λ ') as directory:
  decoded=run(['decode','-i','-','-o','-'],encoded.stdout);assert decoded.stdout==source
  info=json.loads(run(['inspect','-i','-','--json'],encoded.stdout).stdout);assert info['width']==17 and info['meaningfulBits']==16
  run(['validate','-i','-'],encoded.stdout)
+ for interleave in [0,1,2]:
+  colour=(pathlib.Path(__file__).resolve().parents[1]/'Tests/SwiftJLSTests/Fixtures'/f'c3-i{interleave}-p16-n0-17x13-noise.jls').read_bytes()
+  details=json.loads(run(['inspect','-i','-','--json'],colour).stdout);assert details['components']==3
+  run(['validate','-i','-'],colour)
+  rejected=run(['decode','-i','-','-o','-'],colour,4);assert rejected.stdout==b''
+
  for endian in ['big','little']:
   alternate=header.replace(b'little',endian.encode()).replace(b'\n',b'\r\n')+(raw if endian=='little' else b''.join(raw[i:i+2][::-1] for i in range(0,len(raw),2)))
   assert run(['encode','-i','-','-o','-'],alternate).stdout==encoded.stdout

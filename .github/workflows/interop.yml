@@ -1,0 +1,40 @@
+name: Independent JPEG-LS interoperability
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  charls:
+    runs-on: ubuntu-24.04
+    container: swift:6.2-noble
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Build pinned, isolated CharLS oracle
+        run: |
+          apt-get update && apt-get install -y --no-install-recommends g++ python3 git
+          git clone https://github.com/team-charls/charls.git /tmp/charls
+          git -C /tmp/charls checkout --detach 36dd3307e070d8fbc765c3ba890b7e681046fa39
+          g++ -std=c++17 -O2 -DNDEBUG -DCHARLS_STATIC -DCHARLS_LIBRARY_BUILD -I/tmp/charls/include -I/tmp/charls/src /tmp/charls/src/*.cpp Scripts/Interop/charls-driver.cpp -o /tmp/charls-driver
+      - name: Encode through standalone public API consumer
+        run: |
+          mkdir -p /tmp/interop/Sources/Consumer
+          cat Scripts/Interop/Consumer.swift Scripts/Interop/ComponentConsumer.swift > /tmp/interop/Sources/Consumer/main.swift
+          cat > /tmp/interop/Package.swift <<EOF_PACKAGE
+          // swift-tools-version: 6.2
+          import PackageDescription
+          let package = Package(name: "Interop", dependencies: [.package(name: "SwiftJLS", path: "$GITHUB_WORKSPACE")], targets: [.executableTarget(name: "Consumer", dependencies: [.product(name: "SwiftJLS", package: "SwiftJLS")])], swiftLanguageModes: [.v6])
+          EOF_PACKAGE
+          swift run --package-path /tmp/interop -c release Consumer "$GITHUB_WORKSPACE/Tests/SwiftJLSTests/Fixtures" /tmp/encoded
+      - name: Independently decode scalar and component outputs
+        run: |
+          python3 Scripts/Interop/verify.py --oracle /tmp/charls-driver --fixtures Tests/SwiftJLSTests/Fixtures --encoded /tmp/encoded --report scalar-results.json --exclude-presets
+          python3 Scripts/Interop/verify-components.py --oracle /tmp/charls-driver --fixtures Tests/SwiftJLSTests/Fixtures --encoded /tmp/encoded --report component-results.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: independent-interoperability
+          path: '*-results.json'

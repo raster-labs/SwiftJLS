@@ -35,3 +35,9 @@ python3 Scripts/Interop/generate-preset-fixtures.py \
 ```
 
 Use `verify.py --exclude-presets` for the CharLS portion and record the published-reference gate separately. An excluded case is not an independent pass. The six MAXVAL 1/2 candidates are outside the published reference's supported alphabet range; the manifest retains this coverage gap. Reference software is downloaded only for conformance tests, retains its original licence, and is never included in SwiftJLS.
+
+## Component interop
+
+Append `ComponentConsumer.swift` to `Consumer.swift` in the independent consumer package to export component outputs and non-interleaved restart variants. Run `verify-components.py` with the same four path arguments as `verify.py`. It verifies every checked-in component fixture hash and independently checks geometry, precision, NEAR and every logical sample in 330 successor outputs. Regenerate fixtures with `generate-component-fixtures.py --oracle ORACLE --output FIXTURES --interleave MODE` for each of 0, 1 and 2. Canonical `.u16le` samples are planar regardless of codestream interleaving.
+
+`components.json` records 231 cases. CharLS 2.4.2 cannot decode two-component interleaving; those profiles have separately named local invariant tests, not independent conformance passes. The interop workflow builds the pinned BSD-3-Clause oracle in `/tmp` and retains its checkout/licence there for the job; the Swift library has no oracle dependency.

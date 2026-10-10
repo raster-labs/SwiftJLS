@@ -3,6 +3,7 @@ import Foundation
 
 /// Codec-specific controls are added only with independently tested behaviour.
 public struct CodecOptions: Sendable, Equatable {
+    public enum InterleaveMode: UInt8, Sendable { case none = 0, line = 1, sample = 2 }
     /// Explicit JPEG-LS coding parameters. These do not change sample signedness
     /// or the declared precision of the image container.
     public struct Preset: Sendable, Equatable {
@@ -25,12 +26,13 @@ public struct CodecOptions: Sendable, Equatable {
     /// JPEG-LS restart interval in sample rows. Zero disables restart markers.
     public let restartIntervalLines: Int
     public let preset: Preset?
-    public init() { restartIntervalLines = 0; preset = nil }
-    public init(restartIntervalLines: Int, preset: Preset? = nil) throws {
+    public let interleaveMode: InterleaveMode
+    public init() { restartIntervalLines = 0; preset = nil; interleaveMode = .none }
+    public init(restartIntervalLines: Int, preset: Preset? = nil, interleaveMode: InterleaveMode = .none) throws {
         guard (0...65535).contains(restartIntervalLines) else {
             throw CodecError(.invalidArgument, "Restart interval must be 0...65535 sample rows.")
         }
-        self.restartIntervalLines = restartIntervalLines; self.preset = preset
+        self.restartIntervalLines = restartIntervalLines; self.preset = preset; self.interleaveMode = interleaveMode
     }
 }
 
@@ -46,6 +48,9 @@ public struct EncoderConfiguration: Sendable, Equatable {
         }
         guard mode != .lossy else {
             throw CodecError(.unsupportedFeature, "JPEG-LS supports lossless and bounded near-lossless coding.")
+        }
+        guard codecOptions.restartIntervalLines == 0 || codecOptions.interleaveMode == .none else {
+            throw CodecError(.unsupportedFeature, "Restart intervals require non-interleaved scans.")
         }
         self.mode = mode; self.codecOptions = codecOptions
     }
@@ -136,6 +141,9 @@ public struct Encoder: Sendable {
         guard image.storage.byteCount <= options.resourceLimits.maximumDecodedBytes,
               image.storage.byteCount <= options.resourceLimits.maximumMemoryBytes else {
             throw CodecError(.resourceLimitExceeded, "Image exceeds operation limits.")
+        }
+        if image.descriptor.components.count > 1 {
+            return try ComponentCodec.encode(image, configuration: configuration, options: options)
         }
         return try ScalarCodec.encode(image, configuration: configuration, options: options)
     }
