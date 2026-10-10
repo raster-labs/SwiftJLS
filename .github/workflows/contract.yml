@@ -146,6 +146,16 @@ jobs:
         with:
           name: cross-codec-heap-observation
           path: /tmp/heap-observation
+      - name: Collect component, mapping and predecessor-profile allocator stacks
+        run: |
+          swift build -c release -Xswiftc -g --package-path Examples/CopyProbe
+          python3 Scripts/StorageEvidence/trace-heap.py --binary Examples/CopyProbe/.build/release/CopyProbe --output /tmp/profile-heap --scope 'Ordinary release scalar/component/mapping/HP/extended/subsampled profiles; setup and runtime included' -- Tests/SwiftJLSTests/Fixtures --heap-only
+          python3 Scripts/StorageEvidence/classify-heap.py --heap /tmp/profile-heap --output /tmp/profile-heap/classification.json --revision "$GITHUB_SHA" --scope 'Ten encode/caller-decode profiles plus legacy, extended, mapping and subsampled caller decodes'
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: predecessor-profile-heap-observation
+          path: /tmp/profile-heap
       - name: Verify allocator evidence detects a hidden frame copy
         run: python3 Scripts/StorageEvidence/mutate-copy.py --baseline /tmp/heap-observation --output /tmp/copy-mutation
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

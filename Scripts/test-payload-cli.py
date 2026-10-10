@@ -24,6 +24,17 @@ with tempfile.TemporaryDirectory(prefix='swiftjls payload λ ') as directory:
    run(['validate','-i','-'],colour)
    rejected=run(['decode','-i','-','-o','-'],colour,4);assert rejected.stdout==b''
 
+ # Metadata-bearing 16-bit greyscale data otherwise fits the NRRD profile:
+ # decode must reject the lost interpretation before emitting any payload.
+ mapping=(pathlib.Path(__file__).resolve().parents[1]/'Tests/SwiftJLSTests/Fixtures'/'map-p16-c1-i0-w2-n0.jls').read_bytes()
+ comment=b'\xff\xfe\x00\x06\x00\xff\x80A'
+ for marked in [mapping, encoded.stdout[:2]+comment+encoded.stdout[2:]]:
+  details=json.loads(run(['inspect','-i','-','--json'],marked).stdout);assert details['meaningfulBits']==16
+  run(['validate','-i','-'],marked)
+  rejected=run(['decode','-i','-','-o','-'],marked,4);assert rejected.stdout==b''
+  existing=d/'metadata-preservation.nrrd';existing.write_bytes(b'keep-existing')
+  run(['decode','-i','-','-o',existing,'--overwrite'],marked,4);assert existing.read_bytes()==b'keep-existing'
+
  for endian in ['big','little']:
   alternate=header.replace(b'little',endian.encode()).replace(b'\n',b'\r\n')+(raw if endian=='little' else b''.join(raw[i:i+2][::-1] for i in range(0,len(raw),2)))
   assert run(['encode','-i','-','-o','-'],alternate).stdout==encoded.stdout

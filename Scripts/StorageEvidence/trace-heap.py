@@ -14,6 +14,8 @@ import subprocess
 parser = argparse.ArgumentParser()
 parser.add_argument('--binary', type=pathlib.Path, required=True)
 parser.add_argument('--output', type=pathlib.Path, required=True)
+parser.add_argument('--scope', default='Whole-process real cross-codec consumer including setup and runtime allocations; not a zero-copy verdict.')
+parser.add_argument('arguments', nargs=argparse.REMAINDER)
 args = parser.parse_args()
 output = args.output.resolve()
 output.mkdir(parents=True, exist_ok=True)
@@ -30,7 +32,7 @@ def run(command, name):
     return result.stdout
 
 version = run(['heaptrack', '--version'], 'version').decode().strip()
-run(['heaptrack', '-o', str(output / 'allocations'), str(binary)], 'consumer')
+run(['heaptrack', '-o', str(output / 'allocations'), str(binary), *(args.arguments[1:] if args.arguments[:1] == ['--'] else args.arguments)], 'consumer')
 profiles = list(output.glob('allocations*.gz')) + list(output.glob('allocations*.zst'))
 if len(profiles) != 1:
     raise RuntimeError('Expected exactly one allocator profile: ' + str(profiles))
@@ -45,7 +47,7 @@ if b'calls to allocation functions' not in report or not (output / 'sizes.tsv').
 summary = dict(tool=version, binary_sha256=hashlib.sha256(binary.read_bytes()).hexdigest(),
                profile=profile.name, profile_sha256=hashlib.sha256(profile.read_bytes()).hexdigest(),
                build='Swift release with debug symbols, no sanitizers',
-               scope='Whole-process real cross-codec consumer including setup and runtime allocations; not a zero-copy verdict.',
+               scope=args.scope,
                commands=commands)
 (output / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
 print(json.dumps(summary, indent=2))

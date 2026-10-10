@@ -27,6 +27,7 @@ struct ObservedSource: ReadOnlyImageStorage {
 }
 guard sjls_copy_probe_self_test() != 0 else { throw CodecError(.internalFailure, "Copy interposition is unavailable or failed its control") }
 let directory = URL(fileURLWithPath: CommandLine.arguments[1])
+let heapOnly = CommandLine.arguments.contains("--heap-only")
 let names = ["p12-17x13-noise", "n3-p12-17x13-noise", "c3-i2-p12-n0-17x13-noise", "hp1-c3-i2-p8-n0-17x13-noise", "map-p8-c3-i2-w2-n0"]
 var results: [[String: Any]] = []
 for name in names {
@@ -36,7 +37,7 @@ for name in names {
     let modes: [CodecOptions.InterleaveMode] = decoded.image.descriptor.components.count == 1 ? [.none] : (isHP ? [.line, .sample] : [.none, .line, .sample])
     let near = name.hasPrefix("n3-") ? 3 : 0
     for mode in modes {
-    for inject in [false, true] {
+    for inject in (heapOnly ? [false] : [false, true]) {
         let source = ObservedSource(source: decoded.image.storage, inject: inject)
         let image = try Image(descriptor: decoded.image.descriptor, storage: source, metadata: decoded.image.metadata)
         let options = try CodecOptions(restartIntervalLines: 0, interleaveMode: mode, colourTransform: isHP ? .hp1 : .none)
@@ -46,7 +47,11 @@ for name in names {
         guard inject ? moved >= image.storage.byteCount : moved == 0 else {
             throw CodecError(.internalFailure, "Unexpected scoped pixel copy count")
         }
-        let output = try await Decoder().decode(encoded.data)
+        let destination = try ImageDestination.allocate(descriptor: Decoder().inspect(encoded.data).descriptor)
+        let output = try await Decoder().decode(encoded.data, into: destination)
+        guard output.image.storage.allocationID == destination.storage.allocationID else {
+            throw CodecError(.internalFailure, "Copy probe destination owner changed")
+        }
         var maximumError = 0
         try image.storage.withUnsafeBytes { original in
             try output.image.storage.withUnsafeBytes { actual in
@@ -64,6 +69,40 @@ for name in names {
     }
     }
 }
-let report: [String: Any] = ["self_test": true, "cases": results,
+// The allocator pass also covers large continuation data and less common
+// decoder profiles. Setup owns the destination before entering codec kernels.
+var additionalDecodes: [String] = []
+if heapOnly {
+    struct Case: Decodable { let name: String }
+    struct Manifest: Decodable { let cases: [Case] }
+    let legacy = try Decoder(configuration: .init(codecOptions: .init(restartIntervalLines: 0,
+        hpInterpretation: .legacyJLSwift, legacyMappingContinuations: true,
+        legacyExtendedDimensions: true, legacyPresetDefaults: true)))
+    for manifest in ["legacy-combined", "legacy-profiles", "legacy-extra", "extended"] {
+        let cases = try JSONDecoder().decode(Manifest.self, from: Data(contentsOf: directory.appendingPathComponent(manifest + ".json"))).cases
+        for item in cases {
+            let decoder = manifest == "extended" ? try Decoder() : legacy
+            let data = try Data(contentsOf: directory.appendingPathComponent(item.name + ".jls"))
+            let destination = try ImageDestination.allocate(descriptor: decoder.inspect(data).descriptor)
+            let output = try await decoder.decode(data, into: destination)
+            guard output.image.storage.allocationID == destination.storage.allocationID else {
+                throw CodecError(.internalFailure, "Profile allocator probe destination owner changed")
+            }
+            additionalDecodes.append(item.name)
+        }
+    }
+    let mapped = try Decoder(configuration: .init(codecOptions: .init(restartIntervalLines: 0, mappingOutputPrecision: 16)))
+    for name in ["map-p16-c1-i0-w2-n0", "map-p16-c3-i2-w2-n1", "subsampled-zero-n0", "subsampled-zero-n3"] {
+        let decoder = name.hasPrefix("map-") ? mapped : try Decoder()
+        let data = try Data(contentsOf: directory.appendingPathComponent(name + ".jls"))
+        let destination = try ImageDestination.allocate(descriptor: decoder.inspect(data).descriptor)
+        let output = try await decoder.decode(data, into: destination)
+        guard output.image.storage.allocationID == destination.storage.allocationID else {
+            throw CodecError(.internalFailure, "Profile allocator probe destination owner changed")
+        }
+        additionalDecodes.append(name)
+    }
+}
+let report: [String: Any] = ["self_test": true, "cases": results, "additional_caller_decodes": additionalDecodes,
     "scope": "Linux ordinary release memcpy/memmove reads from the retained pixel owner during the actual scoped encoder borrow. Inlined copies are not intercepted; allocation mutation and source review are separate evidence."]
 try FileHandle.standardOutput.write(contentsOf: JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]))
