@@ -158,6 +158,16 @@ jobs:
         with:
           name: predecessor-profile-heap-observation
           path: /tmp/profile-heap
+      - name: Measure bounded concurrent scalar and colour resources
+        run: |
+          swift build --package-path Examples/ResourceStress -c release -Xswiftc -g
+          python3 Scripts/StorageEvidence/trace-heap.py --binary Examples/ResourceStress/.build/release/ResourceStress --output /tmp/concurrent-heap --scope 'Four bounded workers; 32 512x512 scalar/colour lossless/near-lossless frame transactions'
+          python3 Scripts/StorageEvidence/measure-peaks.py --profile /tmp/concurrent-heap/allocations.gz --output /tmp/concurrent-heap/peaks.json --revision "$GITHUB_SHA"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: concurrent-resource-heap-observation
+          path: /tmp/concurrent-heap
       - name: Verify allocator evidence detects a hidden frame copy
         run: python3 Scripts/StorageEvidence/mutate-copy.py --baseline /tmp/heap-observation --output /tmp/copy-mutation
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
