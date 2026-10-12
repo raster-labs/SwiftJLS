@@ -11,6 +11,17 @@ with tempfile.TemporaryDirectory(prefix='swiftjls payload λ ') as directory:
  decoded=run(['decode','-i','-','-o','-'],encoded.stdout);assert decoded.stdout==source
  info=json.loads(run(['inspect','-i','-','--json'],encoded.stdout).stdout);assert info['width']==17 and info['meaningfulBits']==16
  run(['validate','-i','-'],encoded.stdout)
+ # DICOM may append one zero byte to an odd-length complete codestream.
+ odd=encoded.stdout
+ if len(odd)%2==0: odd=odd[:-2]+b'\xff'+odd[-2:]  # Legal fill before EOI.
+ padded=odd+b'\x00'
+ assert run(['decode','-i','-','-o','-'],padded).stdout==source
+ assert json.loads(run(['inspect','-i','-','--json'],padded).stdout)['width']==17
+ run(['validate','-i','-'],padded)
+ for invalid in [odd+b'\x01',odd+b'\x00\x00',odd+odd]:
+  for verb in ['inspect','validate','decode']:
+   args=[verb,'-i','-']+(['-o','-'] if verb=='decode' else [])
+   assert run(args,invalid,3).stdout==b''
  for interleave in [0,1,2]:
   colour=(pathlib.Path(__file__).resolve().parents[1]/'Tests/SwiftJLSTests/Fixtures'/f'c3-i{interleave}-p16-n0-17x13-noise.jls').read_bytes()
   details=json.loads(run(['inspect','-i','-','--json'],colour).stdout);assert details['components']==3

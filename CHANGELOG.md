@@ -1,5 +1,11 @@
 # Change log
 
+## DICOM codestream padding — 2026-10-12 (unreleased)
+
+- Accept one trailing zero byte only after an odd-length complete JPEG-LS codestream, matching JLSwift's `fix/bounded-dicom-decoding` revision `e4594319b83a79189a3e349ab282e2872b7ebd7a`.
+- Preserve rejection of incomplete streams, concatenated frames and all other trailing bytes. Padding remains subject to compressed-input limits; resource defaults are unchanged.
+- Add API and CLI regressions for sample preservation, sliced input, caller-destination reuse after rejection and invalid padding.
+
 ## Predecessor profile parity — 2026-10-10 (unreleased)
 
 - Add bounded LSE mapping tables and continuations, explicit mapped output precision, and index-image re-encoding with required table metadata.

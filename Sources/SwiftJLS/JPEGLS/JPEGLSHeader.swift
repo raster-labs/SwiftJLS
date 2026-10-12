@@ -159,8 +159,10 @@ struct JPEGLSHeader {
                 guard cursor < bytes.count else { throw malformed() }
                 let marker = bytes[cursor]; cursor += 1
                 if marker == 0xd9 {
+                    // DICOM may even-pad an odd-length codestream with one zero byte.
+                    let hasDICOMPadding = cursor % 2 == 1 && bytes.count - cursor == 1 && bytes[cursor] == 0
                     guard let f = frame, !records.isEmpty, covered.count == f.ids.count,
-                          cursor == bytes.count, !needsDirectoryEnd else { throw malformed() }
+                          (cursor == bytes.count || hasDICOMPadding), !needsDirectoryEnd else { throw malformed() }
                     let mapping = try tables.isEmpty ? nil : JPEGLSMappingTables(tables: Array(tables.values), componentTableIDs: selectors)
                     let outputBits = codecOptions.mappingOutputPrecision ?? f.bits
                     let legacyMappedHP = codecOptions.hpInterpretation == .legacyJLSwift && transform != nil && transform != CodecOptions.ColourTransform.none
