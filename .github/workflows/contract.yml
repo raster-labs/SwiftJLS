@@ -54,6 +54,10 @@ jobs:
       - run: swift test
       - run: swift build -c release
       - run: swift test -c release
+      - name: Install payload test runtime
+        run: apt-get update && apt-get install -y --no-install-recommends python3
+      - name: Payload CLI regression
+        run: python3 Scripts/test-payload-cli.py --binary .build/release/swiftjls-cli --output /tmp/payload-cli.json
 
   macos:
     name: macOS 26 / Swift 6.2
@@ -98,9 +102,134 @@ jobs:
             echo '    name: "Consumer",'
             echo "    dependencies: [.package(path: \"$GITHUB_WORKSPACE/package\")],"
             echo '    targets: [.executableTarget(name: "Consumer", dependencies: ['
-            echo "        .product(name: \"$NAME\", package: \"$NAME\")])]"
+            # SwiftPM derives a local dependency's identity from its directory.
+            echo "        .product(name: \"$NAME\", package: \"package\")])]"
             echo ')'
           } > Package.swift
-          printf 'import %s\nprint("consumer built")\n' "$NAME" > Sources/Consumer/main.swift
+          cp "$GITHUB_WORKSPACE/package/Examples/IndependentConsumer/Sources/Consumer/main.swift" Sources/Consumer/main.swift
           swift build
           swift run Consumer
+
+  cross-codec-consumer:
+    name: Pinned development-only cross-codec consumer
+    runs-on: ubuntu-24.04
+    container: swift:6.2-noble
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - run: swift run -c release --package-path Examples/CrossCodecConsumer
+      - name: Measure scoped pixel copies and verify an injected copy is detected
+        run: swift run -c release --package-path Examples/CopyProbe CopyProbe Tests/SwiftJLSTests/Fixtures > /tmp/copy-probe.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: scoped-pixel-copy-probe
+          path: /tmp/copy-probe.json
+      - name: Observe file access during the in-process routes
+        run: |
+          apt-get update && apt-get install -y --no-install-recommends strace python3
+          python3 Scripts/StorageEvidence/trace-files.py --binary Examples/CrossCodecConsumer/.build/release/CrossCodecConsumer --output /tmp/file-observation
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: cross-codec-file-observation
+          path: /tmp/file-observation
+      - name: Collect ordinary-release allocator stacks
+        run: |
+          apt-get install -y --no-install-recommends heaptrack
+          swift build -c release -Xswiftc -g --package-path Examples/CrossCodecConsumer
+          python3 Scripts/StorageEvidence/trace-heap.py --binary Examples/CrossCodecConsumer/.build/release/CrossCodecConsumer --output /tmp/heap-observation
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: cross-codec-heap-observation
+          path: /tmp/heap-observation
+      - name: Collect component, mapping and predecessor-profile allocator stacks
+        run: |
+          swift build -c release -Xswiftc -g --package-path Examples/CopyProbe
+          python3 Scripts/StorageEvidence/trace-heap.py --binary Examples/CopyProbe/.build/release/CopyProbe --output /tmp/profile-heap --scope 'Ordinary release scalar/component/mapping/HP/extended/subsampled profiles; setup and runtime included' -- Tests/SwiftJLSTests/Fixtures --heap-only
+          python3 Scripts/StorageEvidence/classify-heap.py --heap /tmp/profile-heap --output /tmp/profile-heap/classification.json --revision "$GITHUB_SHA" --scope 'Ten encode/caller-decode profiles plus legacy, extended, mapping and subsampled caller decodes'
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: predecessor-profile-heap-observation
+          path: /tmp/profile-heap
+      - name: Verify allocator evidence detects a hidden frame copy
+        run: python3 Scripts/StorageEvidence/mutate-copy.py --baseline /tmp/heap-observation --output /tmp/copy-mutation
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: cross-codec-copy-mutation
+          path: /tmp/copy-mutation
+
+
+  macos-intel:
+    name: macOS 26 Intel scalar runtime
+    runs-on: macos-26-intel
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - run: swift --version && uname -m
+      - run: swift test -c release
+
+  apple-sdk-builds:
+    name: Apple SDK compile / ${{ matrix.sdk }}
+    runs-on: macos-26
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - sdk: iphonesimulator
+            triple: arm64-apple-ios26.0-simulator
+          - sdk: appletvsimulator
+            triple: arm64-apple-tvos26.0-simulator
+          - sdk: watchsimulator
+            triple: arm64-apple-watchos26.0-simulator
+          - sdk: xrsimulator
+            triple: arm64-apple-xros26.0-simulator
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - run: swift --version && xcodebuild -version
+      - name: Compile library target only
+        env:
+          SDK_NAME: ${{ matrix.sdk }}
+          TARGET_TRIPLE: ${{ matrix.triple }}
+        run: |
+          SDK_PATH=$(xcrun --sdk "$SDK_NAME" --show-sdk-path)
+          if [ "$SDK_NAME" = xrsimulator ]; then
+            # See apple-runtime.yml: SwiftPM on this runner misparses XR's
+            # deployment target as 26.26.0. Keep the explicit 26.0 driver check.
+            xcrun swiftc -O -swift-version 6 -strict-concurrency=complete -parse-as-library -emit-library -emit-module -module-name SwiftJLS -target "$TARGET_TRIPLE" -sdk "$SDK_PATH" Sources/SwiftJLS/*.swift Sources/SwiftJLS/JPEGLS/*.swift -emit-module-path /tmp/SwiftJLS.swiftmodule -o /tmp/libSwiftJLS.dylib
+          else
+            swift build --target SwiftJLS -c release --triple "$TARGET_TRIPLE" --sdk "$SDK_PATH"
+          fi
+
+  remote-consumer:
+    name: Fresh URL-pinned standalone consumer
+    runs-on: ubuntu-24.04
+    container: swift:6.2-noble
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Resolve and run without a local path dependency
+        env:
+          REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          mkdir -p /tmp/swiftjls-remote/Sources/Consumer
+          cp Examples/IndependentConsumer/Sources/Consumer/main.swift /tmp/swiftjls-remote/Sources/Consumer/main.swift
+          cat > /tmp/swiftjls-remote/Package.swift <<EOF
+          // swift-tools-version: 6.2
+          import PackageDescription
+          let package = Package(name: "RemoteConsumer", dependencies: [.package(url: "https://github.com/raster-labs/SwiftJLS.git", revision: "$REVISION")], targets: [.executableTarget(name: "Consumer", dependencies: [.product(name: "SwiftJLS", package: "SwiftJLS")])], swiftLanguageModes: [.v6])
+          EOF
+          cd /tmp/swiftjls-remote
+          swift run -c release

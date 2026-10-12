@@ -13,11 +13,23 @@ guard image.storage.allocationID == allocationID,
 }
 let encoder = try SwiftJLS.Encoder()
 let decoder = try SwiftJLS.Decoder()
-guard !encoder.capabilities.canEncode, !decoder.capabilities.canDecode else {
-    throw SwiftJLS.CodecError(.internalFailure, "Contract-only package advertised codec support.")
+guard encoder.capabilities.canEncode, decoder.capabilities.canDecode else {
+    throw SwiftJLS.CodecError(.internalFailure, "Native scalar codec is unavailable.")
 }
-do {
-    _ = try await encoder.encode(image)
-    throw SwiftJLS.CodecError(.internalFailure, "Unimplemented encoding succeeded.")
-} catch let error as SwiftJLS.CodecError where error.category == .unsupportedFeature { }
-print("Independent consumer passed: 12-bit samples and storage identity preserved; codecs explicitly deferred.")
+let encoded = try await encoder.encode(image)
+let output = try SwiftJLS.ImageDestination.allocate(descriptor: descriptor)
+let outputID = output.storage.allocationID
+let decoded = try await decoder.decode(encoded.data, into: output)
+guard decoded.image.storage.allocationID == outputID,
+      encoded.report.copyEvents.isEmpty, decoded.report.copyEvents.isEmpty,
+      encoded.report.pixelAllocationCount == 0, decoded.report.pixelAllocationCount == 0 else {
+    throw SwiftJLS.CodecError(.internalFailure, "Shared-storage codec hand-off failed.")
+}
+for y in 0..<descriptor.height {
+    for x in 0..<descriptor.width {
+        guard try decoded.image.sampleUInt16(x: x, y: y) == image.sampleUInt16(x: x, y: y) else {
+            throw SwiftJLS.CodecError(.internalFailure, "Native sample preservation failed.")
+        }
+    }
+}
+print("Independent consumer passed: native lossless coding preserves padded 12-bit samples and destination identity.")

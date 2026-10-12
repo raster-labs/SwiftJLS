@@ -1,0 +1,176 @@
+{
+  "command": [
+    "strace",
+    "-ff",
+    "-ttt",
+    "-s",
+    "512",
+    "-e",
+    "trace=open,openat,creat,rename,renameat,unlink,unlinkat,mkdir,mmap,write",
+    "-o",
+    "/tmp/file-observation/files.trace",
+    "/__w/SwiftJLS/SwiftJLS/Examples/CrossCodecConsumer/.build/x86_64-unknown-linux-gnu/release/CrossCodecConsumer"
+  ],
+  "exit_code": 0,
+  "phase_bits": [
+    12,
+    16
+  ],
+  "observed_file_events": [
+    {
+      "bits": 12,
+      "event": "1791620092.905105 openat(AT_FDCWD, \"/sys/fs/cgroup/cpu/cpu.cfs_quota_us\", O_RDONLY|O_NONBLOCK) = -1 ENOENT (No such file or directory)",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.905238 openat(AT_FDCWD, \"/sys/fs/cgroup/cpuset/cpuset.cpus\", O_RDONLY|O_NONBLOCK) = -1 ENOENT (No such file or directory)",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.905294 openat(AT_FDCWD, \"/sys/devices/system/cpu/online\", O_RDONLY|O_CLOEXEC) = 3",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.905493 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 3",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.905658 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 3",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.908319 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.908489 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.909451 openat(AT_FDCWD, \"/sys/fs/cgroup/cpu/cpu.cfs_quota_us\", O_RDONLY|O_NONBLOCK) = -1 ENOENT (No such file or directory)",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.909524 openat(AT_FDCWD, \"/sys/fs/cgroup/cpuset/cpuset.cpus\", O_RDONLY|O_NONBLOCK) = -1 ENOENT (No such file or directory)",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.909582 openat(AT_FDCWD, \"/sys/devices/system/cpu/online\", O_RDONLY|O_CLOEXEC) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.910106 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.910280 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.910565 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.910695 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.911494 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.911620 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.912242 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 12,
+      "event": "1791620092.912373 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 16,
+      "event": "1791620092.913113 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 16,
+      "event": "1791620092.913230 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 16,
+      "event": "1791620092.913849 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 16,
+      "event": "1791620092.913977 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 16,
+      "event": "1791620092.914791 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 16,
+      "event": "1791620092.914908 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 16,
+      "event": "1791620092.915232 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 16,
+      "event": "1791620092.915364 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 16,
+      "event": "1791620092.916131 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 16,
+      "event": "1791620092.916257 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 16,
+      "event": "1791620092.916901 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    },
+    {
+      "bits": 16,
+      "event": "1791620092.917053 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+      "system_read": true
+    }
+  ],
+  "prohibited_file_events": [],
+  "passed": true,
+  "scope": "Ordinary release consumer; kernel file syscalls during marked API routes. Not allocator/copy telemetry.",
+  "workflow": 38037147567,
+  "commit": "f105487ddff9e7228c5520912a14b3398864c851"
+}

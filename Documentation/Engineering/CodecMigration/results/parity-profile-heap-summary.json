@@ -1,0 +1,47 @@
+{
+  "tool": "heaptrack 1.5.0",
+  "binary_sha256": "b9efda8fecfc78b7267bb62834d7be741fce0a7b59bf5fef17f35b2a4c496d87",
+  "profile": "allocations.gz",
+  "profile_sha256": "783bb13a7285615a19c10d51561d5e6489f00d6da6cc0f9526b100599258360b",
+  "build": "Swift release with debug symbols, no sanitizers",
+  "scope": "Ordinary release scalar/component/mapping/HP/extended/subsampled profiles; setup and runtime included",
+  "commands": [
+    {
+      "command": [
+        "heaptrack",
+        "--version"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "heaptrack",
+        "-o",
+        "/tmp/profile-heap/allocations",
+        "/__w/SwiftJLS/SwiftJLS/Examples/CopyProbe/.build/x86_64-unknown-linux-gnu/release/CopyProbe",
+        "Tests/SwiftJLSTests/Fixtures",
+        "--heap-only"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "heaptrack_print",
+        "-f",
+        "/tmp/profile-heap/allocations.gz",
+        "-n",
+        "1000",
+        "-s",
+        "1000",
+        "-H",
+        "/tmp/profile-heap/sizes.tsv",
+        "-F",
+        "/tmp/profile-heap/allocation-stacks.txt"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "workflow": "https://github.com/raster-labs/SwiftJLS/actions/runs/38050318859",
+  "head_revision": "1886dbfd8bf3af92cdc19a1d1bf0fc72ab99a82f",
+  "codec_revision": "da5bd84b13430226a3cbee192f2c32792da368a1"
+}

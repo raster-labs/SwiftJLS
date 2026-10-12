@@ -1,0 +1,30 @@
+{
+  "profile_sha256": "417eb72580465c271f157f4646dca57e3fa27e52b8680e6f75c35fbec87e95c6",
+  "allocation_stack_count": 922,
+  "allocation_calls": 17213,
+  "groups": {
+    "resource configuration containers": 68,
+    "validated header and descriptor containers": 15644,
+    "caller-created pixel owners (outside codec boundaries)": 113,
+    "owner and lease control/error allocations": 172,
+    "bounded gradient tables": 180,
+    "bounded entropy contexts": 822,
+    "caller/runtime stacks referencing SwiftJLS types": 1,
+    "metadata validation containers": 74,
+    "codec boundary values, closures and errors (not byte-count classified)": 52,
+    "compressed output writer and final Data": 87
+  },
+  "full_sample_arrays_under_encode_or_caller_decode": 0,
+  "revision": "ac64153cac7b3f8800a8e2d164f1fad85fcd0f56",
+  "scope": "Ten encode/caller-decode profiles plus legacy, extended, mapping and subsampled caller decodes",
+  "limitations": [
+    "Whole-process counts include setup/runtime. Stack classification does not measure arbitrary memcpy bytes.",
+    "Stack counts do not establish per-operation peak workspace or identify arbitrary inlined copies."
+  ],
+  "source_review": [
+    "IntoJLS and IntoJ2K adapters forward scoped borrows directly without allocating or repacking samples.",
+    "ScalarSampleReader/Writer retain only borrowed pointer and layout values.",
+    "Scalar lossless kernels read the source owner and reconstruct in the final caller destination; no full sample array is created.",
+    "Parser/header, gradient/context and compressed-data allocations are not decoded-image hand-off storage."
+  ]
+}

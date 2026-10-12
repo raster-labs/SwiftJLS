@@ -113,6 +113,14 @@ public final class ImageDestination: Sendable {
     /// Ordinary callers should prefer `writeUInt16`, which validates sample values.
     /// The caller controls cancellation/work bounds inside this synchronous closure.
     public func write(_ body: (UnsafeMutableRawBufferPointer) throws -> Void) throws -> Image {
+        try write(metadata: .empty, body)
+    }
+
+    func write(metadata: ImageMetadata, _ body: (UnsafeMutableRawBufferPointer) throws -> Void) throws -> Image {
+        let metadataBytes = try metadata.validate(limits: limits, additionalBytes: descriptor.iccProfile?.count ?? 0)
+        guard try checkedAdd(storage.byteCount, metadataBytes) <= limits.maximumMemoryBytes else {
+            throw CodecError(.resourceLimitExceeded, "Destination and metadata exceed the admission budget.")
+        }
         let accepted = started.withLock { value in
             guard !value else { return false }
             value = true
@@ -129,7 +137,7 @@ public final class ImageDestination: Sendable {
             }
             try Task.checkCancellation()
             let sealed = try storage.finishAndSeal(lease: lease)
-            let image = try Image(descriptor: descriptor, storage: sealed, limits: limits)
+            let image = try Image(descriptor: descriptor, storage: sealed, metadata: metadata, limits: limits)
             // External providers may perform bounded finalisation or validation
             // work. Cancellation during either callback must prevent publication.
             try Task.checkCancellation()

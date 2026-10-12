@@ -1,0 +1,46 @@
+name: Bounded decoder mutation campaign
+on:
+  push:
+    paths:
+      - 'Examples/FuzzConsumer/**'
+      - 'Scripts/run-mutation-campaign.py'
+      - '.github/workflows/fuzz.yml'
+  workflow_dispatch:
+    inputs:
+      seconds:
+        description: 'Duration per entry point (release gate minimum 3600)'
+        default: '3600'
+        required: true
+permissions:
+  contents: read
+jobs:
+  mutation:
+    runs-on: ubuntu-24.04
+    container: swift:6.4-noble
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      matrix:
+        entry: [owned, into, inspect]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - run: swift --version
+      - run: swift build --package-path Examples/FuzzConsumer -c release --sanitize address
+      - run: apt-get update && apt-get install -y --no-install-recommends python3
+      - name: Run bounded campaign
+        env:
+          DURATION: ${{ inputs.seconds || '3600' }}
+          ENTRY: ${{ matrix.entry }}
+        run: |
+          python3 Scripts/run-mutation-campaign.py --entry "$ENTRY" --seconds "$DURATION"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: mutation-${{ matrix.entry }}
+          path: |
+            campaign.jsonl
+            last-input.jls
+            campaign-stderr.log
+            campaign-result.json

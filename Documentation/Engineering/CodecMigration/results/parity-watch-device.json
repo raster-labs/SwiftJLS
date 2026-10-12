@@ -1,0 +1,76 @@
+{
+  "conclusion": "success",
+  "headSha": "7f93b8e8c5ecb1cf1fa293aac8801203e2074a87",
+  "jobs": [
+    {
+      "completedAt": "2026-10-10T12:38:48Z",
+      "conclusion": "success",
+      "databaseId": 114214745777,
+      "name": "watch-device",
+      "startedAt": "2026-10-10T12:38:10Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-10T12:38:12Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-10T12:38:11Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T12:38:14Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 2,
+          "startedAt": "2026-10-10T12:38:12Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T12:38:43Z",
+          "conclusion": "success",
+          "name": "Record the device SDK integer width and compile the library",
+          "number": 3,
+          "startedAt": "2026-10-10T12:38:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T12:38:44Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "number": 4,
+          "startedAt": "2026-10-10T12:38:43Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T12:38:45Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 8,
+          "startedAt": "2026-10-10T12:38:44Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T12:38:46Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 9,
+          "startedAt": "2026-10-10T12:38:45Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/raster-labs/SwiftJLS/actions/runs/38052647349/job/114214745777"
+    }
+  ],
+  "status": "completed",
+  "workflow": "https://github.com/raster-labs/SwiftJLS/actions/runs/38052647349",
+  "scope": "arm64_32 watchOS 26.0 device-SDK compilation only; no physical-device runtime claim",
+  "earlier_failure": {
+    "run": "https://github.com/raster-labs/SwiftJLS/actions/runs/38052124537",
+    "revision": "e59384882b3e32d02c0aebf8a231a59697d64c42",
+    "file": "Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift",
+    "line": 136,
+    "diagnostic": "integer literal '4294967295' overflows when stored into 'Int'",
+    "superseded_by": "7f93b8e8c5ecb1cf1fa293aac8801203e2074a87"
+  }
+}

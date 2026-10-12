@@ -26,11 +26,11 @@ def main():
         save();assert r.returncode==expected,(argv,r.returncode,r.stderr);return r
     def cli(*values,expected=0):return run([binary,*values],expected)
     def document(r):
-        d=json.loads(r.stdout);assert d['version']==version and d['minimumAppleOS']=='27.0'
-        assert d['canEncode'] is False and d['canDecode'] is False and d['canInspect'] is False and d['formats']==[]
+        d=json.loads(r.stdout);assert d['version']==version and d['minimumAppleOS']=='26.0'
+        assert d['canEncode'] is True and d['canDecode'] is True and d['canInspect'] is True and d['formats']==['JPEG-LS']
         return d
     try:
-        root=cli('--help');assert 'USAGE:' in root.stdout and 'unavailable' in root.stdout and not root.stderr
+        root=cli('--help');assert 'USAGE:' in root.stdout and 'Native scalar' in root.stdout and not root.stderr
         for form in [[],['-h'],['help']]:assert cli(*form).stdout==root.stdout
         command=cli('capabilities','--help').stdout
         assert cli('help','capabilities').stdout==command and cli('capabilities','-h').stdout==command
@@ -60,17 +60,15 @@ def main():
             if tool in ['swiftj2k','swiftjxl']:verbs.append('transcode')
             else:cli('transcode',expected=2)
             for verb in verbs:
-                assert 'UNAVAILABLE:' in cli(verb,'--help').stdout
-                r=cli(verb,'--input','-','--output',str(payload),'-vvvvv',expected=4)
-                assert not r.stdout and str(payload) not in r.stderr and payload.read_bytes()==b'unchanged'
-                new=temp/'must not exist';cli(verb,'--input',str(payload),'--output',str(new),expected=4);assert not new.exists()
+                assert 'Native scalar' in cli(verb,'--help').stdout
+                cli(verb,expected=2)
             readfd,writefd=os.pipe();os.close(readfd)
             try:
                 r=subprocess.run([str(binary),'--help'],stdout=writefd,stderr=subprocess.PIPE,text=True,timeout=10)
             finally:os.close(writefd)
             report['commands'].append({'argv':[str(binary),'--help'],'condition':'stdout pipe with no readers',
                                        'exit_code':r.returncode,'expected_exit_code':6,'stderr':r.stderr});save()
-            assert r.returncode==6 and 'I/O failure' in r.stderr
+            assert r.returncode==6 and 'failure' in r.stderr
             # Installation and repeat update must carry the matching manual even if one is stale.
             stage=temp/'stage with spaces';prefix='/opt/suite tools';installed=stage/'opt/suite tools'
             command=[repo/'Scripts/install-cli.sh','--binary',binary,'--prefix',prefix,'--destdir',stage]

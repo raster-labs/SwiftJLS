@@ -1,0 +1,178 @@
+{
+  "date": "2026-10-09",
+  "successor_base": "91092f78b492e332a7ec200e68b76604088e44fb",
+  "predecessor": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "historical_predecessor": "299b9a2e5bfe36ef104a3464a27d6c4c82874cc2",
+  "suite_policy": "0.10.0",
+  "manifest_minimum": "6.2",
+  "apple_floor": "26.0",
+  "host": {
+    "os": "macOS 27.0.1 (26A434)",
+    "architecture": "arm64",
+    "swift": "Apple Swift 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)",
+    "sdk": "27.0",
+    "developer_directory": "/Library/Developer/CommandLineTools"
+  },
+  "command_environment": {
+    "CLANG_MODULE_CACHE_PATH": "<workspace>/work/caches/<repo>/clang",
+    "SWIFTPM_MODULECACHE_OVERRIDE": "<workspace>/work/caches/<repo>/swift"
+  },
+  "local_checks": [
+    {
+      "command": [
+        "swift",
+        "test",
+        "--filter",
+        "RoundTripGrayscaleLosslessTests|JPEGLSRobustnessRegressionTests",
+        "--disable-sandbox",
+        "--cache-path",
+        "<workspace>/work/caches/JLSwift/spm",
+        "--config-path",
+        "<workspace>/work/caches/JLSwift/config",
+        "--security-path",
+        "<workspace>/work/caches/JLSwift/security",
+        "--jobs",
+        "2"
+      ],
+      "cwd": "<workspace>/work/JLSwift",
+      "exit_code": 1,
+      "seconds": 45.87,
+      "label": "predecessor-test"
+    },
+    {
+      "command": [
+        "swift",
+        "test",
+        "--scratch-path",
+        ".build/preflight-asan",
+        "--sanitize",
+        "address",
+        "--disable-sandbox",
+        "--cache-path",
+        "<workspace>/work/caches/SwiftJLS/spm",
+        "--config-path",
+        "<workspace>/work/caches/SwiftJLS/config",
+        "--security-path",
+        "<workspace>/work/caches/SwiftJLS/security",
+        "--jobs",
+        "2"
+      ],
+      "cwd": "<workspace>/work/SwiftJLS",
+      "exit_code": 1,
+      "seconds": 18.69,
+      "label": "successor-asan"
+    },
+    {
+      "command": [
+        "swift",
+        "build",
+        "--disable-sandbox",
+        "--cache-path",
+        "<workspace>/work/caches/spm",
+        "--config-path",
+        "<workspace>/work/caches/config",
+        "--security-path",
+        "<workspace>/work/caches/security",
+        "--jobs",
+        "2"
+      ],
+      "cwd": "work/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 28.64,
+      "label": "successor-build"
+    },
+    {
+      "command": [
+        "swift",
+        "test",
+        "-c",
+        "release",
+        "--disable-sandbox",
+        "--cache-path",
+        "<workspace>/work/caches/SwiftJLS/spm",
+        "--config-path",
+        "<workspace>/work/caches/SwiftJLS/config",
+        "--security-path",
+        "<workspace>/work/caches/SwiftJLS/security",
+        "--jobs",
+        "2"
+      ],
+      "cwd": "<workspace>/work/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 19.6,
+      "label": "successor-release"
+    },
+    {
+      "command": [
+        "swift",
+        "test",
+        "--disable-sandbox",
+        "--cache-path",
+        "<workspace>/work/caches/SwiftJLS/spm",
+        "--config-path",
+        "<workspace>/work/caches/SwiftJLS/config",
+        "--security-path",
+        "<workspace>/work/caches/SwiftJLS/security",
+        "--jobs",
+        "2"
+      ],
+      "cwd": "<workspace>/work/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 30.67,
+      "label": "successor-test"
+    },
+    {
+      "command": [
+        "swift",
+        "test",
+        "--scratch-path",
+        ".build/preflight-tsan",
+        "--sanitize",
+        "thread",
+        "--disable-sandbox",
+        "--cache-path",
+        "<workspace>/work/caches/SwiftJLS/spm",
+        "--config-path",
+        "<workspace>/work/caches/SwiftJLS/config",
+        "--security-path",
+        "<workspace>/work/caches/SwiftJLS/security",
+        "--jobs",
+        "2"
+      ],
+      "cwd": "<workspace>/work/SwiftJLS",
+      "exit_code": 1,
+      "seconds": 18.47,
+      "label": "successor-tsan"
+    },
+    {
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "native",
+        "--scratch-path",
+        ".build/preflight-native",
+        "--filter",
+        "RoundTripGrayscaleLosslessTests|JPEGLSRobustnessRegressionTests|JPEGLSFillByteTests|ContractImageLayerTests",
+        "--disable-sandbox",
+        "--cache-path",
+        "<workspace>/work/caches/JLSwift/spm",
+        "--config-path",
+        "<workspace>/work/caches/JLSwift/config",
+        "--security-path",
+        "<workspace>/work/caches/JLSwift/security",
+        "--jobs",
+        "2"
+      ],
+      "cwd": "<workspace>/work/JLSwift",
+      "exit_code": 1,
+      "seconds": 31.67,
+      "label": "predecessor-test-native"
+    }
+  ],
+  "implementation_sha256": {
+    ".github/workflows/contract.yml": "1fc4163ecd13342567c4fb17ece71a062d210aceef535d570aa36c67be398d5e",
+    "Sources/SwiftJLS/ImageStorage.swift": "6211f868c3ffb1a58bbd516cfe039fcee90bc51dbd58a94d52ff54fd679b1c78",
+    "Tests/SwiftJLSTests/OwnershipTests.swift": "ac9bf377d609ab37e7185201d9c0135fa293da2234cbc2281fe5ffd803a0ef28"
+  }
+}

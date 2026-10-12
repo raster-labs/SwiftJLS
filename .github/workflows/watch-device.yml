@@ -1,0 +1,30 @@
+name: Watch device architecture qualification
+on:
+  push:
+    paths:
+      - '.github/workflows/watch-device.yml'
+      - 'Sources/SwiftJLS/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  watch-device:
+    runs-on: macos-26
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Record the device SDK integer width and compile the library
+        run: |
+          swift --version
+          xcodebuild -version
+          SDK_PATH=$(xcrun --sdk watchos --show-sdk-path)
+          echo 'public func platformIntBytes() -> Int { MemoryLayout<Int>.size }' > /tmp/IntWidth.swift
+          xcrun swiftc -O -emit-ir -parse-as-library -target arm64_32-apple-watchos26.0 -sdk "$SDK_PATH" /tmp/IntWidth.swift -o word-width.ll
+          xcrun swiftc -O -swift-version 6 -strict-concurrency=complete -parse-as-library -emit-library -emit-module -module-name SwiftJLS -target arm64_32-apple-watchos26.0 -sdk "$SDK_PATH" Sources/SwiftJLS/*.swift Sources/SwiftJLS/JPEGLS/*.swift -emit-module-path /tmp/SwiftJLS.swiftmodule -o /tmp/libSwiftJLS.dylib
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: watch-device-word-width
+          path: word-width.ll

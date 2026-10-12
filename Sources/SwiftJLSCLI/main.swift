@@ -7,14 +7,14 @@ import Darwin
 import Glibc
 #endif
 
-private let tool = "swiftjls"
+private let tool = "swiftjls-cli"
 private let version = "1.1.0-dev.2"
 private let reserved = ["encode", "decode", "inspect", "validate"]
 private let valueOptions: Set<String> = ["--input", "-i", "--output", "-o", "--input-format", "--output-format",
     "--mode", "--max-error", "--backend", "--copy-policy", "--threads", "--max-memory", "--timeout"]
 
-private struct UsageError: Error { let message: String }
-private struct Options {
+struct UsageError: Error { let message: String }
+struct Options {
     var command: String? = nil
     var help = false
     var version = false
@@ -22,6 +22,8 @@ private struct Options {
     var quiet = false
     var verbosity = 0
     var codecOptions = false
+    var values: [String: String] = [:]
+    var overwrite = false
 }
 
 private func parse(_ args: [String]) throws -> Options {
@@ -65,9 +67,11 @@ private func parse(_ args: [String]) throws -> Options {
         } else if !positionalOnly && arg.hasPrefix("-v") && arg.count > 2 && arg.dropFirst().allSatisfy({ $0 == "v" }) {
             options.verbosity += arg.count - 1
         } else if !positionalOnly && valueOptions.contains(arg) {
-            _ = try consumeValue() // Reserved syntax only: do not open or echo any payload/path.
+            let key = arg == "-i" ? "--input" : arg == "-o" ? "--output" : arg
+            guard options.values[key] == nil else { throw UsageError(message: "Duplicate option.") }
+            options.values[key] = try consumeValue()
             options.codecOptions = true
-        } else if !positionalOnly && arg == "--overwrite" { options.codecOptions = true }
+        } else if !positionalOnly && arg == "--overwrite" { options.codecOptions = true; options.overwrite = true }
         else if !positionalOnly && arg.hasPrefix("-") {
             throw UsageError(message: "Unknown option. Use \(tool) --help.")
         } else if options.command == nil { options.command = arg }
@@ -109,8 +113,8 @@ private func help(_ command: String?) -> String {
 
     EXIT STATUS
       0 success/help/version; 2 invalid usage; 4 unsupported codec operation;
-      6 output I/O failure (including a closed pipe). Future codec errors additionally
-      use 3 malformed input, 5 resource/deadline, 7 internal failure, 130 cancellation.
+      6 I/O failure (including a closed pipe); 3 malformed input;
+      5 resource/deadline; 7 internal failure; 130 cancellation.
 
     MANUAL
       man \(tool) (installed with the executable by Scripts/install-cli.sh).
@@ -131,26 +135,27 @@ private func help(_ command: String?) -> String {
               \(tool) capabilities --verbose=+++
             """ + "\n"
         }
+        let output = command == "encode" || command == "decode" ? "\n  -o, --output PATH           Final output or '-'; --overwrite permits replacement.\n  --output-format FORMAT      jls for encode; nrrd for decode." : ""
+        let mode = command == "encode" ? "\n  --mode lossless|near-lossless  Default lossless.\n  --max-error N               Required for near-lossless; 1...255." : ""
         return """
-        USAGE: \(tool) \(command) [OPTIONS]
+        USAGE: \(tool) \(command) --input PATH [OPTIONS]
 
-        UNAVAILABLE: \(command) is reserved for a future codec milestone (exit 4).
-        No input is opened, no standard input is consumed and no output file is created.
-        Help describes reserved syntax, not working compression or validation.
+        Native scalar JPEG-LS. Encode reads attached 2D raw uint16 NRRD.
+        Decode writes that NRRD profile and requires 16 meaningful source bits.
+        Inspect validates headers; validate decodes the complete sample payload.
+        Unsupported layouts and metadata fail explicitly.
 
-        RESERVED CODEC OPTIONS
-          -i, --input PATH           Input file; '-' will mean standard input.
-          -o, --output PATH          Final output; '-' will mean standard output.
-          --input-format FORMAT     Explicit source format.
-          --output-format FORMAT    Explicit target format.
-          --mode MODE               lossless (default), near-lossless or lossy when supported.
-          --max-error N             Supported near-lossless error in integer sample units.
-          --backend NAME            Explicit supported backend.
+          -i, --input PATH           Input or '-' for standard input.
+          --input-format FORMAT     nrrd for encode; jls otherwise.\(output)\(mode)
+          --backend NAME            automatic (default) or scalar-cpu.
           --copy-policy POLICY      require-sharing (default) or allow-copy.
-          --threads N               Worker limit; --max-memory BYTES; --timeout SECONDS.
-          --overwrite               Permit replacing final output only when implemented.
-          --json                    Structured report; no binary stdout contamination.
-        Command-specific applicability and value validation require codec implementation.
+          --threads N               Worker ceiling; scalar codec uses one worker.
+          --max-memory BYTES        Operation memory ceiling (default 1 GiB).
+          --timeout SECONDS         Positive deadline (default 120).
+          --json                    JSON on stdout for inspect/validate;
+                                    encode/decode reports on stderr.
+        Pipe serialisation involves copies. Binary stdout may contain partial
+        output after failure; file transactions are removed on failure.
 
         \(common)
         """ + "\n"
@@ -164,10 +169,10 @@ private func help(_ command: String?) -> String {
       help [command]             Show global or command-specific help.
       version                    Show the development version.
       \(reserved.joined(separator: ", "))
-                                Reserved; codec algorithms are unavailable (exit 4).
+                                Native scalar JPEG-LS and bounded NRRD stream operations.
 
-    Requires Swift 6.4 to build; Apple OS baseline 27.0. CLI hosts: macOS/Linux.
-    This development tool provides help/version/capabilities, not compression yet.
+    Requires Swift 6.2 or newer; Apple OS baseline 26.0. CLI hosts: macOS/Linux.
+    Lossless and near-lossless greyscale; advanced extensions remain unsupported.
 
     \(common)
 
@@ -183,7 +188,7 @@ private func write(_ text: String, to handle: FileHandle) throws {
     try handle.write(contentsOf: Data(text.utf8))
 }
 
-private func run() throws -> Int32 {
+private func run() async throws -> Int32 {
     let start = ProcessInfo.processInfo.systemUptime
     let options: Options
     do { options = try parse(Array(CommandLine.arguments.dropFirst())) }
@@ -203,14 +208,15 @@ private func run() throws -> Int32 {
     try diagnostic(1, "development version \(version)")
     try diagnostic(2, "reporting \(options.command ?? "help")")
     guard options.command == "capabilities" else {
-        try write("\(tool): unsupported feature: codec algorithms are not implemented; no input/output opened.\n", to: .standardError)
-        return 4
+        try await runPayload(options)
+        try diagnostic(1, "operation completed")
+        return 0
     }
     let encoder = Encoder.capabilities
     let decoder = Decoder.capabilities
     let formats = Array(Set(encoder.formats + decoder.formats)).sorted()
     if options.json {
-        let payload: [String: Any] = ["tool": tool, "version": version, "minimumAppleOS": "27.0",
+        let payload: [String: Any] = ["tool": tool, "version": version, "minimumAppleOS": "26.0",
             "canEncode": encoder.canEncode, "canDecode": decoder.canDecode,
             "canInspect": decoder.canInspect, "formats": formats]
         let data = try JSONSerialization.data(withJSONObject: payload, options: [.sortedKeys])
@@ -226,8 +232,30 @@ private func run() throws -> Int32 {
 
 // CLI process boundary only: a closed pipe is reported as exit 6, never SIGPIPE success.
 _ = signal(SIGPIPE, SIG_IGN)
-do { exit(try run()) }
-catch {
-    try? write("\(tool): output I/O failure.\n", to: .standardError)
-    exit(6)
+let operation = Task { try await run() }
+_ = signal(SIGINT, SIG_IGN)
+let interrupt = DispatchSource.makeSignalSource(signal: SIGINT, queue: .global())
+interrupt.setEventHandler { @Sendable [operation] in operation.cancel() }
+interrupt.resume()
+var status: Int32 = 0
+do { status = try await operation.value }
+catch is CancellationError { status = 130 }
+catch let error as UsageError {
+    try? write("\(tool): \(error.message)\n", to: .standardError); status = 2
 }
+catch let error as CodecError {
+    switch error.category {
+    case .invalidArgument: status = 2
+    case .malformedInput: status = 3
+    case .unsupportedFormat, .unsupportedFeature, .incompatibleImageLayout, .backendUnavailable: status = 4
+    case .resourceLimitExceeded: status = 5
+    case .storageUnavailable, .ioFailure: status = 6
+    case .internalFailure: status = 7
+    }
+    try? write("\(tool): \(error.message)\n", to: .standardError)
+}
+catch {
+    try? write("\(tool): input/output failure.\n", to: .standardError); status = 6
+}
+interrupt.cancel()
+exit(status)

@@ -1,0 +1,42 @@
+{
+  "tool": "heaptrack 1.5.0",
+  "binary_sha256": "59ef0c493b8a8588bf562aa824d66f3a6d48e009ac5dec7d14498008a6fd3a36",
+  "profile": "allocations.gz",
+  "profile_sha256": "a6105a909de7776d4e4fbc473534a4b597d1eff5437baf2ae399e5146f38a90f",
+  "build": "Swift release with debug symbols, no sanitizers",
+  "scope": "Whole-process real cross-codec consumer including setup and runtime allocations; not a zero-copy verdict.",
+  "commands": [
+    {
+      "command": [
+        "heaptrack",
+        "--version"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "heaptrack",
+        "-o",
+        "/tmp/heap-observation/allocations",
+        "/__w/SwiftJLS/SwiftJLS/Examples/CrossCodecConsumer/.build/x86_64-unknown-linux-gnu/release/CrossCodecConsumer"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "heaptrack_print",
+        "-f",
+        "/tmp/heap-observation/allocations.gz",
+        "-n",
+        "1000",
+        "-s",
+        "1000",
+        "-H",
+        "/tmp/heap-observation/sizes.tsv",
+        "-F",
+        "/tmp/heap-observation/allocation-stacks.txt"
+      ],
+      "exit_code": 0
+    }
+  ]
+}

@@ -1,0 +1,594 @@
+{
+  "oracle_revision": "04e44bb760632104ab1209593eea3f8c20ac11e5",
+  "scope": "Separate correctness experiment; export and cross-decode are outside timed benchmark runs",
+  "cases": [
+    {
+      "width": 512,
+      "height": 512,
+      "bits": 12,
+      "pattern": "noise",
+      "commands": [
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-predecessor/.build/out/Products/Release/Benchmark",
+            "512",
+            "512",
+            "12",
+            "noise",
+            "0",
+            "1",
+            "predecessor"
+          ],
+          "export": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/mapping-driver",
+            "decode",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/decoded.raw"
+          ],
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-successor/.build/out/Products/Release/Benchmark",
+            "512",
+            "512",
+            "12",
+            "noise",
+            "0",
+            "1",
+            "successor"
+          ],
+          "export": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/mapping-driver",
+            "decode",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/decoded.raw"
+          ],
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-successor/.build/out/Products/Release/Benchmark",
+            "512",
+            "512",
+            "12",
+            "noise",
+            "0",
+            "1",
+            "successor"
+          ],
+          "decode": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-predecessor/.build/out/Products/Release/Benchmark",
+            "512",
+            "512",
+            "12",
+            "noise",
+            "0",
+            "1",
+            "predecessor"
+          ],
+          "decode": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+          "exit_code": 0
+        }
+      ],
+      "outputs": {
+        "predecessor": {
+          "bytes": 410540,
+          "sha256": "f812b5f09f13f33c882f2d8adbe069ef83cf71726bb7a3f0802e90a4f596d165",
+          "independent_maximum_error": 0
+        },
+        "successor": {
+          "bytes": 410542,
+          "sha256": "c8b8842a32e56b78dec1cdb804bcacda6e13f03dcd74b6ffc56cfcf5ac4b1c07",
+          "independent_maximum_error": 0
+        }
+      },
+      "successor_decodes_predecessor": true,
+      "predecessor_decodes_successor": true,
+      "byte_identical": false,
+      "passed": true
+    },
+    {
+      "width": 512,
+      "height": 512,
+      "bits": 16,
+      "pattern": "noise",
+      "commands": [
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-predecessor/.build/out/Products/Release/Benchmark",
+            "512",
+            "512",
+            "16",
+            "noise",
+            "0",
+            "1",
+            "predecessor"
+          ],
+          "export": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/mapping-driver",
+            "decode",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/decoded.raw"
+          ],
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-successor/.build/out/Products/Release/Benchmark",
+            "512",
+            "512",
+            "16",
+            "noise",
+            "0",
+            "1",
+            "successor"
+          ],
+          "export": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/mapping-driver",
+            "decode",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/decoded.raw"
+          ],
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-successor/.build/out/Products/Release/Benchmark",
+            "512",
+            "512",
+            "16",
+            "noise",
+            "0",
+            "1",
+            "successor"
+          ],
+          "decode": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-predecessor/.build/out/Products/Release/Benchmark",
+            "512",
+            "512",
+            "16",
+            "noise",
+            "0",
+            "1",
+            "predecessor"
+          ],
+          "decode": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+          "exit_code": 0
+        }
+      ],
+      "outputs": {
+        "predecessor": {
+          "bytes": 541189,
+          "sha256": "e1f64208c08877f462e6620a06ce407e73a74287be278f8fbaf6ac7c8af52f32",
+          "independent_maximum_error": 0
+        },
+        "successor": {
+          "bytes": 541188,
+          "sha256": "7816022f1818b4953cfc56f83b44ab01ca3464e8d6ed742fdb3e8a35f43fba95",
+          "independent_maximum_error": 0
+        }
+      },
+      "successor_decodes_predecessor": true,
+      "predecessor_decodes_successor": true,
+      "byte_identical": false,
+      "passed": true
+    },
+    {
+      "width": 2048,
+      "height": 2048,
+      "bits": 12,
+      "pattern": "noise",
+      "commands": [
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-predecessor/.build/out/Products/Release/Benchmark",
+            "2048",
+            "2048",
+            "12",
+            "noise",
+            "0",
+            "1",
+            "predecessor"
+          ],
+          "export": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/mapping-driver",
+            "decode",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/decoded.raw"
+          ],
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-successor/.build/out/Products/Release/Benchmark",
+            "2048",
+            "2048",
+            "12",
+            "noise",
+            "0",
+            "1",
+            "successor"
+          ],
+          "export": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/mapping-driver",
+            "decode",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/decoded.raw"
+          ],
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-successor/.build/out/Products/Release/Benchmark",
+            "2048",
+            "2048",
+            "12",
+            "noise",
+            "0",
+            "1",
+            "successor"
+          ],
+          "decode": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-predecessor/.build/out/Products/Release/Benchmark",
+            "2048",
+            "2048",
+            "12",
+            "noise",
+            "0",
+            "1",
+            "predecessor"
+          ],
+          "decode": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+          "exit_code": 0
+        }
+      ],
+      "outputs": {
+        "predecessor": {
+          "bytes": 6557019,
+          "sha256": "cc9b959f44b880557398c7b7b24bc803b9ba8cd19d4e8275bf07aa3c2c7b070c",
+          "independent_maximum_error": 0
+        },
+        "successor": {
+          "bytes": 6557004,
+          "sha256": "889ebf95457d5b0afe7756cd687264bc474b4298ccf783ef8f9c2a01375b1027",
+          "independent_maximum_error": 0
+        }
+      },
+      "successor_decodes_predecessor": true,
+      "predecessor_decodes_successor": true,
+      "byte_identical": false,
+      "passed": true
+    },
+    {
+      "width": 2048,
+      "height": 2048,
+      "bits": 16,
+      "pattern": "noise",
+      "commands": [
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-predecessor/.build/out/Products/Release/Benchmark",
+            "2048",
+            "2048",
+            "16",
+            "noise",
+            "0",
+            "1",
+            "predecessor"
+          ],
+          "export": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/mapping-driver",
+            "decode",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/decoded.raw"
+          ],
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-successor/.build/out/Products/Release/Benchmark",
+            "2048",
+            "2048",
+            "16",
+            "noise",
+            "0",
+            "1",
+            "successor"
+          ],
+          "export": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/mapping-driver",
+            "decode",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/decoded.raw"
+          ],
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-successor/.build/out/Products/Release/Benchmark",
+            "2048",
+            "2048",
+            "16",
+            "noise",
+            "0",
+            "1",
+            "successor"
+          ],
+          "decode": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-predecessor/.build/out/Products/Release/Benchmark",
+            "2048",
+            "2048",
+            "16",
+            "noise",
+            "0",
+            "1",
+            "predecessor"
+          ],
+          "decode": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+          "exit_code": 0
+        }
+      ],
+      "outputs": {
+        "predecessor": {
+          "bytes": 8654809,
+          "sha256": "090644c1ca2ef0847563dca7a400c92a5810e9ab677338a6906f563cae6c75a2",
+          "independent_maximum_error": 0
+        },
+        "successor": {
+          "bytes": 8654804,
+          "sha256": "d4f3a9613acc9a085f9c769fba2b9a2b7923a4e6aef3fe69b3ffd5bb3a26da8a",
+          "independent_maximum_error": 0
+        }
+      },
+      "successor_decodes_predecessor": true,
+      "predecessor_decodes_successor": true,
+      "byte_identical": false,
+      "passed": true
+    },
+    {
+      "width": 4096,
+      "height": 3073,
+      "bits": 12,
+      "pattern": "noise",
+      "commands": [
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-predecessor/.build/out/Products/Release/Benchmark",
+            "4096",
+            "3073",
+            "12",
+            "noise",
+            "0",
+            "1",
+            "predecessor"
+          ],
+          "export": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/mapping-driver",
+            "decode",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/decoded.raw"
+          ],
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-successor/.build/out/Products/Release/Benchmark",
+            "4096",
+            "3073",
+            "12",
+            "noise",
+            "0",
+            "1",
+            "successor"
+          ],
+          "export": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/mapping-driver",
+            "decode",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/decoded.raw"
+          ],
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-successor/.build/out/Products/Release/Benchmark",
+            "4096",
+            "3073",
+            "12",
+            "noise",
+            "0",
+            "1",
+            "successor"
+          ],
+          "decode": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-predecessor/.build/out/Products/Release/Benchmark",
+            "4096",
+            "3073",
+            "12",
+            "noise",
+            "0",
+            "1",
+            "predecessor"
+          ],
+          "decode": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+          "exit_code": 0
+        }
+      ],
+      "outputs": {
+        "predecessor": {
+          "bytes": 19676369,
+          "sha256": "caf50a1f9509e3f27992e66d22ccc0e0e0a2e53843edb07bbd82808b43d24a9d",
+          "independent_maximum_error": 0
+        },
+        "successor": {
+          "bytes": 19676241,
+          "sha256": "95dbdb582e2bfb7538de081b2076bee20ddce5cf8c24839a7782b3d1f2a9978b",
+          "independent_maximum_error": 0
+        }
+      },
+      "successor_decodes_predecessor": true,
+      "predecessor_decodes_successor": true,
+      "byte_identical": false,
+      "passed": true
+    },
+    {
+      "width": 4096,
+      "height": 3073,
+      "bits": 16,
+      "pattern": "noise",
+      "commands": [
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-predecessor/.build/out/Products/Release/Benchmark",
+            "4096",
+            "3073",
+            "16",
+            "noise",
+            "0",
+            "1",
+            "predecessor"
+          ],
+          "export": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/mapping-driver",
+            "decode",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/decoded.raw"
+          ],
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-successor/.build/out/Products/Release/Benchmark",
+            "4096",
+            "3073",
+            "16",
+            "noise",
+            "0",
+            "1",
+            "successor"
+          ],
+          "export": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/mapping-driver",
+            "decode",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+            "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/decoded.raw"
+          ],
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-successor/.build/out/Products/Release/Benchmark",
+            "4096",
+            "3073",
+            "16",
+            "noise",
+            "0",
+            "1",
+            "successor"
+          ],
+          "decode": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/predecessor.jls",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/bench-predecessor/.build/out/Products/Release/Benchmark",
+            "4096",
+            "3073",
+            "16",
+            "noise",
+            "0",
+            "1",
+            "predecessor"
+          ],
+          "decode": "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-benchmark-oracle-8sdzix0g/successor.jls",
+          "exit_code": 0
+        }
+      ],
+      "outputs": {
+        "predecessor": {
+          "bytes": 25971520,
+          "sha256": "2612f26ae78745a537a75a8ab8823e0db5111f5192a18a238f7f1e6da36ad263",
+          "independent_maximum_error": 0
+        },
+        "successor": {
+          "bytes": 25971496,
+          "sha256": "008fe10045870832ab266468b24bb4382e3f226bedc321bf9ec9d88ca9abf841",
+          "independent_maximum_error": 0
+        }
+      },
+      "successor_decodes_predecessor": true,
+      "predecessor_decodes_successor": true,
+      "byte_identical": false,
+      "passed": true
+    }
+  ]
+}

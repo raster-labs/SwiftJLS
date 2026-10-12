@@ -1,0 +1,235 @@
+{
+  "revision": "f6b637681532cc2d92f07c4bd75b99ba5a5e3d01",
+  "build": "ordinary release; no sanitizers",
+  "source_sha256": {
+    "ScalarCodec.swift": "50fdc0b44e51fc096dba6f14ffd879e2b828d1781ef0fec4cc51d63c34092ca4",
+    "ComponentSamples.swift": "ddf5a2bb81dc1144d42da5752fd55a3992bbc87054c6ce1a43b80fb4a928d62f"
+  },
+  "results": [
+    {
+      "summary_issue_count": 0,
+      "name": "baseline",
+      "command": [
+        "swift",
+        "test",
+        "-c",
+        "release",
+        "--jobs",
+        "2",
+        "--filter",
+        "StorageEvidenceTests",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+      ],
+      "exit_code": 0,
+      "seconds": 31.55,
+      "recorded_issues": 0,
+      "expectation_failures": 0,
+      "summary": [
+        "Test run with 4 tests in 1 suite passed after 0.002 seconds."
+      ]
+    },
+    {
+      "summary_issue_count": 2,
+      "name": "scalar-encode-stride",
+      "command": [
+        "swift",
+        "test",
+        "-c",
+        "release",
+        "--jobs",
+        "2",
+        "--filter",
+        "StorageEvidenceTests",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+      ],
+      "exit_code": 1,
+      "seconds": 30.19,
+      "recorded_issues": 2,
+      "expectation_failures": 2,
+      "summary": [
+        "Test run with 4 tests in 1 suite failed after 0.002 seconds with 2 issues."
+      ]
+    },
+    {
+      "summary_issue_count": 1,
+      "name": "scalar-decode-stride",
+      "command": [
+        "swift",
+        "test",
+        "-c",
+        "release",
+        "--jobs",
+        "2",
+        "--filter",
+        "StorageEvidenceTests",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+      ],
+      "exit_code": 1,
+      "seconds": 8.16,
+      "recorded_issues": 1,
+      "expectation_failures": 1,
+      "summary": [
+        "Test run with 4 tests in 1 suite failed after 0.002 seconds with 1 issue."
+      ]
+    },
+    {
+      "summary_issue_count": 1,
+      "name": "scalar-encode-byte-order",
+      "command": [
+        "swift",
+        "test",
+        "-c",
+        "release",
+        "--jobs",
+        "2",
+        "--filter",
+        "StorageEvidenceTests",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+      ],
+      "exit_code": 1,
+      "seconds": 13.88,
+      "recorded_issues": 1,
+      "expectation_failures": 1,
+      "summary": [
+        "Test run with 4 tests in 1 suite failed after 0.002 seconds with 1 issue."
+      ]
+    },
+    {
+      "summary_issue_count": 1,
+      "name": "scalar-decode-byte-order",
+      "command": [
+        "swift",
+        "test",
+        "-c",
+        "release",
+        "--jobs",
+        "2",
+        "--filter",
+        "StorageEvidenceTests",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+      ],
+      "exit_code": 1,
+      "seconds": 14.56,
+      "recorded_issues": 1,
+      "expectation_failures": 1,
+      "summary": [
+        "Test run with 4 tests in 1 suite failed after 0.001 seconds with 1 issue."
+      ]
+    },
+    {
+      "summary_issue_count": 2,
+      "name": "component-encode-stride",
+      "command": [
+        "swift",
+        "test",
+        "-c",
+        "release",
+        "--jobs",
+        "2",
+        "--filter",
+        "StorageEvidenceTests",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+      ],
+      "exit_code": 1,
+      "seconds": 10.09,
+      "recorded_issues": 2,
+      "expectation_failures": 2,
+      "summary": [
+        "Test run with 4 tests in 1 suite failed after 0.002 seconds with 2 issues."
+      ]
+    },
+    {
+      "summary_issue_count": 1,
+      "name": "component-decode-stride",
+      "command": [
+        "swift",
+        "test",
+        "-c",
+        "release",
+        "--jobs",
+        "2",
+        "--filter",
+        "StorageEvidenceTests",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+      ],
+      "exit_code": 1,
+      "seconds": 14.6,
+      "recorded_issues": 1,
+      "expectation_failures": 1,
+      "summary": [
+        "Test run with 4 tests in 1 suite failed after 0.001 seconds with 1 issue."
+      ]
+    },
+    {
+      "summary_issue_count": 1,
+      "name": "component-encode-byte-order",
+      "command": [
+        "swift",
+        "test",
+        "-c",
+        "release",
+        "--jobs",
+        "2",
+        "--filter",
+        "StorageEvidenceTests",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+      ],
+      "exit_code": 1,
+      "seconds": 14.03,
+      "recorded_issues": 1,
+      "expectation_failures": 1,
+      "summary": [
+        "Test run with 4 tests in 1 suite failed after 0.002 seconds with 1 issue."
+      ]
+    },
+    {
+      "summary_issue_count": 1,
+      "name": "component-decode-byte-order",
+      "command": [
+        "swift",
+        "test",
+        "-c",
+        "release",
+        "--jobs",
+        "2",
+        "--filter",
+        "StorageEvidenceTests",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+      ],
+      "exit_code": 1,
+      "seconds": 8.79,
+      "recorded_issues": 1,
+      "expectation_failures": 1,
+      "summary": [
+        "Test run with 4 tests in 1 suite failed after 0.002 seconds with 1 issue."
+      ]
+    }
+  ]
+}

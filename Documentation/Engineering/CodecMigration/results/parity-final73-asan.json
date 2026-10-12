@@ -1,0 +1,30 @@
+{
+  "command": [
+    "swift",
+    "test",
+    "--scratch-path",
+    ".build/asan",
+    "--sanitize",
+    "address",
+    "-Xswiftc",
+    "-load-plugin-library",
+    "-Xswiftc",
+    "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+    "--disable-sandbox",
+    "--cache-path",
+    "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/caches/SwiftJLS/spm",
+    "--config-path",
+    "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/caches/SwiftJLS/config",
+    "--security-path",
+    "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/caches/SwiftJLS/security",
+    "--jobs",
+    "2"
+  ],
+  "cwd": "/Users/pushparaj/Documents/Codex/2026-10-09/verify-can-you-start-the-migration/work/SwiftJLS",
+  "exit_code": 0,
+  "seconds": 35.69,
+  "codec_revision": "da5bd84b13430226a3cbee192f2c32792da368a1",
+  "test_revision": "1886dbf",
+  "summary": "\u2714 Test run with 73 tests in 9 suites passed after 25.623 seconds.",
+  "log_sha256": "6d40c8df70c1874275c883a093afd1a54a2f527b2986b63b66e0a9fef21daf72"
+}

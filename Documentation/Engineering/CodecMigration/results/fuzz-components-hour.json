@@ -1,0 +1,91 @@
+{
+  "workflow": "https://github.com/raster-labs/SwiftJLS/actions/runs/38035778098",
+  "revision": "9ca35c57c6f355af547f48a6598ad4efa7f9f492",
+  "scope": "Component checkpoint before HP additions; AddressSanitizer process RSS is not ordinary allocator accounting",
+  "cases": [
+    {
+      "entry": "mutation-inspect",
+      "result": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "inspect",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.1823594149996,
+        "peak_process_rss_bytes": 485314560,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 1756931,
+        "complete": true,
+        "decodeCalls": 0,
+        "entry": "inspect",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 5134941,
+        "rejected": 3378010,
+        "seconds": 3600.000567703,
+        "seedCount": 749
+      }
+    },
+    {
+      "entry": "mutation-into",
+      "result": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "into",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.111111567,
+        "peak_process_rss_bytes": 480784384,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 1372178,
+        "complete": true,
+        "decodeCalls": 2842133,
+        "entry": "into",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 8310588,
+        "rejected": 6938410,
+        "seconds": 3600.000238157,
+        "seedCount": 749
+      }
+    },
+    {
+      "entry": "mutation-owned",
+      "result": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "owned",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.103860395,
+        "peak_process_rss_bytes": 476180480,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 1312818,
+        "complete": true,
+        "decodeCalls": 7952132,
+        "entry": "owned",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 7952132,
+        "rejected": 6639314,
+        "seconds": 3600.000006576,
+        "seedCount": 749
+      }
+    }
+  ]
+}

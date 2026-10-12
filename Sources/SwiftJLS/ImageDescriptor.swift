@@ -21,24 +21,29 @@ public struct PlaneDescriptor: Sendable, Equatable {
     public let pixelStride: Int
     public let rowBytes: Int
     public let byteCount: Int
+    public let horizontalSamplingFactor: Int
+    public let verticalSamplingFactor: Int
 
     public init(width: Int, height: Int, components: [Int] = [0], offset: Int = 0,
                 sampleStride: Int = 2, pixelStride: Int = 2, rowBytes: Int,
-                byteCount: Int) throws {
+                byteCount: Int, horizontalSamplingFactor: Int = 1, verticalSamplingFactor: Int = 1) throws {
         guard width > 0, height > 0, offset >= 0, sampleStride > 0,
               pixelStride > 0, rowBytes > 0, byteCount > 0,
+              (1...4).contains(horizontalSamplingFactor), (1...4).contains(verticalSamplingFactor),
               !components.isEmpty, components.allSatisfy({ $0 >= 0 }),
               Set(components).count == components.count else {
             throw CodecError(.invalidArgument, "Invalid plane geometry or component mapping.")
         }
         self.width = width; self.height = height; self.components = components
+        self.horizontalSamplingFactor = horizontalSamplingFactor; self.verticalSamplingFactor = verticalSamplingFactor
         self.offset = offset; self.sampleStride = sampleStride
         self.pixelStride = pixelStride; self.rowBytes = rowBytes; self.byteCount = byteCount
     }
 }
 
 /// Validated layout; meaningful integer bits are low aligned within each word.
-/// This milestone supports complete, unsubsampled planes. Subsampling is rejected.
+/// Plane dimensions follow their explicit JPEG sampling factors. Codec capability
+/// checks independently decide which sampling layouts can be encoded or decoded.
 public struct ImageDescriptor: Sendable, Equatable {
     public let width: Int
     public let height: Int
@@ -97,9 +102,13 @@ public struct ImageDescriptor: Sendable, Equatable {
         var mapped = Set<Int>()
         var ranges: [Range<Int>] = []
         var required = 0
+        let hMax = planes.map(\.horizontalSamplingFactor).max() ?? 1
+        let vMax = planes.map(\.verticalSamplingFactor).max() ?? 1
         for plane in planes {
-            guard plane.width == width, plane.height == height else {
-                throw CodecError(.unsupportedFeature, "Subsampled planes are not implemented in this milestone.")
+            let expectedWidth = try checkedAdd(checkedMultiply(width, plane.horizontalSamplingFactor), hMax - 1) / hMax
+            let expectedHeight = try checkedAdd(checkedMultiply(height, plane.verticalSamplingFactor), vMax - 1) / vMax
+            guard plane.width == expectedWidth, plane.height == expectedHeight else {
+                throw CodecError(.incompatibleImageLayout, "Plane dimensions disagree with their explicit sampling factors.")
             }
             for component in plane.components {
                 guard component < components.count, mapped.insert(component).inserted else {

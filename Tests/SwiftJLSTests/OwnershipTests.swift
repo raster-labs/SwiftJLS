@@ -90,33 +90,50 @@ private final class ReadAdapter: ReadOnlyImageStorage {
 @Test func sameTokenCannotAuthoriseConcurrentOverlappingBorrows() throws {
     let storage = try OwnedImageStorage(byteCount: 2)
     let lease = try storage.reserveWrite()
-    let entered = DispatchSemaphore(value: 0)
-    let release = DispatchSemaphore(value: 0)
     let done = DispatchSemaphore(value: 0)
-    let result = Mutex(false)
-    DispatchQueue.global().async {
-        defer { done.signal() }
-        do {
-            try storage.withUnsafeMutableBytes(lease: lease) { bytes in
-                entered.signal()
-                guard release.wait(timeout: .now() + 5) == .success else { return }
-                bytes[0] = 29
-                result.withLock { $0 = true }
+    let rejections = Mutex(0)
+    try storage.withUnsafeMutableBytes(lease: lease) { bytes in
+        // The test itself holds the first borrow. A dedicated thread probes it;
+        // neither side waits for a worker on the test runner's shared pool.
+        Thread.detachNewThread {
+            defer { done.signal() }
+            func probe(_ operation: () throws -> Void) {
+                do { try operation() }
+                catch let error as CodecError where error.category == .storageUnavailable {
+                    rejections.withLock { $0 += 1 }
+                } catch { }
             }
-        } catch { }
+            probe { try storage.withUnsafeMutableBytes(lease: lease) { _ in } }
+            probe { _ = try storage.finishAndSeal(lease: lease) }
+            probe { try storage.abortAndInvalidate(lease: lease) }
+            probe { _ = try storage.reserveWrite() }
+        }
+        #expect(done.wait(timeout: .now() + 5) == .success)
+        #expect(rejections.withLock { $0 } == 4)
+        bytes[0] = 29
     }
-    guard entered.wait(timeout: .now() + 5) == .success else {
-        release.signal()
-        Issue.record("First writer did not enter its scoped borrow.")
-        return
-    }
-    storageFailure { try storage.withUnsafeMutableBytes(lease: lease) { _ in } }
-    storageFailure { _ = try storage.finishAndSeal(lease: lease) }
-    release.signal()
-    #expect(done.wait(timeout: .now() + 5) == .success)
-    #expect(result.withLock { $0 })
     let sealed = try storage.finishAndSeal(lease: lease)
     #expect(try sealed.withUnsafeBytes { $0[0] } == 29)
+}
+
+@Test func throwingBorrowReleasesAdmissionWithoutPublishingStorage() throws {
+    let storage = try OwnedImageStorage(byteCount: 2)
+    let lease = try storage.reserveWrite()
+    #expect(throws: CancellationError.self) {
+        try storage.withUnsafeMutableBytes(lease: lease) { bytes in
+            bytes[0] = 42
+            throw CancellationError()
+        }
+    }
+    // A scoped provider borrow does not consume the lease; the destination owns
+    // failure invalidation. It must still be possible to clean up after a throw.
+    try storage.withUnsafeMutableBytes(lease: lease) { bytes in
+        #expect(bytes[0] == 42)
+        bytes[1] = 17
+    }
+    try storage.abortAndInvalidate(lease: lease)
+    storageFailure { _ = try storage.finishAndSeal(lease: lease) }
+    storageFailure { try storage.withUnsafeMutableBytes(lease: lease) { _ in } }
 }
 
 @Test func concurrentAdaptersReserveExactlyOneWriter() async throws {
