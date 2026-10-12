@@ -372,13 +372,15 @@ struct JPEGLSHeader {
                         throw unsupported("Unsupported scan interleave or point transform.")
                     }
                     guard (interleave == .none && count == 1) || (interleave != .none && count > 1) else { throw malformed() }
+                    // No restart boundary occurs at or beyond the frame height.
+                    let hasActiveRestarts = restartInterval > 0 && restartInterval < f.height
                     if Set(f.sampling).count > 1 {
-                        guard interleave == .line, count == f.ids.count, restartInterval == 0,
+                        guard interleave == .line, count == f.ids.count, !hasActiveRestarts,
                               transform == nil || transform == CodecOptions.ColourTransform.none else {
                             throw unsupported("Subsampled decoding requires one line-interleaved scan without HP or restarts.")
                         }
                     }
-                    guard restartInterval == 0 || interleave == .none else {
+                    guard !hasActiveRestarts || interleave == .none else {
                         throw unsupported("Restart markers require non-interleaved scans.")
                     }
                     if let transform, transform != .none {
