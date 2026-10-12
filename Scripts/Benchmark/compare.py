@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
 """Interleave standalone release binaries; retain every timing and environment."""
-import argparse, json, pathlib, platform, statistics, subprocess, time
+import argparse, hashlib, json, pathlib, platform, statistics, subprocess, time
 p = argparse.ArgumentParser()
 p.add_argument('--predecessor', type=pathlib.Path, required=True)
 p.add_argument('--successor', type=pathlib.Path, required=True)
@@ -13,6 +13,8 @@ def command(*args):
     r = subprocess.run(args, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     return dict(command=list(args), exit_code=r.returncode, output=r.stdout)
 environment = dict(platform=platform.platform(), machine=platform.machine(),
+    binary_sha256={label: hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest() for label,path in binaries.items()},
+    power_start=command('pmset', '-g', 'batt'), load_start=command('sysctl', '-n', 'vm.loadavg'),
     swift=command('swift', '--version'), hardware=command('sysctl', '-n', 'hw.model', 'hw.memsize', 'machdep.cpu.brand_string'),
     thermal_start=command('pmset', '-g', 'therm'), predecessor_sha='15aa75164145414f3d5ffb801401c52d40cc5bcc',
     successor_sha=command('git', 'rev-parse', 'HEAD'),
@@ -52,3 +54,6 @@ for width, height, bits, pattern in dict.fromkeys((r['width'], r['height'], r['b
     summary.append(case)
 (a.output / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
 (a.output / 'thermal-end.json').write_text(json.dumps(command('pmset', '-g', 'therm'), indent=2) + '\n')
+
+(a.output / 'power-end.json').write_text(json.dumps(command('pmset', '-g', 'batt'), indent=2) + '\n')
+(a.output / 'load-end.json').write_text(json.dumps(command('sysctl', '-n', 'vm.loadavg'), indent=2) + '\n')
