@@ -1,6 +1,6 @@
 # Security policy and implementation requirements
 
-Status: documentation foundation. No successor binary release exists and no vulnerability response time is promised here.
+Status: unreleased native codec with bounded parsing, resource admission and sanitizer/mutation evidence. [Current validation](Documentation/Engineering/CodecMigration/Validation.md) distinguishes tested revisions from open release gates. No stable successor release or vulnerability response-time commitment is claimed.
 
 ## Reporting
 

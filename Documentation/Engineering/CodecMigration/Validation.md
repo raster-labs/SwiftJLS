@@ -1,8 +1,20 @@
-# Predecessor migration validation — 10 October 2026
+# Predecessor migration validation — 12 October 2026
 
-The native predecessor profiles, mapping tables and metadata are implemented in the owning SwiftJLS API. The implementation is reviewable in [draft PR 14](https://github.com/raster-labs/SwiftJLS/pull/14). Stable-release qualification remains open for controlled performance and target-device memory measurements. This record does not authorise release, tagging, merging, predecessor archival or consumer cutover.
+The native codec, mapping tables and metadata are implemented in the owning SwiftJLS API. [PR 14](https://github.com/raster-labs/SwiftJLS/pull/14) merged on 12 October as `f481f6031279b8ca5c51f559df33cc66a9e4e06b`. [The completion audit](Completion.md) records a remaining inactive-DRI compatibility gap, so complete predecessor parity is not claimed. Stable-release qualification remains open for controlled performance and target-device memory measurements. This record does not authorise release, tagging, merging, predecessor archival or consumer cutover.
 
-## Revisions and reproducibility
+## Current candidate — DICOM padding, 12 October
+
+[PR 15](https://github.com/raster-labs/SwiftJLS/pull/15) remains unmerged. Runtime checkpoint `3f16daf61f88bc136b6db478fd13abac234af4f5` permits the predecessor fix branch’s single DICOM padding byte while retaining all size and complete-stream checks. The documentation audit changes no source, tests, scripts, fixtures or manifest relative to that checkpoint.
+
+- Debug, release, AddressSanitizer and ThreadSanitizer: 77 declarations in nine suites pass in each; 73 CLI payload checks and the independent consumer pass.
+- Eighteen bounded-decoding comparisons match unchanged JLSwift fix revision `e4594319b83a79189a3e349ab282e2872b7ebd7a`. Different Int/UInt16 sample sizes are reflected in the byte-limit tests.
+- All 16 hosted checks pass: [contract](https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277), [CharLS interoperability](https://github.com/raster-labs/SwiftJLS/actions/runs/38220135359), [Watch architecture build](https://github.com/raster-labs/SwiftJLS/actions/runs/38220103938). Platform SDK builds are not physical-device runtime tests.
+- ASan mutation smoke: 15 seconds per entry using 981 seeds; 135,670 owned-decode iterations, 135,810 caller-destination iterations (45,563 decode calls after inspection), 188,059 inspections; exit zero, no sanitizer findings. This does not satisfy the one-hour duration gate for the changed parser.
+- Machine-readable local/hosted results: [DICOM padding evidence](results/dicom-padding-2026-10-12.json). The completion audit adds four independently executed predecessor/SwiftJLS inactive-DRI comparisons and provenance/hash checks; those expose an open gap, not four passing parity tests.
+
+Local commands were `swift test`, `swift test -c release`, and separate `swift test --scratch-path PATH --sanitize address|thread`, each with `-Xswiftc -load-plugin-library -Xswiftc /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib`. The explicit plugin fixed a local rebuild failure; the native-engine fallback could not locate Testing. No manifest or concurrency setting changed. CLI command: `python3 Scripts/test-payload-cli.py --binary PATH --output PATH`; independent consumer: `swift run --package-path Examples/IndependentConsumer`. The release ASan FuzzConsumer ran `FuzzConsumer FIXTURES owned|into|inspect 15 LAST_INPUT` separately. All successful checks exited zero; the initial toolchain failures are not counted as passes.
+
+## 10 October baseline — revisions and reproducibility
 
 - Codec checkpoint: `7f93b8e8c5ecb1cf1fa293aac8801203e2074a87`. The final Watch portability correction bounds native integer conversions and restart arithmetic. Earlier `da5bd84` results retain their original scope; both source manifests are archived.
 - Predecessor: `15aa75164145414f3d5ffb801401c52d40cc5bcc`.
@@ -12,7 +24,7 @@ The native predecessor profiles, mapping tables and metadata are implemented in 
 
 The [parity matrix](Parity.md) defines profile scope and explicit legacy interpretation. Fixture manifests under `Tests/SwiftJLSTests/Fixtures` retain geometry, hashes, provenance and independent expected samples. Source attribution is in the adapted files and `../MigrationPreflight/scalar-provenance.json`. Historical checkpoint results remain in README.md and are not substituted for current-source checks.
 
-## Executed checks
+## 10 October baseline — executed checks
 
 | Check | Result | Evidence |
 | --- | --- | --- |
@@ -33,7 +45,7 @@ There are 981 retained JPEG-LS files, all included in the final duration campaig
 
 The published reference separately accepted 36 explicit-preset outputs and 33 two-component line outputs. MAXVAL 1/2 and two-component sample coding retain local-only qualification; the available reference does not cover those cases. Four 16-bit/three-byte-entry mapping candidates are excluded because the pinned CharLS oracle splits entries at continuation boundaries contrary to T.87. These exclusions are not counted as passing interoperability.
 
-## Apple runtime execution
+## Apple runtime execution (recorded baseline revisions)
 
 The native simulator consumer checks precision, caller allocation identity, padded output, HP, mapping metadata/re-encoding, explicit mapping, predecessor combined profiles, Watch limits and cancellation. The all-four-platform checkpoint run [38048492787](https://github.com/raster-labs/SwiftJLS/actions/runs/38048492787) passed. The `da5bd84` checkpoint rerun [38049188670](https://github.com/raster-labs/SwiftJLS/actions/runs/38049188670) and final `7f93b8e` run [38052651410](https://github.com/raster-labs/SwiftJLS/actions/runs/38052651410) also passed all four. `results/parity-final74-apple-runtime.json` retains the final outputs, runtime versions and artifact hashes. Both used Swift 6.3.3 / Xcode 26.6, iOS 26.4.1, tvOS/visionOS 26.5 and watchOS 26.4. Deployment targets are 26.0; this is not runtime evidence on the exact 26.0 releases.
 
@@ -41,7 +53,7 @@ visionOS exposed a SwiftPM cross-target defect: it emitted ELF linker options an
 
 The physical Watch SDK additionally compiles the library for `arm64_32-apple-watchos26.0` in [run 38052647349](https://github.com/raster-labs/SwiftJLS/actions/runs/38052647349). LLVM IR confirms a four-byte `Int`. The first device build failed on an overflowing 32-bit dimension literal; the correction also parses unsigned dimensions/counts before checked native conversion, preserves unsigned SPIFF density values and bounds restart arithmetic. A new regression covers maximum 32-bit DRI/density and oversized mapping/dimension fields. This is device-architecture compile evidence, not execution on physical hardware.
 
-## Duration/security campaign
+## Duration/security campaign (recorded baseline revisions)
 
 [Run 38052649425](https://github.com/raster-labs/SwiftJLS/actions/runs/38052649425) passed the final 3,600-second AddressSanitizer campaign separately for owned decode, caller-destination decode and inspection. All three exited zero, reported complete durations of at least 3,600 seconds, retained 981 seeds and produced empty sanitizer error logs. Owned decode ran 7,272,261 mutations; caller-destination decode ran 9,990,916 mutations including 3,352,806 decode calls after inspection; inspection ran 8,995,485 mutations. The campaign cycles standard, explicit legacy and mapped-output configurations. This is deterministic mutation with heartbeat supervision, not coverage-guided fuzzing. `results/fuzz-final74-hour.json` records commands, exact counts, revision, file hashes and RSS; compressed heartbeat logs, last inputs and stderr are retained beside it. Sanitizer RSS is not ordinary allocation accounting.
 

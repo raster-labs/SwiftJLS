@@ -1,5 +1,10 @@
 # Change log
 
+## Migration completion audit — 2026-10-12 (unreleased)
+
+- Reconcile milestone status, merged/candidate revisions, OS/toolchain instructions, legacy HP coverage, DICOM padding and current validation across the repository documents. Preserve historical evidence and shared contracts.
+- Record a confirmed inactive-DRI interleaved-decoding gap and remaining controlled performance, peak-workspace, physical-device and release-duration requirements. Full migration completion, stable release and consumer cutover are not claimed.
+
 ## DICOM codestream padding — 2026-10-12 (unreleased)
 
 - Accept one trailing zero byte only after an odd-length complete JPEG-LS codestream, matching JLSwift's `fix/bounded-dicom-decoding` revision `e4594319b83a79189a3e349ab282e2872b7ebd7a`.

@@ -1,0 +1,242 @@
+{
+  "baseline": "f481f6031279b8ca5c51f559df33cc66a9e4e06b",
+  "predecessor": "e4594319b83a79189a3e349ab282e2872b7ebd7a",
+  "swift": "Apple Swift 6.4 (arm64 macOS)",
+  "regression_before_fix": "3 sliced-input cases failed as expected; rejection/limit tests passed",
+  "suites": {
+    "debug": {
+      "tests": 77,
+      "suites": 9,
+      "result": "passed"
+    },
+    "release": {
+      "tests": 77,
+      "suites": 9,
+      "result": "passed"
+    },
+    "asan": {
+      "tests": 77,
+      "suites": 9,
+      "result": "passed"
+    },
+    "tsan": {
+      "tests": 77,
+      "suites": 9,
+      "result": "passed"
+    }
+  },
+  "cross_repository_comparisons": [
+    {
+      "case": "plain",
+      "JLSwift": "accepted",
+      "SwiftJLS": "accepted"
+    },
+    {
+      "case": "odd-unpadded",
+      "JLSwift": "accepted",
+      "SwiftJLS": "accepted"
+    },
+    {
+      "case": "even-unpadded",
+      "JLSwift": "accepted",
+      "SwiftJLS": "accepted"
+    },
+    {
+      "case": "missing-EOI",
+      "JLSwift": "rejected",
+      "SwiftJLS": "rejected"
+    },
+    {
+      "case": "concatenated-frames",
+      "JLSwift": "rejected",
+      "SwiftJLS": "rejected"
+    },
+    {
+      "case": "trailing-1-2",
+      "JLSwift": "rejected",
+      "SwiftJLS": "rejected"
+    },
+    {
+      "case": "DICOM-odd-plus-zero",
+      "JLSwift": "accepted",
+      "SwiftJLS": "accepted"
+    },
+    {
+      "case": "even-plus-zero",
+      "JLSwift": "rejected",
+      "SwiftJLS": "rejected"
+    },
+    {
+      "case": "odd-plus-two-zeros",
+      "JLSwift": "rejected",
+      "SwiftJLS": "rejected"
+    },
+    {
+      "case": "odd-plus-nonzero",
+      "JLSwift": "rejected",
+      "SwiftJLS": "rejected"
+    },
+    {
+      "case": "LSE-100000-square",
+      "JLSwift": "rejected",
+      "SwiftJLS": "rejected"
+    },
+    {
+      "case": "LSE-uint32max-square",
+      "JLSwift": "rejected",
+      "SwiftJLS": "rejected"
+    },
+    {
+      "case": "compressed-2",
+      "JLSwift": "rejected",
+      "SwiftJLS": "rejected"
+    },
+    {
+      "case": "pixels-3",
+      "JLSwift": "rejected",
+      "SwiftJLS": "rejected"
+    },
+    {
+      "case": "decoded-one-byte-below",
+      "JLSwift": "rejected",
+      "SwiftJLS": "rejected"
+    },
+    {
+      "case": "decoded-exact",
+      "JLSwift": "accepted",
+      "SwiftJLS": "accepted"
+    },
+    {
+      "case": "all-components-one-byte-below",
+      "JLSwift": "rejected",
+      "SwiftJLS": "rejected"
+    },
+    {
+      "case": "all-components-exact",
+      "JLSwift": "accepted",
+      "SwiftJLS": "accepted"
+    }
+  ],
+  "resource_defaults_changed": false,
+  "cli_payload_checks": 73,
+  "independent_consumer": "passed",
+  "asan_mutation_smoke": {
+    "owned": {
+      "accepted": 22524,
+      "complete": true,
+      "decodeCalls": 135670,
+      "entry": "owned",
+      "generatorSeed": "0x4a4c5301",
+      "iterations": 135670,
+      "rejected": 113146,
+      "seconds": 15.00006108332309,
+      "seedCount": 981
+    },
+    "into": {
+      "accepted": 22546,
+      "complete": true,
+      "decodeCalls": 45563,
+      "entry": "into",
+      "generatorSeed": "0x4a4c5301",
+      "iterations": 135810,
+      "rejected": 113264,
+      "seconds": 15.00011145832832,
+      "seedCount": 981
+    },
+    "inspect": {
+      "accepted": 63085,
+      "complete": true,
+      "decodeCalls": 0,
+      "entry": "inspect",
+      "generatorSeed": "0x4a4c5301",
+      "iterations": 188059,
+      "rejected": 124974,
+      "seconds": 15.000065458356403,
+      "seedCount": 981
+    }
+  },
+  "commit": "3f16daf61f88bc136b6db478fd13abac234af4f5",
+  "pull_request": "https://github.com/raster-labs/SwiftJLS/pull/15",
+  "github_checks": [
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277/job/114714112479",
+      "name": "Apple SDK compile / iphonesimulator",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277/job/114714112473",
+      "name": "Apple SDK compile / xrsimulator",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277/job/114714112424",
+      "name": "Apple SDK compile / watchsimulator",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277/job/114714112517",
+      "name": "macOS 26 Intel scalar runtime",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277/job/114714112469",
+      "name": "Apple SDK compile / appletvsimulator",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277/job/114714112521",
+      "name": "Swift 6.4 / ubuntu-24.04-arm",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277/job/114714113127",
+      "name": "Fresh URL-pinned standalone consumer",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277/job/114714112393",
+      "name": "macOS 26 / Swift 6.2",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277/job/114714112412",
+      "name": "Swift 6.2 / ubuntu-24.04-arm",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277/job/114714112536",
+      "name": "Pinned development-only cross-codec consumer",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277/job/114714113213",
+      "name": "Independent consumer resolves at tools 6.2",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277/job/114714112498",
+      "name": "Swift 6.4 / ubuntu-24.04",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135359/job/114714112076",
+      "name": "charls",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277/job/114714112440",
+      "name": "Swift 6.2 / ubuntu-24.04",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220135277/job/114714112247",
+      "name": "Shared contract byte-identity",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38220103938/job/114714008586",
+      "name": "watch-device",
+      "state": "SUCCESS"
+    }
+  ]
+}

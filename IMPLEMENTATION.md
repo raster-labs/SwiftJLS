@@ -14,13 +14,15 @@ Do not migrate code from moving main without recording the selected revision. Re
 
 ## Milestones and exit evidence
 
-| Milestone | Work | Exit evidence |
-| --- | --- | --- |
-| 1 — contract feasibility | Establish Swift 6.4 package, independent local API/owning-memory types, descriptor validation and safe adapter experiment; no codec algorithm migration | Compiling equivalent public calls, lifecycle/race/error tests, standalone consumer build and contract issues resolved explicitly |
-| 2 — migration baseline | Inventory predecessor subsystems/products; select and migrate the smallest native scalar lossless path with Apache-2.0/provenance reconciliation | Pinned predecessor comparison, independent decode/encode validation, exact sample/precision results, no new runtime codec dependency |
-| 3 — shared-storage path | Direct final decode into caller storage and encode from compatible sealed storage | Required-sharing copy/allocation/lifetime proof; first suite pair or corresponding codec extension passes |
-| 4 — feature/platform coverage | Extend supported modes/layouts, CLI, optional acceleration and all required OS/architecture paths | Capability matrix, codec-specific regressions, platform results, security and performance evidence |
-| 5 — release preparation | Validate clean versioned consumption, docs/examples, migration guide, licence/fixture notices and release gates | Reviewed complete evidence; stable tag only after explicit release task |
+[The completion audit](Documentation/Engineering/CodecMigration/Completion.md) maps these statuses to exact evidence, current/main revisions, known gaps and remaining acceptance requirements. The DICOM-padding follow-up is in PR 15; it is not yet part of main. Do not mark Milestones 4 or 5 complete from passing unit tests alone.
+
+| Milestone | Work | Exit evidence | Audited status, 12 October 2026 |
+| --- | --- | --- | --- |
+| 1 — contract feasibility | Establish tools 6.2 package with primary Swift 6.4 qualification, independent local API/owning-memory types, descriptor validation and safe adapter experiment; no codec algorithm migration | Compiling equivalent public calls, lifecycle/race/error tests, standalone consumer build and contract issues resolved explicitly | Implemented and validated in the recorded scope |
+| 2 — migration baseline | Inventory predecessor subsystems/products; select and migrate the smallest native scalar lossless path with Apache-2.0/provenance reconciliation | Pinned predecessor comparison, independent decode/encode validation, exact sample/precision results, no new runtime codec dependency | Implemented and independently validated |
+| 3 — shared-storage path | Direct final decode into caller storage and encode from compatible sealed storage | Required-sharing copy/allocation/lifetime proof; first suite pair or corresponding codec extension passes | Implemented; caller-storage and cross-codec evidence recorded |
+| 4 — feature/platform coverage | Extend supported modes/layouts, CLI, optional acceleration and all required OS/architecture paths | Capability matrix, codec-specific regressions, platform results, security and performance evidence | Incomplete: inactive-DRI compatibility, controlled performance/workspace and physical-device gates |
+| 5 — release preparation | Validate clean versioned consumption, docs/examples, migration guide, licence/fixture notices and release gates | Reviewed complete evidence; stable tag only after explicit release task | Incomplete: release gates and explicit release approval remain outstanding |
 
 Work one owner-assigned milestone at a time. Preserve internal algorithm names where helpful, but provide the agreed common public module surface. Do not publish a stable version or announce complete platform support while required gates are missing.
 

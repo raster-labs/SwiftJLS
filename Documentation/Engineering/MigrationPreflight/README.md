@@ -1,5 +1,7 @@
 # Migration preparation — 9 October 2026
 
+Historical preflight snapshot. The unavailable-codec statements below applied on 9 October; use [the current completion audit](../CodecMigration/Completion.md) and [validation](../CodecMigration/Validation.md) for the implemented codec and remaining gates. Original inventory and evidence are retained.
+
 This is preparation for Milestone 2, not a codec delivery or production cutover.
 SwiftJLS still advertises no JPEG-LS encode, decode or inspect capabilities.
 
