@@ -90,3 +90,7 @@ Added bounded mapping tables/continuations, ordered APP/COM and SPIFF metadata, 
 ## Migration completion audit — 12 October 2026
 
 PR 14 merged as `f481f6031279b8ca5c51f559df33cc66a9e4e06b`. The separately tested DICOM-padding candidate `3f16daf61f88bc136b6db478fd13abac234af4f5` remains in draft PR 15. The audit reconciles stale toolchain/platform/HP statements and records one remaining inactive-DRI compatibility gap, controlled performance/peak-workspace and physical-device gates. Milestones 4–5, stable release and consumer cutover are not complete. The seven common contracts, historical evidence, versions and fixture provenance are preserved.
+
+## Migration qualification follow-up — 12 October 2026
+
+Runtime checkpoint `4008f213cc749514300de55dfc17b389fbd3b561` closes the inactive-DRI compatibility gap exposed by the earlier same-day audit. The final local suite has 80 tests in ten suites; debug, release, ASan and TSan pass. The follow-up adds bounded concurrent resource evidence and repeats advisory release measurements without relaxing acceptance thresholds. See [the updated completion audit](Documentation/Engineering/CodecMigration/Completion.md) for final hosted results and unresolved requirements. Physical Watch testing is explicitly excluded from this task, not claimed as performed. Historical evidence and common contracts remain unchanged.

@@ -38,3 +38,7 @@ This script covers local macOS validation of the existing Milestone 1 API/storag
 ## Current OS 26 CLI checks
 
 Active packages and generated consumers require Apple OS 26.0. The owner-approved CLI foundation is a separate executable product, with no main entry point in library tests. After building its release binary, run `python3 Scripts/test-cli.py --binary /absolute/path/to/the/tool --output /new/evidence/directory` for process-level help/verbosity/stream and staged install/man-page checks. The check requires `man` and `mandoc`; missing manual tools fail explicitly. `install-cli.sh --help` describes install/update and DESTDIR staging. Read [CLI.md](../CLI.md) and [current evidence](../Documentation/Engineering/CodecMigration/Validation.md).
+
+The migration follow-up also runs [bounded concurrent resources](../Examples/ResourceStress/README.md) and [Heaptrack peak replay](StorageEvidence/README.md). These ordinary-build measurements remain separate from sanitizer RSS and from controlled release timing.
+
+The [release benchmark harness](Benchmark/README.md) includes scalar and RGB NEAR 0/3 modes, all colour interleaves, source/binary hashes and explicit smoke checks. Controlled scalar/colour timing remains a release gate.

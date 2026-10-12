@@ -1,5 +1,13 @@
 # Change log
 
+## Migration qualification follow-up — 2026-10-12 (unreleased)
+
+- Accept inactive restart intervals at or above image height in line/sample and subsampled line decoding; preserve active-interleaved and stray-marker rejection. Four predecessor discrepancies now agree.
+- Add bounded concurrent admission/deadline/cancellation regressions and an ordinary-release, four-worker scalar/colour lossless/near-lossless resource consumer.
+- Add validated Heaptrack event replay for measured live heap peaks, preserving attribution limitations and unknown per-operation workspace fields. Record binary hashes, power and load alongside interleaved benchmarks.
+- Extend the repeatable benchmark harness to RGB NEAR 0/3 and all three interleaves, with explicit correctness-only smoke mode.
+- Update active migration documents with executed evidence and unresolved gates. Exclude physical Watch testing from this task as requested; do not treat that exclusion as hardware evidence or a stable-release waiver.
+
 ## Migration completion audit — 2026-10-12 (unreleased)
 
 - Reconcile milestone status, merged/candidate revisions, OS/toolchain instructions, legacy HP coverage, DICOM padding and current validation across the repository documents. Preserve historical evidence and shared contracts.

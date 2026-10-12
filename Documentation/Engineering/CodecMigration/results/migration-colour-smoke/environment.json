@@ -1,0 +1,68 @@
+{
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "smoke_only": true,
+  "consumer_sha256": "71cb4fdddbca86362b32376acc3b3bb5c49aec89a6a31d8cce4792b0fdd0f7ec",
+  "runner_sha256": "e6b8a57cc4d42c58b6f288c74a657efcc4720b75e87bf761f0410ae30cf5e428",
+  "binary_sha256": {
+    "predecessor": "c406489d8ec23f7037412cb7fbcec746f41b681a30c311a0aa28d5d00f54d11f",
+    "successor": "8d4e02e82d9f49b5d73ebcd205b5796b391d4c96780544307f1c95ee463db5b9"
+  },
+  "power_start": {
+    "command": [
+      "pmset",
+      "-g",
+      "batt"
+    ],
+    "exit_code": 0,
+    "output": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=23396451)\t55%; discharging; 1:13 remaining present: true\n"
+  },
+  "load_start": {
+    "command": [
+      "sysctl",
+      "-n",
+      "vm.loadavg"
+    ],
+    "exit_code": 0,
+    "output": "{ 6.29 6.76 7.23 }\n"
+  },
+  "swift": {
+    "command": [
+      "swift",
+      "--version"
+    ],
+    "exit_code": 0,
+    "output": "swift-driver version: 1.168.6 Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n"
+  },
+  "hardware": {
+    "command": [
+      "sysctl",
+      "-n",
+      "hw.model",
+      "hw.memsize",
+      "machdep.cpu.brand_string"
+    ],
+    "exit_code": 0,
+    "output": "Mac16,5\n68719476736\nApple M4 Max\n"
+  },
+  "thermal_start": {
+    "command": [
+      "pmset",
+      "-g",
+      "therm"
+    ],
+    "exit_code": 0,
+    "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+  },
+  "predecessor_sha": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "successor_sha": {
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "output": "7509b49a26797f0f02a5097aa2776195eddb400a\n"
+  },
+  "methodology": "RGB NEAR 0/3, all three interleaves, public API. Owned decode, release without sanitizers. Four alternating process blocks, each with 5 warmups and 5 timed iterations. Initial sample verification outside timing. Host is a developer workstation; no claim of isolated thermal/power control."
+}

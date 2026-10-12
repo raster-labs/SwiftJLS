@@ -1,0 +1,109 @@
+{
+  "workflow": "https://github.com/raster-labs/SwiftJLS/actions/runs/38244562355",
+  "revision": "4008f213cc749514300de55dfc17b389fbd3b561",
+  "scope": "Corrected production source; one hour per owned/into/inspect entry; release with AddressSanitizer; RSS includes sanitizer overhead.",
+  "entries": [
+    {
+      "entry": "mutation-inspect",
+      "result": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "inspect",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.135018002,
+        "peak_process_rss_bytes": 458289152,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 2337270,
+        "complete": true,
+        "decodeCalls": 0,
+        "entry": "inspect",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 6966138,
+        "rejected": 4628868,
+        "seconds": 3600.000105108,
+        "seedCount": 981
+      },
+      "artifact_file_sha256": {
+        "campaign-result.json": "1618c3dff537be8d33767bcdbe8d57885a985a92a67b5d811f8068e02d37ca6d",
+        "campaign.jsonl": "75e7208b29e972b4791f28b28178eb3b8c327269a2635023ab86c1ccc146e023",
+        "campaign-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "last-input.jls": "c00fc6a590d21ce12ddbe388ebf725e134f8fce43a54e7315ded88efafbd8056"
+      }
+    },
+    {
+      "entry": "mutation-into",
+      "result": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "into",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.1558479699997,
+        "peak_process_rss_bytes": 517218304,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 1469076,
+        "complete": true,
+        "decodeCalls": 2971517,
+        "entry": "into",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 8855815,
+        "rejected": 7386739,
+        "seconds": 3600.000227611,
+        "seedCount": 981
+      },
+      "artifact_file_sha256": {
+        "campaign-result.json": "55287a8e5b1f376daa4bdf440e619026e65efdeb321a7e377cd64f2ef02b03cf",
+        "campaign.jsonl": "0281c9c563f6a6ebaaf0ab04fead74f8ad19b9560711daf7cc40f8b4e5dfcc1a",
+        "campaign-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "last-input.jls": "e7bf7f430bbce4b37585f75e023c1e5f58611d295ffcb28d5538dde5818ba7e8"
+      }
+    },
+    {
+      "entry": "mutation-owned",
+      "result": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "owned",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.127912947,
+        "peak_process_rss_bytes": 484618240,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 1137795,
+        "complete": true,
+        "decodeCalls": 6858685,
+        "entry": "owned",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 6858685,
+        "rejected": 5720890,
+        "seconds": 3600.00042505,
+        "seedCount": 981
+      },
+      "artifact_file_sha256": {
+        "campaign-result.json": "2d9e8586002ba6945631fe7a7aa3e922fb378a5dc120460271f2d68a9d272f0d",
+        "campaign.jsonl": "2af436c4aa3b0d4b3b77d1bc9374a5aadd9ac3ced98769ab92a70b5e65eb7517",
+        "campaign-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "last-input.jls": "98a42ecd5f1635dec011348eb7ab5d8920da4b00a8b1d1e5379ae79f52d5059a"
+      }
+    }
+  ]
+}
