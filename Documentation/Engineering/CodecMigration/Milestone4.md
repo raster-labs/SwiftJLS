@@ -13,7 +13,7 @@
 
 ## Executed software checks
 
-The local host is Apple Silicon Mac16,5 with 64 GiB memory, Apple Swift 6.4 (`swiftlang-6.4.0.34.1`) and macOS 27.0.1. The initial test runs used Command Line Tools. The user installed Xcode 27.0 (27A266a) during this task; subsequent Apple builds use its SDK 27.0 and deployment targets 26.0. These results are not exact OS 26.0 or physical iOS-family device qualification.
+The local host is Apple Silicon Mac16,5 with 64 GiB memory, Apple Swift 6.4 (`swiftlang-6.4.0.34.1`) and macOS 27.0.1. The initial test runs used Command Line Tools. The user installed Xcode 27.0 (27A266a) during this task; subsequent Apple builds use its SDK 27.0 and deployment targets 26.0. The subsequent consumer runs below execute on exact OS 26.0 simulators. They do not establish physical-device qualification or exact native macOS 26.0 execution.
 
 | Check | Result |
 | --- | --- |
@@ -25,8 +25,10 @@ The local host is Apple Silicon Mac16,5 with 64 GiB memory, Apple Swift 6.4 (`sw
 | Benchmark measurement smoke | Six scalar and 36 colour profiles pass for both libraries, four alternating blocks each; separate and combined timing arrays are present |
 | Runner controls | 11 positive/negative controls pass |
 | Xcode 27 Apple builds | Four signed simulator consumers and the arm64_32 Watch module compile for deployment target 26.0 |
+| Exact OS 26.0 runtimes | iPhone 17 Pro, iPad Pro 13-inch (M5), Apple TV 4K (3rd generation), Apple Vision Pro and Apple Watch Series 11 (46mm) simulator consumers all pass |
+| Exact OS 26.0 concurrent resources | Four non-Watch simulator profiles each pass 32 scalar/RGB NEAR 0/3 frame transactions; caller destination identity is preserved, with zero reported caller-decode pixel allocations or copy bytes |
 | Local iOS 27.0 runtime | iPhone 18 Pro and iPad Pro 13-inch (M5) simulator consumers pass sample, direct-storage, RGB/HP, mapping/metadata, bounded-limit, cancellation and combined legacy checks |
-| Hosted PR checks | All 16 pass at `b44fe03`; exact links are in the supplemental evidence |
+| Hosted PR checks | All 16 pass at both `b44fe03` and `608193a`; exact links are in the supplemental evidence |
 | Instruments collection | A debug-signed copy of the ordinary release benchmark successfully records allocations and exits 0; complete workspace accounting remains open |
 
 Exact commands, source hashes, logs, xUnit results and smoke artifacts are recorded in [the evidence manifest](results/milestone4-2026-10-13.json). Initial default-engine discovery failed because the bundled Testing macro plugin was not loaded. An explicit native-backend diagnostic also failed because it could not locate Testing. Both failures are retained. All four successful test runs use the default Swift Build engine and explicitly load `/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib`; language/concurrency checking remains enabled. The release benchmark consumer builds used the native backend, recorded separately from the successful default-engine library tests.
@@ -39,10 +41,10 @@ Smoke runs overlapped software validation on a battery-powered developer machine
 | --- | --- |
 | Controlled performance, PERF-01..03 | Powered, idle hardware with recorded thermal/load conditions; full representative scalar and colour runs, including source preparation; investigate confirmed regressions above the contract threshold and record any explicitly accepted safety/correctness cost |
 | Per-operation workspace | Complete accounting separating algorithm workspace, compressed buffers, metadata, runtime and stack storage. Existing Heaptrack group peaks do not close this gate; `peakWorkspaceBytes` remains unknown |
-| Exact minimum runtimes | Execute required OS 26.0 runtime checks. Passing newer-minor simulators or building for deployment target 26.0 is not an exact-minimum runtime pass |
+| Native macOS minimum | Exact 26.0 simulator consumer coverage is now complete for iOS/iPadOS, tvOS, visionOS and watchOS. This host remains macOS 27.0.1; the local runs do not establish exact native macOS 26.0 execution |
 | Physical-device admission | Representative required non-Watch devices and provisioning. Xcode is now available, but `devicectl` reports no physical devices. Physical Watch testing retains its earlier task exclusion and is unexecuted |
 
-The Xcode download window initially contained OS 27.0 simulators only. Exact iOS 26.0 (23A343), tvOS 26.0 (23J352), watchOS 26.0 (23R353) and visionOS 26.0 (23M336) downloads are now in progress. A download is not a runtime pass. The successful iOS 27.0 iPhone/iPad checks are recorded separately from the exact-minimum gate. No powered, idle benchmark window has been established; the latest power check still reports battery use.
+The Xcode download window initially contained OS 27.0 simulators only. Exact iOS 26.0 (23A343), tvOS 26.0 (23J352), watchOS 26.0 (23R353) and visionOS 26.0 (23M336) downloads have completed with exit 0. All five independent runtime consumers pass, including separate iPhone/iPad devices. The non-Watch concurrent resource runs also pass. [The exact-26.0 evidence](results/milestone4-os26-2026-10-13.json) records commands, outputs, compiler/build identity and source/binary/artifact hashes. Watch uses its bounded resource consumer, including resource rejection and cancellation; the four-worker resource workload was not used as a physical Watch memory claim. Earlier iOS 27.0 evidence retains its original scope. No powered, idle benchmark window has been established; the latest power check still reports battery use.
 
 After the user enabled development-tool authorisation, Instruments still could not attach to the ordinary executable. A local copy signed with `com.apple.security.get-task-allow` then produced a successful Allocations trace and target exit 0. Instruments displays allocation statistics and call trees; some symbols remain unresolved. This single scalar 512×512, 12-bit seeded-noise process includes setup and multiple encode/decode boundaries, so it does not provide complete per-operation workspace accounting. The failed attempt is retained alongside the successful recording log, redacted trace contents index and local raw-trace file hashes. See [the Xcode follow-up evidence](results/milestone4-xcode-2026-10-13.json). The raw trace remains local because it contains machine-specific data.
 
