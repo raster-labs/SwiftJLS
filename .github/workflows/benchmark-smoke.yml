@@ -1,0 +1,58 @@
+name: Benchmark measurement smoke
+on:
+  pull_request:
+    paths:
+      - 'Scripts/Benchmark/**'
+      - '.github/workflows/benchmark-smoke.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'Scripts/Benchmark/**'
+      - '.github/workflows/benchmark-smoke.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    container: swift:6.4-noble
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          path: successor
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: raster-labs/JLSwift
+          ref: 15aa75164145414f3d5ffb801401c52d40cc5bcc
+          persist-credentials: false
+          path: predecessor
+      - name: Prepare isolated release consumers
+        working-directory: successor
+        run: |
+          apt-get update && apt-get install -y --no-install-recommends python3
+          python3 Scripts/Benchmark/test-runner.py
+          python3 - <<'PY'
+          import os,pathlib
+          root=pathlib.Path(os.environ['GITHUB_WORKSPACE'])
+          source=(root/'successor/Scripts/Benchmark/Consumer.swift').read_text()
+          for label,module in [('predecessor','JPEGLS'),('successor','SwiftJLS')]:
+              package=root/'benchmarks'/label
+              (package/'Sources/Benchmark').mkdir(parents=True)
+              (package/'Sources/Benchmark/main.swift').write_text(source)
+              settings=', swiftSettings: [.define("PREDECESSOR")]' if label=='predecessor' else ''
+              (package/'Package.swift').write_text(f'// swift-tools-version: 6.2\nimport PackageDescription\nlet package = Package(name: "Benchmark", dependencies: [.package(path: "{root/label}")], targets: [.executableTarget(name: "Benchmark", dependencies: [.product(name: "{module}", package: "{label}")]{settings})], swiftLanguageModes: [.v6])\n')
+          PY
+          swift build -c release --package-path ../benchmarks/predecessor
+          swift build -c release --package-path ../benchmarks/successor
+      - name: Verify scalar and colour measurement boundaries
+        working-directory: successor
+        run: |
+          python3 Scripts/Benchmark/compare.py --predecessor ../benchmarks/predecessor/.build/release/Benchmark --successor ../benchmarks/successor/.build/release/Benchmark --output benchmark-results/scalar --smoke --end-to-end
+          python3 Scripts/Benchmark/compare.py --predecessor ../benchmarks/predecessor/.build/release/Benchmark --successor ../benchmarks/successor/.build/release/Benchmark --output benchmark-results/colour --smoke --colour --end-to-end
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: benchmark-measurement-smoke
+          path: successor/benchmark-results
