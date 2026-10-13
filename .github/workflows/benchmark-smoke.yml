@@ -38,19 +38,21 @@ jobs:
           root=pathlib.Path(os.environ['GITHUB_WORKSPACE'])
           source=(root/'successor/Scripts/Benchmark/Consumer.swift').read_text()
           for label,module in [('predecessor','JPEGLS'),('successor','SwiftJLS')]:
-              package=root/'benchmarks'/label
+              # SwiftPM derives local identities from directory names. Keep
+              # each consumer distinct from the checkout it depends on.
+              package=root/'benchmarks'/(label+'-consumer')
               (package/'Sources/Benchmark').mkdir(parents=True)
               (package/'Sources/Benchmark/main.swift').write_text(source)
               settings=', swiftSettings: [.define("PREDECESSOR")]' if label=='predecessor' else ''
               (package/'Package.swift').write_text(f'// swift-tools-version: 6.2\nimport PackageDescription\nlet package = Package(name: "Benchmark", dependencies: [.package(path: "{root/label}")], targets: [.executableTarget(name: "Benchmark", dependencies: [.product(name: "{module}", package: "{label}")]{settings})], swiftLanguageModes: [.v6])\n')
           PY
-          swift build -c release --package-path ../benchmarks/predecessor
-          swift build -c release --package-path ../benchmarks/successor
+          swift build -c release --package-path ../benchmarks/predecessor-consumer
+          swift build -c release --package-path ../benchmarks/successor-consumer
       - name: Verify scalar and colour measurement boundaries
         working-directory: successor
         run: |
-          python3 Scripts/Benchmark/compare.py --predecessor ../benchmarks/predecessor/.build/release/Benchmark --successor ../benchmarks/successor/.build/release/Benchmark --output benchmark-results/scalar --smoke --end-to-end
-          python3 Scripts/Benchmark/compare.py --predecessor ../benchmarks/predecessor/.build/release/Benchmark --successor ../benchmarks/successor/.build/release/Benchmark --output benchmark-results/colour --smoke --colour --end-to-end
+          python3 Scripts/Benchmark/compare.py --predecessor ../benchmarks/predecessor-consumer/.build/release/Benchmark --successor ../benchmarks/successor-consumer/.build/release/Benchmark --output benchmark-results/scalar --smoke --end-to-end
+          python3 Scripts/Benchmark/compare.py --predecessor ../benchmarks/predecessor-consumer/.build/release/Benchmark --successor ../benchmarks/successor-consumer/.build/release/Benchmark --output benchmark-results/colour --smoke --colour --end-to-end
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
