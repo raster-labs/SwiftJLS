@@ -3,7 +3,7 @@
 ## Milestone 4 component performance and qualification follow-up — 2026-10-13 (unreleased)
 
 - Reuse bounded scalar precision checks for contiguous component rows and skip redundant full-container checks; precompute packed-row addressing without overflowing multiplication. Add odd-stride, padding, endian and cancellation regressions.
-- Record 82 declarations passing in debug/release/ASan/TSan, all 17 hosted checks and repeated exact OS 26.0 consumers for the changed source.
+- Record 82 declarations passing in debug/release/ASan/TSan, all 17 hosted checks, repeated exact OS 26.0 consumers and three passing one-hour ASan mutation campaigns for the changed source.
 - Measure 24 scalar and 39 representative RGB cases on AC power; preserve residual regressions, condition limitations and failed attempts. Add validated case selection and an explicit development-only benchmark budget for largest RGB admission; production limits remain unchanged.
 - Add benchmark source-preparation and combined preparation/encode timings from identical canonical samples; preserve separate operation timings and keep smoke data explicitly unqualified.
 - Reject stale/malformed benchmark outputs, inherited export/decode operations and evidence-directory reuse; add runner negative controls and a pinned predecessor/successor CI smoke workflow.

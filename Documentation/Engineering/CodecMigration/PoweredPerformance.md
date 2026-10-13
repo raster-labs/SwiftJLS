@@ -27,6 +27,16 @@ Ratios below are successor/predecessor median latency; lower is faster. Scalar r
 
 The largest differences are not explained away by preparation timing. In particular, flat RGB encode and decode still require investigation beyond the access-path improvements. Existing full-range scalar noise profiling also points to kernel/bit-writing work, where meaningful-bit scans are already skipped. A fresh ten-second CPU sample of the final 2048², 16-bit flat line-interleave binary shows activity in the interleaved run-detection loop and component accessors (InterleavedKernel.swift:54–61). Its consumer and sampler both exit 0. Sampling combines repeated encode/decode and is diagnostic only; compiler-folded accessor symbols do not precisely apportion costs. These are investigation leads, not quantified proof that every residual cost is necessary for safety.
 
+Largest absolute median regressions among cases exceeding 5% in all four blocks (seconds, rounded):
+
+| Case | Operation | Predecessor | Successor | Added time |
+| --- | --- | --- | --- | --- |
+| 4096×3073, 16-bit noise, RGB, NEAR 0, interleave 2 | decode | 1.474859 | 1.610114 | 0.135256 |
+| 4096×3073, 12-bit flat, RGB, NEAR 0, interleave 2 | encode | 0.009382 | 0.132539 | 0.123157 |
+| 4096×3073, 16-bit noise, scalar, NEAR 0, interleave 0 | encode | 0.379176 | 0.494928 | 0.115753 |
+| 4096×3073, 12-bit noise, scalar, NEAR 0, interleave 0 | encode | 0.406361 | 0.501158 | 0.094796 |
+| 4096×3073, 16-bit noise, scalar, NEAR 0, interleave 0 | prepare_encode | 0.423218 | 0.514895 | 0.091677 |
+
 ## Improvement against the preceding SwiftJLS source
 
 A separate focused experiment compares old SwiftJLS `1b4964dc0205ac9a529e07df9742878f40853e29` with the final source, using the same new consumer/budget and four alternating blocks. This baseline is SwiftJLS, not JLSwift. It isolates the combined contiguous-validation and packed-row changes; an earlier validation-only experiment is also preserved. Medians below do not establish improvements for unmeasured profiles.

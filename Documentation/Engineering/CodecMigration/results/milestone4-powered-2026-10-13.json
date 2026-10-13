@@ -240,7 +240,95 @@
     "colour": 39
   },
   "resource_profile": "successor-workspace-1GiB-memory-2GiB-v1",
-  "mutation_results": [],
+  "mutation_results": [
+    {
+      "entry": "inspect",
+      "result": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "inspect",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.128709491,
+        "peak_process_rss_bytes": 445820928,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 1529669,
+        "complete": true,
+        "decodeCalls": 0,
+        "entry": "inspect",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 4559697,
+        "rejected": 3030028,
+        "seconds": 3600.0003086,
+        "seedCount": 981
+      },
+      "last_input_sha256": "68595b62f2ae57438b2d64b4f1bbc5bd3b51ea00077810004fb42d58267cb808"
+    },
+    {
+      "entry": "into",
+      "result": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "into",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.145093854,
+        "peak_process_rss_bytes": 493608960,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 1188685,
+        "complete": true,
+        "decodeCalls": 2403971,
+        "entry": "into",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 7165773,
+        "rejected": 5977088,
+        "seconds": 3600.000150621,
+        "seedCount": 981
+      },
+      "last_input_sha256": "362737c4a9732ddf44515370d78faf54cea7e9b5344c0cdc79e5cab608942c0c"
+    },
+    {
+      "entry": "owned",
+      "result": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "owned",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.149780412,
+        "peak_process_rss_bytes": 481751040,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 922861,
+        "complete": true,
+        "decodeCalls": 5562534,
+        "entry": "owned",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 5562534,
+        "rejected": 4639673,
+        "seconds": 3600.000461241,
+        "seedCount": 981
+      },
+      "last_input_sha256": "3b256bef5a3920892723465bc410a77bc0bd46ebb48f246a34fea008fba1ded5"
+    }
+  ],
   "artifacts": {
     "final-rgb/combined-analysis.json.gz": {
       "sha256": "1cf99f7bc5ff263d42498dce0dea6158df3ad62f16640e2d2d83ec487830b78e",
@@ -1006,6 +1094,18 @@
       "sha256": "4cfc319facba5621c6ca8ad9f4c80c5ff34cbee2435dbcbfb274ffd371f169e7",
       "bytes": 18775
     },
+    "reproduction/m4-doc-checks-f09b333.json": {
+      "sha256": "684dd4a18fc8d3cdc0f1f8997a21a85ebcafdcfbd58238f2b4a526f1471334f4",
+      "bytes": 2389
+    },
+    "reproduction/m4-doc-pr-f09b333.json": {
+      "sha256": "96bc2c2c0e26f9f8500a3a17d66ab08727be70fdf6b44f2d33b7370fd5375961",
+      "bytes": 5217
+    },
+    "reproduction/m4-final-fuzz.log.gz": {
+      "sha256": "8212955f246b71556431d658b386b549053fd629f9d50b9680fb21305c183945",
+      "bytes": 24348
+    },
     "reproduction/final-Consumer.swift": {
       "sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
       "bytes": 8645
@@ -1031,8 +1131,8 @@
       "bytes": 3044
     },
     "reproduction/package-m4-powered.py": {
-      "sha256": "ed4e09c5125ad4d257b8c36444ef367c9c98be903e4216381b89aa07f0e4f1d1",
-      "bytes": 8870
+      "sha256": "ab6ff042f26cc5ae1288ad2e98386e111443db104051e4104702783f4dcb1563",
+      "bytes": 8944
     },
     "reproduction/predecessor-Package.swift": {
       "sha256": "1565aef2d8171da77e80eced8df27255858b23b410b86fcca4c60cf54cfa675b",
@@ -1045,6 +1145,46 @@
     "reproduction/successor-Package.swift": {
       "sha256": "1f985df84cb3ec3b9b6baf5e8d0ff9b6356e4bcd5fde6be29903b3e186f27180",
       "bytes": 305
+    },
+    "fuzz/mutation-inspect/campaign-result.json": {
+      "sha256": "5abd469b36c537153b142285f4ab094b6245c4ab3e85bad6beeab1043c65a3b6",
+      "bytes": 351
+    },
+    "fuzz/mutation-inspect/campaign-stderr.log.gz": {
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "bytes": 20
+    },
+    "fuzz/mutation-inspect/campaign.jsonl.gz": {
+      "sha256": "2cf37ec36c6ce44d093ca7d78fa38cd763c3edf0ddfba675ccc74ae5c75f0a04",
+      "bytes": 16509
+    },
+    "fuzz/mutation-into/campaign-result.json": {
+      "sha256": "7b0429e52a53e6908f2474dcb6c24c7dc7d5d0cbf5b0d0d7f610d337b74679a0",
+      "bytes": 348
+    },
+    "fuzz/mutation-into/campaign-stderr.log.gz": {
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "bytes": 20
+    },
+    "fuzz/mutation-into/campaign.jsonl.gz": {
+      "sha256": "5323939551d5a2ce7df5d166e2eab62ad032091f5db87bb0eb4e983140f214bb",
+      "bytes": 19862
+    },
+    "fuzz/mutation-owned/campaign-result.json": {
+      "sha256": "4e43b5406372cfcc94f1767bf1e272024622af108b7c7350915192e0b4b2ffd0",
+      "bytes": 349
+    },
+    "fuzz/mutation-owned/campaign-stderr.log.gz": {
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "bytes": 20
+    },
+    "fuzz/mutation-owned/campaign.jsonl.gz": {
+      "sha256": "dbff474fd8f786b89d94485e1b368c0d0e55e9d9705ce37a1bbc33405f59d1f2",
+      "bytes": 18804
+    },
+    "fuzz/run.json": {
+      "sha256": "ca69f593c1ef3926ee04d8e26e9a06ea7b72037c966a271cd8b10578f5a8322a",
+      "bytes": 6926
     }
   },
   "qualification": {
