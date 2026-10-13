@@ -1,6 +1,8 @@
-# Predecessor parity and qualification — 10 October 2026
+# Predecessor profile coverage and qualification — 12 October 2026
 
 Baseline: JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`; suite policy 0.10.0. This record supersedes the older profile limitations in the chronological checkpoint log. No release or consumer cutover is authorised by this record.
+
+[The completion audit](Completion.md) records merged main versus the PR 15 candidate. The inactive-DRI compatibility gap is closed in runtime checkpoint `4008f21`; this profile inventory does not imply that all release qualification gates have passed.
 
 ## Migrated behaviour
 
@@ -14,7 +16,8 @@ Baseline: JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`; suite policy 0.10.
 | LSE extended dimensions | Standard Ye/Xe ordering, checked dimension and memory admission | Four independent tall/wide CharLS fixtures; actual predecessor extended streams |
 | Legacy HP transformations | Explicit predecessor inverse; all three interleaves and 2–16-bit coding; no marker-based autodetection | 36 actual predecessor fixtures at 2/8/12/16 bits, 36 combined mapping/HP lossless/near profiles, plus the earlier six 8/16-bit fixtures |
 | Subsampled line decoding | Explicit per-plane horizontal/vertical factors; ceiling dimensions; final caller planes with no upsampling | Odd-sized 17×19 zero-run streams plus 12 nonzero block/noise 8/12/16-bit streams at NEAR 0/3, verified with the unchanged pinned decoder; padded planes in both byte orders |
-| Parser per-scan DRI/presets | Parameters captured per scan; 16/24/32-bit DRI fields; mixed scan NEAR reports the maximum bound | Existing scan regression suite; additional combinations remain subject to fixture qualification |
+| Parser per-scan DRI/presets | Parameters captured per scan; 16/24/32-bit DRI fields; mixed scan NEAR reports the maximum bound | Inactive DRI at/above frame height accepted for line/sample and subsampled line input; 16/24/32-bit fields, inspection, both decode destinations and malformed-marker rejection tested |
+| Bounded complete codestreams | Resource admission, EOI and trailing-data checks; PR 15 adds one zero after an odd-length stream | 18 bounded-decoding comparisons plus all four previously failing DRI comparisons agree; 80 tests and 73 CLI checks pass in the current candidate |
 
 The successor additionally preserves opaque mapping entries of widths 1–255 as required table metadata. Unsigned scalar interpretation is restricted to widths 1/2. T.87 C.2.4.1.2 explicitly leaves entry-byte interpretation to the application. The default decoder therefore returns indices and required tables, rather than guessing output precision from observed values or byte width.
 
@@ -49,8 +52,10 @@ Malformed/incomplete tables fail before a destination write. The predecessor's f
 
 ## Qualification status
 
-The final codec checkpoint passes 74 test declarations in local debug, release, ASan and TSan, and the 32-bit Watch device SDK build passes. All 14 hosted contract jobs and four Apple simulator runtime jobs also pass on this final source. A separate CharLS development checkout pinned to `04e44bb760632104ab1209593eea3f8c20ac11e5` independently verifies 136 additional successor outputs: 60 mapping, four extended, 36 legacy HP and 36 combined mapping/HP migrations. CharLS remains test-only, outside the package dependency graph. Exact revisions, commands, duration status and remaining release gates are maintained in [Validation.md](Validation.md).
+The 10 October codec checkpoint passes 74 test declarations in local debug, release, ASan and TSan, and the 32-bit Watch device SDK build passes. All 14 hosted contract jobs and four Apple simulator runtime jobs also pass on this final source. A separate CharLS development checkout pinned to `04e44bb760632104ab1209593eea3f8c20ac11e5` independently verifies 136 additional successor outputs: 60 mapping, four extended, 36 legacy HP and 36 combined mapping/HP migrations. CharLS remains test-only, outside the package dependency graph. Exact revisions, commands, duration status and remaining release gates are maintained in [Validation.md](Validation.md).
 
 That oracle splits 3-byte entries across 65,530-byte continuation chunks for 16-bit tables. T.87 requires integral entries per segment. Those four cases are excluded explicitly; they are not accepted conformance vectors. One/two-byte predecessor widths and smaller opaque 3-byte tables are independently covered.
 
-Controlled performance, physical-device admission and complete peak-workspace measurements remain unqualified. The final source also passes one hour per entry under AddressSanitizer with all 981 seeds; exact duration evidence is linked from Validation.md. Earlier successful campaigns retain their original revision scope. The metadata allowance conservatively admits 32 times retained metadata bytes for archives, table copies and container overhead; this is an admission ceiling, not a measured allocation claim.
+The current PR 15 candidate passes 80 declarations in ten suites in local debug/release/ASan/TSan runs. The corrected runtime also passes all four Apple simulator jobs and the Watch device-architecture build; see [current validation](Validation.md) for exact hosted revisions and versions. Physical Watch execution is excluded from this task.
+
+Controlled performance, physical-device admission and complete peak-workspace measurements remain unqualified. Corrected runtime `4008f21` passes one hour per owned/into/inspect entry under AddressSanitizer with all 981 seeds; current duration evidence is linked from Validation.md. Earlier successful campaigns retain their original revision scope. The metadata allowance conservatively admits 32 times retained metadata bytes for archives, table copies and container overhead; this is an admission ceiling, not a measured allocation claim.

@@ -1,4 +1,4 @@
-.TH SWIFTJLS-CLI 1 "October 10, 2026" "1.1.0-dev.2" "Swift Image Compression Suite"
+.TH SWIFTJLS-CLI 1 "October 12, 2026" "1.1.0-dev.2" "Swift Image Compression Suite"
 .SH NAME
 swiftjls-cli \- native scalar JPEG-LS codec
 .SH SYNOPSIS
@@ -6,11 +6,16 @@ swiftjls-cli \- native scalar JPEG-LS codec
 .RI [ options ] " command " [ options ]
 .SH DESCRIPTION
 Native scalar lossless and near-lossless JPEG-LS for unsigned greyscale.
-The library supports 2 through 16 meaningful bits in 16-bit storage.
+The library supports 2 through 16 meaningful bits in 8-bit or 16-bit storage.
 Build with Swift 6.2 or newer in Swift 6 language mode. Apple OS minimum is
 26.0.
 CLI hosts are macOS and Linux; consult qualification records for executed
 coverage.
+.PP
+JPEG-LS input permits one zero byte after an odd-length complete codestream
+for DICOM even padding. Other trailing bytes, concatenated streams and
+missing EOI are malformed. Padding counts against input limits. Input is
+an extracted codestream, not a DICOM container.
 .SH COMMANDS
 .TP
 .B capabilities [\-\-json]

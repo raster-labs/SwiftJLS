@@ -1,5 +1,24 @@
 # Change log
 
+## Migration qualification follow-up — 2026-10-12 (unreleased)
+
+- Accept inactive restart intervals at or above image height in line/sample and subsampled line decoding; preserve active-interleaved and stray-marker rejection. Four predecessor discrepancies now agree.
+- Add bounded concurrent admission/deadline/cancellation regressions and an ordinary-release, four-worker scalar/colour lossless/near-lossless resource consumer.
+- Add validated Heaptrack event replay for measured live heap peaks, preserving attribution limitations and unknown per-operation workspace fields. Record binary hashes, power and load alongside interleaved benchmarks.
+- Extend the repeatable benchmark harness to RGB NEAR 0/3 and all three interleaves, with explicit correctness-only smoke mode.
+- Update active migration documents with executed evidence and unresolved gates. Exclude physical Watch testing from this task as requested; do not treat that exclusion as hardware evidence or a stable-release waiver.
+
+## Migration completion audit — 2026-10-12 (unreleased)
+
+- Reconcile milestone status, merged/candidate revisions, OS/toolchain instructions, legacy HP coverage, DICOM padding and current validation across the repository documents. Preserve historical evidence and shared contracts.
+- Record a confirmed inactive-DRI interleaved-decoding gap and remaining controlled performance, peak-workspace, physical-device and release-duration requirements. Full migration completion, stable release and consumer cutover are not claimed.
+
+## DICOM codestream padding — 2026-10-12 (unreleased)
+
+- Accept one trailing zero byte only after an odd-length complete JPEG-LS codestream, matching JLSwift's `fix/bounded-dicom-decoding` revision `e4594319b83a79189a3e349ab282e2872b7ebd7a`.
+- Preserve rejection of incomplete streams, concatenated frames and all other trailing bytes. Padding remains subject to compressed-input limits; resource defaults are unchanged.
+- Add API and CLI regressions for sample preservation, sliced input, caller-destination reuse after rejection and invalid padding.
+
 ## Predecessor profile parity — 2026-10-10 (unreleased)
 
 - Add bounded LSE mapping tables and continuations, explicit mapped output precision, and index-image re-encoding with required table metadata.

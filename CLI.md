@@ -13,6 +13,8 @@ swift run swiftjls-cli encode -i input.nrrd -o near.jls --mode near-lossless --m
 swift run swiftjls-cli capabilities --json
 ```
 
+At the PR 15 candidate, JPEG-LS input accepts one zero byte after an odd-length complete codestream. Other trailing bytes, concatenated streams and missing EOI remain malformed (status 3); padding still counts against input limits. This consumes an extracted codestream, not a DICOM container.
+
 `-` means stdin/stdout. Binary payloads use stdout exclusively; encode/decode `--json` reports use stderr. Pipe serialisation involves copies. Slow pipes obey the deadline and cancellation; a failed binary stdout operation may leave partial bytes. Files use a sibling final-output transaction, atomic no-replace publication by default and atomic replacement with `--overwrite`; failure removes the incomplete transaction.
 
 The bounded NRRD profile follows the [official specification](https://teem.sourceforge.net/nrrd/format.html), reviewed 10 October 2026 (format versions 1–5, attached header, type, dimensions, sizes, raw encoding and explicit endian). Headers are limited to 16 KiB, 32 lines and 1024 bytes per line. Duplicate/unknown fields, detached files/URLs, key-value extensions, compression, signed/colour types and ancillary interpretation fields are rejected. LF and CRLF and both endians are accepted. Comments are ignored. This is a deliberately restricted interchange profile, not a general NRRD implementation.
@@ -25,4 +27,4 @@ Exit statuses: 0 success, 2 usage, 3 malformed input, 4 unsupported format/featu
 
 `Scripts/install-cli.sh --prefix /absolute/prefix` installs the executable and [manual](ManPages/swiftjls-cli.1) together. `--destdir /absolute/staging` stages packaging. `--binary /absolute/swiftjls-cli` uses a prebuilt matching version. No system installation is performed by tests. `man -M PREFIX/share/man swiftjls-cli` finds a custom-prefix manual.
 
-`Scripts/test-cli.py` checks help, diagnostics and staged installation. `Scripts/test-payload-cli.py` checks real round trips, streams, malformed headers, overwrite refusal, cleanup and cancellation. Both accept `--binary` and `--output`; see [migration evidence](Documentation/Engineering/CodecMigration/README.md) for executed results and open gates.
+`Scripts/test-cli.py` checks help, diagnostics and staged installation. `Scripts/test-payload-cli.py` checks real round trips, streams, malformed headers, overwrite refusal, cleanup and cancellation. Both accept `--binary` and `--output`; see [current validation](Documentation/Engineering/CodecMigration/Validation.md) for executed results and open gates.

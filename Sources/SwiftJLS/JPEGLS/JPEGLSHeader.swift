@@ -159,8 +159,10 @@ struct JPEGLSHeader {
                 guard cursor < bytes.count else { throw malformed() }
                 let marker = bytes[cursor]; cursor += 1
                 if marker == 0xd9 {
+                    // DICOM may even-pad an odd-length codestream with one zero byte.
+                    let hasDICOMPadding = cursor % 2 == 1 && bytes.count - cursor == 1 && bytes[cursor] == 0
                     guard let f = frame, !records.isEmpty, covered.count == f.ids.count,
-                          cursor == bytes.count, !needsDirectoryEnd else { throw malformed() }
+                          (cursor == bytes.count || hasDICOMPadding), !needsDirectoryEnd else { throw malformed() }
                     let mapping = try tables.isEmpty ? nil : JPEGLSMappingTables(tables: Array(tables.values), componentTableIDs: selectors)
                     let outputBits = codecOptions.mappingOutputPrecision ?? f.bits
                     let legacyMappedHP = codecOptions.hpInterpretation == .legacyJLSwift && transform != nil && transform != CodecOptions.ColourTransform.none
@@ -370,13 +372,15 @@ struct JPEGLSHeader {
                         throw unsupported("Unsupported scan interleave or point transform.")
                     }
                     guard (interleave == .none && count == 1) || (interleave != .none && count > 1) else { throw malformed() }
+                    // No restart boundary occurs at or beyond the frame height.
+                    let hasActiveRestarts = restartInterval > 0 && restartInterval < f.height
                     if Set(f.sampling).count > 1 {
-                        guard interleave == .line, count == f.ids.count, restartInterval == 0,
+                        guard interleave == .line, count == f.ids.count, !hasActiveRestarts,
                               transform == nil || transform == CodecOptions.ColourTransform.none else {
                             throw unsupported("Subsampled decoding requires one line-interleaved scan without HP or restarts.")
                         }
                     }
-                    guard restartInterval == 0 || interleave == .none else {
+                    guard !hasActiveRestarts || interleave == .none else {
                         throw unsupported("Restart markers require non-interleaved scans.")
                     }
                     if let transform, transform != .none {

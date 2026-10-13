@@ -1,0 +1,42 @@
+{
+  "tool": "heaptrack 1.5.0",
+  "binary_sha256": "1a93ec4f82f20372556c9040067b42aed4f41e6c89ecae99ea9f96289dab74bb",
+  "profile": "allocations.gz",
+  "profile_sha256": "e344a46547efa448a80d68040f77975e04733b00125a4715e8ebdc9675aa1674",
+  "build": "Swift release with debug symbols, no sanitizers",
+  "scope": "Four bounded workers; 32 512x512 scalar/colour lossless/near-lossless frame transactions",
+  "commands": [
+    {
+      "command": [
+        "heaptrack",
+        "--version"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "heaptrack",
+        "-o",
+        "/tmp/concurrent-heap/allocations",
+        "/__w/SwiftJLS/SwiftJLS/Examples/ResourceStress/.build/x86_64-unknown-linux-gnu/release/ResourceStress"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "heaptrack_print",
+        "-f",
+        "/tmp/concurrent-heap/allocations.gz",
+        "-n",
+        "1000",
+        "-s",
+        "1000",
+        "-H",
+        "/tmp/concurrent-heap/sizes.tsv",
+        "-F",
+        "/tmp/concurrent-heap/allocation-stacks.txt"
+      ],
+      "exit_code": 0
+    }
+  ]
+}

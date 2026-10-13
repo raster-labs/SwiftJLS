@@ -1,0 +1,47 @@
+{
+  "process_requested_heap_peak_bytes": 15620616,
+  "process_requested_heap_live_at_exit_bytes": 21318,
+  "process_allocation_calls": 5521,
+  "groups": {
+    "caller_runtime_unattributed_heap": {
+      "live_bytes": 18641,
+      "peak_bytes": 109657,
+      "allocation_calls": 321,
+      "allocated_bytes": 134964
+    },
+    "other_swiftjls_heap": {
+      "live_bytes": 1933,
+      "peak_bytes": 4504,
+      "allocation_calls": 276,
+      "allocated_bytes": 24569
+    },
+    "caller_pixel_heap": {
+      "live_bytes": 0,
+      "peak_bytes": 8388864,
+      "allocation_calls": 36,
+      "allocated_bytes": 37749888
+    },
+    "codec_nonpixel_heap": {
+      "live_bytes": 744,
+      "peak_bytes": 3320448,
+      "allocation_calls": 4856,
+      "allocated_bytes": 75287633
+    },
+    "codec_pixel_heap": {
+      "live_bytes": 0,
+      "peak_bytes": 4194432,
+      "allocation_calls": 32,
+      "allocated_bytes": 33555456
+    }
+  },
+  "revision": "6980b879312f693ebeab008d6aa94869f2beedb7",
+  "profile_sha256": "e344a46547efa448a80d68040f77975e04733b00125a4715e8ebdc9675aa1674",
+  "scope": "Peak simultaneously live requested heap bytes by allocation stack over the entire recorded workload.",
+  "limitations": [
+    "Groups peak at different instants; do not sum their individual peaks.",
+    "codec_nonpixel_heap includes compressed output, metadata, closures and allocator object headers; it is not pure algorithm workspace.",
+    "Caller/runtime/unattributed allocations and stack storage remain separate; incomplete stacks can prevent codec attribution.",
+    "Pixel heap includes array headers/capacity; it is not only sample payload.",
+    "This does not measure copy bytes, RSS, per-operation workspace or concurrent admission ceilings. Production unknown workspace reports remain unknown."
+  ]
+}

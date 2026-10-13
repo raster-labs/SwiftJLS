@@ -1,5 +1,7 @@
 # History and provenance — SwiftJLS
 
+Entries below describe their dated checkpoints. Current merged/candidate revisions, completed milestones and open gates are in [the completion audit](Documentation/Engineering/CodecMigration/Completion.md); old CI billing and unsupported-codec statements are not current status.
+
 ## Documentation foundation — 17 September 2026
 
 The owner chose four fresh repositories under Raster-Lab, with independent codecs, a common API and memory contract, MIT licensing and an optional adapter-based umbrella. The previous proposal for a new shared-foundation package, SwiftCompressionFamily 2.0.0, was superseded. The intended first stable release here is 1.0.0; no library version has been released or tagged by this foundation.
@@ -84,3 +86,11 @@ The continuous-integration precondition from 0.8.0 stands. Actions billing remai
 ## Predecessor parity extensions — 10 October 2026
 
 Added bounded mapping tables/continuations, ordered APP/COM and SPIFF metadata, extended dimensions, explicit predecessor syntax/default compatibility, and subsampled line decoding with declared plane sampling. The [parity record](Documentation/Engineering/CodecMigration/Parity.md) distinguishes normative output, known-producer legacy input, hardened malformed-input rejection and remaining qualification. New codec code is native; CharLS mapping support remains an isolated pinned test oracle. No release, consumer cutover or predecessor change is implied.
+
+## Migration completion audit — 12 October 2026
+
+PR 14 merged as `f481f6031279b8ca5c51f559df33cc66a9e4e06b`. The separately tested DICOM-padding candidate `3f16daf61f88bc136b6db478fd13abac234af4f5` remains in draft PR 15. The audit reconciles stale toolchain/platform/HP statements and records one remaining inactive-DRI compatibility gap, controlled performance/peak-workspace and physical-device gates. Milestones 4–5, stable release and consumer cutover are not complete. The seven common contracts, historical evidence, versions and fixture provenance are preserved.
+
+## Migration qualification follow-up — 12 October 2026
+
+Runtime checkpoint `4008f213cc749514300de55dfc17b389fbd3b561` closes the inactive-DRI compatibility gap exposed by the earlier same-day audit. The final local suite has 80 tests in ten suites; debug, release, ASan and TSan pass. The follow-up adds bounded concurrent resource evidence and repeats advisory release measurements without relaxing acceptance thresholds. See [the updated completion audit](Documentation/Engineering/CodecMigration/Completion.md) for final hosted results and unresolved requirements. Physical Watch testing is explicitly excluded from this task, not claimed as performed. Historical evidence and common contracts remain unchanged.

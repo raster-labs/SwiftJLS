@@ -1,0 +1,468 @@
+{
+  "recorded_at_utc": "2026-10-12T12:57:10.266342+00:00",
+  "benchmark_harness_smoke": {
+    "revision": "7509b49a26797f0f02a5097aa2776195eddb400a",
+    "colour_profiles": 36,
+    "scalar_profiles": 6,
+    "dimensions": [
+      37,
+      23
+    ],
+    "producers": [
+      "predecessor",
+      "successor"
+    ],
+    "timings_per_direction_per_producer": 20,
+    "purpose": "Harness/correctness validation only; not performance qualification"
+  },
+  "date": "2026-10-12",
+  "runtime_revision": "4008f213cc749514300de55dfc17b389fbd3b561",
+  "qualification_revision": "580a7de9d6f1c483833ac8fe141f9cd8cb225765",
+  "predecessor_revision": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "bounded_predecessor_revision": "e4594319b83a79189a3e349ab282e2872b7ebd7a",
+  "suite_policy": "0.10.0",
+  "production_source_mutation_harness_fixture_manifest_version_changes_since_runtime_checkpoint": [],
+  "contract_checkout": {
+    "merge_sha": "6980b879312f693ebeab008d6aa94869f2beedb7",
+    "head_sha": "580a7de9d6f1c483833ac8fe141f9cd8cb225765",
+    "identical_tree": "8fc802a392422c474a1304959a629696cb1d7ac0"
+  },
+  "local_suites": [
+    {
+      "mode": "debug",
+      "result": "passed",
+      "test_declarations": 80,
+      "suites": 10,
+      "log_sha256": "9c17279cdaf35824bc8af163c67f03354584ba3fbc9c9e9c27c9bbb7246c28a3"
+    },
+    {
+      "mode": "release",
+      "result": "passed",
+      "test_declarations": 80,
+      "suites": 10,
+      "log_sha256": "e2a3641517090f94b42fc6be6cc8b81a91344db9b3803ed45ae5ab0ffce46733"
+    },
+    {
+      "mode": "asan",
+      "result": "passed",
+      "test_declarations": 80,
+      "suites": 10,
+      "log_sha256": "d7b76ff945df1137e89d29d1245a9e6606a51601fd9da41fa9e8390f40423d63"
+    },
+    {
+      "mode": "tsan",
+      "result": "passed",
+      "test_declarations": 80,
+      "suites": 10,
+      "log_sha256": "628eeb4425bfb830c2df8644fefd713c7fa5e316baf02a1252bd66656ad9fd3f"
+    }
+  ],
+  "local_test_command": "swift test [--scratch-path PATH] [-c release | --sanitize address | --sanitize thread] -Xswiftc -load-plugin-library -Xswiftc /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+  "cli_payload_checks": 73,
+  "cli_process_checks": 103,
+  "independent_consumer": "passed",
+  "bounded_comparisons": 18,
+  "inactive_dri_comparisons": [
+    {
+      "components": 3,
+      "height": 2,
+      "inputBase64": "/9j/3QAEAAL/9wARCAACAAIDAREAAhEAAxEA/9oADAMBAAIAAwAAAQBatem0kP/Z",
+      "interleave": 1,
+      "predecessor": "accepted",
+      "restartInterval": 2,
+      "samplesPerComponent": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "successor": "accepted",
+      "width": 2
+    },
+    {
+      "components": 3,
+      "height": 2,
+      "inputBase64": "/9j/3QAEJw//9wARCAACAAIDAREAAhEAAxEA/9oADAMBAAIAAwAAAQBatem0kP/Z",
+      "interleave": 1,
+      "predecessor": "accepted",
+      "restartInterval": 9999,
+      "samplesPerComponent": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "successor": "accepted",
+      "width": 2
+    },
+    {
+      "components": 3,
+      "height": 2,
+      "inputBase64": "/9j/3QAEAAL/9wARCAACAAIDAREAAhEAAxEA/9oADAMBAAIAAwAAAgBsrdNNIP/Z",
+      "interleave": 2,
+      "predecessor": "accepted",
+      "restartInterval": 2,
+      "samplesPerComponent": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "successor": "accepted",
+      "width": 2
+    },
+    {
+      "components": 3,
+      "height": 2,
+      "inputBase64": "/9j/3QAEJw//9wARCAACAAIDAREAAhEAAxEA/9oADAMBAAIAAwAAAgBsrdNNIP/Z",
+      "interleave": 2,
+      "predecessor": "accepted",
+      "restartInterval": 9999,
+      "samplesPerComponent": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "successor": "accepted",
+      "width": 2
+    }
+  ],
+  "inactive_dri_samples": "Both decoders compared against all twelve expected samples in each input.",
+  "resource_stress": [
+    {
+      "components": 1,
+      "frames": 8,
+      "near": 0,
+      "ownedPixelAllocations": 8,
+      "reportedCopyBytes": 0,
+      "sourceBytes": 524288,
+      "suppliedPixelAllocations": 0
+    },
+    {
+      "components": 1,
+      "frames": 8,
+      "near": 3,
+      "ownedPixelAllocations": 8,
+      "reportedCopyBytes": 0,
+      "sourceBytes": 524288,
+      "suppliedPixelAllocations": 0
+    },
+    {
+      "components": 3,
+      "frames": 8,
+      "near": 0,
+      "ownedPixelAllocations": 8,
+      "reportedCopyBytes": 0,
+      "sourceBytes": 1572864,
+      "suppliedPixelAllocations": 0
+    },
+    {
+      "components": 3,
+      "frames": 8,
+      "near": 3,
+      "ownedPixelAllocations": 8,
+      "reportedCopyBytes": 0,
+      "sourceBytes": 1572864,
+      "suppliedPixelAllocations": 0
+    }
+  ],
+  "heap_profile": {
+    "process_requested_heap_peak_bytes": 682405,
+    "process_requested_heap_live_at_exit_bytes": 75682,
+    "process_allocation_calls": 23928,
+    "groups": {
+      "caller_runtime_unattributed_heap": {
+        "live_bytes": 73611,
+        "peak_bytes": 253186,
+        "allocation_calls": 6715,
+        "allocated_bytes": 2049461
+      },
+      "other_swiftjls_heap": {
+        "live_bytes": 1295,
+        "peak_bytes": 3319,
+        "allocation_calls": 2115,
+        "allocated_bytes": 182151
+      },
+      "codec_nonpixel_heap": {
+        "live_bytes": 776,
+        "peak_bytes": 427266,
+        "allocation_calls": 14985,
+        "allocated_bytes": 11330209
+      },
+      "caller_pixel_heap": {
+        "live_bytes": 0,
+        "peak_bytes": 262180,
+        "allocation_calls": 113,
+        "allocated_bytes": 1347882
+      }
+    },
+    "revision": "6980b879312f693ebeab008d6aa94869f2beedb7",
+    "profile_sha256": "c80c179cef3279417c5d6b655f75ebe21b7b1c462ec56eae20f6cf77b519b98d",
+    "scope": "Peak simultaneously live requested heap bytes by allocation stack over the entire recorded workload.",
+    "limitations": [
+      "Groups peak at different instants; do not sum their individual peaks.",
+      "codec_nonpixel_heap includes compressed output, metadata, closures and allocator object headers; it is not pure algorithm workspace.",
+      "Caller/runtime/unattributed allocations and stack storage remain separate; incomplete stacks can prevent codec attribution.",
+      "Pixel heap includes array headers/capacity; it is not only sample payload.",
+      "This does not measure copy bytes, RSS, per-operation workspace or concurrent admission ceilings. Production unknown workspace reports remain unknown."
+    ]
+  },
+  "heap_concurrent": {
+    "process_requested_heap_peak_bytes": 15620616,
+    "process_requested_heap_live_at_exit_bytes": 21318,
+    "process_allocation_calls": 5521,
+    "groups": {
+      "caller_runtime_unattributed_heap": {
+        "live_bytes": 18641,
+        "peak_bytes": 109657,
+        "allocation_calls": 321,
+        "allocated_bytes": 134964
+      },
+      "other_swiftjls_heap": {
+        "live_bytes": 1933,
+        "peak_bytes": 4504,
+        "allocation_calls": 276,
+        "allocated_bytes": 24569
+      },
+      "caller_pixel_heap": {
+        "live_bytes": 0,
+        "peak_bytes": 8388864,
+        "allocation_calls": 36,
+        "allocated_bytes": 37749888
+      },
+      "codec_nonpixel_heap": {
+        "live_bytes": 744,
+        "peak_bytes": 3320448,
+        "allocation_calls": 4856,
+        "allocated_bytes": 75287633
+      },
+      "codec_pixel_heap": {
+        "live_bytes": 0,
+        "peak_bytes": 4194432,
+        "allocation_calls": 32,
+        "allocated_bytes": 33555456
+      }
+    },
+    "revision": "6980b879312f693ebeab008d6aa94869f2beedb7",
+    "profile_sha256": "e344a46547efa448a80d68040f77975e04733b00125a4715e8ebdc9675aa1674",
+    "scope": "Peak simultaneously live requested heap bytes by allocation stack over the entire recorded workload.",
+    "limitations": [
+      "Groups peak at different instants; do not sum their individual peaks.",
+      "codec_nonpixel_heap includes compressed output, metadata, closures and allocator object headers; it is not pure algorithm workspace.",
+      "Caller/runtime/unattributed allocations and stack storage remain separate; incomplete stacks can prevent codec attribution.",
+      "Pixel heap includes array headers/capacity; it is not only sample payload.",
+      "This does not measure copy bytes, RSS, per-operation workspace or concurrent admission ceilings. Production unknown workspace reports remain unknown."
+    ]
+  },
+  "benchmark": {
+    "cases": 24,
+    "timings_per_direction_per_case": 20,
+    "warmups_per_block": 5,
+    "alternating_blocks": 4,
+    "control": "advisory; battery power; no claim of controlled host",
+    "directory": "migration-followup-benchmark",
+    "profiled_run_excluded_from_timings": true
+  },
+  "hosted": {
+    "contract": {
+      "run": 38245951833,
+      "url": "https://github.com/raster-labs/SwiftJLS/actions/runs/38245951833",
+      "head_sha": "580a7de9d6f1c483833ac8fe141f9cd8cb225765",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "Independent consumer resolves at tools 6.2",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Apple SDK compile / xrsimulator",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "macOS 26 Intel scalar runtime",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pinned development-only cross-codec consumer",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Swift 6.2 / ubuntu-24.04-arm",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Apple SDK compile / iphonesimulator",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Apple SDK compile / appletvsimulator",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Swift 6.4 / ubuntu-24.04-arm",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Fresh URL-pinned standalone consumer",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Apple SDK compile / watchsimulator",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Swift 6.4 / ubuntu-24.04",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Shared contract byte-identity",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "macOS 26 / Swift 6.2",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Swift 6.2 / ubuntu-24.04",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    "independent": {
+      "run": 38245951832,
+      "url": "https://github.com/raster-labs/SwiftJLS/actions/runs/38245951832",
+      "head_sha": "580a7de9d6f1c483833ac8fe141f9cd8cb225765",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "charls",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    "apple_simulator": {
+      "run": 38244565906,
+      "url": "https://github.com/raster-labs/SwiftJLS/actions/runs/38244565906",
+      "head_sha": "4008f213cc749514300de55dfc17b389fbd3b561",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "runtime (appletvsimulator, tvOS-26, arm64-apple-tvos26.0-simulator)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "runtime (watchsimulator, watchOS-26, arm64-apple-watchos26.0-simulator)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "runtime (iphonesimulator, iOS-26, arm64-apple-ios26.0-simulator)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "runtime (xrsimulator, xrOS-26, arm64-apple-xros26.0-simulator)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    "watch_architecture": {
+      "run": 38244562747,
+      "url": "https://github.com/raster-labs/SwiftJLS/actions/runs/38244562747",
+      "head_sha": "4008f213cc749514300de55dfc17b389fbd3b561",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "watch-device",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    "mutation": {
+      "run": 38244562355,
+      "url": "https://github.com/raster-labs/SwiftJLS/actions/runs/38244562355",
+      "head_sha": "4008f213cc749514300de55dfc17b389fbd3b561",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "mutation (owned)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "mutation (into)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "mutation (inspect)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  },
+  "security": {
+    "private_vulnerability_reporting_enabled": false,
+    "enable_attempt_http_status": 404,
+    "administrator_action_required": true
+  },
+  "task_exclusions": [
+    "Physical Watch testing, explicitly excluded by user; not a hardware pass or release waiver"
+  ],
+  "remaining_gates": [
+    "Controlled representative scalar/colour performance and regression disposition",
+    "Complete per-operation workspace accounting",
+    "Non-Watch physical-device admission",
+    "Exact-minimum Apple runtime coverage",
+    "Actionable private security reporting channel and stable support policy",
+    "Separately assigned stable release and consumer rollout"
+  ],
+  "final_duration_evidence": "fuzz-migration-followup-hour.json",
+  "total_mutation_iterations": 22680638,
+  "unit_test_changes_since_6ab8246": [],
+  "documentation_checks": {
+    "relative_links": 96,
+    "json": "parsed",
+    "shared_contract_hashes": 7,
+    "production_equivalence_to_4008f21": true,
+    "unit_test_equivalence_to_6ab8246": true
+  },
+  "availability_followup": {
+    "date": "2026-10-13",
+    "user_instruction": "No physical devices; run available checks",
+    "physical_device_admission": "unavailable/unexecuted; no hardware pass or release waiver",
+    "verified_software_checkpoint": "866e63ee0057e01b223dd3ba543d2a184f243553",
+    "hosted_checks": {
+      "success": 15,
+      "contract_run": "https://github.com/raster-labs/SwiftJLS/actions/runs/38252574682",
+      "interop_run": "https://github.com/raster-labs/SwiftJLS/actions/runs/38252574681"
+    },
+    "verification_scope": "Documentation-only clarification; existing software results retained, expensive campaigns not repeated; production runtime and unit tests unchanged",
+    "controlled_benchmark_conditions": "Not established by the user response; prior battery-powered measurements remain advisory"
+  }
+}

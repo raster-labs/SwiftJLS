@@ -158,6 +158,52 @@ struct ComponentCodecTests {
             }
         }
     }
+    // Add only DRI metadata to independently decoded component fixtures; entropy
+    // and expected samples remain unchanged. Subsampled input is predecessor evidence.
+    func withDRI(_ data: Data, interval: UInt32, width: Int = 2) -> Data {
+        var marker = Data([255, 221, 0, UInt8(2 + width)])
+        for byte in (0..<width).reversed() { marker.append(UInt8(truncatingIfNeeded: interval >> (byte * 8))) }
+        return data.prefix(2) + marker + data.dropFirst(2)
+    }
+    @Test func inactiveInterleavedDRIPreservesSamplesAndStorage() async throws {
+        for name in ["c3-i1-p8-n0-17x13-noise", "c3-i2-p8-n0-17x13-noise", "subsampled-zero-n0"] {
+            let original = try fixture(name, ext: "jls")
+            let baseline = try await Decoder().decode(original).image
+            let expected = try baseline.storage.withUnsafeBytes { Data($0) }
+            for width in 2...4 {
+                for interval in [UInt32(baseline.descriptor.height), 9999, width == 4 ? UInt32.max : 65535] {
+                    let input = withDRI(original, interval: interval, width: width)
+                    let info = try Decoder().inspect(input)
+                    #expect(info.descriptor == baseline.descriptor)
+                    let owned = try await Decoder().decode(input)
+                    #expect(try owned.image.storage.withUnsafeBytes { Data($0) } == expected)
+                    let destination = try ImageDestination.allocate(descriptor: info.descriptor)
+                    let decoded = try await Decoder().decode(input, into: destination)
+                    #expect(decoded.image.storage.allocationID == destination.storage.allocationID)
+                    #expect(decoded.report.pixelAllocationCount == 0 && decoded.report.copyEvents.isEmpty)
+                    #expect(try decoded.image.storage.withUnsafeBytes { Data($0) } == expected)
+                }
+            }
+        }
+    }
+    @Test func activeInterleavedDRIAndStrayMarkersRejectBeforeWriting() async throws {
+        for mode in [1, 2] {
+            let original = try fixture("c3-i\(mode)-p8-n0-17x13-noise", ext: "jls")
+            let descriptor = try Decoder().inspect(original).descriptor
+            let inactive = withDRI(original, interval: UInt32(descriptor.height))
+            for invalid in [withDRI(original, interval: UInt32(descriptor.height - 1)),
+                            inactive.dropLast(2) + Data([255, 208, 255, 217]),
+                            inactive.dropLast(2) + Data([255, 215, 255, 217])] {
+                #expect(throws: CodecError.self) { try Decoder().inspect(invalid) }
+                await #expect(throws: CodecError.self) { try await Decoder().decode(invalid) }
+                let destination = try ImageDestination.allocate(descriptor: descriptor)
+                await #expect(throws: CodecError.self) { try await Decoder().decode(invalid, into: destination) }
+                // Header rejection must not consume the caller's write lease.
+                let result = try await Decoder().decode(original, into: destination)
+                #expect(result.image.storage.allocationID == destination.storage.allocationID)
+            }
+        }
+    }
     @Test func componentLimitsCancellationAndMalformedScans() async throws {
         let data = try fixture("c3-i2-p12-n0-17x13-noise", ext: "jls")
         let image = try await Decoder().decode(data).image

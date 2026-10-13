@@ -1,0 +1,65 @@
+{
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "binary_sha256": {
+    "predecessor": "64e16c0617604e54553d4987ca718825d3c33e565fd7eac60e2c143c565837bb",
+    "successor": "8cae167de80ff59cb1ac098506c4e4386aac990edbf18c0519e23b53b5a3fc8c"
+  },
+  "power_start": {
+    "command": [
+      "pmset",
+      "-g",
+      "batt"
+    ],
+    "exit_code": 0,
+    "output": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=23396451)\t89%; discharging; 6:31 remaining present: true\n"
+  },
+  "load_start": {
+    "command": [
+      "sysctl",
+      "-n",
+      "vm.loadavg"
+    ],
+    "exit_code": 0,
+    "output": "{ 9.98 10.93 7.15 }\n"
+  },
+  "swift": {
+    "command": [
+      "swift",
+      "--version"
+    ],
+    "exit_code": 0,
+    "output": "swift-driver version: 1.168.6 Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n"
+  },
+  "hardware": {
+    "command": [
+      "sysctl",
+      "-n",
+      "hw.model",
+      "hw.memsize",
+      "machdep.cpu.brand_string"
+    ],
+    "exit_code": 0,
+    "output": "Mac16,5\n68719476736\nApple M4 Max\n"
+  },
+  "thermal_start": {
+    "command": [
+      "pmset",
+      "-g",
+      "therm"
+    ],
+    "exit_code": 0,
+    "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+  },
+  "predecessor_sha": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "successor_sha": {
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "output": "6ab824600299cac83493066f55efc02ec5e06878\n"
+  },
+  "methodology": "Lossless scalar public API, owned decode, release without sanitizers. Four alternating process blocks, each with 5 warmups and 5 timed iterations. Initial sample verification outside timing. Host is a developer workstation; no claim of isolated thermal/power control."
+}

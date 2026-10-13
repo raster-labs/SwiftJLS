@@ -303,6 +303,63 @@ struct ScalarCodecTests {
         await #expect(throws: CodecError.self) { try await Decoder().decode(corrupt, into: destination) }
         #expect(throws: CodecError.self) { try destination.writeUInt16 { _, _ in 0 } }
     }
+    private func dicomCodestream(oddLength: Bool) throws -> Data {
+        var data = try fixture("p8-1x1-max", ext: "jls")
+        if (data.count % 2 == 1) != oddLength {
+            // A five-byte COM segment changes parity without changing samples.
+            data.insert(contentsOf: [255, 254, 0, 3, 65], at: 2)
+        }
+        return data
+    }
+    @Test(arguments: [0, 1, 2])
+    func dicomPaddingPreservesSamplesAndDestination(_ prefix: Int) async throws {
+        let odd = try dicomCodestream(oddLength: true)
+        let even = try dicomCodestream(oddLength: false)
+        for data in [odd, even, odd + Data([0])] {
+            // Parity belongs to the codestream, not the Data slice's indices.
+            let input = (Data(repeating: 7, count: prefix) + data).dropFirst(prefix)
+            let decoder = try Decoder()
+            let info = try decoder.inspect(input)
+            #expect(info.descriptor.width == 1 && info.descriptor.height == 1)
+            let decoded = try await decoder.decode(input)
+            #expect(try decoded.image.sampleUInt16(x: 0, y: 0) == 255)
+            let destination = try ImageDestination.allocate(descriptor: info.descriptor)
+            let supplied = try await decoder.decode(input, into: destination)
+            #expect(supplied.image.storage.allocationID == destination.storage.allocationID)
+            #expect(try supplied.image.sampleUInt16(x: 0, y: 0) == 255)
+        }
+    }
+    @Test func dicomPaddingRejectsOtherTrailingBytesBeforeWriting() async throws {
+        let decoder = try Decoder()
+        for oddLength in [false, true] {
+            let data = try dicomCodestream(oddLength: oddLength)
+            let info = try decoder.inspect(data)
+            var invalid = [Data(data.dropLast(2)), data + data]
+            for tail in [[UInt8(1)], [255], [1, 2], [0, 0], [0, 1], [0, 255, 217]] {
+                invalid.append(data + Data(tail))
+            }
+            if !oddLength { invalid.append(data + Data([0])) }
+            for input in invalid {
+                #expect(throws: CodecError.self) { try decoder.inspect(input) }
+                await #expect(throws: CodecError.self) { try await decoder.decode(input) }
+                let destination = try ImageDestination.allocate(descriptor: info.descriptor)
+                await #expect(throws: CodecError.self) { try await decoder.decode(input, into: destination) }
+                // Header rejection must leave the caller's destination reusable.
+                let recovered = try await decoder.decode(data, into: destination)
+                #expect(try recovered.image.sampleUInt16(x: 0, y: 0) == 255)
+            }
+        }
+    }
+    @Test func dicomPaddingCountsTowardsCompressedLimit() async throws {
+        let odd = try dicomCodestream(oddLength: true)
+        let limits = try ResourceLimits(maximumCompressedBytes: odd.count)
+        let decoder = try Decoder()
+        #expect(try await decoder.decode(odd, options: .init(resourceLimits: limits))
+            .image.sampleUInt16(x: 0, y: 0) == 255)
+        let padded = odd + Data([0])
+        #expect(throws: CodecError.self) { try decoder.inspect(padded, options: .init(resourceLimits: limits)) }
+        await #expect(throws: CodecError.self) { try await decoder.decode(padded, options: .init(resourceLimits: limits)) }
+    }
     @Test func surplusEntropyAndNonzeroPaddingAreRejected() async throws {
         let original = try fixture("p8-1x1-max", ext: "jls")
         let surplus = original.dropLast(2) + Data([0, 0]) + original.suffix(2)

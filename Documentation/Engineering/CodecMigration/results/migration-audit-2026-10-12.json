@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-12",
+  "scope": "Documentation completion audit; no runtime modifications",
+  "main": "f481f6031279b8ca5c51f559df33cc66a9e4e06b",
+  "runtime_candidate": "3f16daf61f88bc136b6db478fd13abac234af4f5",
+  "predecessor_baseline": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "predecessor_probe": "e4594319b83a79189a3e349ab282e2872b7ebd7a",
+  "policy": "0.10.0",
+  "integrity": {
+    "source_provenance_hashes_and_destination_paths": 20,
+    "fixture_hash_entries": 2678,
+    "distinct_hashed_fixture_files": 2678,
+    "jls_seed_count": 981,
+    "shared_contract_hashes": 7,
+    "result": "passed"
+  },
+  "inactive_dri_comparisons": [
+    {
+      "components": 3,
+      "height": 2,
+      "inputBase64": "/9j/3QAEAAL/9wARCAACAAIDAREAAhEAAxEA/9oADAMBAAIAAwAAAQBatem0kP/Z",
+      "interleave": 1,
+      "predecessor": "accepted",
+      "restartInterval": 2,
+      "samplesPerComponent": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "successor": "rejected: CodecError(category: SwiftJLS.CodecError.Category.unsupportedFeature, message: \"Restart markers require non-interleaved scans.\")",
+      "width": 2
+    },
+    {
+      "components": 3,
+      "height": 2,
+      "inputBase64": "/9j/3QAEJw//9wARCAACAAIDAREAAhEAAxEA/9oADAMBAAIAAwAAAQBatem0kP/Z",
+      "interleave": 1,
+      "predecessor": "accepted",
+      "restartInterval": 9999,
+      "samplesPerComponent": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "successor": "rejected: CodecError(category: SwiftJLS.CodecError.Category.unsupportedFeature, message: \"Restart markers require non-interleaved scans.\")",
+      "width": 2
+    },
+    {
+      "components": 3,
+      "height": 2,
+      "inputBase64": "/9j/3QAEAAL/9wARCAACAAIDAREAAhEAAxEA/9oADAMBAAIAAwAAAgBsrdNNIP/Z",
+      "interleave": 2,
+      "predecessor": "accepted",
+      "restartInterval": 2,
+      "samplesPerComponent": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "successor": "rejected: CodecError(category: SwiftJLS.CodecError.Category.unsupportedFeature, message: \"Restart markers require non-interleaved scans.\")",
+      "width": 2
+    },
+    {
+      "components": 3,
+      "height": 2,
+      "inputBase64": "/9j/3QAEJw//9wARCAACAAIDAREAAhEAAxEA/9oADAMBAAIAAwAAAgBsrdNNIP/Z",
+      "interleave": 2,
+      "predecessor": "accepted",
+      "restartInterval": 9999,
+      "samplesPerComponent": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "successor": "rejected: CodecError(category: SwiftJLS.CodecError.Category.unsupportedFeature, message: \"Restart markers require non-interleaved scans.\")",
+      "width": 2
+    }
+  ],
+  "migration_complete": false,
+  "open_gates": [
+    "inactive DRI with interleaved scans",
+    "controlled representative performance and unresolved latency regressions",
+    "full peak pixel/workspace and concurrent resource admission",
+    "physical Apple device and exact minimum-runtime qualification",
+    "one-hour-per-entry final candidate fuzz duration",
+    "release support/reporting policy confirmation and explicit release task",
+    "separate application cutover and predecessor lifecycle"
+  ],
+  "documentation_validation": {
+    "relative_links": 104,
+    "json": "passed",
+    "man_page_lint": "passed",
+    "cli_help_install_manual_process_checks": 103,
+    "runtime_unchanged_since": "3f16daf61f88bc136b6db478fd13abac234af4f5",
+    "commands": [
+      "python3 Scripts/test-cli.py --binary PATH --output PATH",
+      "mandoc -T lint ManPages/swiftjls-cli.1",
+      "git diff --check"
+    ],
+    "cli_exit_code": 0
+  }
+}

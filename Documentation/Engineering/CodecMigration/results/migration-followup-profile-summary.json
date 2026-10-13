@@ -1,0 +1,44 @@
+{
+  "tool": "heaptrack 1.5.0",
+  "binary_sha256": "4c328f0af8a7630c472babdeb68b1025f88685b9bd2b5a614257e439e3cd7f86",
+  "profile": "allocations.gz",
+  "profile_sha256": "c80c179cef3279417c5d6b655f75ebe21b7b1c462ec56eae20f6cf77b519b98d",
+  "build": "Swift release with debug symbols, no sanitizers",
+  "scope": "Ordinary release scalar/component/mapping/HP/extended/subsampled profiles; setup and runtime included",
+  "commands": [
+    {
+      "command": [
+        "heaptrack",
+        "--version"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "heaptrack",
+        "-o",
+        "/tmp/profile-heap/allocations",
+        "/__w/SwiftJLS/SwiftJLS/Examples/CopyProbe/.build/x86_64-unknown-linux-gnu/release/CopyProbe",
+        "Tests/SwiftJLSTests/Fixtures",
+        "--heap-only"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "heaptrack_print",
+        "-f",
+        "/tmp/profile-heap/allocations.gz",
+        "-n",
+        "1000",
+        "-s",
+        "1000",
+        "-H",
+        "/tmp/profile-heap/sizes.tsv",
+        "-F",
+        "/tmp/profile-heap/allocation-stacks.txt"
+      ],
+      "exit_code": 0
+    }
+  ]
+}

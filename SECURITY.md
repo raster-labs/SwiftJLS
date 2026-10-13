@@ -1,12 +1,12 @@
 # Security policy and implementation requirements
 
-Status: documentation foundation. No successor binary release exists and no vulnerability response time is promised here.
+Status: unreleased native codec with bounded parsing, resource admission and sanitizer/mutation evidence. [Current validation](Documentation/Engineering/CodecMigration/Validation.md) distinguishes tested revisions from open release gates. No stable successor release or vulnerability response-time commitment is claimed.
 
 ## Reporting
 
-Use the repository's private vulnerability reporting option in its Security tab if it is enabled. Otherwise use an established private channel to a Raster-Lab organisation owner to arrange disclosure. Do not post exploitable payloads, credentials or patient information in a public issue. This document does not assert that GitHub private reporting or a dedicated security mailbox has already been configured.
+Use the repository's private vulnerability reporting option in its Security tab if it is enabled. Otherwise use an established private channel to a Raster-Lab organisation owner to arrange disclosure. Do not post exploitable payloads, credentials or patient information in a public issue. On 12 October 2026 the repository API reported private vulnerability reporting disabled. Enabling it with the available credentials returned HTTP 404, and a subsequent read still reported disabled. An administrator must configure an actionable private reporting channel; no dedicated mailbox is asserted.
 
-Include affected version/commit, platform, a minimal safe reproducer, expected/actual behaviour and impact. Use synthetic data where possible. A maintainer must establish the reporting channel and supported-version policy before the first stable release.
+Include affected version/commit, platform, a minimal safe reproducer, expected/actual behaviour and impact. Use synthetic data where possible. The current `1.1.0-dev.2` candidate is unreleased; there is no published stable successor version with a support window. A maintainer must establish the reporting channel and supported-version policy before the first stable release.
 
 ## Threat model
 
