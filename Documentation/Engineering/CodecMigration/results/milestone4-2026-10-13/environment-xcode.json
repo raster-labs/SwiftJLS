@@ -1,0 +1,81 @@
+[
+  {
+    "command": [
+      "swift",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n",
+    "stderr": "swift-driver version: 1.168.6 "
+  },
+  {
+    "command": [
+      "sw_vers"
+    ],
+    "exit_code": 0,
+    "stdout": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "xcodebuild",
+      "-version"
+    ],
+    "exit_code": 0,
+    "stdout": "Xcode 27.0\nBuild version 27A266a\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "xcode-select",
+      "-p"
+    ],
+    "exit_code": 0,
+    "stdout": "/Applications/Xcode.app/Contents/Developer\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "xcrun",
+      "simctl",
+      "list",
+      "runtimes",
+      "--json"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"runtimes\" : [\n\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "xcrun",
+      "devicectl",
+      "list",
+      "devices"
+    ],
+    "exit_code": 0,
+    "stdout": "No devices found.\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "pmset",
+      "-g",
+      "batt"
+    ],
+    "exit_code": 0,
+    "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=23396451)\t99%; discharging; 7:33 remaining present: true\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "sysctl",
+      "-n",
+      "hw.model",
+      "hw.memsize"
+    ],
+    "exit_code": 0,
+    "stdout": "Mac16,5\n68719476736\n",
+    "stderr": ""
+  }
+]

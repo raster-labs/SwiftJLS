@@ -8,11 +8,13 @@ On 13 October the user confirmed that no physical devices are available and requ
 
 ## Revisions and scope
 
-- Merged main: `f481f6031279b8ca5c51f559df33cc66a9e4e06b`, [PR 14](https://github.com/raster-labs/SwiftJLS/pull/14).
-- Corrected runtime: `4008f213cc749514300de55dfc17b389fbd3b561`, in unmerged [PR 15](https://github.com/raster-labs/SwiftJLS/pull/15). Qualification checkpoint `580a7de9d6f1c483833ac8fe141f9cd8cb225765` adds tests and development measurement tools; production sources, manifest, mutation harness and fixtures remain identical to `4008f21`.
+- Merged baseline: `571fd7c905f7ef70b4f494513ecf979d620bebd5`, [PR 15](https://github.com/raster-labs/SwiftJLS/pull/15), merged 13 October 2026; includes the preceding PR 14.
+- Corrected runtime: `4008f213cc749514300de55dfc17b389fbd3b561`, now merged through [PR 15](https://github.com/raster-labs/SwiftJLS/pull/15). Qualification checkpoint `580a7de9d6f1c483833ac8fe141f9cd8cb225765` adds tests and development measurement tools; production sources, manifest, mutation harness and fixtures remain identical to `4008f21`.
 - Migration predecessor: JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`. Bounded-decoding comparisons additionally use unchanged `e4594319b83a79189a3e349ab282e2872b7ebd7a` on `fix/bounded-dicom-decoding`.
 - Suite policy 0.10.0; tools 6.2 minimum, primary Swift 6.4, Swift 6 language mode, Apple OS 26.0. Development version remains `1.1.0-dev.2`.
 - Scope is the library and its declared CLI. Consumer cutover, stable publication and predecessor maintenance/archival remain separate assignments.
+
+The owner assigned Milestone 4 only on 13 October, leaving Milestone 5 for later. [The current follow-up](Milestone4.md) records fresh software checks and the benchmark-boundary improvement. It does not waive outstanding qualification gates.
 
 ## Milestone disposition
 
@@ -21,8 +23,8 @@ On 13 October the user confirmed that no physical devices are available and requ
 | 1 — API/memory feasibility | Implemented and validated in the recorded scope |
 | 2 — native migration baseline | Implemented and independently validated |
 | 3 — shared storage | Implemented; independent caller-storage/copy controls, sample/lifetime tests and measured heap evidence recorded |
-| 4 — features/platforms | Known compatibility gap closed; controlled performance, complete per-operation workspace and non-Watch physical-device qualification remain open |
-| 5 — release preparation | Documents/examples/provenance and software qualification updated; remaining release gates, reporting/support policy and explicit release assignment prevent completion |
+| 4 — features/platforms | Known compatibility gap closed; controlled performance, complete per-operation workspace, exact OS 26.0 runtime and non-Watch physical-device qualification remain open |
+| 5 — release preparation | Deferred to a later owner task. Remaining release gates, reporting/support policy and explicit release assignment prevent completion |
 
 The [profile matrix](Parity.md) defines supported combinations. PNG/TIFF helpers and extended predecessor CLI verbs remain owner-approved deferrals. Signed/alpha/ICC interpretation, subsampled encoding, DNL unknown-height decoding and native transcoding are not newly advertised. Application acceptance remains governed by [MIGRATION.md](../../../MIGRATION.md).
 
@@ -57,8 +59,8 @@ The host stayed on battery. Large 12-bit encoding remains roughly 1.15–1.46× 
 | --- | --- |
 | PERF-01..03 | Repeat representative scalar and supported colour measurements on controlled, powered hardware; resolve or explicitly accept measured regressions with a recorded cost/baseline. This battery-powered run is advisory. |
 | Full workspace accounting | Retain measured heap groups and unknown fields honestly; complete per-operation algorithm-workspace accounting, separating compressed buffers, metadata, runtime and stack storage. Current external peaks do not justify replacing `peakWorkspaceBytes: nil` with an estimate. |
-| Non-Watch physical devices | Unavailable/unexecuted: the user confirmed no physical devices on 13 October. Execute representative iPhone/iPad and other required target-device admission tests when hardware and provisioning are available. Command Line Tools are active; no Xcode installation was found in `/Applications`, and `xcrun --find devicectl` fails; no physical pass is claimed. |
-| Minimum/platform runtimes | Obtain and execute the required OS 26.0 runtime coverage; the passed newer-minor simulator runtimes cannot be reported as exact-minimum passes. |
+| Non-Watch physical devices | Unavailable/unexecuted: the user confirmed no physical devices on 13 October. Execute representative iPhone/iPad and other required target-device admission tests when hardware and provisioning are available. The user has now installed Xcode 27.0; simulator consumer and Watch device-architecture builds pass locally, but `devicectl` reports no connected devices. No physical pass is claimed. |
+| Minimum/platform runtimes | Obtain and execute the required OS 26.0 runtime coverage; iOS 26.0 download is in progress. The passed newer-minor simulator runtimes cannot be reported as exact-minimum passes. |
 | Physical Watch | Excluded from this task by the user. Remains explicitly unexecuted in release/platform evidence. |
 | Security/release readiness | GitHub reports private vulnerability reporting disabled. An enable attempt returned HTTP 404 and did not change it. An administrator must establish an actionable private channel and the first stable version's support policy. Stable release/tagging requires a separately assigned release task after gates close. |
 | Programme rollout | Application-specific acceptance and dependency cutover, followed by predecessor maintenance/archival, remain outside this library task. |

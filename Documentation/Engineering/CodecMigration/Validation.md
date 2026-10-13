@@ -2,7 +2,11 @@
 
 The native codec, mapping tables and metadata are implemented in the owning SwiftJLS API. [PR 14](https://github.com/raster-labs/SwiftJLS/pull/14) merged on 12 October as `f481f6031279b8ca5c51f559df33cc66a9e4e06b`. [The completion audit](Completion.md) records closure of the inactive-DRI compatibility gap and the qualification gates still outstanding. Stable-release qualification remains open for controlled performance and target-device memory measurements. This record does not authorise release, tagging, merging, predecessor archival or consumer cutover.
 
-## Current qualification follow-up — 12 October
+## Milestone 4 follow-up — 13 October
+
+PR 15 merged as `571fd7c905f7ef70b4f494513ecf979d620bebd5`. The current task adds source-preparation and preparation-plus-encode benchmark measurements and negative controls, with no production source, fixture, common-contract or public API change. Fresh local software checks and unresolved gates are in [Milestone4.md](Milestone4.md). Milestone 5 is deferred to a later owner task.
+
+## Recorded qualification follow-up — 12 October
 
 Runtime `4008f213cc749514300de55dfc17b389fbd3b561` accepts inactive interleaved DRI without changing active-restart restrictions, resource ceilings or ownership. Later commits add tests, measurement tooling and documentation; production sources, package manifest, mutation harness and fixture bytes remain identical to that runtime checkpoint.
 
@@ -23,7 +27,7 @@ Commands: the four `swift test` modes and bundled TestingMacros flag are the sam
 
 ## Earlier 12 October checkpoint — DICOM padding
 
-[PR 15](https://github.com/raster-labs/SwiftJLS/pull/15) remains unmerged. Runtime checkpoint `3f16daf61f88bc136b6db478fd13abac234af4f5` permits the predecessor fix branch’s single DICOM padding byte while retaining all size and complete-stream checks. The documentation audit changes no source, tests, scripts, fixtures or manifest relative to that checkpoint.
+At this earlier checkpoint, [PR 15](https://github.com/raster-labs/SwiftJLS/pull/15) was unmerged (it merged on 13 October). Runtime checkpoint `3f16daf61f88bc136b6db478fd13abac234af4f5` permits the predecessor fix branch’s single DICOM padding byte while retaining all size and complete-stream checks. The documentation audit changes no source, tests, scripts, fixtures or manifest relative to that checkpoint.
 
 - Debug, release, AddressSanitizer and ThreadSanitizer: 77 declarations in nine suites pass in each; 73 CLI payload checks and the independent consumer pass.
 - Eighteen bounded-decoding comparisons match unchanged JLSwift fix revision `e4594319b83a79189a3e349ab282e2872b7ebd7a`. Different Int/UInt16 sample sizes are reflected in the byte-limit tests.

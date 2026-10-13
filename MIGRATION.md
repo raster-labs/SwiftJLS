@@ -47,7 +47,7 @@ Interleave modes, presets/MAXVAL, restart intervals, mapping tables and colour t
 
 ## Bounded complete codestreams
 
-The PR 15 candidate at `3f16daf61f88bc136b6db478fd13abac234af4f5` matches the bounded-decoding behaviour checked against JLSwift `e4594319b83a79189a3e349ab282e2872b7ebd7a`: require EOI, reject concatenated streams/trailing garbage, and permit exactly one zero after an odd-length complete codestream. This exception is not in main at the audit date. DICOM container parsing and fragment/frame assembly remain application responsibilities.
+The DICOM-padding fix merged in PR 15 at `571fd7c905f7ef70b4f494513ecf979d620bebd5` matches the bounded-decoding behaviour checked against JLSwift `e4594319b83a79189a3e349ab282e2872b7ebd7a`: require EOI, reject concatenated streams/trailing garbage, and permit exactly one zero after an odd-length complete codestream. This exception is in main as of 13 October 2026. DICOM container parsing and fragment/frame assembly remain application responsibilities.
 
 SwiftJLS already applies compressed, pixel, decoded-storage and workspace limits before the corresponding allocation/work. Its general defaults remain 256 MiB compressed, 64,000,000 pixels and 512 MiB decoded, versus 64 MiB / 16,777,216 / 128 MiB in that predecessor fix branch. These are deliberate policy differences under TEST-06, not missing guards. The allocating SwiftJLS path uses UInt16 samples rather than predecessor Int planes; do not equate their byte budgets with equal sample counts. Pass application-selected `ResourceLimits` in operation options and include any DICOM padding in the compressed limit.
 
