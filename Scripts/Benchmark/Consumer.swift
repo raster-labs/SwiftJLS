@@ -65,6 +65,11 @@ func decode(_ data: Data, verify: Bool) async throws {
     }
 }
 #else
+// The largest RGB fixture's conservative admission exceeds the general
+// workspace ceiling. This development profile is explicit and host-bounded;
+// production defaults and all precision/cancellation checks are unchanged.
+let benchmarkLimits = try ResourceLimits(maximumWorkspaceBytes: 1024 * 1024 * 1024,
+    maximumMemoryBytes: 2 * 1024 * 1024 * 1024)
 func makeImage() throws -> Image {
     let capacity = width * height * 2
     let planes = try (0..<components).map { c in
@@ -84,10 +89,10 @@ func makeImage() throws -> Image {
 guard let mode = CodecOptions.InterleaveMode(rawValue: UInt8(interleave)) else { throw Failure() }
 func encode(_ image: Image) async throws -> Data {
     try await Encoder(configuration: .init(mode: near == 0 ? .lossless : .nearLossless(maximumAbsoluteError: near),
-        codecOptions: .init(restartIntervalLines: 0, interleaveMode: mode))).encode(image, options: .init(executionPolicy: .scalarCPU)).data
+        codecOptions: .init(restartIntervalLines: 0, interleaveMode: mode))).encode(image, options: .init(resourceLimits: benchmarkLimits, executionPolicy: .scalarCPU)).data
 }
 func decode(_ data: Data, verify: Bool) async throws {
-    let image = try await Decoder().decode(data, options: .init(executionPolicy: .scalarCPU)).image
+    let image = try await Decoder().decode(data, options: .init(resourceLimits: benchmarkLimits, executionPolicy: .scalarCPU)).image
     guard image.descriptor.meaningfulBits == bits else { throw Failure() }
     if verify {
         try image.storage.withUnsafeBytes { bytes in
@@ -148,6 +153,7 @@ getrusage(Int32(RUSAGE_SELF.rawValue), &usage)
 let peakRSS = usage.ru_maxrss * 1024
 #endif
 let record: [String: Any] = ["label": label, "width": width, "height": height, "bits": bits,
+    "resource_profile": "successor-workspace-1GiB-memory-2GiB-v1",
     "pattern": pattern, "warmups": warmups, "iterations": iterations,
     "components": components, "near": near, "interleave": interleave,
     "encode_seconds": encoding, "decode_seconds": decoding,

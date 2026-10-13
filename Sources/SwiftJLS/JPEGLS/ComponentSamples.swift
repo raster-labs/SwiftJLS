@@ -21,15 +21,48 @@ struct ComponentSampleReader: JPEGSampleReader {
     let bytes: UnsafeRawBufferPointer
     let width: Int, height: Int, offset: Int, rowBytes: Int, pixelStride: Int, sampleBytes: Int
     let littleEndian: Bool
+    private let packedRows: Bool
+    init(bytes: UnsafeRawBufferPointer, width: Int, height: Int, offset: Int,
+         rowBytes: Int, pixelStride: Int, sampleBytes: Int, littleEndian: Bool) {
+        self.bytes = bytes; self.width = width; self.height = height; self.offset = offset
+        self.rowBytes = rowBytes; self.pixelStride = pixelStride
+        self.sampleBytes = sampleBytes; self.littleEndian = littleEndian
+        // Division avoids overflowing width * pixelStride for sparse layouts.
+        self.packedRows = pixelStride > 0 && rowBytes / pixelStride == width && rowBytes % pixelStride == 0
+    }
+    @inline(__always)
+    private func byteOffset(_ index: Int) -> Int {
+        if packedRows { return offset + index * pixelStride }
+        return offset + (index / width) * rowBytes + (index % width) * pixelStride
+    }
     var count: Int { width * height }
     subscript(index: Int) -> UInt16 {
-        let at = offset + (index / width) * rowBytes + (index % width) * pixelStride
+        let at = byteOffset(index)
         if sampleBytes == 1 { return UInt16(bytes[at]) }
         let value = bytes.loadUnaligned(fromByteOffset: at, as: UInt16.self)
         return littleEndian ? UInt16(littleEndian: value) : UInt16(bigEndian: value)
     }
     func fourEqual(at index: Int, to value: UInt16) -> Bool {
         self[index] == value && self[index + 1] == value && self[index + 2] == value && self[index + 3] == value
+    }
+    /// Reuse the bounded scalar precision check when samples are contiguous
+    /// within each row. Odd byte strides and interleaved samples retain the
+    /// general path; neither path reads row padding or creates sample storage.
+    func validate(maximum: Int, checkpoint: () throws -> Void) throws {
+        guard maximum < (sampleBytes == 1 ? 255 : 65535) else { return }
+        if pixelStride == sampleBytes && rowBytes % sampleBytes == 0 {
+            let view = ScalarSampleReader(bytes: .init(rebasing: bytes[offset...]),
+                littleEndian: littleEndian, sampleBytes: sampleBytes)
+            try view.validate(width: width, height: height, rowStride: rowBytes / sampleBytes,
+                maximum: maximum, checkpoint: checkpoint)
+            return
+        }
+        for index in 0..<count {
+            if index & 255 == 0 { try checkpoint() }
+            guard self[index] <= maximum else {
+                throw CodecError(.invalidArgument, "Sample exceeds declared precision.")
+            }
+        }
     }
     func rows(_ rows: Range<Int>) -> Self {
         Self(bytes: bytes, width: width, height: rows.count, offset: offset + rows.lowerBound * rowBytes,
@@ -40,16 +73,30 @@ struct ComponentSampleWriter: JPEGSampleWriter {
     let bytes: UnsafeMutableRawBufferPointer
     let width: Int, height: Int, offset: Int, rowBytes: Int, pixelStride: Int, sampleBytes: Int
     let littleEndian: Bool
+    private let packedRows: Bool
+    init(bytes: UnsafeMutableRawBufferPointer, width: Int, height: Int, offset: Int,
+         rowBytes: Int, pixelStride: Int, sampleBytes: Int, littleEndian: Bool) {
+        self.bytes = bytes; self.width = width; self.height = height; self.offset = offset
+        self.rowBytes = rowBytes; self.pixelStride = pixelStride
+        self.sampleBytes = sampleBytes; self.littleEndian = littleEndian
+        // Division avoids overflowing width * pixelStride for sparse layouts.
+        self.packedRows = pixelStride > 0 && rowBytes / pixelStride == width && rowBytes % pixelStride == 0
+    }
+    @inline(__always)
+    private func byteOffset(_ index: Int) -> Int {
+        if packedRows { return offset + index * pixelStride }
+        return offset + (index / width) * rowBytes + (index % width) * pixelStride
+    }
     var count: Int { width * height }
     subscript(index: Int) -> UInt16 {
         get {
-            let at = offset + (index / width) * rowBytes + (index % width) * pixelStride
+            let at = byteOffset(index)
             if sampleBytes == 1 { return UInt16(bytes[at]) }
             let value = bytes.loadUnaligned(fromByteOffset: at, as: UInt16.self)
             return littleEndian ? UInt16(littleEndian: value) : UInt16(bigEndian: value)
         }
         nonmutating set {
-            let at = offset + (index / width) * rowBytes + (index % width) * pixelStride
+            let at = byteOffset(index)
             if sampleBytes == 1 { bytes[at] = UInt8(truncatingIfNeeded: newValue) }
             else {
                 bytes.storeBytes(of: littleEndian ? newValue.littleEndian : newValue.bigEndian,

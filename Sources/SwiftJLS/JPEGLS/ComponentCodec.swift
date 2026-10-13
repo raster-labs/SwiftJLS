@@ -142,10 +142,7 @@ enum ComponentCodec {
                         sampleBytes: d.storageBits / 8, littleEndian: d.byteOrder == .littleEndian)
                 }
                 for view in views {
-                    for index in 0..<view.count {
-                        if index & 255 == 0 { try budget.check() }
-                        guard view[index] <= parameters.maxValue else { throw CodecError(.invalidArgument, "Sample exceeds declared precision.") }
-                    }
+                    try view.validate(maximum: parameters.maxValue, checkpoint: { try budget.check() })
                 }
                 if configuration.codecOptions.interleaveMode != .none {
                     guard let mode = JPEGLSInterleaveMode(rawValue: configuration.codecOptions.interleaveMode.rawValue) else {
