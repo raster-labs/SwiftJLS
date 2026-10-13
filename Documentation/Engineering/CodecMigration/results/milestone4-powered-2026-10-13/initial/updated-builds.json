@@ -1,0 +1,53 @@
+[
+  {
+    "label": "predecessor",
+    "command": [
+      "swift",
+      "build",
+      "--build-system",
+      "native",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "work/m4-benchmark/predecessor"
+    ],
+    "exit_code": 0,
+    "seconds": 15.782706292
+  },
+  {
+    "label": "baseline",
+    "command": [
+      "swift",
+      "build",
+      "--build-system",
+      "native",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "work/m4-benchmark/baseline"
+    ],
+    "exit_code": 0,
+    "seconds": 10.914849083000002
+  },
+  {
+    "label": "successor",
+    "command": [
+      "swift",
+      "build",
+      "--build-system",
+      "native",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "work/m4-benchmark/successor"
+    ],
+    "exit_code": 0,
+    "seconds": 10.641762750000002
+  }
+]

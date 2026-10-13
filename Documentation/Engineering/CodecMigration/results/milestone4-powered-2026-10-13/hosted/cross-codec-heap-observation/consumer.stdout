@@ -1,0 +1,23 @@
+heaptrack output will be written to "/tmp/heap-observation/allocations.gz"
+starting application, this might take some time...
+[
+  {
+    "bits" : 12,
+    "height" : 23,
+    "j2kBytes" : 1450,
+    "jlsBytes" : 1366,
+    "samplesChecked" : 2553,
+    "width" : 37
+  },
+  {
+    "bits" : 16,
+    "height" : 23,
+    "j2kBytes" : 1737,
+    "jlsBytes" : 1572,
+    "samplesChecked" : 2553,
+    "width" : 37
+  }
+]
+Heaptrack finished! Now run the following to investigate the data:
+
+  heaptrack --analyze "/tmp/heap-observation/allocations.gz"

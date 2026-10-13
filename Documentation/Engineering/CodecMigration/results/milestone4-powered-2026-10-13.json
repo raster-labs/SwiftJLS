@@ -1,0 +1,1067 @@
+{
+  "date": "2026-10-13",
+  "source_commit": "36fb97e0a654c0d18802b666df2b07d24cb0637a",
+  "production_source_tree": "7b4aecdbcf2dcdf4d41a1b96ed41b72486e29e2e",
+  "test_tree": "ab4b286d69b8a34c21ebaa0d24e13cdc4d7cf2c1",
+  "predecessor_sha": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "focused_baseline_sha": "1b4964dc0205ac9a529e07df9742878f40853e29",
+  "suite_policy": "0.10.0",
+  "version": "1.1.0-dev.2",
+  "tests": [
+    {
+      "label": "debug",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "work/m4-packed-tests/debug",
+        "--disable-xctest",
+        "--xunit-output",
+        "work/m4-packed-tests/debug.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+      ],
+      "exit_code": 0,
+      "seconds": 26.912068333,
+      "declarations": 82,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "label": "release",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "work/m4-packed-tests/release",
+        "--disable-xctest",
+        "--xunit-output",
+        "work/m4-packed-tests/release.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+        "-c",
+        "release"
+      ],
+      "exit_code": 0,
+      "seconds": 34.25128233299999,
+      "declarations": 82,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "label": "asan",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "work/m4-packed-tests/asan",
+        "--disable-xctest",
+        "--xunit-output",
+        "work/m4-packed-tests/asan.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+        "--sanitize",
+        "address"
+      ],
+      "exit_code": 0,
+      "seconds": 53.854553208999995,
+      "declarations": 82,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "label": "tsan",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "work/m4-packed-tests/tsan",
+        "--disable-xctest",
+        "--xunit-output",
+        "work/m4-packed-tests/tsan.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+        "--sanitize",
+        "thread"
+      ],
+      "exit_code": 0,
+      "seconds": 49.466972959,
+      "declarations": 82,
+      "failures": 0,
+      "skipped": 0
+    }
+  ],
+  "hosted_checks": [
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381711/job/115265713996",
+      "name": "Apple SDK compile / appletvsimulator",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381711/job/115265713975",
+      "name": "Apple SDK compile / iphonesimulator",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381711/job/115265713853",
+      "name": "macOS 26 Intel scalar runtime",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381711/job/115265713881",
+      "name": "Apple SDK compile / watchsimulator",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381711/job/115265713508",
+      "name": "macOS 26 / Swift 6.2",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381711/job/115265713852",
+      "name": "Apple SDK compile / xrsimulator",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381711/job/115265713691",
+      "name": "Swift 6.4 / ubuntu-24.04",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388377347/job/115265699305",
+      "name": "watch-device",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381711/job/115265713900",
+      "name": "Swift 6.4 / ubuntu-24.04-arm",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381711/job/115265713683",
+      "name": "Swift 6.2 / ubuntu-24.04-arm",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381752/job/115265713245",
+      "name": "smoke",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381711/job/115265713836",
+      "name": "Independent consumer resolves at tools 6.2",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381711/job/115265713622",
+      "name": "Pinned development-only cross-codec consumer",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381711/job/115265714052",
+      "name": "Swift 6.2 / ubuntu-24.04",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381711/job/115265713877",
+      "name": "Shared contract byte-identity",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381711/job/115265713878",
+      "name": "Fresh URL-pinned standalone consumer",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/raster-labs/SwiftJLS/actions/runs/38388381613/job/115265712988",
+      "name": "charls",
+      "state": "SUCCESS"
+    }
+  ],
+  "runtimes": [
+    {
+      "device": "iPad Pro 13-inch (M5)",
+      "runtime": "26.0",
+      "build": "23A343",
+      "evidence": "apple/iOS-26.0-iPad_Pro_13-inch_(M5).json"
+    },
+    {
+      "device": "iPhone 17 Pro",
+      "runtime": "26.0",
+      "build": "23A343",
+      "evidence": "apple/iOS-26.0-iPhone_17_Pro.json"
+    },
+    {
+      "device": "Apple TV 4K (3rd generation)",
+      "runtime": "26.0",
+      "build": "23J352",
+      "evidence": "apple/tvOS-26.0-Apple_TV_4K_(3rd_generation).json"
+    },
+    {
+      "device": "Apple Vision Pro",
+      "runtime": "26.0",
+      "build": "23M336",
+      "evidence": "apple/visionOS-26.0-Apple_Vision_Pro.json"
+    },
+    {
+      "device": "Apple Watch Series 11 (46mm)",
+      "runtime": "26.0",
+      "build": "23R353",
+      "evidence": "apple/watchOS-26.0-Apple_Watch_Series_11_(46mm).json"
+    }
+  ],
+  "non_watch_concurrent_workloads": 4,
+  "benchmark_cases": {
+    "scalar": 24,
+    "colour": 39
+  },
+  "resource_profile": "successor-workspace-1GiB-memory-2GiB-v1",
+  "mutation_results": [],
+  "artifacts": {
+    "final-rgb/combined-analysis.json.gz": {
+      "sha256": "1cf99f7bc5ff263d42498dce0dea6158df3ad62f16640e2d2d83ec487830b78e",
+      "bytes": 39620
+    },
+    "final-rgb/commands.json": {
+      "sha256": "f7b77c79fea4d30b683fe52e4fdd685639087970b1bcf6087c260cb406fe3d50",
+      "bytes": 504
+    },
+    "final-rgb/conditions.jsonl.gz": {
+      "sha256": "a5ff036bb8f91fe077129ba5384a4f45a1ed7ad028a253d3b8100b94ca50d852",
+      "bytes": 6409
+    },
+    "final-rgb/colour.log.gz": {
+      "sha256": "be9ce4d26c321bad3e418a70793443b2edd26a36369dde65a54c8a0a0bfc1e57",
+      "bytes": 196
+    },
+    "final-rgb/colour/environment.json": {
+      "sha256": "bf1d7b81617038b2dddf39f3d2365bee1ad095d1b237e7799b6fb438e9360da3",
+      "bytes": 5967
+    },
+    "final-rgb/colour/load-end.json": {
+      "sha256": "29b3dffc278dad0cd9868b5e825021bc4354c461e2bc01db7442222a1771e027",
+      "bytes": 118
+    },
+    "final-rgb/colour/power-end.json": {
+      "sha256": "134ac13a83dafe6ef5f81cd0cdd7e7d72a1c56720c28e82241e3678b069453c6",
+      "bytes": 200
+    },
+    "final-rgb/colour/raw.jsonl.gz": {
+      "sha256": "4dc087b16b79d78fc158d7de1f3c66d2c5f50a4d21a5f9799057502b46b71ebc",
+      "bytes": 64200
+    },
+    "final-rgb/colour/summary.json.gz": {
+      "sha256": "e1c408d7d0c3591450e38fdbb96c0d4649f301fdec8427b4f4fa7e68e7a076f7",
+      "bytes": 19736
+    },
+    "final-rgb/colour/thermal-end.json": {
+      "sha256": "75aac99887370d356019a5093c99823844411c6952d731d329e52c21065f4105",
+      "bytes": 241
+    },
+    "final-scalar/commands.json": {
+      "sha256": "6a2fdfbf2eb4e79e5846c7d81fc3bab04b508b207336681da7aaeb7655483b47",
+      "bytes": 435
+    },
+    "final-scalar/conditions.jsonl.gz": {
+      "sha256": "b6427aea5b00785d18fffe09aedfee093c899b7920fde58b41e19b587e57deb0",
+      "bytes": 4406
+    },
+    "final-scalar/scalar.log.gz": {
+      "sha256": "95e478ccaf3f50e3ec53b56aaaa8dfb93b93fb0d4d8d1d2c03a7f8482becc8b5",
+      "bytes": 170
+    },
+    "final-scalar/scalar/environment.json": {
+      "sha256": "3625f513484a949b5e312c5e05f43ca8c7036aeab4d0df98f387fce36edc6802",
+      "bytes": 4644
+    },
+    "final-scalar/scalar/load-end.json": {
+      "sha256": "b5401b4693cc082c8a169ca605640c96e7bdc46013fbeed0c48b5286f5d54b2d",
+      "bytes": 118
+    },
+    "final-scalar/scalar/power-end.json": {
+      "sha256": "430af9d273e4050dfa62fbbd4558c25d83a07a7f59aab33bec88ceff8c92955f",
+      "bytes": 200
+    },
+    "final-scalar/scalar/raw.jsonl.gz": {
+      "sha256": "02f51439e830693d162cd9aebbe358ea2a2496f02f8e51bc8f84a2156fbcd708",
+      "bytes": 39560
+    },
+    "final-scalar/scalar/summary.json": {
+      "sha256": "be5fe6de493287f2ffcd059d887dd452813498831ac9c4193ced263a43fe0f95",
+      "bytes": 68789
+    },
+    "final-scalar/scalar/thermal-end.json": {
+      "sha256": "75aac99887370d356019a5093c99823844411c6952d731d329e52c21065f4105",
+      "bytes": 241
+    },
+    "final-near/commands.json": {
+      "sha256": "7389e754ff7b8943fa88b0ca13041aa26fd095d0d1860515ab8403a3b05cdd71",
+      "bytes": 506
+    },
+    "final-near/conditions.jsonl.gz": {
+      "sha256": "a8355310b96fb3603ddb4038b6fb825bac35058c50d85e8205ec514fc5857488",
+      "bytes": 2712
+    },
+    "final-near/colour.log.gz": {
+      "sha256": "859cfbfd473c62d7e3522ab266afb5ee96e1d590e6533490f24275e03a10bc4a",
+      "bytes": 76
+    },
+    "final-near/colour/environment.json": {
+      "sha256": "0f1648c32b5585627e664a94366adedc051c7d49c70c1f07adf5cd92e33e78ae",
+      "bytes": 2805
+    },
+    "final-near/colour/load-end.json": {
+      "sha256": "7b49b5d49fe0d8936154d6769ede0d6c2042ba4d60328f058d219f7def4c1f36",
+      "bytes": 118
+    },
+    "final-near/colour/power-end.json": {
+      "sha256": "4b99f43d78ab602c9fbfe6a171fd5dd9a05cfd5bf89a373911af48d1968e68aa",
+      "bytes": 208
+    },
+    "final-near/colour/raw.jsonl.gz": {
+      "sha256": "24e970fe8bc1bd9f8c0c4b0ef9b846cd00b3a099ce5a45c63f63a14231f4ae3a",
+      "bytes": 2171
+    },
+    "final-near/colour/summary.json": {
+      "sha256": "275613da516417987400b10cb925131b7bf2b661995929c347a9bfd54bed0c13",
+      "bytes": 2822
+    },
+    "final-near/colour/thermal-end.json": {
+      "sha256": "75aac99887370d356019a5093c99823844411c6952d731d329e52c21065f4105",
+      "bytes": 241
+    },
+    "initial/analysis.json": {
+      "sha256": "362472a94f4f47bb78c6cee12b765735c108f4fdd1b72ef80c1673a3a86902e9",
+      "bytes": 78223
+    },
+    "initial/combined-analysis.json.gz": {
+      "sha256": "6d7e75b4b9a1eb0289dfaa97feb1319a2dba1fe3e23aa34042409269ce58a766",
+      "bytes": 67023
+    },
+    "initial/commands.json": {
+      "sha256": "eed63fc22cadabcb1de6c8ad66169ad6205329d4d3040d313760e79b93496a6b",
+      "bytes": 859
+    },
+    "initial/final-runner-controls.json": {
+      "sha256": "97465be6a670e75f8f6e4030468e7ecae6727098c7549571fdbffe91e443aee5",
+      "bytes": 519
+    },
+    "initial/large-case-selection.json": {
+      "sha256": "f38be97d5801eb8e430f7887a7058ddadb1a7fd349e466a58d6888ff9ff6bc1b",
+      "bytes": 282
+    },
+    "initial/runner-controls.json": {
+      "sha256": "91856f9eff36fb6d24207c65df4c058ec43b11544cf6d397963ab60cc58fda4f",
+      "bytes": 496
+    },
+    "initial/scope-adjustment.json": {
+      "sha256": "4efe6e4d95225241333c2de7e0d20c36a7a1d3a2bcc4b63c80afb39f78660b0e",
+      "bytes": 315
+    },
+    "initial/updated-builds.json": {
+      "sha256": "e3ad4dd7c9574dbef76a7b8f301205770107783b3b80d0df9572501ab2105260",
+      "bytes": 896
+    },
+    "initial/conditions.jsonl.gz": {
+      "sha256": "d95cfdc1cd26df887f4d9a0fafb2a6078f1b9a06bb8d51c37a9b41e939b45bdd",
+      "bytes": 8990
+    },
+    "initial/baseline-updated-build.log.gz": {
+      "sha256": "d371c9a0dc8cf78b023b2aeca3c7428ee59b933f582c0d791031f8c69bba5cf5",
+      "bytes": 340
+    },
+    "initial/colour.log.gz": {
+      "sha256": "a5b89c56fe79ed75312a9a424870c14b025e548cf3a47ae7b0313d7e4cd38cb2",
+      "bytes": 303
+    },
+    "initial/predecessor-updated-build.log.gz": {
+      "sha256": "d67b012f844785ce7c24501a491152d4b3eb9fdc1c1ad9c6980f2c8d0d1377d1",
+      "bytes": 391
+    },
+    "initial/run.log.gz": {
+      "sha256": "1b361d654162b3192e8a1fe1cdf08f91095d372d40d780c7581e398afd7fcad0",
+      "bytes": 180
+    },
+    "initial/scalar.log.gz": {
+      "sha256": "95e478ccaf3f50e3ec53b56aaaa8dfb93b93fb0d4d8d1d2c03a7f8482becc8b5",
+      "bytes": 170
+    },
+    "initial/successor-packed-build.log.gz": {
+      "sha256": "0535b8c6afbf77d0e8ab61f190c5d1a6885476a0fe291c80e6dd33c1fa217313",
+      "bytes": 351
+    },
+    "initial/successor-updated-build.log.gz": {
+      "sha256": "0f0036f917824ee631285e88e2e33629a32ad3c45245a526464b69dd9b6925f8",
+      "bytes": 352
+    },
+    "initial/scalar/environment.json": {
+      "sha256": "ff982f492ebba7818d233cf9fba22fc2ea46cd1bb7e2d06fbcfb48d292f9ee82",
+      "bytes": 2525
+    },
+    "initial/scalar/load-end.json": {
+      "sha256": "63e04f77c5d89e89fe16022255ac586e94403359b77cc87f220c2c729dc2b34f",
+      "bytes": 118
+    },
+    "initial/scalar/power-end.json": {
+      "sha256": "606337f33a9b87568d4634f3e108c4eb10c381c515c968b5f3006788fa4012c3",
+      "bytes": 200
+    },
+    "initial/scalar/raw.jsonl.gz": {
+      "sha256": "a5ddd29e961ffe44587bf773850a20992ba7a0a67382257d3efab8c09e4cac85",
+      "bytes": 39179
+    },
+    "initial/scalar/summary.json": {
+      "sha256": "2ef4086528a89ab6c7a5373fd1452f21bd216ffcb25e98a53b495020835b8621",
+      "bytes": 68803
+    },
+    "initial/scalar/thermal-end.json": {
+      "sha256": "75aac99887370d356019a5093c99823844411c6952d731d329e52c21065f4105",
+      "bytes": 241
+    },
+    "initial/colour/environment.json": {
+      "sha256": "fb24c3cc8a51b25bf04abd0b49f00bf34de204e752438ab97d099aff72d90200",
+      "bytes": 2546
+    },
+    "initial/colour/raw.jsonl.gz": {
+      "sha256": "8946606a63185597bb786b0f4a49aabd243d3c416cee6a3de77b5279647fcd4b",
+      "bytes": 128513
+    },
+    "initial-selected/commands.json": {
+      "sha256": "65812c16594ca15f02269c175900c05642781f13d86234eff80329a6a857f1ec",
+      "bytes": 533
+    },
+    "initial-selected/conditions.jsonl.gz": {
+      "sha256": "1571b05bb035443b2117e910d03c68d6b674af44a16b46b47d80e4c19f8d56d8",
+      "bytes": 3893
+    },
+    "initial-selected/colour.log.gz": {
+      "sha256": "724e8aa9d11863acc41f46b7350d1bc6e2b259a8b5580c108f7f783abd8f232e",
+      "bytes": 252
+    },
+    "initial-selected/compare-executed.py": {
+      "sha256": "60b4cacd90ed2bced514ae999bc42f3075e2bd2fd5fd369fc8faf173455e0f84",
+      "bytes": 9439
+    },
+    "initial-selected/colour/environment.json": {
+      "sha256": "b9254474a610b5294a3e595faa6e2d015291ad6c76349208bfac626d2d53d966",
+      "bytes": 3018
+    },
+    "initial-selected/colour/failure.json": {
+      "sha256": "7a71b9a01dfab3e3949472b7c98e5f18ff5217af11f6167c7c58c059415e3d3c",
+      "bytes": 457
+    },
+    "initial-selected/colour/raw.jsonl.gz": {
+      "sha256": "c8a93352e6234623f829768d6aa77ececb3b9f5c2e2a41e398b268c8930a33b8",
+      "bytes": 4144
+    },
+    "validation-experiment/conditions-end.json": {
+      "sha256": "69609f959925187b3cd8bb864f06a9beb8078c90a8a69a59be65d2eb6c83f8bf",
+      "bytes": 2086
+    },
+    "validation-experiment/environment.json": {
+      "sha256": "aa4b0ddc06f7c4220fff3f00fc8e31d6cd62960c40e82b3b70b1e2cc79ad9b24",
+      "bytes": 7105
+    },
+    "validation-experiment/summary.json": {
+      "sha256": "6409f1242b3a377cbec52b579c398f3df9b6fb571001a82a3e4be7deb88f8c7c",
+      "bytes": 9085
+    },
+    "validation-experiment/raw.jsonl.gz": {
+      "sha256": "1964bab7a3b3961a1ed2d1bada94d5177863b6287b7de219fbd95688b5ac5d94",
+      "bytes": 13393
+    },
+    "packed-experiment/conditions-end.json": {
+      "sha256": "f7b071ffabf82a3a1b39e35d9f13edcec5d4a8152aaf4e44ad6bc98a8700454a",
+      "bytes": 2084
+    },
+    "packed-experiment/environment.json": {
+      "sha256": "06b97d593184d5c2c13daecbb0f996fb93a4b157378d9678abe3a942c7edcff8",
+      "bytes": 7103
+    },
+    "packed-experiment/summary.json": {
+      "sha256": "67265054c97bb2b6e0632c362ab7778fab55e0c8abc49cb2351490216a8eb86b",
+      "bytes": 9110
+    },
+    "packed-experiment/raw.jsonl.gz": {
+      "sha256": "669469502338faf0efc0dd04726d11786e4a72ed9a414921073a4c8f1c841462",
+      "bytes": 13541
+    },
+    "tests/payload-cli.json": {
+      "sha256": "2dbbd084e31a22ebe9fb2a3856f9f67ac7419ca09e5f33cd5dc8a52deea2e2df",
+      "bytes": 9923
+    },
+    "tests/results.json": {
+      "sha256": "b871bf7c04e01a638b8d78a0543a6fdcb3864718363370e9738acfad3f18e1c5",
+      "bytes": 2444
+    },
+    "tests/asan.xml.gz": {
+      "sha256": "dd7aacc39dc01a2ad3778aad7a2c14d5c1d1d9f5ec91b1992dac41d636cd0072",
+      "bytes": 2723
+    },
+    "tests/debug.xml.gz": {
+      "sha256": "80695d869dd4dda0f61c246a8269a02ef9f6002d2a8462c2c93eb0747e0a50f4",
+      "bytes": 2621
+    },
+    "tests/release.xml.gz": {
+      "sha256": "71721914c5ef69f0e3a17b7577270014480c8cd7449bdb1075d9ecdde84b7fa5",
+      "bytes": 2625
+    },
+    "tests/tsan.xml.gz": {
+      "sha256": "4a9ae336b26ad35167845314f138955ff289c03b71e983d7e147c97fe69bec6e",
+      "bytes": 2656
+    },
+    "tests/asan.log.gz": {
+      "sha256": "fc760592bae81d3713344253035b8f75e6ecbdad160bd7a6ff0214e1c2563c14",
+      "bytes": 3768
+    },
+    "tests/cli.log.gz": {
+      "sha256": "2481c66ebfcdbb399cf42801db02513b2ccac2ca597f71389aacb38adda7c827",
+      "bytes": 60
+    },
+    "tests/debug.log.gz": {
+      "sha256": "22edd288d08471ccd637c136b2140ee030e2a4ae3dcb73c90bba6eee0b210cdd",
+      "bytes": 3591
+    },
+    "tests/independent-consumer.log.gz": {
+      "sha256": "d24b4b75ef84e96d45e42575ec6830934989cc800baf52377eac2b17209d83f3",
+      "bytes": 215
+    },
+    "tests/payload-cli.log.gz": {
+      "sha256": "e929bf0a6bbbcd42f66947e8f334e769b7229f994f78523c5beeb771f86a831f",
+      "bytes": 43
+    },
+    "tests/release.log.gz": {
+      "sha256": "e45eec63c9de639a0fb2a04296ea50cd604e83336d4c78ca7fa02858a980af8c",
+      "bytes": 3545
+    },
+    "tests/tsan.log.gz": {
+      "sha256": "911313b390fadfe3434c25de784389a2426e95ab1b6ce4a382dc545621be4da8",
+      "bytes": 3690
+    },
+    "tests/cli/report.json": {
+      "sha256": "e954a7c8813d17021763f318a46f456840b5fcf3e785be8a266c6bc78262f2b3",
+      "bytes": 75046
+    },
+    "apple/SwiftJLS-watch32.abi.json": {
+      "sha256": "4277ac6b49f8511196028a5ac20f5b1b1dfa754c24615d34068089f0b1739728",
+      "bytes": 149
+    },
+    "apple/build-results.json": {
+      "sha256": "e5abf2a2edb08c015324ff26390c34782a09b01d2696aa60d6e3efd889664b75",
+      "bytes": 17862
+    },
+    "apple/iOS-26.0-iPad_Pro_13-inch_(M5).json": {
+      "sha256": "d3bc7c648cab77c06921114391145173fd05f3e53f52587f67caaba63c5999b1",
+      "bytes": 21429
+    },
+    "apple/iOS-26.0-iPhone_17_Pro.json": {
+      "sha256": "b5930f7ccb4c84540ca9afcc047683f7933f7a5e124f21c47388129ac16ea990",
+      "bytes": 20915
+    },
+    "apple/tvOS-26.0-Apple_TV_4K_(3rd_generation).json": {
+      "sha256": "36705a6ec3b099812132c8defaae782a32ca688008708eb6053c2b112c578006",
+      "bytes": 6256
+    },
+    "apple/visionOS-26.0-Apple_Vision_Pro.json": {
+      "sha256": "038c845987789b3f47ea37aea845765ccbf00fe6c9c8a3f4eca56ff8032053e1",
+      "bytes": 3968
+    },
+    "apple/watchOS-26.0-Apple_Watch_Series_11_(46mm).json": {
+      "sha256": "d77c130185f6dacce34eea8fbcdbaa98e57a9450a72cd79f9c864b9df7db448a",
+      "bytes": 9719
+    },
+    "apple/watch32.log.gz": {
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "bytes": 20
+    },
+    "apple/appletvsimulator/consumer.log.gz": {
+      "sha256": "2d61e1fe9661fec25ca120c99ec8ff665c83bf4a6ed0e4bc17b7dacecedb0423",
+      "bytes": 127
+    },
+    "apple/appletvsimulator/library.log.gz": {
+      "sha256": "2d61e1fe9661fec25ca120c99ec8ff665c83bf4a6ed0e4bc17b7dacecedb0423",
+      "bytes": 127
+    },
+    "apple/appletvsimulator/sign-consumer.log.gz": {
+      "sha256": "e13b60ca2d648f226ffb4d59743aca886c2c89f4bb126d5b88e1c7b7154798ae",
+      "bytes": 106
+    },
+    "apple/appletvsimulator/sign-library.log.gz": {
+      "sha256": "27fb6857710a47c335e847ed971431ff5e4d8e87df62972e1867530f64c8c5b6",
+      "bytes": 104
+    },
+    "apple/iphonesimulator/consumer.log.gz": {
+      "sha256": "5273ef021432dd2a96f379fcfef7719c1d1af24e8c67cfb3853e5eb51e7436d2",
+      "bytes": 126
+    },
+    "apple/iphonesimulator/library.log.gz": {
+      "sha256": "5273ef021432dd2a96f379fcfef7719c1d1af24e8c67cfb3853e5eb51e7436d2",
+      "bytes": 126
+    },
+    "apple/iphonesimulator/sign-consumer.log.gz": {
+      "sha256": "2c58c770395fc3dd590ef0fb764a4ed891511621b25ef20f879ad91d2680d33c",
+      "bytes": 106
+    },
+    "apple/iphonesimulator/sign-library.log.gz": {
+      "sha256": "511ec902d0f7c77941a26a4747074488bae6adb1c163417a2477e3906cc835a2",
+      "bytes": 106
+    },
+    "apple/watchsimulator/consumer.log.gz": {
+      "sha256": "20445f9722bcfa57cdd6cb837eea496feac894a7cccf887112df0bc0c6d65168",
+      "bytes": 129
+    },
+    "apple/watchsimulator/library.log.gz": {
+      "sha256": "20445f9722bcfa57cdd6cb837eea496feac894a7cccf887112df0bc0c6d65168",
+      "bytes": 129
+    },
+    "apple/watchsimulator/sign-consumer.log.gz": {
+      "sha256": "4ee45ae9fe013fc5561b922aa3a29b7466a361467fc26d11c6d86bb6544330cf",
+      "bytes": 106
+    },
+    "apple/watchsimulator/sign-library.log.gz": {
+      "sha256": "6626159b84005ce547fdbfc44e5f014c0bdfad7b7aebd76889bbe77664619d28",
+      "bytes": 105
+    },
+    "apple/xrsimulator/consumer.log.gz": {
+      "sha256": "30cff3995063feebd016677fe5fb8e846a537897d5150b54315f124e7c5ee360",
+      "bytes": 127
+    },
+    "apple/xrsimulator/library.log.gz": {
+      "sha256": "30cff3995063feebd016677fe5fb8e846a537897d5150b54315f124e7c5ee360",
+      "bytes": 127
+    },
+    "apple/xrsimulator/sign-consumer.log.gz": {
+      "sha256": "e5c6dfb5a3e1f4d4034b1c09cb0a49ae2753d1e281517e838f184054483c0d8a",
+      "bytes": 104
+    },
+    "apple/xrsimulator/sign-library.log.gz": {
+      "sha256": "215d1221890c665e7123e6ecef7b5e20156f38f569b7418fe70ac60b53d82ffd",
+      "bytes": 102
+    },
+    "resources/commands.json": {
+      "sha256": "1bafafb9c67bda9632e0394d3cd31c2544006b1b374290123f18b8929811ac1a",
+      "bytes": 15657
+    },
+    "hosted/concurrent-resource-heap-observation/allocation-stacks.txt.gz": {
+      "sha256": "4db5f1d46103ecade6d8bd3f137f770868fbfe3d5379fc99d9b7b7d4bca57bee",
+      "bytes": 41008
+    },
+    "hosted/concurrent-resource-heap-observation/allocations.gz": {
+      "sha256": "f1056cb2da55b9b862bf3c1e6ca9b65ddcb12414f81d06ff0e86a4d84aeefc47",
+      "bytes": 41249
+    },
+    "hosted/concurrent-resource-heap-observation/analysis-demangled.txt.gz": {
+      "sha256": "e8e2e7c8e353412652364c32217a38ea96122acbb4d478b39614995b822f46f2",
+      "bytes": 128897
+    },
+    "hosted/concurrent-resource-heap-observation/analysis.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "hosted/concurrent-resource-heap-observation/analysis.stdout.gz": {
+      "sha256": "f3147babc55b063ceca25f63b9c0130e17db3948f0f866ba45a28954a0e5fd75",
+      "bytes": 113255
+    },
+    "hosted/concurrent-resource-heap-observation/commands.json": {
+      "sha256": "797e8cdad4fde5824d655e42ce3d4502b3767c0d4487ec518a6ea809f79b1934",
+      "bytes": 628
+    },
+    "hosted/concurrent-resource-heap-observation/consumer.stderr": {
+      "sha256": "01e9f7ec5cc41e792656d24541d10704975c26ba079b523c0b1b11fe3398ec15",
+      "bytes": 103
+    },
+    "hosted/concurrent-resource-heap-observation/consumer.stdout": {
+      "sha256": "3c2f2db45b38734f6fea528034d9e39d5b36d8e80d23785510be9dbc3c49ab62",
+      "bytes": 1017
+    },
+    "hosted/concurrent-resource-heap-observation/peaks.json": {
+      "sha256": "23840277526a15a4781da813beca20594bcb0dfba7e1e9cbe8b4b45ed452f87c",
+      "bytes": 1803
+    },
+    "hosted/concurrent-resource-heap-observation/sizes.tsv": {
+      "sha256": "a14e9f70e4ee4450f742355635f5810f40e114d0cd9d3dce3c1f98e120437879",
+      "bytes": 664
+    },
+    "hosted/concurrent-resource-heap-observation/summary.json": {
+      "sha256": "7592ae27e7dc75ec51d26a54b106cc916a1b70dcffa91234f72274915e3964a9",
+      "bytes": 1112
+    },
+    "hosted/concurrent-resource-heap-observation/version.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "hosted/concurrent-resource-heap-observation/version.stdout": {
+      "sha256": "109462d8c8512384699f2ea9cd9adb4e87fd2c1aaf9a154fac3cf5f318de3665",
+      "bytes": 16
+    },
+    "hosted/cross-codec-copy-mutation/build.stderr": {
+      "sha256": "a438c0bab34bc57c069ad4aedf6c2dd5822235bb0ba527a70d73e42547c6ac64",
+      "bytes": 318
+    },
+    "hosted/cross-codec-copy-mutation/build.stdout": {
+      "sha256": "49f759d9f9b5b7b42b945ef0461b7b848c71e47f7b28e0713cb005907f524a13",
+      "bytes": 308
+    },
+    "hosted/cross-codec-copy-mutation/mutant/allocation-stacks-demangled.txt.gz": {
+      "sha256": "e9b6164cf18b15c60ffda530b72aee51075ca8b70df0e9f753a7ec73389e1b48",
+      "bytes": 72393
+    },
+    "hosted/cross-codec-copy-mutation/mutant/allocation-stacks.txt.gz": {
+      "sha256": "c4d788188e3e3752c627395bdc17d416a92ff3e54c09abdf1ad843d9ebf2a167",
+      "bytes": 58141
+    },
+    "hosted/cross-codec-copy-mutation/mutant/allocations.gz": {
+      "sha256": "5d67d6d252c0cb86fea2ddf28142b00d474aeb6b7d87bfb0a2291c32a0c67294",
+      "bytes": 64684
+    },
+    "hosted/cross-codec-copy-mutation/mutant/analysis-demangled.txt.gz": {
+      "sha256": "dc7c6be3b3e3510e27ddf9bfadf5d291ba0aeea3603c1c9ad1cea819c225bdd5",
+      "bytes": 185448
+    },
+    "hosted/cross-codec-copy-mutation/mutant/analysis.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "hosted/cross-codec-copy-mutation/mutant/analysis.stdout.gz": {
+      "sha256": "f246135999eb9289725e220468ea30e3f0e643c5becbe4747bea047c0e88d31e",
+      "bytes": 163367
+    },
+    "hosted/cross-codec-copy-mutation/mutant/commands.json": {
+      "sha256": "c2d74c4dbd3731ce3cddc39f184a1107047363c911a6b4275840e8e62b0aab95",
+      "bytes": 679
+    },
+    "hosted/cross-codec-copy-mutation/mutant/consumer.stderr": {
+      "sha256": "90f7a7c000c89f5a2e7c47719d834dd3c1c338904e6f5aeb562bf3d9a2007387",
+      "bytes": 166
+    },
+    "hosted/cross-codec-copy-mutation/mutant/consumer.stdout": {
+      "sha256": "c320582516e557725761004f50b66b042a6156c363af876583c2189822d13ded",
+      "bytes": 540
+    },
+    "hosted/cross-codec-copy-mutation/mutant/sizes.tsv": {
+      "sha256": "d728540945ee84aa61226d51313014aa44416a408cabeb390a87544af196102e",
+      "bytes": 1014
+    },
+    "hosted/cross-codec-copy-mutation/mutant/summary.json": {
+      "sha256": "cd3138b3d869d06a3537d986d2294ca532dbaf3bfb0ec6bedced4e7d6af51ae7",
+      "bytes": 1180
+    },
+    "hosted/cross-codec-copy-mutation/mutant/version.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "hosted/cross-codec-copy-mutation/mutant/version.stdout": {
+      "sha256": "109462d8c8512384699f2ea9cd9adb4e87fd2c1aaf9a154fac3cf5f318de3665",
+      "bytes": 16
+    },
+    "hosted/cross-codec-copy-mutation/summary.json": {
+      "sha256": "8380ecb4e324239ccc61a5eb6cb397a53f1003b8102afe7e659b190b39bdcf69",
+      "bytes": 1179
+    },
+    "hosted/cross-codec-copy-mutation/trace.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "hosted/cross-codec-copy-mutation/trace.stdout": {
+      "sha256": "cd3138b3d869d06a3537d986d2294ca532dbaf3bfb0ec6bedced4e7d6af51ae7",
+      "bytes": 1180
+    },
+    "hosted/cross-codec-file-observation/consumer.stderr": {
+      "sha256": "d882216d5a96cdad5c1bcb81fb601d0bae9f9e7a6ccfeb34692fe7851679297b",
+      "bytes": 64
+    },
+    "hosted/cross-codec-file-observation/consumer.stdout": {
+      "sha256": "9d1c038fd401367229251265398b00f7d67c373ce495b7af70b115d6ebb7b289",
+      "bytes": 277
+    },
+    "hosted/cross-codec-file-observation/files.trace.881": {
+      "sha256": "fc143a7f8486c91ab35c24c669175171b470956235596cb32ac3dc6ecb5270c6",
+      "bytes": 13142
+    },
+    "hosted/cross-codec-file-observation/files.trace.882": {
+      "sha256": "f81428a88e47fc95461ce421feeddeccfbbe3d601c787f6199163393750edf72",
+      "bytes": 770
+    },
+    "hosted/cross-codec-file-observation/files.trace.883": {
+      "sha256": "813fcdf6e9160f83a27d1c073ac1963d9935c341aca50ca23d7fe9e9b715ab53",
+      "bytes": 118
+    },
+    "hosted/cross-codec-file-observation/files.trace.884": {
+      "sha256": "e86a83d645cf7d7fade6bfbfb599f780df64adff743d81bdbe40a534276f4253",
+      "bytes": 272
+    },
+    "hosted/cross-codec-file-observation/files.trace.885": {
+      "sha256": "ff5abd6e6a8edac178a9760cac68b7478b664ded76d4b699da1df40c3fb97f88",
+      "bytes": 2204
+    },
+    "hosted/cross-codec-file-observation/files.trace.886": {
+      "sha256": "ea9198e5a57fee9696246f9c7ff76c8902bb3393b12c43806ecb93fe35b9f200",
+      "bytes": 151
+    },
+    "hosted/cross-codec-file-observation/summary.json": {
+      "sha256": "a11fabfa491dc9a7e5b309dc85f0fdf257b8b075ffd6fee7604196f33393f516",
+      "bytes": 5341
+    },
+    "hosted/cross-codec-heap-observation/allocation-stacks.txt.gz": {
+      "sha256": "75880815e05dbb51f89424fb853b1b015ae877137d99108f9ca9812b3a7a79cf",
+      "bytes": 58375
+    },
+    "hosted/cross-codec-heap-observation/allocations.gz": {
+      "sha256": "67abab71c0ead9d1a62e72fa6a5900c92dadedf1fa2c0b32958c87af716287c9",
+      "bytes": 64832
+    },
+    "hosted/cross-codec-heap-observation/analysis-demangled.txt.gz": {
+      "sha256": "5aed27e32ee55f3354b563f2625518f2db408f837e01c4747e57d03340217a5b",
+      "bytes": 185760
+    },
+    "hosted/cross-codec-heap-observation/analysis.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "hosted/cross-codec-heap-observation/analysis.stdout.gz": {
+      "sha256": "10395a04481952ccce8bd6049a9577165ab0660b9b6d78f4dfc55eb1e36e7897",
+      "bytes": 163309
+    },
+    "hosted/cross-codec-heap-observation/commands.json": {
+      "sha256": "33b318d0dabd1e757cb18517fd56c76a9a14f80734495f0ce17fae4ed352fb73",
+      "bytes": 640
+    },
+    "hosted/cross-codec-heap-observation/consumer.stderr": {
+      "sha256": "53e124f4e5cefa9fa5d3cccfe4d92b8f9da5bf8633bc0f436e8b04c815894b18",
+      "bytes": 166
+    },
+    "hosted/cross-codec-heap-observation/consumer.stdout": {
+      "sha256": "04ce00748952b1885b34dc2c99120cfbe798e5758da336195231ea9c64433df7",
+      "bytes": 532
+    },
+    "hosted/cross-codec-heap-observation/sizes.tsv": {
+      "sha256": "5c036e752331d0485a677eeeffe299aba039293aea43115a0469c1bc3549b4ad",
+      "bytes": 1014
+    },
+    "hosted/cross-codec-heap-observation/summary.json": {
+      "sha256": "5dbf69f7e4f83ba8e4b068e263ca72d9c66d392f52e00fc7a8e67e028bf3d6ae",
+      "bytes": 1141
+    },
+    "hosted/cross-codec-heap-observation/version.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "hosted/cross-codec-heap-observation/version.stdout": {
+      "sha256": "109462d8c8512384699f2ea9cd9adb4e87fd2c1aaf9a154fac3cf5f318de3665",
+      "bytes": 16
+    },
+    "hosted/scoped-pixel-copy-probe/copy-probe.json": {
+      "sha256": "5267858ea456246795cd880d6ef821eb17e5bc5efed011048d49c63d8dc7617e",
+      "bytes": 4901
+    },
+    "header-diagnostic/summary.json": {
+      "sha256": "5772a366f9257bd38b7a8c5f6d4affb7a460c19ac22ed1398834ec1411c52267",
+      "bytes": 48553
+    },
+    "cpu-diagnostic/commands.json": {
+      "sha256": "c899ac2a5afbc37e89f9824f892a7ed2137ed08d917d37e1f0ef38f82dad141d",
+      "bytes": 715
+    },
+    "cpu-diagnostic/consumer.json": {
+      "sha256": "6c6e927d8eaba0db72a190194defe30f6c92113fe387b721643763de2bfc15f2",
+      "bytes": 21332
+    },
+    "cpu-diagnostic/sample.txt.gz": {
+      "sha256": "171bd919b6c943a51b43c60e117969e19058e958c115da30531ffa5de98ed499",
+      "bytes": 30414
+    },
+    "cpu-diagnostic/sample.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "cpu-diagnostic/consumer.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "cpu-diagnostic/sample.stderr": {
+      "sha256": "5fccbdae926a3963527e33ddc4c3f911386f2d1a20bb37ef265ed4b839fd74f4",
+      "bytes": 213
+    },
+    "reproduction/check-m4-header-sizes.py": {
+      "sha256": "9febf5ef61c9dab01d06c6522f60a381c980794ffa81bc8f102ca2bfc09f759d",
+      "bytes": 2578
+    },
+    "reproduction/profile-m4-final.py": {
+      "sha256": "5dd759bad3a2e14cceecb46cb7a505a1b5fb45afe7ceca4df7f8c17b59508f94",
+      "bytes": 1106
+    },
+    "reproduction/report-m4-performance.py": {
+      "sha256": "4cf128ce89fdddc9d32a1051aadc792a2c5b2bbc2d133e8b8d1a848824111eb9",
+      "bytes": 8817
+    },
+    "reproduction/run-m4-powered.py": {
+      "sha256": "ec53aa69a87be294e10f2b361d61ec04b86f722917fd2383d91dff645f2f873c",
+      "bytes": 1651
+    },
+    "reproduction/run-m4-powered-selected.py": {
+      "sha256": "fe96078a245a1265c88b6f22569d1ef6d5883e44dda72a50d8a2611048fca649",
+      "bytes": 1728
+    },
+    "reproduction/run-m4-powered-final.py": {
+      "sha256": "030de6907b0a7d84bc927c5f089db46626bdbe718949ef3546fe14e3d1e0ecbb",
+      "bytes": 1704
+    },
+    "reproduction/run-m4-powered-final-scalar.py": {
+      "sha256": "4a19ae3f50be0b0bd22b39d3522a20bf2d3dc60b98d296e12ba5704770e6444b",
+      "bytes": 1732
+    },
+    "reproduction/run-m4-powered-final-near.py": {
+      "sha256": "2c575aa9d8fff2073f4b0f4d57e9ec0156db6ed6448ce9eb8945f131a8aa2466",
+      "bytes": 1707
+    },
+    "reproduction/compare-m4-validation-opt.py": {
+      "sha256": "73aa7b8c859d6f055753a9a058da43c166aa090ae97b692efbf112683df4f445",
+      "bytes": 3021
+    },
+    "reproduction/compare-m4-packed-opt.py": {
+      "sha256": "c66b8e485d65597f9810475104550dbe030951fff387060fa9643a94fcbbe7d0",
+      "bytes": 3017
+    },
+    "reproduction/summarise-m4-powered.py": {
+      "sha256": "3c6f06413ca3d0e386aec8dfe4614416da0bccf3981ba36d3e436d731f9a6e25",
+      "bytes": 3227
+    },
+    "reproduction/summarise-m4-final.py": {
+      "sha256": "087d8b53210dfe30189b5f1d097b62bf0d6ed444522af6c004d2fe1da44b3c8a",
+      "bytes": 3307
+    },
+    "reproduction/run-m4-packed-tests.py": {
+      "sha256": "612ca18340fc3d61f7b72b1db71158508dc2ab2875774e049f356d9faaf370b7",
+      "bytes": 1243
+    },
+    "reproduction/m4-apple-final-build.py": {
+      "sha256": "27d06c6262f37334d54e9454bdc42c61c6275fca88b81eb0045195daeafd2379",
+      "bytes": 2264
+    },
+    "reproduction/run-m4-final-simulators.py": {
+      "sha256": "e439447b818e5f84d4e7b85ecfffb92d44662f26446b80e4fe638c9203c066b3",
+      "bytes": 1838
+    },
+    "reproduction/run-m4-final-resource26.py": {
+      "sha256": "9ef17798dd97c6c03d3d83a09639782c26adb54b7a6bf58272fd44f557449301",
+      "bytes": 2440
+    },
+    "reproduction/m4-final-runtime26.log.gz": {
+      "sha256": "fdb4aeb2893168ae72a4f61c554016718b9779b0c08407d0fb1dbb9ac4d3e98a",
+      "bytes": 145
+    },
+    "reproduction/m4-final-resource26.log.gz": {
+      "sha256": "0d0b42cd0620f8832e4ea444bda71184589fc1e327d4c1d43d4fe5405136609d",
+      "bytes": 135
+    },
+    "reproduction/m4-final-colour-cases.json": {
+      "sha256": "71fe895743a4ae9c1717412253c00a81c262a6a4d8ebeab52c3bc8cfbfa0663a",
+      "bytes": 2566
+    },
+    "reproduction/m4-final-near-cases.json": {
+      "sha256": "2c76424c54212d69ca3ec226f8e02f2073f2e53265341de9ff71282857e17329",
+      "bytes": 37
+    },
+    "reproduction/m4-ci-36fb97e.json": {
+      "sha256": "261954c9ffbdb1a3e746e01e69145e9f52dba4563e445f59bffd44fb1d3446fa",
+      "bytes": 2522
+    },
+    "reproduction/m4-pr-status-36fb97e.json": {
+      "sha256": "32a4b9f23bd31e0d14073c8e5b911014d8c6a2e1e7bbeead2b2868897c5c2eac",
+      "bytes": 5464
+    },
+    "reproduction/m4-validation-only-ComponentSamples.swift": {
+      "sha256": "b1f2c130aa5cb99ad087e2cf9a634a84ab7e8be09f601a3fd9d6b52606e79be0",
+      "bytes": 4192
+    },
+    "reproduction/m4-hosted-merge-trees.jsonl": {
+      "sha256": "2a37ec125eac6b2306d12f882bf0781f4eeea4a387a873a04f3cd032c0b5b455",
+      "bytes": 412
+    },
+    "reproduction/m4-macos26-ci.log.gz": {
+      "sha256": "4cfc319facba5621c6ca8ad9f4c80c5ff34cbee2435dbcbfb274ffd371f169e7",
+      "bytes": 18775
+    },
+    "reproduction/final-Consumer.swift": {
+      "sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+      "bytes": 8645
+    },
+    "reproduction/1b4964d-Consumer.swift": {
+      "sha256": "862798204bb8de94f3642a9ac11efb1421aa68cf49bfe39ef10e68cf219f065d",
+      "bytes": 8155
+    },
+    "reproduction/final-compare.py": {
+      "sha256": "c0abc6aae0c4aa63be1ccdebc6ee8690a5fe2d7537f77bb988be8534f7092acb",
+      "bytes": 9569
+    },
+    "reproduction/1b4964d-compare.py": {
+      "sha256": "d7f3751e5a7fec9596ac4bb821f753f0d2b01b8cdffc6df7f5b5d7aaa665421d",
+      "bytes": 8209
+    },
+    "reproduction/final-test-runner.py": {
+      "sha256": "d4a36ea7026bd10653fb454c50c6769e2a4ec5741417510c53801bda7c07b41c",
+      "bytes": 4403
+    },
+    "reproduction/1b4964d-test-runner.py": {
+      "sha256": "36170b9c113534659e2d2b5b4d23012062543aeb54dec974459d33bebdfdb1f8",
+      "bytes": 3044
+    },
+    "reproduction/package-m4-powered.py": {
+      "sha256": "ed4e09c5125ad4d257b8c36444ef367c9c98be903e4216381b89aa07f0e4f1d1",
+      "bytes": 8870
+    },
+    "reproduction/predecessor-Package.swift": {
+      "sha256": "1565aef2d8171da77e80eced8df27255858b23b410b86fcca4c60cf54cfa675b",
+      "bytes": 356
+    },
+    "reproduction/baseline-Package.swift": {
+      "sha256": "03b618868fecb6a891e81e39a1ed13f6535e0511bf2123fcc3bbe8224582f6aa",
+      "bytes": 339
+    },
+    "reproduction/successor-Package.swift": {
+      "sha256": "1f985df84cb3ec3b9b6baf5e8d0ff9b6356e4bcd5fde6be29903b3e186f27180",
+      "bytes": 305
+    }
+  },
+  "qualification": {
+    "milestone4": "incomplete",
+    "milestone5": "deferred",
+    "performance": "Powered monitored workstation evidence collected; residual regressions are not waived; no isolated-laboratory claim.",
+    "complete_workspace_accounting": false,
+    "physical_devices": "unavailable and unexecuted",
+    "physical_watch": "excluded and unexecuted",
+    "native_macos_26": "not established by macOS 27.0.1 host"
+  },
+  "limitations": [
+    "Initial and intermediate experiments retain their own source/binary/consumer hashes; do not merge their timings with the final runs.",
+    "Incomplete original colour case and failed default-limit largest RGB case are retained but excluded from complete-case counts.",
+    "RGB coverage is the owner-selected representative subset, not all 144 cases.",
+    "Thirty-second condition samples cannot exclude all transient background load. Initial final-RGB load average was elevated after compilation; recorded CPU idle and subsequent load are disclosed.",
+    "Peak process RSS, codec reports and whole-process heap peaks do not establish complete per-operation algorithm workspace.",
+    "Archived local paths and simulator identifiers use labelled placeholders. Artifact hashes describe archived bytes, not original unredacted files."
+  ]
+}

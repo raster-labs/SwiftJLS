@@ -4,7 +4,11 @@ The native codec, mapping tables and metadata are implemented in the owning Swif
 
 ## Milestone 4 follow-up — 13 October
 
-PR 15 merged as `571fd7c905f7ef70b4f494513ecf979d620bebd5`. The current task adds source-preparation and preparation-plus-encode benchmark measurements and negative controls, with no production source, fixture, common-contract or public API change. Fresh local software checks and unresolved gates are in [Milestone4.md](Milestone4.md). The subsequent [Xcode evidence](results/milestone4-xcode-2026-10-13.json) records passing iOS 27.0 iPhone/iPad consumers and all 16 hosted checks at `b44fe03`, plus a successful allocation trace after signing a local profiling copy. The later [exact OS 26.0 evidence](results/milestone4-os26-2026-10-13.json) records five passing simulator consumers and four passing concurrent resource workloads across all four runtime families. All 16 hosted checks also pass at `608193a`. Controlled performance, full workspace and physical-device gates remain open; the local host does not provide native macOS 26.0 evidence. Milestone 5 is deferred to a later owner task.
+PR 15 merged as `571fd7c905f7ef70b4f494513ecf979d620bebd5`. The current checkpoint `36fb97e0a654c0d18802b666df2b07d24cb0637a` improves component validation and packed-row addressing, adds two regression declarations and extends the benchmark with measured preparation and validated case selection. Public API, fixtures, common contracts, manifest and production resource defaults are unchanged.
+
+All 82 declarations pass separately in debug/release/ASan/TSan; 73 payload and 103 process CLI checks, the independent consumer, 17 runner controls and all 17 hosted checks pass. Five exact OS 26.0 simulator consumers and four non-Watch 32-frame concurrent resource workloads pass on this source. Powered benchmarks now cover 24 scalar and 39 owner-selected representative RGB cases. See [Milestone4.md](Milestone4.md), [powered performance](PoweredPerformance.md) and [current evidence](results/milestone4-powered-2026-10-13.json) for hashes, commands, measurements and limitations.
+
+Measured performance regressions, complete per-operation workspace and physical-device admission remain open. Native macOS 26.0 is not established by this local host. Milestone 5 is deferred. The sections below retain earlier revision-specific results; their 80-test counts and battery conditions do not describe the new run.
 
 ## Recorded qualification follow-up — 12 October
 

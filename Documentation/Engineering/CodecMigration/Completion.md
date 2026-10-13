@@ -4,17 +4,18 @@
 
 This audit applies [IMPLEMENTATION.md](../../../IMPLEMENTATION.md), [TESTING.md](../../TESTING.md), [PERFORMANCE.md](../../PERFORMANCE.md) and [PLATFORMS.md](../../PLATFORMS.md). Historical evidence and the seven shared contracts are preserved.
 
-On 13 October the user confirmed that no physical devices are available and requested the available checks. Physical-device admission therefore remains unavailable/unexecuted. The existing software results below remain applicable to the unchanged runtime; this clarification does not establish controlled benchmark conditions.
+On 13 October the user confirmed that no physical devices are available and requested the available checks. Physical-device admission therefore remains unavailable/unexecuted. Current-source software and powered benchmark results are recorded in [Milestone4.md](Milestone4.md); historical results below retain their original revisions.
 
 ## Revisions and scope
 
 - Merged baseline: `571fd7c905f7ef70b4f494513ecf979d620bebd5`, [PR 15](https://github.com/raster-labs/SwiftJLS/pull/15), merged 13 October 2026; includes the preceding PR 14.
 - Corrected runtime: `4008f213cc749514300de55dfc17b389fbd3b561`, now merged through [PR 15](https://github.com/raster-labs/SwiftJLS/pull/15). Qualification checkpoint `580a7de9d6f1c483833ac8fe141f9cd8cb225765` adds tests and development measurement tools; production sources, manifest, mutation harness and fixtures remain identical to `4008f21`.
+- Current Milestone 4 checkpoint: `36fb97e0a654c0d18802b666df2b07d24cb0637a`; component validation/packed-row improvements, 82 declarations passing in four configurations, all 17 hosted checks passing and fresh exact-26.0 runtime checks. [Current evidence](results/milestone4-powered-2026-10-13.json).
 - Migration predecessor: JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`. Bounded-decoding comparisons additionally use unchanged `e4594319b83a79189a3e349ab282e2872b7ebd7a` on `fix/bounded-dicom-decoding`.
 - Suite policy 0.10.0; tools 6.2 minimum, primary Swift 6.4, Swift 6 language mode, Apple OS 26.0. Development version remains `1.1.0-dev.2`.
 - Scope is the library and its declared CLI. Consumer cutover, stable publication and predecessor maintenance/archival remain separate assignments.
 
-The owner assigned Milestone 4 only on 13 October, leaving Milestone 5 for later. [The current follow-up](Milestone4.md) records fresh software checks and the benchmark-boundary improvement. It does not waive outstanding qualification gates.
+The owner assigned Milestone 4 only on 13 October, leaving Milestone 5 for later. [The current follow-up](Milestone4.md) records component optimisations, fresh software checks and powered representative benchmarks. It does not waive outstanding qualification gates.
 
 ## Milestone disposition
 
@@ -28,7 +29,7 @@ The owner assigned Milestone 4 only on 13 October, leaving Milestone 5 for later
 
 The [profile matrix](Parity.md) defines supported combinations. PNG/TIFF helpers and extended predecessor CLI verbs remain owner-approved deferrals. Signed/alpha/ICC interpretation, subsampled encoding, DNL unknown-height decoding and native transcoding are not newly advertised. Application acceptance remains governed by [MIGRATION.md](../../../MIGRATION.md).
 
-## Completed fixes and verification
+## Earlier compatibility fixes and revision-scoped verification
 
 The decoder now accepts line/sample-interleaved DRI values at or above frame height, because no restart boundary occurs within the frame. Tests cover 16/24/32-bit fields, the exact-height boundary, larger values including UInt32.max, subsampled line input, inspection, owned decode and supplied storage. Active interleaved schedules and stray RST0/RST7 markers remain rejected before taking the destination write lease. All four former 2×2 predecessor discrepancies now decode identically. The earlier failing results remain in [the original audit](results/migration-audit-2026-10-12.json).
 
@@ -48,17 +49,15 @@ See [Validation.md](Validation.md) and [follow-up evidence](results/migration-fo
 
 ## Performance investigation
 
-A new 24-case predecessor/successor release comparison uses four alternating process blocks with five warm-ups per block and 20 timed iterations per direction/case. Raw distributions, median, p95, spread, throughput, encoded sizes, process RSS, binary hashes, power and load snapshots are retained in [the benchmark results](results/migration-followup-benchmark/summary.json).
+The [current powered report](PoweredPerformance.md) supersedes the earlier battery-powered timings for current-source assessment. It covers all 24 scalar cases and the owner-selected 39 RGB cases, including every 512×512 combination and three larger examples. Four alternating blocks retain 20 observations per producer/operation/case, plus preparation, encoded sizes, process RSS and condition snapshots. The full 144-case RGB grid was not completed.
 
-The benchmark harness now also supports RGB NEAR 0/3 and all three interleaves. Its 36 small colour and six small scalar smoke profiles pass for both libraries; the full 144-case colour timing remains a controlled-hardware follow-up. Smoke measurements are not performance qualification.
-
-The host stayed on battery. Large 12-bit encoding remains roughly 1.15–1.46× predecessor latency; 16-bit ramp/noise encoding roughly 1.16–1.35×. Process RSS is lower, but does not waive latency regressions or establish workspace accounting. A separate five-second CPU sample identifies meaningful-bit validation at `ScalarCodec.swift:120` as a substantial part of flat 12-bit encoding; this is an investigation lead, not proof of every regression's cause or an approved safety/performance trade-off. The pinned predecessor validates immutable pixel planes during `MultiComponentImageData` construction, outside the timed encoder call; SwiftJLS validates meaningful-bit ranges inside encoding. Thus these public-API timings include different validation boundaries and do not isolate kernel overhead. Controlled follow-up must also measure source preparation/end-to-end cost. A second five-second profile of full-range 16-bit noise concentrates in the scalar kernel/bit writer, where the meaningful-bit validation scan is skipped; the flat 12-bit explanation therefore does not resolve the other regressions. No safety check or regression threshold was weakened.
+Component sample validation and packed-row addressing improve the prior SwiftJLS build in focused repeated tests, but residual JLSwift-relative regressions remain. Preparation timing exposes differing public-API validation boundaries; it does not waive encode/decode regressions. Background workstation activity and initially elevated RGB load remain disclosed. No safety check, fidelity or regression threshold was weakened. Historical interrupted and default-resource-limit attempts are retained separately.
 
 ## Requirements still preventing completion
 
 | Requirement | Remaining action / constraint |
 | --- | --- |
-| PERF-01..03 | Repeat representative scalar and supported colour measurements on controlled, powered hardware; resolve or explicitly accept measured regressions with a recorded cost/baseline. This battery-powered run is advisory. |
+| PERF-01..03 | Powered representative measurements are now recorded. Resolve or explicitly accept residual regressions with a recorded reason, measured cost and baseline; repeat affected profiles under sufficiently controlled conditions. No waiver is recorded. |
 | Full workspace accounting | Retain measured heap groups and unknown fields honestly; complete per-operation algorithm-workspace accounting, separating compressed buffers, metadata, runtime and stack storage. Current external peaks do not justify replacing `peakWorkspaceBytes: nil` with an estimate. |
 | Non-Watch physical devices | Unavailable/unexecuted: the user confirmed no physical devices on 13 October. Execute representative iPhone/iPad and other required target-device admission tests when hardware and provisioning are available. The user has now installed Xcode 27.0; simulator consumer and Watch device-architecture builds pass locally, but `devicectl` reports no connected devices. No physical pass is claimed. |
 | Minimum/platform runtimes | Exact 26.0 iPhone/iPad, tvOS, visionOS and watchOS simulator consumers now pass, alongside four non-Watch concurrent resource runs; see [the exact-minimum evidence](results/milestone4-os26-2026-10-13.json). This host is macOS 27.0.1, so exact native macOS 26.0 execution remains unverified by these local runs. Physical-device admission remains separate. |

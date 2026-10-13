@@ -1,51 +1,54 @@
 # Milestone 4 qualification follow-up — 13 October 2026
 
-**Milestone 4 remains incomplete.** The owner assigned Milestone 4 and requested documentation updates, leaving Milestone 5 for a later task. This follow-up closes a benchmark measurement-boundary gap and repeats available software checks; it does not substitute passing tests for the outstanding performance, workspace or platform gates.
+**Milestone 4 remains incomplete.** The available OS 26.0 simulator checks and powered representative benchmarks have now run. This task also improves component sample access and validation. Performance regressions, complete workspace accounting and required hardware admission remain open. Milestone 5 is deferred to the later owner task.
 
-## Baseline and implemented work
+## Revisions and changes
 
-- Starting main: `571fd7c905f7ef70b4f494513ecf979d620bebd5`, merged PR 15. Both the DICOM-padding and inactive-interleaved-DRI fixes are present. Active documents now reflect the merge.
-- Predecessor comparison: JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`.
-- Suite policy 0.10.0, tools 6.2 minimum, primary Swift 6.4, Swift 6 language mode, Apple OS 26.0 deployment floors. The seven common documents and their hash manifest are unchanged.
-- No production codec, public API, manifest, fixture or unit-test change. `VERSION` remains `1.1.0-dev.2`; no release, tag or consumer cutover is performed.
-- The benchmark now measures input preparation and preparation plus encode from identical canonical UInt16 samples, alongside the existing encode/decode timings. This includes the predecessor validation previously outside encode timing. Generation and sample verification remain outside timing. Raw observations, medians, p95 and paired ratios are retained; no latency threshold or safety check changes.
-- Runner controls reject incomplete, invalid or stale observations and accidental evidence overwrite. The new CI smoke workflow builds both independent consumers against the pinned predecessor and current successor. See [benchmark instructions](../../../Scripts/Benchmark/README.md).
+Starting main is `571fd7c905f7ef70b4f494513ecf979d620bebd5` (merged PR 15). The current production/test checkpoint is `36fb97e0a654c0d18802b666df2b07d24cb0637a`, compared with pinned JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`. Its Sources tree is `7b4aecdbcf2dcdf4d41a1b96ed41b72486e29e2e`; Tests tree is `ab4b286d69b8a34c21ebaa0d24e13cdc4d7cf2c1`. See [draft PR 16](https://github.com/raster-labs/SwiftJLS/pull/16).
 
-## Executed software checks
+Component precision validation reuses the existing bounded scalar check for contiguous row samples. Full-width unsigned containers need no value-range scan; odd row strides and interleaved samples retain the general check. Packed rows use a precomputed addressing condition, avoiding division/remainder for every sample. The condition avoids multiplication overflow. Views remain scoped borrows, padding is not inspected as samples, unaligned byte access remains supported, and no sample owner or full-image copy is added. New tests cover meaningful-bit failures, byte order, odd offsets/strides, padding and cancellation across the 256-sample checkpoint.
 
-The local host is Apple Silicon Mac16,5 with 64 GiB memory, Apple Swift 6.4 (`swiftlang-6.4.0.34.1`) and macOS 27.0.1. The initial test runs used Command Line Tools. The user installed Xcode 27.0 (27A266a) during this task; subsequent Apple builds use its SDK 27.0 and deployment targets 26.0. The subsequent consumer runs below execute on exact OS 26.0 simulators. They do not establish physical-device qualification or exact native macOS 26.0 execution.
+The benchmark measures preparation, encode, decode and preparation plus encode from identical canonical UInt16 samples. Its validated `--cases` selector records the exact representative subset. The largest RGB fixture exceeded conservative default workspace admission; the development consumer now explicitly allows 1 GiB workspace and 2 GiB total memory. The resource profile is recorded and checked in raw output. This changes benchmark configuration only; library resource defaults are unchanged. Failed/default-limit evidence is preserved separately.
 
-| Check | Result |
+Suite policy 0.10.0, tools 6.2 minimum, primary Swift 6.4, Swift 6 language mode and Apple OS 26.0 floors remain unchanged. Public API, package manifest, fixtures, seven common documents and `VERSION` (`1.1.0-dev.2`) are unchanged. No release, tag or consumer cutover is performed.
+
+## Current-source verification
+
+Local tests use Apple Swift 6.4 (`swiftlang-6.4.0.34.1`) on Mac16,5, M4 Max, 64 GiB, macOS 27.0.1. Apple consumers use Xcode 27.0 (27A266a), SDK 27.0 and deployment targets 26.0. [The evidence manifest](results/milestone4-powered-2026-10-13.json) records commands, hashes, logs and source scope.
+
+| Check | Result at `36fb97e` |
 | --- | --- |
-| Debug, release, AddressSanitizer and ThreadSanitizer | 80 declarations in each run, zero failures and zero skips; each command exits 0 |
-| Payload CLI | 73 checks pass |
-| Process/help/manual/staged-install CLI | 103 checks pass |
-| Standalone public API consumer | Passes |
-| Concurrent resource consumer | 32 scalar/RGB NEAR 0/3 transactions pass, with sample and caller-allocation checks |
-| Benchmark measurement smoke | Six scalar and 36 colour profiles pass for both libraries, four alternating blocks each; separate and combined timing arrays are present |
-| Runner controls | 11 positive/negative controls pass |
-| Xcode 27 Apple builds | Four signed simulator consumers and the arm64_32 Watch module compile for deployment target 26.0 |
-| Exact OS 26.0 runtimes | iPhone 17 Pro, iPad Pro 13-inch (M5), Apple TV 4K (3rd generation), Apple Vision Pro and Apple Watch Series 11 (46mm) simulator consumers all pass |
-| Exact OS 26.0 concurrent resources | Four non-Watch simulator profiles each pass 32 scalar/RGB NEAR 0/3 frame transactions; caller destination identity is preserved, with zero reported caller-decode pixel allocations or copy bytes |
-| Local iOS 27.0 runtime | iPhone 18 Pro and iPad Pro 13-inch (M5) simulator consumers pass sample, direct-storage, RGB/HP, mapping/metadata, bounded-limit, cancellation and combined legacy checks |
-| Hosted PR checks | All 16 pass at both `b44fe03` and `608193a`; exact links are in the supplemental evidence |
-| Instruments collection | A debug-signed copy of the ordinary release benchmark successfully records allocations and exits 0; complete workspace accounting remains open |
+| Debug, release, AddressSanitizer, ThreadSanitizer | 82 declarations in 11 suites per run; zero failures/skips; all exit 0 |
+| CLI | 73 payload checks and 103 process/help/manual/staged-install checks pass |
+| Standalone public API consumer | Passes padded 12-bit sample and destination-identity checks |
+| Runner controls | 17 positive/negative controls pass |
+| Hosted PR checks | All 17 pass, including independent CharLS, Linux 6.2/6.4 on both architectures, Apple/Intel macOS, four Apple SDKs, Watch arm64_32, storage/copy controls and benchmark smoke |
+| Local Apple builds | Four signed simulator consumers and Watch arm64_32 module compile |
+| Exact OS 26.0 runtimes | iPhone 17 Pro, iPad Pro 13-inch (M5), Apple TV 4K (3rd generation), Apple Vision Pro and Apple Watch Series 11 (46mm) consumers pass |
+| Exact OS 26.0 concurrent resources | Four non-Watch profiles each pass 32 scalar/RGB NEAR 0/3 transactions; supplied destination identity preserved, zero reported supplied pixel allocations/copy bytes |
+| Powered release comparisons | 24 scalar and 39 representative RGB cases; four alternating blocks, five warm-ups and five observations per producer/block, giving 20 observations per operation/producer/case |
 
-Exact commands, source hashes, logs, xUnit results and smoke artifacts are recorded in [the evidence manifest](results/milestone4-2026-10-13.json). Initial default-engine discovery failed because the bundled Testing macro plugin was not loaded. An explicit native-backend diagnostic also failed because it could not locate Testing. Both failures are retained. All four successful test runs use the default Swift Build engine and explicitly load `/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib`; language/concurrency checking remains enabled. The release benchmark consumer builds used the native backend, recorded separately from the successful default-engine library tests.
+The simulator runtime builds are iOS/iPadOS 23A343, tvOS 23J352, visionOS 23M336 and watchOS 23R353, all version 26.0. Watch uses its bounded consumer, including resource rejection and cancellation; the four-worker workload is not physical Watch evidence. The native host remains macOS 27.0.1.
 
-Smoke runs overlapped software validation on a battery-powered developer machine. They qualify harness correctness only; their timing ratios must not be used to resolve the existing performance regressions. The existing three one-hour mutation campaigns and independent interoperability evidence remain scoped to unchanged production sources; no redundant long campaign was run for benchmark/documentation changes.
+Tests explicitly load the Command Line Tools Testing macro plugin with the default Swift Build engine. Earlier discovery failures, battery-powered smoke data, original OS 27 checks and the first OS 26 checks remain in their dated manifests. They are not relabelled as current-source results. A fresh [one-hour-per-entry ASan mutation campaign](https://github.com/raster-labs/SwiftJLS/actions/runs/38388412648) is running at `36fb97e`; it is pending, not a pass.
+
+## Performance and allocation findings
+
+[The powered performance report](PoweredPerformance.md) records the selected cases, raw observations, paired ratios, conditions and residual regressions. The owner chose representative larger images instead of the full 144-case RGB grid. All 36 RGB combinations at 512×512 plus three larger cases are measured on the final binary. Focused comparisons with the preceding SwiftJLS source show lower component latency, but do not establish parity with JLSwift. No >5% regression is silently accepted.
+
+Power is no longer the blocker. Runs used AC power with thermal/load/memory snapshots. Normal workstation background activity remained; the first final-RGB load average was elevated after compilation, although its sampled CPU was mostly idle. These limitations prevent a blanket isolated-hardware qualification claim. Source preparation is reported separately because predecessor validation occurs during image construction while SwiftJLS checks borrowed samples during encode.
+
+Current hosted heap evidence records 5,521 allocations, 15,200,678 bytes peak requested heap, 32 intentional owned-decoder pixel allocations and 36 caller pixel owners in the concurrent workload. Codec nonpixel heap peaks at 3,491,558 bytes and includes compressed data and metadata. Group peaks occur at different instants and must not be summed. The ten scoped copy-probe routes report zero intercepted source-copy bytes, while their injected controls detect the expected copies; a separate allocator mutation detects ten injected sample arrays. These are scoped observations, not a complete heap/stack census. The hosted merge commit `4a982ddaf67ed09024e08c77e8985a14ebb70179` has the same Sources and Tests trees as `36fb97e`.
+
+The earlier successful Instruments trace remains historical: a debug-signed copy of the prior release benchmark recorded allocations after ordinary attach failed. Setup and multiple encode/decode boundaries share that process, some symbols are unresolved, and it does not close per-operation workspace accounting. See [the earlier Xcode evidence](results/milestone4-xcode-2026-10-13.json).
 
 ## Gates still open
 
-| Gate | Required completion evidence |
+| Gate | Remaining evidence |
 | --- | --- |
-| Controlled performance, PERF-01..03 | Powered, idle hardware with recorded thermal/load conditions; full representative scalar and colour runs, including source preparation; investigate confirmed regressions above the contract threshold and record any explicitly accepted safety/correctness cost |
-| Per-operation workspace | Complete accounting separating algorithm workspace, compressed buffers, metadata, runtime and stack storage. Existing Heaptrack group peaks do not close this gate; `peakWorkspaceBytes` remains unknown |
-| Native macOS minimum | Exact 26.0 simulator consumer coverage is now complete for iOS/iPadOS, tvOS, visionOS and watchOS. This host remains macOS 27.0.1; the local runs do not establish exact native macOS 26.0 execution |
-| Physical-device admission | Representative required non-Watch devices and provisioning. Xcode is now available, but `devicectl` reports no physical devices. Physical Watch testing retains its earlier task exclusion and is unexecuted |
+| PERF-01..03 | Resolve measured latency regressions or record an explicit owner-approved correctness/safety cost and baseline; repeat affected cases under sufficiently controlled conditions. Representative powered data is now available. |
+| Per-operation workspace | Separate algorithm workspace, compressed buffers, metadata, runtime and stack storage. `peakWorkspaceBytes` remains unknown; process RSS and heap groups do not replace it. |
+| Native macOS minimum | Exact native macOS 26.0 execution is not established by this macOS 27.0.1 host. The current hosted Apple Silicon job reports macOS 26.6.2 (25G83), so it also does not establish exact 26.0. |
+| Physical-device admission | The user confirmed no physical devices are available. Required non-Watch hardware/provisioning is unavailable/unexecuted. Physical Watch retains its task exclusion and remains unexecuted. |
 
-The Xcode download window initially contained OS 27.0 simulators only. Exact iOS 26.0 (23A343), tvOS 26.0 (23J352), watchOS 26.0 (23R353) and visionOS 26.0 (23M336) downloads have completed with exit 0. All five independent runtime consumers pass, including separate iPhone/iPad devices. The non-Watch concurrent resource runs also pass. [The exact-26.0 evidence](results/milestone4-os26-2026-10-13.json) records commands, outputs, compiler/build identity and source/binary/artifact hashes. Watch uses its bounded resource consumer, including resource rejection and cancellation; the four-worker resource workload was not used as a physical Watch memory claim. Earlier iOS 27.0 evidence retains its original scope. No powered, idle benchmark window has been established; the latest power check still reports battery use.
-
-After the user enabled development-tool authorisation, Instruments still could not attach to the ordinary executable. A local copy signed with `com.apple.security.get-task-allow` then produced a successful Allocations trace and target exit 0. Instruments displays allocation statistics and call trees; some symbols remain unresolved. This single scalar 512×512, 12-bit seeded-noise process includes setup and multiple encode/decode boundaries, so it does not provide complete per-operation workspace accounting. The failed attempt is retained alongside the successful recording log, redacted trace contents index and local raw-trace file hashes. See [the Xcode follow-up evidence](results/milestone4-xcode-2026-10-13.json). The raw trace remains local because it contains machine-specific data.
-
-These are uncompleted gates, not approved waivers. Milestone 5, vulnerability-reporting/support-policy setup, stable publication and programme rollout remain for the later release task. The current work does not mark either milestone complete.
+These are incomplete requirements, not approved waivers. Milestone 5, reporting/support-policy setup, stable publication and programme rollout remain deferred.

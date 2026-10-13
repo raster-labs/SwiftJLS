@@ -1,0 +1,92 @@
+{
+  "runtime": {
+    "isAvailable": true,
+    "version": "26.0",
+    "isInternal": false,
+    "buildversion": "23M336",
+    "supportedArchitectures": [
+      "arm64"
+    ],
+    "supportedDeviceTypes": [
+      {
+        "bundlePath": "/Library/Developer/CoreSimulator/Profiles/DeviceTypes/Apple Vision Pro.simdevicetype",
+        "name": "Apple Vision Pro",
+        "productFamily": "Apple Vision",
+        "identifier": "com.apple.CoreSimulator.SimDeviceType.Apple-Vision-Pro-4K"
+      }
+    ],
+    "identifier": "com.apple.CoreSimulator.SimRuntime.xrOS-26-0",
+    "platform": "xrOS",
+    "bundlePath": "/private/var/run/com.apple.security.cryptexd/mnt/xrOS_23M336/Library/Developer/CoreSimulator/Profiles/Runtimes/xrOS 26.0.simruntime",
+    "runtimeRoot": "/private/var/run/com.apple.security.cryptexd/mnt/xrOS_23M336/Library/Developer/CoreSimulator/Profiles/Runtimes/xrOS 26.0.simruntime/Contents/Resources/RuntimeRoot",
+    "lastUsage": {
+      "arm64": "2026-10-13T11:02:40Z"
+    },
+    "name": "visionOS 26.0"
+  },
+  "device": {
+    "dataPath": "<user>/Library/Developer/CoreSimulator/Devices/<simulator-4>/data",
+    "dataPathSize": 607113216,
+    "logPath": "<user>/Library/Logs/CoreSimulator/<simulator-4>",
+    "udid": "<simulator-4>",
+    "lastUsedAt": "2026-10-13T11:02:27Z",
+    "isAvailable": true,
+    "logPathSize": 45056,
+    "deviceTypeIdentifier": "com.apple.CoreSimulator.SimDeviceType.Apple-Vision-Pro-4K",
+    "state": "Shutdown",
+    "name": "Apple Vision Pro"
+  },
+  "commands": [
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "boot",
+        "<simulator-4>"
+      ],
+      "exit_code": 0,
+      "seconds": 0.9691139999999976,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "bootstatus",
+        "<simulator-4>",
+        "-b"
+      ],
+      "exit_code": 0,
+      "seconds": 13.093992790999998,
+      "stdout": "Monitoring boot status for Apple Vision Pro (<simulator-4>).\n[2026-10-13 11:11:03 +0000] Status=1, isTerminal=NO, Elapsed=00:03.\n\tWaiting on BackBoard\n\n[2026-10-13 11:11:05 +0000] Status=4, isTerminal=NO, Elapsed=00:04.\n\tWaiting on System App\n\n[2026-10-13 11:11:05 +0000] Status=4, isTerminal=NO, Elapsed=00:05.\n\tWaiting on System App\n\n[2026-10-13 11:11:06 +0000] Status=4, isTerminal=NO, Elapsed=00:05.\n\tWaiting on System App\n\n[2026-10-13 11:11:07 +0000] Status=4, isTerminal=NO, Elapsed=00:06.\n\tWaiting on System App\n\n[2026-10-13 11:11:08 +0000] Status=4, isTerminal=NO, Elapsed=00:07.\n\tWaiting on System App\n\n[2026-10-13 11:11:09 +0000] Status=4, isTerminal=NO, Elapsed=00:08.\n\tWaiting on System App\n\n[2026-10-13 11:11:10 +0000] Status=4, isTerminal=NO, Elapsed=00:09.\n\tWaiting on System App\n\n[2026-10-13 11:11:11 +0000] Status=4, isTerminal=NO, Elapsed=00:10.\n\tWaiting on System App\n\n[2026-10-13 11:11:12 +0000] Status=4, isTerminal=NO, Elapsed=00:11.\n\tWaiting on System App\n\n[2026-10-13 11:11:13 +0000] Status=4, isTerminal=NO, Elapsed=00:12.\n\tWaiting on System App\n\n[2026-10-13 11:11:14 +0000] Status=4294967295, isTerminal=YES, Elapsed=00:13.\n\tFinished\n\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "spawn",
+        "<simulator-4>",
+        "<repo>/work/m4-apple-final/xrsimulator/AppleRuntimeConsumer",
+        "<repo>/Tests/SwiftJLSTests/Fixtures"
+      ],
+      "exit_code": 0,
+      "seconds": 1.691434208000004,
+      "stdout": "Independent consumer passed: native lossless coding preserves padded 12-bit samples and destination identity.\nApple runtime passed: direct storage, RGB/HP, mapping, metadata, Watch limits and cancellation.\nCombined legacy mapping/HP runtime passed.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "shutdown",
+        "<simulator-4>"
+      ],
+      "exit_code": 0,
+      "seconds": 3.237822084000001,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+[
+  {
+    "label": "scalar",
+    "command": [
+      "python3",
+      "Scripts/Benchmark/compare.py",
+      "--predecessor",
+      "work/m4-benchmark/predecessor/.build/release/Benchmark",
+      "--successor",
+      "work/m4-benchmark/successor/.build/release/Benchmark",
+      "--output",
+      "<repo>/work/m4-powered-2026-10-13/scalar",
+      "--end-to-end"
+    ],
+    "exit_code": 0,
+    "seconds": 455.512770625
+  },
+  {
+    "label": "colour",
+    "command": [
+      "python3",
+      "Scripts/Benchmark/compare.py",
+      "--predecessor",
+      "work/m4-benchmark/predecessor/.build/release/Benchmark",
+      "--successor",
+      "work/m4-benchmark/successor/.build/release/Benchmark",
+      "--output",
+      "<repo>/work/m4-powered-2026-10-13/colour",
+      "--end-to-end",
+      "--colour"
+    ],
+    "exit_code": -15,
+    "seconds": 650.2307945
+  }
+]

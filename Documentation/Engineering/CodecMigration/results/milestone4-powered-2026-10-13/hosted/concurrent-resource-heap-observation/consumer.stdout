@@ -1,0 +1,42 @@
+heaptrack output will be written to "/tmp/concurrent-heap/allocations.gz"
+starting application, this might take some time...
+[
+  {
+    "components" : 1,
+    "frames" : 8,
+    "near" : 0,
+    "ownedPixelAllocations" : 8,
+    "reportedCopyBytes" : 0,
+    "sourceBytes" : 524288,
+    "suppliedPixelAllocations" : 0
+  },
+  {
+    "components" : 1,
+    "frames" : 8,
+    "near" : 3,
+    "ownedPixelAllocations" : 8,
+    "reportedCopyBytes" : 0,
+    "sourceBytes" : 524288,
+    "suppliedPixelAllocations" : 0
+  },
+  {
+    "components" : 3,
+    "frames" : 8,
+    "near" : 0,
+    "ownedPixelAllocations" : 8,
+    "reportedCopyBytes" : 0,
+    "sourceBytes" : 1572864,
+    "suppliedPixelAllocations" : 0
+  },
+  {
+    "components" : 3,
+    "frames" : 8,
+    "near" : 3,
+    "ownedPixelAllocations" : 8,
+    "reportedCopyBytes" : 0,
+    "sourceBytes" : 1572864,
+    "suppliedPixelAllocations" : 0
+  }
+]Heaptrack finished! Now run the following to investigate the data:
+
+  heaptrack --analyze "/tmp/concurrent-heap/allocations.gz"
