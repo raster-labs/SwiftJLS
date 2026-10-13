@@ -24,7 +24,10 @@ The local host is Apple Silicon Mac16,5 with 64 GiB memory, Apple Swift 6.4 (`sw
 | Concurrent resource consumer | 32 scalar/RGB NEAR 0/3 transactions pass, with sample and caller-allocation checks |
 | Benchmark measurement smoke | Six scalar and 36 colour profiles pass for both libraries, four alternating blocks each; separate and combined timing arrays are present |
 | Runner controls | 11 positive/negative controls pass |
-| Xcode 27 Apple builds | Four signed simulator consumers and the arm64_32 Watch module compile for deployment target 26.0; runtime execution remains pending installation |
+| Xcode 27 Apple builds | Four signed simulator consumers and the arm64_32 Watch module compile for deployment target 26.0 |
+| Local iOS 27.0 runtime | iPhone 18 Pro and iPad Pro 13-inch (M5) simulator consumers pass sample, direct-storage, RGB/HP, mapping/metadata, bounded-limit, cancellation and combined legacy checks |
+| Hosted PR checks | All 16 pass at `b44fe03`; exact links are in the supplemental evidence |
+| Instruments collection | A debug-signed copy of the ordinary release benchmark successfully records allocations and exits 0; complete workspace accounting remains open |
 
 Exact commands, source hashes, logs, xUnit results and smoke artifacts are recorded in [the evidence manifest](results/milestone4-2026-10-13.json). Initial default-engine discovery failed because the bundled Testing macro plugin was not loaded. An explicit native-backend diagnostic also failed because it could not locate Testing. Both failures are retained. All four successful test runs use the default Swift Build engine and explicitly load `/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib`; language/concurrency checking remains enabled. The release benchmark consumer builds used the native backend, recorded separately from the successful default-engine library tests.
 
@@ -39,6 +42,8 @@ Smoke runs overlapped software validation on a battery-powered developer machine
 | Exact minimum runtimes | Execute required OS 26.0 runtime checks. Passing newer-minor simulators or building for deployment target 26.0 is not an exact-minimum runtime pass |
 | Physical-device admission | Representative required non-Watch devices and provisioning. Xcode is now available, but `devicectl` reports no physical devices. Physical Watch testing retains its earlier task exclusion and is unexecuted |
 
-The Xcode download window initially contained OS 27.0 simulators only. An explicit iOS 26.0 (23A343) download was started to obtain the exact minimum; a download is not a runtime pass. Instruments failed to attach to its allocation test process, and development-tool authorisation is currently disabled. This failed collection supplies no allocation measurements.
+The Xcode download window initially contained OS 27.0 simulators only. Exact iOS 26.0 (23A343), tvOS 26.0 (23J352), watchOS 26.0 (23R353) and visionOS 26.0 (23M336) downloads are now in progress. A download is not a runtime pass. The successful iOS 27.0 iPhone/iPad checks are recorded separately from the exact-minimum gate. No powered, idle benchmark window has been established; the latest power check still reports battery use.
+
+After the user enabled development-tool authorisation, Instruments still could not attach to the ordinary executable. A local copy signed with `com.apple.security.get-task-allow` then produced a successful Allocations trace and target exit 0. Instruments displays allocation statistics and call trees; some symbols remain unresolved. This single scalar 512×512, 12-bit seeded-noise process includes setup and multiple encode/decode boundaries, so it does not provide complete per-operation workspace accounting. The failed attempt is retained alongside the successful recording log, redacted trace contents index and local raw-trace file hashes. See [the Xcode follow-up evidence](results/milestone4-xcode-2026-10-13.json). The raw trace remains local because it contains machine-specific data.
 
 These are uncompleted gates, not approved waivers. Milestone 5, vulnerability-reporting/support-policy setup, stable publication and programme rollout remain for the later release task. The current work does not mark either milestone complete.

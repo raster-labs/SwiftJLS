@@ -4,7 +4,7 @@
 
 - Add benchmark source-preparation and combined preparation/encode timings from identical canonical samples; preserve separate operation timings and keep smoke data explicitly unqualified.
 - Reject stale/malformed benchmark outputs, inherited export/decode operations and evidence-directory reuse; add runner negative controls and a pinned predecessor/successor CI smoke workflow.
-- Reconcile active documentation with merged PR 15, record fresh software checks and retain performance/workspace/runtime/device gates as incomplete. Milestone 5 is deferred to a later task.
+- Reconcile active documentation with merged PR 15, record fresh software checks, local iOS 27.0 iPhone/iPad runtime passes and successful allocation-trace collection. Retain controlled performance, complete workspace, exact-minimum runtime and device gates as incomplete. Milestone 5 is deferred to a later task.
 
 ## Migration qualification follow-up — 2026-10-12 (unreleased)
 
