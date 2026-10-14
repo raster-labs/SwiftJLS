@@ -1,3 +1,5 @@
+> Historical 13 October evidence. See [the 14 October follow-up](Milestone4Followup.md) for the current source, measurements and remaining gates.
+
 # Milestone 4 qualification follow-up — 13 October 2026
 
 **Milestone 4 remains incomplete.** The available OS 26.0 simulator checks and powered representative benchmarks have now run. This task also improves component sample access and validation. Performance regressions, complete workspace accounting and required hardware admission remain open. Milestone 5 is deferred to the later owner task.

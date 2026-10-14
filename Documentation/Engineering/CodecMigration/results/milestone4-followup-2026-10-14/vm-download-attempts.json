@@ -1,0 +1,36 @@
+{
+  "tool": "Tart 2.41.0",
+  "tool_binary_sha256": "6c2032761b3c4363767ac93915728107a756d672da83973b2a0343dc033eda52",
+  "archive_sha256": "07faafc77acc668fcfb2fbe97811622567fb89c650db401a470f72e7c4ddc560",
+  "image": "ghcr.io/cirruslabs/macos-tahoe-base@sha256:6b01ed7bb644831fc3b5fdb297c8541bf7f032633d4ac5ac9b04affa163b3772",
+  "environment": {
+    "TART_HOME": "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vms",
+    "TART_NO_AUTO_PRUNE": "1"
+  },
+  "attempts": [
+    {
+      "command": [
+        "work/m4-2026-10-14/tools/tart.app/Contents/MacOS/tart",
+        "clone",
+        "ghcr.io/cirruslabs/macos-tahoe-base@sha256:6b01ed7bb644831fc3b5fdb297c8541bf7f032633d4ac5ac9b04affa163b3772",
+        "m4-macos26",
+        "--concurrency",
+        "4"
+      ],
+      "exit_code": 1,
+      "disposition": "Interrupted this task download after the first benchmark window to retry with higher concurrency; retained log."
+    },
+    {
+      "command": [
+        "work/m4-2026-10-14/tools/tart.app/Contents/MacOS/tart",
+        "clone",
+        "ghcr.io/cirruslabs/macos-tahoe-base@sha256:6b01ed7bb644831fc3b5fdb297c8541bf7f032633d4ac5ac9b04affa163b3772",
+        "m4-macos26",
+        "--concurrency",
+        "12"
+      ],
+      "exit_code": 0,
+      "disposition": "Completed clone; native guest reports macOS 26.0 build 25A354 on arm64. Runtime results recorded separately."
+    }
+  ]
+}

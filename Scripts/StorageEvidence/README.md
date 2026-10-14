@@ -41,8 +41,9 @@ reported results.
 The separate `Marked workspace stack observation` workflow uses pinned Valgrind
 3.27.1 (`b50f9a09ca65cc983c934bd0f50059304f3e939f`) with Massif stack tracking.
 Conditional client requests in the development consumer write beginning/end
-snapshots. `measure-massif.py` rejects missing or unordered boundaries, missing
-interior samples and zero stack observations. It reports snapshot maxima for the
+snapshots. `measure-massif.py` rejects missing or unordered boundaries and zero stack
+observations. Short operations without interior snapshots are explicitly marked
+as boundary-only observations with unknown transient interior peaks. It reports snapshot maxima for the
 marked interval, including the whole runtime's stacks. These are observed peaks,
 not exhaustive codec stack high-water guarantees; Massif's extra heap is an
 allocator model. Keep this instrumented experiment distinct from ordinary-release

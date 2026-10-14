@@ -1,0 +1,42 @@
+[
+  {
+    "label": "verify guest version",
+    "command": [
+      "expect",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-ssh.exp",
+      "192.168.64.2",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-known-hosts",
+      "sw_vers"
+    ],
+    "exit_code": 0,
+    "stdout": "spawn ssh -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-known-hosts -o ConnectTimeout=15 -o PubkeyAuthentication=no admin@192.168.64.2 sw_vers\n\n(admin@192.168.64.2) Password:\nProductName:\t\tmacOS\nProductVersion:\t\t26.0\nBuildVersion:\t\t25A354\n",
+    "stderr": "",
+    "utc": "2026-10-14T10:58:47.265972+00:00"
+  },
+  {
+    "label": "guest qualification",
+    "command": [
+      "expect",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-ssh.exp",
+      "192.168.64.2",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-known-hosts",
+      "python3 '/Volumes/My Shared Files/evidence/run-native.py'"
+    ],
+    "exit_code": 0,
+    "stdout": "spawn ssh -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-known-hosts -o ConnectTimeout=15 -o PubkeyAuthentication=no admin@192.168.64.2 python3 '/Volumes/My Shared Files/evidence/run-native.py'\n\n(admin@192.168.64.2) Password:\n{\n  \"source\": \"8389b29003a187b6c54c9d1cad463758f531ca24\",\n  \"commands\": [\n    {\n      \"label\": \"os\",\n      \"command\": [\n        \"sw_vers\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 0.09498795800000004\n    },\n    {\n      \"label\": \"architecture\",\n      \"command\": [\n        \"uname\",\n        \"-m\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 0.03941704199999996\n    },\n    {\n      \"label\": \"hardware\",\n      \"command\": [\n        \"sysctl\",\n        \"hw.model\",\n        \"hw.memsize\",\n        \"hw.ncpu\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 0.012654374999999995\n    },\n    {\n      \"label\": \"unit\",\n      \"command\": [\n        \"/Volumes/My Shared Files/evidence/swiftpm-testing-helper\",\n        \"--test-bundle-path\",\n        \"/Volumes/My Shared Files/evidence/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests\",\n        \"--testing-library\",\n        \"swift-testing\",\n        \"--xunit-output\",\n        \"/Volumes/My Shared Files/results/unit.xml\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 4.432579209\n    },\n    {\n      \"label\": \"unit-debug\",\n      \"command\": [\n        \"/Volumes/My Shared Files/evidence/swiftpm-testing-helper\",\n        \"--test-bundle-path\",\n        \"/Volumes/My Shared Files/evidence/configurations/debug/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests\",\n        \"--testing-library\",\n        \"swift-testing\",\n        \"--xunit-output\",\n        \"/Volumes/My Shared Files/results/unit-debug.xml\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 5.967459709000001\n    },\n    {\n      \"label\": \"unit-asan\",\n      \"command\": [\n        \"/Volumes/My Shared Files/evidence/swiftpm-testing-helper\",\n        \"--test-bundle-path\",\n        \"/Volumes/My Shared Files/evidence/configurations/asan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests\",\n        \"--testing-library\",\n        \"swift-testing\",\n        \"--xunit-output\",\n        \"/Volumes/My Shared Files/results/unit-asan.xml\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 21.344743792\n    },\n    {\n      \"label\": \"unit-tsan\",\n      \"command\": [\n        \"/Volumes/My Shared Files/evidence/swiftpm-testing-helper\",\n        \"--test-bundle-path\",\n        \"/Volumes/My Shared Files/evidence/configurations/tsan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests\",\n        \"--testing-library\",\n        \"swift-testing\",\n        \"--xunit-output\",\n        \"/Volumes/My Shared Files/results/unit-tsan.xml\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 22.776044209\n    },\n    {\n      \"label\": \"consumer\",\n      \"command\": [\n        \"/Volumes/My Shared Files/evidence/AppleRuntimeConsumer\",\n        \"/Volumes/My Shared Files/evidence/repo/Tests/SwiftJLSTests/Fixtures\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 0.013517624999998645\n    },\n    {\n      \"label\": \"resources\",\n      \"command\": [\n        \"/Volumes/My Shared Files/evidence/ResourceStress\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 0.46334229099999646\n    },\n    {\n      \"label\": \"cli-payload\",\n      \"command\": [\n        \"python3\",\n        \"/Volumes/My Shared Files/evidence/repo/Scripts/test-payload-cli.py\",\n        \"--binary\",\n        \"/Volumes/My Shared Files/evidence/swiftjls-cli\",\n        \"--output\",\n        \"/Volumes/My Shared Files/results/cli-payload.json\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 1.102286625000005\n    },\n    {\n      \"label\": \"cli-process\",\n      \"command\": [\n        \"python3\",\n        \"/Volumes/My Shared Files/evidence/repo/Scripts/test-cli.py\",\n        \"--binary\",\n        \"/Volumes/My Shared Files/evidence/swiftjls-cli\",\n        \"--output\",\n        \"/Volumes/My Shared Files/results/cli-process\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 0.7026639169999953\n    }\n  ],\n  \"scope\": \"Swift 6.4 host-built arm64 binaries, executed in hardware-virtualised native arm64 macOS 26.0; no Intel emulation or physical-device claim.\",\n  \"os\": \"ProductName:\\t\\tmacOS\\nProductVersion:\\t\\t26.0\\nBuildVersion:\\t\\t25A354\\n\",\n  \"architecture\": \"arm64\",\n  \"exact_26_0_native_arm64\": true,\n  \"tests\": {\n    \"declarations\": 84,\n    \"failures\": 0,\n    \"skipped\": 0\n  },\n  \"extra_tests\": {\n    \"debug\": {\n      \"declarations\": 84,\n      \"failures\": 0,\n      \"skipped\": 0\n    },\n    \"asan\": {\n      \"declarations\": 84,\n      \"failures\": 0,\n      \"skipped\": 0\n    },\n    \"tsan\": {\n      \"declarations\": 84,\n      \"failures\": 0,\n      \"skipped\": 0\n    }\n  },\n  \"success\": true\n}\n",
+    "stderr": "",
+    "utc": "2026-10-14T10:59:44.820959+00:00"
+  },
+  {
+    "label": "stop completed VM",
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/tools/tart.app/Contents/MacOS/tart",
+      "stop",
+      "m4-macos26"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "utc": "2026-10-14T10:59:45.047225+00:00"
+  }
+]

@@ -1,5 +1,13 @@
 # Change log
 
+## Milestone 4 hot-path and workspace follow-up — 2026-10-14 (unreleased)
+
+- Improve bounded component run detection/fill, remove unnecessary lossless predictor rows and pass the bounded bit writer by mutable value through synchronous kernels.
+- Verify 84 declarations in debug/release/ASan/TSan, repeated CLI and exact OS 26.0 simulator/resource checks, all 22 hosted checks and three one-hour ASan mutation campaigns; retain source-scoped benchmarks and hosted evidence.
+- Verify exact native arm64 macOS 26.0 (25A354) execution in a hardware-virtualised guest: all four 84-declaration configurations, CLI suites and resource/independent consumers pass.
+- Add development-only marked per-operation heap ledgers and separate stack observations, retaining attribution and sampling limits.
+- Keep residual performance and physical-device requirements explicit; Milestone 5 remains deferred. See [current qualification](Documentation/Engineering/CodecMigration/Milestone4Followup.md).
+
 ## Milestone 4 component performance and qualification follow-up — 2026-10-13 (unreleased)
 
 - Reuse bounded scalar precision checks for contiguous component rows and skip redundant full-container checks; precompute packed-row addressing without overflowing multiplication. Add odd-stride, padding, endian and cancellation regressions.

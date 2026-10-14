@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/resume-native.py", line 6, in <module>
+    run('guest qualification',['expect',str(w/'vm-ssh.exp'),'192.168.64.2',str(w/'vm-known-hosts'),"python3 '/Volumes/My Shared Files/evidence/run-native.py'"],650)
+  File "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/resume-native.py", line 5, in run
+    records.append(dict(label=label,command=command,exit_code=r.returncode,stdout=r.stdout,stderr=r.stderr,utc=datetime.datetime.now(datetime.timezone.utc).isoformat()));(w/'native-resume-commands.json').write_text(json.dumps(records,indent=2)+'\n');r.check_returncode();return r.stdout
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 460, in check_returncode
+    raise CalledProcessError(self.returncode, self.args, self.stdout,
+subprocess.CalledProcessError: Command '['expect', '/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-ssh.exp', '192.168.64.2', '/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-known-hosts', "python3 '/Volumes/My Shared Files/evidence/run-native.py'"]' returned non-zero exit status 255.

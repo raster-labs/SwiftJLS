@@ -2,6 +2,8 @@
 
 Current milestone status and known gaps are in [the completion audit](Completion.md). Current feature and compatibility status is in [Predecessor parity](Parity.md), and current executed/outstanding gates are in [Validation](Validation.md). The sections below preserve the sequence of implementation checkpoints; older pending/unsupported statements are historical.
 
+The [14 October Milestone 4 follow-up](Milestone4Followup.md) records the current source, performance changes, controlled representative comparison, per-operation heap/stack measurements and platform qualification. Its [hashed evidence manifest](results/milestone4-followup-2026-10-14.json) keeps intermediate and final-source results separate. Milestone 5 remains deferred.
+
 The 12 October follow-up closes DICOM padding and inactive-DRI compatibility, adds concurrent resource qualification and records the user-requested physical Watch exclusion. The 13 October clarification records that the user has no physical devices available; hardware admission remains unexecuted. Use the current links above for remaining gates; the entries below are historical.
 
 ## Historical checkpoints — 10 October 2026

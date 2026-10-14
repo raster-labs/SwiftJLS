@@ -1,10 +1,14 @@
-# Predecessor migration validation — updated 13 October 2026
+# Predecessor migration validation — updated 14 October 2026
 
 The native codec, mapping tables and metadata are implemented in the owning SwiftJLS API. [PR 14](https://github.com/raster-labs/SwiftJLS/pull/14) merged on 12 October as `f481f6031279b8ca5c51f559df33cc66a9e4e06b`. [The completion audit](Completion.md) records closure of the inactive-DRI compatibility gap and the qualification gates still outstanding. Stable-release qualification remains open for controlled performance and target-device memory measurements. This record does not authorise release, tagging, merging, predecessor archival or consumer cutover.
 
-## Milestone 4 follow-up — 13 October
+## Milestone 4 follow-up — 14 October
 
-PR 15 merged as `571fd7c905f7ef70b4f494513ecf979d620bebd5`. The current checkpoint `36fb97e0a654c0d18802b666df2b07d24cb0637a` improves component validation and packed-row addressing, adds two regression declarations and extends the benchmark with measured preparation and validated case selection. Public API, fixtures, common contracts, manifest and production resource defaults are unchanged.
+Current production checkpoint `8389b29003a187b6c54c9d1cad463758f531ca24` adds bounded component run operations, reads lossless predictors from the source and passes the bit writer by mutable value through encoding kernels. All 84 declarations pass in debug/release/ASan/TSan, and 73 payload plus 103 process CLI checks pass. Five exact OS 26.0 simulator consumers and four non-Watch 32-frame resource workloads pass on this source. All 22 hosted checks and three one-hour ASan mutation campaigns pass. Native arm64 macOS 26.0 (25A354) also passes all four 84-declaration configurations, both CLI suites, the independent consumer and the 32-frame resource workload. Per-operation heap and stack measurements have run on GitHub. See [the current follow-up](Milestone4Followup.md) and [hashed evidence](results/milestone4-followup-2026-10-14.json) for final benchmark, mutation and native-minimum results and limitations. Historical results below retain their own source revisions.
+
+## Earlier Milestone 4 follow-up — 13 October
+
+PR 15 merged as `571fd7c905f7ef70b4f494513ecf979d620bebd5`. The 13 October checkpoint `36fb97e0a654c0d18802b666df2b07d24cb0637a` improves component validation and packed-row addressing, adds two regression declarations and extends the benchmark with measured preparation and validated case selection. Public API, fixtures, common contracts, manifest and production resource defaults are unchanged.
 
 All 82 declarations pass separately in debug/release/ASan/TSan; 73 payload and 103 process CLI checks, the independent consumer, 17 runner controls and all 17 hosted checks pass. Five exact OS 26.0 simulator consumers and four non-Watch 32-frame concurrent resource workloads pass on this source. Powered benchmarks now cover 24 scalar and 39 owner-selected representative RGB cases. Fresh owned/into/inspect ASan mutation campaigns each pass at least one hour using all 981 seeds, with zero exit status and empty sanitizer stderr. See [Milestone4.md](Milestone4.md), [powered performance](PoweredPerformance.md) and [current evidence](results/milestone4-powered-2026-10-13.json) for hashes, commands, measurements and limitations.
 

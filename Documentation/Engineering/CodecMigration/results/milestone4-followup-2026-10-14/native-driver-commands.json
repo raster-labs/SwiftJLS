@@ -1,0 +1,46 @@
+[
+  {
+    "utc": "2026-10-14T10:54:13.745499+00:00",
+    "label": "configure",
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/tools/tart.app/Contents/MacOS/tart",
+      "set",
+      "m4-macos26",
+      "--cpu",
+      "4",
+      "--memory",
+      "8192"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "utc": "2026-10-14T10:54:20.055183+00:00",
+    "label": "resolve IP",
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/tools/tart.app/Contents/MacOS/tart",
+      "ip",
+      "m4-macos26",
+      "--wait",
+      "30"
+    ],
+    "exit_code": 0,
+    "stdout": "192.168.64.2\n",
+    "stderr": ""
+  },
+  {
+    "utc": "2026-10-14T10:57:17.058341+00:00",
+    "label": "guest qualification",
+    "command": [
+      "expect",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-ssh.exp",
+      "192.168.64.2",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-known-hosts",
+      "python3 '/Volumes/My Shared Files/evidence/run-native.py'"
+    ],
+    "exit_code": 143,
+    "stdout": "spawn ssh -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-known-hosts -o ConnectTimeout=15 -o PubkeyAuthentication=no admin@192.168.64.2 python3 '/Volumes/My Shared Files/evidence/run-native.py'\nWarning: Permanently added '192.168.64.2' (ED25519) to the list of known hosts.\n\n\n(admin@192.168.64.2) Password:",
+    "stderr": ""
+  }
+]

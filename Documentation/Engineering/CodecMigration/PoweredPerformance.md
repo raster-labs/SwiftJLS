@@ -1,3 +1,5 @@
+> Historical 13 October evidence. See [the 14 October follow-up](Milestone4Followup.md) for the current source, measurements and remaining gates.
+
 # Powered representative performance — 13 October 2026
 
 **Measured improvements do not close PERF-01..03.** Residual regressions remain, and this powered developer workstation was monitored rather than physically isolated. No latency or size waiver is recorded. This is engineering evidence, not a marketing comparison.
