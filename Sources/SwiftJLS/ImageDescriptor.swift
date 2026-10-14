@@ -31,7 +31,7 @@ public struct PlaneDescriptor: Sendable, Equatable {
               pixelStride > 0, rowBytes > 0, byteCount > 0,
               (1...4).contains(horizontalSamplingFactor), (1...4).contains(verticalSamplingFactor),
               !components.isEmpty, components.allSatisfy({ $0 >= 0 }),
-              Set(components).count == components.count else {
+              components.count == 1 || Set(components).count == components.count else {
             throw CodecError(.invalidArgument, "Invalid plane geometry or component mapping.")
         }
         self.width = width; self.height = height; self.components = components
@@ -102,8 +102,8 @@ public struct ImageDescriptor: Sendable, Equatable {
         var mapped = Set<Int>()
         var ranges: [Range<Int>] = []
         var required = 0
-        let hMax = planes.map(\.horizontalSamplingFactor).max() ?? 1
-        let vMax = planes.map(\.verticalSamplingFactor).max() ?? 1
+        let hMax = planes.lazy.map(\.horizontalSamplingFactor).max() ?? 1
+        let vMax = planes.lazy.map(\.verticalSamplingFactor).max() ?? 1
         for plane in planes {
             let expectedWidth = try checkedAdd(checkedMultiply(width, plane.horizontalSamplingFactor), hMax - 1) / hMax
             let expectedHeight = try checkedAdd(checkedMultiply(height, plane.verticalSamplingFactor), vMax - 1) / vMax
@@ -139,7 +139,7 @@ public struct ImageDescriptor: Sendable, Equatable {
             guard !ranges.contains(where: { $0.overlaps(range) }) else {
                 throw CodecError(.incompatibleImageLayout, "Writable plane ranges overlap.")
             }
-            ranges.append(range)
+            if planes.count > 1 { ranges.append(range) }
             required = max(required, plane.byteCount)
         }
         guard mapped.count == components.count else {

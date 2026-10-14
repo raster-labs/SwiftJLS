@@ -82,6 +82,20 @@ struct DescriptorTests {
         }
     }
 
+    @Test func rejectsInvalidPlaneComponentLists() throws {
+        for components in [[-1], [0, 0]] {
+            expectCodecError(.invalidArgument) {
+                _ = try PlaneDescriptor(width: 1, height: 1, components: components,
+                                        rowBytes: 4, byteCount: 4)
+            }
+        }
+        let outOfRange = try PlaneDescriptor(width: 1, height: 1, components: [1],
+                                            rowBytes: 2, byteCount: 2)
+        expectCodecError(.invalidArgument) {
+            _ = try ImageDescriptor(width: 1, height: 1, planes: [outOfRange])
+        }
+    }
+
     @Test func rejectsOverlappingPlanesAndIncompleteMapping() throws {
         let first = try PlaneDescriptor(width: 1, height: 1, components: [0], rowBytes: 2, byteCount: 4)
         let overlap = try PlaneDescriptor(width: 1, height: 1, components: [1], rowBytes: 2, byteCount: 4)

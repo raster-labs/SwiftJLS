@@ -134,7 +134,9 @@ struct JPEGLSScalarKernel {
                         let rowEnd = rowBase + width
                         var i = rowBase + col
                         while i < rowEnd {
-                            try checkpoint(); try writer.checkLimit()
+                            // Row entry covers the first bounded scan block.
+                            // Later blocks and runs after regular samples poll.
+                            if i != rowBase { try checkpoint(); try writer.checkLimit() }
                             let end = min(rowEnd, i + 256)
                             i += buf.matchingPrefix(in: i..<end, to: rv16)
                             if i < end { break }
@@ -682,9 +684,15 @@ struct JPEGLSScalarKernel {
                 if runLength > 0 {
                     let rv = UInt16(truncatingIfNeeded: a)
                     let end = rowBase + col + runLength
-                    for first in stride(from: rowBase + col, to: end, by: 256) {
-                        try checkpoint()
-                        buf.fill(rv, range: first..<min(end, first + 256))
+                    if col == 0 && runLength <= 256 {
+                        // Row entry covers this short prefix and bounded fill.
+                        // Long prefixes retain their post-parse checkpoint.
+                        buf.fill(rv, range: rowBase..<end)
+                    } else {
+                        for first in stride(from: rowBase + col, to: end, by: 256) {
+                            try checkpoint()
+                            buf.fill(rv, range: first..<min(end, first + 256))
+                        }
                     }
                     col += runLength
                 }
