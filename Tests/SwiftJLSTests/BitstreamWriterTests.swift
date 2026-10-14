@@ -19,7 +19,7 @@ struct BitstreamWriterTests {
         } }
         if used > 0 { expected.append(byte << (8 - used)) }
         for limit in [0, 1, expected.count - 1, expected.count, expected.count + 1] {
-            let writer = JPEGLSBitstreamWriter(capacity: 1, maximumBytes: limit)
+            var writer = JPEGLSBitstreamWriter(capacity: 1, maximumBytes: limit)
             for (word, count) in words { writer.writeBits(word, count: count) }
             writer.flush()
             #expect(writer.currentPosition == min(limit, expected.count))

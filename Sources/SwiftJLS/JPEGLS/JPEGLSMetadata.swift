@@ -47,7 +47,7 @@ public struct JPEGLSMetadata: Sendable, Equatable {
         }
         return data
     }
-    func write(to writer: JPEGLSBitstreamWriter) throws {
+    func write(to writer: inout JPEGLSBitstreamWriter) throws {
         for s in segments {
             writer.writeByte(255); writer.writeByte(s.marker); writer.writeUInt16(UInt16(s.payload.count + 2))
             for byte in s.payload { writer.writeByte(byte) }
@@ -140,7 +140,7 @@ public struct JPEGLSMappingTables: Sendable, Equatable {
             throw CodecError(.invalidArgument, "Mapping tables must contain MAXVAL + 1 entries and match the component count.")
         }
     }
-    func write(to writer: JPEGLSBitstreamWriter, budget: CodecBudget) throws {
+    func write(to writer: inout JPEGLSBitstreamWriter, budget: CodecBudget) throws {
         for table in tables {
             let maximumBytes = (65530 / table.entryWidth) * table.entryWidth
             var start = 0
@@ -202,7 +202,7 @@ struct JPEGMetadataEncoding {
             throw invalid()
         }
     }
-    func writeSPIFF(to writer: JPEGLSBitstreamWriter) throws {
+    func writeSPIFF(to writer: inout JPEGLSBitstreamWriter) throws {
         if let spiff {
             for byte in spiff { writer.writeByte(byte) }
             try writer.checkLimit()

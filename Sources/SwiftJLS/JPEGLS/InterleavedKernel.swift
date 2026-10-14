@@ -27,7 +27,7 @@ extension JPEGLSScalarKernel {
     }
     func encodeInterleaved<Reader: JPEGSampleReader>(views: [Reader], width: Int, height: Int,
                            mode: CodecOptions.InterleaveMode, near: Int, parameters: JPEGLSPresetParameters,
-                           bits: Int, writer: JPEGLSBitstreamWriter, checkpoint: () throws -> Void) throws {
+                           bits: Int, writer: inout JPEGLSBitstreamWriter, checkpoint: () throws -> Void) throws {
         let regular = try JPEGLSRegularMode(parameters: parameters, near: near)
         let run = try JPEGLSRunMode(parameters: parameters, near: near)
         var context = try JPEGLSContextModel(parameters: parameters, near: near)
@@ -38,14 +38,14 @@ extension JPEGLSScalarKernel {
         var indices = [Int](repeating: 0, count: views.count)
         var neighbours = [Neighbours](repeating: .zero, count: views.count)
         for y in 0..<height {
-            try checkpoint()
+            try checkpoint(); try writer.checkLimit()
             for c in states.indices { states[c].beginRow() }
             for group in 0..<(mode == .line ? views.count : 1) {
                 let active = mode == .line ? group..<(group + 1) : 0..<views.count
                 if mode == .line { context.setRunIndex(indices[group]) }
                 var x = 0
                 while x < width {
-                    if x & 63 == 0 { try checkpoint() }
+                    if x & 63 == 0 { try checkpoint(); try writer.checkLimit() }
                     var isRun = true
                     for c in active {
                         let n = near == 0 ? sourceNeighbours(views[c], width: width, x: x, y: y)
@@ -64,7 +64,7 @@ extension JPEGLSScalarKernel {
                                 let view = views[c], value = UInt16(neighbours[c].a)
                                 var candidate = first
                                 while candidate + 4 <= end {
-                                    if (candidate - first) & 255 == 0 { try checkpoint() }
+                                    if (candidate - first) & 255 == 0 { try checkpoint(); try writer.checkLimit() }
                                     if !view.fourEqual(at: y * width + candidate, to: value) { break }
                                     candidate += 4
                                 }
@@ -75,7 +75,7 @@ extension JPEGLSScalarKernel {
                             x = end
                         }
                         while x < width {
-                            if x & 63 == 0 { try checkpoint() }
+                            if x & 63 == 0 { try checkpoint(); try writer.checkLimit() }
                             var matches = true
                             for c in active {
                                 if abs(Int(views[c][y * width + x]) - neighbours[c].a) > near { matches = false; break }
@@ -86,7 +86,7 @@ extension JPEGLSScalarKernel {
                         // Reconstruct a whole bounded run slice per component.
                         // Predictor rows are not read again until the run ends.
                         for start in stride(from: first, to: near == 0 ? first : x, by: 64) {
-                            try checkpoint()
+                            try checkpoint(); try writer.checkLimit()
                             let end = min(x, start + 64)
                             for c in active {
                                 let value = UInt16(neighbours[c].a)
@@ -99,12 +99,12 @@ extension JPEGLSScalarKernel {
                         writer.writeOnes(encoded.continuationBits)
                         context.setRunIndex(min(encoded.runIndex + encoded.continuationBits, 31))
                         if x < width {
-                            writeRunTermination(encoded: encoded, writer: writer)
+                            writeRunTermination(encoded: encoded, writer: &writer)
                             for c in active {
                                 let value = writeRunInterruptionBits(interruptionValue: Int(views[c][y * width + x]),
                                     runValue: neighbours[c].a,
                                     rb: near == 0 ? (y == 0 ? 0 : Int(views[c][(y - 1) * width + x])) : Int(states[c].previous[x]), near: near,
-                                    context: &context, regularMode: regular, runMode: run, writer: writer,
+                                    context: &context, regularMode: regular, runMode: run, writer: &writer,
                                     limit: coding.limit, qbppBits: coding.qbppBits, overrideRiType: mode == .sample ? 0 : nil)
                                 if near > 0 { states[c].current[x] = UInt16(value) }
                             }
@@ -116,7 +116,7 @@ extension JPEGLSScalarKernel {
                             let value = encodePixel(actual: Int(views[c][y * width + x]), a: n.a, b: n.b, c: n.c,
                                 q1: regular.quantizeGradient(n.d - n.b), q2: regular.quantizeGradient(n.b - n.c),
                                 q3: regular.quantizeGradient(n.c - n.a), regularMode: regular, context: &context,
-                                writer: writer, limit: coding.limit, qbppBits: coding.qbppBits)
+                                writer: &writer, limit: coding.limit, qbppBits: coding.qbppBits)
                             if near > 0 { states[c].current[x] = UInt16(value) }
                         }
                         x += 1

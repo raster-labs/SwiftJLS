@@ -20,35 +20,10 @@ import Foundation
 /// `writeBits` call (39 bits, plus transient stuff bits) always fits without
 /// overflow — unlike a 32-bit accumulator, which silently drops high bits when
 /// `bitsInBuffer + count > 32`.
-final class JPEGLSBitstreamWriter {
-    // One dynamic exclusive access encloses each operation. The private value
-    // state uses static exclusivity within its hot byte loop; no safety checks
-    // or compressed-size limits are disabled. Mutation borrows the state in place.
-    private var state: JPEGLSBitstreamWriterState
-    init(capacity: Int = 4096, maximumBytes: Int = ResourceLimits.default.maximumCompressedBytes) {
-        state = JPEGLSBitstreamWriterState(capacity: capacity, maximumBytes: maximumBytes)
-    }
-    var currentPosition: Int { state.currentPosition }
-    func checkLimit() throws { try state.checkLimit() }
-    func getData() throws -> Data { try state.getData() }
-    func withUnsafeBytes<R>(_ body: (UnsafeRawBufferPointer) throws -> R) throws -> R { try state.withUnsafeBytes(body) }
-    func writeByte(_ byte: UInt8) { state.writeByte(byte) }
-    func writeBytes(_ data: Data) { state.writeBytes(data) }
-    func writeBytesNoCopy(_ buffer: UnsafeRawBufferPointer) { state.writeBytesNoCopy(buffer) }
-    func writeUInt16(_ value: UInt16) { state.writeUInt16(value) }
-    func writeMarker(_ marker: JPEGLSMarker) { state.writeMarker(marker) }
-    func writeBits(_ bits: UInt32, count: Int) { state.writeBits(bits, count: count) }
-    func flush() { state.flush() }
-    func resetBitBuffer() { state.resetBitBuffer() }
-    func writeUnaryCode(_ n: Int) { state.writeUnaryCode(n) }
-    func writeOnes(_ n: Int) { state.writeOnes(n) }
-    func writeMarkerSegment(marker: JPEGLSMarker, payload: Data) { state.writeMarkerSegment(marker: marker, payload: payload) }
-    func beginMarkerSegment(marker: JPEGLSMarker) -> Int { state.beginMarkerSegment(marker: marker) }
-    func endMarkerSegment(lengthPosition: Int) { state.endMarkerSegment(lengthPosition: lengthPosition) }
-
-}
-
-private struct JPEGLSBitstreamWriterState {
+// A single scoped inout borrow gives kernels exclusive mutable access without
+// per-word class-property access checks. Each append retains its size limit;
+// kernels check the limit at the same bounded cancellation checkpoints.
+struct JPEGLSBitstreamWriter {
     private var bytes: [UInt8]
     private let maximumBytes: Int
     private var exceededLimit = false

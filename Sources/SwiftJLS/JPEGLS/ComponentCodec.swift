@@ -43,7 +43,7 @@ enum ComponentCodec {
         guard Set(ids).count == ids.count else { throw CodecError(.invalidArgument, "Duplicate component IDs.") }
         return ids
     }
-    static func writeRGBHeader(width: Int, height: Int, bits: Int, writer: JPEGLSBitstreamWriter) {
+    static func writeRGBHeader(width: Int, height: Int, bits: Int, writer: inout JPEGLSBitstreamWriter) {
         func long(_ value: Int) {
             writer.writeUInt16(UInt16(value >> 16)); writer.writeUInt16(UInt16(value & 65535))
         }
@@ -109,19 +109,19 @@ enum ComponentCodec {
             }
             options.progress?(try .init(phase: .processing, completedUnits: 0, totalUnits: samples))
             try budget.check()
-            let writer = JPEGLSBitstreamWriter(capacity: min(outputLimit, 4096), maximumBytes: outputLimit)
+            var writer = JPEGLSBitstreamWriter(capacity: min(outputLimit, 4096), maximumBytes: outputLimit)
             let kernel = JPEGLSScalarKernel()
             writer.writeMarker(.startOfImage)
-            try metadata.writeSPIFF(to: writer)
-            if d.colour == .rgb && metadata.spiff == nil { writeRGBHeader(width: d.width, height: d.height, bits: d.meaningfulBits, writer: writer) }
+            try metadata.writeSPIFF(to: &writer)
+            if d.colour == .rgb && metadata.spiff == nil { writeRGBHeader(width: d.width, height: d.height, bits: d.meaningfulBits, writer: &writer) }
             if transform != .none {
                 writer.writeByte(255); writer.writeByte(0xe8); writer.writeUInt16(7)
                 for byte: UInt8 in [109, 114, 102, 120, transform.rawValue] { writer.writeByte(byte) }
             }
-            try metadata.ancillary.write(to: writer)
+            try metadata.ancillary.write(to: &writer)
             let frame = try JPEGLSFrameHeader(bitsPerSample: d.meaningfulBits, height: d.height,
                 width: d.width, componentCount: componentIDs.count, components: componentIDs.map { .init(id: $0) })
-            try kernel.writeFrameHeaderInternal(frame, to: writer)
+            try kernel.writeFrameHeaderInternal(frame, to: &writer)
             if configuration.codecOptions.preset != nil {
                 writer.writeMarker(.jpegLSExtension); writer.writeUInt16(13); writer.writeByte(1)
                 for value in [parameters.maxValue, parameters.threshold1, parameters.threshold2, parameters.threshold3, parameters.reset] {
@@ -131,7 +131,7 @@ enum ComponentCodec {
             if interval > 0 {
                 writer.writeMarker(.defineRestartInterval); writer.writeUInt16(4); writer.writeUInt16(UInt16(interval))
             }
-            try metadata.mapping?.write(to: writer, budget: budget)
+            try metadata.mapping?.write(to: &writer, budget: budget)
             try image.storage.withUnsafeBytes { bytes in
                 guard bytes.count == image.storage.byteCount, bytes.count >= d.requiredByteCount else {
                     throw CodecError(.storageUnavailable, "Provider returned inconsistent storage.")
@@ -151,18 +151,18 @@ enum ComponentCodec {
                     let scan = try JPEGLSScanHeader(componentCount: componentIDs.count,
                         components: componentIDs.enumerated().map { .init(id: $0.element, mappingTableID: metadata.mapping?.componentTableIDs[$0.offset] ?? 0) },
                         near: near, interleaveMode: mode, pointTransform: 0)
-                    try kernel.writeScanHeaderInternal(scan, to: writer)
+                    try kernel.writeScanHeaderInternal(scan, to: &writer)
                     if transform == .none {
                         try kernel.encodeInterleaved(views: views, width: d.width, height: d.height,
                         mode: configuration.codecOptions.interleaveMode, near: near, parameters: parameters,
-                        bits: d.meaningfulBits, writer: writer, checkpoint: { try budget.check(); try writer.checkLimit() })
+                        bits: d.meaningfulBits, writer: &writer, checkpoint: { try budget.check() })
                     } else {
                         let transformed = (0..<3).map { component in
                             HPComponentReader(views: views, component: component, transform: transform, bits: d.meaningfulBits)
                         }
                         try kernel.encodeInterleaved(views: transformed, width: d.width, height: d.height,
                             mode: configuration.codecOptions.interleaveMode, near: 0, parameters: parameters,
-                            bits: d.meaningfulBits, writer: writer, checkpoint: { try budget.check(); try writer.checkLimit() })
+                            bits: d.meaningfulBits, writer: &writer, checkpoint: { try budget.check() })
                     }
                     writer.flush()
                     return
@@ -171,7 +171,7 @@ enum ComponentCodec {
                     let scan = try JPEGLSScanHeader(componentCount: 1,
                         components: [.init(id: componentIDs[component], mappingTableID: metadata.mapping?.componentTableIDs[component] ?? 0)],
                         near: near, interleaveMode: .none, pointTransform: 0)
-                    try kernel.writeScanHeaderInternal(scan, to: writer)
+                    try kernel.writeScanHeaderInternal(scan, to: &writer)
                     let coding = kernel.computeGolombLimitInternal(parameters: parameters, near: near, bitsPerSample: d.meaningfulBits)
                     for chunk in 0..<chunks {
                         let first = interval > 0 ? chunk * interval : 0
@@ -179,14 +179,14 @@ enum ComponentCodec {
                         if near > 0 {
                             try kernel.encodeNearLossless(buf: view.rows(first..<last), rowStride: d.width,
                                 width: d.width, height: last - first, near: near, parameters: parameters,
-                                writer: writer, bits: d.meaningfulBits, checkpoint: { try budget.check(); try writer.checkLimit() })
+                                writer: &writer, bits: d.meaningfulBits, checkpoint: { try budget.check() })
                         } else {
                             let regular = try JPEGLSRegularMode(parameters: parameters)
                             let run = try JPEGLSRunMode(parameters: parameters)
                             var context = try JPEGLSContextModel(parameters: parameters)
                             try kernel.encodeFlatRowsLossless(buf: view, rowStride: d.width, rowRange: first..<last,
-                                width: d.width, regularMode: regular, runMode: run, context: &context, writer: writer,
-                                limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check(); try writer.checkLimit() })
+                                width: d.width, regularMode: regular, runMode: run, context: &context, writer: &writer,
+                                limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
                         }
                         writer.flush()
                         if chunk + 1 < chunks { writer.writeByte(255); writer.writeByte(0xd0 + UInt8(chunk % 8)) }

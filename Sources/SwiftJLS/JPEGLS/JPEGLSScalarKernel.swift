@@ -13,7 +13,7 @@ struct JPEGLSScalarKernel {
         regularMode: JPEGLSRegularMode,
         runMode: JPEGLSRunMode,
         context: inout JPEGLSContextModel,
-        writer: JPEGLSBitstreamWriter,
+        writer: inout JPEGLSBitstreamWriter,
         limit: Int,
         qbppBits: Int,
         checkpoint: () throws -> Void
@@ -27,7 +27,7 @@ struct JPEGLSScalarKernel {
             var prevRowEdge = 0
             let firstRow = rowRange.lowerBound
             for row in rowRange {
-                try checkpoint()
+                try checkpoint(); try writer.checkLimit()
                 // Note: RUNindex is NOT reset per line. Per ITU-T.87 §A.7.1,
                 // RUNindex persists across scan lines; it is only initialised to 0 at scan start.
                 let rowBase = row * rowStride
@@ -38,7 +38,7 @@ struct JPEGLSScalarKernel {
                 }
                 var col = 0
                 while col < width {
-                    if col & 255 == 0 { try checkpoint() }
+                    if col & 255 == 0 { try checkpoint(); try writer.checkLimit() }
                     // Causal neighbours per ITU-T.87 §3.2 (same boundary
                     // semantics as the general path). The first row of the
                     // range uses row-0 semantics (zero previous line).
@@ -74,7 +74,7 @@ struct JPEGLSScalarKernel {
                         let rowEnd = rowBase + width
                         var i = rowBase + col
                         while i + 4 <= rowEnd {
-                            if (i - rowBase - col) & 255 == 0 { try checkpoint() }
+                            if (i - rowBase - col) & 255 == 0 { try checkpoint(); try writer.checkLimit() }
                             if !buf.fourEqual(at: i, to: rv16) {
                                 break
                             }
@@ -102,7 +102,7 @@ struct JPEGLSScalarKernel {
 
                         if actualRunLength < remainingInLine {
                             // Run was interrupted — write termination and remainder.
-                            writeRunTermination(encoded: encoded, writer: writer)
+                            writeRunTermination(encoded: encoded, writer: &writer)
 
                             let interruptionCol = col + actualRunLength
                             let interruptionActual = Int(buf[rowBase + interruptionCol])
@@ -119,7 +119,7 @@ struct JPEGLSScalarKernel {
                                 context: &context,
                                 regularMode: regularMode,
                                 runMode: runMode,
-                                writer: writer,
+                                writer: &writer,
                                 limit: limit,
                                 qbppBits: qbppBits
                             )
@@ -145,7 +145,7 @@ struct JPEGLSScalarKernel {
                             q1: q1, q2: q2, q3: q3,
                             regularMode: regularMode,
                             context: &context,
-                            writer: writer,
+                            writer: &writer,
                             limit: limit,
                             qbppBits: qbppBits
                         )
@@ -160,7 +160,7 @@ struct JPEGLSScalarKernel {
     /// are sufficient; original image storage remains borrowed and immutable.
     func encodeNearLossless<Reader: JPEGSampleReader>(buf: Reader, rowStride: Int, width: Int, height: Int,
                             near: Int, parameters: JPEGLSPresetParameters,
-                            writer: JPEGLSBitstreamWriter, bits: Int,
+                            writer: inout JPEGLSBitstreamWriter, bits: Int,
                             checkpoint: () throws -> Void) throws {
         let regular = try JPEGLSRegularMode(parameters: parameters, near: near)
         let run = try JPEGLSRunMode(parameters: parameters, near: near)
@@ -170,12 +170,12 @@ struct JPEGLSScalarKernel {
         var current = [UInt16](repeating: 0, count: width)
         var edge = 0
         for y in 0..<height {
-            try checkpoint()
+            try checkpoint(); try writer.checkLimit()
             let oldEdge = edge
             edge = Int(previous[0])
             var x = 0
             while x < width {
-                if x & 255 == 0 { try checkpoint() }
+                if x & 255 == 0 { try checkpoint(); try writer.checkLimit() }
                 let a = x == 0 ? Int(previous[0]) : Int(current[x - 1])
                 let b = Int(previous[x])
                 let c = x == 0 ? oldEdge : Int(previous[x - 1])
@@ -186,7 +186,7 @@ struct JPEGLSScalarKernel {
                 if q1 == 0 && q2 == 0 && q3 == 0 {
                     let start = x
                     while x < width && abs(Int(buf[y * rowStride + x]) - a) <= near {
-                        if x & 255 == 0 { try checkpoint() }
+                        if x & 255 == 0 { try checkpoint(); try writer.checkLimit() }
                         current[x] = UInt16(a)
                         x += 1
                     }
@@ -195,11 +195,11 @@ struct JPEGLSScalarKernel {
                     let finalIndex = min(encoded.runIndex + encoded.continuationBits, 31)
                     context.setRunIndex(finalIndex)
                     if x < width {
-                        writeRunTermination(encoded: encoded, writer: writer)
+                        writeRunTermination(encoded: encoded, writer: &writer)
                         let reconstructed = writeRunInterruptionBits(
                             interruptionValue: Int(buf[y * rowStride + x]), runValue: a,
                             rb: Int(previous[x]), near: near, context: &context,
-                            regularMode: regular, runMode: run, writer: writer,
+                            regularMode: regular, runMode: run, writer: &writer,
                             limit: coding.limit, qbppBits: coding.qbppBits)
                         current[x] = UInt16(reconstructed)
                         context.decrementRunIndex()
@@ -210,7 +210,7 @@ struct JPEGLSScalarKernel {
                 } else {
                     let reconstructed = encodePixel(actual: Int(buf[y * rowStride + x]),
                         a: a, b: b, c: c, q1: q1, q2: q2, q3: q3, regularMode: regular,
-                        context: &context, writer: writer, limit: coding.limit, qbppBits: coding.qbppBits)
+                        context: &context, writer: &writer, limit: coding.limit, qbppBits: coding.qbppBits)
                     current[x] = UInt16(reconstructed)
                     x += 1
                 }
@@ -229,7 +229,7 @@ struct JPEGLSScalarKernel {
         q3: Int,
         regularMode: JPEGLSRegularMode,
         context: inout JPEGLSContextModel,
-        writer: JPEGLSBitstreamWriter,
+        writer: inout JPEGLSBitstreamWriter,
         limit: Int,
         qbppBits: Int
     ) -> Int {
@@ -247,7 +247,7 @@ struct JPEGLSScalarKernel {
         )
 
         // Write Golomb-Rice encoded bits
-        writeRegularModeBits(encodedPixel, to: writer, limit: limit, qbppBits: qbppBits)
+        writeRegularModeBits(encodedPixel, to: &writer, limit: limit, qbppBits: qbppBits)
 
         // Update context
         context.updateContext(
@@ -261,7 +261,7 @@ struct JPEGLSScalarKernel {
 
     private func writeRegularModeBits(
         _ encoded: EncodedPixel,
-        to writer: JPEGLSBitstreamWriter,
+        to writer: inout JPEGLSBitstreamWriter,
         limit: Int,
         qbppBits: Int
     ) {
@@ -292,7 +292,7 @@ struct JPEGLSScalarKernel {
         context: inout JPEGLSContextModel,
         regularMode: JPEGLSRegularMode,
         runMode: JPEGLSRunMode,
-        writer: JPEGLSBitstreamWriter,
+        writer: inout JPEGLSBitstreamWriter,
         limit: Int,
         qbppBits: Int,
         overrideRiType: Int? = nil
@@ -388,7 +388,7 @@ struct JPEGLSScalarKernel {
 
     func writeRunTermination(
         encoded: EncodedRun,
-        writer: JPEGLSBitstreamWriter
+        writer: inout JPEGLSBitstreamWriter
     ) {
         writer.writeBits(0, count: 1)  // Termination bit
         if encoded.j > 0 {
@@ -422,7 +422,7 @@ struct JPEGLSScalarKernel {
 
     func writeFrameHeaderInternal(
         _ frameHeader: JPEGLSFrameHeader,
-        to writer: JPEGLSBitstreamWriter
+        to writer: inout JPEGLSBitstreamWriter
     ) throws {
         writer.writeMarker(.startOfFrameJPEGLS)
 
@@ -460,7 +460,7 @@ struct JPEGLSScalarKernel {
 
     func writeScanHeaderInternal(
         _ scanHeader: JPEGLSScanHeader,
-        to writer: JPEGLSBitstreamWriter
+        to writer: inout JPEGLSBitstreamWriter
     ) throws {
         writer.writeMarker(.startOfScan)
 

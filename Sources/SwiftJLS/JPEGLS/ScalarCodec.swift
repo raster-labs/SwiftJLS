@@ -85,7 +85,7 @@ enum ScalarCodec {
             try budget.admit(pixelBytes: image.storage.byteCount, workspaceBytes: checkedAdd(workspace, checkedMultiply(metadata.byteCount, 32)), compressedBytes: outputLimit)
             options.progress?(try ProgressUpdate(phase: .processing, completedUnits: 0, totalUnits: samples))
             try budget.check()
-            let writer = JPEGLSBitstreamWriter(capacity: min(outputLimit, 4096), maximumBytes: outputLimit)
+            var writer = JPEGLSBitstreamWriter(capacity: min(outputLimit, 4096), maximumBytes: outputLimit)
             let kernel = JPEGLSScalarKernel()
             let frame = try JPEGLSFrameHeader(bitsPerSample: descriptor.meaningfulBits,
                 height: descriptor.height, width: descriptor.width, componentCount: 1,
@@ -93,9 +93,9 @@ enum ScalarCodec {
             let scan = try JPEGLSScanHeader(componentCount: 1, components: [.init(id: 1, mappingTableID: metadata.mapping?.componentTableIDs[0] ?? 0)],
                 near: near, interleaveMode: .none, pointTransform: 0)
             writer.writeMarker(.startOfImage)
-            try metadata.writeSPIFF(to: writer)
-            try metadata.ancillary.write(to: writer)
-            try kernel.writeFrameHeaderInternal(frame, to: writer)
+            try metadata.writeSPIFF(to: &writer)
+            try metadata.ancillary.write(to: &writer)
+            try kernel.writeFrameHeaderInternal(frame, to: &writer)
             if configuration.codecOptions.preset != nil {
                 writer.writeMarker(.jpegLSExtension)
                 writer.writeUInt16(13)
@@ -109,8 +109,8 @@ enum ScalarCodec {
                 writer.writeUInt16(4)
                 writer.writeUInt16(UInt16(interval))
             }
-            try metadata.mapping?.write(to: writer, budget: budget)
-            try kernel.writeScanHeaderInternal(scan, to: writer)
+            try metadata.mapping?.write(to: &writer, budget: budget)
+            try kernel.writeScanHeaderInternal(scan, to: &writer)
             try image.storage.withUnsafeBytes { bytes in
                 guard bytes.count == image.storage.byteCount, bytes.count >= descriptor.requiredByteCount else {
                     throw CodecError(.storageUnavailable, "Input provider changed its capacity.")
@@ -131,14 +131,14 @@ enum ScalarCodec {
                             littleEndian: view.littleEndian, sampleBytes: view.sampleBytes)
                         try kernel.encodeNearLossless(buf: rowView, rowStride: plane.rowBytes / view.sampleBytes,
                             width: descriptor.width, height: last - first, near: near,
-                            parameters: parameters, writer: writer, bits: descriptor.meaningfulBits,
-                            checkpoint: { try budget.check(); try writer.checkLimit() })
+                            parameters: parameters, writer: &writer, bits: descriptor.meaningfulBits,
+                            checkpoint: { try budget.check() })
                     } else {
                         var context = try JPEGLSContextModel(parameters: parameters)
                         try kernel.encodeFlatRowsLossless(buf: view, rowStride: plane.rowBytes / view.sampleBytes,
                             rowRange: first..<last, width: descriptor.width, regularMode: regular,
-                            runMode: run, context: &context, writer: writer, limit: coding.limit,
-                            qbppBits: coding.qbppBits, checkpoint: { try budget.check(); try writer.checkLimit() })
+                            runMode: run, context: &context, writer: &writer, limit: coding.limit,
+                            qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
                     }
                     if chunk + 1 < chunks {
                         writer.flush()
