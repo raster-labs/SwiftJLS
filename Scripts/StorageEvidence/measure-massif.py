@@ -16,9 +16,9 @@ p=argparse.ArgumentParser();p.add_argument('--directory',type=pathlib.Path,requi
 begin=snapshots(a.directory/'massif-begin.out');end=snapshots(a.directory/'massif-end.out')
 if len(begin)!=1 or len(end)!=1 or begin[0]['time']>=end[0]['time']:raise ValueError('Invalid phase markers')
 inside=[s for s in snapshots(a.directory/'massif.out') if begin[0]['time']<=s['time']<=end[0]['time']]
-if not inside:raise ValueError('No samples inside the marked operation')
 selected=[begin[0],*inside,end[0]]
 result=dict(revision=a.revision,begin=begin[0],end=end[0],interior_snapshots=len(inside),
+    observation_scope='interior_and_boundaries' if inside else 'boundaries_only_no_interior_coverage',
     observed_peak_requested_heap_bytes=max(s['mem_heap_B'] for s in selected),
     observed_peak_stack_bytes=max(s['mem_stacks_B'] for s in selected),
     observed_peak_modelled_heap_overhead_bytes=max(s['mem_heap_extra_B'] for s in selected),
@@ -29,6 +29,8 @@ result=dict(revision=a.revision,begin=begin[0],end=end[0],interior_snapshots=len
         'Heap-extra bytes use the Massif allocator model, not measured host allocator overhead.',
         'Stack profiling uses dynamic instrumentation and is separate from ordinary-release Heaptrack evidence and timing.',
         'Unknown production workspace reports remain unknown; unrelated category peaks must not be added.'])
+if not inside:
+    result['limitations'].append('This short operation has boundary snapshots only. Transient interior peaks were not observed and remain unknown.')
 if result['observed_peak_stack_bytes']<=0:raise ValueError('Stack observation missing')
 (a.directory/'stack-summary.json').write_text(json.dumps(result,indent=2)+'\n')
 print(json.dumps({k:v for k,v in result.items() if k.startswith('observed_') or k=='interior_snapshots'}))
