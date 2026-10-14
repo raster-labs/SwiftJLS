@@ -270,6 +270,11 @@ struct JPEGLSScalarKernel {
             // Limited binary code: write limitThreshold zeros + 1, then MErrval−1 in qbppBits.
             writer.writeUnaryCode(limitThreshold)
             writer.writeBits(UInt32(encoded.mappedError - 1), count: qbppBits)
+        } else if encoded.unaryLength + 1 + encoded.golombK <= 32 {
+            // A short Golomb word fits one accumulator update. Leading zeros
+            // come from the count; the one bit precedes the k-bit remainder.
+            writer.writeBits((UInt32(1) << encoded.golombK) | UInt32(encoded.remainder),
+                count: encoded.unaryLength + 1 + encoded.golombK)
         } else {
             // Standard Golomb-Rice: write unaryLength zeros + 1, then k-bit remainder.
             writer.writeUnaryCode(encoded.unaryLength)

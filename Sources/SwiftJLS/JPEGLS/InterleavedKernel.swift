@@ -56,17 +56,23 @@ extension JPEGLSScalarKernel {
                     if isRun {
                         let first = x
                         if near == 0 {
-                            while x + 4 <= width {
-                                if (x - first) & 63 == 0 { try checkpoint() }
-                                var matches = true
-                                for c in active {
-                                    if !views[c].fourEqual(at: y * width + x, to: UInt16(neighbours[c].a)) {
-                                        matches = false; break
-                                    }
+                            // Scan each component through its scoped local view.
+                            // The shortest matching prefix is the joint run;
+                            // later components never scan beyond that prefix.
+                            var end = width
+                            for c in active {
+                                let view = views[c], value = UInt16(neighbours[c].a)
+                                var candidate = first
+                                while candidate + 4 <= end {
+                                    if (candidate - first) & 255 == 0 { try checkpoint() }
+                                    if !view.fourEqual(at: y * width + candidate, to: value) { break }
+                                    candidate += 4
                                 }
-                                if !matches { break }
-                                x += 4
+                                while candidate < end && view[y * width + candidate] == value { candidate += 1 }
+                                end = candidate
+                                if end == first { break }
                             }
+                            x = end
                         }
                         while x < width {
                             if x & 63 == 0 { try checkpoint() }

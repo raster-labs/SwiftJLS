@@ -6,20 +6,22 @@ Heaptrack 1.5 interpreted format 3. Categories describe allocation stacks, not
 allocator usable sizes. Baseline objects remain live during the marked operation.
 No estimate is substituted for missing stacks, stack usage or runtime bytes.
 """
-import argparse, collections, gzip, hashlib, json, pathlib, subprocess
+import argparse, collections, gzip, hashlib, json, pathlib, re, subprocess
 
 
 def classify(frames):
-    stack = '\n'.join(frames)
+    stack = re.sub(r'\((\w+) in _[0-9A-Fa-f]+\)', r'\1', '\n'.join(frames))
     if 'swiftjls_workspace_begin' in stack: return 'begin_marker'
     if 'swiftjls_workspace_end' in stack: return 'end_marker'
     if 'SwiftJLS.OwnedImageStorage.init' in stack and 'Swift.Array.init(repeating:' in stack:
         return 'owned_pixel_buffer'
-    if any(s in stack for s in ['JPEGLSBitstreamReader.init', 'JPEGLSBitstreamWriter.append', 'JPEGLSBitstreamWriter.getData', 'JPEGLSBitstreamWriter.init']):
+    if re.search(r'SwiftJLS\.JPEGLSBitstream(?:Reader|Writer(?:State)?)\.(?:__allocating_init|init|append|getData|write)', stack):
         return 'compressed_buffer'
-    if any(s in stack for s in ['JPEGLSContextModel.init', 'JPEGLSRegularMode.init', 'JPEGLSRegularModeDecoder.init', 'PredictorRows.init']):
+    if any(s in stack for s in ['JPEGLSContextModel.', 'JPEGLSRegularMode.init', 'JPEGLSRegularModeDecoder.init', 'PredictorRows.init']):
         return 'algorithm_state'
-    if any(s in stack for s in ['JPEGLSHeader.parse', 'JPEGMetadata', 'JPEGLSMapping', 'JPEGLSFrameHeader', 'JPEGLSScanHeader', 'ImageDescriptor.', 'PlaneDescriptor.']):
+    if any(s in '\n'.join(frames[:3]) for s in ['<SwiftJLS.ComponentSampleReader>', '<SwiftJLS.ComponentSampleWriter>', 'SwiftJLS.JPEGLSScalarKernel.PredictorRows', 'SwiftJLS.JPEGLSScalarKernel.Neighbours']):
+        return 'algorithm_state'
+    if any(s in stack for s in ['JPEGLSHeader.parse', 'JPEGMetadata', 'JPEGLSMapping', 'JPEGLSFrameHeader', 'JPEGLSScanHeader', 'ImageDescriptor.', 'PlaneDescriptor.', 'ImageMetadata.', '<SwiftJLS.ComponentCodec.Location>']):
         return 'metadata_and_descriptors'
     if 'SwiftJLS.' in stack: return 'unattributed_codec'
     return 'runtime_or_unattributed'
@@ -114,6 +116,8 @@ def self_test():
     lines += ['t 1 0\n','t 2 0\n','t 3 0\n','t 4 0\n','t 5 4\n',
         'a 1 1\n','a 2 2\n','a 14 3\n','a 64 5\n',
         '+ 3\n','+ 0\n','+ 2\n','- 2\n','+ 1\n','+ 2\n']
+    assert classify(['SwiftJLS.JPEGLSBitstreamWriter.(append in _ABC123)(Swift.UInt8)']) == 'compressed_buffer'
+    assert classify(['SwiftJLS.JPEGLSScalarKernel.encode(writer: SwiftJLS.JPEGLSBitstreamWriter)']) == 'unattributed_codec'
     r = replay(lines)
     assert r['phase_total_requested_heap_peak_bytes'] == 120
     assert r['groups']['owned_pixel_buffer']['peak_above_baseline_bytes'] == 0
