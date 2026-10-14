@@ -5,6 +5,7 @@ on:
       - 'Sources/**'
       - 'Examples/WorkspaceProbe/**'
       - 'Scripts/StorageEvidence/measure-operation.py'
+      - 'Scripts/StorageEvidence/run-workspace-profiles.py'
       - '.github/workflows/workspace.yml'
   workflow_dispatch:
 permissions:
@@ -26,17 +27,7 @@ jobs:
       - name: Measure individual public operations
         run: |
           mkdir -p /tmp/workspace-evidence
-          for size in 17 512; do
-            for components in 1 3; do
-              for near in 0 3; do
-                for operation in encode owned into inspect; do
-                  output="/tmp/workspace-evidence/$size-$components-$near-$operation"
-                  python3 Scripts/StorageEvidence/trace-heap.py --binary Examples/WorkspaceProbe/.build/release/WorkspaceProbe --output "$output" --scope 'One marked operation; setup remains live and verification follows the end marker' -- "$operation" "$size" "$size" "$components" "$near"
-                  python3 Scripts/StorageEvidence/measure-operation.py --profile "$output/allocations.gz" --output "$output/operation.json" --revision "$GITHUB_SHA"
-                done
-              done
-            done
-          done
+          python3 Scripts/StorageEvidence/run-workspace-profiles.py --binary Examples/WorkspaceProbe/.build/release/WorkspaceProbe --output /tmp/workspace-evidence --revision "$GITHUB_SHA"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:

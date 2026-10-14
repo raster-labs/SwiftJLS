@@ -28,6 +28,29 @@ struct ScalarSampleReader {
         return bytes.loadUnaligned(fromByteOffset: index * 2, as: UInt64.self) == packed
     }
 
+    /// The kernel restricts each call to at most 256 samples in one row.
+    /// Wider comparisons do not cross padding or alter checkpoint frequency.
+    func matchingPrefix(in range: Range<Int>, to value: UInt16) -> Int {
+        var i = range.lowerBound
+        if sampleBytes == 2 {
+            let ordered = littleEndian ? value.littleEndian : value.bigEndian
+            let repeated = SIMD16<UInt16>(repeating: ordered)
+            while i + 16 <= range.upperBound {
+                if bytes.loadUnaligned(fromByteOffset: i * 2, as: SIMD16<UInt16>.self) != repeated { break }
+                i += 16
+            }
+        } else {
+            let repeated = SIMD16<UInt8>(repeating: UInt8(truncatingIfNeeded: value))
+            while i + 16 <= range.upperBound {
+                if bytes.loadUnaligned(fromByteOffset: i, as: SIMD16<UInt8>.self) != repeated { break }
+                i += 16
+            }
+        }
+        while i + 4 <= range.upperBound && fourEqual(at: i, to: value) { i += 4 }
+        while i < range.upperBound && self[i] == value { i += 1 }
+        return i - range.lowerBound
+    }
+
     /// No padding is included. Full-width samples cannot exceed their storage
     /// range; narrower power-of-two alphabets can be checked four at a time.
     func validate(width: Int, height: Int, rowStride: Int, maximum: Int,
@@ -37,6 +60,7 @@ struct ScalarSampleReader {
         let mask = UInt16(truncatingIfNeeded: ~maximum)
         let orderedMask = littleEndian ? mask.littleEndian : mask.bigEndian
         let packedMask = UInt64(orderedMask) * 0x0001000100010001
+        let wideMask = SIMD16<UInt16>(repeating: orderedMask)
         for y in 0..<height {
             let base = y * rowStride
             for first in stride(from: 0, to: width, by: 256) {
@@ -44,6 +68,13 @@ struct ScalarSampleReader {
                 let end = min(width, first + 256)
                 var x = first
                 if maskable {
+                    while x + 16 <= end {
+                        let values = bytes.loadUnaligned(fromByteOffset: (base + x) * 2, as: SIMD16<UInt16>.self)
+                        guard values & wideMask == .zero else {
+                            throw CodecError(.invalidArgument, "Sample exceeds declared meaningful precision.")
+                        }
+                        x += 16
+                    }
                     while x + 4 <= end {
                         guard bytes.loadUnaligned(fromByteOffset: (base + x) * 2, as: UInt64.self) & packedMask == 0 else {
                             throw CodecError(.invalidArgument, "Sample exceeds declared meaningful precision.")
@@ -68,6 +99,7 @@ struct ScalarSampleWriter {
     let littleEndian: Bool
     var sampleBytes: Int = 2
     var count: Int { bytes.count / sampleBytes }
+    @inline(__always)
     subscript(index: Int) -> UInt16 {
         get {
             if sampleBytes == 1 { return UInt16(bytes[index]) }

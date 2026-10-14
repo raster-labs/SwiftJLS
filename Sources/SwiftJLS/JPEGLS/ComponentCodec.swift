@@ -200,7 +200,7 @@ enum ComponentCodec {
             return EncodedImage(data: data, encoding: .init(format: "JPEG-LS", mode: configuration.mode),
                 report: OperationReport(backend: .scalarCPU, fallbackReason: ScalarCodec.fallback(options.executionPolicy),
                     fidelity: near == 0 ? .exactSamples : .boundedError(near), pixelAllocationCount: 0,
-                    peakPixelBytes: 0, peakWorkspaceBytes: nil, elapsedSeconds: ProcessInfo.processInfo.systemUptime - budget.started))
+                    peakPixelBytes: 0, peakWorkspaceBytes: nil, elapsedSeconds: budget.elapsedSeconds))
         }
     }
     static func decode(_ data: Data, header: JPEGLSHeader, into supplied: ImageDestination?, options: DecodeOptions,
@@ -211,10 +211,10 @@ enum ComponentCodec {
               d.components == header.roles, d.colour == (header.rgb ? .rgb : .unknown) else {
             throw CodecError(.incompatibleImageLayout, "Destination geometry, precision or interpretation does not match the codestream.")
         }
-        let hMax = header.sampling.map { Int($0 >> 4) }.max() ?? 1
-        let vMax = header.sampling.map { Int($0 & 15) }.max() ?? 1
-        let destinationHMax = locations.map(\.horizontal).max() ?? 1
-        let destinationVMax = locations.map(\.vertical).max() ?? 1
+        let hMax = header.sampling.reduce(1) { max($0, Int($1 >> 4)) }
+        let vMax = header.sampling.reduce(1) { max($0, Int($1 & 15)) }
+        let destinationHMax = locations.reduce(1) { max($0, $1.horizontal) }
+        let destinationVMax = locations.reduce(1) { max($0, $1.vertical) }
         for (i, location) in locations.enumerated() {
             guard location.horizontal * hMax == Int(header.sampling[i] >> 4) * destinationHMax,
                   location.vertical * vMax == Int(header.sampling[i] & 15) * destinationVMax,
@@ -223,7 +223,7 @@ enum ComponentCodec {
                 throw CodecError(.incompatibleImageLayout, "Destination component sampling does not match the codestream.")
             }
         }
-        let table = try header.records.map { try ScalarCodec.tableBytes($0.parameters) }.max() ?? 0
+        let table = try header.records.reduce(0) { try max($0, ScalarCodec.tableBytes($1.parameters)) }
         let ranges = header.records.reduce(0) { $0 + $1.ranges.count }
         let workspace = try checkedAdd(checkedAdd(ScalarCodec.contextBytes, table),
             checkedAdd(checkedMultiply(data.count, 2), checkedMultiply(ranges, MemoryLayout<Range<Int>>.stride * 2)))
@@ -302,6 +302,6 @@ enum ComponentCodec {
         return DecodedImage(image: image, report: OperationReport(backend: .scalarCPU,
             fallbackReason: ScalarCodec.fallback(options.executionPolicy), fidelity: fidelity,
             pixelAllocationCount: supplied == nil ? 1 : 0, peakPixelBytes: supplied == nil ? pixelBytes : 0,
-            peakWorkspaceBytes: nil, elapsedSeconds: ProcessInfo.processInfo.systemUptime - budget.started))
+            peakWorkspaceBytes: nil, elapsedSeconds: budget.elapsedSeconds))
     }
 }

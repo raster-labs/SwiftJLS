@@ -9,6 +9,7 @@ struct JPEGLSScalarKernel {
         buf: Reader,
         rowStride: Int,
         rowRange: Range<Int>,
+        scanFirstRow: Int? = nil,
         width: Int,
         regularMode: JPEGLSRegularMode,
         runMode: JPEGLSRunMode,
@@ -23,9 +24,16 @@ struct JPEGLSScalarKernel {
               try checkedAdd(checkedMultiply(rowRange.upperBound - 1, rowStride), width) <= buf.count else {
             throw CodecError(.incompatibleImageLayout, "Invalid scalar input extent.")
         }
+        if let scalar = buf.scalarLayout {
+            try encodeFlatRowsLossless(buf: scalar.view, rowStride: scalar.rowStride,
+                rowRange: rowRange, scanFirstRow: scanFirstRow, width: width,
+                regularMode: regularMode, runMode: runMode, context: &context,
+                writer: &writer, limit: limit, qbppBits: qbppBits, checkpoint: checkpoint)
+            return
+        }
         do {
-            var prevRowEdge = 0
-            let firstRow = rowRange.lowerBound
+            let firstRow = scanFirstRow ?? rowRange.lowerBound
+            var prevRowEdge = rowRange.lowerBound > firstRow + 1 ? Int(buf[(rowRange.lowerBound - 2) * rowStride]) : 0
             for row in rowRange {
                 try checkpoint(); try writer.checkLimit()
                 // Note: RUNindex is NOT reset per line. Per ITU-T.87 §A.7.1,
@@ -73,15 +81,11 @@ struct JPEGLSScalarKernel {
                         let rv16 = UInt16(truncatingIfNeeded: runValue)
                         let rowEnd = rowBase + width
                         var i = rowBase + col
-                        while i + 4 <= rowEnd {
-                            if (i - rowBase - col) & 255 == 0 { try checkpoint(); try writer.checkLimit() }
-                            if !buf.fourEqual(at: i, to: rv16) {
-                                break
-                            }
-                            i += 4
-                        }
-                        while i < rowEnd && buf[i] == rv16 {
-                            i += 1
+                        while i < rowEnd {
+                            try checkpoint(); try writer.checkLimit()
+                            let end = min(rowEnd, i + 256)
+                            i += buf.matchingPrefix(in: i..<end, to: rv16)
+                            if i < end { break }
                         }
                         let actualRunLength = i - (rowBase + col)
                         let remainingInLine = width - col
@@ -532,106 +536,124 @@ struct JPEGLSScalarKernel {
                 if row > 0 {
                     prevRowEdge = Int(buf[prevBase])
                 }
-                var col = 0
-                while col < width {
-                    if col & 255 == 0 { try checkpoint() }
-                    // Causal neighbours per ITU-T.87 §3.2 (same boundary
-                    // semantics as getNeighbors, over the flat plane).
-                    let a: Int, b: Int, c: Int, d: Int
-                    if row == 0 {
-                        a = col == 0 ? 0 : Int(buf[rowBase + col - 1])
-                        b = 0; c = 0; d = 0
-                    } else if col == 0 {
-                        let top = Int(buf[prevBase])
-                        a = top
-                        b = top
-                        c = edgeForThisRow
-                        d = width > 1 ? Int(buf[prevBase + 1]) : top
-                    } else {
-                        a = Int(buf[rowBase + col - 1])
-                        b = Int(buf[prevBase + col])
-                        c = Int(buf[prevBase + col - 1])
-                        d = col + 1 < width ? Int(buf[prevBase + col + 1]) : b
+                try decodeRow(into: buf, rowStride: rowStride, row: row, width: width,
+                    edgeForThisRow: edgeForThisRow, reader: reader, decoder: decoder,
+                    runDecoder: runDecoder, context: &context, parameters: parameters,
+                    near: near, limit: limit, qbppBits: qbppBits, checkpoint: checkpoint)
+            }
+        }
+    }
+
+
+    /// A scan row shares adaptive contexts with the preceding scan rows.
+    /// The caller supplies the per-component left boundary and run index.
+    @inline(__always)
+    func decodeRow<Writer: JPEGSampleWriter>(into buf: Writer, rowStride: Int,
+        row: Int, width: Int, edgeForThisRow: Int, reader: JPEGLSBitstreamReader,
+        decoder: JPEGLSRegularModeDecoder, runDecoder: JPEGLSRunModeDecoder,
+        context: inout JPEGLSContextModel, parameters: JPEGLSPresetParameters,
+        near: Int, limit: Int, qbppBits: Int, checkpointMask: Int = 255,
+        checkpoint: () throws -> Void) throws {
+        let rowBase = row * rowStride
+        let prevBase = rowBase - rowStride
+        var col = 0
+        while col < width {
+            if col & checkpointMask == 0 { try checkpoint() }
+            // Causal neighbours per ITU-T.87 §3.2 (same boundary
+            // semantics as getNeighbors, over the flat plane).
+            let a: Int, b: Int, c: Int, d: Int
+            if row == 0 {
+                a = col == 0 ? 0 : Int(buf[rowBase + col - 1])
+                b = 0; c = 0; d = 0
+            } else if col == 0 {
+                let top = Int(buf[prevBase])
+                a = top
+                b = top
+                c = edgeForThisRow
+                d = width > 1 ? Int(buf[prevBase + 1]) : top
+            } else {
+                a = Int(buf[rowBase + col - 1])
+                b = Int(buf[prevBase + col])
+                c = Int(buf[prevBase + col - 1])
+                d = col + 1 < width ? Int(buf[prevBase + col + 1]) : b
+            }
+
+            // Check for run mode: all quantized gradients are zero
+            let (d1, d2, d3) = decoder.computeGradients(a: a, b: b, c: c, d: d)
+            let q1 = decoder.quantizeGradient(d1)
+            let q2 = decoder.quantizeGradient(d2)
+            let q3 = decoder.quantizeGradient(d3)
+
+            if q1 == 0 && q2 == 0 && q3 == 0 {
+                // Run mode: decode run of pixels with value = a.
+                // readRunLength clamps to remainingInLine, so the
+                // fill below cannot overrun the row.
+                let remainingInLine = width - col
+                let runLength = try readRunLength(
+                    reader: reader,
+                    runDecoder: runDecoder,
+                    context: &context,
+                    remainingInLine: remainingInLine
+                )
+                if runLength > 0 {
+                    let rv = UInt16(truncatingIfNeeded: a)
+                    let end = rowBase + col + runLength
+                    for first in stride(from: rowBase + col, to: end, by: 256) {
+                        try checkpoint()
+                        buf.fill(rv, range: first..<min(end, first + 256))
                     }
-
-                    // Check for run mode: all quantized gradients are zero
-                    let (d1, d2, d3) = decoder.computeGradients(a: a, b: b, c: c, d: d)
-                    let q1 = decoder.quantizeGradient(d1)
-                    let q2 = decoder.quantizeGradient(d2)
-                    let q3 = decoder.quantizeGradient(d3)
-
-                    if q1 == 0 && q2 == 0 && q3 == 0 {
-                        // Run mode: decode run of pixels with value = a.
-                        // readRunLength clamps to remainingInLine, so the
-                        // fill below cannot overrun the row.
-                        let remainingInLine = width - col
-                        let runLength = try readRunLength(
-                            reader: reader,
-                            runDecoder: runDecoder,
-                            context: &context,
-                            remainingInLine: remainingInLine
-                        )
-                        if runLength > 0 {
-                            let rv = UInt16(truncatingIfNeeded: a)
-                            let end = rowBase + col + runLength
-                            for first in stride(from: rowBase + col, to: end, by: 256) {
-                                try checkpoint()
-                                buf.fill(rv, range: first..<min(end, first + 256))
-                            }
-                            col += runLength
-                        }
-
-                        if runLength < remainingInLine {
-                            // Interrupted run: decode the interruption sample
-                            // (per ITU-T.87 §A.7.2).
-                            let ra = a
-                            let rb = row > 0 ? Int(buf[prevBase + col]) : 0
-                            let riType = (abs(ra - rb) <= near) ? 1 : 0
-                            let k = context.computeRunInterruptionGolombK(riType: riType)
-                            let j = runDecoder.computeJ(runIndex: context.currentRunIndex)
-                            let adjustedLimit = limit - j - 1
-                            let eMappedErrorValue = try readGolombCode(
-                                reader: reader, k: k, limit: adjustedLimit, qbppBits: qbppBits
-                            )
-                            let errorValue = context.computeRunInterruptionErrorValue(
-                                temp: eMappedErrorValue + riType, k: k, riType: riType
-                            )
-                            let sample: Int
-                            if riType == 1 {
-                                sample = runDecoder.reconstructSample(prediction: ra, error: errorValue)
-                            } else {
-                                let signCorrectedError = errorValue * (rb >= ra ? 1 : -1)
-                                sample = runDecoder.reconstructSample(prediction: rb, error: signCorrectedError)
-                            }
-                            context.updateRunInterruptionContext(
-                                errorValue: errorValue,
-                                eMappedErrorValue: eMappedErrorValue,
-                                riType: riType
-                            )
-                            // Per ITU-T.87, decrement RUNindex AFTER the interruption pixel.
-                            context.decrementRunIndex()
-
-                            buf[rowBase + col] = UInt16(truncatingIfNeeded: sample)
-                            col += 1
-                        }
-                    } else {
-                        // Regular mode
-                        let pixel = try decodeSinglePixel(
-                            reader: reader,
-                            decoder: decoder,
-                            runDecoder: runDecoder,
-                            context: &context,
-                            a: a, b: b, c: c,
-                            q1: q1, q2: q2, q3: q3,
-                            parameters: parameters,
-                            near: near,
-                            limit: limit,
-                            qbppBits: qbppBits
-                        )
-                        buf[rowBase + col] = UInt16(truncatingIfNeeded: pixel)
-                        col += 1
-                    }
+                    col += runLength
                 }
+
+                if runLength < remainingInLine {
+                    // Interrupted run: decode the interruption sample
+                    // (per ITU-T.87 §A.7.2).
+                    let ra = a
+                    let rb = row > 0 ? Int(buf[prevBase + col]) : 0
+                    let riType = (abs(ra - rb) <= near) ? 1 : 0
+                    let k = context.computeRunInterruptionGolombK(riType: riType)
+                    let j = runDecoder.computeJ(runIndex: context.currentRunIndex)
+                    let adjustedLimit = limit - j - 1
+                    let eMappedErrorValue = try readGolombCode(
+                        reader: reader, k: k, limit: adjustedLimit, qbppBits: qbppBits
+                    )
+                    let errorValue = context.computeRunInterruptionErrorValue(
+                        temp: eMappedErrorValue + riType, k: k, riType: riType
+                    )
+                    let sample: Int
+                    if riType == 1 {
+                        sample = runDecoder.reconstructSample(prediction: ra, error: errorValue)
+                    } else {
+                        let signCorrectedError = errorValue * (rb >= ra ? 1 : -1)
+                        sample = runDecoder.reconstructSample(prediction: rb, error: signCorrectedError)
+                    }
+                    context.updateRunInterruptionContext(
+                        errorValue: errorValue,
+                        eMappedErrorValue: eMappedErrorValue,
+                        riType: riType
+                    )
+                    // Per ITU-T.87, decrement RUNindex AFTER the interruption pixel.
+                    context.decrementRunIndex()
+
+                    buf[rowBase + col] = UInt16(truncatingIfNeeded: sample)
+                    col += 1
+                }
+            } else {
+                // Regular mode
+                let pixel = try decodeSinglePixel(
+                    reader: reader,
+                    decoder: decoder,
+                    runDecoder: runDecoder,
+                    context: &context,
+                    a: a, b: b, c: c,
+                    q1: q1, q2: q2, q3: q3,
+                    parameters: parameters,
+                    near: near,
+                    limit: limit,
+                    qbppBits: qbppBits
+                )
+                buf[rowBase + col] = UInt16(truncatingIfNeeded: pixel)
+                col += 1
             }
         }
     }

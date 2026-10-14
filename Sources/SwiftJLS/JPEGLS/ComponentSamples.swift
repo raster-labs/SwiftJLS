@@ -4,8 +4,22 @@ import Foundation
 
 protocol JPEGSampleReader {
     var count: Int { get }
+    var scalarLayout: (view: ScalarSampleReader, rowStride: Int)? { get }
     subscript(index: Int) -> UInt16 { get }
     func fourEqual(at index: Int, to value: UInt16) -> Bool
+    func matchingPrefix(in range: Range<Int>, to value: UInt16) -> Int
+}
+extension JPEGSampleReader {
+    var scalarLayout: (view: ScalarSampleReader, rowStride: Int)? { nil }
+    func matchingPrefix(in range: Range<Int>, to value: UInt16) -> Int {
+        scalarMatchingPrefix(self, in: range, to: value)
+    }
+}
+private func scalarMatchingPrefix<R: JPEGSampleReader>(_ view: R, in range: Range<Int>, to value: UInt16) -> Int {
+    var i = range.lowerBound
+    while i + 4 <= range.upperBound && view.fourEqual(at: i, to: value) { i += 4 }
+    while i < range.upperBound && view[i] == value { i += 1 }
+    return i - range.lowerBound
 }
 protocol JPEGSampleWriter {
     var count: Int { get }
@@ -35,6 +49,11 @@ struct ComponentSampleReader: JPEGSampleReader {
         if packedRows { return offset + index * pixelStride }
         return offset + (index / width) * rowBytes + (index % width) * pixelStride
     }
+    var scalarLayout: (view: ScalarSampleReader, rowStride: Int)? {
+        guard pixelStride == sampleBytes, rowBytes % sampleBytes == 0 else { return nil }
+        return (ScalarSampleReader(bytes: .init(rebasing: bytes[offset...]),
+            littleEndian: littleEndian, sampleBytes: sampleBytes), rowBytes / sampleBytes)
+    }
     var count: Int { width * height }
     subscript(index: Int) -> UInt16 {
         let at = byteOffset(index)
@@ -42,6 +61,7 @@ struct ComponentSampleReader: JPEGSampleReader {
         let value = bytes.loadUnaligned(fromByteOffset: at, as: UInt16.self)
         return littleEndian ? UInt16(littleEndian: value) : UInt16(bigEndian: value)
     }
+    @inline(__always)
     func fourEqual(at index: Int, to value: UInt16) -> Bool {
         // The kernel proves all four samples are in the same logical row.
         if pixelStride == sampleBytes {
@@ -55,6 +75,15 @@ struct ComponentSampleReader: JPEGSampleReader {
                 == UInt64(ordered) * 0x0001000100010001
         }
         return self[index] == value && self[index + 1] == value && self[index + 2] == value && self[index + 3] == value
+    }
+    func matchingPrefix(in range: Range<Int>, to value: UInt16) -> Int {
+        if pixelStride == sampleBytes {
+            let at = byteOffset(range.lowerBound)
+            let view = ScalarSampleReader(bytes: .init(rebasing: bytes[at...]),
+                littleEndian: littleEndian, sampleBytes: sampleBytes)
+            return view.matchingPrefix(in: 0..<range.count, to: value)
+        }
+        return scalarMatchingPrefix(self, in: range, to: value)
     }
     /// Reuse the bounded scalar precision check when samples are contiguous
     /// within each row. Odd byte strides and interleaved samples retain the
@@ -99,6 +128,7 @@ struct ComponentSampleWriter: JPEGSampleWriter {
         return offset + (index / width) * rowBytes + (index % width) * pixelStride
     }
     var count: Int { width * height }
+    @inline(__always)
     subscript(index: Int) -> UInt16 {
         get {
             let at = byteOffset(index)

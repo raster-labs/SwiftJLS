@@ -17,7 +17,7 @@ import Foundation
 /// its own statistics that adapt during encoding/decoding. These statistics
 /// include accumulated error (A), sample count (B), bias correction (C),
 /// and occurrence counter (N) for reset operations.
-struct JPEGLSContextModel: Sendable {
+struct JPEGLSContextModel: ~Copyable {
     // MARK: - Constants
 
     /// Number of regular-mode contexts as defined by ITU-T.87
@@ -30,9 +30,9 @@ struct JPEGLSContextModel: Sendable {
 
     /// Per-context adaptive statistics (A = accumulated absolute error,
     /// B = bias accumulator, C = bias correction, N = occurrence counter),
-    /// packed into one record so the per-pixel update is a single array
-    /// load and store (one bounds check, one copy-on-write uniqueness
-    /// check, one cache line) instead of up to ten accesses across four
+    /// packed into one record so the per-pixel update is a single record
+    /// load and store (one bounds check, no copy-on-write uniqueness
+    /// check) instead of up to ten accesses across four
     /// parallel arrays.
     private struct ContextRecord: Sendable {
         var a: Int
@@ -41,26 +41,30 @@ struct JPEGLSContextModel: Sendable {
         var n: Int
     }
 
-    private var contexts: [ContextRecord]
+    /// Uniquely owned by this noncopyable context. Every pointer is used only
+    /// inside its synchronous borrow; no pointer or mutable state is shared.
+    /// Records contain only integers, so there are no element resources to
+    /// release when ManagedBuffer releases its allocation.
+    private let contexts: ManagedBuffer<Void, ContextRecord>
 
     // MARK: - Run-Length State
 
     /// Run interruption context index array (J[])
     /// Used for run-length encoding context selection.
-    private var runInterruptionIndex: [Int]
+    private var runInterruptionIndex: InlineArray<2, Int>
 
     /// Run interruption accumulated absolute error (A_ri) per ITU-T.87 §4.5.3.
     /// Index 0 = RItype 0 (Ra ≠ Rb), Index 1 = RItype 1 (Ra ≈ Rb).
-    private var runInterruptionA: [Int]
+    private var runInterruptionA: InlineArray<2, Int>
 
     /// Run interruption sample count (N_ri) per ITU-T.87 §4.5.3.
     /// Index 0 = RItype 0, Index 1 = RItype 1.
-    private var runInterruptionN: [Int]
+    private var runInterruptionN: InlineArray<2, Int>
 
     /// Run interruption negative error count (nn) per ITU-T.87.
     /// Used for map computation in run interruption coding.
     /// Index 0 = RItype 0, Index 1 = RItype 1.
-    private var runInterruptionNN: [Int]
+    private var runInterruptionNN: InlineArray<2, Int>
 
     /// Current run length counter
     private var runLength: Int
@@ -116,13 +120,14 @@ struct JPEGLSContextModel: Sendable {
         self.bFactor = 2 * near + 1
 
         // Initialize context records to default values per ITU-T.87 Section 4.3
-        self.contexts = Array(
-            repeating: ContextRecord(a: 0, b: 0, c: 0, n: 1),
-            count: Self.regularContextCount
-        )
+        self.contexts = ManagedBuffer.create(minimumCapacity: Self.regularContextCount) { _ in () }
+        let initialA = aInit
+        contexts.withUnsafeMutablePointerToElements {
+            $0.initialize(repeating: ContextRecord(a: initialA, b: 0, c: 0, n: 1), count: Self.regularContextCount)
+        }
 
         // Initialize run-length state
-        self.runInterruptionIndex = Array(repeating: 0, count: Self.runContextCount)
+        self.runInterruptionIndex = .init(repeating: 0)
         // Initialise run interruption statistics per ITU-T.87 §4.5.3.
         // Two contexts: index 0 for RItype=0, index 1 for RItype=1.
         let riAInit = max(2, (range + 32) / 64)
@@ -131,22 +136,6 @@ struct JPEGLSContextModel: Sendable {
         self.runInterruptionNN = [0, 0]
         self.runLength = 0
         self.runIndex = 0
-
-        // Set initial context values according to ITU-T.87
-        initializeContexts()
-    }
-
-    /// Initialize all context statistics to their default values.
-    ///
-    /// Per ITU-T.87 Section 4.3, contexts are initialised with:
-    /// - A[i] = max(2, floor((RANGE + 32) / 64))
-    /// - B[i] = 0
-    /// - C[i] = 0
-    /// - N[i] = 1
-    private mutating func initializeContexts() {
-        for i in 0..<Self.regularContextCount {
-            contexts[i] = ContextRecord(a: aInit, b: 0, c: 0, n: 1)
-        }
     }
 
     // MARK: - Context Index Computation
@@ -232,7 +221,7 @@ struct JPEGLSContextModel: Sendable {
         guard contextIndex >= 0 && contextIndex < Self.regularContextCount else {
             return 0
         }
-        return contexts[contextIndex].a
+        return contexts.withUnsafeMutablePointerToElements { $0[contextIndex].a }
     }
 
     /// Get the occurrence counter for a context.
@@ -243,7 +232,7 @@ struct JPEGLSContextModel: Sendable {
         guard contextIndex >= 0 && contextIndex < Self.regularContextCount else {
             return 0
         }
-        return contexts[contextIndex].b
+        return contexts.withUnsafeMutablePointerToElements { $0[contextIndex].b }
     }
 
     /// Get the bias correction for a context.
@@ -254,7 +243,7 @@ struct JPEGLSContextModel: Sendable {
         guard contextIndex >= 0 && contextIndex < Self.regularContextCount else {
             return 0
         }
-        return contexts[contextIndex].c
+        return contexts.withUnsafeMutablePointerToElements { $0[contextIndex].c }
     }
 
     /// Get the reset counter for a context.
@@ -265,7 +254,7 @@ struct JPEGLSContextModel: Sendable {
         guard contextIndex >= 0 && contextIndex < Self.regularContextCount else {
             return 1
         }
-        return contexts[contextIndex].n
+        return contexts.withUnsafeMutablePointerToElements { $0[contextIndex].n }
     }
 
     // MARK: - Context Update
@@ -286,8 +275,8 @@ struct JPEGLSContextModel: Sendable {
         }
 
         // Load the record once; all updates happen on locals and store back
-        // in a single write (one bounds + one CoW check per pixel).
-        var r = contexts[contextIndex]
+        // in a single write after the context-index bounds check.
+        var r = contexts.withUnsafeMutablePointerToElements { $0[contextIndex] }
 
         // Update A (accumulated absolute prediction error) per ITU-T.87
         r.a += abs(predictionError)
@@ -321,7 +310,7 @@ struct JPEGLSContextModel: Sendable {
             r.c = min(r.c + 1, 127)
         }
 
-        contexts[contextIndex] = r
+        contexts.withUnsafeMutablePointerToElements { $0[contextIndex] = r }
     }
 
     // MARK: - Golomb Parameter Calculation
@@ -338,7 +327,7 @@ struct JPEGLSContextModel: Sendable {
             return 0
         }
 
-        let r = contexts[contextIndex]
+        let r = contexts.withUnsafeMutablePointerToElements { $0[contextIndex] }
         return Self.golombParameter(a: r.a, n: r.n)
     }
 
@@ -367,7 +356,7 @@ struct JPEGLSContextModel: Sendable {
         guard contextIndex >= 0 && contextIndex < Self.regularContextCount else {
             return (0, 0, 0)
         }
-        let r = contexts[contextIndex]
+        let r = contexts.withUnsafeMutablePointerToElements { $0[contextIndex] }
         let k = Self.golombParameter(a: r.a, n: r.n)
         let errorCorrection = (k == 0 && near == 0 && (2 * r.b + r.n - 1) < 0) ? -1 : 0
         return (r.c, k, errorCorrection)
@@ -387,7 +376,7 @@ struct JPEGLSContextModel: Sendable {
     func getErrorCorrection(contextIndex: Int, k: Int) -> Int {
         guard k == 0 && near == 0 else { return 0 }
         guard contextIndex >= 0 && contextIndex < Self.regularContextCount else { return 0 }
-        let r = contexts[contextIndex]
+        let r = contexts.withUnsafeMutablePointerToElements { $0[contextIndex] }
         return (2 * r.b + r.n - 1) < 0 ? -1 : 0
     }
 
@@ -578,7 +567,7 @@ struct JPEGLSContextModel: Sendable {
 
 // MARK: - CustomStringConvertible
 
-extension JPEGLSContextModel: CustomStringConvertible {
+extension JPEGLSContextModel {
     /// Human-readable description of the context model state
     var description: String {
         return "JPEGLSContextModel(contexts: \(Self.regularContextCount), near: \(near), reset: \(parameters.reset))"

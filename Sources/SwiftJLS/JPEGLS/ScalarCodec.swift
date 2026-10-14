@@ -90,8 +90,8 @@ enum ScalarCodec {
             let frame = try JPEGLSFrameHeader(bitsPerSample: descriptor.meaningfulBits,
                 height: descriptor.height, width: descriptor.width, componentCount: 1,
                 components: [.init(id: 1)])
-            let scan = try JPEGLSScanHeader(componentCount: 1, components: [.init(id: 1, mappingTableID: metadata.mapping?.componentTableIDs[0] ?? 0)],
-                near: near, interleaveMode: .none, pointTransform: 0)
+            let scan = try JPEGLSScanHeader.singleComponent(mappingTableID: metadata.mapping?.componentTableIDs[0] ?? 0,
+                near: near)
             writer.writeMarker(.startOfImage)
             try metadata.writeSPIFF(to: &writer)
             try metadata.ancillary.write(to: &writer)
@@ -155,7 +155,7 @@ enum ScalarCodec {
             let result = EncodedImage(data: data, encoding: .init(format: "JPEG-LS", mode: configuration.mode),
                 report: OperationReport(backend: .scalarCPU, fallbackReason: fallback(options.executionPolicy),
                     fidelity: near == 0 ? .exactSamples : .boundedError(near), pixelAllocationCount: 0, peakPixelBytes: 0,
-                    peakWorkspaceBytes: nil, elapsedSeconds: ProcessInfo.processInfo.systemUptime - budget.started))
+                    peakWorkspaceBytes: nil, elapsedSeconds: budget.elapsedSeconds))
             options.progress?(try ProgressUpdate(phase: .completed, completedUnits: samples, totalUnits: samples))
             try budget.check()
             return result
@@ -206,7 +206,7 @@ enum ScalarCodec {
             let result = DecodedImage(image: image, report: OperationReport(backend: .scalarCPU,
                 fallbackReason: fallback(options.executionPolicy), fidelity: fidelity,
                 pixelAllocationCount: supplied == nil ? 1 : 0, peakPixelBytes: supplied == nil ? pixelBytes : 0,
-                peakWorkspaceBytes: nil, elapsedSeconds: ProcessInfo.processInfo.systemUptime - budget.started))
+                peakWorkspaceBytes: nil, elapsedSeconds: budget.elapsedSeconds))
             options.progress?(try ProgressUpdate(phase: .completed, completedUnits: samples, totalUnits: samples))
             try budget.check()
             return result

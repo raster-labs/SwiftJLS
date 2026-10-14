@@ -28,15 +28,30 @@ extension JPEGLSScalarKernel {
     func encodeInterleaved<Reader: JPEGSampleReader>(views: [Reader], width: Int, height: Int,
                            mode: CodecOptions.InterleaveMode, near: Int, parameters: JPEGLSPresetParameters,
                            bits: Int, writer: inout JPEGLSBitstreamWriter, checkpoint: () throws -> Void) throws {
+        guard (1...4).contains(views.count) else { throw CodecError(.unsupportedFeature, "Invalid component count.") }
         let regular = try JPEGLSRegularMode(parameters: parameters, near: near)
         let run = try JPEGLSRunMode(parameters: parameters, near: near)
         var context = try JPEGLSContextModel(parameters: parameters, near: near)
         let coding = computeGolombLimitInternal(parameters: parameters, near: near, bitsPerSample: bits)
+        if mode == .line && near == 0 {
+            var indices = InlineArray<4, Int>(repeating: 0)
+            for y in 0..<height {
+                for c in views.indices {
+                    context.setRunIndex(indices[c])
+                    try encodeFlatRowsLossless(buf: views[c], rowStride: width, rowRange: y..<(y + 1),
+                        scanFirstRow: 0, width: width, regularMode: regular, runMode: run,
+                        context: &context, writer: &writer, limit: coding.limit,
+                        qbppBits: coding.qbppBits, checkpoint: checkpoint)
+                    indices[c] = context.currentRunIndex
+                }
+            }
+            return
+        }
         // Exact reconstruction can read already-encoded neighbours from the
         // scoped source. Only near-lossless coding needs reconstructed rows.
         var states = near == 0 ? [] : views.map { _ in PredictorRows(width: width) }
-        var indices = [Int](repeating: 0, count: views.count)
-        var neighbours = [Neighbours](repeating: .zero, count: views.count)
+        var indices = InlineArray<4, Int>(repeating: 0)
+        var neighbours = InlineArray<4, Neighbours>(repeating: .zero)
         for y in 0..<height {
             try checkpoint(); try writer.checkLimit()
             for c in states.indices { states[c].beginRow() }
@@ -51,7 +66,7 @@ extension JPEGLSScalarKernel {
                         let n = near == 0 ? sourceNeighbours(views[c], width: width, x: x, y: y)
                             : states[c].neighbours(x: x)
                         neighbours[c] = n
-                        if regular.quantizeGradient(n.d - n.b) != 0 || regular.quantizeGradient(n.b - n.c) != 0 || regular.quantizeGradient(n.c - n.a) != 0 { isRun = false }
+                        if abs(n.d - n.b) > near || abs(n.b - n.c) > near || abs(n.c - n.a) > near { isRun = false }
                     }
                     if isRun {
                         let first = x
@@ -63,12 +78,13 @@ extension JPEGLSScalarKernel {
                             for c in active {
                                 let view = views[c], value = UInt16(neighbours[c].a)
                                 var candidate = first
-                                while candidate + 4 <= end {
-                                    if (candidate - first) & 255 == 0 { try checkpoint(); try writer.checkLimit() }
-                                    if !view.fourEqual(at: y * width + candidate, to: value) { break }
-                                    candidate += 4
+                                while candidate < end {
+                                    try checkpoint(); try writer.checkLimit()
+                                    let stop = min(end, candidate + 256)
+                                    let base = y * width
+                                    candidate += view.matchingPrefix(in: (base + candidate)..<(base + stop), to: value)
+                                    if candidate < stop { break }
                                 }
-                                while candidate < end && view[y * width + candidate] == value { candidate += 1 }
                                 end = candidate
                                 if end == first { break }
                             }
@@ -146,77 +162,101 @@ extension JPEGLSScalarKernel {
     func decodeInterleaved(views: [ComponentSampleWriter], width: Int, height: Int,
                            mode: JPEGLSInterleaveMode, near: Int, parameters: JPEGLSPresetParameters,
                            bits: Int, reader: JPEGLSBitstreamReader, verticalSampling: [Int]? = nil, checkpoint: () throws -> Void) throws {
+        guard (1...4).contains(views.count) else { throw CodecError(.unsupportedFeature, "Invalid component count.") }
         let decoder = try JPEGLSRegularModeDecoder(parameters: parameters, near: near)
         let run = try JPEGLSRunModeDecoder(parameters: parameters, near: near)
         var context = try JPEGLSContextModel(parameters: parameters, near: near)
         let coding = computeGolombLimitInternal(parameters: parameters, near: near, bitsPerSample: bits)
-        var indices = [Int](repeating: 0, count: views.count)
-        var edges = [Int](repeating: 0, count: views.count)
-        var oldEdges = edges
-        var neighbours = [Neighbours](repeating: .zero, count: views.count)
+        var indices = InlineArray<4, Int>(repeating: 0)
+        var edges = InlineArray<4, Int>(repeating: 0)
         let vertical = verticalSampling ?? Array(repeating: 1, count: views.count)
         let vMax = vertical.max() ?? 1
         let stripes = mode == .line ? (height + vMax - 1) / vMax : height
-        for stripe in 0..<stripes {
-            for group in 0..<(mode == .line ? views.count : 1) {
-                let active = mode == .line ? group..<(group + 1) : 0..<views.count
-                for row in 0..<(mode == .line ? vertical[group] : 1) {
-                    let y = mode == .line ? stripe * vertical[group] + row : stripe
-                    if y >= views[group].height { continue }
-                    let width = mode == .line ? views[group].width : width
-                    try checkpoint()
-                    for c in active {
-                        oldEdges[c] = edges[c]
-                        if y > 0 { edges[c] = Int(views[c][(y - 1) * width]) }
-                    }
-                    if mode == .line { context.setRunIndex(indices[group]) }
-                var x = 0
-                while x < width {
-                    if x & 63 == 0 { try checkpoint() }
-                    var isRun = true
-                    for c in active {
-                        let n = decodedNeighbours(views[c], x: x, y: y, edge: oldEdges[c]); neighbours[c] = n
-                        if decoder.quantizeGradient(n.d - n.b) != 0 || decoder.quantizeGradient(n.b - n.c) != 0 || decoder.quantizeGradient(n.c - n.a) != 0 { isRun = false }
-                    }
-                    if isRun {
-                        let remaining = width - x
-                        let length = try readRunLength(reader: reader, runDecoder: run, context: &context, remainingInLine: remaining)
-                        for start in stride(from: x, to: x + length, by: 64) {
-                            try checkpoint()
-                            let end = min(x + length, start + 64)
-                            for c in active { views[c].fill(UInt16(neighbours[c].a), range: (y * width + start)..<(y * width + end)) }
+        if mode == .line {
+            for stripe in 0..<stripes {
+                for c in views.indices {
+                    let view = views[c]
+                    for row in 0..<vertical[c] {
+                        let y = stripe * vertical[c] + row
+                        if y >= view.height { continue }
+                        try checkpoint()
+                        let edge = edges[c]
+                        if y > 0 { edges[c] = Int(view[(y - 1) * view.width]) }
+                        context.setRunIndex(indices[c])
+                        if view.pixelStride == view.sampleBytes && view.rowBytes % view.sampleBytes == 0 {
+                            let scalar = ScalarSampleWriter(bytes: .init(rebasing: view.bytes[view.offset...]),
+                                littleEndian: view.littleEndian, sampleBytes: view.sampleBytes)
+                            try decodeRow(into: scalar, rowStride: view.rowBytes / view.sampleBytes, row: y, width: view.width,
+                                edgeForThisRow: edge, reader: reader, decoder: decoder, runDecoder: run,
+                                context: &context, parameters: parameters, near: near,
+                                limit: coding.limit, qbppBits: coding.qbppBits, checkpointMask: 63,
+                                checkpoint: checkpoint)
+                        } else {
+                            try decodeRow(into: view, rowStride: view.width, row: y, width: view.width,
+                                edgeForThisRow: edge, reader: reader, decoder: decoder, runDecoder: run,
+                                context: &context, parameters: parameters, near: near,
+                                limit: coding.limit, qbppBits: coding.qbppBits, checkpointMask: 63,
+                                checkpoint: checkpoint)
                         }
-                        x += length
-                        if length < remaining {
-                            let adjustedLimit = coding.limit - run.computeJ(runIndex: context.currentRunIndex) - 1
-                            for c in active {
-                                let ra = neighbours[c].a
-                                let rb = y > 0 ? Int(views[c][(y - 1) * width + x]) : 0
-                                let type = mode == .sample ? 0 : (abs(ra - rb) <= near ? 1 : 0)
-                                let k = context.computeRunInterruptionGolombK(riType: type)
-                                let mapped = try readGolombCode(reader: reader, k: k, limit: adjustedLimit, qbppBits: coding.qbppBits)
-                                let error = context.computeRunInterruptionErrorValue(temp: mapped + type, k: k, riType: type)
-                                let value = run.reconstructSample(prediction: type == 1 ? ra : rb,
-                                    error: type == 1 ? error : error * (rb >= ra ? 1 : -1))
-                                context.updateRunInterruptionContext(errorValue: error, eMappedErrorValue: mapped, riType: type)
-                                views[c][y * width + x] = UInt16(value)
-                            }
-                            context.decrementRunIndex(); x += 1
-                        }
-                    } else {
-                        for c in active {
-                            let n = neighbours[c]
-                            let value = try decodeSinglePixel(reader: reader, decoder: decoder, runDecoder: run,
-                                context: &context, a: n.a, b: n.b, c: n.c,
-                                q1: decoder.quantizeGradient(n.d - n.b), q2: decoder.quantizeGradient(n.b - n.c),
-                                q3: decoder.quantizeGradient(n.c - n.a), parameters: parameters, near: near,
-                                limit: coding.limit, qbppBits: coding.qbppBits)
-                            views[c][y * width + x] = UInt16(value)
-                        }
-                        x += 1
+                        indices[c] = context.currentRunIndex
                     }
                 }
-                if mode == .line { indices[group] = context.currentRunIndex }
+            }
+            return
+        }
+        var oldEdges = edges
+        var neighbours = InlineArray<4, Neighbours>(repeating: .zero)
+        let active = views.indices
+        for y in 0..<height {
+            try checkpoint()
+            for c in active {
+                oldEdges[c] = edges[c]
+                if y > 0 { edges[c] = Int(views[c][(y - 1) * width]) }
+            }
+            var x = 0
+            while x < width {
+                if x & 63 == 0 { try checkpoint() }
+                var isRun = true
+                for c in active {
+                    let n = decodedNeighbours(views[c], x: x, y: y, edge: oldEdges[c]); neighbours[c] = n
+                    if abs(n.d - n.b) > near || abs(n.b - n.c) > near || abs(n.c - n.a) > near { isRun = false }
+                }
+                if isRun {
+                    let remaining = width - x
+                    let length = try readRunLength(reader: reader, runDecoder: run, context: &context, remainingInLine: remaining)
+                    for start in stride(from: x, to: x + length, by: 64) {
+                        try checkpoint()
+                        let end = min(x + length, start + 64)
+                        for c in active { views[c].fill(UInt16(neighbours[c].a), range: (y * width + start)..<(y * width + end)) }
+                    }
+                    x += length
+                    if length < remaining {
+                        let adjustedLimit = coding.limit - run.computeJ(runIndex: context.currentRunIndex) - 1
+                        for c in active {
+                            let ra = neighbours[c].a
+                            let rb = y > 0 ? Int(views[c][(y - 1) * width + x]) : 0
+                            let type = 0
+                            let k = context.computeRunInterruptionGolombK(riType: type)
+                            let mapped = try readGolombCode(reader: reader, k: k, limit: adjustedLimit, qbppBits: coding.qbppBits)
+                            let error = context.computeRunInterruptionErrorValue(temp: mapped + type, k: k, riType: type)
+                            let value = run.reconstructSample(prediction: type == 1 ? ra : rb,
+                                error: type == 1 ? error : error * (rb >= ra ? 1 : -1))
+                            context.updateRunInterruptionContext(errorValue: error, eMappedErrorValue: mapped, riType: type)
+                            views[c][y * width + x] = UInt16(value)
+                        }
+                        context.decrementRunIndex(); x += 1
+                    }
+                } else {
+                    for c in active {
+                        let n = neighbours[c]
+                        let value = try decodeSinglePixel(reader: reader, decoder: decoder, runDecoder: run,
+                            context: &context, a: n.a, b: n.b, c: n.c,
+                            q1: decoder.quantizeGradient(n.d - n.b), q2: decoder.quantizeGradient(n.b - n.c),
+                            q3: decoder.quantizeGradient(n.c - n.a), parameters: parameters, near: near,
+                            limit: coding.limit, qbppBits: coding.qbppBits)
+                        views[c][y * width + x] = UInt16(value)
+                    }
+                    x += 1
                 }
             }
         }

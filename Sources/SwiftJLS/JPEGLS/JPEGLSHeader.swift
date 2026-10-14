@@ -1,14 +1,21 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2026 Raster Images Private Limited
 import Foundation
+import Dispatch
 
 /// Operation-local, monotonic admission and cancellation budget. No shared state.
 struct CodecBudget {
     let limits: ResourceLimits
-    let started = ProcessInfo.processInfo.systemUptime
+    // Compare elapsed seconds without converting a potentially huge finite
+    // deadline to an integer. Dispatch uses the monotonic uptime clock without
+    // the Foundation object lookup at every bounded kernel checkpoint.
+    private let started = DispatchTime.now().uptimeNanoseconds
+    var elapsedSeconds: Double {
+        Double(DispatchTime.now().uptimeNanoseconds - started) / 1_000_000_000
+    }
     func check() throws {
         try Task.checkCancellation()
-        guard ProcessInfo.processInfo.systemUptime - started < limits.deadlineSeconds else {
+        guard elapsedSeconds < limits.deadlineSeconds else {
             throw CodecError(.resourceLimitExceeded, "Codec operation deadline exceeded.")
         }
     }
@@ -424,8 +431,23 @@ struct JPEGLSHeader {
                     var ranges: [Range<Int>] = [], scanStart = end
                     while true {
                         var scanEnd = scanStart
+                        var nextCheckpoint = scanStart
                         while scanEnd + 1 < bytes.count {
-                            if scanEnd & 4095 == 0 { try budget.check() }
+                            if scanEnd >= nextCheckpoint {
+                                try budget.check()
+                                nextCheckpoint = scanEnd + min(4096, bytes.count - scanEnd)
+                            }
+                            // Skip only words with no FF byte. A candidate word
+                            // is examined byte by byte, preserving stuffing,
+                            // fill-marker and truncated-terminal validation.
+                            if bytes.count - scanEnd >= 8 {
+                                let word = bytes.loadUnaligned(fromByteOffset: scanEnd, as: UInt64.self)
+                                let inverted = ~word
+                                if ((inverted &- 0x0101010101010101) & ~inverted & 0x8080808080808080) == 0 {
+                                    scanEnd += min(8, nextCheckpoint - scanEnd)
+                                    continue
+                                }
+                            }
                             if bytes[scanEnd] == 255 && bytes[scanEnd + 1] >= 128 { break }
                             scanEnd += 1
                         }

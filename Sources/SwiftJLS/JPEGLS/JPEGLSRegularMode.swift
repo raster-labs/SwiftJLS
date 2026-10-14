@@ -374,7 +374,7 @@ struct JPEGLSRegularMode: Sendable {
         b: Int,
         c: Int,
         d: Int,
-        context: JPEGLSContextModel
+        context: borrowing JPEGLSContextModel
     ) -> EncodedPixel {
         // Step 1: Compute local gradients
         let (d1, d2, d3) = computeGradients(a: a, b: b, c: c, d: d)
@@ -407,7 +407,7 @@ struct JPEGLSRegularMode: Sendable {
         c: Int,
         contextIndex: Int,
         sign: Int,
-        context: JPEGLSContextModel
+        context: borrowing JPEGLSContextModel
     ) -> EncodedPixel {
         // Steps 5/7/7a inputs: bias C[Q], Golomb k, and the k=0 error
         // correction from a single context-record load.

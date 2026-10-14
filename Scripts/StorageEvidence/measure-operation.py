@@ -18,7 +18,8 @@ def classify(frames):
     # Swift runtime even when a codec method triggered their first use.
     if any(s in '\n'.join(frames[:8]) for s in [
             'swift::ConcurrentReadableHashMap', 'swift::LockingConcurrentMap',
-            'swift::MetadataCache', 'swift_getGenericMetadata']):
+            'swift::MetadataCache', 'swift_getGenericMetadata', 'Swift._swift_getKeyPath',
+            'Swift.InstantiateKeyPathBuffer', 'Swift.AnyKeyPath._create']):
         return 'runtime_or_unattributed'
     if 'SwiftJLS.OwnedImageStorage.init' in stack and 'Swift.Array.init(repeating:' in stack:
         return 'owned_pixel_buffer'
@@ -44,6 +45,19 @@ def classify(frames):
     if any(s in stack for s in ['JPEGLSHeader.parse', 'JPEGLSHeader.descriptor', 'JPEGMetadata', 'JPEGLSMapping', 'JPEGLSFrameHeader', 'JPEGLSScanHeader', 'ImageDescriptor.', 'PlaneDescriptor.', '<SwiftJLS.PlaneDescriptor>', 'ImageMetadata.', '<SwiftJLS.ComponentCodec.Location>']):
         return 'metadata_and_descriptors'
     if any(s in stack for s in ['ImageDestination.__allocating_init', 'OwnedImageStorage.__allocating_init', 'SealedImageStorage.__allocating_init']):
+        return 'storage_control_objects'
+    # Reviewed destination-borrow closure: the only Int array constructed
+    # directly here is the scan's vertical sampling schedule. Header maxima
+    # use reductions and do not materialise arrays.
+    if '<Swift.Int>' in allocation and 'SwiftJLS.ComponentCodec.decode' in stack and 'SwiftJLS.ImageDestination.write' in stack:
+        return 'algorithm_state'
+    # Swift closure environments and lease-abort errors are control storage,
+    # not sample or prediction buffers. Require the reviewed immediate frame;
+    # an arbitrary allocation further down a decode stack does not match.
+    if len(frames) > 2 and frames[1] == 'swift_allocObject' and re.search(
+            r'^closure #\d+ \(Swift.UnsafeMutableRawBufferPointer\) throws -> \(\) in static SwiftJLS.ComponentCodec.decode', frames[2]):
+        return 'storage_control_objects'
+    if 'swift_allocError' in allocation and 'OwnedImageStorage.' in stack:
         return 'storage_control_objects'
     if 'SwiftJLS.' in stack: return 'unattributed_codec'
     return 'runtime_or_unattributed'
@@ -125,6 +139,7 @@ def replay(lines):
         simultaneous_categories_at_phase_peak_bytes=at_peak,
         process_requested_heap_peak_bytes=process_peak, allocation_stacks=stacks,
         stack_peak_bytes=None, allocator_overhead_bytes=None,
+        codec_heap_attribution_complete=calls['unattributed_codec'] == 0,
         pure_algorithm_workspace_complete=False,
         limitations=[
             'Requested heap bytes exclude allocator usable-size overhead, stack, VM mappings and RSS.',
