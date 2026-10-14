@@ -43,7 +43,18 @@ struct ComponentSampleReader: JPEGSampleReader {
         return littleEndian ? UInt16(littleEndian: value) : UInt16(bigEndian: value)
     }
     func fourEqual(at index: Int, to value: UInt16) -> Bool {
-        self[index] == value && self[index + 1] == value && self[index + 2] == value && self[index + 3] == value
+        // The kernel proves all four samples are in the same logical row.
+        if pixelStride == sampleBytes {
+            let at = byteOffset(index)
+            if sampleBytes == 1 {
+                return bytes.loadUnaligned(fromByteOffset: at, as: UInt32.self)
+                    == UInt32(UInt8(truncatingIfNeeded: value)) * 0x01010101
+            }
+            let ordered = littleEndian ? value.littleEndian : value.bigEndian
+            return bytes.loadUnaligned(fromByteOffset: at, as: UInt64.self)
+                == UInt64(ordered) * 0x0001000100010001
+        }
+        return self[index] == value && self[index + 1] == value && self[index + 2] == value && self[index + 3] == value
     }
     /// Reuse the bounded scalar precision check when samples are contiguous
     /// within each row. Odd byte strides and interleaved samples retain the
@@ -105,6 +116,14 @@ struct ComponentSampleWriter: JPEGSampleWriter {
         }
     }
     func fill(_ value: UInt16, range: Range<Int>) {
+        if pixelStride == sampleBytes, !range.isEmpty,
+           range.lowerBound / width == (range.upperBound - 1) / width {
+            let start = byteOffset(range.lowerBound)
+            let view = ScalarSampleWriter(bytes: .init(rebasing: bytes[start...]),
+                littleEndian: littleEndian, sampleBytes: sampleBytes)
+            view.fill(value, range: 0..<range.count)
+            return
+        }
         for index in range { self[index] = value }
     }
     func rows(_ rows: Range<Int>) -> Self {

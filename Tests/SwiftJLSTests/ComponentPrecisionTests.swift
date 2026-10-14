@@ -62,4 +62,45 @@ struct ComponentPrecisionTests {
             }
         }
     }
+    @Test func packedRunReadsAndFillsPreserveOtherBytes() {
+        let width = 9, height = 2, offset = 1
+        for sampleBytes in [1, 2] { for spacing in [1, 3] {
+            for padding in [0, 1, 8] { for littleEndian in [false, true] {
+                let pixelStride = sampleBytes * spacing, rowBytes = width * pixelStride + padding
+                let value: UInt16 = sampleBytes == 1 ? 0x67 : 0x1234
+                var bytes = [UInt8](repeating: 0xee, count: offset + height * rowBytes)
+                var expected = bytes
+                // Include a row-crossing range: it must use the general path.
+                for range in [0..<0, 1..<5, 7..<13, 14..<18] {
+                    for index in range {
+                        let at = offset + index / width * rowBytes + index % width * pixelStride
+                        expected[at] = UInt8(truncatingIfNeeded: sampleBytes == 1 || littleEndian ? value : value >> 8)
+                        if sampleBytes == 2 { expected[at + 1] = UInt8(truncatingIfNeeded: littleEndian ? value >> 8 : value) }
+                    }
+                    bytes.withUnsafeMutableBytes { raw in
+                        ComponentSampleWriter(bytes: raw, width: width, height: height, offset: offset,
+                            rowBytes: rowBytes, pixelStride: pixelStride, sampleBytes: sampleBytes,
+                            littleEndian: littleEndian).fill(value, range: range)
+                    }
+                    #expect(bytes == expected)
+                }
+                for start in [1, 9, 14] {
+                    for mismatch in -1..<4 {
+                        var candidate = bytes
+                        if mismatch >= 0 {
+                            let index = start + mismatch
+                            candidate[offset + index / width * rowBytes + index % width * pixelStride] ^= 1
+                        }
+                        candidate.withUnsafeBytes { raw in
+                            let reader = ComponentSampleReader(bytes: raw, width: width, height: height,
+                                offset: offset, rowBytes: rowBytes, pixelStride: pixelStride,
+                                sampleBytes: sampleBytes, littleEndian: littleEndian)
+                            #expect(reader.fourEqual(at: start, to: value) == (mismatch == -1))
+                        }
+                    }
+                }
+            } }
+        } }
+    }
+
 }

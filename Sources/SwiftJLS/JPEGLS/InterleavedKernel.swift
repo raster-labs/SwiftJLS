@@ -3,7 +3,7 @@
 // Scan scheduling adapted from JLSwift 15aa75164145414f3d5ffb801401c52d40cc5bcc,
 // JPEGLSEncoder.encodeLineInterleaved/encodeSampleInterleaved and corresponding
 // decoder paths. Full-frame Int matrices are replaced by scoped component views
-// and two UInt16 predictor rows per encoded component.
+// and, for near-lossless coding, two UInt16 predictor rows per component.
 import Foundation
 
 extension JPEGLSScalarKernel {
@@ -32,12 +32,14 @@ extension JPEGLSScalarKernel {
         let run = try JPEGLSRunMode(parameters: parameters, near: near)
         var context = try JPEGLSContextModel(parameters: parameters, near: near)
         let coding = computeGolombLimitInternal(parameters: parameters, near: near, bitsPerSample: bits)
-        var states = views.map { _ in PredictorRows(width: width) }
+        // Exact reconstruction can read already-encoded neighbours from the
+        // scoped source. Only near-lossless coding needs reconstructed rows.
+        var states = near == 0 ? [] : views.map { _ in PredictorRows(width: width) }
         var indices = [Int](repeating: 0, count: views.count)
         var neighbours = [Neighbours](repeating: .zero, count: views.count)
         for y in 0..<height {
             try checkpoint()
-            for c in views.indices { states[c].beginRow() }
+            for c in states.indices { states[c].beginRow() }
             for group in 0..<(mode == .line ? views.count : 1) {
                 let active = mode == .line ? group..<(group + 1) : 0..<views.count
                 if mode == .line { context.setRunIndex(indices[group]) }
@@ -46,11 +48,26 @@ extension JPEGLSScalarKernel {
                     if x & 63 == 0 { try checkpoint() }
                     var isRun = true
                     for c in active {
-                        let n = states[c].neighbours(x: x); neighbours[c] = n
+                        let n = near == 0 ? sourceNeighbours(views[c], width: width, x: x, y: y)
+                            : states[c].neighbours(x: x)
+                        neighbours[c] = n
                         if regular.quantizeGradient(n.d - n.b) != 0 || regular.quantizeGradient(n.b - n.c) != 0 || regular.quantizeGradient(n.c - n.a) != 0 { isRun = false }
                     }
                     if isRun {
                         let first = x
+                        if near == 0 {
+                            while x + 4 <= width {
+                                if (x - first) & 63 == 0 { try checkpoint() }
+                                var matches = true
+                                for c in active {
+                                    if !views[c].fourEqual(at: y * width + x, to: UInt16(neighbours[c].a)) {
+                                        matches = false; break
+                                    }
+                                }
+                                if !matches { break }
+                                x += 4
+                            }
+                        }
                         while x < width {
                             if x & 63 == 0 { try checkpoint() }
                             var matches = true
@@ -58,8 +75,19 @@ extension JPEGLSScalarKernel {
                                 if abs(Int(views[c][y * width + x]) - neighbours[c].a) > near { matches = false; break }
                             }
                             if !matches { break }
-                            for c in active { states[c].current[x] = UInt16(neighbours[c].a) }
                             x += 1
+                        }
+                        // Reconstruct a whole bounded run slice per component.
+                        // Predictor rows are not read again until the run ends.
+                        for start in stride(from: first, to: near == 0 ? first : x, by: 64) {
+                            try checkpoint()
+                            let end = min(x, start + 64)
+                            for c in active {
+                                let value = UInt16(neighbours[c].a)
+                                states[c].current.withUnsafeMutableBufferPointer { row in
+                                    for index in start..<end { row[index] = value }
+                                }
+                            }
                         }
                         let encoded = run.encodeRunLength(runLength: x - first, runIndex: context.currentRunIndex)
                         writer.writeOnes(encoded.continuationBits)
@@ -68,10 +96,11 @@ extension JPEGLSScalarKernel {
                             writeRunTermination(encoded: encoded, writer: writer)
                             for c in active {
                                 let value = writeRunInterruptionBits(interruptionValue: Int(views[c][y * width + x]),
-                                    runValue: neighbours[c].a, rb: Int(states[c].previous[x]), near: near,
+                                    runValue: neighbours[c].a,
+                                    rb: near == 0 ? (y == 0 ? 0 : Int(views[c][(y - 1) * width + x])) : Int(states[c].previous[x]), near: near,
                                     context: &context, regularMode: regular, runMode: run, writer: writer,
                                     limit: coding.limit, qbppBits: coding.qbppBits, overrideRiType: mode == .sample ? 0 : nil)
-                                states[c].current[x] = UInt16(value)
+                                if near > 0 { states[c].current[x] = UInt16(value) }
                             }
                             context.decrementRunIndex(); x += 1
                         } else if encoded.remainder > 0 { writer.writeBits(1, count: 1) }
@@ -82,15 +111,24 @@ extension JPEGLSScalarKernel {
                                 q1: regular.quantizeGradient(n.d - n.b), q2: regular.quantizeGradient(n.b - n.c),
                                 q3: regular.quantizeGradient(n.c - n.a), regularMode: regular, context: &context,
                                 writer: writer, limit: coding.limit, qbppBits: coding.qbppBits)
-                            states[c].current[x] = UInt16(value)
+                            if near > 0 { states[c].current[x] = UInt16(value) }
                         }
                         x += 1
                     }
                 }
                 if mode == .line { indices[group] = context.currentRunIndex }
             }
-            for c in views.indices { states[c].finishRow() }
+            for c in states.indices { states[c].finishRow() }
         }
+    }
+    @inline(__always)
+    private func sourceNeighbours<Reader: JPEGSampleReader>(_ view: Reader, width: Int, x: Int, y: Int) -> Neighbours {
+        let previous = (y - 1) * width
+        let b = y > 0 ? Int(view[previous + x]) : 0
+        return Neighbours(a: x == 0 ? b : Int(view[y * width + x - 1]), b: b,
+            c: x == 0 ? (y > 1 ? Int(view[(y - 2) * width]) : 0)
+                : (y > 0 ? Int(view[previous + x - 1]) : 0),
+            d: y > 0 ? Int(view[previous + min(x + 1, width - 1)]) : 0)
     }
     func decodedNeighbours(_ view: ComponentSampleWriter, x: Int, y: Int, edge: Int) -> Neighbours {
         let width = view.width
@@ -137,9 +175,10 @@ extension JPEGLSScalarKernel {
                     if isRun {
                         let remaining = width - x
                         let length = try readRunLength(reader: reader, runDecoder: run, context: &context, remainingInLine: remaining)
-                        for column in x..<(x + length) {
-                            if column & 63 == 0 { try checkpoint() }
-                            for c in active { views[c][y * width + column] = UInt16(neighbours[c].a) }
+                        for start in stride(from: x, to: x + length, by: 64) {
+                            try checkpoint()
+                            let end = min(x + length, start + 64)
+                            for c in active { views[c].fill(UInt16(neighbours[c].a), range: (y * width + start)..<(y * width + end)) }
                         }
                         x += length
                         if length < remaining {

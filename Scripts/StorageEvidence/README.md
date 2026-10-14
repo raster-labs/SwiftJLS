@@ -19,3 +19,21 @@ On Linux, `python3 Scripts/StorageEvidence/trace-files.py --binary PATH --output
 `measure-peaks.py --profile PROFILE.gz --output REPORT.json --revision SHA` replays interpreted Heaptrack 1.5.0 allocation/free events to measure peak simultaneously live requested heap bytes. `--self-test` checks overlapping lifetimes, group peaks, allocation counts and invalid-free rejection. The parser follows the documented implementation of [Heaptrack format 3](https://github.com/KDE/heaptrack/blob/v1.5.0/src/analyze/accumulatedtracedata.cpp); it does not import Heaptrack code. The overall peak and allocation count must agree with the accompanying Heaptrack analysis. Group peaks occur at different times and must not be added. Pixel attribution recognises `OwnedImageStorage` array initialisers; arbitrary sample arrays outside those stacks remain in other groups and still require source/stack review. Pixel array headers/capacity are included. Nonpixel codec heap includes compressed buffers and metadata; runtime/unattributed heap and stack storage are not silently relabelled as algorithm workspace. This improves the earlier stack-count-only evidence, but it does not populate unknown per-operation workspace reports.
 
 [ResourceStress](../../Examples/ResourceStress/README.md) supplies an ordinary-release concurrent workload: four bounded workers and 32 512×512 scalar/colour lossless/near-lossless frame transactions. CI retains both its checked sample/identity/report results and its independent heap profile. The worker bound belongs to the harness; per-operation limits do not become a process-wide scheduler.
+
+`Examples/WorkspaceProbe` marks one public encode, owned decode, supplied decode
+or inspect operation after setup. Results stay live through the end marker and
+sample verification follows it. `measure-operation.py` replays Heaptrack events
+between those markers, retaining baseline live bytes, per-category peaks, phase
+allocation calls and every allocation stack. It rejects missing/repeated markers
+and invalid frees. Run its `--self-test` before collecting evidence.
+
+The `Per-operation workspace evidence` workflow records 32 separate processes:
+17² and 512², scalar/RGB, NEAR 0/3, four operations, Swift 6.4 ordinary release
+with debug symbols. These are measured requested heap bytes on the hosted Linux
+runner. Allocation stacks distinguish known pixel, compressed, algorithm-state
+and metadata/descriptor paths; unmatched codec and runtime stacks remain explicit.
+Peaks from different categories must not be added. Stack high-water bytes and
+allocator overhead remain unknown. This is not a complete algorithm workspace
+counter, does not cover every codec profile, and leaves production
+`peakWorkspaceBytes` unknown. Keep profile hashes and source revisions with any
+reported results.
