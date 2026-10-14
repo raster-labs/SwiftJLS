@@ -48,3 +48,5 @@ not exhaustive codec stack high-water guarantees; Massif's extra heap is an
 allocator model. Keep this instrumented experiment distinct from ordinary-release
 Heaptrack counts and performance timings. A profiler crash is an unsuccessful
 measurement, not a zero or a codec pass.
+
+The operation ledger also retains category bytes at the **same instant** as the total requested-heap peak. Those simultaneous values reconcile to the total; independent category maxima do not. The total increase over the live setup baseline is reported separately. Swift generic metadata caches are runtime storage even when a codec call caused their first use. Remaining unattributed allocations retain their stacks and bytes.

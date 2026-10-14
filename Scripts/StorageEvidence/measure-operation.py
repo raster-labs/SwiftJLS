@@ -13,6 +13,12 @@ def classify(frames):
     stack = re.sub(r'\((\w+) in _[0-9A-Fa-f]+\)', r'\1', '\n'.join(frames))
     if 'swiftjls_workspace_begin' in stack: return 'begin_marker'
     if 'swiftjls_workspace_end' in stack: return 'end_marker'
+    # Generic type metadata and protocol-conformance caches belong to the
+    # Swift runtime even when a codec method triggered their first use.
+    if any(s in '\n'.join(frames[:8]) for s in [
+            'swift::ConcurrentReadableHashMap', 'swift::LockingConcurrentMap',
+            'swift::MetadataCache', 'swift_getGenericMetadata']):
+        return 'runtime_or_unattributed'
     if 'SwiftJLS.OwnedImageStorage.init' in stack and 'Swift.Array.init(repeating:' in stack:
         return 'owned_pixel_buffer'
     if re.search(r'SwiftJLS\.JPEGLSBitstream(?:Reader|Writer(?:State)?)\.(?:__allocating_init|init|append|getData|write)', stack):
@@ -46,7 +52,7 @@ def replay(lines):
     ips, traces, infos = [[]], [None], []
     counts, live, baseline, peaks, calls, allocated = [collections.Counter() for _ in range(6)]
     phase, begins, ends, process_live, process_peak, phase_peak = 0, 0, 0, 0, 0, 0
-    stacks, cache = {}, {}
+    stacks, cache, at_peak = {}, {}, {}
     def frames_for(index):
         if index not in cache:
             frames, cursor = [], index
@@ -90,7 +96,8 @@ def replay(lines):
                 if group not in ['begin_marker','end_marker']: live[group] -= size
             process_peak = max(process_peak, process_live)
             if phase == 1:
-                phase_peak = max(phase_peak, sum(live.values()))
+                if sum(live.values()) > phase_peak:
+                    phase_peak = sum(live.values()); at_peak = dict(live)
                 for group, value in live.items(): peaks[group] = max(peaks[group], value)
             elif phase == 2 and ends == 1:
                 # Capture once; later post-verification allocation events are excluded.
@@ -101,6 +108,9 @@ def replay(lines):
         phase_allocation_calls=calls[g], phase_allocated_bytes=allocated[g])
         for g in sorted(set(baseline)|set(calls))}
     return dict(groups=groups, phase_total_requested_heap_peak_bytes=phase_peak,
+        baseline_total_requested_heap_bytes=sum(baseline.values()),
+        phase_total_peak_above_baseline_bytes=phase_peak-sum(baseline.values()),
+        simultaneous_categories_at_phase_peak_bytes=at_peak,
         process_requested_heap_peak_bytes=process_peak, allocation_stacks=stacks,
         stack_peak_bytes=None, allocator_overhead_bytes=None,
         pure_algorithm_workspace_complete=False,
@@ -124,6 +134,9 @@ def self_test():
     assert classify(['SwiftJLS.JPEGLSScalarKernel.encode(writer: SwiftJLS.JPEGLSBitstreamWriter)']) == 'unattributed_codec'
     r = replay(lines)
     assert r['phase_total_requested_heap_peak_bytes'] == 120
+    assert r['baseline_total_requested_heap_bytes'] == 100
+    assert r['phase_total_peak_above_baseline_bytes'] == 20
+    assert sum(r['simultaneous_categories_at_phase_peak_bytes'].values()) == 120
     assert r['groups']['owned_pixel_buffer']['peak_above_baseline_bytes'] == 0
     assert r['groups']['algorithm_state']['peak_above_baseline_bytes'] == 20
     assert r['groups']['algorithm_state']['phase_allocation_calls'] == 1
