@@ -2,6 +2,12 @@
 // Copyright 2026 Raster Images Private Limited
 import Foundation
 
+#if _endian(little)
+private let nativeUInt16LittleEndian = true
+#else
+private let nativeUInt16LittleEndian = false
+#endif
+
 // These views exist only inside their owner's synchronous scoped borrow. They
 // are deliberately not Sendable and cannot be retained by a codec operation.
 // Byte-wise access supports providers whose physical address is not aligned.
@@ -10,9 +16,16 @@ struct ScalarSampleReader {
     let littleEndian: Bool
     var sampleBytes: Int = 2
     var count: Int { bytes.count / sampleBytes }
+    var nativeLayout: NativeUInt16Reader? {
+        guard sampleBytes == 2, littleEndian == nativeUInt16LittleEndian, let base = bytes.baseAddress else { return nil }
+        return NativeUInt16Reader(base: base, count: count, original: self)
+    }
     subscript(index: Int) -> UInt16 {
         if sampleBytes == 1 { return UInt16(bytes[index]) }
-        let value = bytes.loadUnaligned(fromByteOffset: index * 2, as: UInt16.self)
+        // Descriptor and kernel admission check the full sample extent before
+        // entering their loops. Thus 0 <= index < bytes.count / 2 here; the
+        // wrapping multiply removes a redundant hot-path overflow branch.
+        let value = bytes.loadUnaligned(fromByteOffset: index &* 2, as: UInt16.self)
         return littleEndian ? UInt16(littleEndian: value) : UInt16(bigEndian: value)
     }
     /// Four adjacent samples, loaded without an alignment precondition. The
@@ -99,11 +112,16 @@ struct ScalarSampleWriter {
     let littleEndian: Bool
     var sampleBytes: Int = 2
     var count: Int { bytes.count / sampleBytes }
+    var nativeLayout: NativeUInt16Writer? {
+        guard sampleBytes == 2, littleEndian == nativeUInt16LittleEndian, let base = bytes.baseAddress else { return nil }
+        return NativeUInt16Writer(base: base, count: count, original: self)
+    }
     @inline(__always)
     subscript(index: Int) -> UInt16 {
         get {
             if sampleBytes == 1 { return UInt16(bytes[index]) }
-            let value = bytes.loadUnaligned(fromByteOffset: index * 2, as: UInt16.self)
+            // The admitted sample extent proves this byte offset cannot wrap.
+            let value = bytes.loadUnaligned(fromByteOffset: index &* 2, as: UInt16.self)
             return littleEndian ? UInt16(littleEndian: value) : UInt16(bigEndian: value)
         }
         nonmutating set {
@@ -111,7 +129,7 @@ struct ScalarSampleWriter {
             let ordered = littleEndian ? newValue.littleEndian : newValue.bigEndian
             // SE-0349 (Swift 5.7) permits unaligned trivial stores as well as
             // unaligned loads. Extents are proved at kernel admission.
-            bytes.storeBytes(of: ordered, toByteOffset: index * 2, as: UInt16.self)
+            bytes.storeBytes(of: ordered, toByteOffset: index &* 2, as: UInt16.self)
         }
     }
     /// Bounded run fill. The caller checks cancellation between <=256-sample
@@ -135,4 +153,29 @@ struct ScalarSampleWriter {
         while i < range.upperBound { self[i] = value; i += 1 }
     }
 
+}
+
+// Selected once within the owner's synchronous borrow. Kernel admission proves
+// 0 <= index < count <= original.bytes.count / 2; byte offsets cannot wrap.
+// Native byte order removes conversion without imposing alignment or binding
+// sample memory to UInt16. Bounded bulk operations retain their existing paths.
+struct NativeUInt16Reader: JPEGSampleReader {
+    let base: UnsafeRawPointer
+    let count: Int
+    let original: ScalarSampleReader
+    @inline(__always) subscript(index: Int) -> UInt16 {
+        base.loadUnaligned(fromByteOffset: index &* 2, as: UInt16.self)
+    }
+    func fourEqual(at index: Int, to value: UInt16) -> Bool { original.fourEqual(at: index, to: value) }
+    func matchingPrefix(in range: Range<Int>, to value: UInt16) -> Int { original.matchingPrefix(in: range, to: value) }
+}
+struct NativeUInt16Writer: JPEGSampleWriter {
+    let base: UnsafeMutableRawPointer
+    let count: Int
+    let original: ScalarSampleWriter
+    @inline(__always) subscript(index: Int) -> UInt16 {
+        get { base.loadUnaligned(fromByteOffset: index &* 2, as: UInt16.self) }
+        nonmutating set { base.storeBytes(of: newValue, toByteOffset: index &* 2, as: UInt16.self) }
+    }
+    func fill(_ value: UInt16, range: Range<Int>) { original.fill(value, range: range) }
 }

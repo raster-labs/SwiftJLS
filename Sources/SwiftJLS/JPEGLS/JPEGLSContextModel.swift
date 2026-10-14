@@ -193,9 +193,8 @@ struct JPEGLSContextModel: ~Copyable {
     /// Compute the context index and sign in a single call.
     ///
     /// Identical results to calling `computeContextIndex` and
-    /// `computeContextSign` separately, but evaluates the sign chain once
-    /// instead of twice — this pair is needed together for every
-    /// regular-mode pixel.
+    /// `computeContextSign` separately, using the sign of the combined
+    /// quantized context needed for every regular-mode pixel.
     ///
     /// - Parameters:
     ///   - q1: First quantized gradient (range: -4 to 4)
@@ -204,11 +203,12 @@ struct JPEGLSContextModel: ~Copyable {
     /// - Returns: Tuple of (context index in [0, 364], sign of +1 or -1)
     @inline(__always)
     func computeContextIndexAndSign(q1: Int, q2: Int, q3: Int) -> (index: Int, sign: Int) {
-        let sign = computeContextSign(q1: q1, q2: q2, q3: q3)
-        // Qt = 81 × Q1 + 9 × Q2 + Q3 over sign-normalised gradients
-        // (ITU-T.87 Section 4.3.1).
-        let index = 81 * (q1 * sign) + 9 * (q2 * sign) + (q3 * sign)
-        return (max(0, min(index, Self.regularContextCount - 1)), sign)
+        // Every caller supplies quantizeGradient outputs in -4...4. The
+        // trailing terms have magnitude at most 40 (<81), then 4 (<9), so
+        // this sum has the sign of the first nonzero gradient. Its magnitude
+        // is at most 364; all zero retains sign +1 (ITU-T.87 Section 4.3.1).
+        let raw = (q1 * 9 + q2) * 9 + q3
+        return raw < 0 ? (-raw, -1) : (raw, 1)
     }
 
     // MARK: - Context State Access

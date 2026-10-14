@@ -9,7 +9,7 @@ No estimate is substituted for missing stacks, stack usage or runtime bytes.
 import argparse, collections, gzip, hashlib, json, pathlib, re, subprocess
 
 
-def classify(frames):
+def classify(frames, size=None):
     stack = re.sub(r'\((\w+) in _[0-9A-Fa-f]+\)', r'\1', '\n'.join(frames))
     allocation = '\n'.join(frames[:6])
     if 'swiftjls_workspace_begin' in stack: return 'begin_marker'
@@ -18,8 +18,18 @@ def classify(frames):
     # Swift runtime even when a codec method triggered their first use.
     if any(s in '\n'.join(frames[:8]) for s in [
             'swift::ConcurrentReadableHashMap', 'swift::LockingConcurrentMap',
-            'swift::MetadataCache', 'swift_getGenericMetadata', 'Swift._swift_getKeyPath',
+            'swift::MetadataCache', '::GenericMetadataCache', 'swift_getGenericMetadata',
+            'swift_getTupleTypeMetadata', 'swift_getExistentialTypeMetadata', 'Swift._swift_getKeyPath',
             'Swift.InstantiateKeyPathBuffer', 'Swift.AnyKeyPath._create']):
+        return 'runtime_or_unattributed'
+    # Fixture setup first asks ResourceLimits for the processor count. The
+    # observed Foundation singleton and three cached Linux cgroup URLs are
+    # process-runtime storage. Require their named initialiser and ProcessInfo
+    # frame before the first codec frame, not merely somewhere in a call stack.
+    runtime_origin = stack.split('SwiftJLS.', 1)[0]
+    if 'FoundationEssentials.ProcessInfo.' in runtime_origin and any(
+            'one-time initialization function for ' + name in runtime_origin
+            for name in ['processInfo', 'cfsQuotaURL', 'cfsPeriodURL', 'cpuSetURL']):
         return 'runtime_or_unattributed'
     if 'SwiftJLS.OwnedImageStorage.init' in stack and 'Swift.Array.init(repeating:' in stack:
         return 'owned_pixel_buffer'
@@ -35,28 +45,47 @@ def classify(frames):
         return 'compressed_buffer'
     if any(s in stack for s in ['JPEGLSContextModel.', 'JPEGLSRegularMode.init', 'JPEGLSRegularModeDecoder.init', 'PredictorRows.init']):
         return 'algorithm_state'
-    if any(s in allocation for s in ['<SwiftJLS.ComponentSampleReader>', '<SwiftJLS.ComponentSampleWriter>', 'SwiftJLS.JPEGLSScalarKernel.PredictorRows', 'SwiftJLS.JPEGLSScalarKernel.Neighbours']):
+    if any(s in allocation for s in ['<SwiftJLS.ComponentSampleReader>', '<SwiftJLS.ComponentSampleWriter>', '<SwiftJLS.HPComponentReader>', 'SwiftJLS.JPEGLSScalarKernel.PredictorRows', 'SwiftJLS.JPEGLSScalarKernel.Neighbours']):
         return 'algorithm_state'
     # Inlined scalar near-lossless UInt16 arrays are its two predictor rows.
     if '<Swift.UInt16>' in allocation and 'JPEGLSScalarKernel.encodeNearLossless' in allocation:
         return 'algorithm_state'
     if '<Swift.Int>' in allocation and any(s in allocation for s in ['JPEGLSScalarKernel.encodeInterleaved', 'JPEGLSScalarKernel.decodeInterleaved']):
         return 'algorithm_state'
-    if any(s in stack for s in ['JPEGLSHeader.parse', 'JPEGLSHeader.descriptor', 'JPEGMetadata', 'JPEGLSMapping', 'JPEGLSFrameHeader', 'JPEGLSScanHeader', 'ImageDescriptor.', 'PlaneDescriptor.', '<SwiftJLS.PlaneDescriptor>', 'ImageMetadata.', '<SwiftJLS.ComponentCodec.Location>']):
+    if any(s in stack for s in ['JPEGLSHeader.parse', 'JPEGLSHeader.descriptor', 'JPEGLSHeader.roles.getter', 'JPEGMetadata', 'JPEGLSMapping', 'JPEGLSFrameHeader', 'JPEGLSScanHeader', 'ImageDescriptor.', 'PlaneDescriptor.', '<SwiftJLS.PlaneDescriptor>', 'ImageMetadata.', '<SwiftJLS.ComponentCodec.Location>']):
         return 'metadata_and_descriptors'
+    # Reviewed 059d97a source and ordinary-release x86_64 profiles: these
+    # literal arrays are fully inlined, leaving only the immediate closure.
+    # Require both that exact allocation shape and its observed requested
+    # size (32-byte Array header plus payload); do not classify other closure
+    # allocations, missing sizes, or different ABIs by this rule.
+    if len(frames) > 2 and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']:
+        entry = frames[2]
+        outer = re.match(r'^closure #1 \(\) throws -> SwiftJLS.EncodedImage in static SwiftJLS\.(Scalar|Component)Codec.encode\(', entry)
+        if outer and (size == 72 or (size == 37 and outer[1] == 'Component')):
+            # Five Int preset values (ScalarCodec:103, ComponentCodec:127),
+            # or five UInt8 HP marker bytes (ComponentCodec:119).
+            return 'metadata_and_descriptors'
+        if size == 34 and re.match(r'^closure #3 \(Swift.UnsafeRawBufferPointer\) throws -> \(\) in closure #1 \(\) throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode\(', entry):
+            # One two-byte ScanComponent selector, ComponentCodec:170-172;
+            # exactly one allocation per non-interleaved component scan.
+            return 'metadata_and_descriptors'
     if any(s in stack for s in ['ImageDestination.__allocating_init', 'OwnedImageStorage.__allocating_init', 'SealedImageStorage.__allocating_init']):
         return 'storage_control_objects'
     # Reviewed destination-borrow closure: the only Int array constructed
     # directly here is the scan's vertical sampling schedule. Header maxima
     # use reductions and do not materialise arrays.
-    if '<Swift.Int>' in allocation and 'SwiftJLS.ComponentCodec.decode' in stack and 'SwiftJLS.ImageDestination.write' in stack:
+    if size is not None and size <= 64 and '<Swift.Int>' in allocation and 'SwiftJLS.ComponentCodec.decode' in stack and 'SwiftJLS.ImageDestination.write' in stack:
         return 'algorithm_state'
-    # Swift closure environments and lease-abort errors are control storage,
-    # not sample or prediction buffers. Require the reviewed immediate frame;
-    # an arbitrary allocation further down a decode stack does not match.
-    if len(frames) > 2 and frames[1] == 'swift_allocObject' and re.search(
+    # The inlined bit-reader object is six machine words plus its object
+    # header on this observed ABI. It is allocated once per active scan
+    # range (1 interleaved, 3 planar, 129 in the restart control), not once
+    # per destination-write closure. Keep its algorithm state separate from
+    # its compressed byte array, and leave other immediate sizes unknown.
+    if size == 64 and len(frames) > 2 and frames[:2] == ['swift_slowAlloc', 'swift_allocObject'] and re.search(
             r'^closure #\d+ \(Swift.UnsafeMutableRawBufferPointer\) throws -> \(\) in static SwiftJLS.ComponentCodec.decode', frames[2]):
-        return 'storage_control_objects'
+        return 'algorithm_state'
+    # Lease-abort error objects are control storage, not prediction buffers.
     if 'swift_allocError' in allocation and 'OwnedImageStorage.' in stack:
         return 'storage_control_objects'
     if 'SwiftJLS.' in stack: return 'unattributed_codec'
@@ -96,7 +125,7 @@ def replay(lines):
         elif tag == 't': traces.append(tuple(v))
         elif tag == 'a':
             size, trace = v; frames = frames_for(trace)
-            infos.append((size, classify(frames), trace))
+            infos.append((size, classify(frames, size), trace))
         else:
             index, = v; size, group, trace = infos[index]
             if tag == '+':
@@ -114,8 +143,10 @@ def replay(lines):
                     if phase == 1:
                         calls[group] += 1; allocated[group] += size
                         key = str(trace)
-                        if key not in stacks: stacks[key] = dict(category=group, frames=frames_for(trace), allocation_calls=0, allocated_bytes=0)
+                        if key not in stacks: stacks[key] = dict(category=group, frames=frames_for(trace), allocation_calls=0, allocated_bytes=0, requested_size_counts={})
                         stacks[key]['allocation_calls'] += 1; stacks[key]['allocated_bytes'] += size
+                        sizes = stacks[key]['requested_size_counts']
+                        sizes[str(size)] = sizes.get(str(size), 0) + 1
             else:
                 if counts[index] <= 0: raise ValueError('Free without live allocation')
                 counts[index] -= 1; process_live -= size
@@ -139,7 +170,7 @@ def replay(lines):
         simultaneous_categories_at_phase_peak_bytes=at_peak,
         process_requested_heap_peak_bytes=process_peak, allocation_stacks=stacks,
         stack_peak_bytes=None, allocator_overhead_bytes=None,
-        codec_heap_attribution_complete=calls['unattributed_codec'] == 0,
+        codec_heap_attribution_complete=calls['unattributed_codec'] == 0 and baseline['unattributed_codec'] == 0,
         pure_algorithm_workspace_complete=False,
         limitations=[
             'Requested heap bytes exclude allocator usable-size overhead, stack, VM mappings and RSS.',
@@ -159,6 +190,42 @@ def self_test():
         '+ 3\n','+ 0\n','+ 2\n','- 2\n','+ 1\n','+ 2\n']
     assert classify(['SwiftJLS.JPEGLSBitstreamWriter.(append in _ABC123)(Swift.UInt8)']) == 'compressed_buffer'
     assert classify(['SwiftJLS.JPEGLSScalarKernel.encode(writer: SwiftJLS.JPEGLSBitstreamWriter)']) == 'unattributed_codec'
+    outer = 'closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.{}Codec.encode('
+    prefix = ['swift_slowAlloc', 'swift_allocObject']
+    for codec in ['Scalar', 'Component']:
+        frames = prefix + [outer.format(codec)]
+        assert classify(frames, 72) == 'metadata_and_descriptors'
+        for size in [None, 34, 71, 73, 1048576]:
+            assert classify(frames, size) == 'unattributed_codec'
+    assert classify(prefix + [outer.format('Component')], 37) == 'metadata_and_descriptors'
+    assert classify(prefix + [outer.format('Scalar')], 37) == 'unattributed_codec'
+    selector = 'closure #3 (Swift.UnsafeRawBufferPointer) throws -> () in ' + outer.format('Component')
+    assert classify(prefix + [selector], 34) == 'metadata_and_descriptors'
+    for size in [None, 33, 35, 1048576]:
+        assert classify(prefix + [selector], size) == 'unattributed_codec'
+    # Matching an ancestor is insufficient: an unrelated intervening codec
+    # allocation must not acquire the ancestor's literal-array category.
+    assert classify(prefix + ['SwiftJLS.Other.allocate', selector], 34) == 'unattributed_codec'
+    schedule = ['generic specialization <Swift.Int> of Swift.Array.init',
+                'SwiftJLS.ComponentCodec.decode', 'SwiftJLS.ImageDestination.write']
+    assert classify(schedule, 56) == 'algorithm_state'
+    for size in [None, 65, 1048576]:
+        assert classify(schedule, size) == 'unattributed_codec'
+    reader = prefix + ['closure #7 (Swift.UnsafeMutableRawBufferPointer) throws -> () in static SwiftJLS.ComponentCodec.decode(']
+    assert classify(reader, 64) == 'algorithm_state'
+    for size in [None, 63, 65, 1048576]:
+        assert classify(reader, size) == 'unattributed_codec'
+    assert classify(['operator new(unsigned long)', 'swift_getTupleTypeMetadata',
+        'SwiftJLS.JPEGLSBitstreamReader.init(data:)'], 40) == 'runtime_or_unattributed'
+    assert classify(['operator new(unsigned long)',
+        'swift::Lazy<(anonymous namespace)::GenericMetadataCache>::getWithInit',
+        'SwiftJLS.OwnedImageStorage.withUnsafeMutableBytes'], 40) == 'runtime_or_unattributed'
+    assert classify(['swift_getExistentialTypeMetadata',
+        'SwiftJLS.OwnedImageStorage.locked'], 16) == 'runtime_or_unattributed'
+    foundation_cache = prefix + ['one-time initialization function for (cfsQuotaURL in _ABC123)',
+        'FoundationEssentials.ProcessInfo.activeProcessorCount.getter', 'SwiftJLS.ResourceLimits.init']
+    assert classify(foundation_cache, 176) == 'runtime_or_unattributed'
+    assert classify(prefix + ['SwiftJLS.Other.allocate'] + foundation_cache[2:], 176) == 'unattributed_codec'
     r = replay(lines)
     assert r['phase_total_requested_heap_peak_bytes'] == 120
     assert r['baseline_total_requested_heap_bytes'] == 100
@@ -167,6 +234,16 @@ def self_test():
     assert r['groups']['owned_pixel_buffer']['peak_above_baseline_bytes'] == 0
     assert r['groups']['algorithm_state']['peak_above_baseline_bytes'] == 20
     assert r['groups']['algorithm_state']['phase_allocation_calls'] == 1
+    # A codec allocation already live at the begin marker is still unknown;
+    # zero new unknown calls alone must not claim complete heap attribution.
+    unknown = 'SwiftJLS.UnknownOwner.init'
+    baseline_unknown = [f's {len(unknown):x} {unknown}\n'
+        if line.startswith('s ') and line.rstrip().endswith('SwiftJLS.OwnedImageStorage.init') else line
+        for line in lines]
+    unknown_result = replay(baseline_unknown)
+    assert unknown_result['groups']['unattributed_codec']['baseline_live_bytes'] == 100
+    assert unknown_result['groups']['unattributed_codec']['phase_allocation_calls'] == 0
+    assert not unknown_result['codec_heap_attribution_complete']
     for bad in [lines[:-2], lines+['+ 0\n'], lines+['- 0\n','- 0\n']]:
         try: replay(bad)
         except ValueError: pass

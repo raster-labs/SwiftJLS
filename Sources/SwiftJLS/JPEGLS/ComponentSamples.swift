@@ -5,12 +5,14 @@ import Foundation
 protocol JPEGSampleReader {
     var count: Int { get }
     var scalarLayout: (view: ScalarSampleReader, rowStride: Int)? { get }
+    var nativeLayout: NativeUInt16Reader? { get }
     subscript(index: Int) -> UInt16 { get }
     func fourEqual(at index: Int, to value: UInt16) -> Bool
     func matchingPrefix(in range: Range<Int>, to value: UInt16) -> Int
 }
 extension JPEGSampleReader {
     var scalarLayout: (view: ScalarSampleReader, rowStride: Int)? { nil }
+    var nativeLayout: NativeUInt16Reader? { nil }
     func matchingPrefix(in range: Range<Int>, to value: UInt16) -> Int {
         scalarMatchingPrefix(self, in: range, to: value)
     }
@@ -23,8 +25,12 @@ private func scalarMatchingPrefix<R: JPEGSampleReader>(_ view: R, in range: Rang
 }
 protocol JPEGSampleWriter {
     var count: Int { get }
+    var nativeLayout: NativeUInt16Writer? { get }
     subscript(index: Int) -> UInt16 { get nonmutating set }
     func fill(_ value: UInt16, range: Range<Int>)
+}
+extension JPEGSampleWriter {
+    var nativeLayout: NativeUInt16Writer? { nil }
 }
 extension ScalarSampleReader: JPEGSampleReader {}
 extension ScalarSampleWriter: JPEGSampleWriter {}
@@ -46,8 +52,11 @@ struct ComponentSampleReader: JPEGSampleReader {
     }
     @inline(__always)
     private func byteOffset(_ index: Int) -> Int {
-        if packedRows { return offset + index * pixelStride }
-        return offset + (index / width) * rowBytes + (index % width) * pixelStride
+        // Checked descriptor admission proves each nonnegative term and the
+        // final sample end fit the borrowed buffer. Kernel row/range bounds
+        // keep index inside that extent, so these operations cannot wrap.
+        if packedRows { return offset &+ (index &* pixelStride) }
+        return offset &+ ((index / width) &* rowBytes) &+ ((index % width) &* pixelStride)
     }
     var scalarLayout: (view: ScalarSampleReader, rowStride: Int)? {
         guard pixelStride == sampleBytes, rowBytes % sampleBytes == 0 else { return nil }
@@ -124,8 +133,11 @@ struct ComponentSampleWriter: JPEGSampleWriter {
     }
     @inline(__always)
     private func byteOffset(_ index: Int) -> Int {
-        if packedRows { return offset + index * pixelStride }
-        return offset + (index / width) * rowBytes + (index % width) * pixelStride
+        // Checked descriptor admission proves each nonnegative term and the
+        // final sample end fit the borrowed buffer. Kernel row/range bounds
+        // keep index inside that extent, so these operations cannot wrap.
+        if packedRows { return offset &+ (index &* pixelStride) }
+        return offset &+ ((index / width) &* rowBytes) &+ ((index % width) &* pixelStride)
     }
     var count: Int { width * height }
     @inline(__always)

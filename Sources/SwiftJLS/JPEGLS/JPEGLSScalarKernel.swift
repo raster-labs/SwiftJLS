@@ -4,12 +4,31 @@
 // See Documentation/Engineering/MigrationPreflight/scalar-provenance.json.
 import Foundation
 
+// Select the proof once at scan entry. Concrete validators let specialised
+// kernels omit per-pixel optional dispatch and checks already proved by storage
+// width or a prepass. These types never own sample memory or escape a borrow.
+protocol JPEGLSSampleValidator {
+    func validate(_ sample: Int) throws
+}
+struct JPEGLSPrevalidatedSamples: JPEGLSSampleValidator {
+    @inline(__always) func validate(_ sample: Int) throws {}
+}
+struct JPEGLSMaximumSample: JPEGLSSampleValidator {
+    let maximum: Int
+    @inline(__always) func validate(_ sample: Int) throws {
+        guard sample <= maximum else {
+            throw CodecError(.invalidArgument, "Sample exceeds declared meaningful precision.")
+        }
+    }
+}
+
 struct JPEGLSScalarKernel {
     func encodeFlatRowsLossless<Reader: JPEGSampleReader>(
         buf: Reader,
         rowStride: Int,
         rowRange: Range<Int>,
         scanFirstRow: Int? = nil,
+        sampleMaximum: Int? = nil,
         width: Int,
         regularMode: JPEGLSRegularMode,
         runMode: JPEGLSRunMode,
@@ -19,6 +38,25 @@ struct JPEGLSScalarKernel {
         qbppBits: Int,
         checkpoint: () throws -> Void
     ) throws {
+        if let sampleMaximum {
+            try encodeFlatRowsLossless(buf: buf, rowStride: rowStride, rowRange: rowRange,
+                scanFirstRow: scanFirstRow, sampleValidator: JPEGLSMaximumSample(maximum: sampleMaximum),
+                width: width, regularMode: regularMode, runMode: runMode, context: &context,
+                writer: &writer, limit: limit, qbppBits: qbppBits, checkpoint: checkpoint)
+        } else {
+            try encodeFlatRowsLossless(buf: buf, rowStride: rowStride, rowRange: rowRange,
+                scanFirstRow: scanFirstRow, sampleValidator: JPEGLSPrevalidatedSamples(),
+                width: width, regularMode: regularMode, runMode: runMode, context: &context,
+                writer: &writer, limit: limit, qbppBits: qbppBits, checkpoint: checkpoint)
+        }
+    }
+
+    func encodeFlatRowsLossless<Reader: JPEGSampleReader, Validator: JPEGLSSampleValidator>(
+        buf: Reader, rowStride: Int, rowRange: Range<Int>, scanFirstRow: Int?, sampleValidator: Validator,
+        width: Int, regularMode: JPEGLSRegularMode, runMode: JPEGLSRunMode,
+        context: inout JPEGLSContextModel, writer: inout JPEGLSBitstreamWriter,
+        limit: Int, qbppBits: Int, checkpoint: () throws -> Void
+    ) throws {
         guard width > 0, rowStride >= width, rowRange.lowerBound >= 0,
               rowRange.upperBound > rowRange.lowerBound,
               try checkedAdd(checkedMultiply(rowRange.upperBound - 1, rowStride), width) <= buf.count else {
@@ -26,7 +64,14 @@ struct JPEGLSScalarKernel {
         }
         if let scalar = buf.scalarLayout {
             try encodeFlatRowsLossless(buf: scalar.view, rowStride: scalar.rowStride,
-                rowRange: rowRange, scanFirstRow: scanFirstRow, width: width,
+                rowRange: rowRange, scanFirstRow: scanFirstRow, sampleValidator: sampleValidator, width: width,
+                regularMode: regularMode, runMode: runMode, context: &context,
+                writer: &writer, limit: limit, qbppBits: qbppBits, checkpoint: checkpoint)
+            return
+        }
+        if let native = buf.nativeLayout {
+            try encodeFlatRowsLossless(buf: native, rowStride: rowStride, rowRange: rowRange,
+                scanFirstRow: scanFirstRow, sampleValidator: sampleValidator, width: width,
                 regularMode: regularMode, runMode: runMode, context: &context,
                 writer: &writer, limit: limit, qbppBits: qbppBits, checkpoint: checkpoint)
             return
@@ -46,11 +91,11 @@ struct JPEGLSScalarKernel {
                 }
                 var col = 0
                 while col < width {
-                    if col & 255 == 0 { try checkpoint(); try writer.checkLimit() }
+                    // Row entry already checked before processing any samples.
+                    if col & 255 == 0 && col != 0 { try checkpoint(); try writer.checkLimit() }
                     // Causal neighbours per ITU-T.87 §3.2 (same boundary
                     // semantics as the general path). The first row of the
                     // range uses row-0 semantics (zero previous line).
-                    let actual = Int(buf[rowBase + col])
                     let a: Int, b: Int, c: Int, d: Int
                     if row == firstRow {
                         a = col == 0 ? 0 : Int(buf[rowBase + col - 1])
@@ -75,6 +120,13 @@ struct JPEGLSScalarKernel {
                     let q3 = regularMode.quantizeGradient(d3)
 
                     if q1 == 0 && q2 == 0 && q3 == 0 {
+                        // Regular and interruption samples are checked before
+                        // coding. No extra current-sample read is needed here.
+                        // Skipped samples equal runValue exactly: it is zero at
+                        // scan start or a previously validated causal sample.
+                        // This induction also holds after each restart. Thus a
+                        // separate full-image precision pass is unnecessary;
+                        // the caller publishes no result if any check throws.
                         // Run mode: scan the rest of the row for the run value
                         // (exact equality — lossless) with a 4-way unrolled test.
                         let runValue = a
@@ -110,6 +162,7 @@ struct JPEGLSScalarKernel {
 
                             let interruptionCol = col + actualRunLength
                             let interruptionActual = Int(buf[rowBase + interruptionCol])
+                            try sampleValidator.validate(interruptionActual)
                             let encRb = row > firstRow ? Int(buf[prevBase + interruptionCol]) : 0
 
                             // Per ITU-T.87: use finalRunIndex (post-continuation)
@@ -143,6 +196,8 @@ struct JPEGLSScalarKernel {
                         }
                     } else {
                         // Regular mode
+                        let actual = Int(buf[rowBase + col])
+                        try sampleValidator.validate(actual)
                         _ = encodePixel(
                             actual: actual,
                             a: a, b: b, c: c,
@@ -166,6 +221,16 @@ struct JPEGLSScalarKernel {
                             near: Int, parameters: JPEGLSPresetParameters,
                             writer: inout JPEGLSBitstreamWriter, bits: Int,
                             checkpoint: () throws -> Void) throws {
+        if let scalar = buf.scalarLayout {
+            try encodeNearLossless(buf: scalar.view, rowStride: scalar.rowStride, width: width, height: height,
+                near: near, parameters: parameters, writer: &writer, bits: bits, checkpoint: checkpoint)
+            return
+        }
+        if let native = buf.nativeLayout {
+            try encodeNearLossless(buf: native, rowStride: rowStride, width: width, height: height,
+                near: near, parameters: parameters, writer: &writer, bits: bits, checkpoint: checkpoint)
+            return
+        }
         let regular = try JPEGLSRegularMode(parameters: parameters, near: near)
         let run = try JPEGLSRunMode(parameters: parameters, near: near)
         var context = try JPEGLSContextModel(parameters: parameters, near: near)
@@ -177,46 +242,52 @@ struct JPEGLSScalarKernel {
             try checkpoint(); try writer.checkLimit()
             let oldEdge = edge
             edge = Int(previous[0])
-            var x = 0
-            while x < width {
-                if x & 255 == 0 { try checkpoint(); try writer.checkLimit() }
-                let a = x == 0 ? Int(previous[0]) : Int(current[x - 1])
-                let b = Int(previous[x])
-                let c = x == 0 ? oldEdge : Int(previous[x - 1])
-                let d = Int(previous[min(x + 1, width - 1)])
-                let q1 = regular.quantizeGradient(d - b)
-                let q2 = regular.quantizeGradient(b - c)
-                let q3 = regular.quantizeGradient(c - a)
-                if q1 == 0 && q2 == 0 && q3 == 0 {
-                    let start = x
-                    while x < width && abs(Int(buf[y * rowStride + x]) - a) <= near {
-                        if x & 255 == 0 { try checkpoint(); try writer.checkLimit() }
-                        current[x] = UInt16(a)
+            // One synchronous mutable borrow avoids a uniqueness check for
+            // every reconstructed sample. It ends before swapping the rows;
+            // no pointer escapes, and neither owner is resized during it.
+            try current.withUnsafeMutableBufferPointer { row in
+                var x = 0
+                while x < width {
+                    // Row entry already checked before processing any samples.
+                    if x & 255 == 0 && x != 0 { try checkpoint(); try writer.checkLimit() }
+                    let a = x == 0 ? Int(previous[0]) : Int(row[x - 1])
+                    let b = Int(previous[x])
+                    let c = x == 0 ? oldEdge : Int(previous[x - 1])
+                    let d = Int(previous[min(x + 1, width - 1)])
+                    let q1 = regular.quantizeGradient(d - b)
+                    let q2 = regular.quantizeGradient(b - c)
+                    let q3 = regular.quantizeGradient(c - a)
+                    if q1 == 0 && q2 == 0 && q3 == 0 {
+                        let start = x
+                        while x < width && abs(Int(buf[y * rowStride + x]) - a) <= near {
+                            if x & 255 == 0 { try checkpoint(); try writer.checkLimit() }
+                            row[x] = UInt16(a)
+                            x += 1
+                        }
+                        let encoded = run.encodeRunLength(runLength: x - start, runIndex: context.currentRunIndex)
+                        writer.writeOnes(encoded.continuationBits)
+                        let finalIndex = min(encoded.runIndex + encoded.continuationBits, 31)
+                        context.setRunIndex(finalIndex)
+                        if x < width {
+                            writeRunTermination(encoded: encoded, writer: &writer)
+                            let reconstructed = writeRunInterruptionBits(
+                                interruptionValue: Int(buf[y * rowStride + x]), runValue: a,
+                                rb: Int(previous[x]), near: near, context: &context,
+                                regularMode: regular, runMode: run, writer: &writer,
+                                limit: coding.limit, qbppBits: coding.qbppBits)
+                            row[x] = UInt16(reconstructed)
+                            context.decrementRunIndex()
+                            x += 1
+                        } else if encoded.remainder > 0 {
+                            writer.writeBits(1, count: 1)
+                        }
+                    } else {
+                        let reconstructed = encodePixel(actual: Int(buf[y * rowStride + x]),
+                            a: a, b: b, c: c, q1: q1, q2: q2, q3: q3, regularMode: regular,
+                            context: &context, writer: &writer, limit: coding.limit, qbppBits: coding.qbppBits)
+                        row[x] = UInt16(reconstructed)
                         x += 1
                     }
-                    let encoded = run.encodeRunLength(runLength: x - start, runIndex: context.currentRunIndex)
-                    writer.writeOnes(encoded.continuationBits)
-                    let finalIndex = min(encoded.runIndex + encoded.continuationBits, 31)
-                    context.setRunIndex(finalIndex)
-                    if x < width {
-                        writeRunTermination(encoded: encoded, writer: &writer)
-                        let reconstructed = writeRunInterruptionBits(
-                            interruptionValue: Int(buf[y * rowStride + x]), runValue: a,
-                            rb: Int(previous[x]), near: near, context: &context,
-                            regularMode: regular, runMode: run, writer: &writer,
-                            limit: coding.limit, qbppBits: coding.qbppBits)
-                        current[x] = UInt16(reconstructed)
-                        context.decrementRunIndex()
-                        x += 1
-                    } else if encoded.remainder > 0 {
-                        writer.writeBits(1, count: 1)
-                    }
-                } else {
-                    let reconstructed = encodePixel(actual: Int(buf[y * rowStride + x]),
-                        a: a, b: b, c: c, q1: q1, q2: q2, q3: q3, regularMode: regular,
-                        context: &context, writer: &writer, limit: coding.limit, qbppBits: coding.qbppBits)
-                    current[x] = UInt16(reconstructed)
-                    x += 1
                 }
             }
             swap(&previous, &current)
@@ -513,6 +584,11 @@ struct JPEGLSScalarKernel {
               try checkedAdd(checkedMultiply(rows - 1, rowStride), width) <= buf.count else {
             throw CodecError(.incompatibleImageLayout, "Invalid scalar output extent.")
         }
+        if let native = buf.nativeLayout {
+            try decodeFlatRegion(into: native, rowStride: rowStride, reader: reader, rows: rows, width: width,
+                parameters: parameters, near: near, limit: limit, qbppBits: qbppBits, checkpoint: checkpoint)
+            return
+        }
         let decoder = try JPEGLSRegularModeDecoder(parameters: parameters, near: near)
         let runDecoder = try JPEGLSRunModeDecoder(parameters: parameters, near: near)
         var context = try JPEGLSContextModel(parameters: parameters, near: near)
@@ -547,6 +623,7 @@ struct JPEGLSScalarKernel {
 
     /// A scan row shares adaptive contexts with the preceding scan rows.
     /// The caller supplies the per-component left boundary and run index.
+    /// Both scalar and line-interleaved callers check cancellation at row entry.
     @inline(__always)
     func decodeRow<Writer: JPEGSampleWriter>(into buf: Writer, rowStride: Int,
         row: Int, width: Int, edgeForThisRow: Int, reader: JPEGLSBitstreamReader,
@@ -554,11 +631,18 @@ struct JPEGLSScalarKernel {
         context: inout JPEGLSContextModel, parameters: JPEGLSPresetParameters,
         near: Int, limit: Int, qbppBits: Int, checkpointMask: Int = 255,
         checkpoint: () throws -> Void) throws {
+        if let native = buf.nativeLayout {
+            try decodeRow(into: native, rowStride: rowStride, row: row, width: width,
+                edgeForThisRow: edgeForThisRow, reader: reader, decoder: decoder, runDecoder: runDecoder,
+                context: &context, parameters: parameters, near: near, limit: limit,
+                qbppBits: qbppBits, checkpointMask: checkpointMask, checkpoint: checkpoint)
+            return
+        }
         let rowBase = row * rowStride
         let prevBase = rowBase - rowStride
         var col = 0
         while col < width {
-            if col & checkpointMask == 0 { try checkpoint() }
+            if col & checkpointMask == 0 && col != 0 { try checkpoint() }
             // Causal neighbours per ITU-T.87 §3.2 (same boundary
             // semantics as getNeighbors, over the flat plane).
             let a: Int, b: Int, c: Int, d: Int

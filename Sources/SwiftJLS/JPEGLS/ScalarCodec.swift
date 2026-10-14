@@ -117,11 +117,15 @@ enum ScalarCodec {
                 }
                 let view = ScalarSampleReader(bytes: .init(rebasing: bytes[plane.offset..<descriptor.requiredByteCount]),
                     littleEndian: descriptor.byteOrder == .littleEndian, sampleBytes: descriptor.storageBits / 8)
-                try view.validate(width: descriptor.width, height: descriptor.height,
-                    rowStride: plane.rowBytes / view.sampleBytes, maximum: parameters.maxValue,
-                    checkpoint: { try budget.check() })
-                let regular = try JPEGLSRegularMode(parameters: parameters)
-                let run = try JPEGLSRunMode(parameters: parameters)
+                if near > 0 {
+                    try view.validate(width: descriptor.width, height: descriptor.height,
+                        rowStride: plane.rowBytes / view.sampleBytes, maximum: parameters.maxValue,
+                        checkpoint: { try budget.check() })
+                }
+                // Near-lossless coding constructs its own correctly quantised
+                // state. Do not retain an unused lossless gradient table too.
+                let regular = near == 0 ? try JPEGLSRegularMode(parameters: parameters) : nil
+                let run = near == 0 ? try JPEGLSRunMode(parameters: parameters) : nil
                 let coding = kernel.computeGolombLimitInternal(parameters: parameters, near: near, bitsPerSample: descriptor.meaningfulBits)
                 for chunk in 0..<chunks {
                     let first = interval > 0 ? chunk * interval : 0
@@ -134,9 +138,17 @@ enum ScalarCodec {
                             parameters: parameters, writer: &writer, bits: descriptor.meaningfulBits,
                             checkpoint: { try budget.check() })
                     } else {
+                        guard let regular, let run else {
+                            throw CodecError(.internalFailure, "Lossless coding state is unavailable.")
+                        }
                         var context = try JPEGLSContextModel(parameters: parameters)
+                        // Lossless runs prove their skipped samples equal a
+                        // checked causal value; validate other samples while
+                        // coding. Full-container values are valid by storage.
+                        let maximum = parameters.maxValue < (view.sampleBytes == 1 ? 255 : 65535)
+                            ? parameters.maxValue : nil
                         try kernel.encodeFlatRowsLossless(buf: view, rowStride: plane.rowBytes / view.sampleBytes,
-                            rowRange: first..<last, width: descriptor.width, regularMode: regular,
+                            rowRange: first..<last, sampleMaximum: maximum, width: descriptor.width, regularMode: regular,
                             runMode: run, context: &context, writer: &writer, limit: coding.limit,
                             qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
                     }

@@ -27,7 +27,23 @@ extension JPEGLSScalarKernel {
     }
     func encodeInterleaved<Reader: JPEGSampleReader>(views: [Reader], width: Int, height: Int,
                            mode: CodecOptions.InterleaveMode, near: Int, parameters: JPEGLSPresetParameters,
-                           bits: Int, writer: inout JPEGLSBitstreamWriter, checkpoint: () throws -> Void) throws {
+                           bits: Int, sampleMaximum: Int? = nil,
+                           writer: inout JPEGLSBitstreamWriter, checkpoint: () throws -> Void) throws {
+        if let sampleMaximum {
+            try encodeInterleaved(views: views, width: width, height: height, mode: mode,
+                near: near, parameters: parameters, bits: bits,
+                sampleValidator: JPEGLSMaximumSample(maximum: sampleMaximum), writer: &writer, checkpoint: checkpoint)
+        } else {
+            try encodeInterleaved(views: views, width: width, height: height, mode: mode,
+                near: near, parameters: parameters, bits: bits,
+                sampleValidator: JPEGLSPrevalidatedSamples(), writer: &writer, checkpoint: checkpoint)
+        }
+    }
+    private func encodeInterleaved<Reader: JPEGSampleReader, Validator: JPEGLSSampleValidator>(
+                           views: [Reader], width: Int, height: Int,
+                           mode: CodecOptions.InterleaveMode, near: Int, parameters: JPEGLSPresetParameters,
+                           bits: Int, sampleValidator: Validator,
+                           writer: inout JPEGLSBitstreamWriter, checkpoint: () throws -> Void) throws {
         guard (1...4).contains(views.count) else { throw CodecError(.unsupportedFeature, "Invalid component count.") }
         let regular = try JPEGLSRegularMode(parameters: parameters, near: near)
         let run = try JPEGLSRunMode(parameters: parameters, near: near)
@@ -39,7 +55,8 @@ extension JPEGLSScalarKernel {
                 for c in views.indices {
                     context.setRunIndex(indices[c])
                     try encodeFlatRowsLossless(buf: views[c], rowStride: width, rowRange: y..<(y + 1),
-                        scanFirstRow: 0, width: width, regularMode: regular, runMode: run,
+                        scanFirstRow: 0, sampleValidator: sampleValidator,
+                        width: width, regularMode: regular, runMode: run,
                         context: &context, writer: &writer, limit: coding.limit,
                         qbppBits: coding.qbppBits, checkpoint: checkpoint)
                     indices[c] = context.currentRunIndex
@@ -71,6 +88,12 @@ extension JPEGLSScalarKernel {
                     if isRun {
                         let first = x
                         if near == 0 {
+                            // Each causal run value is zero or already validated;
+                            // every skipped sample equals that value exactly.
+                            // Taking the shortest prefix proves the joint run,
+                            // while regular and interruption samples are checked
+                            // before coding, without an extra outer-loop read.
+                            // Any failure discards the unpublished encoded data.
                             // Scan each component through its scoped local view.
                             // The shortest matching prefix is the joint run;
                             // later components never scan beyond that prefix.
@@ -117,7 +140,9 @@ extension JPEGLSScalarKernel {
                         if x < width {
                             writeRunTermination(encoded: encoded, writer: &writer)
                             for c in active {
-                                let value = writeRunInterruptionBits(interruptionValue: Int(views[c][y * width + x]),
+                                let actual = Int(views[c][y * width + x])
+                                try sampleValidator.validate(actual)
+                                let value = writeRunInterruptionBits(interruptionValue: actual,
                                     runValue: neighbours[c].a,
                                     rb: near == 0 ? (y == 0 ? 0 : Int(views[c][(y - 1) * width + x])) : Int(states[c].previous[x]), near: near,
                                     context: &context, regularMode: regular, runMode: run, writer: &writer,
@@ -129,7 +154,9 @@ extension JPEGLSScalarKernel {
                     } else {
                         for c in active {
                             let n = neighbours[c]
-                            let value = encodePixel(actual: Int(views[c][y * width + x]), a: n.a, b: n.b, c: n.c,
+                            let actual = Int(views[c][y * width + x])
+                            try sampleValidator.validate(actual)
+                            let value = encodePixel(actual: actual, a: n.a, b: n.b, c: n.c,
                                 q1: regular.quantizeGradient(n.d - n.b), q2: regular.quantizeGradient(n.b - n.c),
                                 q3: regular.quantizeGradient(n.c - n.a), regularMode: regular, context: &context,
                                 writer: &writer, limit: coding.limit, qbppBits: coding.qbppBits)

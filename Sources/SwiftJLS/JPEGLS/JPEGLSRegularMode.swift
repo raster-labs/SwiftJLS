@@ -426,7 +426,9 @@ struct JPEGLSRegularMode: Sendable {
         // Normalise the raw error BEFORE quantisation/modular reduction
         // (T.87 A.4.3–A.4.5). Reversing these steps selects the wrong side
         // of the half-range boundary when the context sign is negative.
-        let error = computePredictionError(actual: sign * actual, prediction: sign * correctedPrediction)
+        // Both samples are in 0...MAXVAL (MAXVAL <= 65535), so their
+        // difference and its sign normalisation fit Int even on 32-bit targets.
+        let error = computePredictionError(actual: sign * (actual - correctedPrediction), prediction: 0)
         let quantisedError = sign * error
 
         // Step 7a: Apply error correction XOR per ITU-T.87 §A.4.1

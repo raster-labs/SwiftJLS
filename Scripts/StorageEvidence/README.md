@@ -27,16 +27,26 @@ between those markers, retaining baseline live bytes, per-category peaks, phase
 allocation calls and every allocation stack. It rejects missing/repeated markers
 and invalid frees. Run its `--self-test` before collecting evidence.
 
-The `Per-operation workspace evidence` workflow records 32 separate processes:
-17² and 512², scalar/RGB, NEAR 0/3, four operations, Swift 6.4 ordinary release
-with debug symbols. These are measured requested heap bytes on the hosted Linux
-runner. Allocation stacks distinguish known pixel, compressed, algorithm-state
-and metadata/descriptor paths; unmatched codec and runtime stacks remain explicit.
-Peaks from different categories must not be added. Stack high-water bytes and
-allocator overhead remain unknown. This is not a complete algorithm workspace
-counter, does not cover every codec profile, and leaves production
-`peakWorkspaceBytes` unknown. Keep profile hashes and source revisions with any
-reported results.
+The `Per-operation workspace evidence` workflow uses `run-workspace-profiles.py`
+to record 89 separate processes: the original 32 combinations of 17²/512²,
+scalar/RGB, NEAR 0/3 and four operations; 48 additional line, planar, 16-bit,
+maximum-threshold preset, restart and HP1/2/3 operations; and nine fixture
+operations covering subsampling, mapping and extended dimensions. Builds use
+Swift 6.4 ordinary release with debug symbols. These are measured requested heap
+bytes on the hosted Linux runner. Allocation stacks and requested-size histograms
+distinguish pixel, compressed, algorithm-state, metadata/descriptor and runtime
+paths. Unknown codec stacks remain explicit and prevent
+`codec_heap_attribution_complete` from being true. Size-bounded recognisers retain
+negative controls so unrelated or larger allocations cannot inherit a category.
+Peaks from different categories must not be added.
+
+[WorkspaceAccounting.md](../../Documentation/Engineering/CodecMigration/WorkspaceAccounting.md)
+links the full source inventory, per-path bounds and measured allocation evidence.
+Complete attribution of observed codec heap does not establish an exact combined
+heap/stack/allocator counter. Stack high-water bytes and allocator overhead remain
+unknown, `pure_algorithm_workspace_complete` remains false for this measurement,
+and production `peakWorkspaceBytes` remains unknown. Keep profile hashes and
+source revisions with every reported result.
 
 The separate `Marked workspace stack observation` workflow uses pinned Valgrind
 3.27.1 (`b50f9a09ca65cc983c934bd0f50059304f3e939f`) with Massif stack tracking.

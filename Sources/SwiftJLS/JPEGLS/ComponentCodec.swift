@@ -141,9 +141,15 @@ enum ComponentCodec {
                         offset: location.offset, rowBytes: location.rowBytes, pixelStride: location.pixelStride,
                         sampleBytes: d.storageBits / 8, littleEndian: d.byteOrder == .littleEndian)
                 }
-                for view in views {
-                    try view.validate(maximum: parameters.maxValue, checkpoint: { try budget.check() })
+                if near > 0 || transform != .none {
+                    // Approximate runs and HP's modular arithmetic cannot
+                    // prove the range of every original sample while coding.
+                    for view in views {
+                        try view.validate(maximum: parameters.maxValue, checkpoint: { try budget.check() })
+                    }
                 }
+                let sampleMaximum = near == 0 && transform == .none &&
+                    parameters.maxValue < (d.storageBits == 8 ? 255 : 65535) ? parameters.maxValue : nil
                 if configuration.codecOptions.interleaveMode != .none {
                     guard let mode = JPEGLSInterleaveMode(rawValue: configuration.codecOptions.interleaveMode.rawValue) else {
                         throw CodecError(.internalFailure, "Interleave mapping failed.")
@@ -155,7 +161,8 @@ enum ComponentCodec {
                     if transform == .none {
                         try kernel.encodeInterleaved(views: views, width: d.width, height: d.height,
                         mode: configuration.codecOptions.interleaveMode, near: near, parameters: parameters,
-                        bits: d.meaningfulBits, writer: &writer, checkpoint: { try budget.check() })
+                        bits: d.meaningfulBits, sampleMaximum: sampleMaximum,
+                        writer: &writer, checkpoint: { try budget.check() })
                     } else {
                         let transformed = (0..<3).map { component in
                             HPComponentReader(views: views, component: component, transform: transform, bits: d.meaningfulBits)
@@ -185,7 +192,8 @@ enum ComponentCodec {
                             let run = try JPEGLSRunMode(parameters: parameters)
                             var context = try JPEGLSContextModel(parameters: parameters)
                             try kernel.encodeFlatRowsLossless(buf: view, rowStride: d.width, rowRange: first..<last,
-                                width: d.width, regularMode: regular, runMode: run, context: &context, writer: &writer,
+                                sampleMaximum: sampleMaximum, width: d.width,
+                                regularMode: regular, runMode: run, context: &context, writer: &writer,
                                 limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
                         }
                         writer.flush()
@@ -265,9 +273,22 @@ enum ComponentCodec {
                     let start = data.index(data.startIndex, offsetBy: range.lowerBound)
                     let end = data.index(data.startIndex, offsetBy: range.upperBound)
                     let reader = JPEGLSBitstreamReader(data: data[start..<end])
-                    try kernel.decodeFlatRegion(into: whole.rows(first..<last), rowStride: d.width, reader: reader,
-                        rows: last - first, width: d.width, parameters: scan.parameters, near: scan.near,
-                        limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
+                    let region = whole.rows(first..<last)
+                    if region.pixelStride == region.sampleBytes && region.rowBytes % region.sampleBytes == 0 {
+                        // A contiguous component is the same scoped scalar
+                        // layout, including padded rows and odd byte origins.
+                        // Avoid general per-sample component addressing here,
+                        // as in the line-interleaved decoder.
+                        let scalar = ScalarSampleWriter(bytes: .init(rebasing: region.bytes[region.offset...]),
+                            littleEndian: region.littleEndian, sampleBytes: region.sampleBytes)
+                        try kernel.decodeFlatRegion(into: scalar, rowStride: region.rowBytes / region.sampleBytes, reader: reader,
+                            rows: last - first, width: d.width, parameters: scan.parameters, near: scan.near,
+                            limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
+                    } else {
+                        try kernel.decodeFlatRegion(into: region, rowStride: d.width, reader: reader,
+                            rows: last - first, width: d.width, parameters: scan.parameters, near: scan.near,
+                            limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
+                    }
                     try reader.validateEndOfScan()
                 }
             }
