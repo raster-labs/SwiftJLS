@@ -81,7 +81,7 @@ private final class ProbeCompletion: Sendable {
     let result = Mutex<Result<Void, any Error>?>(nil)
     let done = DispatchSemaphore(value: 0)
 }
-let completion = ProbeCompletion()
+private let completion = ProbeCompletion()
 Task.detached { [completion] in
     do {
         try await runProbe()
