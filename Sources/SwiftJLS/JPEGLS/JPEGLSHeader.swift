@@ -53,20 +53,33 @@ struct JPEGLSHeader {
     let outputBits: Int
     let mapsSamples: Bool
     let metadataBytes: Int
+    // Geometry and sample interpretation are immutable. Keep the layout already
+    // checked for parser admission instead of rebuilding its arrays on decode.
+    private let admittedDescriptor: ImageDescriptor
     var near: Int { records.reduce(0) { max($0, $1.near) } }
     var parameters: JPEGLSPresetParameters { records[0].parameters }
     var scans: [Range<Int>] { records[0].ranges }
     var restartInterval: Int { records[0].restartInterval }
     var scan: Range<Int> { scans[0] }
-    var roles: [ComponentRole] {
-        if grey { return [.grey] }
-        if rgb { return [.red, .green, .blue] }
-        return componentIDs.map { .uninterpreted("JPEG-LS:\($0)") }
-    }
+    var roles: [ComponentRole] { admittedDescriptor.components }
     func descriptor(limits: ResourceLimits) throws -> ImageDescriptor {
+        do {
+            try admittedDescriptor.validate(limits: limits)
+        } catch {
+            // Reproduce the existing constructor's diagnostic and check order
+            // for a rejected request; only successful layouts are reused.
+            return try Self.makeDescriptor(width: width, height: height, outputBits: outputBits,
+                componentIDs: componentIDs, sampling: sampling, rgb: rgb, grey: grey, limits: limits)
+        }
+        return admittedDescriptor
+    }
+    private static func makeDescriptor(width: Int, height: Int, outputBits: Int,
+                                       componentIDs: [UInt8], sampling: [UInt8], rgb: Bool, grey: Bool,
+                                       limits: ResourceLimits) throws -> ImageDescriptor {
         if grey {
             return try .greyscale16(width: width, height: height, meaningfulBits: outputBits, limits: limits)
         }
+        let roles: [ComponentRole] = rgb ? [.red, .green, .blue] : componentIDs.map { .uninterpreted("JPEG-LS:\($0)") }
         let hMax = sampling.map { Int($0 >> 4) }.max() ?? 1
         let vMax = sampling.map { Int($0 & 15) }.max() ?? 1
         var end = 0
@@ -200,12 +213,16 @@ struct JPEGLSHeader {
                         metadata = ImageMetadata(entries: metadata.entries.merging(mapping.metadata.entries) { _, new in new }, requiredKeys: metadata.requiredKeys.union([JPEGLSMappingTables.key]))
                     }
                     let retainedBytes = try metadata.validate(limits: budget.limits)
+                    let rgb = spiff?.rgb ?? (transform.map { $0 != .none } ?? false)
+                    let grey = spiff?.grey ?? (f.ids.count == 1)
+                    let resolvedOutputBits = mapsSamples ? outputBits : f.bits
+                    let descriptor = try makeDescriptor(width: f.width, height: f.height, outputBits: resolvedOutputBits,
+                        componentIDs: f.ids, sampling: f.sampling, rgb: rgb, grey: grey, limits: budget.limits)
                     let header = Self(width: f.width, height: f.height, bits: f.bits,
-                        componentIDs: f.ids, sampling: f.sampling, rgb: spiff?.rgb ?? (transform.map { $0 != .none } ?? false),
-                        grey: spiff?.grey ?? (f.ids.count == 1),
+                        componentIDs: f.ids, sampling: f.sampling, rgb: rgb, grey: grey,
                         colourTransform: transform ?? .none, records: records, metadata: metadata, mapping: mapping,
-                        outputBits: mapsSamples ? outputBits : f.bits, mapsSamples: mapsSamples, metadataBytes: max(metadataBytes, retainedBytes))
-                    let descriptor = try header.descriptor(limits: budget.limits)
+                        outputBits: resolvedOutputBits, mapsSamples: mapsSamples, metadataBytes: max(metadataBytes, retainedBytes),
+                        admittedDescriptor: descriptor)
                     try budget.admit(pixelBytes: descriptor.requiredByteCount, workspaceBytes: checkedAdd(checkedMultiply(header.metadataBytes, 32), directoryBytes), compressedBytes: data.count)
                     return header
                 }

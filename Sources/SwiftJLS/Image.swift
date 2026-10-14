@@ -82,7 +82,11 @@ public final class ImageDestination: Sendable {
     public let storage: any WritableImageStorage
     private let lease: StorageWriteLease
     private let limits: ResourceLimits
-    private let started = Mutex(false)
+    private struct Lifecycle: Sendable {
+        var started = false
+        var finished = false
+    }
+    private let lifecycle = Mutex(Lifecycle())
 
     public init(descriptor: ImageDescriptor, storage: any WritableImageStorage,
                 limits: ResourceLimits = .default) throws {
@@ -97,7 +101,11 @@ public final class ImageDestination: Sendable {
         self.descriptor = descriptor; self.storage = storage; self.limits = limits
         self.lease = try storage.reserveWrite()
     }
-    deinit { try? storage.abortAndInvalidate(lease: lease) }
+    deinit {
+        if !lifecycle.withLock({ $0.finished }) {
+            try? storage.abortAndInvalidate(lease: lease)
+        }
+    }
 
     public static func allocate(descriptor: ImageDescriptor, limits: ResourceLimits = .default) throws -> ImageDestination {
         try descriptor.validate(limits: limits)
@@ -121,9 +129,9 @@ public final class ImageDestination: Sendable {
         guard try checkedAdd(storage.byteCount, metadataBytes) <= limits.maximumMemoryBytes else {
             throw CodecError(.resourceLimitExceeded, "Destination and metadata exceed the admission budget.")
         }
-        let accepted = started.withLock { value in
-            guard !value else { return false }
-            value = true
+        let accepted = lifecycle.withLock { value in
+            guard !value.started else { return false }
+            value.started = true
             return true
         }
         guard accepted else { throw CodecError(.storageUnavailable, "Destination was already used.") }
@@ -141,9 +149,15 @@ public final class ImageDestination: Sendable {
             // External providers may perform bounded finalisation or validation
             // work. Cancellation during either callback must prevent publication.
             try Task.checkCancellation()
+            lifecycle.withLock { $0.finished = true }
             return image
         } catch {
-            try? storage.abortAndInvalidate(lease: lease)
+            do {
+                try storage.abortAndInvalidate(lease: lease)
+                lifecycle.withLock { $0.finished = true }
+            } catch {
+                // Release retries an abort that the provider could not finish.
+            }
             throw error
         }
     }
