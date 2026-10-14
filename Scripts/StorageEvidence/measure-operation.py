@@ -11,6 +11,7 @@ import argparse, collections, gzip, hashlib, json, pathlib, re, subprocess
 
 def classify(frames):
     stack = re.sub(r'\((\w+) in _[0-9A-Fa-f]+\)', r'\1', '\n'.join(frames))
+    allocation = '\n'.join(frames[:6])
     if 'swiftjls_workspace_begin' in stack: return 'begin_marker'
     if 'swiftjls_workspace_end' in stack: return 'end_marker'
     # Generic type metadata and protocol-conformance caches belong to the
@@ -23,16 +24,27 @@ def classify(frames):
         return 'owned_pixel_buffer'
     if re.search(r'SwiftJLS\.JPEGLSBitstream(?:Reader|Writer(?:State)?)\.(?:__allocating_init|init|append|getData|write)', stack):
         return 'compressed_buffer'
+    # In these reviewed encode entry closures, the UInt8 array allocation is
+    # the inlined writer's initial reserve, not a decoded sample owner.
+    if 'generic specialization <Swift.UInt8> of Swift._ContiguousArrayBuffer._consumeAndCreateNew' in allocation and re.search(r'closure #1 \(\) throws -> SwiftJLS.EncodedImage in static SwiftJLS\.(?:Scalar|Component)Codec.encode', allocation):
+        return 'compressed_buffer'
     # The sole Data-to-array conversion inside the destination write borrow
     # in ComponentCodec.decode is the compressed scan reader (reviewed source).
     if 'Swift._copyCollectionToContiguousArray' in stack and 'FoundationEssentials.Data>' in stack and 'SwiftJLS.ComponentCodec.decode' in stack and 'SwiftJLS.ImageDestination.write' in stack:
         return 'compressed_buffer'
     if any(s in stack for s in ['JPEGLSContextModel.', 'JPEGLSRegularMode.init', 'JPEGLSRegularModeDecoder.init', 'PredictorRows.init']):
         return 'algorithm_state'
-    if any(s in '\n'.join(frames[:3]) for s in ['<SwiftJLS.ComponentSampleReader>', '<SwiftJLS.ComponentSampleWriter>', 'SwiftJLS.JPEGLSScalarKernel.PredictorRows', 'SwiftJLS.JPEGLSScalarKernel.Neighbours']):
+    if any(s in allocation for s in ['<SwiftJLS.ComponentSampleReader>', '<SwiftJLS.ComponentSampleWriter>', 'SwiftJLS.JPEGLSScalarKernel.PredictorRows', 'SwiftJLS.JPEGLSScalarKernel.Neighbours']):
         return 'algorithm_state'
-    if any(s in stack for s in ['JPEGLSHeader.parse', 'JPEGMetadata', 'JPEGLSMapping', 'JPEGLSFrameHeader', 'JPEGLSScanHeader', 'ImageDescriptor.', 'PlaneDescriptor.', 'ImageMetadata.', '<SwiftJLS.ComponentCodec.Location>']):
+    # Inlined scalar near-lossless UInt16 arrays are its two predictor rows.
+    if '<Swift.UInt16>' in allocation and 'JPEGLSScalarKernel.encodeNearLossless' in allocation:
+        return 'algorithm_state'
+    if '<Swift.Int>' in allocation and any(s in allocation for s in ['JPEGLSScalarKernel.encodeInterleaved', 'JPEGLSScalarKernel.decodeInterleaved']):
+        return 'algorithm_state'
+    if any(s in stack for s in ['JPEGLSHeader.parse', 'JPEGLSHeader.descriptor', 'JPEGMetadata', 'JPEGLSMapping', 'JPEGLSFrameHeader', 'JPEGLSScanHeader', 'ImageDescriptor.', 'PlaneDescriptor.', '<SwiftJLS.PlaneDescriptor>', 'ImageMetadata.', '<SwiftJLS.ComponentCodec.Location>']):
         return 'metadata_and_descriptors'
+    if any(s in stack for s in ['ImageDestination.__allocating_init', 'OwnedImageStorage.__allocating_init', 'SealedImageStorage.__allocating_init']):
+        return 'storage_control_objects'
     if 'SwiftJLS.' in stack: return 'unattributed_codec'
     return 'runtime_or_unattributed'
 
