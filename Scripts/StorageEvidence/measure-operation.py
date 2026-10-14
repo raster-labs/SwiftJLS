@@ -17,6 +17,10 @@ def classify(frames):
         return 'owned_pixel_buffer'
     if re.search(r'SwiftJLS\.JPEGLSBitstream(?:Reader|Writer(?:State)?)\.(?:__allocating_init|init|append|getData|write)', stack):
         return 'compressed_buffer'
+    # The sole Data-to-array conversion inside the destination write borrow
+    # in ComponentCodec.decode is the compressed scan reader (reviewed source).
+    if 'Swift._copyCollectionToContiguousArray' in stack and 'FoundationEssentials.Data>' in stack and 'SwiftJLS.ComponentCodec.decode' in stack and 'SwiftJLS.ImageDestination.write' in stack:
+        return 'compressed_buffer'
     if any(s in stack for s in ['JPEGLSContextModel.', 'JPEGLSRegularMode.init', 'JPEGLSRegularModeDecoder.init', 'PredictorRows.init']):
         return 'algorithm_state'
     if any(s in '\n'.join(frames[:3]) for s in ['<SwiftJLS.ComponentSampleReader>', '<SwiftJLS.ComponentSampleWriter>', 'SwiftJLS.JPEGLSScalarKernel.PredictorRows', 'SwiftJLS.JPEGLSScalarKernel.Neighbours']):
