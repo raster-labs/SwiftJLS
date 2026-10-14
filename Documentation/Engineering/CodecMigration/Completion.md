@@ -1,21 +1,22 @@
 # Migration completion audit — updated 14 October 2026
 
-**The known compatibility gap is fixed; full migration/release qualification is still incomplete.** This follow-up implements the compatibility fixes and expands software qualification, including native macOS 26.0 execution and controlled representative measurements. Residual performance regressions, incomplete algorithm-workspace attribution and required physical-device evidence remain open. Physical Watch testing is excluded from this task at the user's request; that exclusion is not a hardware pass or a change to the shared release contracts.
+**Current-source software validation and scoped workspace accounting are complete; the performance gate remains open.** Source `c330b73` passes 108 declarations in 20 suites in four local and native arm64 macOS 26.0 configurations. All five exact OS 26.0 simulator consumers, four resource profiles and SDK builds pass. Native macOS execution uses Apple hardware virtualisation; it is not physical-device qualification. Scoped workspace accounting retains explicit measurement revisions and unknown universal totals. All physical-device tests remain pending at the owner’s request, and Milestone 5 remains deferred.
 
 This audit applies [IMPLEMENTATION.md](../../../IMPLEMENTATION.md), [TESTING.md](../../TESTING.md), [PERFORMANCE.md](../../PERFORMANCE.md) and [PLATFORMS.md](../../PLATFORMS.md). Historical evidence and the seven shared contracts are preserved.
 
-On 13 October the user confirmed that no physical devices are available and requested the available checks. Physical-device admission therefore remains unavailable/unexecuted. Current-source software and powered benchmark results are recorded in [the 14 October follow-up](Milestone4Followup.md); historical results below retain their original revisions.
+On 13 October the user confirmed that no physical devices are available and requested the available checks. The current task keeps all physical-device admission pending, including iPhone/iPad and Watch. See [the current closeout](Milestone4Closeout.md) and [workspace accounting](WorkspaceAccounting.md); historical results below retain their original revisions. The owner will verify CI and merge the pushed branch in GitHub.
 
 ## Revisions and scope
 
 - Merged baseline: `571fd7c905f7ef70b4f494513ecf979d620bebd5`, [PR 15](https://github.com/raster-labs/SwiftJLS/pull/15), merged 13 October 2026; includes the preceding PR 14.
 - Corrected runtime: `4008f213cc749514300de55dfc17b389fbd3b561`, now merged through [PR 15](https://github.com/raster-labs/SwiftJLS/pull/15). Qualification checkpoint `580a7de9d6f1c483833ac8fe141f9cd8cb225765` adds tests and development measurement tools; production sources, manifest, mutation harness and fixtures remain identical to `4008f21`.
-- Current Milestone 4 checkpoint: `8389b29003a187b6c54c9d1cad463758f531ca24`; run/predictor/bit-writer improvements, 84 declarations passing in four configurations, fresh exact-26.0 simulator checks, native macOS 26.0 tests in all four configurations and per-operation heap/stack measurements. [Current evidence](results/milestone4-followup-2026-10-14.json).
+- Current Milestone 4 checkpoint: `c330b731e250d6b4c054c1c6a91fa9894e32a8c3`; 108 declarations in 20 suites pass in debug/release/ASan/TSan on the host and native arm64 macOS 26.0 guest. All five exact OS 26.0 simulator consumers, four resource profiles and SDK builds pass. Native CLI checks (73 payload/103 process), independent consumer and resource workload pass. The powered 63-case campaign is complete; remaining decode regressions keep performance qualification open. The [final evidence record](results/milestone4-final-2026-10-14.json) retains the completed measurements and unresolved findings. The branch has been pushed; the owner verifies CI and merges in GitHub.
+- Intermediate checkpoint `940da40b867cd14f7888492162c13e237609d991` passed 103 declarations in 18 suites in four local/native macOS 26.0 configurations and exact OS 26.0 simulator/resource checks. The earlier `8389b29` results remain in [their original evidence](results/milestone4-followup-2026-10-14.json).
 - Migration predecessor: JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`. Bounded-decoding comparisons additionally use unchanged `e4594319b83a79189a3e349ab282e2872b7ebd7a` on `fix/bounded-dicom-decoding`.
 - Suite policy 0.10.0; tools 6.2 minimum, primary Swift 6.4, Swift 6 language mode, Apple OS 26.0. Development version remains `1.1.0-dev.2`.
 - Scope is the library and its declared CLI. Consumer cutover, stable publication and predecessor maintenance/archival remain separate assignments.
 
-The owner assigned Milestone 4 only on 13 October, leaving Milestone 5 for later. [The current follow-up](Milestone4Followup.md) records component optimisations, fresh software checks and powered representative benchmarks. It does not waive outstanding qualification gates.
+The owner assigned Milestone 4 only, leaving Milestone 5 for later. [The current closeout](Milestone4Closeout.md) records context/storage, validation and fixed-cost improvements, fresh software checks and the completed benchmark measurements with unresolved dispositions. It does not waive outstanding qualification gates.
 
 ## Milestone disposition
 
@@ -24,7 +25,7 @@ The owner assigned Milestone 4 only on 13 October, leaving Milestone 5 for later
 | 1 — API/memory feasibility | Implemented and validated in the recorded scope |
 | 2 — native migration baseline | Implemented and independently validated |
 | 3 — shared storage | Implemented; independent caller-storage/copy controls, sample/lifetime tests and measured heap evidence recorded |
-| 4 — features/platforms | Known compatibility gap closed; exact 26.0 simulator consumers and native arm64 macOS 26.0 tests pass. Representative performance and heap/stack measurements are complete; residual regressions, remaining algorithm-workspace attribution and non-Watch physical-device qualification remain open |
+| 4 — features/platforms | Implementation, four-configuration host/native macOS 26.0 validation (108 declarations, 20 suites), five exact OS 26.0 simulator consumers, four resource profiles and SDK builds pass at `c330b73`. The powered 63-case campaign is complete; remaining decode regressions keep performance qualification open. Scoped workspace accounting retains its measured-source boundaries. All physical-device tests remain pending |
 | 5 — release preparation | Deferred to a later owner task. Remaining release gates, reporting/support policy and explicit release assignment prevent completion |
 
 The [profile matrix](Parity.md) defines supported combinations. PNG/TIFF helpers and extended predecessor CLI verbs remain owner-approved deferrals. Signed/alpha/ICC interpretation, subsampled encoding, DNL unknown-height decoding and native transcoding are not newly advertised. Application acceptance remains governed by [MIGRATION.md](../../../MIGRATION.md).
@@ -49,19 +50,19 @@ See [Validation.md](Validation.md) and [follow-up evidence](results/migration-fo
 
 ## Performance investigation
 
-The [current powered report](Milestone4Followup.md#performance) supersedes the earlier battery-powered timings for current-source assessment. It covers all 24 scalar cases and the owner-selected 39 RGB cases, including every 512×512 combination and three larger examples. Four alternating blocks retain 20 observations per producer/operation/case, plus preparation, encoded sizes, process RSS and condition snapshots. The full 144-case RGB grid was not completed.
+The powered campaign completed all 24 scalar cases and the owner-selected 39 RGB cases, including every 512×512 combination and three larger examples. Results and per-case dispositions are retained in [the current report](Milestone4Closeout.md#performance) and [final evidence record](results/milestone4-final-2026-10-14.json). The full 144-case RGB grid remains outside the owner-selected scope.
 
-Component access, lossless predictor reuse, bounded run fills and value-writer changes improve measured hot paths, but residual JLSwift-relative regressions remain. Preparation timing exposes differing public-API validation boundaries; it does not waive encode/decode regressions. Background workstation activity and sampled load remain disclosed. No safety check, fidelity or regression threshold was weakened. Historical interrupted and default-resource-limit attempts are retained separately.
+Focused measurements informed the implemented optimisations, but do not substitute for the final representative campaign. The [earlier powered report](Milestone4Followup.md#performance) retains its residual regressions and source revision. Preparation timing exposes differing public-API validation boundaries; it does not waive encode/decode regressions. No safety check, fidelity or regression threshold was weakened. Historical interrupted and default-resource-limit attempts remain separate.
 
-## Requirements still preventing completion
+## Current qualification boundaries and pending work
 
 | Requirement | Remaining action / constraint |
 | --- | --- |
-| PERF-01..03 | Powered representative measurements are now recorded. Resolve or explicitly accept residual regressions with a recorded reason, measured cost and baseline; repeat affected profiles after implementation changes. No waiver is recorded. |
-| Full workspace accounting | All 32 selected requested-heap ledgers reconcile; 16 separate stack profiles retain interior observations. Remaining unattributed allocations and stack attribution/sampling limits prevent complete pure algorithm-workspace accounting. Keep `peakWorkspaceBytes: nil` where no complete measurement exists; see [current scope](Milestone4Followup.md#workspace-accounting). |
-| Non-Watch physical devices | Unavailable/unexecuted: the user confirmed no physical devices on 13 October. Execute representative iPhone/iPad and other required target-device admission tests when hardware and provisioning are available. The user has now installed Xcode 27.0; simulator consumer and Watch device-architecture builds pass locally, but `devicectl` reports no connected devices. No physical pass is claimed. |
-| Physical Watch | Excluded from this task by the user. Remains explicitly unexecuted in release/platform evidence. |
+| PERF-01..03 | All 63 cases measured at `c330b73`. Five main-campaign decode cases exceed 5%; tiny repeated measurements also retain outliers. A tested RGB optimisation remains unpromoted pending a powered comparison. No regression waiver is recorded. |
+| Full scoped workspace accounting | Source bounds and all 89 observed-operation requested-heap ledgers are complete and attributed. An exact universal heap-plus-stack-plus-allocator total is unknown; retain `peakWorkspaceBytes: nil` and `pure_algorithm_workspace_complete: false`. See [scope and limits](WorkspaceAccounting.md). |
+| All physical devices | Pending by owner direction: representative iPhone/iPad, Watch and other required target-device admission remain unexecuted. Simulator and device-architecture builds do not replace physical execution. |
+| GitHub handoff | Production `c330b73` is pushed. The owner verifies CI on the final pushed head and merges in GitHub. Current-source software validation and evidence are recorded; performance qualification remains open. |
 | Security/release readiness | GitHub reports private vulnerability reporting disabled. An enable attempt returned HTTP 404 and did not change it. An administrator must establish an actionable private channel and the first stable version's support policy. Stable release/tagging requires a separately assigned release task after gates close. |
 | Programme rollout | Application-specific acceptance and dependency cutover, followed by predecessor maintenance/archival, remain outside this library task. |
 
-These are explicit incomplete requirements, not implicitly approved deferrals. Passing software tests alone does not make the migration complete except for Watch testing.
+Physical-device testing and Milestone 5 remain explicitly deferred by the owner. Passing software checks does not establish full release qualification or imply that only Watch testing is pending.

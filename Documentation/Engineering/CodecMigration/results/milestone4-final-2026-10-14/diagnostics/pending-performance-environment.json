@@ -1,0 +1,28 @@
+{
+  "recorded_utc": "2026-10-14T14:50:10.738284+00:00",
+  "scope": "Post-campaign availability observation; it does not change the completed AC campaign conditions.",
+  "source_checkpoint": "c330b731e250d6b4c054c1c6a91fa9894e32a8c3",
+  "timing_status": "Paused: candidate and same-process comparison require AC power. User has been asked to reconnect; no battery timings are accepted.",
+  "commands": [
+    {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=23396451)\t100%; discharging; 8:58 remaining present: true\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stderr": ""
+    }
+  ]
+}

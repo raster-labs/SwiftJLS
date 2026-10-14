@@ -1,0 +1,16 @@
+{
+  "source_checkpoint": "c330b731e250d6b4c054c1c6a91fa9894e32a8c3",
+  "predecessor_checkpoint": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "binary_sha256": "cdb89de8a19ac2f13f598c9b338ddfcf267d5fbad18ef3fb8cf5c85cafa4823f",
+  "build_status": "passed",
+  "correctness_preflight_status": "passed for scalar37x23flat12/16 own/cross-decoding and sample equality",
+  "timing_status": "not run",
+  "timing_blocker": "Mac reports Battery Power; controlled timing awaits AC power and an exclusive measurement window.",
+  "qualification": "Build/correctness evidence only. The single observation emitted by each 0-warmup preflight is not retained performance evidence.",
+  "scope": "Optional same-process public-API diagnostic; does not replace the controlled63-case campaign or justify a performance waiver.",
+  "failed_attempt": "Initial predecessor module/struct name-shadow compile failure and source preserved under failed-build-module-shadow.",
+  "commands_after_authorized_AC_window": [
+    "python3 work/m4-same-process-diagnostic/compare.py"
+  ],
+  "packaging": "Source/scripts/build/failure/preflight records only; no executable binaries or build trees. preparation.json is preparation-time provenance; this file records subsequent build/preflight state."
+}

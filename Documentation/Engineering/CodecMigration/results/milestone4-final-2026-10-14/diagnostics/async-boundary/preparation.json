@@ -1,0 +1,16 @@
+{
+  "source_checkpoint": "c330b731e250d6b4c054c1c6a91fa9894e32a8c3",
+  "predecessor_checkpoint": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "caller_context": "Original top-level main-actor caller; both existing asynchronous wrappers already use the generic executor.",
+  "change": "Matched sync and async @inline(never) public adapter controls; identical derived consumer source selected by SYNC_CORE flag, verification and timing boundaries retained.",
+  "linkage": "Both original packages declare automatic library products without a dynamic type. Existing Benchmark otool -L lists no SwiftJLS/JPEGLS dynamic library: codec objects are statically linked. AsyncBaselineCore is an ordinary separately compiled target linked into the executable, with no forced dynamic product or inlining annotations.",
+  "measurement_scope": "Async control versus matched sync control isolates the preserved async call/frame/executor boundary beyond an ordinary module call. Original and unchanged successor remain additional reference producers. No thread-hop or acceptance inference.",
+  "prepared_only": true,
+  "files": {
+    "original-Consumer.swift": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+    "wrapped/Package.swift": "2ae1eb48aefb811433008a5a325584c34549b3467526d41c6d04f5f1a76d73af",
+    "wrapped/Sources/Benchmark/main.swift": "555eb4c225308ff376902d28fa3aac47df15efbdf8c53f46964708325c3e06c4",
+    "wrapped/Sources/SyncBenchmark/main.swift": "555eb4c225308ff376902d28fa3aac47df15efbdf8c53f46964708325c3e06c4",
+    "wrapped/Sources/AsyncBaselineCore/AsyncBaselineCore.swift": "9c871b0e35c7ba169fbbebca2e0ed3d81bd2e16283ea7a2b1d0b940aa92f0260"
+  }
+}

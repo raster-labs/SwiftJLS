@@ -1,0 +1,143 @@
+{
+  "source": "940da40b867cd14f7888492162c13e237609d991",
+  "commands": [
+    {
+      "label": "os",
+      "command": [
+        "sw_vers"
+      ],
+      "exit_code": 0,
+      "seconds": 0.009469459
+    },
+    {
+      "label": "architecture",
+      "command": [
+        "uname",
+        "-m"
+      ],
+      "exit_code": 0,
+      "seconds": 0.002801624999999995
+    },
+    {
+      "label": "hardware",
+      "command": [
+        "sysctl",
+        "hw.model",
+        "hw.memsize",
+        "hw.ncpu"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0036774580000000015
+    },
+    {
+      "label": "unit",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results/unit.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 1.164137083
+    },
+    {
+      "label": "unit-debug",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/debug/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results/unit-debug.xml"
+      ],
+      "exit_code": -5,
+      "seconds": 0.0067663340000001515
+    },
+    {
+      "label": "unit-asan",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/asan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results/unit-asan.xml"
+      ],
+      "exit_code": -5,
+      "seconds": 0.06509116700000006
+    },
+    {
+      "label": "unit-tsan",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/tsan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results/unit-tsan.xml"
+      ],
+      "exit_code": -5,
+      "seconds": 0.05583712500000004
+    },
+    {
+      "label": "consumer",
+      "command": [
+        "/Volumes/My Shared Files/evidence/AppleRuntimeConsumer",
+        "/Volumes/My Shared Files/evidence/repo/Tests/SwiftJLSTests/Fixtures"
+      ],
+      "exit_code": -5,
+      "seconds": 0.01301483300000017
+    },
+    {
+      "label": "resources",
+      "command": [
+        "/Volumes/My Shared Files/evidence/ResourceStress"
+      ],
+      "exit_code": 0,
+      "seconds": 0.42394483299999997
+    },
+    {
+      "label": "cli-payload",
+      "command": [
+        "python3",
+        "/Volumes/My Shared Files/evidence/repo/Scripts/test-payload-cli.py",
+        "--binary",
+        "/Volumes/My Shared Files/evidence/swiftjls-cli",
+        "--output",
+        "/Volumes/My Shared Files/results/cli-payload.json"
+      ],
+      "exit_code": 2,
+      "seconds": 0.018057749999999873
+    },
+    {
+      "label": "cli-process",
+      "command": [
+        "python3",
+        "/Volumes/My Shared Files/evidence/repo/Scripts/test-cli.py",
+        "--binary",
+        "/Volumes/My Shared Files/evidence/swiftjls-cli",
+        "--output",
+        "/Volumes/My Shared Files/results/cli-process"
+      ],
+      "exit_code": 2,
+      "seconds": 0.016851082999999933
+    }
+  ],
+  "scope": "Swift 6.4 host-built arm64 binaries, executed in hardware-virtualised native arm64 macOS 26.0; no Intel emulation or physical-device claim.",
+  "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.0\nBuildVersion:\t\t25A354\n",
+  "architecture": "arm64",
+  "exact_26_0_native_arm64": true,
+  "tests": {
+    "declarations": 103,
+    "failures": 0,
+    "skipped": 0
+  },
+  "extra_tests": {},
+  "success": false
+}

@@ -1,0 +1,25 @@
+{
+  "prepared_only": true,
+  "source_consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+  "predecessor_checkpoint": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "scope": "Optional same-process interleaved diagnostic, not replacement baseline. Both original nonisolated async wrappers retain original public API calls; no added adapter frame or unsafe Sendable. Current source is pinned by build script when authorized.",
+  "changes": [
+    "Both imported public module names explicitly qualify types (predecessor module is JPEGLS, package JLSwift).",
+    "Scalar 37x23 flat12/16 only; end-to-end profile required.",
+    "Top-level caller retained. Producers alternate order every warmup and observation. Four processes per case reverse initial order.",
+    "Input construction, public configuration, sample checking, and each timing boundary copied from Consumer.swift. Untimed cross-decoding adds compatibility verification.",
+    "Both producer data remain alive, and both libraries statically coexist: this changes code layout and allocator/cache interaction. No per-producer RSS attribution."
+  ],
+  "source_only_checks": {
+    "python_ast": "passed",
+    "wrapper_construction_and_verification_normalized_text_equality": "passed",
+    "swift_compile": "not run; awaiting authorization"
+  },
+  "files": {
+    "Package.swift": "05272c64130624efacb5ea2d8620bc348cc672215e829f1e804bfd49d52ef96f",
+    "Sources/Benchmark/main.swift": "1bd6b30912510d41d0b26699ee1ab28b808db263ba3af344a8efe11a0921f4f6",
+    "build.py": "6be31c37e7f1efedb7844732510d90ff0122ba615dff4f6efa8609a0b5443b5c",
+    "compare.py": "b036e9828597919b196a72356af0ba7a899a88f4f166eba1dddfd7230d0a839b",
+    "original-Consumer.swift": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34"
+  }
+}

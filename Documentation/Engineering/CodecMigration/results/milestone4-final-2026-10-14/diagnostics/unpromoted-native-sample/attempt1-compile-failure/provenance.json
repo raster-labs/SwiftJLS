@@ -1,0 +1,23 @@
+{
+  "source_checkpoint": "c330b731e250d6b4c054c1c6a91fa9894e32a8c3",
+  "predecessor_checkpoint": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "status": "Source-only diagnostic; not built, tested, timed or promoted",
+  "changed_production_files": {
+    "Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift": {
+      "original_sha256": "ccabbc581b5ca61b83279f7510f3f8871c526e095f2da4150e662c685b1ba558",
+      "candidate_sha256": "1c38997706b257108341b6b2c837dc54dfdba48451a1e0b809a10e2a2ef2bfc6"
+    }
+  },
+  "patch_sha256": "a677f81854f1ab1caf7fd8c0b1f0ac95545256fa9aa3b4f2b357c7acffe8b6fd",
+  "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+  "fixture_scope": "Read-only symlink to the unchanged c330 repository fixture directory",
+  "additional_allocation": "One bounded array of at most four NativeUInt16Writer descriptors on eligible native packed layouts; no sample buffer/copy",
+  "limits": "Only the diagnostic copy changes; c330 source and both original benchmark packages/binaries remain untouched",
+  "new_test_files": {
+    "Tests/SwiftJLSTests/SampleNativeDecodeTests.swift": {
+      "sha256": "9379b9c230f1f810e22509bb1599822afa0f0328bd3ecb2f0e332c8b7641bc53",
+      "declarations": 2
+    }
+  },
+  "focused_tests": "Odd physical base and all sample/sentinel bytes across native packed, padded, sparse and opposite-endian views; 1/17/65 widths, 12/16 bits, NEAR 0/3; observed cancellation before writes and after a bounded run prefix."
+}

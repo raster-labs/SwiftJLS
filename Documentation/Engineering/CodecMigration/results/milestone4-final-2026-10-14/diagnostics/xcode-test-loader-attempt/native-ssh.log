@@ -1,0 +1,145 @@
+spawn ssh -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-14/known_hosts -o ConnectTimeout=15 -o PubkeyAuthentication=no admin@192.168.64.2 python3 '/Volumes/My Shared Files/evidence/run-native.py'
+Warning: Permanently added '192.168.64.2' (ED25519) to the list of known hosts.
+(admin@192.168.64.2) Password:
+{
+  "source": "940da40b867cd14f7888492162c13e237609d991",
+  "commands": [
+    {
+      "label": "os",
+      "command": [
+        "sw_vers"
+      ],
+      "exit_code": 0,
+      "seconds": 0.009342166999999998
+    },
+    {
+      "label": "architecture",
+      "command": [
+        "uname",
+        "-m"
+      ],
+      "exit_code": 0,
+      "seconds": 0.003453582999999996
+    },
+    {
+      "label": "hardware",
+      "command": [
+        "sysctl",
+        "hw.model",
+        "hw.memsize",
+        "hw.ncpu"
+      ],
+      "exit_code": 0,
+      "seconds": 0.003954791999999999
+    },
+    {
+      "label": "unit",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results/unit.xml"
+      ],
+      "exit_code": -5,
+      "seconds": 0.03849695800000001
+    },
+    {
+      "label": "unit-debug",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/debug/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results/unit-debug.xml"
+      ],
+      "exit_code": -5,
+      "seconds": 0.011518625000000005
+    },
+    {
+      "label": "unit-asan",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/asan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results/unit-asan.xml"
+      ],
+      "exit_code": -5,
+      "seconds": 0.11991033299999998
+    },
+    {
+      "label": "unit-tsan",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/tsan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results/unit-tsan.xml"
+      ],
+      "exit_code": -5,
+      "seconds": 0.269747459
+    },
+    {
+      "label": "consumer",
+      "command": [
+        "/Volumes/My Shared Files/evidence/AppleRuntimeConsumer",
+        "/Volumes/My Shared Files/evidence/repo/Tests/SwiftJLSTests/Fixtures"
+      ],
+      "exit_code": 0,
+      "seconds": 0.013407666999999956
+    },
+    {
+      "label": "resources",
+      "command": [
+        "/Volumes/My Shared Files/evidence/ResourceStress"
+      ],
+      "exit_code": 0,
+      "seconds": 0.45734325
+    },
+    {
+      "label": "cli-payload",
+      "command": [
+        "python3",
+        "/Volumes/My Shared Files/evidence/repo/Scripts/test-payload-cli.py",
+        "--binary",
+        "/Volumes/My Shared Files/evidence/swiftjls-cli",
+        "--output",
+        "/Volumes/My Shared Files/results/cli-payload.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.862928334
+    },
+    {
+      "label": "cli-process",
+      "command": [
+        "python3",
+        "/Volumes/My Shared Files/evidence/repo/Scripts/test-cli.py",
+        "--binary",
+        "/Volumes/My Shared Files/evidence/swiftjls-cli",
+        "--output",
+        "/Volumes/My Shared Files/results/cli-process"
+      ],
+      "exit_code": 0,
+      "seconds": 0.7419499590000003
+    }
+  ],
+  "scope": "Swift 6.4 host-built arm64 binaries, executed in hardware-virtualised native arm64 macOS 26.0; no Intel emulation or physical-device claim.",
+  "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.0\nBuildVersion:\t\t25A354\n",
+  "architecture": "arm64",
+  "exact_26_0_native_arm64": true,
+  "extra_tests": {},
+  "success": false
+}
+Traceback (most recent call last):
+  File "/Volumes/My Shared Files/evidence/run-native.py", line 38, in <module>
+    if not report['success']:raise RuntimeError('Native runtime qualification failed; inspect retained outputs')
+RuntimeError: Native runtime qualification failed; inspect retained outputs

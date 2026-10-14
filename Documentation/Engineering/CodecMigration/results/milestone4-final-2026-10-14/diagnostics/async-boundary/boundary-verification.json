@@ -1,0 +1,19 @@
+{
+  "source_checkpoint": "c330b731e250d6b4c054c1c6a91fa9894e32a8c3",
+  "initial_attempt": "Caller directly calls synchronous codec after optimizer removes async adapter. No timings collected.",
+  "preserved_async_control": "Benchmark.decode loads specialized async function pointer at0x10004c620, allocates child frame via swift_task_alloc and branches indirectly; symbols identify AsyncBaselineCore.decode at0x100007368, whose entry invokes swift_task_switch. Async encode specialized pointer0x10004c610 targets0x1000073ec.",
+  "preserved_sync_control": "SyncBenchmark emits ordinary bl calls to SyncBaselineCore.encode/decode specializations.",
+  "production_successor": "Unchanged successor emits branches to SwiftJLS.Encoder.encode and Decoder.decode async public entry points; examples0x1000060d0 and0x1000026d4.",
+  "commands": [
+    "nm -n <binary>",
+    "xcrun swift-demangle",
+    "otool -tvV <binary>"
+  ],
+  "no_hop_count_claim": true,
+  "timed_processes": 32,
+  "timed_observations_per_operation_per_producer_case": 4000,
+  "condition_samples": 64,
+  "ac_samples": 64,
+  "no_recorded_thermal_or_performance_warning_samples": 64,
+  "initial_attempt_scope": "Failed to establish intended control; excluded from timing comparisons"
+}

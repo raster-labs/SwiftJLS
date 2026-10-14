@@ -1,6 +1,6 @@
 # Milestone 4 performance and workspace follow-up — 14 October 2026
 
-**Milestone 4 remains under qualification.** This record separates completed software checks from unresolved performance and physical-device gates. Milestone 5 remains deferred. Earlier evidence is retained in [the 13 October record](Milestone4.md).
+**Historical checkpoint:** this report applies to `8389b29003a187b6c54c9d1cad463758f531ca24`. The later [Milestone 4 closeout](Milestone4Closeout.md), [workspace accounting](WorkspaceAccounting.md) and [completion audit](Completion.md) carry current status. At pushed source `c330b73`, all four host/native arm64 macOS 26.0 configurations pass 108 declarations in 20 suites; five exact OS 26.0 simulator consumers, four resource profiles and SDK builds pass. Native macOS testing uses hardware virtualisation. The powered 63-case campaign is complete; remaining decode regressions keep performance qualification open. All physical-device tests remain pending and Milestone 5 is deferred. The observations below retain their original revisions, measurements and unresolved findings; they are not relabelled as current-source results.
 
 ## Source and implementation
 

@@ -1,0 +1,46 @@
+{
+  "developer_dir": "/Library/Developer/CommandLineTools",
+  "commands": [
+    {
+      "command": [
+        "xcrun",
+        "--find",
+        "swiftc"
+      ],
+      "exit_code": 0,
+      "stdout": "/Library/Developer/CommandLineTools/usr/bin/swiftc\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "swift",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n",
+      "stderr": "swift-driver version: 1.168.6 "
+    },
+    {
+      "command": [
+        "xcrun",
+        "--sdk",
+        "macosx",
+        "--show-sdk-path"
+      ],
+      "exit_code": 0,
+      "stdout": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "--sdk",
+        "macosx",
+        "--show-sdk-version"
+      ],
+      "exit_code": 0,
+      "stdout": "27.0\n",
+      "stderr": ""
+    }
+  ]
+}
