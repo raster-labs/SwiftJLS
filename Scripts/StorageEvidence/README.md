@@ -37,3 +37,14 @@ allocator overhead remain unknown. This is not a complete algorithm workspace
 counter, does not cover every codec profile, and leaves production
 `peakWorkspaceBytes` unknown. Keep profile hashes and source revisions with any
 reported results.
+
+The separate `Marked workspace stack observation` workflow uses pinned Valgrind
+3.27.1 (`b50f9a09ca65cc983c934bd0f50059304f3e939f`) with Massif stack tracking.
+Conditional client requests in the development consumer write beginning/end
+snapshots. `measure-massif.py` rejects missing or unordered boundaries, missing
+interior samples and zero stack observations. It reports snapshot maxima for the
+marked interval, including the whole runtime's stacks. These are observed peaks,
+not exhaustive codec stack high-water guarantees; Massif's extra heap is an
+allocator model. Keep this instrumented experiment distinct from ordinary-release
+Heaptrack counts and performance timings. A profiler crash is an unsuccessful
+measurement, not a zero or a codec pass.

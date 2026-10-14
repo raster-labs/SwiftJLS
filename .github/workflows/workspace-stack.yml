@@ -11,38 +11,44 @@ jobs:
   stacks:
     runs-on: ubuntu-24.04
     container: swift:6.4-noble
-    timeout-minutes: 25
-    strategy:
-      fail-fast: false
-      matrix:
-        operation: [encode, owned, into, inspect]
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
-      - name: Build the development-only phase markers
+      - name: Build pinned Valgrind 3.27.1 and the development-only phase markers
         run: |
-          apt-get update && apt-get install -y --no-install-recommends valgrind python3
-          swift build -c release -Xswiftc -g --package-path Examples/WorkspaceProbe
+          apt-get update && apt-get install -y --no-install-recommends autoconf automake make g++ git libc6-dbg python3
+          git clone --depth 1 --branch VALGRIND_3_27_1 https://sourceware.org/git/valgrind.git /tmp/valgrind-source
+          test "$(git -C /tmp/valgrind-source rev-parse HEAD)" = b50f9a09ca65cc983c934bd0f50059304f3e939f
+          cd /tmp/valgrind-source
+          ./autogen.sh
+          ./configure --prefix=/opt/valgrind --enable-only64bit
+          make -j4
+          make install
+          cd "$GITHUB_WORKSPACE"
+          swift build -c release -Xswiftc -g -Xcc -I/opt/valgrind/include --package-path Examples/WorkspaceProbe
       - name: Observe heap and stack between operation markers
-        env:
-          OPERATION: ${{ matrix.operation }}
         run: |
           binary="$GITHUB_WORKSPACE/Examples/WorkspaceProbe/.build/release/WorkspaceProbe"
           mkdir -p /tmp/stack-evidence
-          valgrind --version > /tmp/stack-evidence/version.txt
+          /opt/valgrind/bin/valgrind --version > /tmp/stack-evidence/version.txt
+          git -C /tmp/valgrind-source rev-parse HEAD > /tmp/stack-evidence/tool-source.txt
+          swift --version > /tmp/stack-evidence/swift-version.txt
           sha256sum "$binary" > /tmp/stack-evidence/binary.sha256
-          for components in 1 3; do
-            for near in 0 3; do
-              output="/tmp/stack-evidence/$components-$near-$OPERATION"
-              mkdir -p "$output"
-              cd "$output"
-              timeout 240 valgrind --tool=massif --stacks=yes --time-unit=B --detailed-freq=1 --max-snapshots=1000 --peak-inaccuracy=0 --massif-out-file=massif.out "$binary" "$OPERATION" 512 512 "$components" "$near" > consumer.json 2> tool.log
-              python3 "$GITHUB_WORKSPACE/Scripts/StorageEvidence/measure-massif.py" --directory "$output" --revision "$GITHUB_SHA"
+          for operation in encode owned into inspect; do
+            for components in 1 3; do
+              for near in 0 3; do
+                output="/tmp/stack-evidence/$components-$near-$operation"
+                mkdir -p "$output"
+                cd "$output"
+                timeout 240 /opt/valgrind/bin/valgrind --tool=massif --stacks=yes --time-unit=B --detailed-freq=1 --max-snapshots=1000 --peak-inaccuracy=0 --massif-out-file=massif.out "$binary" "$operation" 512 512 "$components" "$near" > consumer.json 2> tool.log
+                python3 "$GITHUB_WORKSPACE/Scripts/StorageEvidence/measure-massif.py" --directory "$output" --revision "$GITHUB_SHA"
+              done
             done
           done
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
-          name: workspace-stacks-${{ matrix.operation }}
+          name: workspace-stacks
           path: /tmp/stack-evidence
