@@ -1,0 +1,37 @@
+[
+  {
+    "label": "scalar",
+    "command": [
+      "python3",
+      "Scripts/Benchmark/compare.py",
+      "--predecessor",
+      "work/m4-benchmark/predecessor/.build/release/Benchmark",
+      "--successor",
+      "work/m4-benchmark/successor/.build/release/Benchmark",
+      "--output",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-14/powered/scalar",
+      "--end-to-end"
+    ],
+    "exit_code": 0,
+    "seconds": 373.83669825
+  },
+  {
+    "label": "colour",
+    "command": [
+      "python3",
+      "Scripts/Benchmark/compare.py",
+      "--predecessor",
+      "work/m4-benchmark/predecessor/.build/release/Benchmark",
+      "--successor",
+      "work/m4-benchmark/successor/.build/release/Benchmark",
+      "--output",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-14/powered/colour",
+      "--end-to-end",
+      "--colour",
+      "--cases",
+      "work/m4-2026-10-14/colour-cases.json"
+    ],
+    "exit_code": 0,
+    "seconds": 769.9493654999999
+  }
+]

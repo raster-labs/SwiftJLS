@@ -1,0 +1,68 @@
+{
+  "runtime": {
+    "name": "tvOS 26.0",
+    "version": "26.0",
+    "buildversion": "23J352",
+    "identifier": "com.apple.CoreSimulator.SimRuntime.tvOS-26-0",
+    "isAvailable": true
+  },
+  "device": {
+    "name": "Apple TV 4K (3rd generation)",
+    "deviceTypeIdentifier": "com.apple.CoreSimulator.SimDeviceType.Apple-TV-4K-3rd-generation-4K",
+    "state": "Shutdown",
+    "isAvailable": true
+  },
+  "commands": [
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "boot",
+        "<simulator-3>"
+      ],
+      "exit_code": 0,
+      "seconds": 0.7117802499999968,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "bootstatus",
+        "<simulator-3>",
+        "-b"
+      ],
+      "exit_code": 0,
+      "seconds": 13.024848750000004,
+      "stdout": "Monitoring boot status for Apple TV 4K (3rd generation) (<simulator-3>).\n[2026-10-13 08:17:43 +0000] Status=2, isTerminal=NO, Elapsed=00:01.\n\tWaiting on Data Migration\n\t\tReason:(null)\n\t\tMigration Elapsed:00:00 seconds\n\n[2026-10-13 08:17:43 +0000] Status=2, isTerminal=NO, Elapsed=00:01.\n\tWaiting on Data Migration\n\t\tReason:Gathering plugins\n\t\tMigration Elapsed:00:00 seconds\n\n[2026-10-13 08:17:44 +0000] Status=2, isTerminal=NO, Elapsed=00:02.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:01 seconds\n\n[2026-10-13 08:17:45 +0000] Status=2, isTerminal=NO, Elapsed=00:03.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:02 seconds\n\n[2026-10-13 08:17:46 +0000] Status=2, isTerminal=NO, Elapsed=00:04.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:03 seconds\n\n[2026-10-13 08:17:47 +0000] Status=4, isTerminal=NO, Elapsed=00:05.\n\tWaiting on System App\n\n[2026-10-13 08:17:48 +0000] Status=4, isTerminal=NO, Elapsed=00:06.\n\tWaiting on System App\n\n[2026-10-13 08:17:49 +0000] Status=4, isTerminal=NO, Elapsed=00:07.\n\tWaiting on System App\n\n[2026-10-13 08:17:50 +0000] Status=4, isTerminal=NO, Elapsed=00:08.\n\tWaiting on System App\n\n[2026-10-13 08:17:51 +0000] Status=4, isTerminal=NO, Elapsed=00:09.\n\tWaiting on System App\n\n[2026-10-13 08:17:52 +0000] Status=4, isTerminal=NO, Elapsed=00:10.\n\tWaiting on System App\n\n[2026-10-13 08:17:53 +0000] Status=4, isTerminal=NO, Elapsed=00:11.\n\tWaiting on System App\n\n[2026-10-13 08:17:54 +0000] Status=4, isTerminal=NO, Elapsed=00:12.\n\tWaiting on System App\n\n[2026-10-13 08:17:55 +0000] Status=4294967295, isTerminal=YES, Elapsed=00:13.\n\tFinished\n\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "spawn",
+        "<simulator-3>",
+        "<repo>/work/m4-apple/appletvsimulator/AppleRuntimeConsumer",
+        "<repo>/Tests/SwiftJLSTests/Fixtures"
+      ],
+      "exit_code": 0,
+      "seconds": 0.41752149999999943,
+      "stdout": "Independent consumer passed: native lossless coding preserves padded 12-bit samples and destination identity.\nApple runtime passed: direct storage, RGB/HP, mapping, metadata, Watch limits and cancellation.\nCombined legacy mapping/HP runtime passed.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "shutdown",
+        "<simulator-3>"
+      ],
+      "exit_code": 0,
+      "seconds": 3.1678709580000017,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

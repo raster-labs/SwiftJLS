@@ -1,0 +1,117 @@
+SWIFTJLS-CLI(1)          Swift Image Compression Suite         SWIFTJLS-CLI(1)
+
+NAME
+     swiftjls-cli - native scalar JPEG-LS codec
+
+SYNOPSIS
+     swiftjls-cli [options] command [options]
+
+DESCRIPTION
+     Native scalar lossless and near-lossless JPEG-LS for unsigned greyscale.
+     The library supports 2 through 16 meaningful bits in 8-bit or 16-bit
+     storage.  Build with Swift 6.2 or newer in Swift 6 language mode. Apple
+     OS minimum is 26.0.  CLI hosts are macOS and Linux; consult qualification
+     records for executed coverage.
+
+     JPEG-LS input permits one zero byte after an odd-length complete
+     codestream for DICOM even padding. Other trailing bytes, concatenated
+     streams and missing EOI are malformed. Padding counts against input
+     limits. Input is an extracted codestream, not a DICOM container.
+
+COMMANDS
+     capabilities [--json]
+            Report actual library encode/decode/inspect support. JSON is one
+            document on stdout.  False support values and empty formats mean
+            unavailable algorithms.
+
+     help [command]
+            Show global or command-specific help. No arguments also show
+            global help.
+
+     version
+            Show the development version.
+
+OPTIONS
+     -h, --help
+            Show help, including after a command.
+
+     --version
+            Show the development version.
+
+     -v, -vv, -vvv, -vvvv, -vvvvv
+            Increase diagnostic verbosity, up to 5.
+
+     --verbose LEVEL, --verbose=LEVEL
+            Set level to 1 through 5, or + through +++++. Bare verbose
+            increments once.
+
+     -verbose: LEVEL, -verbose:LEVEL
+            Equivalent explicit verbosity spelling; bare -verbose increments
+            once.
+
+     -q, --quiet
+            Suppress optional diagnostics; errors remain visible. Conflicts
+            with verbosity.
+
+DIAGNOSTIC LEVELS
+     Default 0 reports errors only. Levels are cumulative: 1 summary; 2
+     stages; 3 capability/configuration details; 4 elapsed timing; 5 bounded
+     trace. Invalid levels or totals above 5 return 2.  Explicit levels set
+     and repeated flags increment in argument order.  Diagnostics use stderr.
+     Requested help/version/capability data uses stdout.  No payload bytes,
+     metadata, raw addresses or input/output paths are logged.
+
+CODEC COMMANDS
+     encode reads attached raw 2D uint16 NRRD and writes JPEG-LS.  decode
+     reads JPEG-LS and writes NRRD, requiring 16 meaningful bits.  inspect
+     checks headers and reports dimensions and precision.  validate also
+     decodes the complete sample payload.
+
+     Use -i/--input and -o/--output for files or a single hyphen for streams.
+     Input/output formats are nrrd and jls as applicable to the command.  Use
+     --mode lossless (default) or near-lossless with --max-error 1 through
+     255.  The scalar backend uses one worker; --threads is a ceiling.  Copy
+     policy is require-sharing by default; allow-copy is also accepted.  Use
+     --max-memory BYTES and --timeout SECONDS to set finite limits.  Defaults
+     are 1 GiB and 120 seconds. Both must be positive.
+
+     Existing output is refused unless --overwrite is supplied.  Files use a
+     sibling transaction and atomic publication; incomplete files are removed.
+     Binary stdout cannot be rolled back. A failed stream may contain partial
+     bytes.  JSON inspect/validate output uses stdout; encode/decode JSON
+     reports use stderr.  Pipe serialisation involves copies, independently of
+     in-process shared storage.
+
+     The NRRD profile requires explicit endian and permits no detached
+     references, compression, colour, signed samples or ancillary
+     interpretation fields.  Lower meaningful precision cannot be silently
+     widened for NRRD output.
+
+EXIT STATUS
+     0 success/help/version; 2 invalid usage; 3 malformed input; 4 unsupported
+     format/feature/layout/backend; 5 resource/deadline; 6 I/O failure
+     including a closed pipe; 7 internal failure; 130 cancellation.
+
+EXAMPLES
+     swiftjls-cli -h
+     swiftjls-cli help capabilities
+     swiftjls-cli capabilities --json -vv
+     swiftjls-cli capabilities -verbose: 3
+     swiftjls-cli capabilities --verbose=+++++
+
+INSTALLATION
+     Scripts/install-cli.sh installs or updates the executable and this page
+     together.  Use --prefix for an absolute prefix (default /usr/local),
+     --destdir or DESTDIR for staging, and --binary for a prebuilt binary
+     matching VERSION.  Files are PREFIX/bin/swiftjls-cli and
+     PREFIX/share/man/man1/swiftjls-cli.1.  For custom prefixes use man -M
+     PREFIX/share/man swiftjls-cli, or configure MANPATH.  No index refresh is
+     needed for direct lookup; no sudo runs automatically.
+
+SEE ALSO
+     man(1)
+
+     CLI.md and Documentation/Engineering/CodecMigration/README.md in the
+     SwiftJLS repository.
+
+1.1.0-dev.2                    October 12, 2026                SWIFTJLS-CLI(1)

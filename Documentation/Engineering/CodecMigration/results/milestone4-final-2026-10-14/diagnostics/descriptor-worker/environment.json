@@ -1,0 +1,129 @@
+{
+  "caller_context": "detached userInitiated worker caller",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "smoke_only": false,
+  "selected_cases": [
+    [
+      37,
+      23,
+      12,
+      "flat",
+      1,
+      0,
+      0
+    ],
+    [
+      37,
+      23,
+      12,
+      "ramp",
+      1,
+      0,
+      0
+    ],
+    [
+      37,
+      23,
+      12,
+      "noise",
+      1,
+      0,
+      0
+    ],
+    [
+      37,
+      23,
+      16,
+      "flat",
+      1,
+      0,
+      0
+    ],
+    [
+      37,
+      23,
+      16,
+      "ramp",
+      1,
+      0,
+      0
+    ],
+    [
+      37,
+      23,
+      16,
+      "noise",
+      1,
+      0,
+      0
+    ]
+  ],
+  "case_selection_sha256": "da2139bdcabf83efeb765293bb1bf6ce0820d5cf041751d044d0fb06eea59cf1",
+  "end_to_end": true,
+  "performance_qualified": false,
+  "consumer_sha256": "1fde09d18539204ddf896cd47a70283b8072f379870748b9a0d22582d94af6ad",
+  "runner_sha256": "a23647da3077afd28097a877e75122251ac02f41204c9cb7a3a99ccf44f492fb",
+  "binary_sha256": {
+    "predecessor": "55ab24863fd2aa72da408f0b8da17d55285ba070fcd2fff31a4decd4165e7e1b",
+    "successor": "0aba7163fc325b915fc49037f52a4a4a17c1eabec9bdcb73705b8cb8dfe156d6"
+  },
+  "power_start": {
+    "command": [
+      "pmset",
+      "-g",
+      "batt"
+    ],
+    "exit_code": 0,
+    "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23396451)\t100%; charged; 0:00 remaining present: true\n"
+  },
+  "load_start": {
+    "command": [
+      "sysctl",
+      "-n",
+      "vm.loadavg"
+    ],
+    "exit_code": 0,
+    "output": "{ 3.50 6.86 10.40 }\n"
+  },
+  "swift": {
+    "command": [
+      "swift",
+      "--version"
+    ],
+    "exit_code": 0,
+    "output": "swift-driver version: 1.168.6 Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n"
+  },
+  "hardware": {
+    "command": [
+      "sysctl",
+      "-n",
+      "hw.model",
+      "hw.memsize",
+      "machdep.cpu.brand_string"
+    ],
+    "exit_code": 0,
+    "output": "Mac16,5\n68719476736\nApple M4 Max\n"
+  },
+  "thermal_start": {
+    "command": [
+      "pmset",
+      "-g",
+      "therm"
+    ],
+    "exit_code": 0,
+    "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+  },
+  "predecessor_sha": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "successor_sha": {
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "output": "4a18f3f111d02dd3213bb15095f752f2a2bdcfdd\n"
+  },
+  "methodology": "Lossless scalar public API. Owned decode, release without sanitizers. Four alternating process blocks, each with 1000 warmups and 1000 timed iterations; small-image steady-state repeat. Initial sample verification outside timing. Host is a developer workstation; no claim of isolated thermal/power control.",
+  "preparation_boundary": "Canonical UInt16 fixture generation excluded; public input allocation, layout conversion, descriptor construction and input validation included. Preparation-plus-encode is measured together, not a sum of medians. Destruction of the prepared input is outside timing. Canonical and reusable inputs remain in whole-process RSS."
+}

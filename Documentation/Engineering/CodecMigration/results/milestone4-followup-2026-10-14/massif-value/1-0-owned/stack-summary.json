@@ -1,0 +1,33 @@
+{
+  "revision": "8389b29003a187b6c54c9d1cad463758f531ca24",
+  "begin": {
+    "time": 75339112,
+    "mem_heap_B": 1237548,
+    "mem_heap_extra_B": 1148,
+    "mem_stacks_B": 3424
+  },
+  "end": {
+    "time": 122947576,
+    "mem_heap_B": 1762077,
+    "mem_heap_extra_B": 1227,
+    "mem_stacks_B": 3280
+  },
+  "interior_snapshots": 397,
+  "observation_scope": "interior_and_boundaries",
+  "observed_peak_requested_heap_bytes": 1871906,
+  "observed_peak_stack_bytes": 7976,
+  "observed_peak_modelled_heap_overhead_bytes": 1382,
+  "observed_peak_combined_bytes": 1881096,
+  "profiles": {
+    "massif-begin.out": "deeff63eb8f83f767ff9a08a65b21dec2ed8ce2bad331d34ad8e8b63007667ff",
+    "massif.out": "e3367fe499b501de81795d4402bef70570870d237b0f322abeaac397a32bb492",
+    "massif-end.out": "3cd4994e0747da8457d2be6eba78cd97a3e367e1b94f755b11c69a71b6fa2503"
+  },
+  "limitations": [
+    "Snapshot maxima are observed peaks, not exhaustive per-operation high-water guarantees.",
+    "Stack bytes include runtime and marker activity on all threads; they are not isolated codec stack usage.",
+    "Heap-extra bytes use the Massif allocator model, not measured host allocator overhead.",
+    "Stack profiling uses dynamic instrumentation and is separate from ordinary-release Heaptrack evidence and timing.",
+    "Unknown production workspace reports remain unknown; unrelated category peaks must not be added."
+  ]
+}

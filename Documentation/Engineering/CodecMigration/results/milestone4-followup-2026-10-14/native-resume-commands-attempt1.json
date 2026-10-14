@@ -1,0 +1,16 @@
+[
+  {
+    "label": "guest qualification",
+    "command": [
+      "expect",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-ssh.exp",
+      "192.168.64.2",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-known-hosts",
+      "python3 '/Volumes/My Shared Files/evidence/run-native.py'"
+    ],
+    "exit_code": 255,
+    "stdout": "spawn ssh -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-known-hosts -o ConnectTimeout=15 -o PubkeyAuthentication=no admin@192.168.64.2 python3 '/Volumes/My Shared Files/evidence/run-native.py'\nssh: connect to host 192.168.64.2 port 22: Operation timed out\n\n",
+    "stderr": "",
+    "utc": "2026-10-14T10:57:43.334256+00:00"
+  }
+]

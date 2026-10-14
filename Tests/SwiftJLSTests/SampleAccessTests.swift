@@ -195,6 +195,31 @@ struct SampleAccessTests {
         }
     }
 
+    @Test func scalarCodecPreservesOddPhysicalOriginsAndPadding() async throws {
+        for bits in [12, 16] { for isBig in [false, true] { for near in [0, 3] {
+            let maximum = (1 << bits) - 1
+            let samples = [0, maximum, maximum / 2, 1, 17, maximum - 1]
+            let shape = try descriptor(bits: bits, bigEndian: isBig, padded: true)
+            let source = try ImageDestination(descriptor: shape, storage: UninitialisedSampleStorage())
+                .writeUInt16 { x, y in UInt16(samples[y * 3 + x]) }
+            let encoder = try Encoder(configuration: .init(
+                mode: near == 0 ? .lossless : .nearLossless(maximumAbsoluteError: near)))
+            let encoded = try await encoder.encode(source)
+            let owner = UninitialisedSampleStorage()
+            let decoded = try await Decoder().decode(encoded.data,
+                into: ImageDestination(descriptor: shape, storage: owner))
+            #expect(decoded.image.storage.allocationID == owner.allocationID)
+            for y in 0..<2 { for x in 0..<3 {
+                #expect(try abs(Int(decoded.image.sampleUInt16(x: x, y: y)) - samples[y * 3 + x]) <= near)
+            } }
+            try decoded.image.storage.withUnsafeBytes { bytes in
+                let base = try #require(bytes.baseAddress)
+                #expect(!Int(bitPattern: base).isMultiple(of: 2))
+                for offset in [0, 1, 8, 9, 16, 17] { #expect(bytes[offset] == 0xa5) }
+            }
+        } } }
+    }
+
     @Test func initialisesExternalSampleBytesAtOddAddressWithoutChangingPadding() throws {
         let samples: [UInt16] = [0, 65535, 32768, 4660, 1, 65534]
         let little: [UInt8] = [0xa5, 0xa5, 0x00, 0x00, 0xff, 0xff, 0x00, 0x80,

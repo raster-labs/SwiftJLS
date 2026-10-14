@@ -1,5 +1,22 @@
 # Change log
 
+## Milestone 4 hot-path and workspace follow-up — 2026-10-14 (unreleased)
+
+- Improve bounded component run detection/fill, remove unnecessary lossless predictor rows and pass the bounded bit writer by mutable value through synchronous kernels.
+- Verify 84 declarations in debug/release/ASan/TSan, repeated CLI and exact OS 26.0 simulator/resource checks, all 22 hosted checks and three one-hour ASan mutation campaigns; retain source-scoped benchmarks and hosted evidence.
+- Verify exact native arm64 macOS 26.0 (25A354) execution in a hardware-virtualised guest: all four 84-declaration configurations, CLI suites and resource/independent consumers pass.
+- Add development-only marked per-operation heap ledgers and separate stack observations, retaining attribution and sampling limits.
+- Keep residual performance and physical-device requirements explicit; Milestone 5 remains deferred. See [current qualification](Documentation/Engineering/CodecMigration/Milestone4Followup.md).
+
+## Milestone 4 component performance and qualification follow-up — 2026-10-13 (unreleased)
+
+- Reuse bounded scalar precision checks for contiguous component rows and skip redundant full-container checks; precompute packed-row addressing without overflowing multiplication. Add odd-stride, padding, endian and cancellation regressions.
+- Record 82 declarations passing in debug/release/ASan/TSan, all 17 hosted checks, repeated exact OS 26.0 consumers and three passing one-hour ASan mutation campaigns for the changed source.
+- Measure 24 scalar and 39 representative RGB cases on AC power; preserve residual regressions, condition limitations and failed attempts. Add validated case selection and an explicit development-only benchmark budget for largest RGB admission; production limits remain unchanged.
+- Add benchmark source-preparation and combined preparation/encode timings from identical canonical samples; preserve separate operation timings and keep smoke data explicitly unqualified.
+- Reject stale/malformed benchmark outputs, inherited export/decode operations and evidence-directory reuse; add runner negative controls and a pinned predecessor/successor CI smoke workflow.
+- Reconcile active documentation with merged PR 15, record fresh software checks, local iOS 27.0 and all four exact OS 26.0 simulator-family passes, four concurrent resource workloads and successful allocation-trace collection. Retain controlled performance, complete workspace, native macOS minimum and physical-device gates as incomplete. Milestone 5 is deferred to a later task.
+
 ## Migration qualification follow-up — 2026-10-12 (unreleased)
 
 - Accept inactive restart intervals at or above image height in line/sample and subsampled line decoding; preserve active-interleaved and stray-marker rejection. Four predecessor discrepancies now agree.

@@ -335,7 +335,7 @@ struct JPEGLSRegularModeDecoder: Sendable {
         b: Int,
         c: Int,
         d: Int,
-        context: JPEGLSContextModel,
+        context: borrowing JPEGLSContextModel,
         errorCorrection: Int = 0
     ) -> DecodedPixel {
         // Step 1: Compute local gradients
@@ -428,7 +428,7 @@ struct JPEGLSRegularModeDecoder: Sendable {
         b: Int,
         c: Int,
         d: Int,
-        context: JPEGLSContextModel
+        context: borrowing JPEGLSContextModel
     ) -> DecodedPixel {
         // Compute gradients and context to get k
         let (d1, d2, d3) = computeGradients(a: a, b: b, c: c, d: d)
@@ -463,7 +463,7 @@ struct JPEGLSRegularModeDecoder: Sendable {
         b: Int,
         c: Int,
         d: Int,
-        context: JPEGLSContextModel
+        context: borrowing JPEGLSContextModel
     ) -> Int {
         let (d1, d2, d3) = computeGradients(a: a, b: b, c: c, d: d)
         let q1 = quantizeGradient(d1)
@@ -486,7 +486,7 @@ struct JPEGLSRegularModeDecoder: Sendable {
         b: Int,
         c: Int,
         d: Int,
-        context: JPEGLSContextModel
+        context: borrowing JPEGLSContextModel
     ) -> Int {
         let (d1, d2, d3) = computeGradients(a: a, b: b, c: c, d: d)
         let q1 = quantizeGradient(d1)
@@ -508,7 +508,7 @@ struct JPEGLSRegularModeDecoder: Sendable {
         b: Int,
         c: Int,
         d: Int,
-        context: JPEGLSContextModel
+        context: borrowing JPEGLSContextModel
     ) -> Int {
         let (d1, d2, d3) = computeGradients(a: a, b: b, c: c, d: d)
         let q1 = quantizeGradient(d1)

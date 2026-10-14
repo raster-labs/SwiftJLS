@@ -1,0 +1,275 @@
+{
+  "source": "940da40b867cd14f7888492162c13e237609d991",
+  "local_tests": [
+    {
+      "label": "debug",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "work/m4-2026-10-14/run-tests-value/debug",
+        "--disable-xctest",
+        "--xunit-output",
+        "work/m4-final-2026-10-14/tests/debug.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+      ],
+      "developer_dir": "/Library/Developer/CommandLineTools",
+      "exit_code": 0,
+      "seconds": 11.171148,
+      "declarations": 103,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "label": "release",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "work/m4-2026-10-14/run-tests-value/release",
+        "--disable-xctest",
+        "--xunit-output",
+        "work/m4-final-2026-10-14/tests/release.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+        "-c",
+        "release"
+      ],
+      "developer_dir": "/Library/Developer/CommandLineTools",
+      "exit_code": 0,
+      "seconds": 37.64657149999999,
+      "declarations": 103,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "label": "asan",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "work/m4-2026-10-14/run-tests-value/asan",
+        "--disable-xctest",
+        "--xunit-output",
+        "work/m4-final-2026-10-14/tests/asan.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+        "--sanitize",
+        "address"
+      ],
+      "developer_dir": "/Library/Developer/CommandLineTools",
+      "exit_code": 0,
+      "seconds": 48.01751275,
+      "declarations": 103,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "label": "tsan",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "work/m4-2026-10-14/run-tests-value/tsan",
+        "--disable-xctest",
+        "--xunit-output",
+        "work/m4-final-2026-10-14/tests/tsan.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+        "--sanitize",
+        "thread"
+      ],
+      "developer_dir": "/Library/Developer/CommandLineTools",
+      "exit_code": 0,
+      "seconds": 26.551843000000005,
+      "declarations": 103,
+      "failures": 0,
+      "skipped": 0
+    }
+  ],
+  "native_tests": {
+    "source": "940da40b867cd14f7888492162c13e237609d991",
+    "commands": [
+      {
+        "label": "os",
+        "command": [
+          "sw_vers"
+        ],
+        "exit_code": 0,
+        "seconds": 0.05975912499999997
+      },
+      {
+        "label": "architecture",
+        "command": [
+          "uname",
+          "-m"
+        ],
+        "exit_code": 0,
+        "seconds": 0.01084754099999996
+      },
+      {
+        "label": "hardware",
+        "command": [
+          "sysctl",
+          "hw.model",
+          "hw.memsize",
+          "hw.ncpu"
+        ],
+        "exit_code": 0,
+        "seconds": 0.014233125000000013
+      },
+      {
+        "label": "unit",
+        "command": [
+          "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+          "--test-bundle-path",
+          "/Volumes/My Shared Files/evidence/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+          "--testing-library",
+          "swift-testing",
+          "--xunit-output",
+          "/Volumes/My Shared Files/results/unit.xml"
+        ],
+        "exit_code": 0,
+        "seconds": 3.3499820830000004
+      },
+      {
+        "label": "unit-debug",
+        "command": [
+          "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+          "--test-bundle-path",
+          "/Volumes/My Shared Files/evidence/configurations/debug/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+          "--testing-library",
+          "swift-testing",
+          "--xunit-output",
+          "/Volumes/My Shared Files/results/unit-debug.xml"
+        ],
+        "exit_code": 0,
+        "seconds": 4.6609982500000005
+      },
+      {
+        "label": "unit-asan",
+        "command": [
+          "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+          "--test-bundle-path",
+          "/Volumes/My Shared Files/evidence/configurations/asan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+          "--testing-library",
+          "swift-testing",
+          "--xunit-output",
+          "/Volumes/My Shared Files/results/unit-asan.xml"
+        ],
+        "exit_code": 0,
+        "seconds": 19.925957667
+      },
+      {
+        "label": "unit-tsan",
+        "command": [
+          "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+          "--test-bundle-path",
+          "/Volumes/My Shared Files/evidence/configurations/tsan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+          "--testing-library",
+          "swift-testing",
+          "--xunit-output",
+          "/Volumes/My Shared Files/results/unit-tsan.xml"
+        ],
+        "exit_code": 0,
+        "seconds": 22.924604417
+      },
+      {
+        "label": "consumer",
+        "command": [
+          "/Volumes/My Shared Files/evidence/AppleRuntimeConsumer",
+          "/Volumes/My Shared Files/evidence/repo/Tests/SwiftJLSTests/Fixtures"
+        ],
+        "exit_code": 0,
+        "seconds": 0.016813458000001447
+      },
+      {
+        "label": "resources",
+        "command": [
+          "/Volumes/My Shared Files/evidence/ResourceStress"
+        ],
+        "exit_code": 0,
+        "seconds": 0.41117808399999944
+      },
+      {
+        "label": "cli-payload",
+        "command": [
+          "python3",
+          "/Volumes/My Shared Files/evidence/repo/Scripts/test-payload-cli.py",
+          "--binary",
+          "/Volumes/My Shared Files/evidence/swiftjls-cli",
+          "--output",
+          "/Volumes/My Shared Files/results/cli-payload.json"
+        ],
+        "exit_code": 0,
+        "seconds": 0.8519552499999961
+      },
+      {
+        "label": "cli-process",
+        "command": [
+          "python3",
+          "/Volumes/My Shared Files/evidence/repo/Scripts/test-cli.py",
+          "--binary",
+          "/Volumes/My Shared Files/evidence/swiftjls-cli",
+          "--output",
+          "/Volumes/My Shared Files/results/cli-process"
+        ],
+        "exit_code": 0,
+        "seconds": 0.7107984590000029
+      }
+    ],
+    "scope": "Swift 6.4 host-built arm64 binaries, executed in hardware-virtualised native arm64 macOS 26.0; no Intel emulation or physical-device claim.",
+    "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.0\nBuildVersion:\t\t25A354\n",
+    "architecture": "arm64",
+    "exact_26_0_native_arm64": true,
+    "tests": {
+      "declarations": 103,
+      "failures": 0,
+      "skipped": 0
+    },
+    "extra_tests": {
+      "debug": {
+        "declarations": 103,
+        "failures": 0,
+        "skipped": 0
+      },
+      "asan": {
+        "declarations": 103,
+        "failures": 0,
+        "skipped": 0
+      },
+      "tsan": {
+        "declarations": 103,
+        "failures": 0,
+        "skipped": 0
+      }
+    },
+    "success": true
+  },
+  "status": "Superseded by final header admission implementation; original scratch evidence retained."
+}

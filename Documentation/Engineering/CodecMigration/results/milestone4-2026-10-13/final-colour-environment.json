@@ -1,0 +1,71 @@
+{
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "smoke_only": true,
+  "end_to_end": true,
+  "performance_qualified": false,
+  "consumer_sha256": "862798204bb8de94f3642a9ac11efb1421aa68cf49bfe39ef10e68cf219f065d",
+  "runner_sha256": "d7f3751e5a7fec9596ac4bb821f753f0d2b01b8cdffc6df7f5b5d7aaa665421d",
+  "binary_sha256": {
+    "predecessor": "368fdda834c2a42b57926117cbcc565023ab231975f96e37a5ea7dc93f55452f",
+    "successor": "3d93155a91b5d8f884518808bba29ab8f51bc9eb8253f6f35343c8906f13816d"
+  },
+  "power_start": {
+    "command": [
+      "pmset",
+      "-g",
+      "batt"
+    ],
+    "exit_code": 0,
+    "output": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=23396451)\t99%; discharging; 7:13 remaining present: true\n"
+  },
+  "load_start": {
+    "command": [
+      "sysctl",
+      "-n",
+      "vm.loadavg"
+    ],
+    "exit_code": 0,
+    "output": "{ 4.90 5.54 4.69 }\n"
+  },
+  "swift": {
+    "command": [
+      "swift",
+      "--version"
+    ],
+    "exit_code": 0,
+    "output": "swift-driver version: 1.168.6 Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n"
+  },
+  "hardware": {
+    "command": [
+      "sysctl",
+      "-n",
+      "hw.model",
+      "hw.memsize",
+      "machdep.cpu.brand_string"
+    ],
+    "exit_code": 0,
+    "output": "Mac16,5\n68719476736\nApple M4 Max\n"
+  },
+  "thermal_start": {
+    "command": [
+      "pmset",
+      "-g",
+      "therm"
+    ],
+    "exit_code": 0,
+    "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+  },
+  "predecessor_sha": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "successor_sha": {
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "output": "571fd7c905f7ef70b4f494513ecf979d620bebd5\n"
+  },
+  "methodology": "RGB NEAR 0/3, all three interleaves, public API. Owned decode, release without sanitizers. Four alternating process blocks, each with 5 warmups and 5 timed iterations. Initial sample verification outside timing. Host is a developer workstation; no claim of isolated thermal/power control.",
+  "preparation_boundary": "Canonical UInt16 fixture generation excluded; public input allocation, layout conversion, descriptor construction and input validation included. Preparation-plus-encode is measured together, not a sum of medians. Destruction of the prepared input is outside timing. Canonical and reusable inputs remain in whole-process RSS."
+}

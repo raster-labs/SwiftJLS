@@ -1,0 +1,562 @@
+{
+  "recorded_utc": "2026-10-14T12:23:06.094379+00:00",
+  "record_status": "Intermediate 059d97a validation archive; superseded for current-source qualification by milestone4-final-2026-10-14.json",
+  "production_checkpoint": "059d97a786dd16bd554c92c126da6da99c9ec308",
+  "sources_tree": "ef5e6d99d13f0c07985a4bbaa31bfd8f2d667e08",
+  "tests_tree": "090b8b5006b17522bf891fafd8ad90a2a79d7dd3",
+  "predecessor": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "archive_directory": "milestone4-closeout-2026-10-14",
+  "native_vm_image": "ghcr.io/cirruslabs/macos-tahoe-base@sha256:6b01ed7bb644831fc3b5fdb297c8541bf7f032633d4ac5ac9b04affa163b3772",
+  "validation": {
+    "local_tests": {
+      "debug": {
+        "declarations": 87,
+        "failures": 0,
+        "skipped": 0,
+        "exit_code": 0,
+        "seconds": 11.059598083
+      },
+      "release": {
+        "declarations": 87,
+        "failures": 0,
+        "skipped": 0,
+        "exit_code": 0,
+        "seconds": 19.506030459
+      },
+      "asan": {
+        "declarations": 87,
+        "failures": 0,
+        "skipped": 0,
+        "exit_code": 0,
+        "seconds": 29.890039833999996
+      },
+      "tsan": {
+        "declarations": 87,
+        "failures": 0,
+        "skipped": 0,
+        "exit_code": 0,
+        "seconds": 42.84958025
+      }
+    },
+    "cli": {
+      "payload_checks": 73,
+      "process_checks": 103,
+      "status": "passed"
+    },
+    "apple_builds": {
+      "sdk": "Xcode 27 Apple SDKs",
+      "deployment_target": "26.0",
+      "evidence": "apple-value/build-results.json",
+      "scope": "Four simulator libraries and independent consumers; watchOS arm64_32 compile probe."
+    },
+    "apple_simulator_runtime": {
+      "version": "26.0",
+      "platforms": [
+        "iOS iPhone",
+        "iOS iPad",
+        "tvOS",
+        "visionOS",
+        "watchOS"
+      ],
+      "evidence": "apple-value/*-26.0-*.json"
+    },
+    "apple_simulator_resources": {
+      "evidence": "resource26-value/commands.json",
+      "scope": "Four non-Watch profiles with 32 frames per profile; zero reported copy bytes and no supplied-destination pixel allocations."
+    },
+    "native_execution": {
+      "source": "059d97a786dd16bd554c92c126da6da99c9ec308",
+      "scope": "Swift 6.4 host-built arm64 binaries, executed in hardware-virtualised native arm64 macOS 26.0; no Intel emulation or physical-device claim.",
+      "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.0\nBuildVersion:\t\t25A354\n",
+      "architecture": "arm64",
+      "exact_26_0_native_arm64": true,
+      "tests": {
+        "declarations": 87,
+        "failures": 0,
+        "skipped": 0
+      },
+      "extra_tests": {
+        "debug": {
+          "declarations": 87,
+          "failures": 0,
+          "skipped": 0
+        },
+        "asan": {
+          "declarations": 87,
+          "failures": 0,
+          "skipped": 0
+        },
+        "tsan": {
+          "declarations": 87,
+          "failures": 0,
+          "skipped": 0
+        }
+      },
+      "success": true
+    }
+  },
+  "files": {
+    "apple-build-value.log": {
+      "bytes": 147,
+      "sha256": "6c196cf9a3130162481ce3f9475c91f2a9964305a3a83487155a36ae60d13467",
+      "source": "work/m4-closeout-2026-10-14/apple-build-value.log"
+    },
+    "apple-resource-value.log": {
+      "bytes": 224,
+      "sha256": "6b629a8a2efd305ddfda0f7fa22a66e71fb66f69e7d224f2a0afc923bbd0fb1a",
+      "source": "work/m4-closeout-2026-10-14/apple-resource-value.log"
+    },
+    "apple-runtime-value.log": {
+      "bytes": 201,
+      "sha256": "6b9021310d767c775d6b0ce5313759db4bda0dbf21d2bec19fd5cf842753c11e",
+      "source": "work/m4-closeout-2026-10-14/apple-runtime-value.log"
+    },
+    "apple-value/appletvsimulator/consumer.log": {
+      "bytes": 121,
+      "sha256": "14766e2388c4910e186da69b66d5ce4f30bd65df708ac582336b42fa82f32d87",
+      "source": "work/m4-closeout-2026-10-14/apple-value/appletvsimulator/consumer.log"
+    },
+    "apple-value/appletvsimulator/library.log": {
+      "bytes": 121,
+      "sha256": "14766e2388c4910e186da69b66d5ce4f30bd65df708ac582336b42fa82f32d87",
+      "source": "work/m4-closeout-2026-10-14/apple-value/appletvsimulator/library.log"
+    },
+    "apple-value/appletvsimulator/sign-consumer.log": {
+      "bytes": 170,
+      "sha256": "6f6ba0e10657a008257fe6b926d061bc3a5466d5743907beb83f38e83523e20d",
+      "source": "work/m4-closeout-2026-10-14/apple-value/appletvsimulator/sign-consumer.log"
+    },
+    "apple-value/appletvsimulator/sign-library.log": {
+      "bytes": 167,
+      "sha256": "157cc79c34013e0d8431937b2353ad401ee1d28c8e36493b5ae4287bed664666",
+      "source": "work/m4-closeout-2026-10-14/apple-value/appletvsimulator/sign-library.log"
+    },
+    "apple-value/build-results.json": {
+      "bytes": 28337,
+      "sha256": "cacc05fcbb42476681e7846875f483bf56e2da093368069087396d5a5dbc4ac4",
+      "source": "work/m4-closeout-2026-10-14/apple-value/build-results.json"
+    },
+    "apple-value/iOS-26.0-iPad_Pro_13-inch_(M5).json": {
+      "bytes": 21292,
+      "sha256": "6b0ea4d6e5c197d15d5eabb0c7789e9c2ba87ec8373a527382ed617f9ad78911",
+      "source": "work/m4-closeout-2026-10-14/apple-value/iOS-26.0-iPad_Pro_13-inch_(M5).json"
+    },
+    "apple-value/iOS-26.0-iPhone_17_Pro.json": {
+      "bytes": 21447,
+      "sha256": "e941c4a2fd222450809f5ac966c0955a60c72df77e4c069c6dbd3170ad8e4478",
+      "source": "work/m4-closeout-2026-10-14/apple-value/iOS-26.0-iPhone_17_Pro.json"
+    },
+    "apple-value/iphonesimulator/consumer.log": {
+      "bytes": 120,
+      "sha256": "7d08fbeb3ecd35c374e10c9d9e0a7f9ed122d9b72912c45468a5e5af7504646e",
+      "source": "work/m4-closeout-2026-10-14/apple-value/iphonesimulator/consumer.log"
+    },
+    "apple-value/iphonesimulator/library.log": {
+      "bytes": 120,
+      "sha256": "7d08fbeb3ecd35c374e10c9d9e0a7f9ed122d9b72912c45468a5e5af7504646e",
+      "source": "work/m4-closeout-2026-10-14/apple-value/iphonesimulator/library.log"
+    },
+    "apple-value/iphonesimulator/sign-consumer.log": {
+      "bytes": 169,
+      "sha256": "328cf8332ec58559cf3a17c53d3fb5e801534a1115b46f20d194f0689136a350",
+      "source": "work/m4-closeout-2026-10-14/apple-value/iphonesimulator/sign-consumer.log"
+    },
+    "apple-value/iphonesimulator/sign-library.log": {
+      "bytes": 166,
+      "sha256": "98f0364151701d29f9bb7041bdf4fc245e3323edea7182e55705c1d6c85de275",
+      "source": "work/m4-closeout-2026-10-14/apple-value/iphonesimulator/sign-library.log"
+    },
+    "apple-value/tvOS-26.0-Apple_TV_4K_(3rd_generation).json": {
+      "bytes": 5803,
+      "sha256": "e9206b661ed8868224039670d207f0e820b5a275382e676d0794fa489694cc08",
+      "source": "work/m4-closeout-2026-10-14/apple-value/tvOS-26.0-Apple_TV_4K_(3rd_generation).json"
+    },
+    "apple-value/visionOS-26.0-Apple_Vision_Pro.json": {
+      "bytes": 4106,
+      "sha256": "db6eb8d65f3b1036e00739dbaa1a4c6f955ad01f1312af4642fe4d6597e9f6b8",
+      "source": "work/m4-closeout-2026-10-14/apple-value/visionOS-26.0-Apple_Vision_Pro.json"
+    },
+    "apple-value/watch32.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "work/m4-closeout-2026-10-14/apple-value/watch32.log"
+    },
+    "apple-value/watchOS-26.0-Apple_Watch_Series_11_(46mm).json": {
+      "bytes": 10046,
+      "sha256": "1e083f6bc6439c4a10c8680415be47639820e0894cef7ac389d60d3c3695ab68",
+      "source": "work/m4-closeout-2026-10-14/apple-value/watchOS-26.0-Apple_Watch_Series_11_(46mm).json"
+    },
+    "apple-value/watchsimulator/consumer.log": {
+      "bytes": 124,
+      "sha256": "b899d5e88c21e4bd95841881662730a33cb294a010acc6689b8b2c9b1242401c",
+      "source": "work/m4-closeout-2026-10-14/apple-value/watchsimulator/consumer.log"
+    },
+    "apple-value/watchsimulator/library.log": {
+      "bytes": 124,
+      "sha256": "b899d5e88c21e4bd95841881662730a33cb294a010acc6689b8b2c9b1242401c",
+      "source": "work/m4-closeout-2026-10-14/apple-value/watchsimulator/library.log"
+    },
+    "apple-value/watchsimulator/sign-consumer.log": {
+      "bytes": 168,
+      "sha256": "76655995ef458be973bc4851a48c5702244bfd5ac2374c5368f7bff5d4dc3e5b",
+      "source": "work/m4-closeout-2026-10-14/apple-value/watchsimulator/sign-consumer.log"
+    },
+    "apple-value/watchsimulator/sign-library.log": {
+      "bytes": 165,
+      "sha256": "8a8b00e48ebbb2301d429d848910db21fb999f75ccbbc0a245fdaadec2bd6a9e",
+      "source": "work/m4-closeout-2026-10-14/apple-value/watchsimulator/sign-library.log"
+    },
+    "apple-value/xrsimulator/consumer.log": {
+      "bytes": 121,
+      "sha256": "8f42f0b3eff33c36237a7a70fc44e1e99e8da9b85736ec0f8c61a8c13abab022",
+      "source": "work/m4-closeout-2026-10-14/apple-value/xrsimulator/consumer.log"
+    },
+    "apple-value/xrsimulator/library.log": {
+      "bytes": 121,
+      "sha256": "8f42f0b3eff33c36237a7a70fc44e1e99e8da9b85736ec0f8c61a8c13abab022",
+      "source": "work/m4-closeout-2026-10-14/apple-value/xrsimulator/library.log"
+    },
+    "apple-value/xrsimulator/sign-consumer.log": {
+      "bytes": 165,
+      "sha256": "0e0e81561a23423d4c0f885a80b7c024cd93b7acff004c41c116b0db5b1617a3",
+      "source": "work/m4-closeout-2026-10-14/apple-value/xrsimulator/sign-consumer.log"
+    },
+    "apple-value/xrsimulator/sign-library.log": {
+      "bytes": 162,
+      "sha256": "07b36bb7591037c0a81726ca9bd520e00ae401118dfee9819a6125b4d1a86572",
+      "source": "work/m4-closeout-2026-10-14/apple-value/xrsimulator/sign-library.log"
+    },
+    "benchmark-value.log": {
+      "bytes": 838,
+      "sha256": "3d1f4c07fbbaf13430bf4688461f9cdc2e2d878ed586866e983eda7ef1897bf1",
+      "source": "work/m4-closeout-2026-10-14/benchmark-value.log"
+    },
+    "cli-payload-value.json": {
+      "bytes": 9923,
+      "sha256": "c062140692836c9533f7812d479e211f149b9b34daf9d6c80f1bf582e4f509cd",
+      "source": "work/m4-closeout-2026-10-14/cli-payload-value.json"
+    },
+    "cli-payload-value.log": {
+      "bytes": 25,
+      "sha256": "33f282d37a7a83713612795315130b3b4f7225523a6043f8620072ecd7b2d3ea",
+      "source": "work/m4-closeout-2026-10-14/cli-payload-value.log"
+    },
+    "cli-process-value.log": {
+      "bytes": 40,
+      "sha256": "916920369c4a809b7783ca84a46512453d18b6c88cb5d5e20a0710f8a0e6b825",
+      "source": "work/m4-closeout-2026-10-14/cli-process-value.log"
+    },
+    "cli-process-value/manual-plain.txt": {
+      "bytes": 4921,
+      "sha256": "6049b2b76202eb66062780be6b2f761c89da540830b4fb8c700a70052ea3bdd6",
+      "source": "work/m4-closeout-2026-10-14/cli-process-value/manual-plain.txt"
+    },
+    "cli-process-value/manual-rendered.txt": {
+      "bytes": 5503,
+      "sha256": "e0e38ae78ec14e61db6b2a80f6c913c00e3fdf34339bb01259744905d83c9d0a",
+      "source": "work/m4-closeout-2026-10-14/cli-process-value/manual-rendered.txt"
+    },
+    "cli-process-value/manual.1": {
+      "bytes": 4506,
+      "sha256": "8186f0e75fbc9df631b2a4fc1ae719359a19b02edf100eafc0d2c009180078e4",
+      "source": "work/m4-closeout-2026-10-14/cli-process-value/manual.1"
+    },
+    "cli-process-value/report.json": {
+      "bytes": 83792,
+      "sha256": "d1be87f574c51a081ad901f1133e1ce9147936c1c081c3a6f43d84fbd0e8da86",
+      "source": "work/m4-closeout-2026-10-14/cli-process-value/report.json"
+    },
+    "native-AppleRuntimeConsumer-value.log": {
+      "bytes": 893,
+      "sha256": "f6ebe3600870fef623e2e9b597e0a29b73a1619b4180967e56d5e634b335b2ac",
+      "source": "work/m4-closeout-2026-10-14/native-AppleRuntimeConsumer-value.log"
+    },
+    "native-ResourceStress-value.log": {
+      "bytes": 877,
+      "sha256": "9fcd20ce9119d6b275da6443821be2d384e8244acce60c88f4060c83c033dfd9",
+      "source": "work/m4-closeout-2026-10-14/native-ResourceStress-value.log"
+    },
+    "native-results/architecture.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "work/m4-closeout-2026-10-14/native-results/architecture.stderr"
+    },
+    "native-results/architecture.stdout": {
+      "bytes": 6,
+      "sha256": "c1669e1d8edca98769c37d494b76442a1d6e5ffffd7b4da1fb63aef8ebaf6f01",
+      "source": "work/m4-closeout-2026-10-14/native-results/architecture.stdout"
+    },
+    "native-results/cli-payload.json": {
+      "bytes": 9923,
+      "sha256": "b926d064435143151be901aed457abdbbf3711f62ef28d75b8a68dc3823336c3",
+      "source": "work/m4-closeout-2026-10-14/native-results/cli-payload.json"
+    },
+    "native-results/cli-payload.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "work/m4-closeout-2026-10-14/native-results/cli-payload.stderr"
+    },
+    "native-results/cli-payload.stdout": {
+      "bytes": 25,
+      "sha256": "33f282d37a7a83713612795315130b3b4f7225523a6043f8620072ecd7b2d3ea",
+      "source": "work/m4-closeout-2026-10-14/native-results/cli-payload.stdout"
+    },
+    "native-results/cli-process.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "work/m4-closeout-2026-10-14/native-results/cli-process.stderr"
+    },
+    "native-results/cli-process.stdout": {
+      "bytes": 40,
+      "sha256": "916920369c4a809b7783ca84a46512453d18b6c88cb5d5e20a0710f8a0e6b825",
+      "source": "work/m4-closeout-2026-10-14/native-results/cli-process.stdout"
+    },
+    "native-results/cli-process/manual-plain.txt": {
+      "bytes": 5092,
+      "sha256": "cbd13e35a7674e42e572363b4efc270b5baafe7fa585d7d9b5ba0fe15bfe7cde",
+      "source": "work/m4-closeout-2026-10-14/native-results/cli-process/manual-plain.txt"
+    },
+    "native-results/cli-process/manual-rendered.txt": {
+      "bytes": 5674,
+      "sha256": "6c205633f2bfb2ff1c01858e42dd904dfb292097ac72fef26518e9591264ceb3",
+      "source": "work/m4-closeout-2026-10-14/native-results/cli-process/manual-rendered.txt"
+    },
+    "native-results/cli-process/manual.1": {
+      "bytes": 4506,
+      "sha256": "8186f0e75fbc9df631b2a4fc1ae719359a19b02edf100eafc0d2c009180078e4",
+      "source": "work/m4-closeout-2026-10-14/native-results/cli-process/manual.1"
+    },
+    "native-results/cli-process/report.json": {
+      "bytes": 73461,
+      "sha256": "c584efda69efbd188a1b720f9495bc5272b240e7b5d103d6816e199b0359d05e",
+      "source": "work/m4-closeout-2026-10-14/native-results/cli-process/report.json"
+    },
+    "native-results/consumer.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "work/m4-closeout-2026-10-14/native-results/consumer.stderr"
+    },
+    "native-results/consumer.stdout": {
+      "bytes": 249,
+      "sha256": "18c45da08bfacfcb177226ef2e7a9439203c85407171553e3b249f36e26ce9eb",
+      "source": "work/m4-closeout-2026-10-14/native-results/consumer.stdout"
+    },
+    "native-results/hardware.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "work/m4-closeout-2026-10-14/native-results/hardware.stderr"
+    },
+    "native-results/hardware.stdout": {
+      "bytes": 58,
+      "sha256": "7a9e00423b4aff2be3513d7e67b0fffa426bdcaf163c3a4df24388c3636af832",
+      "source": "work/m4-closeout-2026-10-14/native-results/hardware.stdout"
+    },
+    "native-results/os.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "work/m4-closeout-2026-10-14/native-results/os.stderr"
+    },
+    "native-results/os.stdout": {
+      "bytes": 64,
+      "sha256": "b07bc0697447cb4c03f7847f66a919a4977a4d563b639c02412744da25554a54",
+      "source": "work/m4-closeout-2026-10-14/native-results/os.stdout"
+    },
+    "native-results/resources.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "work/m4-closeout-2026-10-14/native-results/resources.stderr"
+    },
+    "native-results/resources.stdout": {
+      "bytes": 764,
+      "sha256": "aebe38eb5e2a93e3f59507eeb00a0c4ed3931014e19a50ad10f5392683c32524",
+      "source": "work/m4-closeout-2026-10-14/native-results/resources.stdout"
+    },
+    "native-results/results.json": {
+      "bytes": 4350,
+      "sha256": "6ea7a34da842588dfa3a7802daebd67fe58785afd64287f6c9c6ef49e5ec3698",
+      "source": "work/m4-closeout-2026-10-14/native-results/results.json"
+    },
+    "native-results/unit-asan.stderr": {
+      "bytes": 25527,
+      "sha256": "55986235dd0cf9534d14361f9e9396e5dd6cbfc8e1ef33044000b3d0aa60adb9",
+      "source": "work/m4-closeout-2026-10-14/native-results/unit-asan.stderr"
+    },
+    "native-results/unit-asan.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "work/m4-closeout-2026-10-14/native-results/unit-asan.stdout"
+    },
+    "native-results/unit-asan.xml": {
+      "bytes": 11623,
+      "sha256": "abc2a3153d328baa1697f61f3e0b4eab7fb178a2a79da99a5fffa65ccb0f6f55",
+      "source": "work/m4-closeout-2026-10-14/native-results/unit-asan.xml"
+    },
+    "native-results/unit-debug.stderr": {
+      "bytes": 25520,
+      "sha256": "9706a1b20fadfdf6507923d87194abcadbe0569a3c56064f9f61a3b63e0e09f9",
+      "source": "work/m4-closeout-2026-10-14/native-results/unit-debug.stderr"
+    },
+    "native-results/unit-debug.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "work/m4-closeout-2026-10-14/native-results/unit-debug.stdout"
+    },
+    "native-results/unit-debug.xml": {
+      "bytes": 11489,
+      "sha256": "59d137971cc30896147d874b787b2645c829e9a9e835428a4379bdc345a887ba",
+      "source": "work/m4-closeout-2026-10-14/native-results/unit-debug.xml"
+    },
+    "native-results/unit-tsan.stderr": {
+      "bytes": 25525,
+      "sha256": "2a765a72986a156711fbb489aead91a1696e6d8710711a4956884c8c187fc68b",
+      "source": "work/m4-closeout-2026-10-14/native-results/unit-tsan.stderr"
+    },
+    "native-results/unit-tsan.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "work/m4-closeout-2026-10-14/native-results/unit-tsan.stdout"
+    },
+    "native-results/unit-tsan.xml": {
+      "bytes": 11505,
+      "sha256": "5bf072f2b493a2e6f773dea4622f10109807d3d70370e63f463bf3023f48aa5e",
+      "source": "work/m4-closeout-2026-10-14/native-results/unit-tsan.xml"
+    },
+    "native-results/unit.stderr": {
+      "bytes": 25520,
+      "sha256": "b8627aa05ce080a7e42b2bc3a5625c2f55cfab5c335abe2bc9fa11a070593e7f",
+      "source": "work/m4-closeout-2026-10-14/native-results/unit.stderr"
+    },
+    "native-results/unit.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "work/m4-closeout-2026-10-14/native-results/unit.stdout"
+    },
+    "native-results/unit.xml": {
+      "bytes": 11499,
+      "sha256": "a3fe0601f4596c6bdc60bec8cdb803cf83bd80aa0b82d736ab92528db0b3ce3a",
+      "source": "work/m4-closeout-2026-10-14/native-results/unit.xml"
+    },
+    "provenance.json": {
+      "bytes": 19452,
+      "sha256": "d226d6ba07f6cfa6f454994023088aa0e3cf18502ab20f32497e50f8337612a9",
+      "source": "Generated from committed source/test trees and native payload manifest"
+    },
+    "qualify.log": {
+      "bytes": 229,
+      "sha256": "0d8fad1721adec7b259d6d427b9e5cb5495409029b4c59f48a00ff14338a05fd",
+      "source": "work/m4-closeout-2026-10-14/qualify.log"
+    },
+    "reproduction/apple-build-value.py": {
+      "bytes": 2284,
+      "sha256": "c8d1c50baad7cceeac37829fab32b91660bc75ea5348ade555ed0c314bfd6a33",
+      "source": "work/m4-closeout-2026-10-14/apple-build-value.py"
+    },
+    "reproduction/apple-resource-value.py": {
+      "bytes": 2480,
+      "sha256": "627f8204ad0150d63568d8c8a3104feb4acaaff412198e9434bc0343a201f0b7",
+      "source": "work/m4-closeout-2026-10-14/apple-resource-value.py"
+    },
+    "reproduction/apple-runtime-value.py": {
+      "bytes": 1858,
+      "sha256": "d5fa7fb9f6e5efa40ab4945275bf3ca548c6411f7a042334e7b31eb208dd211a",
+      "source": "work/m4-closeout-2026-10-14/apple-runtime-value.py"
+    },
+    "reproduction/archive-validation.py": {
+      "bytes": 7813,
+      "sha256": "62b77a4d7ba68e0d35f5f79be71b87501935d3c3140183398c67d7efa07ad978",
+      "source": "work/m4-closeout-2026-10-14/archive-validation.py"
+    },
+    "reproduction/prepare-native.py": {
+      "bytes": 1816,
+      "sha256": "05492768def699d2240e4a4a3fd49968d7173798d7e44e4bd3c22e6add2895a1",
+      "source": "work/m4-closeout-2026-10-14/prepare-native.py"
+    },
+    "reproduction/qualify.py": {
+      "bytes": 1453,
+      "sha256": "569d35ccab5e17951af14254e857b4aec4d698526668a519bebf2efafa07f101",
+      "source": "work/m4-closeout-2026-10-14/qualify.py"
+    },
+    "reproduction/run-native.py": {
+      "bytes": 3845,
+      "sha256": "62a1a7b7e96c5148534b5012d493a6843ca855fbc52d8d76a858de86842af6b7",
+      "source": "work/m4-closeout-2026-10-14/native-payload/run-native.py"
+    },
+    "reproduction/run-tests.py": {
+      "bytes": 1303,
+      "sha256": "b63cd25a98ec67ea5be2acc4adbf32d33cba4d827e57725e1604589a40797642",
+      "source": "work/m4-closeout-2026-10-14/run-tests.py"
+    },
+    "resource26-value/commands.json": {
+      "bytes": 18389,
+      "sha256": "f11f7ee14ac3a142e149efaa87139e11332869dad9da9c62daffdb58ff3d15fd",
+      "source": "work/m4-closeout-2026-10-14/resource26-value/commands.json"
+    },
+    "tests-driver.log": {
+      "bytes": 1983,
+      "sha256": "8f3b7bded9ae43888b7f3550a951eaecd74f8b8330574e9dc0986ece98f76b77",
+      "source": "work/m4-closeout-2026-10-14/tests-driver.log"
+    },
+    "tests/asan.log": {
+      "bytes": 27334,
+      "sha256": "937e6a060dfc11eb7ee758effff081199683f23210071188ded6f5b5b86e55c3",
+      "source": "work/m4-closeout-2026-10-14/tests/asan.log"
+    },
+    "tests/asan.xml": {
+      "bytes": 11498,
+      "sha256": "0b977422873590ba89a6734a47d9f22826524c37709c7021955322153f7fa8db",
+      "source": "work/m4-closeout-2026-10-14/tests/asan.xml"
+    },
+    "tests/debug.log": {
+      "bytes": 27253,
+      "sha256": "02870ffdcc1dd6e47be1818accf1ebd4fbb7619267ff095cc03852ec169a3e88",
+      "source": "work/m4-closeout-2026-10-14/tests/debug.log"
+    },
+    "tests/debug.xml": {
+      "bytes": 11489,
+      "sha256": "b6deb42e4884b0e95ab75dd4f83195340bf1c44bad2c702b5b4bf87590bc8ca3",
+      "source": "work/m4-closeout-2026-10-14/tests/debug.xml"
+    },
+    "tests/release.log": {
+      "bytes": 26782,
+      "sha256": "19264017d9b7d0df757a62380b6e225125b121caa105e78d27a682e016ed191a",
+      "source": "work/m4-closeout-2026-10-14/tests/release.log"
+    },
+    "tests/release.xml": {
+      "bytes": 11491,
+      "sha256": "4c0ed2f0040cb5b26608baac614ce9bcef38e99ee7286f5356152b66588dae32",
+      "source": "work/m4-closeout-2026-10-14/tests/release.xml"
+    },
+    "tests/results.json": {
+      "bytes": 2546,
+      "sha256": "3d15b932ed017beb2874988e33baefc8cdde9e9e1ed88ff2c06021f1936bf86c",
+      "source": "work/m4-closeout-2026-10-14/tests/results.json"
+    },
+    "tests/tsan.log": {
+      "bytes": 27526,
+      "sha256": "712c0de68bce56e808f0450ea000ea412e3e591f6822aa3f949541e1d3792622",
+      "source": "work/m4-closeout-2026-10-14/tests/tsan.log"
+    },
+    "tests/tsan.xml": {
+      "bytes": 11506,
+      "sha256": "dbf7dd1956c003d279b436346914e8c5a4be17860336b188c77d072719ae57fe",
+      "source": "work/m4-closeout-2026-10-14/tests/tsan.xml"
+    },
+    "value-qualification-commands.json": {
+      "bytes": 1854,
+      "sha256": "3abf6cd8f4a006e5ad193e229dee477df68dd32313bc07d97ed7cdd98dc25825",
+      "source": "work/m4-closeout-2026-10-14/value-qualification-commands.json"
+    }
+  },
+  "pending_integration": [
+    "Controlled paired performance campaign and case analysis.",
+    "Workspace accounting report and compact evidence pointer from workspace audit."
+  ],
+  "limitations": [
+    "Physical Watch and representative physical iPhone/iPad testing remain pending by owner direction.",
+    "Milestone 5 remains deferred.",
+    "CI process verification and merge belong to the owner; this manifest does not assert GitHub check outcomes.",
+    "Native macOS 26.0 evidence uses hardware-virtualised arm64 execution, not physical Apple device testing.",
+    "This archive does not yet establish performance acceptance or full algorithm workspace completion."
+  ],
+  "superseded_by": "milestone4-final-2026-10-14.json"
+}

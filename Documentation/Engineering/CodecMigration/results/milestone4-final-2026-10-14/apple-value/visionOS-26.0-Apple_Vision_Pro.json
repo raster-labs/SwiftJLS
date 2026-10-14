@@ -1,0 +1,92 @@
+{
+  "runtime": {
+    "isAvailable": true,
+    "version": "26.0",
+    "isInternal": false,
+    "buildversion": "23M336",
+    "supportedArchitectures": [
+      "arm64"
+    ],
+    "supportedDeviceTypes": [
+      {
+        "bundlePath": "/Library/Developer/CoreSimulator/Profiles/DeviceTypes/Apple Vision Pro.simdevicetype",
+        "name": "Apple Vision Pro",
+        "productFamily": "Apple Vision",
+        "identifier": "com.apple.CoreSimulator.SimDeviceType.Apple-Vision-Pro-4K"
+      }
+    ],
+    "identifier": "com.apple.CoreSimulator.SimRuntime.xrOS-26-0",
+    "platform": "xrOS",
+    "bundlePath": "/private/var/run/com.apple.security.cryptexd/mnt/xrOS_23M336/Library/Developer/CoreSimulator/Profiles/Runtimes/xrOS 26.0.simruntime",
+    "runtimeRoot": "/private/var/run/com.apple.security.cryptexd/mnt/xrOS_23M336/Library/Developer/CoreSimulator/Profiles/Runtimes/xrOS 26.0.simruntime/Contents/Resources/RuntimeRoot",
+    "lastUsage": {
+      "arm64": "2026-10-14T13:45:14Z"
+    },
+    "name": "visionOS 26.0"
+  },
+  "device": {
+    "dataPath": "/Users/pushparaj/Library/Developer/CoreSimulator/Devices/9D9B3976-E27A-490B-906D-D98B412251BD/data",
+    "dataPathSize": 780689408,
+    "logPath": "/Users/pushparaj/Library/Logs/CoreSimulator/9D9B3976-E27A-490B-906D-D98B412251BD",
+    "udid": "9D9B3976-E27A-490B-906D-D98B412251BD",
+    "lastUsedAt": "2026-10-14T13:45:01Z",
+    "isAvailable": true,
+    "logPathSize": 57344,
+    "deviceTypeIdentifier": "com.apple.CoreSimulator.SimDeviceType.Apple-Vision-Pro-4K",
+    "state": "Shutdown",
+    "name": "Apple Vision Pro"
+  },
+  "commands": [
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "boot",
+        "9D9B3976-E27A-490B-906D-D98B412251BD"
+      ],
+      "exit_code": 0,
+      "seconds": 0.9238320000000044,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "bootstatus",
+        "9D9B3976-E27A-490B-906D-D98B412251BD",
+        "-b"
+      ],
+      "exit_code": 0,
+      "seconds": 12.093311708999998,
+      "stdout": "Monitoring boot status for Apple Vision Pro (9D9B3976-E27A-490B-906D-D98B412251BD).\n[2026-10-14 13:58:42 +0000] Status=1, isTerminal=NO, Elapsed=00:02.\n\tWaiting on BackBoard\n\n[2026-10-14 13:58:44 +0000] Status=4, isTerminal=NO, Elapsed=00:04.\n\tWaiting on System App\n\n[2026-10-14 13:58:44 +0000] Status=4, isTerminal=NO, Elapsed=00:04.\n\tWaiting on System App\n\n[2026-10-14 13:58:45 +0000] Status=4, isTerminal=NO, Elapsed=00:05.\n\tWaiting on System App\n\n[2026-10-14 13:58:46 +0000] Status=4, isTerminal=NO, Elapsed=00:06.\n\tWaiting on System App\n\n[2026-10-14 13:58:47 +0000] Status=4, isTerminal=NO, Elapsed=00:07.\n\tWaiting on System App\n\n[2026-10-14 13:58:48 +0000] Status=4, isTerminal=NO, Elapsed=00:08.\n\tWaiting on System App\n\n[2026-10-14 13:58:49 +0000] Status=4, isTerminal=NO, Elapsed=00:09.\n\tWaiting on System App\n\n[2026-10-14 13:58:50 +0000] Status=4, isTerminal=NO, Elapsed=00:10.\n\tWaiting on System App\n\n[2026-10-14 13:58:51 +0000] Status=4, isTerminal=NO, Elapsed=00:11.\n\tWaiting on System App\n\n[2026-10-14 13:58:52 +0000] Status=4294967295, isTerminal=YES, Elapsed=00:12.\n\tFinished\n\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "spawn",
+        "9D9B3976-E27A-490B-906D-D98B412251BD",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-14/apple-value/xrsimulator/AppleRuntimeConsumer",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Tests/SwiftJLSTests/Fixtures"
+      ],
+      "exit_code": 0,
+      "seconds": 0.9758941250000035,
+      "stdout": "Independent consumer passed: native lossless coding preserves padded 12-bit samples and destination identity.\nApple runtime passed: direct storage, RGB/HP, mapping, metadata, Watch limits and cancellation.\nCombined legacy mapping/HP runtime passed.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "shutdown",
+        "9D9B3976-E27A-490B-906D-D98B412251BD"
+      ],
+      "exit_code": 0,
+      "seconds": 3.228239500000001,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

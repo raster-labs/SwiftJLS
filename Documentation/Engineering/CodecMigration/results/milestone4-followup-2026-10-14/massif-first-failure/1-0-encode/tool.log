@@ -1,0 +1,51 @@
+==666== Massif, a heap profiler
+==666== Copyright (C) 2003-2017, and GNU GPL'd, by Nicholas Nethercote
+==666== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==666== Command: /__w/SwiftJLS/SwiftJLS/Examples/WorkspaceProbe/.build/release/WorkspaceProbe encode 512 512 1 0
+==666== 
+--666-- VALGRIND INTERNAL ERROR: Valgrind received a signal 11 (SIGSEGV) - exiting
+--666-- si_code=2;  Faulting address: 0x5269018;  sp: 0x100288dd08
+
+valgrind: the 'impossible' happened:
+   Killed by fatal signal
+
+host stacktrace:
+==666==    at 0x5800E81B: ??? (in /usr/libexec/valgrind/massif-amd64-linux)
+==666==    by 0x5805E571: ??? (in /usr/libexec/valgrind/massif-amd64-linux)
+==666==    by 0x58059E82: ??? (in /usr/libexec/valgrind/massif-amd64-linux)
+==666==    by 0x5805BF98: ??? (in /usr/libexec/valgrind/massif-amd64-linux)
+==666==    by 0x580B4CA7: ??? (in /usr/libexec/valgrind/massif-amd64-linux)
+
+sched status:
+  running_tid=1
+
+Thread 1: status = VgTs_Runnable syscall 130 (lwpid 666)
+==666==    at 0x629B5EB: sigsuspend (sigsuspend.c:26)
+==666==    by 0x525F787: _dispatch_sigsuspend (in /usr/lib/swift/linux/libdispatch.so)
+==666==    by 0x525CC58: _dispatch_sig_thread (in /usr/lib/swift/linux/libdispatch.so)
+==666==    by 0x62EF41F: __nptl_deallocate_tsd (nptl_deallocate_tsd.c:73)
+==666==    by 0x62EF41F: __nptl_deallocate_tsd (nptl_deallocate_tsd.c:22)
+==666==    by 0x62801D5: (below main) (libc_start_call_main.h:63)
+client stack range: [0x1FFEFFC000 0x1FFF000FFF] client SP: 0x1FFEFFFF70
+valgrind stack range: [0x100278E000 0x100288DFFF] top usage: 18232 of 1048576
+
+Thread 2: status = VgTs_Init (lwpid 0)
+==666==    at 0x637FCB6: clone (clone.S:83)
+==666==    by 0x62F27FF: ??? (allocatestack.c:605)
+==666==    by 0xA08D6BF: ???
+client stack range: [0x908E000 0xA08CFFF] client SP: 0xA08CEB0
+valgrind stack range: [0x1004A7B000 0x1004B7AFFF] top usage: 592 of 1048576
+
+
+Note: see also the FAQ in the source distribution.
+It contains workarounds to several common problems.
+In particular, if Valgrind aborted or crashed after
+identifying problems in your program, there's a good chance
+that fixing those problems will prevent Valgrind aborting or
+crashing, especially if it happened in m_mallocfree.c.
+
+If that doesn't help, please report this bug to: www.valgrind.org
+
+In the bug report, send all the above text, the valgrind
+version, and what OS and version you are using.  Thanks.
+

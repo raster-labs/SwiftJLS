@@ -1,0 +1,47 @@
+{
+  "command": [
+    "swift",
+    "build",
+    "-c",
+    "release",
+    "--jobs",
+    "4",
+    "--package-path",
+    "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-async-boundary-diagnostic/wrapped"
+  ],
+  "developer_dir": "/Library/Developer/CommandLineTools",
+  "exit_code": 0,
+  "scope": "Separate diagnostic build; no production or benchmark sources changed",
+  "binary_sha256": "071740a6f7fae5575f4859657f78bd7267148b05820125c2c85cbb4cb7e321b2",
+  "sync_binary_sha256": "f78481612668d74a8e0815229b53ba9d52f554b5d919c95b6c36ff22e8a950da",
+  "swift": {
+    "command": [
+      "swift",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n",
+    "stderr": "swift-driver version: 1.168.6 "
+  },
+  "sdk": {
+    "command": [
+      "xcrun",
+      "--sdk",
+      "macosx",
+      "--show-sdk-path"
+    ],
+    "exit_code": 0,
+    "stdout": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\n",
+    "stderr": ""
+  },
+  "linkage": {
+    "command": [
+      "otool",
+      "-L",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-async-boundary-diagnostic/wrapped/.build/release/Benchmark"
+    ],
+    "exit_code": 0,
+    "stdout": "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-async-boundary-diagnostic/wrapped/.build/release/Benchmark:\n\t/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 5027.0.69)\n\t/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.0.0)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.0.69)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2200.27.0)\n\t/usr/lib/swift/libswiftCore.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/usr/lib/swift/libswiftCoreFoundation.dylib (compatibility version 1.0.0, current version 120.100.0, weak)\n\t/usr/lib/swift/libswiftDispatch.dylib (compatibility version 1.0.0, current version 1605.0.2)\n\t/usr/lib/swift/libswiftIOKit.dylib (compatibility version 1.0.0, current version 1.0.0, weak)\n\t/usr/lib/swift/libswiftObjectiveC.dylib (compatibility version 1.0.0, current version 973.1.0, weak)\n\t/usr/lib/swift/libswiftXPC.dylib (compatibility version 1.0.0, current version 167.0.2, weak)\n\t/usr/lib/swift/libswift_Builtin_float.dylib (compatibility version 0.0.0, current version 0.0.0, weak)\n\t/usr/lib/swift/libswift_Concurrency.dylib (compatibility version 0.0.0, current version 0.0.0)\n",
+    "stderr": ""
+  }
+}

@@ -2,6 +2,12 @@
 // Copyright 2026 Raster Images Private Limited
 import Foundation
 
+#if _endian(little)
+private let nativeUInt16LittleEndian = true
+#else
+private let nativeUInt16LittleEndian = false
+#endif
+
 // These views exist only inside their owner's synchronous scoped borrow. They
 // are deliberately not Sendable and cannot be retained by a codec operation.
 // Byte-wise access supports providers whose physical address is not aligned.
@@ -10,9 +16,16 @@ struct ScalarSampleReader {
     let littleEndian: Bool
     var sampleBytes: Int = 2
     var count: Int { bytes.count / sampleBytes }
+    var nativeLayout: NativeUInt16Reader? {
+        guard sampleBytes == 2, littleEndian == nativeUInt16LittleEndian, let base = bytes.baseAddress else { return nil }
+        return NativeUInt16Reader(base: base, count: count, original: self)
+    }
     subscript(index: Int) -> UInt16 {
         if sampleBytes == 1 { return UInt16(bytes[index]) }
-        let value = bytes.loadUnaligned(fromByteOffset: index * 2, as: UInt16.self)
+        // Descriptor and kernel admission check the full sample extent before
+        // entering their loops. Thus 0 <= index < bytes.count / 2 here; the
+        // wrapping multiply removes a redundant hot-path overflow branch.
+        let value = bytes.loadUnaligned(fromByteOffset: index &* 2, as: UInt16.self)
         return littleEndian ? UInt16(littleEndian: value) : UInt16(bigEndian: value)
     }
     /// Four adjacent samples, loaded without an alignment precondition. The
@@ -28,6 +41,29 @@ struct ScalarSampleReader {
         return bytes.loadUnaligned(fromByteOffset: index * 2, as: UInt64.self) == packed
     }
 
+    /// The kernel restricts each call to at most 256 samples in one row.
+    /// Wider comparisons do not cross padding or alter checkpoint frequency.
+    func matchingPrefix(in range: Range<Int>, to value: UInt16) -> Int {
+        var i = range.lowerBound
+        if sampleBytes == 2 {
+            let ordered = littleEndian ? value.littleEndian : value.bigEndian
+            let repeated = SIMD16<UInt16>(repeating: ordered)
+            while i + 16 <= range.upperBound {
+                if bytes.loadUnaligned(fromByteOffset: i * 2, as: SIMD16<UInt16>.self) != repeated { break }
+                i += 16
+            }
+        } else {
+            let repeated = SIMD16<UInt8>(repeating: UInt8(truncatingIfNeeded: value))
+            while i + 16 <= range.upperBound {
+                if bytes.loadUnaligned(fromByteOffset: i, as: SIMD16<UInt8>.self) != repeated { break }
+                i += 16
+            }
+        }
+        while i + 4 <= range.upperBound && fourEqual(at: i, to: value) { i += 4 }
+        while i < range.upperBound && self[i] == value { i += 1 }
+        return i - range.lowerBound
+    }
+
     /// No padding is included. Full-width samples cannot exceed their storage
     /// range; narrower power-of-two alphabets can be checked four at a time.
     func validate(width: Int, height: Int, rowStride: Int, maximum: Int,
@@ -37,6 +73,7 @@ struct ScalarSampleReader {
         let mask = UInt16(truncatingIfNeeded: ~maximum)
         let orderedMask = littleEndian ? mask.littleEndian : mask.bigEndian
         let packedMask = UInt64(orderedMask) * 0x0001000100010001
+        let wideMask = SIMD16<UInt16>(repeating: orderedMask)
         for y in 0..<height {
             let base = y * rowStride
             for first in stride(from: 0, to: width, by: 256) {
@@ -44,6 +81,13 @@ struct ScalarSampleReader {
                 let end = min(width, first + 256)
                 var x = first
                 if maskable {
+                    while x + 16 <= end {
+                        let values = bytes.loadUnaligned(fromByteOffset: (base + x) * 2, as: SIMD16<UInt16>.self)
+                        guard values & wideMask == .zero else {
+                            throw CodecError(.invalidArgument, "Sample exceeds declared meaningful precision.")
+                        }
+                        x += 16
+                    }
                     while x + 4 <= end {
                         guard bytes.loadUnaligned(fromByteOffset: (base + x) * 2, as: UInt64.self) & packedMask == 0 else {
                             throw CodecError(.invalidArgument, "Sample exceeds declared meaningful precision.")
@@ -68,10 +112,16 @@ struct ScalarSampleWriter {
     let littleEndian: Bool
     var sampleBytes: Int = 2
     var count: Int { bytes.count / sampleBytes }
+    var nativeLayout: NativeUInt16Writer? {
+        guard sampleBytes == 2, littleEndian == nativeUInt16LittleEndian, let base = bytes.baseAddress else { return nil }
+        return NativeUInt16Writer(base: base, count: count, original: self)
+    }
+    @inline(__always)
     subscript(index: Int) -> UInt16 {
         get {
             if sampleBytes == 1 { return UInt16(bytes[index]) }
-            let value = bytes.loadUnaligned(fromByteOffset: index * 2, as: UInt16.self)
+            // The admitted sample extent proves this byte offset cannot wrap.
+            let value = bytes.loadUnaligned(fromByteOffset: index &* 2, as: UInt16.self)
             return littleEndian ? UInt16(littleEndian: value) : UInt16(bigEndian: value)
         }
         nonmutating set {
@@ -79,7 +129,7 @@ struct ScalarSampleWriter {
             let ordered = littleEndian ? newValue.littleEndian : newValue.bigEndian
             // SE-0349 (Swift 5.7) permits unaligned trivial stores as well as
             // unaligned loads. Extents are proved at kernel admission.
-            bytes.storeBytes(of: ordered, toByteOffset: index * 2, as: UInt16.self)
+            bytes.storeBytes(of: ordered, toByteOffset: index &* 2, as: UInt16.self)
         }
     }
     /// Bounded run fill. The caller checks cancellation between <=256-sample
@@ -103,4 +153,29 @@ struct ScalarSampleWriter {
         while i < range.upperBound { self[i] = value; i += 1 }
     }
 
+}
+
+// Selected once within the owner's synchronous borrow. Kernel admission proves
+// 0 <= index < count <= original.bytes.count / 2; byte offsets cannot wrap.
+// Native byte order removes conversion without imposing alignment or binding
+// sample memory to UInt16. Bounded bulk operations retain their existing paths.
+struct NativeUInt16Reader: JPEGSampleReader {
+    let base: UnsafeRawPointer
+    let count: Int
+    let original: ScalarSampleReader
+    @inline(__always) subscript(index: Int) -> UInt16 {
+        base.loadUnaligned(fromByteOffset: index &* 2, as: UInt16.self)
+    }
+    func fourEqual(at index: Int, to value: UInt16) -> Bool { original.fourEqual(at: index, to: value) }
+    func matchingPrefix(in range: Range<Int>, to value: UInt16) -> Int { original.matchingPrefix(in: range, to: value) }
+}
+struct NativeUInt16Writer: JPEGSampleWriter {
+    let base: UnsafeMutableRawPointer
+    let count: Int
+    let original: ScalarSampleWriter
+    @inline(__always) subscript(index: Int) -> UInt16 {
+        get { base.loadUnaligned(fromByteOffset: index &* 2, as: UInt16.self) }
+        nonmutating set { base.storeBytes(of: newValue, toByteOffset: index &* 2, as: UInt16.self) }
+    }
+    func fill(_ value: UInt16, range: Range<Int>) { original.fill(value, range: range) }
 }

@@ -1,0 +1,47 @@
+{
+  "tool": "heaptrack 1.5.0",
+  "binary_sha256": "d1c5b53dfd7b59771e6b828b544ca2c5e79f5e1ace7362606f48a29183cb2756",
+  "profile": "allocations.gz",
+  "profile_sha256": "72d06d6dd913a787e8d6c632006677003c69af2a2497c22a04e47c4b0e14addd",
+  "build": "Swift release with debug symbols, no sanitizers",
+  "scope": "One marked operation; setup retained and verification after the end marker",
+  "commands": [
+    {
+      "command": [
+        "heaptrack",
+        "--version"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "heaptrack",
+        "-o",
+        "/tmp/workspace-evidence/512-3-0-encode/allocations",
+        "/__w/SwiftJLS/SwiftJLS/Examples/WorkspaceProbe/.build/out/Products/Release-linux-x86_64/WorkspaceProbe",
+        "encode",
+        "512",
+        "512",
+        "3",
+        "0"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "heaptrack_print",
+        "-f",
+        "/tmp/workspace-evidence/512-3-0-encode/allocations.gz",
+        "-n",
+        "1000",
+        "-s",
+        "1000",
+        "-H",
+        "/tmp/workspace-evidence/512-3-0-encode/sizes.tsv",
+        "-F",
+        "/tmp/workspace-evidence/512-3-0-encode/allocation-stacks.txt"
+      ],
+      "exit_code": 0
+    }
+  ]
+}

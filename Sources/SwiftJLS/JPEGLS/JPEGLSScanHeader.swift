@@ -51,6 +51,14 @@ struct JPEGLSScanHeader: Sendable, Equatable {
         }
     }
 
+    /// Keep the tiny selector allocation attributable to header metadata in
+    /// ordinary allocation traces, including whole-module optimised builds.
+    @inline(never)
+    static func singleComponent(mappingTableID: UInt8, near: Int) throws -> Self {
+        try Self(componentCount: 1, components: [.init(id: 1, mappingTableID: mappingTableID)],
+            near: near, interleaveMode: .none, pointTransform: 0)
+    }
+
     /// Initialize scan header with validation
     ///
     /// - Parameters:

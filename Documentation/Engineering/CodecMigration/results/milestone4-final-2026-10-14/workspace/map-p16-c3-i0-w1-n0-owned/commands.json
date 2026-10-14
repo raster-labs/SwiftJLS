@@ -1,0 +1,37 @@
+[
+  {
+    "command": [
+      "heaptrack",
+      "--version"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack",
+      "-o",
+      "/tmp/workspace-evidence/map-p16-c3-i0-w1-n0-owned/allocations",
+      "/__w/SwiftJLS/SwiftJLS/Examples/WorkspaceProbe/.build/out/Products/Release-linux-x86_64/WorkspaceProbe",
+      "owned",
+      "--fixture",
+      "Tests/SwiftJLSTests/Fixtures/map-p16-c3-i0-w1-n0.jls"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack_print",
+      "-f",
+      "/tmp/workspace-evidence/map-p16-c3-i0-w1-n0-owned/allocations.gz",
+      "-n",
+      "1000",
+      "-s",
+      "1000",
+      "-H",
+      "/tmp/workspace-evidence/map-p16-c3-i0-w1-n0-owned/sizes.tsv",
+      "-F",
+      "/tmp/workspace-evidence/map-p16-c3-i0-w1-n0-owned/allocation-stacks.txt"
+    ],
+    "exit_code": 0
+  }
+]

@@ -1,0 +1,9 @@
+VM download ready
+Traceback (most recent call last):
+  File "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/native-driver.py", line 30, in <module>
+    run(['expect',str(out/'vm-ssh.exp'),ip,str(out/'vm-known-hosts'),command],'guest qualification',timeout=650)
+  File "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/native-driver.py", line 7, in run
+    r=subprocess.run(command,capture_output=True,text=True,env=env,timeout=timeout);record(label,command,r);r.check_returncode();return r.stdout
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 460, in check_returncode
+    raise CalledProcessError(self.returncode, self.args, self.stdout,
+subprocess.CalledProcessError: Command '['expect', '/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-ssh.exp', '192.168.64.2', '/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/vm-known-hosts', "python3 '/Volumes/My Shared Files/evidence/run-native.py'"]' returned non-zero exit status 143.
