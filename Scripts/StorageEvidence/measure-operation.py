@@ -50,6 +50,17 @@ def classify(frames, size=None):
     # Inlined scalar near-lossless UInt16 arrays are its two predictor rows.
     if '<Swift.UInt16>' in allocation and 'JPEGLSScalarKernel.encodeNearLossless' in allocation:
         return 'algorithm_state'
+    # At 940da40, native16 specialization also inlines the UInt16 element and
+    # kernel frames. ScalarCodec's source-borrow closure constructs only the
+    # two near-lossless row arrays through this immediate allocation shape
+    # (JPEGLSScalarKernel:238-239). The measured 17/257/512 widths request
+    # 32 + 2*W bytes each. Keep other widths, frames and ABIs unknown rather
+    # than treating arbitrary arrays below the encode caller as workspace.
+    if size in (66, 546, 1056) and len(frames) > 3 and frames[:3] == [
+            'swift_slowAlloc', 'swift_allocObject',
+            'Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>'] and re.match(
+            r'^closure #1 \(Swift.UnsafeRawBufferPointer\) throws -> \(\) in closure #1 \(\) throws -> SwiftJLS.EncodedImage in static SwiftJLS.ScalarCodec.encode\(', frames[3]):
+        return 'algorithm_state'
     if '<Swift.Int>' in allocation and any(s in allocation for s in ['JPEGLSScalarKernel.encodeInterleaved', 'JPEGLSScalarKernel.decodeInterleaved']):
         return 'algorithm_state'
     if any(s in stack for s in ['JPEGLSHeader.parse', 'JPEGLSHeader.descriptor', 'JPEGLSHeader.roles.getter', 'JPEGMetadata', 'JPEGLSMapping', 'JPEGLSFrameHeader', 'JPEGLSScanHeader', 'ImageDescriptor.', 'PlaneDescriptor.', '<SwiftJLS.PlaneDescriptor>', 'ImageMetadata.', '<SwiftJLS.ComponentCodec.Location>']):
@@ -206,6 +217,19 @@ def self_test():
     # Matching an ancestor is insufficient: an unrelated intervening codec
     # allocation must not acquire the ancestor's literal-array category.
     assert classify(prefix + ['SwiftJLS.Other.allocate', selector], 34) == 'unattributed_codec'
+    row_array = prefix + [
+        'Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>',
+        'closure #1 (Swift.UnsafeRawBufferPointer) throws -> () in ' + outer.format('Scalar')]
+    for size in [66, 546, 1056]:
+        assert classify(row_array, size) == 'algorithm_state'
+        assert classify(row_array[:3] + ['SwiftJLS.Other.allocate'] + row_array[3:], size) == 'unattributed_codec'
+        assert classify(row_array[:3] + [row_array[3].replace('ScalarCodec', 'ComponentCodec')], size) == 'unattributed_codec'
+        assert classify(prefix + row_array[3:], size) == 'unattributed_codec'
+        assert classify(['malloc'] + row_array[1:], size) == 'unattributed_codec'
+    # Include a different array-header ABI and entire 17/512-square UInt16
+    # frames: neither may inherit the measured predictor-row category.
+    for size in [None, 34, 50, 65, 67, 530, 545, 547, 610, 1040, 1055, 1057, 524320, 1048576]:
+        assert classify(row_array, size) == 'unattributed_codec'
     schedule = ['generic specialization <Swift.Int> of Swift.Array.init',
                 'SwiftJLS.ComponentCodec.decode', 'SwiftJLS.ImageDestination.write']
     assert classify(schedule, 56) == 'algorithm_state'

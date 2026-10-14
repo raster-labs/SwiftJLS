@@ -96,6 +96,29 @@ struct JPEGLSHeader {
             components: roles, colour: rgb ? .rgb : .unknown, planes: planes, limits: limits)
     }
 
+    /// Admit the canonical UInt16 frame extent without allocating a temporary
+    /// descriptor. The final interpreted layout is still constructed at EOI.
+    static func validateFrameAdmission(width: Int, height: Int, meaningfulBits: Int = 16,
+                                       limits: ResourceLimits) throws {
+        if width > 0, height > 0, (1...16).contains(meaningfulBits) {
+            let row = width.multipliedReportingOverflow(by: 2)
+            let capacity = row.partialValue.multipliedReportingOverflow(by: height)
+            if !row.overflow, !capacity.overflow,
+               width <= limits.maximumDimension, height <= limits.maximumDimension,
+               capacity.partialValue / 2 <= limits.maximumPixels,
+               capacity.partialValue <= limits.maximumDecodedBytes {
+                // Positive checked capacity proves width*height fits too. For
+                // one tightly packed grey plane, all component, sampling,
+                // alignment and extent checks follow from this geometry.
+                return
+            }
+        }
+        // Preserve the constructor's exact error and check order for every
+        // rejected case, including overflow before a dimension-limit failure.
+        _ = try ImageDescriptor.greyscale16(width: width, height: height,
+            meaningfulBits: meaningfulBits, limits: limits)
+    }
+
     func retainedMetadata(_ policy: MetadataPolicy) -> ImageMetadata {
         if policy == .preserve { return metadata }
         return ImageMetadata(entries: metadata.entries.filter { metadata.requiredKeys.contains($0.key) }, requiredKeys: metadata.requiredKeys)
@@ -299,7 +322,7 @@ struct JPEGLSHeader {
                     }
                     guard (2...16).contains(bits) else { throw malformed() }
                     if width > 0 && height > 0 {
-                        _ = try ImageDescriptor.greyscale16(width: width, height: height, meaningfulBits: bits, limits: budget.limits)
+                        try validateFrameAdmission(width: width, height: height, meaningfulBits: bits, limits: budget.limits)
                     }
                     let imageBytes = try checkedMultiply(checkedMultiply(width, height), count * 2)
                     guard imageBytes <= budget.limits.maximumDecodedBytes, imageBytes <= budget.limits.maximumMemoryBytes else {
@@ -361,7 +384,7 @@ struct JPEGLSHeader {
                         let first = try dimension(payload + 2), second = try dimension(payload + 2 + size)
                         let width = codecOptions.legacyExtendedDimensions ? first : second
                         let height = codecOptions.legacyExtendedDimensions ? second : first
-                        _ = try ImageDescriptor.greyscale16(width: width, height: height, limits: budget.limits)
+                        try validateFrameAdmission(width: width, height: height, limits: budget.limits)
                         extendedSize = (width, height)
                         if var f = frame {
                             guard (f.width == 0 || f.width == width), (f.height == 0 || f.height == height) else { throw malformed() }
@@ -377,7 +400,7 @@ struct JPEGLSHeader {
                     restartInterval = Int(clamping: wireInterval)
                 case 0xda:
                     guard let f = frame, length >= 6, f.width > 0, f.height > 0 else { throw malformed() }
-                    _ = try ImageDescriptor.greyscale16(width: f.width, height: f.height, meaningfulBits: f.bits, limits: budget.limits)
+                    try validateFrameAdmission(width: f.width, height: f.height, meaningfulBits: f.bits, limits: budget.limits)
                     if let s = spiff {
                         guard s.width == f.width, s.height == f.height, s.bits == f.bits, s.components == f.ids.count else { throw malformed() }
                     }
