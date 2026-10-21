@@ -18,6 +18,82 @@ func expectCodecError(_ category: CodecError.Category,
 
 @Suite("Descriptor validation")
 struct DescriptorTests {
+    @Test func singletonMappingErrorPrecedesAlignment() throws {
+        let mappingError = CodecError(.invalidArgument, "Each component must occur in exactly one plane.")
+        for plane in [
+            try PlaneDescriptor(width: 1, height: 1, components: [1], offset: 1, rowBytes: 2, byteCount: 4),
+            try PlaneDescriptor(width: 1, height: 1, components: [1], sampleStride: 3, rowBytes: 2, byteCount: 4),
+            try PlaneDescriptor(width: 1, height: 1, components: [1], pixelStride: 3, rowBytes: 4, byteCount: 4),
+            try PlaneDescriptor(width: 1, height: 1, components: [1], rowBytes: 3, byteCount: 4)
+        ] {
+            #expect(throws: mappingError) {
+                _ = try ImageDescriptor(width: 1, height: 1, planes: [plane])
+            }
+        }
+        // Plane geometry still wins over both invalid mapping and alignment.
+        let wrongWidth = try PlaneDescriptor(width: 2, height: 1, components: [1],
+                                             offset: 1, rowBytes: 4, byteCount: 6)
+        #expect(throws: CodecError(.incompatibleImageLayout,
+                                  "Plane dimensions disagree with their explicit sampling factors.")) {
+            _ = try ImageDescriptor(width: 1, height: 1, planes: [wrongWidth])
+        }
+    }
+
+    @Test func singletonAndGeneralMappingMatrix() throws {
+        // Valid singleton coverage includes every admitted storage width and
+        // odd geometry with padding/prefix; this must retain exact extents.
+        for (storageBits, sampleType) in [(8, SampleType.unsignedInteger),
+                                          (16, .unsignedInteger), (32, .floatingPoint)] {
+            let sampleBytes = storageBits / 8
+            for offset in [0, sampleBytes * 2] {
+                let rowBytes = sampleBytes * 4
+                let capacity = offset + rowBytes + sampleBytes * 3
+                let plane = try PlaneDescriptor(width: 3, height: 2, offset: offset,
+                    sampleStride: sampleBytes, pixelStride: sampleBytes,
+                    rowBytes: rowBytes, byteCount: capacity)
+                let descriptor = try ImageDescriptor(width: 3, height: 2, sampleType: sampleType,
+                    storageBits: storageBits, meaningfulBits: storageBits, planes: [plane])
+                #expect(descriptor.requiredByteCount == capacity)
+                #expect(descriptor.planes == [plane])
+            }
+        }
+        let roles: [ComponentRole] = [.uninterpreted("A"), .uninterpreted("B")]
+        let first = try PlaneDescriptor(width: 1, height: 1, components: [0], rowBytes: 2, byteCount: 4)
+        let second = try PlaneDescriptor(width: 1, height: 1, components: [1], offset: 2,
+                                         rowBytes: 2, byteCount: 4)
+        let duplicate = try PlaneDescriptor(width: 1, height: 1, components: [0], offset: 2,
+                                            rowBytes: 2, byteCount: 4)
+        let overlap = try PlaneDescriptor(width: 1, height: 1, components: [1], rowBytes: 2, byteCount: 4)
+        let packed = try PlaneDescriptor(width: 1, height: 1, components: [0, 1],
+                                         pixelStride: 4, rowBytes: 4, byteCount: 4)
+        for planes in [[first, second], [packed]] {
+            let descriptor = try ImageDescriptor(width: 1, height: 1,
+                components: roles, colour: .unknown, planes: planes)
+            #expect(descriptor.requiredByteCount == 4)
+        }
+        for (components, planes, expected) in [
+            (roles, [first], CodecError(.invalidArgument, "A component has no plane.")),
+            (roles, [first, duplicate], CodecError(.invalidArgument, "Each component must occur in exactly one plane.")),
+            ([.grey], [packed], CodecError(.invalidArgument, "Each component must occur in exactly one plane.")),
+            ([.grey], [first, duplicate], CodecError(.invalidArgument, "Each component must occur in exactly one plane.")),
+            (roles, [first, overlap], CodecError(.incompatibleImageLayout, "Writable plane ranges overlap."))
+        ] {
+            #expect(throws: expected) {
+                _ = try ImageDescriptor(width: 1, height: 1,
+                    components: components, colour: .unknown, planes: planes)
+            }
+        }
+        // A valid singleton mapping must still reach alignment and byte limits.
+        let misaligned = try PlaneDescriptor(width: 1, height: 1, offset: 1, rowBytes: 2, byteCount: 4)
+        #expect(throws: CodecError(.incompatibleImageLayout, "Sample offsets and strides must be aligned.")) {
+            _ = try ImageDescriptor(width: 1, height: 1, planes: [misaligned])
+        }
+        let small = try ResourceLimits(maximumDecodedBytes: 3)
+        #expect(throws: CodecError(.resourceLimitExceeded, "Decoded storage limit exceeded.")) {
+            _ = try ImageDescriptor(width: 1, height: 1, planes: [first], limits: small)
+        }
+    }
+
     @Test func paddedOddDimensionsAndPrecision() throws {
         let descriptor = try ImageDescriptor.greyscale16(
             width: 3, height: 5, meaningfulBits: 12, rowBytes: 8, offset: 2)

@@ -177,7 +177,9 @@ struct JPEGLSHeader {
             var extendedSize: (width: Int, height: Int)?
             var restartInterval = 0
             var records: [Scan] = []
-            var covered = Set<Int>()
+            // Frame admission limits component indices to 0...3. The mask
+            // records the same completed scans without allocating a tiny Set.
+            var covered: UInt8 = 0
             var spiff: (width: Int, height: Int, bits: Int, components: Int, rgb: Bool, grey: Bool)?
             var needsDirectoryEnd = false
             var spiffData = Data()
@@ -204,7 +206,7 @@ struct JPEGLSHeader {
                 if marker == 0xd9 {
                     // DICOM may even-pad an odd-length codestream with one zero byte.
                     let hasDICOMPadding = cursor % 2 == 1 && bytes.count - cursor == 1 && bytes[cursor] == 0
-                    guard let f = frame, !records.isEmpty, covered.count == f.ids.count,
+                    guard let f = frame, !records.isEmpty, covered.nonzeroBitCount == f.ids.count,
                           (cursor == bytes.count || hasDICOMPadding), !needsDirectoryEnd else { throw malformed() }
                     let mapping = try tables.isEmpty ? nil : JPEGLSMappingTables(tables: Array(tables.values), componentTableIDs: selectors)
                     let outputBits = codecOptions.mappingOutputPrecision ?? f.bits
@@ -409,7 +411,7 @@ struct JPEGLSHeader {
                     var indices: [Int] = []
                     for i in 0..<count {
                         guard let component = f.ids.firstIndex(of: bytes[payload + 1 + 2 * i]),
-                              !covered.contains(component), !indices.contains(component) else { throw malformed() }
+                              (covered & (UInt8(1) << component)) == 0, !indices.contains(component) else { throw malformed() }
                         selectors[component] = bytes[payload + 2 + 2 * i]
                         indices.append(component)
                     }
@@ -421,7 +423,7 @@ struct JPEGLSHeader {
                     guard (interleave == .none && count == 1) || (interleave != .none && count > 1) else { throw malformed() }
                     // No restart boundary occurs at or beyond the frame height.
                     let hasActiveRestarts = restartInterval > 0 && restartInterval < f.height
-                    if Set(f.sampling).count > 1 {
+                    if let first = f.sampling.first, f.sampling.contains(where: { $0 != first }) {
                         guard interleave == .line, count == f.ids.count, !hasActiveRestarts,
                               transform == nil || transform == CodecOptions.ColourTransform.none else {
                             throw unsupported("Subsampled decoding requires one line-interleaved scan without HP or restarts.")
@@ -507,7 +509,9 @@ struct JPEGLSHeader {
                     }
                     records.append(Scan(components: indices, near: near, interleave: interleave,
                         parameters: params, ranges: ranges, restartInterval: restartInterval))
-                    covered.formUnion(indices)
+                    // `indices` contains only validated frame positions, so
+                    // each shift is in 0...3; update only after accepting a scan.
+                    for component in indices { covered |= UInt8(1) << component }
                     continue
                 case 0xe0...0xe7, 0xe9...0xef, 0xfe:
                     try charge(length + 1)

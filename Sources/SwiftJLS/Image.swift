@@ -11,7 +11,7 @@ public struct ImageMetadata: Sendable, Equatable {
     }
     @discardableResult
     func validate(limits: ResourceLimits, additionalBytes: Int = 0) throws -> Int {
-        guard requiredKeys.isSubset(of: Set(entries.keys)) else {
+        guard requiredKeys.allSatisfy({ entries[$0] != nil }) else {
             throw CodecError(.invalidArgument, "Required metadata has no value.")
         }
         var count = additionalBytes
@@ -101,6 +101,17 @@ public final class ImageDestination: Sendable {
         self.descriptor = descriptor; self.storage = storage; self.limits = limits
         self.lease = try storage.reserveWrite()
     }
+    // Only `allocate` may use this initializer, after descriptor and combined
+    // memory admission and construction of an exact-capacity owned allocation.
+    // Its immutable byteCount equals requiredByteCount, so the public provider
+    // initializer's repeated descriptor/capacity guards cannot newly fail.
+    // Keep the same reservation and the original owned-allocation cancellation.
+    private init(admittedOwnedDescriptor descriptor: ImageDescriptor,
+                 storage: OwnedImageStorage, limits: ResourceLimits) throws {
+        self.descriptor = descriptor; self.storage = storage; self.limits = limits
+        self.lease = try storage.reserveWrite()
+    }
+
     deinit {
         if !lifecycle.withLock({ $0.finished }) {
             try? storage.abortAndInvalidate(lease: lease)
@@ -113,7 +124,7 @@ public final class ImageDestination: Sendable {
             throw CodecError(.resourceLimitExceeded, "Destination exceeds the admission budget.")
         }
         let storage = try OwnedImageStorage(byteCount: descriptor.requiredByteCount, limits: limits)
-        return try Self(descriptor: descriptor, storage: storage, limits: limits)
+        return try Self(admittedOwnedDescriptor: descriptor, storage: storage, limits: limits)
     }
 
     /// Advanced unsafe fill boundary. Initialise every sample before returning.

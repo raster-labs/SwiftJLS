@@ -45,6 +45,26 @@ def classify(frames, size=None):
         return 'compressed_buffer'
     if any(s in stack for s in ['JPEGLSContextModel.', 'JPEGLSRegularMode.init', 'JPEGLSRegularModeDecoder.init', 'PredictorRows.init']):
         return 'algorithm_state'
+    # At bee49a2, sample decode compactMap grows a native-writer descriptor
+    # array through capacities 1/2/4. The observed x86_64 ABI has a 32-byte
+    # array header and 48-byte borrowed descriptors: 80/128/224 requested
+    # bytes. Require the exact immediate allocation/append/compactMap chain
+    # and decoder borrower; other sizes, element types and callers stay unknown.
+    native = 'generic specialization <SwiftJLS.NativeUInt16Writer> of Swift.'
+    if size in (80, 128, 224) and frames[:3] == [
+            'swift_slowAlloc', 'swift_allocObject',
+            native + '_ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> Swift._ContiguousArrayBuffer<A>']:
+        growth = [native + 'Array._makeUniqueAndReserveCapacityIfNotUnique() -> ()'] if size == 80 else [
+            native + 'Array._createNewBuffer(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> ()',
+            native + 'Array._reserveCapacityAssumingUniqueBuffer(oldCount: Swift.Int) -> ()']
+        growth += [native + 'Array.append(__owned A) -> ()',
+            'generic specialization <[SwiftJLS.ComponentSampleWriter], SwiftJLS.NativeUInt16Writer> of (extension in Swift):Swift.Sequence.compactMap<A>((A.Element) throws -> A1?) throws -> [A1]']
+        caller = 3 + len(growth)
+        kernel = 'SwiftJLS.JPEGLSScalarKernel.decodeInterleaved(views: [SwiftJLS.ComponentSampleWriter], width: Swift.Int, height: Swift.Int, mode: SwiftJLS.JPEGLSInterleaveMode, near: Swift.Int, parameters: SwiftJLS.JPEGLSPresetParameters, bits: Swift.Int, reader: SwiftJLS.JPEGLSBitstreamReader, verticalSampling: [Swift.Int]?, checkpoint: () throws -> ()) throws -> ()'
+        if (frames[3:caller] == growth and len(frames) > caller + 1
+                and frames[caller].endswith(kernel)
+                and re.match(r'^closure #7 \(Swift.UnsafeMutableRawBufferPointer\) throws -> \(\) in static SwiftJLS.ComponentCodec.decode\(', frames[caller + 1])):
+            return 'algorithm_state'
     if any(s in allocation for s in ['<SwiftJLS.ComponentSampleReader>', '<SwiftJLS.ComponentSampleWriter>', '<SwiftJLS.HPComponentReader>', 'SwiftJLS.JPEGLSScalarKernel.PredictorRows', 'SwiftJLS.JPEGLSScalarKernel.Neighbours']):
         return 'algorithm_state'
     # Inlined scalar near-lossless UInt16 arrays are its two predictor rows.
@@ -239,6 +259,29 @@ def self_test():
     assert classify(reader, 64) == 'algorithm_state'
     for size in [None, 63, 65, 1048576]:
         assert classify(reader, size) == 'unattributed_codec'
+    native = 'generic specialization <SwiftJLS.NativeUInt16Writer> of Swift.'
+    native_head = prefix + [native + '_ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> Swift._ContiguousArrayBuffer<A>']
+    native_tail = [native + 'Array.append(__owned A) -> ()',
+        'generic specialization <[SwiftJLS.ComponentSampleWriter], SwiftJLS.NativeUInt16Writer> of (extension in Swift):Swift.Sequence.compactMap<A>((A.Element) throws -> A1?) throws -> [A1]',
+        'SwiftJLS.JPEGLSScalarKernel.decodeInterleaved(views: [SwiftJLS.ComponentSampleWriter], width: Swift.Int, height: Swift.Int, mode: SwiftJLS.JPEGLSInterleaveMode, near: Swift.Int, parameters: SwiftJLS.JPEGLSPresetParameters, bits: Swift.Int, reader: SwiftJLS.JPEGLSBitstreamReader, verticalSampling: [Swift.Int]?, checkpoint: () throws -> ()) throws -> ()',
+        'closure #7 (Swift.UnsafeMutableRawBufferPointer) throws -> () in static SwiftJLS.ComponentCodec.decode(']
+    native_initial = native_head + [native + 'Array._makeUniqueAndReserveCapacityIfNotUnique() -> ()'] + native_tail
+    native_growth = native_head + [
+        native + 'Array._createNewBuffer(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> ()',
+        native + 'Array._reserveCapacityAssumingUniqueBuffer(oldCount: Swift.Int) -> ()'] + native_tail
+    for frames, sizes in [(native_initial, [80]), (native_growth, [128, 224])]:
+        for size in sizes:
+            assert classify(frames, size) == 'algorithm_state'
+            assert classify(['malloc'] + frames[1:], size) == 'unattributed_codec'
+            assert classify(frames[:3] + ['SwiftJLS.Other.allocate'] + frames[3:], size) == 'unattributed_codec'
+            assert classify(frames[:-2] + ['SwiftJLS.Other.allocate'] + frames[-2:], size) == 'unattributed_codec'
+            assert classify([f.replace('NativeUInt16Writer', 'UInt16') for f in frames], size) == 'unattributed_codec'
+            assert classify([f.replace('decodeInterleaved(', 'encodeInterleaved(') for f in frames], size) == 'unattributed_codec'
+            assert classify(frames[:-1] + [frames[-1].replace('ComponentCodec', 'ScalarCodec')], size) == 'unattributed_codec'
+        # Reject missing sizes, neighbouring sizes/different ABIs, full frames,
+        # and allocation sizes belonging only to the other observed stack shape.
+        for size in [None, 79, 81, 127, 129, 223, 225, 1048576] + ([128, 224] if sizes == [80] else [80]):
+            assert classify(frames, size) == 'unattributed_codec'
     assert classify(['operator new(unsigned long)', 'swift_getTupleTypeMetadata',
         'SwiftJLS.JPEGLSBitstreamReader.init(data:)'], 40) == 'runtime_or_unattributed'
     assert classify(['operator new(unsigned long)',

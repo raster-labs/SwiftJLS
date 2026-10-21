@@ -99,6 +99,9 @@ public struct ImageDescriptor: Sendable, Equatable {
             throw CodecError(.invalidArgument, "Alpha component meaning is inconsistent.")
         }
         let sampleBytes = storageBits / 8
+        // A single admitted mapping can only be component zero. Keep its range
+        // check in the loop before alignment; all other shapes use the set.
+        let singletonMapping = components.count == 1 && planes.count == 1 && planes[0].components.count == 1
         var mapped = Set<Int>()
         var ranges: [Range<Int>] = []
         var required = 0
@@ -111,7 +114,7 @@ public struct ImageDescriptor: Sendable, Equatable {
                 throw CodecError(.incompatibleImageLayout, "Plane dimensions disagree with their explicit sampling factors.")
             }
             for component in plane.components {
-                guard component < components.count, mapped.insert(component).inserted else {
+                guard component < components.count, singletonMapping || mapped.insert(component).inserted else {
                     throw CodecError(.invalidArgument, "Each component must occur in exactly one plane.")
                 }
             }
@@ -142,7 +145,7 @@ public struct ImageDescriptor: Sendable, Equatable {
             if planes.count > 1 { ranges.append(range) }
             required = max(required, plane.byteCount)
         }
-        guard mapped.count == components.count else {
+        guard singletonMapping || mapped.count == components.count else {
             throw CodecError(.invalidArgument, "A component has no plane.")
         }
         self.width = width; self.height = height; self.sampleType = sampleType
