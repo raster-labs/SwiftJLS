@@ -1,0 +1,155 @@
+{
+  "prepared_utc": "2026-10-21T14:13:27.065341+00:00",
+  "status": "Predeclared selection only; final candidate and timings pending.",
+  "selection_reason": "Changed bounded header/descriptor allocation paths across scalar, planar, line and sample decode; prior three RGB regressions; low/high precision; flat/ramp/noise; NEAR0/3; owner-selected larger geometries. Additional decoder-table candidate, if needed, must pass these same guards. Earlier bee63-case dataset stays separately labelled.",
+  "predecessor": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+  "cases": [
+    {
+      "width": 512,
+      "height": 512,
+      "bits": 12,
+      "pattern": "flat",
+      "components": 1,
+      "near": 0,
+      "interleave": 0
+    },
+    {
+      "width": 512,
+      "height": 512,
+      "bits": 16,
+      "pattern": "noise",
+      "components": 1,
+      "near": 0,
+      "interleave": 0
+    },
+    {
+      "width": 2048,
+      "height": 2048,
+      "bits": 12,
+      "pattern": "ramp",
+      "components": 1,
+      "near": 0,
+      "interleave": 0
+    },
+    {
+      "width": 4096,
+      "height": 3073,
+      "bits": 16,
+      "pattern": "noise",
+      "components": 1,
+      "near": 0,
+      "interleave": 0
+    },
+    {
+      "width": 512,
+      "height": 512,
+      "bits": 12,
+      "pattern": "noise",
+      "components": 1,
+      "near": 3,
+      "interleave": 0
+    },
+    {
+      "width": 512,
+      "height": 512,
+      "bits": 16,
+      "pattern": "ramp",
+      "components": 1,
+      "near": 3,
+      "interleave": 0
+    },
+    {
+      "width": 512,
+      "height": 512,
+      "bits": 12,
+      "pattern": "ramp",
+      "components": 3,
+      "near": 0,
+      "interleave": 2
+    },
+    {
+      "width": 512,
+      "height": 512,
+      "bits": 12,
+      "pattern": "ramp",
+      "components": 3,
+      "near": 3,
+      "interleave": 2
+    },
+    {
+      "width": 512,
+      "height": 512,
+      "bits": 12,
+      "pattern": "noise",
+      "components": 3,
+      "near": 3,
+      "interleave": 2
+    },
+    {
+      "width": 512,
+      "height": 512,
+      "bits": 16,
+      "pattern": "noise",
+      "components": 3,
+      "near": 0,
+      "interleave": 2
+    },
+    {
+      "width": 512,
+      "height": 512,
+      "bits": 12,
+      "pattern": "noise",
+      "components": 3,
+      "near": 3,
+      "interleave": 1
+    },
+    {
+      "width": 512,
+      "height": 512,
+      "bits": 16,
+      "pattern": "ramp",
+      "components": 3,
+      "near": 0,
+      "interleave": 0
+    },
+    {
+      "width": 2048,
+      "height": 2048,
+      "bits": 12,
+      "pattern": "noise",
+      "components": 3,
+      "near": 3,
+      "interleave": 2
+    },
+    {
+      "width": 4096,
+      "height": 3073,
+      "bits": 12,
+      "pattern": "flat",
+      "components": 3,
+      "near": 0,
+      "interleave": 2
+    },
+    {
+      "width": 4096,
+      "height": 3073,
+      "bits": 16,
+      "pattern": "noise",
+      "components": 3,
+      "near": 0,
+      "interleave": 2
+    }
+  ],
+  "blocks_per_case": 4,
+  "warmups": 5,
+  "observations_per_process": 5,
+  "operations": [
+    "encode",
+    "decode",
+    "prepare",
+    "prepare_encode"
+  ],
+  "conditions": "Frozen original-Consumer release binaries; balanced alternating producer order; full raw samples/size/RSS retained; AC guard; no competing builds; sample preflight; no outcome-based repeats or dropping.",
+  "decision": "Explicit final review required. No automatic waiver. The six tiny cases retain separate 16-pair short and deep-warm comparisons."
+}

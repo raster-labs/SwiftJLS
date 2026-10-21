@@ -1,0 +1,82 @@
+{
+  "recorded_utc": "2026-10-21T15:29:18.448636+00:00",
+  "source_commit": "e6a6436c692f5af226bffceb70b7ee65c774edf3",
+  "review_status": "ready for root validation; not acceptance",
+  "archive_plan_review_status": "pending",
+  "archive_validator_executed": false,
+  "archive_published": false,
+  "performance_accepted": false,
+  "review_method": "Static source/schema review and Python AST/JSON parsing only. No artifact-tree hashing, bootstrap recomputation, builds or timings executed during this review.",
+  "author_review": "evidence_archive reviewed own adapters against recorded schemas; independent scope below is separately identified.",
+  "fixes": [
+    {
+      "location": "work/m4-final-2026-10-21-performance/archive-measurements.py:215",
+      "issue": "Larger guard stores Swift stdout and driver stderr separately; combined output would reject the valid recorded compiler.",
+      "change": "Compare exact stdout with the candidate compiler record."
+    },
+    {
+      "location": "work/m4-final-2026-10-21-performance/archive-measurements.py:367",
+      "issue": "Power was enforced but thermal/performance admission records were only retained.",
+      "change": "Require successful no-warning thermal/performance observations without inferring host isolation."
+    },
+    {
+      "location": "work/m4-final-2026-10-21-performance/archive-evidence.py:134",
+      "issue": "Mutation provenance hashes were retained without checking each downloaded artifact file at final archive admission.",
+      "change": "Require exact run/head/completion, entry summaries and counts, file inventory/bytes/hashes, empty sanitizer stderr and3x3600-second completed campaigns."
+    },
+    {
+      "location": "work/m4-final-2026-10-21-performance/archive-evidence.py:199",
+      "issue": "Finite workspace scope and requested comparison/download provenance needed explicit final archive handling.",
+      "change": "Require universal total/stack/allocator fields remain unknown; retain verified download metadata and recompute89 before/after ledger total/group deltas against the immutable bee anchor."
+    },
+    {
+      "location": "work/m4-final-2026-10-21-performance/archive-final.py:101",
+      "issue": "Candidate Consumer/package must also match before prepare-review, not only eventual publication.",
+      "change": "Recheck both against measured build at source admission; keep later publication check."
+    },
+    {
+      "location": "work/m4-final-2026-10-21-performance/archive-final.py:198",
+      "issue": "Plan workspace/mutation/history roots could diverge silently from adapter-selected roots.",
+      "change": "Reject differing reviewed-plan roots/hash."
+    },
+    {
+      "location": "work/m4-final-2026-10-21-performance/archive-final.py:282",
+      "issue": "The incremental fourth-versus-third outlier must remain addressed without becoming pinned-baseline evidence.",
+      "change": "Keep diagnostic scope and require authored coverage for its threshold findings alongside selected-source findings."
+    },
+    {
+      "location": "work/m4-final-2026-10-21-performance/archive-final.py:323",
+      "issue": "A filled drafting template must not masquerade as an authored review.",
+      "change": "Reject PENDING AUTHOR REVIEW/unreviewed markers; unresolved authored decisions remain permitted."
+    },
+    {
+      "location": "work/m4-final-2026-10-21-performance/archive-final.py:400",
+      "issue": "A zero-sample larger preflight and derived benchmark record must remain distinct from successful timing.",
+      "change": "Retain their exact receipts; preserve prior117 host and unexecuted larger preparation separately."
+    },
+    {
+      "location": "work/m4-final-2026-10-21-performance/ARCHIVE-CHECKLIST.md:10",
+      "issue": "Preparation prose still described an unset/unknown source and unused qualification drivers.",
+      "change": "Record selected e6a source and completed host/native/qualification/workspace state; keep larger/mutation/authored review and archive validation boundaries explicit."
+    }
+  ],
+  "independent_review": {
+    "reviewer": "source_review",
+    "method": "Read-only; no hashes, validators, builds or bootstrap execution",
+    "outcome": "No actionable issue found in the scoped fourth-schema/128/incremental review",
+    "locations": [
+      "work/m4-final-2026-10-21-performance/archive-measurements.py:65",
+      "work/m4-final-2026-10-21-performance/archive-measurements.py:250",
+      "work/m4-final-2026-10-21-performance/archive-diagnostics.py:8",
+      "work/m4-final-2026-10-21-performance/archive-diagnostics.py:97"
+    ],
+    "proof_summary": "Frozen combined plan keeps fourth, three-change and pinned identities distinct; common raw schedule/count/binary guards remain active; unchanged analysis/self-test and independently recomputed bootstrap hashes/quantiles are required. Incremental reference binds to archived preceding identity; its findings require explicit authored coverage."
+  },
+  "pending_validation": [
+    "Root approves plan after active timing release.",
+    "Complete larger15 and source-pinned mutation evidence.",
+    "Run prepare-review/check-only and investigate any actual schema/integrity failure.",
+    "Author finding-by-finding performance disposition; unresolved is not acceptance.",
+    "Publish only after root approval; physical-device and Milestone5 boundaries remain unchanged."
+  ]
+}

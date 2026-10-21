@@ -1,0 +1,308 @@
+{
+  "conclusion": "success",
+  "createdAt": "2026-10-21T10:34:14Z",
+  "databaseId": 39585549272,
+  "event": "workflow_dispatch",
+  "headSha": "bee49a2ad47eae4ea149bdced2043b7a45df3dae",
+  "jobs": [
+    {
+      "completedAt": "2026-10-21T11:35:35Z",
+      "conclusion": "success",
+      "databaseId": 119173424734,
+      "name": "mutation (into)",
+      "startedAt": "2026-10-21T10:34:18Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-21T10:34:20Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-21T10:34:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:35:04Z",
+          "conclusion": "success",
+          "name": "Initialize containers",
+          "number": 2,
+          "startedAt": "2026-10-21T10:34:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:35:06Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 3,
+          "startedAt": "2026-10-21T10:35:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:35:06Z",
+          "conclusion": "success",
+          "name": "Run swift --version",
+          "number": 4,
+          "startedAt": "2026-10-21T10:35:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:35:23Z",
+          "conclusion": "success",
+          "name": "Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address",
+          "number": 5,
+          "startedAt": "2026-10-21T10:35:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:35:32Z",
+          "conclusion": "success",
+          "name": "Run apt-get update && apt-get install -y --no-install-recommends python3",
+          "number": 6,
+          "startedAt": "2026-10-21T10:35:23Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:32Z",
+          "conclusion": "success",
+          "name": "Run bounded campaign",
+          "number": 7,
+          "startedAt": "2026-10-21T10:35:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:33Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "number": 8,
+          "startedAt": "2026-10-21T11:35:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:33Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 15,
+          "startedAt": "2026-10-21T11:35:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:33Z",
+          "conclusion": "success",
+          "name": "Stop containers",
+          "number": 16,
+          "startedAt": "2026-10-21T11:35:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:33Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 17,
+          "startedAt": "2026-10-21T11:35:33Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/raster-labs/SwiftJLS/actions/runs/39585549272/job/119173424734"
+    },
+    {
+      "completedAt": "2026-10-21T11:35:35Z",
+      "conclusion": "success",
+      "databaseId": 119173424907,
+      "name": "mutation (owned)",
+      "startedAt": "2026-10-21T10:34:19Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-21T10:34:20Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-21T10:34:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:34:51Z",
+          "conclusion": "success",
+          "name": "Initialize containers",
+          "number": 2,
+          "startedAt": "2026-10-21T10:34:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:34:54Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 3,
+          "startedAt": "2026-10-21T10:34:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:34:54Z",
+          "conclusion": "success",
+          "name": "Run swift --version",
+          "number": 4,
+          "startedAt": "2026-10-21T10:34:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:35:22Z",
+          "conclusion": "success",
+          "name": "Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address",
+          "number": 5,
+          "startedAt": "2026-10-21T10:34:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:35:31Z",
+          "conclusion": "success",
+          "name": "Run apt-get update && apt-get install -y --no-install-recommends python3",
+          "number": 6,
+          "startedAt": "2026-10-21T10:35:22Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:31Z",
+          "conclusion": "success",
+          "name": "Run bounded campaign",
+          "number": 7,
+          "startedAt": "2026-10-21T10:35:31Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:32Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "number": 8,
+          "startedAt": "2026-10-21T11:35:31Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:32Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 15,
+          "startedAt": "2026-10-21T11:35:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:33Z",
+          "conclusion": "success",
+          "name": "Stop containers",
+          "number": 16,
+          "startedAt": "2026-10-21T11:35:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:33Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 17,
+          "startedAt": "2026-10-21T11:35:33Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/raster-labs/SwiftJLS/actions/runs/39585549272/job/119173424907"
+    },
+    {
+      "completedAt": "2026-10-21T11:35:33Z",
+      "conclusion": "success",
+      "databaseId": 119173425203,
+      "name": "mutation (inspect)",
+      "startedAt": "2026-10-21T10:34:19Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-21T10:34:21Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-21T10:34:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:34:51Z",
+          "conclusion": "success",
+          "name": "Initialize containers",
+          "number": 2,
+          "startedAt": "2026-10-21T10:34:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:34:53Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 3,
+          "startedAt": "2026-10-21T10:34:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:34:53Z",
+          "conclusion": "success",
+          "name": "Run swift --version",
+          "number": 4,
+          "startedAt": "2026-10-21T10:34:53Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:35:21Z",
+          "conclusion": "success",
+          "name": "Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address",
+          "number": 5,
+          "startedAt": "2026-10-21T10:34:53Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T10:35:28Z",
+          "conclusion": "success",
+          "name": "Run apt-get update && apt-get install -y --no-install-recommends python3",
+          "number": 6,
+          "startedAt": "2026-10-21T10:35:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:29Z",
+          "conclusion": "success",
+          "name": "Run bounded campaign",
+          "number": 7,
+          "startedAt": "2026-10-21T10:35:28Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:30Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "number": 8,
+          "startedAt": "2026-10-21T11:35:29Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:30Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 15,
+          "startedAt": "2026-10-21T11:35:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:31Z",
+          "conclusion": "success",
+          "name": "Stop containers",
+          "number": 16,
+          "startedAt": "2026-10-21T11:35:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T11:35:31Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 17,
+          "startedAt": "2026-10-21T11:35:31Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/raster-labs/SwiftJLS/actions/runs/39585549272/job/119173425203"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/raster-labs/SwiftJLS/actions/runs/39585549272"
+}

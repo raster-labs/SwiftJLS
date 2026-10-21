@@ -1,5 +1,20 @@
 # Change log
 
+## Milestone 4 bounded setup performance — 2026-10-21 (unreleased)
+
+- Reduce singleton descriptor mapping, bounded header scan tracking, decoder gradient-table initialisation and owned-destination admission overhead; preserve validation precedence, limits, leases, cancellation and public APIs.
+- Validate 120 declarations in 24 suites in debug/release/ASan/TSan on the host and native arm64 macOS 26.0; repeat CLI, exact OS 26.0 simulator, resource and SDK checks.
+- Complete source-pinned owned/into/inspect ASan mutation campaigns for at least one hour each, with 981 seeds and 24,076,372 total iterations; verify artifact digests and counter reconciliation.
+- Attribute all 89 operation profiles at `e6a6436`; reduce metadata allocation traffic with unchanged algorithm-state peaks. Universal heap/stack/allocator totals remain unknown.
+- Preserve fixed short/deep measurements, source identities and unresolved decode findings in [the performance record](Documentation/Engineering/CodecMigration/Milestone4Performance.md). No regression waiver or full Milestone 4 completion is claimed. Physical-device testing stays pending; Milestone 5 stays deferred.
+
+## Milestone 4 sample-interleaved decode qualification — 2026-10-21 (unreleased)
+
+- Select borrowed native UInt16 writers once for compatible sample-interleaved destinations; retain the general layout fallback, unaligned access support and cancellation boundaries.
+- Add native/fallback layout and cancellation regressions. All 110 declarations in 21 suites pass in debug/release/ASan/TSan on the host and native arm64 macOS 26.0 guest; repeat CLI, exact OS 26.0 simulator, resource and SDK checks.
+- Refresh the 89-operation workspace matrix and strict allocation attribution, including bounded descriptor-array growth with no sample allocation or copy. Universal workspace totals remain unknown.
+- Retain source-scoped controlled measurements and their investigation in [the current performance record](Documentation/Engineering/CodecMigration/Milestone4Performance.md). Physical-device testing remains pending; Milestone 5 is deferred and the owner verifies CI and merges.
+
 ## Milestone 4 hot-path and workspace follow-up — 2026-10-14 (unreleased)
 
 - Improve bounded component run detection/fill, remove unnecessary lossless predictor rows and pass the bounded bit writer by mutable value through synchronous kernels.

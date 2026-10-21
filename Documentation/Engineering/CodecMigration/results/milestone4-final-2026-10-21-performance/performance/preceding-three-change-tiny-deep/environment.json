@@ -1,0 +1,1983 @@
+{
+  "plan": {
+    "schema": 1,
+    "created_utc": "2026-10-21T14:24:11.062969+00:00",
+    "cases": [
+      {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      {
+        "id": "p12-ramp",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      {
+        "id": "p12-noise",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      {
+        "id": "p16-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 16,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      {
+        "id": "p16-ramp",
+        "width": 37,
+        "height": 23,
+        "bits": 16,
+        "pattern": "ramp",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      {
+        "id": "p16-noise",
+        "width": 37,
+        "height": 23,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      }
+    ],
+    "blocks_per_case": 16,
+    "warmups": 20000,
+    "observations_per_process": 1000,
+    "mode": "long",
+    "reference": "pinned",
+    "expected_processes": 192,
+    "producers": {
+      "reference": {
+        "path": "work/m4-benchmark/predecessor/.build/release/Benchmark",
+        "sha256": "b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45",
+        "source": "15aa75164145414f3d5ffb801401c52d40cc5bcc"
+      },
+      "candidate": {
+        "path": "work/m4-short-path-diagnostic/consumer/.build/release/Benchmark",
+        "sha256": "7f618c0cf8fe1c31bee5a36b212c0dc2943e89fd366b4228a966f63d83aa5231",
+        "base_revision": "bee49a2ad47eae4ea149bdced2043b7a45df3dae",
+        "patch_sha256": "7f53b5b238deed2d634e0be889fb2a05ff20e31cea9e60652d3af2057ed3123a"
+      }
+    },
+    "operations": [
+      "encode",
+      "decode",
+      "prepare",
+      "prepare_encode"
+    ],
+    "schedule": [
+      {
+        "block": 0,
+        "position": 0,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 0,
+        "position": 1,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 0,
+        "position": 2,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 0,
+        "position": 3,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 0,
+        "position": 4,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 0,
+        "position": 5,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 1,
+        "position": 0,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 1,
+        "position": 1,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 1,
+        "position": 2,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 1,
+        "position": 3,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 1,
+        "position": 4,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 1,
+        "position": 5,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 2,
+        "position": 0,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 2,
+        "position": 1,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 2,
+        "position": 2,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 2,
+        "position": 3,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 2,
+        "position": 4,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 2,
+        "position": 5,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 3,
+        "position": 0,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 3,
+        "position": 1,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 3,
+        "position": 2,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 3,
+        "position": 3,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 3,
+        "position": 4,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 3,
+        "position": 5,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 4,
+        "position": 0,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 4,
+        "position": 1,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 4,
+        "position": 2,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 4,
+        "position": 3,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 4,
+        "position": 4,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 4,
+        "position": 5,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 5,
+        "position": 0,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 5,
+        "position": 1,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 5,
+        "position": 2,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 5,
+        "position": 3,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 5,
+        "position": 4,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 5,
+        "position": 5,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 6,
+        "position": 0,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 6,
+        "position": 1,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 6,
+        "position": 2,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 6,
+        "position": 3,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 6,
+        "position": 4,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 6,
+        "position": 5,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 7,
+        "position": 0,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 7,
+        "position": 1,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 7,
+        "position": 2,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 7,
+        "position": 3,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 7,
+        "position": 4,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 7,
+        "position": 5,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 8,
+        "position": 0,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 8,
+        "position": 1,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 8,
+        "position": 2,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 8,
+        "position": 3,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 8,
+        "position": 4,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 8,
+        "position": 5,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 9,
+        "position": 0,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 9,
+        "position": 1,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 9,
+        "position": 2,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 9,
+        "position": 3,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 9,
+        "position": 4,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 9,
+        "position": 5,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 10,
+        "position": 0,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 10,
+        "position": 1,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 10,
+        "position": 2,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 10,
+        "position": 3,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 10,
+        "position": 4,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 10,
+        "position": 5,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 11,
+        "position": 0,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 11,
+        "position": 1,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 11,
+        "position": 2,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 11,
+        "position": 3,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 11,
+        "position": 4,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 11,
+        "position": 5,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 12,
+        "position": 0,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 12,
+        "position": 1,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 12,
+        "position": 2,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 12,
+        "position": 3,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 12,
+        "position": 4,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 12,
+        "position": 5,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 13,
+        "position": 0,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 13,
+        "position": 1,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 13,
+        "position": 2,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 13,
+        "position": 3,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 13,
+        "position": 4,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 13,
+        "position": 5,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 14,
+        "position": 0,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 14,
+        "position": 1,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 14,
+        "position": 2,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 14,
+        "position": 3,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 14,
+        "position": 4,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 14,
+        "position": 5,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 15,
+        "position": 0,
+        "case": {
+          "id": "p12-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 15,
+        "position": 1,
+        "case": {
+          "id": "p12-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 15,
+        "position": 2,
+        "case": {
+          "id": "p12-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 12,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 15,
+        "position": 3,
+        "case": {
+          "id": "p16-noise",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "noise",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      },
+      {
+        "block": 15,
+        "position": 4,
+        "case": {
+          "id": "p16-ramp",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "ramp",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "candidate",
+          "reference"
+        ]
+      },
+      {
+        "block": 15,
+        "position": 5,
+        "case": {
+          "id": "p16-flat",
+          "width": 37,
+          "height": 23,
+          "bits": 16,
+          "pattern": "flat",
+          "components": 1,
+          "near": 0,
+          "interleave": 0
+        },
+        "order": [
+          "reference",
+          "candidate"
+        ]
+      }
+    ],
+    "confidence": {
+      "unit": "paired process block; never individual timed iterations",
+      "bootstrap": "Percentile 95% interval of the median of 16 paired ratios/deltas; 20,000 resamples; fixed seed 20261021 plus case index*10 plus operation index.",
+      "exact": "Conservative distribution-free nominal 95% median interval: ordered observations 4 and 13 (one-based), coverage 1 - 2*sum(C(16,j),j=0...3)/2^16 = 0.978729248046875 under independent continuous observations; ties conservative.",
+      "limitations": "Blocks use separate processes but share one host/session and may retain temporal correlation. Intervals assume independent/exchangeable blocks, are marginal rather than simultaneous across 24 metrics, and do not establish causation or acceptance. Bootstrap intervals may underrepresent unobserved tails with only 16 blocks."
+    },
+    "decision": "No automatic acceptance, reruns, drops, stopping based on outcomes, or threshold waiver. Preserve every completed/partial result and interruption reason. Report pooled medians, paired block medians, order groups, spread, counts above 1.05, all ratios/deltas, and both intervals."
+  },
+  "schedule_sha256": "af94e8cfea7f6c2d8c98f10c4673d4f7334b3fbaef84239c885e6c1acb4ade1d",
+  "runner_sha256": "62edb6a080e65e00f2ae1aa62002d2805ebf2b5a42a472c1c9fd7ec8bac178fe",
+  "source_guards": {
+    "successor_head": {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "output": "bee49a2ad47eae4ea149bdced2043b7a45df3dae\n"
+    },
+    "successor_diff": {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "bee49a2ad47eae4ea149bdced2043b7a45df3dae",
+        "--",
+        "Sources",
+        "Tests",
+        "Package.swift",
+        "Scripts/Benchmark"
+      ],
+      "exit_code": 0,
+      "output": ""
+    },
+    "predecessor_head": {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "output": "15aa75164145414f3d5ffb801401c52d40cc5bcc\n"
+    },
+    "predecessor_diff": {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+        "--",
+        "Sources",
+        "Package.swift"
+      ],
+      "exit_code": 0,
+      "output": ""
+    },
+    "candidate_build_identity_sha256": "9619fc13ae139d502273e1ac4275f8cdd066c1c6e1c242d5fc2fbf0f0b79f6aa",
+    "candidate_source_hashes": {
+      "Package.swift": "4812930d1d52147b8639649587fc85958ef4b04fd57f4d13652903c9973c6eaf",
+      "Sources/SwiftJLS/CodecAPI.swift": "2aecbc7572e10b24c5119cd69105414039f301ebd448b191498aec23e86cf3ee",
+      "Sources/SwiftJLS/Errors.swift": "f71dd532405f2bca468ef39b29117513c686a89c64dd908ef598d1bca4f4fe6b",
+      "Sources/SwiftJLS/Image.swift": "e9b36ff7299a22d34c66a67183eaf80b71d8010bdbbcf87a0e7444478559e735",
+      "Sources/SwiftJLS/ImageDescriptor.swift": "ba12d371e2583578a726aabde85fc244648821984bcf630ff365ec2a33e1cd26",
+      "Sources/SwiftJLS/ImageStorage.swift": "6211f868c3ffb1a58bbd516cfe039fcee90bc51dbd58a94d52ff54fd679b1c78",
+      "Sources/SwiftJLS/JPEGLS/ComponentCodec.swift": "6d58aa9a3f77ee8b3efab5c70ca6464da68fa01f626259266735c9daaee70cb2",
+      "Sources/SwiftJLS/JPEGLS/ComponentSamples.swift": "1ce0be11dde2105dd795286985802b7c626206ce74063057a9928ae7b8e3d119",
+      "Sources/SwiftJLS/JPEGLS/HPTransform.swift": "3c1b1d61b0de3692a47a555b215f329e9e92e8e86cb7950fe0087bf9f3d6bc83",
+      "Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift": "c1224495271d1b6c0b74b8533557fd92ede7473fdc21e1affbe2389deb6e6704",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift": "3521e0b70581ff2b6cb315daf10c29514ee6eabe7abd7a7c539fb36cae7fabb9",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift": "8e9419b656ba9f2721702623f569ee0b8da403de56a96105e758655bb101f8ba",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift": "5eeb8a236cb8ca55fb60d1613a60b77999e189518a115c2e08c081129d09ebf4",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSError.swift": "73dd58926e8f15cf96ffffeaba7dc72ccf576a77e43bc10fd9f675170a3d9dc1",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift": "5b4c1388a0651b504fb67206ea88c28d02ab232ee61d66ac126cfa1f461bc5e0",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift": "a0a42030720d63690a4baed0a8599872b5e72a799fffc1e6bcc553bfd32fccb2",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift": "97f9944dd1a62fe76cc5b05c8d216fd7c71968efa1cac0a2945e5885d83781cd",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift": "c67cf575f32f721891a73d1b5895948d518dae4894a353c9bf1f634d7a0dbd13",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift": "b165f853b2118674183466de4030f8192a6a7e62e5ea4398d38d61774b7af1fa",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift": "b419c22bc5adfcaedf7b44ca33283b3b53ef02a7e9c830ab85aee570f6f91ef6",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift": "1901bc5deeea95438852c530ba1b1682af07c1fe2304438b446710298b79a0bc",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift": "30e8e774cf84acae49e188cddedc25d5a7c3b4bcfe14c9aa68a8da3f3fca17a8",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift": "e26a0753893f838f68ea42a0c10ea863ac4771e532bfc6978bd1fb764968838e",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift": "3edc9cbf9a5755e193ce0dfebcd9bc0aba0652a2a0d23fd802da8d58d63ed4d6",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift": "b98f40f6701c2d5edf9d6346c9ba142166b9ec45163ace57f75819f4fd8e0b89",
+      "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift": "5af63c538c3ce0d31f207452e37ddb18d78084a4a90c9c365d6d4380b0bd5e29",
+      "Sources/SwiftJLS/JPEGLS/ScalarSamples.swift": "2a18c8e246c9fc0dfb37fb41798683c5b3c1bbdbb738fd5c26e5dd3c065faa6f",
+      "Sources/SwiftJLS/Options.swift": "dd43c63592bf4d74c53626374fb4494b0815315f0f64bc1a2831f9c066b5d787",
+      "Sources/SwiftJLSCLI/PayloadCommands.swift": "2eadb7719607fef0cb9787f8060ef8c536b86485c7180958014d2677ca1b0fbf",
+      "Sources/SwiftJLSCLI/PayloadIO.swift": "f759f05c4db55d9994e9895b4890a9da3a697c05132b061c770c1e8d9cad4ec2",
+      "Sources/SwiftJLSCLI/main.swift": "22ef948e4154e8378890ba072ec639d86f1cf207bff41298d112e653858f0432",
+      "Tests/SwiftJLSTests/APITests.swift": "b394a963e179ad292c014983c7d9598623df54875d79cafec1bd0a41363c224f",
+      "Tests/SwiftJLSTests/BitstreamWriterTests.swift": "264a35016691b089ae2045e8795f07593ceba31cac680ed10d14659c5839bdf7",
+      "Tests/SwiftJLSTests/CancellationPublicationTests.swift": "96eed0adc2bf6c364465613b57ed805fb23f334b35d47c5374f28f1f3fcf2a66",
+      "Tests/SwiftJLSTests/ComponentCodecTests.swift": "d80d56b5f6f986bf92f316398cc5b9f1238cf76d4682d3c5b0dbd5b511276709",
+      "Tests/SwiftJLSTests/ComponentPrecisionTests.swift": "cc75c032f0ba4f832f149dd24757630644b474a97fb6d01ad7fef60d957bd944",
+      "Tests/SwiftJLSTests/ConcurrentAdmissionTests.swift": "23991b68c0e501a2d36f2d45ca82cac387ab1abfa43f6b3d36ac6a7b42e03dae",
+      "Tests/SwiftJLSTests/ContextIndexTests.swift": "cb3c32dee466040d7a9b3048bf1302fe79c28a661b7eaf5f7ee6dbdc085649f4",
+      "Tests/SwiftJLSTests/DescriptorTests.swift": "c3ee5e7ee2077ae693b66a88d831468c06d031122dc2f66dec343b783e30a6a6",
+      "Tests/SwiftJLSTests/DestinationLifecycleTests.swift": "9d9108a2ead7fb143601e398d5c821b2051d3d123cd05d1afed59ad7111ca751",
+      "Tests/SwiftJLSTests/GradientTableTests.swift": "e8858ab429f3969bf644d7f5ed6f5643673f12e38d90e9e677055ee56274921d",
+      "Tests/SwiftJLSTests/HPTransformTests.swift": "55d99981848cd82c5fbef01a62b6907a680f0a7d648429727fabba1bde5cb9d0",
+      "Tests/SwiftJLSTests/HeaderDescriptorTests.swift": "48dfb1ecbd73b37f1e1dc2a7f546306fa34c0f099909c69ca139df8282a4154a",
+      "Tests/SwiftJLSTests/HeaderFrameAdmissionTests.swift": "59339d2c48361a82ced0fe189828af4d1bf3d0f87b6d80bb8d1f54e1fa37e404",
+      "Tests/SwiftJLSTests/HeaderScanBoundaryTests.swift": "23602898098bf6a8dd1ed581e27f2e44c87068b217c54dffd2b322cc271b7bdd",
+      "Tests/SwiftJLSTests/KernelWorkspaceTests.swift": "a5c19c7778aa3668b4c0ecdb04a79a994da8c48bdd80807cdde05707c474fa4c",
+      "Tests/SwiftJLSTests/LosslessPrecisionValidationTests.swift": "70a062e2e1e9f73c8da3028f50c7157327652e635e10ad8587f5d1b3577d921c",
+      "Tests/SwiftJLSTests/MappingMetadataTests.swift": "a4e7dd854d463baacb5b11e7f7bd31a5b26ddb6786f9e3ec111e6c5769238833",
+      "Tests/SwiftJLSTests/OwnershipTests.swift": "f92d2f297f88f955321783b2b784ef57a67af44f945a4bd4f7ddd21268d80a63",
+      "Tests/SwiftJLSTests/ParserContainerTests.swift": "8166d3901df18bd3c5d76a375ddec0f7900d622fb9c11e2c06f28d983bb24f9d",
+      "Tests/SwiftJLSTests/PredecessorProfileTests.swift": "3dae9c436a470dfa58fc86b09f69b09703633e853ea62c89bda6fe931cbbb87b",
+      "Tests/SwiftJLSTests/RunCheckpointTests.swift": "acc9cfe8566d1217952f847378615e8894e0bdac3668e21dc9d3a2ec156ad623",
+      "Tests/SwiftJLSTests/SampleAccessTests.swift": "cb8a04f2a6a6a31f0f58a9b72ab2638191656848e9a975fe8430c6bd73ab3f82",
+      "Tests/SwiftJLSTests/SampleNativeDecodeTests.swift": "9379b9c230f1f810e22509bb1599822afa0f0328bd3ecb2f0e332c8b7641bc53",
+      "Tests/SwiftJLSTests/ScalarCodecTests.swift": "2e477fc29d7cefceb0893a2b3d9d716a6a45227afc32b113c88a5376a7427fe1",
+      "Tests/SwiftJLSTests/StorageEvidenceTests.swift": "06d79ba758dbaef8eff87f88f74f2220e9032ecfb762c660ada939949bcf5cce",
+      "VERSION": "913c1672433548005a2a6b9c862a939558b9f8ce8357ad85350bfc0d26c0e938"
+    },
+    "candidate_patch_sha256": "7f53b5b238deed2d634e0be889fb2a05ff20e31cea9e60652d3af2057ed3123a",
+    "candidate_binary_sha256": "7f618c0cf8fe1c31bee5a36b212c0dc2943e89fd366b4228a966f63d83aa5231"
+  },
+  "conditions": {
+    "utc": "2026-10-21T14:26:30.032188+00:00",
+    "power": {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n"
+    },
+    "thermal": {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+    },
+    "load": {
+      "command": [
+        "sysctl",
+        "-n",
+        "vm.loadavg"
+      ],
+      "exit_code": 0,
+      "output": "{ 2.67 3.24 3.19 }\n"
+    }
+  },
+  "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+  "swift": {
+    "command": [
+      "swift",
+      "--version"
+    ],
+    "exit_code": 0,
+    "output": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\nswift-driver version: 1.168.6 "
+  },
+  "performance_qualified": false,
+  "caller_context": "original main-actor public-API Consumer"
+}

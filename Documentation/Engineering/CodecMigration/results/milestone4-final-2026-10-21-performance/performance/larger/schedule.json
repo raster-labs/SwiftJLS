@@ -1,0 +1,1266 @@
+{
+  "schema": 1,
+  "created_utc": "2026-10-21T15:12:21.927546+00:00",
+  "cases": [
+    {
+      "id": "512x512-p12-flat-c1-n0-i0",
+      "width": 512,
+      "height": 512,
+      "bits": 12,
+      "pattern": "flat",
+      "components": 1,
+      "near": 0,
+      "interleave": 0
+    },
+    {
+      "id": "512x512-p16-noise-c1-n0-i0",
+      "width": 512,
+      "height": 512,
+      "bits": 16,
+      "pattern": "noise",
+      "components": 1,
+      "near": 0,
+      "interleave": 0
+    },
+    {
+      "id": "2048x2048-p12-ramp-c1-n0-i0",
+      "width": 2048,
+      "height": 2048,
+      "bits": 12,
+      "pattern": "ramp",
+      "components": 1,
+      "near": 0,
+      "interleave": 0
+    },
+    {
+      "id": "4096x3073-p16-noise-c1-n0-i0",
+      "width": 4096,
+      "height": 3073,
+      "bits": 16,
+      "pattern": "noise",
+      "components": 1,
+      "near": 0,
+      "interleave": 0
+    },
+    {
+      "id": "512x512-p12-noise-c1-n3-i0",
+      "width": 512,
+      "height": 512,
+      "bits": 12,
+      "pattern": "noise",
+      "components": 1,
+      "near": 3,
+      "interleave": 0
+    },
+    {
+      "id": "512x512-p16-ramp-c1-n3-i0",
+      "width": 512,
+      "height": 512,
+      "bits": 16,
+      "pattern": "ramp",
+      "components": 1,
+      "near": 3,
+      "interleave": 0
+    },
+    {
+      "id": "512x512-p12-ramp-c3-n0-i2",
+      "width": 512,
+      "height": 512,
+      "bits": 12,
+      "pattern": "ramp",
+      "components": 3,
+      "near": 0,
+      "interleave": 2
+    },
+    {
+      "id": "512x512-p12-ramp-c3-n3-i2",
+      "width": 512,
+      "height": 512,
+      "bits": 12,
+      "pattern": "ramp",
+      "components": 3,
+      "near": 3,
+      "interleave": 2
+    },
+    {
+      "id": "512x512-p12-noise-c3-n3-i2",
+      "width": 512,
+      "height": 512,
+      "bits": 12,
+      "pattern": "noise",
+      "components": 3,
+      "near": 3,
+      "interleave": 2
+    },
+    {
+      "id": "512x512-p16-noise-c3-n0-i2",
+      "width": 512,
+      "height": 512,
+      "bits": 16,
+      "pattern": "noise",
+      "components": 3,
+      "near": 0,
+      "interleave": 2
+    },
+    {
+      "id": "512x512-p12-noise-c3-n3-i1",
+      "width": 512,
+      "height": 512,
+      "bits": 12,
+      "pattern": "noise",
+      "components": 3,
+      "near": 3,
+      "interleave": 1
+    },
+    {
+      "id": "512x512-p16-ramp-c3-n0-i0",
+      "width": 512,
+      "height": 512,
+      "bits": 16,
+      "pattern": "ramp",
+      "components": 3,
+      "near": 0,
+      "interleave": 0
+    },
+    {
+      "id": "2048x2048-p12-noise-c3-n3-i2",
+      "width": 2048,
+      "height": 2048,
+      "bits": 12,
+      "pattern": "noise",
+      "components": 3,
+      "near": 3,
+      "interleave": 2
+    },
+    {
+      "id": "4096x3073-p12-flat-c3-n0-i2",
+      "width": 4096,
+      "height": 3073,
+      "bits": 12,
+      "pattern": "flat",
+      "components": 3,
+      "near": 0,
+      "interleave": 2
+    },
+    {
+      "id": "4096x3073-p16-noise-c3-n0-i2",
+      "width": 4096,
+      "height": 3073,
+      "bits": 16,
+      "pattern": "noise",
+      "components": 3,
+      "near": 0,
+      "interleave": 2
+    }
+  ],
+  "larger_guard_plan_sha256": "e53e2e11ff679398dbb5de160e72c08a53ca5809fb2117e42777510158048bef",
+  "blocks_per_case": 4,
+  "warmups": 5,
+  "observations_per_process": 5,
+  "mode": "guard",
+  "reference": "pinned",
+  "expected_processes": 120,
+  "producers": {
+    "reference": {
+      "path": "work/m4-benchmark/predecessor/.build/release/Benchmark",
+      "sha256": "b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45",
+      "source": "15aa75164145414f3d5ffb801401c52d40cc5bcc"
+    },
+    "candidate": {
+      "path": "work/m4-owned-admission-diagnostic/consumer/.build/release/Benchmark",
+      "sha256": "2e67435160c617b4d31ed50cd6a1e63ac63c0dfdf067571681f7c7f329eece60",
+      "base_revision": "bee49a2ad47eae4ea149bdced2043b7a45df3dae",
+      "patch_sha256": "907bcd3c166dae4fbd4aacdb3bd427b6fc0c9eb9c7814168fb8fd8cb157b7046"
+    }
+  },
+  "operations": [
+    "encode",
+    "decode",
+    "prepare",
+    "prepare_encode"
+  ],
+  "schedule": [
+    {
+      "block": 0,
+      "position": 0,
+      "case": {
+        "id": "512x512-p12-flat-c1-n0-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 0,
+      "position": 1,
+      "case": {
+        "id": "512x512-p16-noise-c1-n0-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 0,
+      "position": 2,
+      "case": {
+        "id": "2048x2048-p12-ramp-c1-n0-i0",
+        "width": 2048,
+        "height": 2048,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 0,
+      "position": 3,
+      "case": {
+        "id": "4096x3073-p16-noise-c1-n0-i0",
+        "width": 4096,
+        "height": 3073,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 0,
+      "position": 4,
+      "case": {
+        "id": "512x512-p12-noise-c1-n3-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 1,
+        "near": 3,
+        "interleave": 0
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 0,
+      "position": 5,
+      "case": {
+        "id": "512x512-p16-ramp-c1-n3-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "ramp",
+        "components": 1,
+        "near": 3,
+        "interleave": 0
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 0,
+      "position": 6,
+      "case": {
+        "id": "512x512-p12-ramp-c3-n0-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 0,
+      "position": 7,
+      "case": {
+        "id": "512x512-p12-ramp-c3-n3-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 3,
+        "near": 3,
+        "interleave": 2
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 0,
+      "position": 8,
+      "case": {
+        "id": "512x512-p12-noise-c3-n3-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 3,
+        "near": 3,
+        "interleave": 2
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 0,
+      "position": 9,
+      "case": {
+        "id": "512x512-p16-noise-c3-n0-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 0,
+      "position": 10,
+      "case": {
+        "id": "512x512-p12-noise-c3-n3-i1",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 3,
+        "near": 3,
+        "interleave": 1
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 0,
+      "position": 11,
+      "case": {
+        "id": "512x512-p16-ramp-c3-n0-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "ramp",
+        "components": 3,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 0,
+      "position": 12,
+      "case": {
+        "id": "2048x2048-p12-noise-c3-n3-i2",
+        "width": 2048,
+        "height": 2048,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 3,
+        "near": 3,
+        "interleave": 2
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 0,
+      "position": 13,
+      "case": {
+        "id": "4096x3073-p12-flat-c3-n0-i2",
+        "width": 4096,
+        "height": 3073,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 0,
+      "position": 14,
+      "case": {
+        "id": "4096x3073-p16-noise-c3-n0-i2",
+        "width": 4096,
+        "height": 3073,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 0,
+      "case": {
+        "id": "512x512-p12-flat-c1-n0-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 1,
+      "case": {
+        "id": "4096x3073-p16-noise-c3-n0-i2",
+        "width": 4096,
+        "height": 3073,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 2,
+      "case": {
+        "id": "4096x3073-p12-flat-c3-n0-i2",
+        "width": 4096,
+        "height": 3073,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 3,
+      "case": {
+        "id": "2048x2048-p12-noise-c3-n3-i2",
+        "width": 2048,
+        "height": 2048,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 3,
+        "near": 3,
+        "interleave": 2
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 4,
+      "case": {
+        "id": "512x512-p16-ramp-c3-n0-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "ramp",
+        "components": 3,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 5,
+      "case": {
+        "id": "512x512-p12-noise-c3-n3-i1",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 3,
+        "near": 3,
+        "interleave": 1
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 6,
+      "case": {
+        "id": "512x512-p16-noise-c3-n0-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 7,
+      "case": {
+        "id": "512x512-p12-noise-c3-n3-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 3,
+        "near": 3,
+        "interleave": 2
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 8,
+      "case": {
+        "id": "512x512-p12-ramp-c3-n3-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 3,
+        "near": 3,
+        "interleave": 2
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 9,
+      "case": {
+        "id": "512x512-p12-ramp-c3-n0-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 10,
+      "case": {
+        "id": "512x512-p16-ramp-c1-n3-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "ramp",
+        "components": 1,
+        "near": 3,
+        "interleave": 0
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 11,
+      "case": {
+        "id": "512x512-p12-noise-c1-n3-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 1,
+        "near": 3,
+        "interleave": 0
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 12,
+      "case": {
+        "id": "4096x3073-p16-noise-c1-n0-i0",
+        "width": 4096,
+        "height": 3073,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 13,
+      "case": {
+        "id": "2048x2048-p12-ramp-c1-n0-i0",
+        "width": 2048,
+        "height": 2048,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 1,
+      "position": 14,
+      "case": {
+        "id": "512x512-p16-noise-c1-n0-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 0,
+      "case": {
+        "id": "2048x2048-p12-ramp-c1-n0-i0",
+        "width": 2048,
+        "height": 2048,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 1,
+      "case": {
+        "id": "4096x3073-p16-noise-c1-n0-i0",
+        "width": 4096,
+        "height": 3073,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 2,
+      "case": {
+        "id": "512x512-p12-noise-c1-n3-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 1,
+        "near": 3,
+        "interleave": 0
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 3,
+      "case": {
+        "id": "512x512-p16-ramp-c1-n3-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "ramp",
+        "components": 1,
+        "near": 3,
+        "interleave": 0
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 4,
+      "case": {
+        "id": "512x512-p12-ramp-c3-n0-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 5,
+      "case": {
+        "id": "512x512-p12-ramp-c3-n3-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 3,
+        "near": 3,
+        "interleave": 2
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 6,
+      "case": {
+        "id": "512x512-p12-noise-c3-n3-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 3,
+        "near": 3,
+        "interleave": 2
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 7,
+      "case": {
+        "id": "512x512-p16-noise-c3-n0-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 8,
+      "case": {
+        "id": "512x512-p12-noise-c3-n3-i1",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 3,
+        "near": 3,
+        "interleave": 1
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 9,
+      "case": {
+        "id": "512x512-p16-ramp-c3-n0-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "ramp",
+        "components": 3,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 10,
+      "case": {
+        "id": "2048x2048-p12-noise-c3-n3-i2",
+        "width": 2048,
+        "height": 2048,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 3,
+        "near": 3,
+        "interleave": 2
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 11,
+      "case": {
+        "id": "4096x3073-p12-flat-c3-n0-i2",
+        "width": 4096,
+        "height": 3073,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 12,
+      "case": {
+        "id": "4096x3073-p16-noise-c3-n0-i2",
+        "width": 4096,
+        "height": 3073,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 13,
+      "case": {
+        "id": "512x512-p12-flat-c1-n0-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 2,
+      "position": 14,
+      "case": {
+        "id": "512x512-p16-noise-c1-n0-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 0,
+      "case": {
+        "id": "2048x2048-p12-ramp-c1-n0-i0",
+        "width": 2048,
+        "height": 2048,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 1,
+      "case": {
+        "id": "512x512-p16-noise-c1-n0-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 2,
+      "case": {
+        "id": "512x512-p12-flat-c1-n0-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 3,
+      "case": {
+        "id": "4096x3073-p16-noise-c3-n0-i2",
+        "width": 4096,
+        "height": 3073,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 4,
+      "case": {
+        "id": "4096x3073-p12-flat-c3-n0-i2",
+        "width": 4096,
+        "height": 3073,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 5,
+      "case": {
+        "id": "2048x2048-p12-noise-c3-n3-i2",
+        "width": 2048,
+        "height": 2048,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 3,
+        "near": 3,
+        "interleave": 2
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 6,
+      "case": {
+        "id": "512x512-p16-ramp-c3-n0-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "ramp",
+        "components": 3,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 7,
+      "case": {
+        "id": "512x512-p12-noise-c3-n3-i1",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 3,
+        "near": 3,
+        "interleave": 1
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 8,
+      "case": {
+        "id": "512x512-p16-noise-c3-n0-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 9,
+      "case": {
+        "id": "512x512-p12-noise-c3-n3-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 3,
+        "near": 3,
+        "interleave": 2
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 10,
+      "case": {
+        "id": "512x512-p12-ramp-c3-n3-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 3,
+        "near": 3,
+        "interleave": 2
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 11,
+      "case": {
+        "id": "512x512-p12-ramp-c3-n0-i2",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 3,
+        "near": 0,
+        "interleave": 2
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 12,
+      "case": {
+        "id": "512x512-p16-ramp-c1-n3-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 16,
+        "pattern": "ramp",
+        "components": 1,
+        "near": 3,
+        "interleave": 0
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 13,
+      "case": {
+        "id": "512x512-p12-noise-c1-n3-i0",
+        "width": 512,
+        "height": 512,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 1,
+        "near": 3,
+        "interleave": 0
+      },
+      "order": [
+        "candidate",
+        "reference"
+      ]
+    },
+    {
+      "block": 3,
+      "position": 14,
+      "case": {
+        "id": "4096x3073-p16-noise-c1-n0-i0",
+        "width": 4096,
+        "height": 3073,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 1,
+        "near": 0,
+        "interleave": 0
+      },
+      "order": [
+        "reference",
+        "candidate"
+      ]
+    }
+  ],
+  "confidence": "Four paired blocks: descriptive spread and order groups only, no16-block confidence formula.",
+  "decision": "No automatic acceptance, outcome-based repeat, dropping or threshold waiver; explicit review of every original-Consumer result."
+}

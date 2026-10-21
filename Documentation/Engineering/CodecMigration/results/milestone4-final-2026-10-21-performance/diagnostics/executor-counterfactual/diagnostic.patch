@@ -1,0 +1,457 @@
+--- a/Sources/SwiftJLS/ImageDescriptor.swift
++++ b/Sources/SwiftJLS/ImageDescriptor.swift
+@@ -99,6 +99,9 @@
+             throw CodecError(.invalidArgument, "Alpha component meaning is inconsistent.")
+         }
+         let sampleBytes = storageBits / 8
++        // A single admitted mapping can only be component zero. Keep its range
++        // check in the loop before alignment; all other shapes use the set.
++        let singletonMapping = components.count == 1 && planes.count == 1 && planes[0].components.count == 1
+         var mapped = Set<Int>()
+         var ranges: [Range<Int>] = []
+         var required = 0
+@@ -111,7 +114,7 @@
+                 throw CodecError(.incompatibleImageLayout, "Plane dimensions disagree with their explicit sampling factors.")
+             }
+             for component in plane.components {
+-                guard component < components.count, mapped.insert(component).inserted else {
++                guard component < components.count, singletonMapping || mapped.insert(component).inserted else {
+                     throw CodecError(.invalidArgument, "Each component must occur in exactly one plane.")
+                 }
+             }
+@@ -142,7 +145,7 @@
+             if planes.count > 1 { ranges.append(range) }
+             required = max(required, plane.byteCount)
+         }
+-        guard mapped.count == components.count else {
++        guard singletonMapping || mapped.count == components.count else {
+             throw CodecError(.invalidArgument, "A component has no plane.")
+         }
+         self.width = width; self.height = height; self.sampleType = sampleType
+--- a/Tests/SwiftJLSTests/DescriptorTests.swift
++++ b/Tests/SwiftJLSTests/DescriptorTests.swift
+@@ -18,6 +18,82 @@
+ 
+ @Suite("Descriptor validation")
+ struct DescriptorTests {
++    @Test func singletonMappingErrorPrecedesAlignment() throws {
++        let mappingError = CodecError(.invalidArgument, "Each component must occur in exactly one plane.")
++        for plane in [
++            try PlaneDescriptor(width: 1, height: 1, components: [1], offset: 1, rowBytes: 2, byteCount: 4),
++            try PlaneDescriptor(width: 1, height: 1, components: [1], sampleStride: 3, rowBytes: 2, byteCount: 4),
++            try PlaneDescriptor(width: 1, height: 1, components: [1], pixelStride: 3, rowBytes: 4, byteCount: 4),
++            try PlaneDescriptor(width: 1, height: 1, components: [1], rowBytes: 3, byteCount: 4)
++        ] {
++            #expect(throws: mappingError) {
++                _ = try ImageDescriptor(width: 1, height: 1, planes: [plane])
++            }
++        }
++        // Plane geometry still wins over both invalid mapping and alignment.
++        let wrongWidth = try PlaneDescriptor(width: 2, height: 1, components: [1],
++                                             offset: 1, rowBytes: 4, byteCount: 6)
++        #expect(throws: CodecError(.incompatibleImageLayout,
++                                  "Plane dimensions disagree with their explicit sampling factors.")) {
++            _ = try ImageDescriptor(width: 1, height: 1, planes: [wrongWidth])
++        }
++    }
++
++    @Test func singletonAndGeneralMappingMatrix() throws {
++        // Valid singleton coverage includes every admitted storage width and
++        // odd geometry with padding/prefix; this must retain exact extents.
++        for (storageBits, sampleType) in [(8, SampleType.unsignedInteger),
++                                          (16, .unsignedInteger), (32, .floatingPoint)] {
++            let sampleBytes = storageBits / 8
++            for offset in [0, sampleBytes * 2] {
++                let rowBytes = sampleBytes * 4
++                let capacity = offset + rowBytes + sampleBytes * 3
++                let plane = try PlaneDescriptor(width: 3, height: 2, offset: offset,
++                    sampleStride: sampleBytes, pixelStride: sampleBytes,
++                    rowBytes: rowBytes, byteCount: capacity)
++                let descriptor = try ImageDescriptor(width: 3, height: 2, sampleType: sampleType,
++                    storageBits: storageBits, meaningfulBits: storageBits, planes: [plane])
++                #expect(descriptor.requiredByteCount == capacity)
++                #expect(descriptor.planes == [plane])
++            }
++        }
++        let roles: [ComponentRole] = [.uninterpreted("A"), .uninterpreted("B")]
++        let first = try PlaneDescriptor(width: 1, height: 1, components: [0], rowBytes: 2, byteCount: 4)
++        let second = try PlaneDescriptor(width: 1, height: 1, components: [1], offset: 2,
++                                         rowBytes: 2, byteCount: 4)
++        let duplicate = try PlaneDescriptor(width: 1, height: 1, components: [0], offset: 2,
++                                            rowBytes: 2, byteCount: 4)
++        let overlap = try PlaneDescriptor(width: 1, height: 1, components: [1], rowBytes: 2, byteCount: 4)
++        let packed = try PlaneDescriptor(width: 1, height: 1, components: [0, 1],
++                                         pixelStride: 4, rowBytes: 4, byteCount: 4)
++        for planes in [[first, second], [packed]] {
++            let descriptor = try ImageDescriptor(width: 1, height: 1,
++                components: roles, colour: .unknown, planes: planes)
++            #expect(descriptor.requiredByteCount == 4)
++        }
++        for (components, planes, expected) in [
++            (roles, [first], CodecError(.invalidArgument, "A component has no plane.")),
++            (roles, [first, duplicate], CodecError(.invalidArgument, "Each component must occur in exactly one plane.")),
++            ([.grey], [packed], CodecError(.invalidArgument, "Each component must occur in exactly one plane.")),
++            ([.grey], [first, duplicate], CodecError(.invalidArgument, "Each component must occur in exactly one plane.")),
++            (roles, [first, overlap], CodecError(.incompatibleImageLayout, "Writable plane ranges overlap."))
++        ] {
++            #expect(throws: expected) {
++                _ = try ImageDescriptor(width: 1, height: 1,
++                    components: components, colour: .unknown, planes: planes)
++            }
++        }
++        // A valid singleton mapping must still reach alignment and byte limits.
++        let misaligned = try PlaneDescriptor(width: 1, height: 1, offset: 1, rowBytes: 2, byteCount: 4)
++        #expect(throws: CodecError(.incompatibleImageLayout, "Sample offsets and strides must be aligned.")) {
++            _ = try ImageDescriptor(width: 1, height: 1, planes: [misaligned])
++        }
++        let small = try ResourceLimits(maximumDecodedBytes: 3)
++        #expect(throws: CodecError(.resourceLimitExceeded, "Decoded storage limit exceeded.")) {
++            _ = try ImageDescriptor(width: 1, height: 1, planes: [first], limits: small)
++        }
++    }
++
+     @Test func paddedOddDimensionsAndPrecision() throws {
+         let descriptor = try ImageDescriptor.greyscale16(
+             width: 3, height: 5, meaningfulBits: 12, rowBytes: 8, offset: 2)
+
+--- a/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift
++++ b/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift
+@@ -177,7 +177,9 @@
+             var extendedSize: (width: Int, height: Int)?
+             var restartInterval = 0
+             var records: [Scan] = []
+-            var covered = Set<Int>()
++            // Frame admission limits component indices to 0...3. The mask
++            // records the same completed scans without allocating a tiny Set.
++            var covered: UInt8 = 0
+             var spiff: (width: Int, height: Int, bits: Int, components: Int, rgb: Bool, grey: Bool)?
+             var needsDirectoryEnd = false
+             var spiffData = Data()
+@@ -204,7 +206,7 @@
+                 if marker == 0xd9 {
+                     // DICOM may even-pad an odd-length codestream with one zero byte.
+                     let hasDICOMPadding = cursor % 2 == 1 && bytes.count - cursor == 1 && bytes[cursor] == 0
+-                    guard let f = frame, !records.isEmpty, covered.count == f.ids.count,
++                    guard let f = frame, !records.isEmpty, covered.nonzeroBitCount == f.ids.count,
+                           (cursor == bytes.count || hasDICOMPadding), !needsDirectoryEnd else { throw malformed() }
+                     let mapping = try tables.isEmpty ? nil : JPEGLSMappingTables(tables: Array(tables.values), componentTableIDs: selectors)
+                     let outputBits = codecOptions.mappingOutputPrecision ?? f.bits
+@@ -409,7 +411,7 @@
+                     var indices: [Int] = []
+                     for i in 0..<count {
+                         guard let component = f.ids.firstIndex(of: bytes[payload + 1 + 2 * i]),
+-                              !covered.contains(component), !indices.contains(component) else { throw malformed() }
++                              (covered & (UInt8(1) << component)) == 0, !indices.contains(component) else { throw malformed() }
+                         selectors[component] = bytes[payload + 2 + 2 * i]
+                         indices.append(component)
+                     }
+@@ -421,7 +423,7 @@
+                     guard (interleave == .none && count == 1) || (interleave != .none && count > 1) else { throw malformed() }
+                     // No restart boundary occurs at or beyond the frame height.
+                     let hasActiveRestarts = restartInterval > 0 && restartInterval < f.height
+-                    if Set(f.sampling).count > 1 {
++                    if let first = f.sampling.first, f.sampling.contains(where: { $0 != first }) {
+                         guard interleave == .line, count == f.ids.count, !hasActiveRestarts,
+                               transform == nil || transform == CodecOptions.ColourTransform.none else {
+                             throw unsupported("Subsampled decoding requires one line-interleaved scan without HP or restarts.")
+@@ -507,7 +509,9 @@
+                     }
+                     records.append(Scan(components: indices, near: near, interleave: interleave,
+                         parameters: params, ranges: ranges, restartInterval: restartInterval))
+-                    covered.formUnion(indices)
++                    // `indices` contains only validated frame positions, so
++                    // each shift is in 0...3; update only after accepting a scan.
++                    for component in indices { covered |= UInt8(1) << component }
+                     continue
+                 case 0xe0...0xe7, 0xe9...0xef, 0xfe:
+                     try charge(length + 1)
+--- /dev/null
++++ b/Tests/SwiftJLSTests/ParserContainerTests.swift
+@@ -0,0 +1,105 @@
++// SPDX-License-Identifier: Apache-2.0
++import Foundation
++import Testing
++@testable import SwiftJLS
++
++@Suite("Bounded frame and scan bookkeeping")
++struct ParserContainerTests {
++    private let helper = ComponentCodecTests()
++
++    private func rejected(_ data: Data, as expected: CodecError,
++                          destinationFor valid: Data) async throws {
++        let decoder = try Decoder()
++        do {
++            _ = try decoder.inspect(data)
++            Issue.record("Invalid framing was accepted by inspect.")
++        } catch let error as CodecError {
++            #expect(error == expected)
++        }
++        let destination = try ImageDestination.allocate(descriptor: decoder.inspect(valid).descriptor)
++        do {
++            _ = try await decoder.decode(data, into: destination)
++            Issue.record("Invalid framing was accepted by decode.")
++        } catch let error as CodecError {
++            #expect(error == expected)
++        }
++        // Header admission must reject before consuming the caller's write lease.
++        _ = try destination.write { $0.initializeMemory(as: UInt8.self, repeating: 0) }
++    }
++
++    @Test func separateScansCoverEveryComponentExactlyOnceInAnyOrder() async throws {
++        // Four independent CharLS scans exercise the highest admitted component
++        // index as well as repeated/missing coverage across scan boundaries.
++        let name = "c4-i0-p12-n0-17x13-noise"
++        let original = try helper.fixture(name, ext: "jls")
++        let expected = try helper.fixture(name, ext: "decoded.u16le")
++        let header = try JPEGLSHeader.parse(original, budget: .init(limits: .default))
++        #expect(header.records.count == 4)
++        var scans: [Data] = []
++        var firstStart: Int?
++        for record in header.records {
++            let first = try #require(record.ranges.first)
++            let last = try #require(record.ranges.last)
++            let start = first.lowerBound - (8 + 2 * record.components.count)
++            #expect(original[start] == 255 && original[start + 1] == 218)
++            if firstStart == nil { firstStart = start }
++            scans.append(Data(original[start..<last.upperBound]))
++        }
++        let prefix = Data(original.prefix(try #require(firstStart)))
++        func stream(_ order: [Int]) -> Data {
++            var data = prefix
++            for index in order { data.append(scans[index]) }
++            data.append(contentsOf: [255, 217])
++            return data
++        }
++        let reversed = stream([3, 2, 1, 0])
++        let image = try await Decoder().decode(reversed).image
++        try helper.check(image, against: expected, maximumError: 0, padding: false)
++
++        let malformed = CodecError(.malformedInput, "Invalid or truncated JPEG-LS header.")
++        var unknown = original
++        // The selector is a component ID, not the bounded frame-array index.
++        let selector = try #require(firstStart) + 5
++        #expect(!header.componentIDs.contains(255))
++        unknown[selector] = 255
++        for invalid in [stream([0, 1, 2]), stream([0, 0, 1, 2, 3]), unknown] {
++            try await rejected(invalid, as: malformed, destinationFor: original)
++        }
++        // Duplicate selectors within one scan already have a public rejection
++        // regression in ComponentCodecTests.componentLimitsCancellationAndMalformedScans.
++    }
++
++    @Test func samplingEqualityKeepsInactiveRestartAndUnsupportedCombinationRules() async throws {
++        let mixed = try helper.fixture("subsampled-zero-n0", ext: "jls")
++        let header = try JPEGLSHeader.parse(mixed, budget: .init(limits: .default))
++        let record = try #require(header.records.first)
++        let first = try #require(record.ranges.first)
++        let sos = first.lowerBound - (8 + 2 * record.components.count)
++        let interleaveOffset = sos + 6 + 2 * record.components.count
++
++        // DRI at or past the height is inactive, even for mixed sampling.
++        let inactive = helper.withDRI(mixed, interval: UInt32(header.height))
++        let decoded = try await Decoder().decode(inactive).image
++        #expect(try decoded.storage.withUnsafeBytes { $0.allSatisfy { $0 == 0 } })
++
++        var sampleInterleave = mixed
++        sampleInterleave[interleaveOffset] = 2
++        var hp = Data([255, 216, 255, 232, 0, 7, 109, 114, 102, 120, 1])
++        hp.append(mixed.dropFirst(2))
++        let unsupported = CodecError(.unsupportedFeature,
++            "Subsampled decoding requires one line-interleaved scan without HP or restarts.")
++        for invalid in [sampleInterleave, helper.withDRI(mixed, interval: 1), hp] {
++            try await rejected(invalid, as: unsupported, destinationFor: mixed)
++        }
++
++        // Equal non-unit sampling factors remain a full-resolution sample scan;
++        // the predicate must test equality, rather than assuming every byte is 0x11.
++        let uniformName = "c3-i2-p12-n0-17x13-noise"
++        var uniform = try helper.fixture(uniformName, ext: "jls")
++        let sof = try #require(uniform.range(of: Data([255, 247]))).lowerBound
++        for component in 0..<3 { uniform[sof + 11 + 3 * component] = 0x22 }
++        let uniformImage = try await Decoder().decode(uniform).image
++        try helper.check(uniformImage,
++            against: helper.fixture(uniformName, ext: "decoded.u16le"), maximumError: 0, padding: false)
++    }
++}
+
+--- a/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift
++++ b/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift
+@@ -41,8 +41,8 @@
+     private let qbpp: Int
+ 
+     /// Gradient quantisation lookup table for the inner range (−T3, T3),
+-    /// indexed by `gradient + gradientTableOffset`. Built in `init` by
+-    /// evaluating the reference branch chain, so it is bit-identical to it.
++    /// indexed by `gradient + gradientTableOffset`. Initialised by constant
++    /// interval fills when NEAR < T1, otherwise by the reference branch chain.
+     private let gradientTable: [Int]
+     private let gradientTableOffset: Int
+ 
+@@ -73,26 +73,47 @@
+             self.range = (parameters.maxValue + 2 * near) / qbpp + 1
+         }
+ 
+-        // Build the gradient quantisation table for the inner range from the
+-        // reference branch chain (values at/beyond ±T3 are handled by the
+-        // early exits in `quantizeGradient`).
++        // Fill the gradient quantisation intervals directly when NEAR < T1;
++        // retain the reference branch chain for the internal NEAR >= T1 case.
++        // Values at/beyond ±T3 use the early exits in `quantizeGradient`.
+         let t3 = parameters.threshold3
+         self.gradientTableOffset = t3
+-        var table = [Int](repeating: 0, count: 2 * t3 + 1)
+-        for i in 0..<table.count {
+-            table[i] = Self.quantizeGradientReference(
+-                i - t3,
+-                t1: parameters.threshold1, t2: parameters.threshold2,
+-                t3: t3, near: near
+-            )
++        let t1 = parameters.threshold1, t2 = parameters.threshold2
++        if near < t1 {
++            let count = 2 * t3 + 1
++            self.gradientTable = Array(unsafeUninitializedCapacity: count) { buffer, initializedCount in
++                // Validated parameters prove 1 <= T1 <= T2 <= T3 <= 65535.
++                // With NEAR < T1, these adjacent half-open ranges partition
++                // 0..<count exactly, including empty runs for equal thresholds.
++                // Initialise every Int once; no element is read before initialisation.
++                UnsafeMutableBufferPointer(rebasing: buffer[0..<1]).initialize(repeating: -4)
++                UnsafeMutableBufferPointer(rebasing: buffer[1..<(t3 - t2 + 1)]).initialize(repeating: -3)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t2 + 1)..<(t3 - t1 + 1)]).initialize(repeating: -2)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t1 + 1)..<(t3 - near)]).initialize(repeating: -1)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - near)..<(t3 + near + 1)]).initialize(repeating: 0)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + near + 1)..<(t3 + t1)]).initialize(repeating: 1)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + t1)..<(t3 + t2)]).initialize(repeating: 2)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + t2)..<(2 * t3)]).initialize(repeating: 3)
++                UnsafeMutableBufferPointer(rebasing: buffer[(2 * t3)..<count]).initialize(repeating: 4)
++                initializedCount = count
++            }
++        } else {
++            // Preserve the existing internal constructor's branch precedence
++            // for NEAR >= T1, although public codestream admission rejects it.
++            var table = [Int](repeating: 0, count: 2 * t3 + 1)
++            for i in 0..<table.count {
++                table[i] = Self.quantizeGradientReference(
++                    i - t3, t1: t1, t2: t2, t3: t3, near: near
++                )
++            }
++            self.gradientTable = table
+         }
+-        self.gradientTable = table
+     }
+ 
+     /// Reference gradient quantisation using the strict upper interval
+     /// boundaries in ITU-T.87 Table A.7.
+-    /// Used to build `gradientTable`; kept as the single source of truth
+-    /// for the boundary semantics.
++    /// Builds `gradientTable` for the internal NEAR >= T1 fallback;
++    /// the interval fills preserve these semantics when NEAR < T1.
+     private static func quantizeGradientReference(
+         _ gradient: Int, t1: Int, t2: Int, t3: Int, near: Int
+     ) -> Int {
+@@ -146,7 +167,7 @@
+     /// - Returns: Quantized gradient in range [-4, 4]
+     func quantizeGradient(_ gradient: Int) -> Int {
+         // Gradients at/beyond ±T3 always map to ±4; the inner range uses the
+-        // pre-computed table (built from the reference branch chain).
++        // pre-computed table (interval fills or the reference fallback).
+         if gradient <= -parameters.threshold3 { return -4 }
+         if gradient >= parameters.threshold3 { return 4 }
+         return gradientTable[gradient + gradientTableOffset]
+--- /dev/null
++++ b/Tests/SwiftJLSTests/GradientTableTests.swift
+@@ -0,0 +1,83 @@
++// SPDX-License-Identifier: Apache-2.0
++import Testing
++@testable import SwiftJLS
++
++@Suite("Decoder gradient table intervals")
++struct GradientTableTests {
++    // An independent branch oracle preserves the published quantizer's outer
++    // clamps and historical precedence, including internal NEAR >= T1 inputs.
++    // The candidate instead fills nine constant intervals once at construction.
++    private func reference(_ gradient: Int, _ p: JPEGLSPresetParameters, near: Int) -> Int {
++        if gradient <= -p.threshold3 { return -4 }
++        if gradient >= p.threshold3 { return 4 }
++        if gradient <= -p.threshold2 { return -3 }
++        if gradient <= -p.threshold1 { return -2 }
++        if gradient < -near { return -1 }
++        if gradient <= near { return 0 }
++        if gradient < p.threshold1 { return 1 }
++        if gradient < p.threshold2 { return 2 }
++        return 3
++    }
++
++    private func firstMismatch(_ p: JPEGLSPresetParameters, near: Int,
++                               gradients: ClosedRange<Int>) throws -> String? {
++        let decoder = try JPEGLSRegularModeDecoder(parameters: p, near: near)
++        for gradient in gradients {
++            let actual = decoder.quantizeGradient(gradient)
++            let expected = reference(gradient, p, near: near)
++            if actual != expected {
++                return "T=(\(p.threshold1),\(p.threshold2),\(p.threshold3)), NEAR=\(near), gradient=\(gradient): \(actual) != \(expected)"
++            }
++        }
++        // Very large gradients must use the unchanged outer clamps without
++        // indexing the table or adding T3 to an extreme signed value.
++        if decoder.quantizeGradient(Int.min) != -4 || decoder.quantizeGradient(Int.max) != 4 {
++            return "Extreme gradient did not use its outer clamp."
++        }
++        return nil
++    }
++
++    @Test func everySmallThresholdTripleAndNearValueMatchesReference() throws {
++        // Exhaust all 120 ordered triples up to eight and all nine NEAR values.
++        // Includes equality/empty intervals, NEAR == T1 and NEAR above T3.
++        for t1 in 1...8 { for t2 in t1...8 { for t3 in t2...8 {
++            let p = try JPEGLSPresetParameters(maxValue: 8,
++                threshold1: t1, threshold2: t2, threshold3: t3, reset: 64)
++            for near in 0...8 {
++                let mismatch = try firstMismatch(p, near: near, gradients: -10...10)
++                #expect(mismatch == nil, "\(mismatch ?? "")")
++            }
++        } } }
++    }
++
++    @Test func defaultsMatchEveryPossibleSampleGradient() throws {
++        for bits in 2...16 {
++            let maximum = (1 << bits) - 1
++            let bounds = Set([0, min(3, maximum / 2), min(255, maximum / 2)]).sorted()
++            for near in bounds {
++                let p = try JPEGLSPresetParameters.defaultParameters(bitsPerSample: bits, near: near)
++                let mismatch = try firstMismatch(p, near: near, gradients: (-maximum)...maximum)
++                #expect(mismatch == nil, "\(mismatch ?? "")")
++            }
++        }
++    }
++
++    @Test func maximumTableAndFallbackBoundariesMatchEveryGradient() throws {
++        // Largest table extent, both equal-threshold positions, an empty ±1
++        // interval, and the exact fallback boundary at NEAR == T1.
++        let cases: [(Int, Int, Int, Int)] = [
++            (1, 1, 65535, 0),
++            (1, 65535, 65535, 0),
++            (65535, 65535, 65535, 255),
++            (255, 255, 65535, 254),
++            (255, 255, 65535, 255),
++            (1, 1, 1, 255)
++        ]
++        for (t1, t2, t3, near) in cases {
++            let p = try JPEGLSPresetParameters(maxValue: 65535,
++                threshold1: t1, threshold2: t2, threshold3: t3, reset: 65535)
++            let mismatch = try firstMismatch(p, near: near, gradients: -65536...65536)
++            #expect(mismatch == nil, "\(mismatch ?? "")")
++        }
++    }
++}
+
+--- a/Sources/SwiftJLS/CodecAPI.swift
++++ b/Sources/SwiftJLS/CodecAPI.swift
+@@ -199,7 +199,7 @@
+         try validateInput(data, options)
+         return try ScalarCodec.inspect(data, options: options, codecOptions: configuration.codecOptions)
+     }
+-    @concurrent public func decode(_ data: Data, options: DecodeOptions = .init()) async throws -> DecodedImage {
++    public func decode(_ data: Data, options: DecodeOptions = .init()) throws -> DecodedImage {
+         try Task.checkCancellation()
+         try validateInput(data, options)
+         return try ScalarCodec.decode(data, into: nil, options: options, codecOptions: configuration.codecOptions)

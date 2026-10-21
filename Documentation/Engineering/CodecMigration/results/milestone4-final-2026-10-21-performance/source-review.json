@@ -1,0 +1,30 @@
+{
+  "candidate": "work/m4-short-path-diagnostic/build-identity.json",
+  "combined_patch_sha256": "7f53b5b238deed2d634e0be889fb2a05ff20e31cea9e60652d3af2057ed3123a",
+  "reviewer": "root independent review of source_review implementation",
+  "outcome": "No actionable correctness findings in the three-change patch. Performance acceptance remains separate.",
+  "checks": [
+    "Singleton mapping retains geometry then component-range then alignment/extent/limit error order; general mapping still uses Set. PlaneDescriptor guarantees nonnegative component indices.",
+    "Parser mask only shifts by admitted frame positions 0...3; mutation occurs after scan acceptance. Equal-sampling predicate preserves unsupported-combination error order. Independent CharLS sample and invalid-lease tests cover high component index and rejected framing.",
+    "Gradient interval lengths are nonnegative and partition 2*T3+1 exactly for NEAR<T1; typed slots initialise once; no pointer escapes. Validated T3<=65535 keeps arithmetic within 32-bit Int. NEAR>=T1 retains reference branch precedence. Tests cover all small ordered threshold triples, default precision gradients, maximum table and extreme clamped gradients.",
+    "Public API, resource limits, UUID allocation identities, executor policy, lease lifetime, pixel-copy/allocation semantics and bounded cancellation unchanged.",
+    "Native writer heap classifier requires observed typed allocation/growth/caller chains and exact sizes; negative controls preserve unknown attribution."
+  ],
+  "additional_candidate_review": {
+    "path": "work/m4-owned-admission-diagnostic/candidate.patch",
+    "production_source_delta": "Image.swift only; three new regression declarations after removal of a duplicated lifecycle test",
+    "outcome": "Approved for isolated correctness and measurement, not yet promotion",
+    "proof": [
+      "Owned factory keeps descriptor admission, checked pixel-plus-ICC admission and OwnedImageStorage constructor/cancellation in the original order. Immutable exact-capacity storage proves the repeated public-provider checks cannot newly fail. Private initializer retains the same reserveWrite call; public provider initializer and seal/abort/cancellation code remain unchanged.",
+      "Required-key allSatisfy dictionary lookup is equivalent to subset membership, including present empty Data; missing-key error still precedes additional-byte, UTF-8 and payload accounting. No pointer, isolation, resource-default, lease or reported copy/allocation change."
+    ],
+    "test_revision": "Initial four-declaration patch reviewed; agent then removed only duplicated reservation/seal/abandonment test, retaining metadata/admission/cancellation tests and existing lifecycle coverage."
+  },
+  "selected_candidate": {
+    "build_identity": "work/m4-owned-admission-diagnostic/build-identity.json",
+    "build_identity_sha256": "c13d7300bc9333f0e99252b52516e55c1fe8733d1d4ba0b41563db87f52b8f04",
+    "combined_patch_sha256": "907bcd3c166dae4fbd4aacdb3bd427b6fc0c9eb9c7814168fb8fd8cb157b7046",
+    "selection_reason": "Retain source-proven duplicate admission and metadata-container removal after focused release/ASan correctness and fixed comparative measurements; direct preparation improves in all six cases and final128 preparation intervals clear the declared gate. All24 deep pooled operations remain below1.05. Selection is not a performance waiver.",
+    "open_findings": "Four fixed128 short decode intervals overlap1.05; direct16noise decode ratio1.1353 remains recorded. Larger guards and final source validation are still pending at selection."
+  }
+}

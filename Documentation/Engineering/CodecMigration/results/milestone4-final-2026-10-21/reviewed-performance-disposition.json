@@ -1,0 +1,63 @@
+{
+  "source_commit": "bee49a2ad47eae4ea149bdced2043b7a45df3dae",
+  "reviewed_status": "Intermediate checkpoint: software and scoped workspace validation pass, RGB regressions resolved, tiny short-warm decode/preparation performance qualification remains open. Later candidates must receive separate source-pinned evidence.",
+  "findings": [
+    {
+      "id": "RGB-DECODE",
+      "status": "Resolved at bee49a2 in the selected 39-case RGB campaign; all pooled operation ratios within 1.05. Native writer optimisation preserves shared kernel and borrow lifetime.",
+      "evidence": [
+        "powered/combined-analysis.json",
+        "powered/performance-disposition.json"
+      ]
+    },
+    {
+      "id": "TINY-SHORT-DECODE",
+      "status": "Unresolved at bee49a2. Fixed 16-pair short-warm confirmation retains reproducible flat 12/16-bit regressions; noise/ramp findings have wider spreads. No waiver or automatic acceptance.",
+      "evidence": [
+        "diagnostics/tiny-short-confirmatory/RESULTS.md",
+        "diagnostics/tiny-short-confirmatory/results-1/summary.json"
+      ]
+    },
+    {
+      "id": "TINY-SHORT-PREPARE",
+      "status": "Unresolved at bee49a2. All six short-warm preparation pooled ratios exceed 1.05. Mandatory validation boundaries differ, but that does not waive measured costs.",
+      "evidence": [
+        "diagnostics/tiny-short-confirmatory/RESULTS.md",
+        "diagnostics/tiny-short-confirmatory/results-1/summary.json"
+      ]
+    },
+    {
+      "id": "TINY-DEEP-CONTEXT",
+      "status": "Supplemental context only. Fixed deep-warm and same-process results are generally below threshold; same-source controls do not establish a stable binary gap. These do not override short-warm findings.",
+      "evidence": [
+        "diagnostics/tiny-confirmatory/RESULTS.md",
+        "diagnostics/final-same-process/results/conclusions.md",
+        "diagnostics/tiny-process-controls/RESULTS.md"
+      ]
+    },
+    {
+      "id": "DECODE-BOUNDARY",
+      "status": "Diagnostic localisation only. Most short-minus-deep excess lies inside the codec budget wall-clock interval. This is not CPU attribution, proof of an executor mechanism, or a waiver. Micro clock-resolution zeros retained with documented validator correction and no reruns.",
+      "evidence": [
+        "diagnostics/decode-report-boundary/RESULTS.md",
+        "diagnostics/decode-report-boundary/results-3/analysis.json"
+      ]
+    },
+    {
+      "id": "ENCODED-SIZE",
+      "status": "Explained header differences in 13 selected RGB cases: seven lossless +44-byte SPIFF envelopes and six NEAR3 net +29-byte SPIFF-minus-predecessor-LSE differences. Entropy and header-normalised streams equal; 26 bidirectional cross-decodes pass. Fidelity unchanged; not independent-oracle proof.",
+      "evidence": [
+        "diagnostics/rgb-size/summary.json"
+      ]
+    },
+    {
+      "id": "WORKSPACE",
+      "status": "Finite scoped source inventory and 89-operation requested-heap attribution complete at bee49a2. Descriptor overhead measured; no unattributed codec allocations. Universal algorithm heap-plus-stack-plus-allocator total remains unknown; peakWorkspaceBytes remains nil.",
+      "evidence": [
+        "workspace-native-descriptors.json",
+        "workspace-measurement-run.json",
+        "workspace/summary.json"
+      ]
+    }
+  ]
+}

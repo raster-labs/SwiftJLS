@@ -2,7 +2,7 @@
 
 Current milestone status and known gaps are in [the completion audit](Completion.md). Current feature and compatibility status is in [Predecessor parity](Parity.md), and current executed/outstanding gates are in [Validation](Validation.md). The sections below preserve the sequence of implementation checkpoints; older pending/unsupported statements are historical.
 
-The [14 October Milestone 4 follow-up](Milestone4Followup.md) records the current source, performance changes, controlled representative comparison, per-operation heap/stack measurements and platform qualification. Its [hashed evidence manifest](results/milestone4-followup-2026-10-14.json) keeps intermediate and final-source results separate. Milestone 5 remains deferred.
+The [21 October Milestone 4 performance record](Milestone4Performance.md) covers current source `e6a6436`, native sample-interleaved decode and bounded setup improvements, fresh software/platform validation, controlled representative measurements and the refreshed 89-operation workspace matrix. Its [hashed evidence manifest](results/milestone4-final-2026-10-21-performance.json) preserves exact source and measurement scopes. All physical-device tests remain pending; Milestone 5 remains deferred. The owner verifies GitHub CI and merges the pushed branch.
 
 The 12 October follow-up closes DICOM padding and inactive-DRI compatibility, adds concurrent resource qualification and records the user-requested physical Watch exclusion. The 13 October clarification records that the user has no physical devices available; hardware admission remains unexecuted. Use the current links above for remaining gates; the entries below are historical.
 

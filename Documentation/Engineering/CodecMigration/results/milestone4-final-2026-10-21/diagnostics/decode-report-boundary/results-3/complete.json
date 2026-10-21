@@ -1,0 +1,87 @@
+{
+  "completed": true,
+  "performance_qualified": false,
+  "decode_processes": 128,
+  "micro_processes": 96,
+  "source_guards": {
+    "successor_head": {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "output": "bee49a2ad47eae4ea149bdced2043b7a45df3dae\n"
+    },
+    "successor_diff": {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "bee49a2ad47eae4ea149bdced2043b7a45df3dae",
+        "--",
+        "Sources",
+        "Package.swift",
+        "Scripts/Benchmark"
+      ],
+      "exit_code": 0,
+      "output": ""
+    },
+    "predecessor_head": {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "output": "15aa75164145414f3d5ffb801401c52d40cc5bcc\n"
+    },
+    "predecessor_diff": {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+        "--",
+        "Sources",
+        "Package.swift"
+      ],
+      "exit_code": 0,
+      "output": ""
+    }
+  },
+  "conditions": {
+    "utc": "2026-10-21T13:54:21.247906+00:00",
+    "power": {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n"
+    },
+    "thermal": {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+    },
+    "load": {
+      "command": [
+        "sysctl",
+        "-n",
+        "vm.loadavg"
+      ],
+      "exit_code": 0,
+      "output": "{ 2.79 3.15 3.67 }\n"
+    }
+  },
+  "schedule_sha256": "de33e16172504642f346e19fa2061c546b8bcddf9ad0ffcab61e2dbc0915abe2",
+  "interruption_preserved": "interrupted.json",
+  "micro_raw": "micro-raw-complete.jsonl",
+  "recovery": "Fifth process recovered unchanged from retained stdout;91 previously unstarted processes executed; zero durations retained."
+}

@@ -1,0 +1,7 @@
+{
+  "stage": "identity-only; no consumer execution",
+  "measured_processes": 0,
+  "error": "Compiler differs from frozen builds",
+  "cause": "Guard compared combined stdout+stderr against the build record stdout-only Swift version; actual compiler and target match. Swift driver version is retained stderr.",
+  "correction": "Preserve stdout and stderr separately and compare exact stdout version, with exit0 required."
+}

@@ -1,0 +1,36 @@
+{
+  "reason": "Micro clock quantisation permits zero durations. Recover the completed fifth process unchanged and run only91 previously unstarted entries. No rerun/drop of any observation.",
+  "recovered_zeros": 309,
+  "remaining_processes": 91,
+  "runner_sha256": "62604fef06374b0701966dd284640b7938bc107f46b0a2ff413f68d54b8b4dff",
+  "conditions": {
+    "utc": "2026-10-21T13:54:20.554460+00:00",
+    "power": {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n"
+    },
+    "thermal": {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+    },
+    "load": {
+      "command": [
+        "sysctl",
+        "-n",
+        "vm.loadavg"
+      ],
+      "exit_code": 0,
+      "output": "{ 2.79 3.15 3.67 }\n"
+    }
+  }
+}

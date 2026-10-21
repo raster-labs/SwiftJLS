@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/archive-final.py", line 471, in <module>
+    main()
+  File "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/archive-final.py", line 276, in main
+    diagnostic_results.append(diagnostic_adapter.incremental(incremental, ROOT, bridge, build,
+  File "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/archive-diagnostics.py", line 107, in incremental
+    return measurements.validate(spec, root, bridge, build, benchmark, {}, add, add_tree,
+  File "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/archive-measurements.py", line 193, in validate
+    owned_frozen = owned_admission_identity(spec, root, bridge, build, benchmark, plan, environment, completion, diagnostic, add, add_tree)
+  File "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/archive-measurements.py", line 113, in owned_admission_identity
+    require(schedule['producers']['reference']['base_revision'] == prior['source']['base_source'] and
+KeyError: 'base_revision'

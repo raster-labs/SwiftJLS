@@ -1,0 +1,2480 @@
+{
+  "source_checkpoint": "bee49a2ad47eae4ea149bdced2043b7a45df3dae",
+  "measurement_run": "https://github.com/raster-labs/SwiftJLS/actions/runs/39585530088",
+  "scope": "89 marked operations, Swift 6.4 ordinary-release x86_64 Linux; downloaded measurement artifact replay, not CI status verification",
+  "binary_sha256": "bd7d01de1f35bc6d392e041314ffa0abdcc41e0ffb8d39c072b023a405ead0b4",
+  "classifier_sha256": "996280213e506bfe8acf54acb6cfc67ac276eaec90128edadf9ef1b15d76acd1",
+  "profile_count": 89,
+  "all_consumers_verified": true,
+  "all_recorded_commands_succeeded": true,
+  "all_ledgers_reconcile": true,
+  "all_codec_heap_attributed": true,
+  "operation_counts": {
+    "encode": 20,
+    "owned": 23,
+    "into": 23,
+    "inspect": 23
+  },
+  "owned_decode_profiles": 23,
+  "pure_algorithm_workspace_complete": false,
+  "stack_peak_bytes": null,
+  "allocator_overhead_bytes": null,
+  "production_peakWorkspaceBytes": null,
+  "limitations": [
+    "Source inventory covers fixed and row-dependent algorithm storage; this finite matrix is not exhaustive input, option, error-path or ABI coverage.",
+    "Mapping fixture uses default options; explicit mappingOutputPrecision sample application is source-accounted, not measured by this matrix.",
+    "Category attribution measures requested heap. Compiler spills, runtime frames, actual allocator overhead and a universal pure-algorithm peak remain unknown.",
+    "Category maxima occur at different instants and must not be added.",
+    "Owned pixel counts concern observed attributed allocations; source review and independent correctness/copy-mutation evidence remain necessary.",
+    "Physical-device qualification remains pending. CI verification and merge remain with the owner."
+  ],
+  "rows": [
+    {
+      "case": "17-1-0-encode",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 399,
+        "height": 17,
+        "near": 0,
+        "operation": "encode",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 578,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16152,
+      "total_requested_heap_peak_above_baseline_bytes": 19142,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95166,
+        "metadata_and_descriptors": 425,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 1220,
+        "compressed_buffer": 3454,
+        "algorithm_state": 16152
+      }
+    },
+    {
+      "case": "17-1-0-owned",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 399,
+        "height": 17,
+        "near": 0,
+        "operation": "owned",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 578,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16152,
+      "total_requested_heap_peak_above_baseline_bytes": 17957,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95222,
+        "metadata_and_descriptors": 803,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 1830,
+        "compressed_buffer": 868,
+        "algorithm_state": 16152
+      }
+    },
+    {
+      "case": "17-1-0-into",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 399,
+        "height": 17,
+        "near": 0,
+        "operation": "into",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 578,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16152,
+      "total_requested_heap_peak_above_baseline_bytes": 16990,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95222,
+        "metadata_and_descriptors": 803,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 1220,
+        "compressed_buffer": 868,
+        "algorithm_state": 16152
+      }
+    },
+    {
+      "case": "17-1-0-inspect",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 399,
+        "height": 17,
+        "near": 0,
+        "operation": "inspect",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 578,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 571,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95166,
+        "metadata_and_descriptors": 996,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 1220,
+        "compressed_buffer": 464,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "17-1-3-encode",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 292,
+        "height": 17,
+        "near": 3,
+        "operation": "encode",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 578,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16620,
+      "total_requested_heap_peak_above_baseline_bytes": 19610,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95166,
+        "metadata_and_descriptors": 425,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 1220,
+        "compressed_buffer": 3347,
+        "algorithm_state": 16620
+      }
+    },
+    {
+      "case": "17-1-3-owned",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 292,
+        "height": 17,
+        "near": 3,
+        "operation": "owned",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 578,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16488,
+      "total_requested_heap_peak_above_baseline_bytes": 18186,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95222,
+        "metadata_and_descriptors": 803,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 1830,
+        "compressed_buffer": 654,
+        "algorithm_state": 16488
+      }
+    },
+    {
+      "case": "17-1-3-into",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 292,
+        "height": 17,
+        "near": 3,
+        "operation": "into",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 578,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16488,
+      "total_requested_heap_peak_above_baseline_bytes": 17219,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95222,
+        "metadata_and_descriptors": 803,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 1220,
+        "compressed_buffer": 654,
+        "algorithm_state": 16488
+      }
+    },
+    {
+      "case": "17-1-3-inspect",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 292,
+        "height": 17,
+        "near": 3,
+        "operation": "inspect",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 578,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 571,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95166,
+        "metadata_and_descriptors": 996,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 1220,
+        "compressed_buffer": 357,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "17-3-0-encode",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 1263,
+        "height": 17,
+        "near": 0,
+        "operation": "encode",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1734,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16400,
+      "total_requested_heap_peak_above_baseline_bytes": 20728,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95294,
+        "metadata_and_descriptors": 1173,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 3532,
+        "compressed_buffer": 5456,
+        "algorithm_state": 16400
+      }
+    },
+    {
+      "case": "17-3-0-owned",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 1263,
+        "height": 17,
+        "near": 0,
+        "operation": "owned",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1734,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16872,
+      "total_requested_heap_peak_above_baseline_bytes": 21351,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95302,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 5298,
+        "compressed_buffer": 2542,
+        "algorithm_state": 16872
+      }
+    },
+    {
+      "case": "17-3-0-into",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 1263,
+        "height": 17,
+        "near": 0,
+        "operation": "into",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1734,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16872,
+      "total_requested_heap_peak_above_baseline_bytes": 19228,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95302,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 3532,
+        "compressed_buffer": 2542,
+        "algorithm_state": 16872
+      }
+    },
+    {
+      "case": "17-3-0-inspect",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 1263,
+        "height": 17,
+        "near": 0,
+        "operation": "inspect",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1734,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 1321,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95294,
+        "metadata_and_descriptors": 2294,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 3532,
+        "compressed_buffer": 1328,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "17-3-3-encode",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 971,
+        "height": 17,
+        "near": 3,
+        "operation": "encode",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1734,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 17260,
+      "total_requested_heap_peak_above_baseline_bytes": 21588,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95294,
+        "metadata_and_descriptors": 1173,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 3532,
+        "compressed_buffer": 5164,
+        "algorithm_state": 17260
+      }
+    },
+    {
+      "case": "17-3-3-owned",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 971,
+        "height": 17,
+        "near": 3,
+        "operation": "owned",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1734,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 17208,
+      "total_requested_heap_peak_above_baseline_bytes": 21395,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95302,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 5298,
+        "compressed_buffer": 1958,
+        "algorithm_state": 17208
+      }
+    },
+    {
+      "case": "17-3-3-into",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 971,
+        "height": 17,
+        "near": 3,
+        "operation": "into",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1734,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 17208,
+      "total_requested_heap_peak_above_baseline_bytes": 19272,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95302,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 3532,
+        "compressed_buffer": 1958,
+        "algorithm_state": 17208
+      }
+    },
+    {
+      "case": "17-3-3-inspect",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 971,
+        "height": 17,
+        "near": 3,
+        "operation": "inspect",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1734,
+        "width": 17
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 1321,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95294,
+        "metadata_and_descriptors": 2294,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 3532,
+        "compressed_buffer": 1036,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "512-1-0-encode",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 92930,
+        "height": 512,
+        "near": 0,
+        "operation": "encode",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 524288,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16152,
+      "total_requested_heap_peak_above_baseline_bytes": 224595,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95166,
+        "metadata_and_descriptors": 425,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 1048640,
+        "compressed_buffer": 317590,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "512-1-0-owned",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 92930,
+        "height": 512,
+        "near": 0,
+        "operation": "owned",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 524288,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16152,
+      "total_requested_heap_peak_above_baseline_bytes": 634198,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95222,
+        "metadata_and_descriptors": 803,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 1572960,
+        "compressed_buffer": 185930,
+        "algorithm_state": 16152
+      }
+    },
+    {
+      "case": "512-1-0-into",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 92930,
+        "height": 512,
+        "near": 0,
+        "operation": "into",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 524288,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16152,
+      "total_requested_heap_peak_above_baseline_bytes": 109521,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95222,
+        "metadata_and_descriptors": 803,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 1048640,
+        "compressed_buffer": 185930,
+        "algorithm_state": 16152
+      }
+    },
+    {
+      "case": "512-1-0-inspect",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 92930,
+        "height": 512,
+        "near": 0,
+        "operation": "inspect",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 524288,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 571,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95166,
+        "metadata_and_descriptors": 996,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 1048640,
+        "compressed_buffer": 92995,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "512-1-3-encode",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 87599,
+        "height": 512,
+        "near": 3,
+        "operation": "encode",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 524288,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 18600,
+      "total_requested_heap_peak_above_baseline_bytes": 219264,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95166,
+        "metadata_and_descriptors": 425,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 1048640,
+        "compressed_buffer": 306928,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "512-1-3-owned",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 87599,
+        "height": 512,
+        "near": 3,
+        "operation": "owned",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 524288,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16488,
+      "total_requested_heap_peak_above_baseline_bytes": 629203,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95222,
+        "metadata_and_descriptors": 803,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 1572960,
+        "compressed_buffer": 175268,
+        "algorithm_state": 16488
+      }
+    },
+    {
+      "case": "512-1-3-into",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 87599,
+        "height": 512,
+        "near": 3,
+        "operation": "into",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 524288,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16488,
+      "total_requested_heap_peak_above_baseline_bytes": 104526,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95222,
+        "metadata_and_descriptors": 803,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 1048640,
+        "compressed_buffer": 175268,
+        "algorithm_state": 16488
+      }
+    },
+    {
+      "case": "512-1-3-inspect",
+      "observation": {
+        "bits": 12,
+        "components": 1,
+        "compressed_bytes": 87599,
+        "height": 512,
+        "near": 3,
+        "operation": "inspect",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 524288,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 571,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95166,
+        "metadata_and_descriptors": 996,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 1048640,
+        "compressed_buffer": 87664,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "512-3-0-encode",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 726676,
+        "height": 512,
+        "near": 0,
+        "operation": "encode",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1572864,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16400,
+      "total_requested_heap_peak_above_baseline_bytes": 1779429,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95294,
+        "metadata_and_descriptors": 973,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 3145792,
+        "compressed_buffer": 2506170,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "512-3-0-owned",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 726676,
+        "height": 512,
+        "near": 0,
+        "operation": "owned",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1572864,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16872,
+      "total_requested_heap_peak_above_baseline_bytes": 2317894,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95302,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 4718688,
+        "compressed_buffer": 1453368,
+        "algorithm_state": 16872
+      }
+    },
+    {
+      "case": "512-3-0-into",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 726676,
+        "height": 512,
+        "near": 0,
+        "operation": "into",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1572864,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16872,
+      "total_requested_heap_peak_above_baseline_bytes": 744641,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95302,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 3145792,
+        "compressed_buffer": 1453368,
+        "algorithm_state": 16872
+      }
+    },
+    {
+      "case": "512-3-0-inspect",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 726676,
+        "height": 512,
+        "near": 0,
+        "operation": "inspect",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1572864,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 1321,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95294,
+        "metadata_and_descriptors": 2294,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 3145792,
+        "compressed_buffer": 726741,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "512-3-3-encode",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 570669,
+        "height": 512,
+        "near": 3,
+        "operation": "encode",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1572864,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 23200,
+      "total_requested_heap_peak_above_baseline_bytes": 1623422,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95294,
+        "metadata_and_descriptors": 973,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 3145792,
+        "compressed_buffer": 2194156,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "512-3-3-owned",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 570669,
+        "height": 512,
+        "near": 3,
+        "operation": "owned",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1572864,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 17208,
+      "total_requested_heap_peak_above_baseline_bytes": 2162223,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95302,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 4718688,
+        "compressed_buffer": 1141354,
+        "algorithm_state": 17208
+      }
+    },
+    {
+      "case": "512-3-3-into",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 570669,
+        "height": 512,
+        "near": 3,
+        "operation": "into",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1572864,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 17208,
+      "total_requested_heap_peak_above_baseline_bytes": 588970,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95302,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 3145792,
+        "compressed_buffer": 1141354,
+        "algorithm_state": 17208
+      }
+    },
+    {
+      "case": "512-3-3-inspect",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 570669,
+        "height": 512,
+        "near": 3,
+        "operation": "inspect",
+        "profile": "base",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 1572864,
+        "width": 512
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 1321,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95294,
+        "metadata_and_descriptors": 2294,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 3145792,
+        "compressed_buffer": 570734,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "line-3-0-encode",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 28985,
+        "height": 129,
+        "near": 0,
+        "operation": "encode",
+        "profile": "line",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16400,
+      "total_requested_heap_peak_above_baseline_bytes": 65976,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 1173,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 78426,
+        "algorithm_state": 16400
+      }
+    },
+    {
+      "case": "line-3-0-owned",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 28985,
+        "height": 129,
+        "near": 0,
+        "operation": "owned",
+        "profile": "line",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16520,
+      "total_requested_heap_peak_above_baseline_bytes": 245905,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 596850,
+        "compressed_buffer": 57986,
+        "algorithm_state": 16520
+      }
+    },
+    {
+      "case": "line-3-0-into",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 28985,
+        "height": 129,
+        "near": 0,
+        "operation": "into",
+        "profile": "line",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16520,
+      "total_requested_heap_peak_above_baseline_bytes": 46598,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 57986,
+        "algorithm_state": 16520
+      }
+    },
+    {
+      "case": "line-3-0-inspect",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 28985,
+        "height": 129,
+        "near": 0,
+        "operation": "inspect",
+        "profile": "line",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 1321,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 2294,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 29050,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "line-3-3-encode",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 23042,
+        "height": 129,
+        "near": 3,
+        "operation": "encode",
+        "profile": "line",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 20140,
+      "total_requested_heap_peak_above_baseline_bytes": 69716,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 1173,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 72483,
+        "algorithm_state": 20140
+      }
+    },
+    {
+      "case": "line-3-3-owned",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 23042,
+        "height": 129,
+        "near": 3,
+        "operation": "owned",
+        "profile": "line",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16856,
+      "total_requested_heap_peak_above_baseline_bytes": 240298,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 596850,
+        "compressed_buffer": 46100,
+        "algorithm_state": 16856
+      }
+    },
+    {
+      "case": "line-3-3-into",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 23042,
+        "height": 129,
+        "near": 3,
+        "operation": "into",
+        "profile": "line",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16856,
+      "total_requested_heap_peak_above_baseline_bytes": 40991,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 46100,
+        "algorithm_state": 16856
+      }
+    },
+    {
+      "case": "line-3-3-inspect",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 23042,
+        "height": 129,
+        "near": 3,
+        "operation": "inspect",
+        "profile": "line",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 1321,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 2294,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 23107,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "planar-3-0-encode",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 29628,
+        "height": 129,
+        "near": 0,
+        "operation": "encode",
+        "profile": "planar",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16400,
+      "total_requested_heap_peak_above_baseline_bytes": 65976,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 1173,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 79069,
+        "algorithm_state": 16400
+      }
+    },
+    {
+      "case": "planar-3-0-owned",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 29628,
+        "height": 129,
+        "near": 0,
+        "operation": "owned",
+        "profile": "planar",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16216,
+      "total_requested_heap_peak_above_baseline_bytes": 226950,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2515,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 596850,
+        "compressed_buffer": 39570,
+        "algorithm_state": 16216
+      }
+    },
+    {
+      "case": "planar-3-0-into",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 29628,
+        "height": 129,
+        "near": 0,
+        "operation": "into",
+        "profile": "planar",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16216,
+      "total_requested_heap_peak_above_baseline_bytes": 27643,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2515,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 39570,
+        "algorithm_state": 16216
+      }
+    },
+    {
+      "case": "planar-3-0-inspect",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 29628,
+        "height": 129,
+        "near": 0,
+        "operation": "inspect",
+        "profile": "planar",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 1729,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 2702,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 29693,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "planar-3-3-encode",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 23345,
+        "height": 129,
+        "near": 3,
+        "operation": "encode",
+        "profile": "planar",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 17828,
+      "total_requested_heap_peak_above_baseline_bytes": 67404,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 1173,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 72786,
+        "algorithm_state": 17828
+      }
+    },
+    {
+      "case": "planar-3-3-owned",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 23345,
+        "height": 129,
+        "near": 3,
+        "operation": "owned",
+        "profile": "planar",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16552,
+      "total_requested_heap_peak_above_baseline_bytes": 225193,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2515,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 596850,
+        "compressed_buffer": 31194,
+        "algorithm_state": 16552
+      }
+    },
+    {
+      "case": "planar-3-3-into",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 23345,
+        "height": 129,
+        "near": 3,
+        "operation": "into",
+        "profile": "planar",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16552,
+      "total_requested_heap_peak_above_baseline_bytes": 25886,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2515,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 31194,
+        "algorithm_state": 16552
+      }
+    },
+    {
+      "case": "planar-3-3-inspect",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 23345,
+        "height": 129,
+        "near": 3,
+        "operation": "inspect",
+        "profile": "planar",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 1729,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 2702,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 23410,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "p16-1-0-encode",
+      "observation": {
+        "bits": 16,
+        "components": 1,
+        "compressed_bytes": 39635,
+        "height": 129,
+        "near": 0,
+        "operation": "encode",
+        "profile": "p16",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 66306,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16152,
+      "total_requested_heap_peak_above_baseline_bytes": 114872,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95182,
+        "metadata_and_descriptors": 425,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 132676,
+        "compressed_buffer": 138420,
+        "algorithm_state": 16152
+      }
+    },
+    {
+      "case": "p16-1-0-owned",
+      "observation": {
+        "bits": 16,
+        "components": 1,
+        "compressed_bytes": 39635,
+        "height": 129,
+        "near": 0,
+        "operation": "owned",
+        "profile": "p16",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 66306,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16152,
+      "total_requested_heap_peak_above_baseline_bytes": 122921,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95238,
+        "metadata_and_descriptors": 803,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 199014,
+        "compressed_buffer": 79340,
+        "algorithm_state": 16152
+      }
+    },
+    {
+      "case": "p16-1-0-into",
+      "observation": {
+        "bits": 16,
+        "components": 1,
+        "compressed_bytes": 39635,
+        "height": 129,
+        "near": 0,
+        "operation": "into",
+        "profile": "p16",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 66306,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16152,
+      "total_requested_heap_peak_above_baseline_bytes": 56226,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95238,
+        "metadata_and_descriptors": 803,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 132676,
+        "compressed_buffer": 79340,
+        "algorithm_state": 16152
+      }
+    },
+    {
+      "case": "p16-1-0-inspect",
+      "observation": {
+        "bits": 16,
+        "components": 1,
+        "compressed_bytes": 39635,
+        "height": 129,
+        "near": 0,
+        "operation": "inspect",
+        "profile": "p16",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 66306,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 571,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95182,
+        "metadata_and_descriptors": 996,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 132676,
+        "compressed_buffer": 39700,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "p16-3-3-encode",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 96259,
+        "height": 129,
+        "near": 3,
+        "operation": "encode",
+        "profile": "p16",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 20140,
+      "total_requested_heap_peak_above_baseline_bytes": 227924,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 973,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 324248,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "p16-3-3-owned",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 96259,
+        "height": 129,
+        "near": 3,
+        "operation": "owned",
+        "profile": "p16",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 17208,
+      "total_requested_heap_peak_above_baseline_bytes": 313867,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 596850,
+        "compressed_buffer": 192534,
+        "algorithm_state": 17208
+      }
+    },
+    {
+      "case": "p16-3-3-into",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 96259,
+        "height": 129,
+        "near": 3,
+        "operation": "into",
+        "profile": "p16",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 17208,
+      "total_requested_heap_peak_above_baseline_bytes": 114560,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 192534,
+        "algorithm_state": 17208
+      }
+    },
+    {
+      "case": "p16-3-3-inspect",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 96259,
+        "height": 129,
+        "near": 3,
+        "operation": "inspect",
+        "profile": "p16",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 1321,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 2294,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 96324,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "preset-1-3-encode",
+      "observation": {
+        "bits": 16,
+        "components": 1,
+        "compressed_bytes": 27937,
+        "height": 129,
+        "near": 3,
+        "operation": "encode",
+        "profile": "preset",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 66306,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 1061388,
+      "total_requested_heap_peak_above_baseline_bytes": 1110764,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95182,
+        "metadata_and_descriptors": 425,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 132676,
+        "compressed_buffer": 77378,
+        "algorithm_state": 1061388
+      }
+    },
+    {
+      "case": "preset-1-3-owned",
+      "observation": {
+        "bits": 16,
+        "components": 1,
+        "compressed_bytes": 27937,
+        "height": 129,
+        "near": 3,
+        "operation": "owned",
+        "profile": "preset",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 66306,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 1060296,
+      "total_requested_heap_peak_above_baseline_bytes": 1155352,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95238,
+        "metadata_and_descriptors": 803,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 199014,
+        "compressed_buffer": 55929,
+        "algorithm_state": 1060296
+      }
+    },
+    {
+      "case": "preset-1-3-into",
+      "observation": {
+        "bits": 16,
+        "components": 1,
+        "compressed_bytes": 27937,
+        "height": 129,
+        "near": 3,
+        "operation": "into",
+        "profile": "preset",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 66306,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 1060296,
+      "total_requested_heap_peak_above_baseline_bytes": 1088657,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95238,
+        "metadata_and_descriptors": 803,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 132676,
+        "compressed_buffer": 55929,
+        "algorithm_state": 1060296
+      }
+    },
+    {
+      "case": "preset-1-3-inspect",
+      "observation": {
+        "bits": 16,
+        "components": 1,
+        "compressed_bytes": 27937,
+        "height": 129,
+        "near": 3,
+        "operation": "inspect",
+        "profile": "preset",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 66306,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 643,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95182,
+        "metadata_and_descriptors": 1068,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 132676,
+        "compressed_buffer": 28002,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "preset-3-0-encode",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 126424,
+        "height": 129,
+        "near": 0,
+        "operation": "encode",
+        "profile": "preset",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 1060544,
+      "total_requested_heap_peak_above_baseline_bytes": 1258152,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 1173,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 323897,
+        "algorithm_state": 1060544
+      }
+    },
+    {
+      "case": "preset-3-0-owned",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 126424,
+        "height": 129,
+        "near": 0,
+        "operation": "owned",
+        "profile": "preset",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 1061016,
+      "total_requested_heap_peak_above_baseline_bytes": 1387825,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 596850,
+        "compressed_buffer": 252849,
+        "algorithm_state": 1061016
+      }
+    },
+    {
+      "case": "preset-3-0-into",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 126424,
+        "height": 129,
+        "near": 0,
+        "operation": "into",
+        "profile": "preset",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 1061016,
+      "total_requested_heap_peak_above_baseline_bytes": 1188518,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 252849,
+        "algorithm_state": 1061016
+      }
+    },
+    {
+      "case": "preset-3-0-inspect",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 126424,
+        "height": 129,
+        "near": 0,
+        "operation": "inspect",
+        "profile": "preset",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 1393,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 2366,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 126489,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "restart-3-3-encode",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 67374,
+        "height": 129,
+        "near": 3,
+        "operation": "encode",
+        "profile": "restart",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 17828,
+      "total_requested_heap_peak_above_baseline_bytes": 215436,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 1173,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 264847,
+        "algorithm_state": 17828
+      }
+    },
+    {
+      "case": "restart-3-3-owned",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 67374,
+        "height": 129,
+        "near": 3,
+        "operation": "owned",
+        "profile": "restart",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16552,
+      "total_requested_heap_peak_above_baseline_bytes": 220992,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 5539,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 596850,
+        "compressed_buffer": 67998,
+        "algorithm_state": 16552
+      }
+    },
+    {
+      "case": "restart-3-3-into",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 67374,
+        "height": 129,
+        "near": 3,
+        "operation": "into",
+        "profile": "restart",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16552,
+      "total_requested_heap_peak_above_baseline_bytes": 21685,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 5539,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 67998,
+        "algorithm_state": 16552
+      }
+    },
+    {
+      "case": "restart-3-3-inspect",
+      "observation": {
+        "bits": 12,
+        "components": 3,
+        "compressed_bytes": 67374,
+        "height": 129,
+        "near": 3,
+        "operation": "inspect",
+        "profile": "restart",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 4753,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 5726,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 67439,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "hp1-3-0-encode",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 51953,
+        "height": 129,
+        "near": 0,
+        "operation": "encode",
+        "profile": "hp1",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16528,
+      "total_requested_heap_peak_above_baseline_bytes": 117826,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 973,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 169844,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "hp1-3-0-owned",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 51953,
+        "height": 129,
+        "near": 0,
+        "operation": "owned",
+        "profile": "hp1",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16872,
+      "total_requested_heap_peak_above_baseline_bytes": 269216,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 596850,
+        "compressed_buffer": 103913,
+        "algorithm_state": 16872
+      }
+    },
+    {
+      "case": "hp1-3-0-into",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 51953,
+        "height": 129,
+        "near": 0,
+        "operation": "into",
+        "profile": "hp1",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16872,
+      "total_requested_heap_peak_above_baseline_bytes": 69909,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 103913,
+        "algorithm_state": 16872
+      }
+    },
+    {
+      "case": "hp1-3-0-inspect",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 51953,
+        "height": 129,
+        "near": 0,
+        "operation": "inspect",
+        "profile": "hp1",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 1321,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 2294,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 52018,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "hp2-3-0-encode",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 80521,
+        "height": 129,
+        "near": 0,
+        "operation": "encode",
+        "profile": "hp2",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16528,
+      "total_requested_heap_peak_above_baseline_bytes": 214136,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 1173,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 277994,
+        "algorithm_state": 16528
+      }
+    },
+    {
+      "case": "hp2-3-0-owned",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 80521,
+        "height": 129,
+        "near": 0,
+        "operation": "owned",
+        "profile": "hp2",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16872,
+      "total_requested_heap_peak_above_baseline_bytes": 297784,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 596850,
+        "compressed_buffer": 161049,
+        "algorithm_state": 16872
+      }
+    },
+    {
+      "case": "hp2-3-0-into",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 80521,
+        "height": 129,
+        "near": 0,
+        "operation": "into",
+        "profile": "hp2",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16872,
+      "total_requested_heap_peak_above_baseline_bytes": 98477,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 161049,
+        "algorithm_state": 16872
+      }
+    },
+    {
+      "case": "hp2-3-0-inspect",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 80521,
+        "height": 129,
+        "near": 0,
+        "operation": "inspect",
+        "profile": "hp2",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 1321,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 2294,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 80586,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "hp3-3-0-encode",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 51954,
+        "height": 129,
+        "near": 0,
+        "operation": "encode",
+        "profile": "hp3",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16528,
+      "total_requested_heap_peak_above_baseline_bytes": 117827,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 973,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 169846,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "hp3-3-0-owned",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 51954,
+        "height": 129,
+        "near": 0,
+        "operation": "owned",
+        "profile": "hp3",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16872,
+      "total_requested_heap_peak_above_baseline_bytes": 269217,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 596850,
+        "compressed_buffer": 103915,
+        "algorithm_state": 16872
+      }
+    },
+    {
+      "case": "hp3-3-0-into",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 51954,
+        "height": 129,
+        "near": 0,
+        "operation": "into",
+        "profile": "hp3",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16872,
+      "total_requested_heap_peak_above_baseline_bytes": 69910,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95318,
+        "metadata_and_descriptors": 2107,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 103915,
+        "algorithm_state": 16872
+      }
+    },
+    {
+      "case": "hp3-3-0-inspect",
+      "observation": {
+        "bits": 16,
+        "components": 3,
+        "compressed_bytes": 51954,
+        "height": 129,
+        "near": 0,
+        "operation": "inspect",
+        "profile": "hp3",
+        "samples_verified": true,
+        "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+        "source_bytes": 198918,
+        "width": 257
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 1321,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 95310,
+        "metadata_and_descriptors": 2294,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 397900,
+        "compressed_buffer": 52019,
+        "algorithm_state": 0
+      }
+    },
+    {
+      "case": "subsampled-zero-n0-owned",
+      "observation": {
+        "compressed_bytes": 49,
+        "fixture": "subsampled-zero-n0.jls",
+        "operation": "owned",
+        "samples_verified": true,
+        "scope": "Marked operation with verified reference decode retained in baseline."
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 12440,
+      "total_requested_heap_peak_above_baseline_bytes": 14815,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 100096,
+        "unattributed_codec": 0,
+        "metadata_and_descriptors": 2035,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 3084,
+        "algorithm_state": 12440,
+        "compressed_buffer": 44
+      }
+    },
+    {
+      "case": "subsampled-zero-n0-into",
+      "observation": {
+        "compressed_bytes": 49,
+        "fixture": "subsampled-zero-n0.jls",
+        "operation": "into",
+        "samples_verified": true,
+        "scope": "Marked operation with verified reference decode retained in baseline."
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 12440,
+      "total_requested_heap_peak_above_baseline_bytes": 13430,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 100096,
+        "unattributed_codec": 0,
+        "metadata_and_descriptors": 2035,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 2056,
+        "algorithm_state": 12440,
+        "compressed_buffer": 44
+      }
+    },
+    {
+      "case": "subsampled-zero-n0-inspect",
+      "observation": {
+        "compressed_bytes": 49,
+        "fixture": "subsampled-zero-n0.jls",
+        "operation": "inspect",
+        "samples_verified": true,
+        "scope": "Marked operation with verified reference decode retained in baseline."
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 1133,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 100096,
+        "unattributed_codec": 0,
+        "metadata_and_descriptors": 2222,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 2056,
+        "algorithm_state": 0,
+        "compressed_buffer": 0
+      }
+    },
+    {
+      "case": "map-p16-c3-i0-w1-n0-owned",
+      "observation": {
+        "compressed_bytes": 65810,
+        "fixture": "map-p16-c3-i0-w1-n0.jls",
+        "operation": "owned",
+        "samples_verified": true,
+        "scope": "Marked operation with verified reference decode retained in baseline."
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16216,
+      "total_requested_heap_peak_above_baseline_bytes": 182774,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 165937,
+        "unattributed_codec": 0,
+        "metadata_and_descriptors": 331813,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 726,
+        "algorithm_state": 16216,
+        "compressed_buffer": 95
+      }
+    },
+    {
+      "case": "map-p16-c3-i0-w1-n0-into",
+      "observation": {
+        "compressed_bytes": 65810,
+        "fixture": "map-p16-c3-i0-w1-n0.jls",
+        "operation": "into",
+        "samples_verified": true,
+        "scope": "Marked operation with verified reference decode retained in baseline."
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16216,
+      "total_requested_heap_peak_above_baseline_bytes": 182175,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 165937,
+        "unattributed_codec": 0,
+        "metadata_and_descriptors": 331813,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 484,
+        "algorithm_state": 16216,
+        "compressed_buffer": 95
+      }
+    },
+    {
+      "case": "map-p16-c3-i0-w1-n0-inspect",
+      "observation": {
+        "compressed_bytes": 65810,
+        "fixture": "map-p16-c3-i0-w1-n0.jls",
+        "operation": "inspect",
+        "samples_verified": true,
+        "scope": "Marked operation with verified reference decode retained in baseline."
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 166320,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 165937,
+        "unattributed_codec": 0,
+        "metadata_and_descriptors": 332269,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 484,
+        "algorithm_state": 0,
+        "compressed_buffer": 0
+      }
+    },
+    {
+      "case": "extended-p12-65537x2-owned",
+      "observation": {
+        "compressed_bytes": 36831,
+        "fixture": "extended-p12-65537x2.jls",
+        "operation": "owned",
+        "samples_verified": true,
+        "scope": "Marked operation with verified reference decode retained in baseline."
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 1,
+      "algorithm_state_peak_above_baseline_bytes": 16152,
+      "total_requested_heap_peak_above_baseline_bytes": 322675,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 136958,
+        "unattributed_codec": 0,
+        "metadata_and_descriptors": 24963,
+        "storage_control_objects": 754,
+        "owned_pixel_buffer": 786540,
+        "compressed_buffer": 32700,
+        "algorithm_state": 16152
+      }
+    },
+    {
+      "case": "extended-p12-65537x2-into",
+      "observation": {
+        "compressed_bytes": 36831,
+        "fixture": "extended-p12-65537x2.jls",
+        "operation": "into",
+        "samples_verified": true,
+        "scope": "Marked operation with verified reference decode retained in baseline."
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 16152,
+      "total_requested_heap_peak_above_baseline_bytes": 60138,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 136958,
+        "unattributed_codec": 0,
+        "metadata_and_descriptors": 24963,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 524360,
+        "compressed_buffer": 32700,
+        "algorithm_state": 16152
+      }
+    },
+    {
+      "case": "extended-p12-65537x2-inspect",
+      "observation": {
+        "compressed_bytes": 36831,
+        "fixture": "extended-p12-65537x2.jls",
+        "operation": "inspect",
+        "samples_verified": true,
+        "scope": "Marked operation with verified reference decode retained in baseline."
+      },
+      "codec_heap_attribution_complete": true,
+      "owned_pixel_allocation_calls": 0,
+      "algorithm_state_peak_above_baseline_bytes": 0,
+      "total_requested_heap_peak_above_baseline_bytes": 11766,
+      "simultaneous_categories_at_phase_peak_bytes": {
+        "runtime_or_unattributed": 136958,
+        "unattributed_codec": 0,
+        "metadata_and_descriptors": 25443,
+        "storage_control_objects": 397,
+        "owned_pixel_buffer": 524360,
+        "compressed_buffer": 0,
+        "algorithm_state": 0
+      }
+    }
+  ]
+}

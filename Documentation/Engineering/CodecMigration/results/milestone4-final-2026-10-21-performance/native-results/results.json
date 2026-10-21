@@ -1,0 +1,159 @@
+{
+  "source": "e6a6436c692f5af226bffceb70b7ee65c774edf3",
+  "commands": [
+    {
+      "label": "os",
+      "command": [
+        "sw_vers"
+      ],
+      "exit_code": 0,
+      "seconds": 0.016514583
+    },
+    {
+      "label": "architecture",
+      "command": [
+        "uname",
+        "-m"
+      ],
+      "exit_code": 0,
+      "seconds": 0.012300374999999975
+    },
+    {
+      "label": "hardware",
+      "command": [
+        "sysctl",
+        "hw.model",
+        "hw.memsize",
+        "hw.ncpu"
+      ],
+      "exit_code": 0,
+      "seconds": 0.010233459
+    },
+    {
+      "label": "unit",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results-2026-10-21-performance/unit.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 3.7626637919999997
+    },
+    {
+      "label": "unit-debug",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/debug/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results-2026-10-21-performance/unit-debug.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 4.916271833000001
+    },
+    {
+      "label": "unit-asan",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/asan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results-2026-10-21-performance/unit-asan.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 22.397378833
+    },
+    {
+      "label": "unit-tsan",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/tsan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results-2026-10-21-performance/unit-tsan.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 20.051992917000003
+    },
+    {
+      "label": "consumer",
+      "command": [
+        "/Volumes/My Shared Files/evidence/AppleRuntimeConsumer",
+        "/Volumes/My Shared Files/evidence/repo/Tests/SwiftJLSTests/Fixtures"
+      ],
+      "exit_code": 0,
+      "seconds": 0.01110970799999933
+    },
+    {
+      "label": "resources",
+      "command": [
+        "/Volumes/My Shared Files/evidence/ResourceStress"
+      ],
+      "exit_code": 0,
+      "seconds": 0.3509997919999961
+    },
+    {
+      "label": "cli-payload",
+      "command": [
+        "python3",
+        "/Volumes/My Shared Files/evidence/repo/Scripts/test-payload-cli.py",
+        "--binary",
+        "/Volumes/My Shared Files/evidence/swiftjls-cli",
+        "--output",
+        "/Volumes/My Shared Files/results-2026-10-21-performance/cli-payload.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.7963895409999964
+    },
+    {
+      "label": "cli-process",
+      "command": [
+        "python3",
+        "/Volumes/My Shared Files/evidence/repo/Scripts/test-cli.py",
+        "--binary",
+        "/Volumes/My Shared Files/evidence/swiftjls-cli",
+        "--output",
+        "/Volumes/My Shared Files/results-2026-10-21-performance/cli-process"
+      ],
+      "exit_code": 0,
+      "seconds": 0.707770416999999
+    }
+  ],
+  "scope": "Swift 6.4 host-built arm64 binaries, executed in hardware-virtualised native arm64 macOS 26.0; no Intel emulation or physical-device claim.",
+  "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.0\nBuildVersion:\t\t25A354\n",
+  "architecture": "arm64",
+  "exact_26_0_native_arm64": true,
+  "tests": {
+    "declarations": 120,
+    "failures": 0,
+    "skipped": 0
+  },
+  "extra_tests": {
+    "debug": {
+      "declarations": 120,
+      "failures": 0,
+      "skipped": 0
+    },
+    "asan": {
+      "declarations": 120,
+      "failures": 0,
+      "skipped": 0
+    },
+    "tsan": {
+      "declarations": 120,
+      "failures": 0,
+      "skipped": 0
+    }
+  },
+  "success": true
+}

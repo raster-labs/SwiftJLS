@@ -1,5 +1,7 @@
 # Milestone 4 implementation and qualification — 14 October 2026
 
+This is the historical `c330b731` checkpoint. The [21 October performance record](Milestone4Performance.md) covers final source `e6a6436` (including the earlier `bee49a2` changes) and its fresh validation. The measurements and unresolved findings below retain their original source scope.
+
 This record covers the performance and workspace follow-up to [the earlier 14 October checkpoint](Milestone4Followup.md). Physical-device tests remain pending at the owner's request, and Milestone 5 remains deferred. The owner will verify GitHub CI and merge the feature branch; this task implements, validates locally, records evidence and pushes the branch.
 
 ## Source and behaviour

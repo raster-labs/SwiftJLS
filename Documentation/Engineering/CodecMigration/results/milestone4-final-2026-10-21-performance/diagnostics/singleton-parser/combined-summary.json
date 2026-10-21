@@ -1,0 +1,1534 @@
+{
+  "status": "both fixed campaigns completed once",
+  "base_revision": "bee49a2ad47eae4ea149bdced2043b7a45df3dae",
+  "candidate_patch_sha256": "3afd6dfb994b20e53cc794b94a85820dbaeb809691e00f088303507276496428",
+  "candidate_binary_sha256": "efcc88866754879eafc961933918735026bc74c897d8de65bff6e5f6f449bdd5",
+  "total_processes": 384,
+  "commands": [
+    {
+      "comparison": "short-pinned",
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-singleton-parser-diagnostic/run-comparisons.py",
+        "--mode",
+        "short",
+        "--reference",
+        "pinned",
+        "--output",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-singleton-parser-diagnostic/timings/short-pinned"
+      ],
+      "exit_code": 0,
+      "seconds": 3.7428313330000003,
+      "log": "short-pinned.log"
+    },
+    {
+      "comparison": "long-pinned",
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-singleton-parser-diagnostic/run-comparisons.py",
+        "--mode",
+        "long",
+        "--reference",
+        "pinned",
+        "--output",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-singleton-parser-diagnostic/timings/long-pinned"
+      ],
+      "exit_code": 0,
+      "seconds": 251.36959387500002,
+      "log": "long-pinned.log"
+    }
+  ],
+  "condition_observations": 56,
+  "all_observations_ac": true,
+  "thermal_outputs": [
+    "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+  ],
+  "pooled_ratios_above_1_05": [
+    {
+      "comparison": "short-pinned",
+      "case": "p12-flat",
+      "operation": "decode",
+      "ratio": 1.0851649257738372
+    },
+    {
+      "comparison": "short-pinned",
+      "case": "p16-flat",
+      "operation": "decode",
+      "ratio": 1.0554803673793403
+    },
+    {
+      "comparison": "short-pinned",
+      "case": "p16-noise",
+      "operation": "decode",
+      "ratio": 1.1289009029394177
+    }
+  ],
+  "results": [
+    {
+      "comparison": "short-pinned",
+      "case": "p12-flat",
+      "operations": {
+        "encode": {
+          "pooled_ratio": 0.8938907081902532,
+          "median_block_ratio": 0.8964468354529269,
+          "median_block_delta_seconds": -1.1874999472638592e-06,
+          "ratio_range": [
+            0.6767123517050259,
+            1.162069113977939
+          ],
+          "ratio_iqr": [
+            0.7914424650295482,
+            0.9999998112864302
+          ],
+          "blocks_above_1_05": 3,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.7916668998704879,
+              0.999999748381907
+            ],
+            "exact_conservative_nominal_95": [
+              0.7907691605067291,
+              1.0
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.9262942793592929,
+            "candidate": 0.8596025148638191
+          }
+        },
+        "decode": {
+          "pooled_ratio": 1.0851649257738372,
+          "median_block_ratio": 1.0849473719996494,
+          "median_block_delta_seconds": 1.2916698324261233e-06,
+          "ratio_range": [
+            0.8941798575159603,
+            1.3822714627842643
+          ],
+          "ratio_iqr": [
+            1.0075080410174797,
+            1.1362515736192644
+          ],
+          "blocks_above_1_05": 10,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              1.016216339944701,
+              1.144770343417113
+            ],
+            "exact_conservative_nominal_95": [
+              0.9813831442358154,
+              1.1749271916268524
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 1.115053343561976,
+            "candidate": 1.0611229764128463
+          }
+        },
+        "prepare": {
+          "pooled_ratio": 0.987654048180849,
+          "median_block_ratio": 0.98707014135334,
+          "median_block_delta_seconds": -4.1667590267024934e-08,
+          "ratio_range": [
+            0.8461534033232078,
+            1.3493976030354957
+          ],
+          "ratio_iqr": [
+            0.9381551654658012,
+            1.116021128721303
+          ],
+          "blocks_above_1_05": 6,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.9431810740500414,
+              1.112500941327725
+            ],
+            "exact_conservative_nominal_95": [
+              0.923077439713081,
+              1.1265816909020376
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 1.1195413161148813,
+            "candidate": 0.9627895029610767
+          }
+        },
+        "prepare_encode": {
+          "pooled_ratio": 1.0231548560920867,
+          "median_block_ratio": 1.0044510724027294,
+          "median_block_delta_seconds": 6.250047590583563e-08,
+          "ratio_range": [
+            0.8556700706142858,
+            1.131250172235548
+          ],
+          "ratio_iqr": [
+            0.9584052477204787,
+            1.0824103294161689
+          ],
+          "blocks_above_1_05": 5,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.9625873611240571,
+              1.0792681806868591
+            ],
+            "exact_conservative_nominal_95": [
+              0.9279069040239631,
+              1.0918367756040976
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 1.0643433672139828,
+            "candidate": 0.9986339091120755
+          }
+        }
+      }
+    },
+    {
+      "comparison": "short-pinned",
+      "case": "p12-ramp",
+      "operations": {
+        "encode": {
+          "pooled_ratio": 0.8341503924772874,
+          "median_block_ratio": 0.8234141760322585,
+          "median_block_delta_seconds": -4.499999704421498e-06,
+          "ratio_range": [
+            0.7523076427106322,
+            1.0403422866752305
+          ],
+          "ratio_iqr": [
+            0.810528749568727,
+            0.8725440500090026
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8117838779273997,
+              0.8717949406796774
+            ],
+            "exact_conservative_nominal_95": [
+              0.806763364492709,
+              0.874791377996978
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.8152056207450025,
+            "candidate": 0.8300597006621393
+          }
+        },
+        "decode": {
+          "pooled_ratio": 1.0266457429284193,
+          "median_block_ratio": 1.0393560201532008,
+          "median_block_delta_seconds": 1.0208332241745666e-06,
+          "ratio_range": [
+            0.8604994320265242,
+            1.13245036941866
+          ],
+          "ratio_iqr": [
+            1.013137163770474,
+            1.078552097854598
+          ],
+          "blocks_above_1_05": 7,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              1.0063794247926947,
+              1.0771756152341776
+            ],
+            "exact_conservative_nominal_95": [
+              0.9734789650823513,
+              1.0826815457158592
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 1.0384307437866604,
+            "candidate": 1.0554303737402122
+          }
+        },
+        "prepare": {
+          "pooled_ratio": 1.0326790298953346,
+          "median_block_ratio": 1.0067572031998488,
+          "median_block_delta_seconds": 2.083470462821424e-08,
+          "ratio_range": [
+            0.9259264449242384,
+            1.1854833428742229
+          ],
+          "ratio_iqr": [
+            0.9749019812984745,
+            1.0618829906960838
+          ],
+          "blocks_above_1_05": 5,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.975308096361698,
+              1.056767910117399
+            ],
+            "exact_conservative_nominal_95": [
+              0.9736836361088038,
+              1.0853661652998512
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.9868412281124403,
+            "candidate": 1.0337848361139297
+          }
+        },
+        "prepare_encode": {
+          "pooled_ratio": 0.9398436824273902,
+          "median_block_ratio": 0.9299249578268021,
+          "median_block_delta_seconds": -1.8749997252598405e-06,
+          "ratio_range": [
+            0.8802488228224371,
+            1.0675818607471135
+          ],
+          "ratio_iqr": [
+            0.9069014439183077,
+            0.9487400259505936
+          ],
+          "blocks_above_1_05": 1,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.9085173875189737,
+              0.9481946736694967
+            ],
+            "exact_conservative_nominal_95": [
+              0.9020536131163098,
+              0.950376082793884
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.9112391478926085,
+            "candidate": 0.9442230804753216
+          }
+        }
+      }
+    },
+    {
+      "comparison": "short-pinned",
+      "case": "p12-noise",
+      "operations": {
+        "encode": {
+          "pooled_ratio": 0.7369759015286113,
+          "median_block_ratio": 0.7408455264737472,
+          "median_block_delta_seconds": -8.583334420109168e-06,
+          "ratio_range": [
+            0.6411699111053144,
+            0.9705881915668182
+          ],
+          "ratio_iqr": [
+            0.6912193618790419,
+            0.7668364347991736
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.6967004898972405,
+              0.7693250495145845
+            ],
+            "exact_conservative_nominal_95": [
+              0.6747759778244458,
+              0.795756059087882
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.7412656993368345,
+            "candidate": 0.7374438603132832
+          }
+        },
+        "decode": {
+          "pooled_ratio": 1.0037523190919868,
+          "median_block_ratio": 0.9464158748120831,
+          "median_block_delta_seconds": -1.625001459615305e-06,
+          "ratio_range": [
+            0.7233238255326825,
+            2.0890053042112178
+          ],
+          "ratio_iqr": [
+            0.8335398886593846,
+            1.1834006246335251
+          ],
+          "blocks_above_1_05": 6,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8441717064499942,
+              1.1823618765368422
+            ],
+            "exact_conservative_nominal_95": [
+              0.8016444352875555,
+              1.1865168689235739
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.8677189649398216,
+            "candidate": 1.0744024230373117
+          }
+        },
+        "prepare": {
+          "pooled_ratio": 1.0193555510116024,
+          "median_block_ratio": 1.0189874956620535,
+          "median_block_delta_seconds": 6.250047590583563e-08,
+          "ratio_range": [
+            0.9024389724500248,
+            1.4714285536098946
+          ],
+          "ratio_iqr": [
+            0.987138136589002,
+            1.086806161885795
+          ],
+          "blocks_above_1_05": 7,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.9871797598485705,
+              1.0833340407187197
+            ],
+            "exact_conservative_nominal_95": [
+              0.987013266810296,
+              1.0972225253870203
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 1.0342460564616491,
+            "candidate": 1.0189874956620535
+          }
+        },
+        "prepare_encode": {
+          "pooled_ratio": 0.8116922713211303,
+          "median_block_ratio": 0.7996348835849713,
+          "median_block_delta_seconds": -6.854166713310406e-06,
+          "ratio_range": [
+            0.5715571529568497,
+            1.0444146433724755
+          ],
+          "ratio_iqr": [
+            0.781992757436967,
+            0.8383100214383803
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.7833537915095612,
+              0.8366272043275209
+            ],
+            "exact_conservative_nominal_95": [
+              0.777909655219184,
+              0.8433584727709583
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.7945830954614332,
+            "candidate": 0.818070615223672
+          }
+        }
+      }
+    },
+    {
+      "comparison": "short-pinned",
+      "case": "p16-flat",
+      "operations": {
+        "encode": {
+          "pooled_ratio": 0.881789165899088,
+          "median_block_ratio": 0.8867699876652464,
+          "median_block_delta_seconds": -1.5208333934424445e-06,
+          "ratio_range": [
+            0.7376094066281376,
+            1.1184210866431519
+          ],
+          "ratio_iqr": [
+            0.826693146020463,
+            1.013581385499206
+          ],
+          "blocks_above_1_05": 1,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8307691067765807,
+              1.0120479329531953
+            ],
+            "exact_conservative_nominal_95": [
+              0.81446526375211,
+              1.0181817431372382
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.990289736501225,
+            "candidate": 0.8543284706020224
+          }
+        },
+        "decode": {
+          "pooled_ratio": 1.0554803673793403,
+          "median_block_ratio": 1.0779575121850118,
+          "median_block_delta_seconds": 1.20833283290267e-06,
+          "ratio_range": [
+            0.801047052208615,
+            1.2005730035377415
+          ],
+          "ratio_iqr": [
+            1.020178850851221,
+            1.1530924638260676
+          ],
+          "blocks_above_1_05": 11,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              1.0208877290547567,
+              1.152694736005588
+            ],
+            "exact_conservative_nominal_95": [
+              0.9738904429930016,
+              1.1542856472875063
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 1.1043010763133405,
+            "candidate": 1.0728164843109287
+          }
+        },
+        "prepare": {
+          "pooled_ratio": 1.0186336784757695,
+          "median_block_ratio": 1.0199989755458128,
+          "median_block_delta_seconds": 6.249683792702854e-08,
+          "ratio_range": [
+            0.8250003547032008,
+            1.349397235488418
+          ],
+          "ratio_iqr": [
+            0.961309328917868,
+            1.105219097136835
+          ],
+          "blocks_above_1_05": 6,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.9642854544301732,
+              1.0981710245618679
+            ],
+            "exact_conservative_nominal_95": [
+              0.9523809523809523,
+              1.1481481880710953
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 1.0695516306056945,
+            "candidate": 1.0066653914344728
+          }
+        },
+        "prepare_encode": {
+          "pooled_ratio": 1.0437852344424605,
+          "median_block_ratio": 1.06335026549701,
+          "median_block_delta_seconds": 8.958322723628953e-07,
+          "ratio_range": [
+            0.8142075837904066,
+            1.4209038022182545
+          ],
+          "ratio_iqr": [
+            1.0121964948603306,
+            1.1092380302108524
+          ],
+          "blocks_above_1_05": 9,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              1.0143680114729325,
+              1.1068249604118823
+            ],
+            "exact_conservative_nominal_95": [
+              1.005681945022525,
+              1.1164772396077631
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 1.0479314445928911,
+            "candidate": 1.070957929846045
+          }
+        }
+      }
+    },
+    {
+      "comparison": "short-pinned",
+      "case": "p16-ramp",
+      "operations": {
+        "encode": {
+          "pooled_ratio": 0.8565921283275555,
+          "median_block_ratio": 0.8542294497633176,
+          "median_block_delta_seconds": -3.979168468504213e-06,
+          "ratio_range": [
+            0.7086094342677398,
+            1.0876368170250559
+          ],
+          "ratio_iqr": [
+            0.8104977415710457,
+            0.9080488246886648
+          ],
+          "blocks_above_1_05": 1,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8135861090593601,
+              0.9034808823765081
+            ],
+            "exact_conservative_nominal_95": [
+              0.8012326391061025,
+              0.9217526516251345
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.8738360221456227,
+            "candidate": 0.8329170877925548
+          }
+        },
+        "decode": {
+          "pooled_ratio": 0.9664764351452793,
+          "median_block_ratio": 0.9450199111756816,
+          "median_block_delta_seconds": -1.7083330021705478e-06,
+          "ratio_range": [
+            0.6936937244014115,
+            1.0751772949514518
+          ],
+          "ratio_iqr": [
+            0.9078295679012155,
+            0.9902441403918996
+          ],
+          "blocks_above_1_05": 1,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.9050220543053962,
+              0.9884892046563784
+            ],
+            "exact_conservative_nominal_95": [
+              0.8772920037569805,
+              0.9955089475984633
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.9874147044356847,
+            "candidate": 0.9253804304015529
+          }
+        },
+        "prepare": {
+          "pooled_ratio": 1.0326790298953346,
+          "median_block_ratio": 1.0316338180339426,
+          "median_block_delta_seconds": 1.0416442819405347e-07,
+          "ratio_range": [
+            0.7125005047699395,
+            1.4411758285921925
+          ],
+          "ratio_iqr": [
+            0.9214749548774656,
+            1.0773260822239539
+          ],
+          "blocks_above_1_05": 6,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.923077439713081,
+              1.0714282774210044
+            ],
+            "exact_conservative_nominal_95": [
+              0.9166675003706193,
+              1.1000003741922126
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 1.0327914786446089,
+            "candidate": 1.0269363668453408
+          }
+        },
+        "prepare_encode": {
+          "pooled_ratio": 0.9295058664314333,
+          "median_block_ratio": 0.926102981362831,
+          "median_block_delta_seconds": -2.125001628883183e-06,
+          "ratio_range": [
+            0.6311689115737512,
+            0.9971388311426976
+          ],
+          "ratio_iqr": [
+            0.8933956108916472,
+            0.9495831761182826
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8955882913743818,
+              0.9495676760285803
+            ],
+            "exact_conservative_nominal_95": [
+              0.8868175694434434,
+              0.9496296763873894
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.9291670844942074,
+            "candidate": 0.909108077938312
+          }
+        }
+      }
+    },
+    {
+      "comparison": "short-pinned",
+      "case": "p16-noise",
+      "operations": {
+        "encode": {
+          "pooled_ratio": 0.7086466439974088,
+          "median_block_ratio": 0.7073363401215031,
+          "median_block_delta_seconds": -9.791665434022434e-06,
+          "ratio_range": [
+            0.6572828364415298,
+            0.7547891968368933
+          ],
+          "ratio_iqr": [
+            0.6851999838162319,
+            0.7237164876638981
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.6863468345395672,
+              0.7232899148911321
+            ],
+            "exact_conservative_nominal_95": [
+              0.681759431646226,
+              0.7366459783621514
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.7009301351869827,
+            "candidate": 0.7146702544256299
+          }
+        },
+        "decode": {
+          "pooled_ratio": 1.1289009029394177,
+          "median_block_ratio": 1.1357198076284305,
+          "median_block_delta_seconds": 3.895833287970163e-06,
+          "ratio_range": [
+            0.6335520457482742,
+            1.3946982249920725
+          ],
+          "ratio_iqr": [
+            0.9645882002979368,
+            1.2484803649155496
+          ],
+          "blocks_above_1_05": 11,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.9665071665395637,
+              1.2445302776483025
+            ],
+            "exact_conservative_nominal_95": [
+              0.9588313015730561,
+              1.2603306267172913
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 1.1398560926482748,
+            "candidate": 1.1151650651327663
+          }
+        },
+        "prepare": {
+          "pooled_ratio": 1.0263157894736843,
+          "median_block_ratio": 1.0193303139577687,
+          "median_block_delta_seconds": 6.249865691643208e-08,
+          "ratio_range": [
+            0.9135799541453014,
+            1.2500009094954967
+          ],
+          "ratio_iqr": [
+            0.9799689976126648,
+            1.0564479174501034
+          ],
+          "blocks_above_1_05": 6,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.9807690800836848,
+              1.0533345440533275
+            ],
+            "exact_conservative_nominal_95": [
+              0.9615381601673695,
+              1.0657880376404307
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.993056305047215,
+            "candidate": 1.059561290846879
+          }
+        },
+        "prepare_encode": {
+          "pooled_ratio": 0.793209850094256,
+          "median_block_ratio": 0.776055209018822,
+          "median_block_delta_seconds": -7.812499461579137e-06,
+          "ratio_range": [
+            0.7403246112676517,
+            0.828048840348901
+          ],
+          "ratio_iqr": [
+            0.7568163473336363,
+            0.8145082361263601
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.7571398094360405,
+              0.8140702905761505
+            ],
+            "exact_conservative_nominal_95": [
+              0.7544273989451905,
+              0.8158220727769889
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.7668384284828554,
+            "candidate": 0.7786422609292177
+          }
+        }
+      }
+    },
+    {
+      "comparison": "long-pinned",
+      "case": "p12-flat",
+      "operations": {
+        "encode": {
+          "pooled_ratio": 0.9788733866589275,
+          "median_block_ratio": 0.9859954272378717,
+          "median_block_delta_seconds": -1.666685420786962e-07,
+          "ratio_range": [
+            0.951723980126704,
+            1.4081631334843316
+          ],
+          "ratio_iqr": [
+            0.97207652533805,
+            0.9946805019233294
+          ],
+          "blocks_above_1_05": 2,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.9721254291800447,
+              0.9947368017952469
+            ],
+            "exact_conservative_nominal_95": [
+              0.9719298138120659,
+              1.0
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.9824865773753491,
+            "candidate": 0.9894921586306384
+          }
+        },
+        "decode": {
+          "pooled_ratio": 1.0186336835283607,
+          "median_block_ratio": 1.0278208554498933,
+          "median_block_delta_seconds": 3.750010364456102e-07,
+          "ratio_range": [
+            0.9819275745974073,
+            1.304174652138359
+          ],
+          "ratio_iqr": [
+            1.00619698430696,
+            1.0392455250277575
+          ],
+          "blocks_above_1_05": 3,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              1.0062113182273598,
+              1.0382153422521685
+            ],
+            "exact_conservative_nominal_95": [
+              1.0061539825457613,
+              1.0451808124020212
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 1.0216048767237282,
+            "candidate": 1.0295569325543728
+          }
+        },
+        "prepare": {
+          "pooled_ratio": 0.8666671323282029,
+          "median_block_ratio": 0.8733997796471488,
+          "median_block_delta_seconds": -3.9583301258971915e-07,
+          "ratio_range": [
+            0.8333335198963904,
+            0.9154923688576098
+          ],
+          "ratio_iqr": [
+            0.8666661233955069,
+            0.8907811516303348
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8666661233955069,
+              0.8904109261356773
+            ],
+            "exact_conservative_nominal_95": [
+              0.8666661233955069,
+              0.8918918281143073
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.8734000387434993,
+            "candidate": 0.8733997796471488
+          }
+        },
+        "prepare_encode": {
+          "pooled_ratio": 0.9522292232059438,
+          "median_block_ratio": 0.9555553628379653,
+          "median_block_delta_seconds": -5.833298928337172e-07,
+          "ratio_range": [
+            0.9051988118695032,
+            1.0683450989210752
+          ],
+          "ratio_iqr": [
+            0.9431701912058919,
+            0.9732327053645733
+          ],
+          "blocks_above_1_05": 1,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.9433962108737121,
+              0.971378565175209
+            ],
+            "exact_conservative_nominal_95": [
+              0.942492132202431,
+              0.9844237387161457
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.9568737624038322,
+            "candidate": 0.9506917721301446
+          }
+        }
+      }
+    },
+    {
+      "comparison": "long-pinned",
+      "case": "p12-ramp",
+      "operations": {
+        "encode": {
+          "pooled_ratio": 0.854452176396143,
+          "median_block_ratio": 0.8492250215596664,
+          "median_block_delta_seconds": -3.6562496461556293e-06,
+          "ratio_range": [
+            0.7904000388920298,
+            0.9861111069004876
+          ],
+          "ratio_iqr": [
+            0.8222530680283401,
+            0.8636063526464712
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8230383992756207,
+              0.8608247275753853
+            ],
+            "exact_conservative_nominal_95": [
+              0.8198970742864982,
+              0.8719512278597291
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.8428060447267895,
+            "candidate": 0.8550612405407212
+          }
+        },
+        "decode": {
+          "pooled_ratio": 0.9292928298154934,
+          "median_block_ratio": 0.9272475673924909,
+          "median_block_delta_seconds": -1.7916645447257906e-06,
+          "ratio_range": [
+            0.8593996748922917,
+            1.0594315247421284
+          ],
+          "ratio_iqr": [
+            0.9172128147335621,
+            0.9450327263107741
+          ],
+          "blocks_above_1_05": 1,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.9137013946136568,
+              0.9476274928518483
+            ],
+            "exact_conservative_nominal_95": [
+              0.9035449834507647,
+              0.9647463518548062
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.9271832198127197,
+            "candidate": 0.931224009366094
+          }
+        },
+        "prepare": {
+          "pooled_ratio": 0.8108112891426953,
+          "median_block_ratio": 0.8219174559585306,
+          "median_block_delta_seconds": -5.416677595349029e-07,
+          "ratio_range": [
+            0.7792210001133916,
+            0.9583330301685353
+          ],
+          "ratio_iqr": [
+            0.8019743349960343,
+            0.8405052769976649
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.802632213830611,
+              0.8385449971812662
+            ],
+            "exact_conservative_nominal_95": [
+              0.8000006984923044,
+              0.855171940380112
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.8219174559585306,
+            "candidate": 0.8287666235690783
+          }
+        },
+        "prepare_encode": {
+          "pooled_ratio": 0.8456486261630242,
+          "median_block_ratio": 0.8486361365107599,
+          "median_block_delta_seconds": -3.812498107436113e-06,
+          "ratio_range": [
+            0.7894736130752067,
+            0.9464883477847482
+          ],
+          "ratio_iqr": [
+            0.830905938661572,
+            0.8576770979942135
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8333334759991816,
+              0.8573797834356336
+            ],
+            "exact_conservative_nominal_95": [
+              0.823623326648743,
+              0.8585690416699535
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.8505419943063149,
+            "candidate": 0.8481891140520186
+          }
+        }
+      }
+    },
+    {
+      "comparison": "long-pinned",
+      "case": "p12-noise",
+      "operations": {
+        "encode": {
+          "pooled_ratio": 0.7680762766475725,
+          "median_block_ratio": 0.76236592156063,
+          "median_block_delta_seconds": -7.208336683106609e-06,
+          "ratio_range": [
+            0.6952140769867377,
+            0.8531856116472074
+          ],
+          "ratio_iqr": [
+            0.7390027244300971,
+            0.7722865769949223
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.7398160492524025,
+              0.7722222606231106
+            ],
+            "exact_conservative_nominal_95": [
+              0.7365627499631808,
+              0.7724795261103576
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.7506747787005554,
+            "candidate": 0.7662122808968437
+          }
+        },
+        "decode": {
+          "pooled_ratio": 0.9495269342180898,
+          "median_block_ratio": 0.9353035092525077,
+          "median_block_delta_seconds": -1.6875001165317371e-06,
+          "ratio_range": [
+            0.83847800464976,
+            1.0447284501010639
+          ],
+          "ratio_iqr": [
+            0.9002205993329253,
+            0.9445646099856899
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.9015152116470362,
+              0.9444443905484617
+            ],
+            "exact_conservative_nominal_95": [
+              0.8963367623905927,
+              0.9449252682973743
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.9194695533360527,
+            "candidate": 0.9387325712138719
+          }
+        },
+        "prepare": {
+          "pooled_ratio": 0.8750003031647979,
+          "median_block_ratio": 0.8699240971736097,
+          "median_block_delta_seconds": -3.9583574107382447e-07,
+          "ratio_range": [
+            0.7948716800637597,
+            0.9857145886317911
+          ],
+          "ratio_iqr": [
+            0.8250430814921402,
+            0.8816016383986467
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8289465067947848,
+              0.8873239176820917
+            ],
+            "exact_conservative_nominal_95": [
+              0.8133328055842066,
+              0.9014092820777687
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.8699240971736097,
+            "candidate": 0.8670767242572313
+          }
+        },
+        "prepare_encode": {
+          "pooled_ratio": 0.7658730791183017,
+          "median_block_ratio": 0.7558229080391592,
+          "median_block_delta_seconds": -7.645833647984546e-06,
+          "ratio_range": [
+            0.6918392468878665,
+            0.8812877595847931
+          ],
+          "ratio_iqr": [
+            0.7368979870179334,
+            0.7733476244252825
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.7377259960249585,
+              0.7732095702653667
+            ],
+            "exact_conservative_nominal_95": [
+              0.7344139599968581,
+              0.7737617869050297
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.7623327188926061,
+            "candidate": 0.7523193712271562
+          }
+        }
+      }
+    },
+    {
+      "comparison": "long-pinned",
+      "case": "p16-flat",
+      "operations": {
+        "encode": {
+          "pooled_ratio": 0.9757784620367204,
+          "median_block_ratio": 0.9757365627186252,
+          "median_block_delta_seconds": -2.9166585591156036e-07,
+          "ratio_range": [
+            0.9621992291986396,
+            1.0
+          ],
+          "ratio_iqr": [
+            0.9689385138870757,
+            0.9835277681021335
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.968965286764002,
+              0.9826990309330427
+            ],
+            "exact_conservative_nominal_95": [
+              0.968858195256297,
+              0.9860139796094062
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.9723722465920425,
+            "candidate": 0.9757783225773973
+          }
+        },
+        "decode": {
+          "pooled_ratio": 1.015432035554099,
+          "median_block_ratio": 1.0154417082214338,
+          "median_block_delta_seconds": 2.0833249436691403e-07,
+          "ratio_range": [
+            1.000000266193623,
+            1.0462963886181365
+          ],
+          "ratio_iqr": [
+            1.0061304153555604,
+            1.0225278339181512
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              1.006135105703155,
+              1.0218066569980297
+            ],
+            "exact_conservative_nominal_95": [
+              1.006116344312777,
+              1.0246913646785158
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 1.0139032797476788,
+            "candidate": 1.0170234517529808
+          }
+        },
+        "prepare": {
+          "pooled_ratio": 0.868421475887074,
+          "median_block_ratio": 0.868421475887074,
+          "median_block_delta_seconds": -4.1666498873382807e-07,
+          "ratio_range": [
+            0.8441557999773217,
+            0.8815785921363346
+          ],
+          "ratio_iqr": [
+            0.8666668800950289,
+            0.8799991618102105
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8666671323282029,
+              0.8799991618102105
+            ],
+            "exact_conservative_nominal_95": [
+              0.8666661233955069,
+              0.8799991618102105
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.8733990217146006,
+            "candidate": 0.868421475887074
+          }
+        },
+        "prepare_encode": {
+          "pooled_ratio": 0.9528301006114002,
+          "median_block_ratio": 0.9559929981295793,
+          "median_block_delta_seconds": -5.833317118231207e-07,
+          "ratio_range": [
+            0.9318886478286467,
+            0.9717871624719283
+          ],
+          "ratio_iqr": [
+            0.9494868660315051,
+            0.962055253816682
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.9495267965028029,
+              0.9620253059632087
+            ],
+            "exact_conservative_nominal_95": [
+              0.9493670746176116,
+              0.9621450973771022
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.9529776398341033,
+            "candidate": 0.9591195486599607
+          }
+        }
+      }
+    },
+    {
+      "comparison": "long-pinned",
+      "case": "p16-ramp",
+      "operations": {
+        "encode": {
+          "pooled_ratio": 0.9250813354904297,
+          "median_block_ratio": 0.9162212291676495,
+          "median_block_delta_seconds": -2.166664671676699e-06,
+          "ratio_range": [
+            0.8237518552040024,
+            1.0130352624563566
+          ],
+          "ratio_iqr": [
+            0.9046008614531791,
+            0.9407013730537707
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.9054275864663749,
+              0.939967240955182
+            ],
+            "exact_conservative_nominal_95": [
+              0.9021206864135916,
+              0.9429037693495366
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.9155035355987653,
+            "candidate": 0.9231425603781509
+          }
+        },
+        "decode": {
+          "pooled_ratio": 0.9146919856191219,
+          "median_block_ratio": 0.9168360298813163,
+          "median_block_delta_seconds": -2.1666664906661026e-06,
+          "ratio_range": [
+            0.8410938600468423,
+            1.0270270737972411
+          ],
+          "ratio_iqr": [
+            0.898069129777208,
+            0.9628988826000114
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8982129093879667,
+              0.9568509381986654
+            ],
+            "exact_conservative_nominal_95": [
+              0.8976377909449318,
+              0.9810427158040496
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.9243676369585798,
+            "candidate": 0.9090088230468787
+          }
+        },
+        "prepare": {
+          "pooled_ratio": 0.8767125909145819,
+          "median_block_ratio": 0.8802818027226578,
+          "median_block_delta_seconds": -3.5416815080679953e-07,
+          "ratio_range": [
+            0.8076930395935313,
+            0.9436619198701395
+          ],
+          "ratio_iqr": [
+            0.8551196119792135,
+            0.9014080523377358
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8581081718856927,
+              0.9014080523377358
+            ],
+            "exact_conservative_nominal_95": [
+              0.8461539322597761,
+              0.9014080523377358
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.8881058272660953,
+            "candidate": 0.8690525011141819
+          }
+        },
+        "prepare_encode": {
+          "pooled_ratio": 0.8642744953334666,
+          "median_block_ratio": 0.8632121408947967,
+          "median_block_delta_seconds": -3.6250003176974133e-06,
+          "ratio_range": [
+            0.7942857125038472,
+            0.958990453300884
+          ],
+          "ratio_iqr": [
+            0.8459295662199495,
+            0.8815154963728093
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8463902464343448,
+              0.8826809904147905
+            ],
+            "exact_conservative_nominal_95": [
+              0.8445475255767639,
+              0.8899675986768212
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.8756877356670563,
+            "candidate": 0.859608377594112
+          }
+        }
+      }
+    },
+    {
+      "comparison": "long-pinned",
+      "case": "p16-noise",
+      "operations": {
+        "encode": {
+          "pooled_ratio": 0.7767379772775342,
+          "median_block_ratio": 0.7657381829526766,
+          "median_block_delta_seconds": -7.312501111300662e-06,
+          "ratio_range": [
+            0.6878049580367094,
+            0.8223419174355288
+          ],
+          "ratio_iqr": [
+            0.7449151408636352,
+            0.7786491741602342
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.7449932284056783,
+              0.7810042132625071
+            ],
+            "exact_conservative_nominal_95": [
+              0.7446808782375061,
+              0.7887989720573758
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.7598813748318083,
+            "candidate": 0.766283887848212
+          }
+        },
+        "decode": {
+          "pooled_ratio": 0.9106583108565545,
+          "median_block_ratio": 0.8980423430426764,
+          "median_block_delta_seconds": -2.7083333407063037e-06,
+          "ratio_range": [
+            0.8518518734102437,
+            1.0197472242739734
+          ],
+          "ratio_iqr": [
+            0.8903545245748845,
+            0.9192922839334903
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8904268866001313,
+              0.9170616028761757
+            ],
+            "exact_conservative_nominal_95": [
+              0.8858695173233986,
+              0.9259843271054342
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.9153731687297342,
+            "candidate": 0.8948191403411933
+          }
+        },
+        "prepare": {
+          "pooled_ratio": 0.9014092820777687,
+          "median_block_ratio": 0.8888888215195874,
+          "median_block_delta_seconds": -3.333298081997782e-07,
+          "ratio_range": [
+            0.8076930395935313,
+            0.9857145886317911
+          ],
+          "ratio_iqr": [
+            0.8869209268597181,
+            0.9046285326791694
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.8873015689883255,
+              0.9071435787992671
+            ],
+            "exact_conservative_nominal_95": [
+              0.8857154617469538,
+              0.9142862844833716
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.8936623564277208,
+            "candidate": 0.8888888215195874
+          }
+        },
+        "prepare_encode": {
+          "pooled_ratio": 0.7275097215139152,
+          "median_block_ratio": 0.7235297910181412,
+          "median_block_delta_seconds": -8.812499800114892e-06,
+          "ratio_range": [
+            0.6537558389558038,
+            0.8185377788026176
+          ],
+          "ratio_iqr": [
+            0.7188713919420712,
+            0.7320614268095915
+          ],
+          "blocks_above_1_05": 0,
+          "ratio_intervals": {
+            "percentile_bootstrap_95": [
+              0.7189118500015721,
+              0.7313025969709113
+            ],
+            "exact_conservative_nominal_95": [
+              0.7187500177635684,
+              0.7353324666690951
+            ],
+            "exact_coverage": 0.978729248046875
+          },
+          "median_ratio_by_first_producer": {
+            "reference": 0.7331517734294261,
+            "candidate": 0.7202402584197569
+          }
+        }
+      }
+    }
+  ],
+  "promoted": false,
+  "automatic_acceptance": false
+}

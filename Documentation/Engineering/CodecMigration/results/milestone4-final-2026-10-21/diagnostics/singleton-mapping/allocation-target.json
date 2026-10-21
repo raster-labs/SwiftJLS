@@ -1,0 +1,45 @@
+{
+  "measured_revision": "bee49a2ad47eae4ea149bdced2043b7a45df3dae",
+  "measurement_run": "https://github.com/raster-labs/SwiftJLS/actions/runs/39585530088",
+  "measured_profile": "17-1-0-owned",
+  "measurement_platform": "Linux x86_64 Swift 6.4 ordinary release",
+  "operation_record": "work/m4-final-2026-10-21/workspace-artifact/per-operation-workspace/17-1-0-owned/operation.json",
+  "operation_record_sha256": "9ee19cb53e7eb5847e446586a34f2b112eeeebefaf7f66f218db82ba0bccbcd0",
+  "allocation_stacks": {
+    "909": {
+      "category": "metadata_and_descriptors",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "static Swift._SetStorage.allocate(scale: Swift.Int8, age: Swift.Int32?, seed: Swift.Int?) -> Swift._SetStorage<A>",
+        "generic specialization <Swift.Int> of Swift._NativeSet.copyAndResize(capacity: Swift.Int) -> ()",
+        "generic specialization <Swift.Int> of Swift._NativeSet.insertNew(_: __owned A, at: Swift._HashTable.Bucket, isUnique: Swift.Bool) -> ()",
+        "generic specialization <Swift.Int> of Swift.Set._Variant.insert(__owned A) -> (inserted: Swift.Bool, memberAfterInsert: A)",
+        "generic specialization <Swift.Int> of Swift.Set.insert(__owned A) -> (inserted: Swift.Bool, memberAfterInsert: A)",
+        "function signature specialization <Arg[12] = Dead> of SwiftJLS.ImageDescriptor.init(width: Swift.Int, height: Swift.Int, sampleType: SwiftJLS.SampleType, storageBits: Swift.Int, meaningfulBits: Swift.Int, byteOrder: SwiftJLS.ByteOrder, components: [SwiftJLS.ComponentRole], colour: SwiftJLS.ColourInterpretation, alpha: SwiftJLS.AlphaInterpretation, planes: [SwiftJLS.PlaneDescriptor], iccProfile: FoundationEssentials.Data?, limits: SwiftJLS.ResourceLimits) throws -> SwiftJLS.ImageDescriptor",
+        "function signature specialization <Arg[8] = Dead> of static SwiftJLS.JPEGLSHeader.(makeDescriptor in _F1B392F9CDBD28A790F3DC4231680B21)(width: Swift.Int, height: Swift.Int, outputBits: Swift.Int, componentIDs: [Swift.UInt8], sampling: [Swift.UInt8], rgb: Swift.Bool, grey: Swift.Bool, limits: SwiftJLS.ResourceLimits) throws -> SwiftJLS.ImageDescriptor",
+        "closure #1 (Swift.UnsafeRawBufferPointer) throws -> SwiftJLS.JPEGLSHeader in static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "generic specialization <Swift.Error, SwiftJLS.JPEGLSHeader> of FoundationEssentials.Data.withUnsafeBytes<A, B where A: Swift.Error, B: ~Swift.Copyable>((Swift.UnsafeRawBufferPointer) throws(A) -> B) throws(A) -> B",
+        "static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread",
+        "__clone"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 80,
+      "requested_size_counts": {
+        "80": 1
+      }
+    }
+  },
+  "category": "metadata_and_descriptors",
+  "candidate_expectation": "The sole singleton insert becomes unreachable; empty Set construction does not request backing storage. No remeasurement has been performed for this candidate. This is not a macOS allocation-size or timing claim.",
+  "algorithm_or_pixels_changed": false
+}

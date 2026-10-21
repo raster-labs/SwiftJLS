@@ -1,0 +1,67 @@
+# Milestone 4 performance qualification — 21 October 2026
+
+The selected production source is `e6a6436c692f5af226bffceb70b7ee65c774edf3`, pushed on `codex/milestone-4-qualification`. **Performance qualification remains open for four short-run pinned decode comparisons and one incremental candidate decode finding.** No threshold waiver is recorded. All physical-device testing stays pending and Milestone 5 stays deferred by owner direction. The owner verifies general GitHub CI and merges the branch.
+
+## Implementation and invariants
+
+This checkpoint includes the native sample-interleaved UInt16 writer selection introduced at `bee49a2`, plus four bounded setup improvements:
+
+- Singleton image-component mapping avoids a temporary uniqueness set while preserving component-range and subsequent alignment/extent checks. General mappings retain their set validation.
+- Header scan coverage uses a four-bit mask for admitted frame indices 0...3; sampling equality is checked directly. Duplicate/missing selectors, unsupported combinations and rejection before taking a destination lease retain their original order.
+- Decoder gradient tables initialise nine constant intervals directly when NEAR < T1. The original reference branch chain remains for the internal NEAR >= T1 case. Validated thresholds partition every table element exactly once, including empty intervals and the maximum table; no pointer escapes.
+- Owned destination allocation reuses admission already performed before constructing the exact-capacity owner. The private initialiser performs the same lease reservation; external providers keep their public checks. Metadata required-key validation uses dictionary membership without constructing a temporary key set, preserving missing-key error precedence and byte accounting.
+
+The native sample writer selects at most four borrowed descriptors inside the existing synchronous storage borrow. General padded/sparse/8-bit/opposite-endian layouts retain their fallback; odd physical addresses use unaligned access. The earlier component writer already optimised packed addressing, so this is not a claim that division was newly removed.
+
+Public API, UUID identities, executor policy, cancellation checkpoints, precision/fidelity, storage lifecycle, production limits and copy/allocation reporting are unchanged. Suite policy 0.10.0, Swift tools 6.2 minimum, primary Swift 6.4, Swift 6 language mode, Apple OS 26.0 floors and version `1.1.0-dev.2` remain fixed. The pinned predecessor is JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`.
+
+## Final-source validation
+
+Host debug, release, AddressSanitizer and ThreadSanitizer each pass **120 declarations in 24 suites**, with zero failures/skips. The source/test/package/version and fixture identities are checked after every configuration. New tests exercise mapping error order and limits, independent CharLS scan permutations and rejection without consuming caller storage, exhaustive small gradient thresholds, default/maximal tables, metadata membership, exact owned-admission limits and cancellation precedence. Existing ownership/provider/lifecycle and independent codec tests remain active.
+
+Native arm64 macOS 26.0 also passes all 120 declarations in 24 suites separately in debug/release/ASan/TSan, with zero failures/skips. Both host and guest pass 73 payload and 103 process CLI checks, the independent consumer and bounded resource workload. Five exact OS 26.0 simulator consumers, four non-Watch resource profiles, four SDK-family builds and the Watch arm64_32 module build pass. The final-source 89-profile workspace matrix is verified. The [source-pinned release/ASan mutation run](https://github.com/raster-labs/SwiftJLS/actions/runs/39623942298) uses Linux Swift 6.4.1 (`swift-6.4.1-RELEASE`) and passes all three entry points for at least 3,600 seconds each using 981 seeds: 7,118,875 owned-decode mutations, 7,520,380 supplied-destination mutations (2,522,746 decode calls), and 9,437,117 inspections. All 24,076,372 iterations reconcile with accepted/rejected counts, sanitizer stderr is empty and no watchdog fails. Original artifact ZIP hashes/sizes match GitHub metadata, and every extracted payload matches its downloaded ZIP. Earlier results are not relabelled as final-source evidence.
+
+Host testing uses Command Line Tools Swift 6.4 (`swiftlang-6.4.0.34.1`) on macOS 27.0.1, Apple M4 Max/Mac16,5, 64 GiB. Native-minimum testing uses Tart 2.41.0 and Apple hardware virtualisation, four CPUs/8 GiB, from `ghcr.io/cirruslabs/macos-tahoe-base@sha256:6b01ed7bb644831fc3b5fdb297c8541bf7f032633d4ac5ac9b04affa163b3772`. Host-built arm64 binaries execute on macOS 26.0 (25A354); this is not a guest compiler build or physical-device qualification. Xcode 27 supplies SDK/simulator checks. The VM and qualification simulators are stopped before controlled host timing.
+
+## Performance evidence and disposition
+
+The original benchmark Consumer is unchanged (SHA-256 `27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34`). The frozen measured candidate binary (`2e67435160c617b4d31ed50cd6a1e63ac63c0dfdf067571681f7c7f329eece60`) was built from `bee49a2` plus recorded patches. Every final source/test/package/version file is byte-identical to that candidate, with unchanged fixtures. A separate promotion bridge links it to `e6a6436`; its historical build is not relabelled as a rebuild. The pinned predecessor binary is `b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45`.
+
+Three fixed comparisons completed once, with 1,920 processes and 188 AC/no-warning condition observations: a direct short comparison against the preceding three-change candidate, the primary short comparison against the predecessor, and a deep-warm predecessor comparison. Source/binary guards, sample preflights and independent raw/bootstrap recomputation pass. No observation was dropped, count extended or metric replaced. AC/thermal records describe observed conditions, not proof of a universally isolated host.
+
+The primary short comparison uses six 37×23 scalar cases, 128 complete paired rounds, five warmups and five observations per process: 640 observations per producer and operation. Producer-first order is balanced 64/64 and case order rotated/reversed. The original pooled-median ratio is retained. Fifty thousand paired-round bootstrap resamples (seed 20261021) jointly retain all cases, operations and five observations, stratified by producer order. Two-sided nominal 95% familywise Bonferroni intervals cover all 24 metrics; the frozen interpretation requires an upper bound <=1.05 to support the measured gate, a lower bound >1.05 to confirm a regression, and otherwise records uncertainty.
+
+Ratios below one favour the successor. These are engineering measurements, not throughput promises:
+
+| Case | Encode | Decode | Prepare | Prepare + encode | Decode familywise interval |
+| --- | ---: | ---: | ---: | ---: | --- |
+| 12-bit flat | 0.84740 | 1.03547 | 0.90625 | 0.97971 | 1.01351–1.06906 |
+| 12-bit ramp | 0.82996 | 0.99461 | 0.93421 | 0.91190 | 0.97558–1.00929 |
+| 12-bit noise | 0.70980 | 1.02663 | 0.94737 | 0.79803 | 0.93276–1.14643 |
+| 16-bit flat | 0.85484 | 1.04755 | 0.90000 | 0.99717 | 1.01351–1.07418 |
+| 16-bit ramp | 0.80763 | 0.98410 | 0.94156 | 0.92511 | 0.96126–1.00292 |
+| 16-bit noise | 0.69508 | 1.07208 | 0.94805 | 0.78799 | 0.96103–1.15160 |
+
+**Twenty metrics fall within the measured gate; four remain unresolved; none is a confirmed >5% regression under that predeclared analysis.** The unresolved metrics are 12/16-bit flat and noise decode. Absence of a confirmed regression does not prove equivalence or close these findings. Marginal intervals, paired ratios, producer-order groups and consecutive temporal groups are retained. The nominal bootstrap bounds assume exchangeable independent rounds within each order stratum; finite resampling and serial/shared-host effects limit inference.
+
+Direct preparation ratios against the preceding candidate range from 0.8333 to 0.9308 across all six cases. The direct short 16-bit noise decode ratio of 1.1353 remains recorded and unresolved; it is not hidden by aggregate improvements. The deep comparison (16 paired rounds, 20,000 warmups/1,000 observations) places all 24 pooled operation ratios below 1.05; flat decode ratios are 0.9754/0.9815 and noise decode 0.9143/0.8920. Deep results describe steady state and do not replace short-run findings.
+
+The final-source larger guard campaign completes the predeclared 15 scalar/RGB/NEAR cases and four paired blocks (120 processes), retaining the owner's representative larger-image scope. All 60 pooled operation metrics and all 240 individual paired ratios are below 1.05. Pooled ratio ranges are 0.25232–0.97188 for encode, 0.09915–0.91703 for decode, 0.32439–0.39250 for preparation and 0.25916–0.83128 for preparation plus encode. All 76 condition observations report AC power and no recorded thermal/performance warning. Four-block evidence is descriptive, not a population-confidence claim. One encoded-size flag is +44 bytes (2.08%) for 4096×3073 12-bit flat RGB sample interleaving; final-source exports prove this consists exactly of two SPIFF APP8 segments (34 + 10 bytes). Entropy and the entire stream after removal of those segments are byte-identical to the predecessor. Two cross-decodes each verify all 37,761,024 samples with zero error. These are source-specific interoperability checks, not an independent oracle; their incidental timings are unqualified. No larger-case RSS ratio exceeds 1.05. The original 63-case campaign remains separately labelled at `bee49a2`.
+
+## Archived evidence
+
+The [final manifest](results/milestone4-final-2026-10-21-performance.json) inventories **1,062 files / 80,364,186 bytes** with per-file hashes. Its SHA-256 is `b62253b935576036d0bc5e875d7fecda5898f0694bf7dff65fb9123b499265c5`. Source and measured-binary identities, exact commands, host/native XML and logs, all selected raw measurements, diagnostic candidates, workspace ledgers, mutation artifacts and authored dispositions are retained. Independent raw/bootstrap recomputation, artifact checks and all six finding links pass. Earlier failed preparation/adapter attempts are preserved without changing their measurements.
+
+The [source bridge](results/milestone4-final-2026-10-21-performance/source-bridge.json) distinguishes the frozen candidate build from its later source commit. The [performance review](results/milestone4-final-2026-10-21-performance/reviewed-performance-disposition.json) leaves five decode findings unresolved and explains one header-size finding. Publication of evidence is not performance acceptance or a Milestone 4 completion claim. Full workspace plus stack/allocator totals and physical-device execution retain their stated limits.
+
+## Earlier investigations retained separately
+
+The immutable [bee49a2 intermediate archive](results/milestone4-final-2026-10-21.json) contains 1,020 files/68,605,747 bytes. Its 24-scalar/39-RGB campaign resolves the three earlier RGB sample-decode outliers (ratios 0.84673/0.88130/0.91399); all 39 RGB cases were within 1.05 for pooled operations. Thirteen RGB size outliers are header-only: seven lossless streams add 44 SPIFF bytes; six NEAR=3 streams add 29 net bytes after the predecessor's 15-byte LSE segment. Entropy and header-normalised streams match, with 26 successful bidirectional cross-decodes. These cross-decodes are not independent-oracle qualification.
+
+That intermediate source retained confirmed short flat-decode regressions. Subsequent singleton/parser/gradient candidates, the preceding three-change source's 117-test validation and 16/128-round measurements retain their own source identities. Same-binary controls showed substantial short-run variability. A synchronous decode counterfactual changed the required executor policy, also shifted unchanged encode controls and failed to isolate a precise universal executor cost. It is diagnostic only and was never promoted. Neither these controls nor faster steady-state results waive a performance finding.
+
+## Workspace and remaining scope
+
+[WorkspaceAccounting.md](WorkspaceAccounting.md) separates source-level algorithm bounds, observed requested heap, pixel buffers, compressed storage, metadata and runtime costs. The final-source Linux ordinary-release matrix attributes and reconciles all 89 profiles, with one pixel allocation in each of 23 owned decodes and none in the other 66 operations. All algorithm-state peaks remain unchanged from `bee49a2`; all 23 inspection peaks above baseline are lower. Metadata allocation traffic decreases in 69 profiles. These results concern requested heap in the selected workload, not allocator overhead or unmeasured stack use. Universal heap-plus-stack-plus-allocator totals remain unknown; `peakWorkspaceBytes` stays `nil` and `pure_algorithm_workspace_complete` stays false. A finite allocation matrix is not a universal peak guarantee.
+
+The four pinned short decode comparisons and incremental candidate decode finding require resolution before claiming the performance gate closed. Physical iPhone/iPad, Watch and other required target-device admission remain unexecuted by owner direction. Simulators and virtualised native macOS do not qualify physical devices. Milestone 5, stable publication, support/security-channel release decisions and consumer cutover remain outside this task. General GitHub CI verification and merge belong to the owner.

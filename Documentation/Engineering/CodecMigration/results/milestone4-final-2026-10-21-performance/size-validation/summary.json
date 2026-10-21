@@ -1,0 +1,287 @@
+{
+  "source_checkpoint": "e6a6436c692f5af226bffceb70b7ee65c774edf3",
+  "predecessor_checkpoint": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "case": {
+    "id": "4096x3073-p12-flat-c3-n0-i2",
+    "width": 4096,
+    "height": 3073,
+    "bits": 12,
+    "pattern": "flat",
+    "components": 3,
+    "near": 0,
+    "interleave": 2
+  },
+  "scope": "Correctness-only export, exact header/entropy comparison, and two full-sample cross-decodes. Incidental timings are retained but are not performance qualification.",
+  "independent_oracle_run": false,
+  "required_samples_per_decode": 37761024,
+  "scripts": {
+    "verify.py": "a1e660f28606c3217d8c7abe5e45be28631ccd39065800bbd16d8453d292175a",
+    "rgb-size-helper.py": "bffcc7062de6e9f88e9ade38383b593212d4177de91365c02560f096384fe943"
+  },
+  "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+  "build_record_sha256": "ea31c8f2cbe738a877ec55662a3854a1117437e0dc623cc23ca5998554e8492a",
+  "measured_summary_sha256": "61f43fd2c1845f82d34bd780f5a9cb226195170326d4338a26ee2df1679f0ea0",
+  "binary_sha256": {
+    "predecessor": "b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45",
+    "successor": "2e67435160c617b4d31ed50cd6a1e63ac63c0dfdf067571681f7c7f329eece60"
+  },
+  "binaries": {
+    "predecessor": "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-benchmark/predecessor/.build/out/Products/Release/Benchmark",
+    "successor": "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-owned-admission-diagnostic/consumer/.build/out/Products/Release/Benchmark"
+  },
+  "commands": [
+    {
+      "producer": "predecessor",
+      "action": "export",
+      "command": [
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-benchmark/predecessor/.build/out/Products/Release/Benchmark",
+        "4096",
+        "3073",
+        "12",
+        "flat",
+        "0",
+        "1",
+        "predecessor",
+        "3",
+        "0",
+        "2"
+      ],
+      "environment": {
+        "SWIFTJLS_BENCHMARK_EXPORT": "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/size-validation/predecessor.jls"
+      },
+      "developer_dir": "/Library/Developer/CommandLineTools",
+      "utc": "2026-10-21T15:43:53.347660+00:00",
+      "exit_code": 0,
+      "wall_seconds": 0.38070504200000005,
+      "stdout": {
+        "path": "predecessor-export.stdout",
+        "bytes": 478,
+        "sha256": "63957376d7a9b5be41312060aa83ddfa2efd9a40bd8050a5078f6b557905ad96"
+      },
+      "stderr": {
+        "path": "predecessor-export.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "producer": "successor",
+      "action": "export",
+      "command": [
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-owned-admission-diagnostic/consumer/.build/out/Products/Release/Benchmark",
+        "4096",
+        "3073",
+        "12",
+        "flat",
+        "0",
+        "1",
+        "successor",
+        "3",
+        "0",
+        "2"
+      ],
+      "environment": {
+        "SWIFTJLS_BENCHMARK_EXPORT": "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/size-validation/successor.jls"
+      },
+      "developer_dir": "/Library/Developer/CommandLineTools",
+      "utc": "2026-10-21T15:43:53.729439+00:00",
+      "exit_code": 0,
+      "wall_seconds": 0.13056954199999993,
+      "stdout": {
+        "path": "successor-export.stdout",
+        "bytes": 480,
+        "sha256": "b191484a802059e0b900f05e1363ca79d1c0cb5e15f11d7855d9acd058de0752"
+      },
+      "stderr": {
+        "path": "successor-export.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "producer": "predecessor",
+      "action": "cross-decode",
+      "command": [
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-benchmark/predecessor/.build/out/Products/Release/Benchmark",
+        "4096",
+        "3073",
+        "12",
+        "flat",
+        "0",
+        "1",
+        "predecessor",
+        "3",
+        "0",
+        "2"
+      ],
+      "environment": {
+        "SWIFTJLS_BENCHMARK_DECODE": "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/size-validation/successor.jls"
+      },
+      "developer_dir": "/Library/Developer/CommandLineTools",
+      "utc": "2026-10-21T15:43:53.861263+00:00",
+      "exit_code": 0,
+      "wall_seconds": 0.5259496670000001,
+      "stdout": {
+        "path": "predecessor-cross-decode.stdout",
+        "bytes": 481,
+        "sha256": "860e7de7aebd9d254651f4fe24e84189490901e8bdb41cd2b3c7fb2c90ebe3bd"
+      },
+      "stderr": {
+        "path": "predecessor-cross-decode.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "producer": "successor",
+      "action": "cross-decode",
+      "command": [
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-owned-admission-diagnostic/consumer/.build/out/Products/Release/Benchmark",
+        "4096",
+        "3073",
+        "12",
+        "flat",
+        "0",
+        "1",
+        "successor",
+        "3",
+        "0",
+        "2"
+      ],
+      "environment": {
+        "SWIFTJLS_BENCHMARK_DECODE": "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/size-validation/predecessor.jls"
+      },
+      "developer_dir": "/Library/Developer/CommandLineTools",
+      "utc": "2026-10-21T15:43:54.388194+00:00",
+      "exit_code": 0,
+      "wall_seconds": 0.1889574999999999,
+      "stdout": {
+        "path": "successor-cross-decode.stdout",
+        "bytes": 480,
+        "sha256": "f08ecfc34790586d19ee27c8688f32dca5b7a738c3223d9e6c4153a68e1dc808"
+      },
+      "stderr": {
+        "path": "successor-cross-decode.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "producers": {
+    "predecessor": {
+      "bytes": 2115,
+      "sha256": "d6fe1892673a9e7236c1847bbb4f541d53a755e47df681a17acff61c33507bdb",
+      "markers": [
+        {
+          "marker": "FFD8",
+          "offset": 0,
+          "bytes": 2,
+          "raw_hex": "ffd8",
+          "payload_hex": ""
+        },
+        {
+          "marker": "FFF7",
+          "offset": 2,
+          "bytes": 19,
+          "raw_hex": "fff700110c0c01100003011100021100031100",
+          "payload_hex": "0c0c01100003011100021100031100"
+        },
+        {
+          "marker": "FFDA",
+          "offset": 21,
+          "bytes": 14,
+          "raw_hex": "ffda000c03010002000300000200",
+          "payload_hex": "03010002000300000200"
+        },
+        {
+          "marker": "FFD9",
+          "offset": 2113,
+          "bytes": 2,
+          "raw_hex": "ffd9",
+          "payload_hex": ""
+        }
+      ],
+      "entropy_bytes": 2078,
+      "entropy_sha256": "f21cbb3dc3bfb67b6d518c3fe8bda5aa9a82cf5a280a5b394289a4460c87b257",
+      "full_consumer_sample_check": true
+    },
+    "successor": {
+      "bytes": 2159,
+      "sha256": "f834b37e0b3bb9b33df2c2b078f770a8f8de7d59735333225b493062fbab8fd1",
+      "markers": [
+        {
+          "marker": "FFD8",
+          "offset": 0,
+          "bytes": 2,
+          "raw_hex": "ffd8",
+          "payload_hex": ""
+        },
+        {
+          "marker": "FFE8",
+          "offset": 2,
+          "bytes": 34,
+          "raw_hex": "ffe800205350494646000200000300000c01000010000a0c06000000000100000001",
+          "payload_hex": "5350494646000200000300000c01000010000a0c06000000000100000001"
+        },
+        {
+          "marker": "FFE8",
+          "offset": 36,
+          "bytes": 10,
+          "raw_hex": "ffe8000800000001ffd8",
+          "payload_hex": "00000001ffd8"
+        },
+        {
+          "marker": "FFF7",
+          "offset": 46,
+          "bytes": 19,
+          "raw_hex": "fff700110c0c01100003011100021100031100",
+          "payload_hex": "0c0c01100003011100021100031100"
+        },
+        {
+          "marker": "FFDA",
+          "offset": 65,
+          "bytes": 14,
+          "raw_hex": "ffda000c03010002000300000200",
+          "payload_hex": "03010002000300000200"
+        },
+        {
+          "marker": "FFD9",
+          "offset": 2157,
+          "bytes": 2,
+          "raw_hex": "ffd9",
+          "payload_hex": ""
+        }
+      ],
+      "entropy_bytes": 2078,
+      "entropy_sha256": "f21cbb3dc3bfb67b6d518c3fe8bda5aa9a82cf5a280a5b394289a4460c87b257",
+      "full_consumer_sample_check": true
+    }
+  },
+  "complete": true,
+  "parser_controls_passed": true,
+  "start_source_binary_guards_passed": true,
+  "delta_bytes": 44,
+  "matches_recorded_benchmark_sizes": true,
+  "exact_signalling_segments": true,
+  "signalling_segment_bytes": [
+    34,
+    10
+  ],
+  "entropy_identical": true,
+  "header_normalised_streams_identical": true,
+  "normalised_sha256": "d6fe1892673a9e7236c1847bbb4f541d53a755e47df681a17acff61c33507bdb",
+  "cross_decodes": {
+    "predecessor_decodes_successor": {
+      "passed": true,
+      "samples": 37761024,
+      "maximum_error": 0
+    },
+    "successor_decodes_predecessor": {
+      "passed": true,
+      "samples": 37761024,
+      "maximum_error": 0
+    }
+  },
+  "end_source_binary_guards_passed": true,
+  "header_only_difference_verified": true
+}

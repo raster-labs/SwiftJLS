@@ -1,0 +1,1140 @@
+mutation (into)	UNKNOWN STEP	﻿2026-10-21T10:34:19.3195254Z Current runner version: '2.338.0'
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3211137Z ##[group]Runner Image Provisioner
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3211663Z Hosted Compute Agent
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3212081Z Version: 20261012.601
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3212437Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3212831Z Build Date: 2026-10-12T17:48:21Z
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3213258Z Worker ID: {603c4dbe-8a60-41a7-8611-1b8a6a8e08ff}
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3213679Z Region: centralus
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3214055Z Cloud: Azure
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3214363Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3215192Z ##[group]Operating System
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3215623Z Ubuntu
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3215944Z 24.04.5
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3216300Z LTS
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3216603Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3216911Z ##[group]Runner Image
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3217279Z Image: ubuntu-24.04
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3217626Z Version: 20261012.334.1
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3218374Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3219213Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3219762Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3220685Z ##[group]GITHUB_TOKEN Permissions
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3221885Z Contents: read
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3222245Z Metadata: read
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3222575Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3223744Z Secret source: Actions
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3224342Z Cache mode: write
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3225071Z Prepare workflow directory
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3651396Z Prepare all required actions
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.3683475Z Getting action download info
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.5763970Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:19.9426952Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.2619602Z Complete job name: mutation (into)
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.2950263Z ##[group]Checking docker version
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.2958841Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.3876626Z '1.48'
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.3894192Z Docker daemon API version: '1.48'
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.3895187Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.4018611Z '1.48'
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.4029519Z Docker client API version: '1.48'
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.4033947Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.4035495Z ##[group]Clean up resources from previous jobs
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.4038914Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=abf5b2"
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.4140449Z ##[command]/usr/bin/docker network prune --force --filter "label=abf5b2"
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.4246015Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.4246373Z ##[group]Create local container network
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.4252686Z ##[command]/usr/bin/docker network create --label abf5b2 github_network_f143f5c77bf64109b1aef4104024a118
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.5446248Z 3421c6e8bbade26143f30ff667d021a4cab644d5ff9d7b5a6c8a60fb85e602f1
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.5461881Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.5477103Z ##[group]Starting job container
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:20.5490430Z ##[command]/usr/bin/docker pull swift:6.4-noble
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:21.4351201Z 6.4-noble: Pulling from library/swift
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:22.0749396Z f2b4ef06ff01: Pulling fs layer
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:22.0752163Z e789ef60896a: Pulling fs layer
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:22.0752622Z b3c23bbefcef: Pulling fs layer
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:22.0753339Z 6d11467507a7: Pulling fs layer
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:22.0753648Z 6d11467507a7: Waiting
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:22.4286379Z f2b4ef06ff01: Verifying Checksum
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:22.4290051Z f2b4ef06ff01: Download complete
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:22.5820110Z 6d11467507a7: Verifying Checksum
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:22.5820862Z 6d11467507a7: Download complete
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:22.7164787Z e789ef60896a: Verifying Checksum
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:22.7165364Z e789ef60896a: Download complete
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:23.9091368Z f2b4ef06ff01: Pull complete
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:25.8649304Z b3c23bbefcef: Verifying Checksum
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:25.8666918Z b3c23bbefcef: Download complete
+mutation (into)	UNKNOWN STEP	2026-10-21T10:34:39.3523421Z e789ef60896a: Pull complete
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.0905332Z b3c23bbefcef: Pull complete
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.0997071Z 6d11467507a7: Pull complete
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.1034322Z Digest: sha256:19cbe56bdaec1918f7cf5fdeba42b9bd55bdd8a6149c9990d0e0e3a89a127d63
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.1044686Z Status: Downloaded newer image for swift:6.4-noble
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.1051586Z docker.io/library/swift:6.4-noble
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.1107048Z ##[command]/usr/bin/docker create --name bf001294f78d49a1b94df0862152fa40_swift64noble_3e384d --label abf5b2 --workdir /__w/SwiftJLS/SwiftJLS --network github_network_f143f5c77bf64109b1aef4104024a118  -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/actions-runner/cached/2.338.0/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" swift:6.4-noble "-f" "/dev/null"
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.1358238Z 97189880d1b5cc288214e536f9ffca3ef7d79731620375e95d7f9f5043503869
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.1375227Z ##[command]/usr/bin/docker start 97189880d1b5cc288214e536f9ffca3ef7d79731620375e95d7f9f5043503869
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.2843023Z 97189880d1b5cc288214e536f9ffca3ef7d79731620375e95d7f9f5043503869
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.2860430Z ##[command]/usr/bin/docker ps --all --filter id=97189880d1b5cc288214e536f9ffca3ef7d79731620375e95d7f9f5043503869 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.2944215Z 97189880d1b5cc288214e536f9ffca3ef7d79731620375e95d7f9f5043503869 Up Less than a second
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.2959619Z ##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" 97189880d1b5cc288214e536f9ffca3ef7d79731620375e95d7f9f5043503869
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3038550Z HOME=/github/home
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3038792Z GITHUB_ACTIONS=true
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3038984Z CI=true
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3039252Z PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3039592Z SWIFT_SIGNING_KEY=52BB7E3DE28A71BE22EC05FFEF80A866B47A981F
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3039874Z SWIFT_PLATFORM=ubuntu24.04
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3040076Z SWIFT_BRANCH=swift-6.4.1-release
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3040292Z SWIFT_VERSION=swift-6.4.1-RELEASE
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3040698Z SWIFT_WEBROOT=https://download.swift.org
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3053343Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3059795Z ##[group]Waiting for all services to be ready
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3060986Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3242577Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3242879Z with:
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3243002Z   persist-credentials: false
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3243166Z   repository: raster-labs/SwiftJLS
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3244749Z   token: ***
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3244863Z   ssh-strict: true
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3244975Z   ssh-user: git
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3245081Z   clean: true
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3245198Z   sparse-checkout-cone-mode: true
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3245345Z   fetch-depth: 1
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3245452Z   fetch-tags: false
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3245566Z   show-progress: true
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3245681Z   lfs: false
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3245785Z   submodules: false
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3245956Z   set-safe-directory: true
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3246111Z   allow-unsafe-pr-checkout: false
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3246327Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.3283978Z ##[command]/usr/bin/docker exec  97189880d1b5cc288214e536f9ffca3ef7d79731620375e95d7f9f5043503869 sh -c "cat /etc/*release | grep ^ID"
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4588698Z Syncing repository: raster-labs/SwiftJLS
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4589912Z ##[group]Getting Git version info
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4590392Z Working directory is '/__w/SwiftJLS/SwiftJLS'
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4664015Z [command]/usr/bin/git version
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4664196Z git version 2.43.0
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4665076Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4671247Z Temporarily overriding HOME='/__w/_temp/1b40e714-95de-416b-ba6b-a947692ac48e' before making global git config changes
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4671877Z Adding repository directory to the temporary git global config as a safe directory
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4672379Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4673602Z Deleting the contents of '/__w/SwiftJLS/SwiftJLS'
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4673922Z ##[group]Initializing the repository
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4674098Z [command]/usr/bin/git init /__w/SwiftJLS/SwiftJLS
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4685545Z hint: Using 'master' as the name for the initial branch. This default branch name
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4686176Z hint: is subject to change. To configure the initial branch name to use in all
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4686727Z hint: of your new repositories, which will suppress this warning, call:
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4687025Z hint: 
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4687282Z hint: 	git config --global init.defaultBranch <name>
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4687547Z hint: 
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4687808Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4688231Z hint: 'development'. The just-created branch can be renamed via this command:
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4688553Z hint: 
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4688740Z hint: 	git branch -m <name>
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4689044Z Initialized empty Git repository in /__w/SwiftJLS/SwiftJLS/.git/
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4696299Z [command]/usr/bin/git remote add origin https://github.com/raster-labs/SwiftJLS
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4726474Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4726981Z ##[group]Disabling automatic garbage collection
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4729272Z [command]/usr/bin/git config --local gc.auto 0
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4753495Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4753730Z ##[group]Setting up auth
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4758906Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4782136Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.4982104Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.5009690Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.5199082Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.5225526Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.5393826Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.5580008Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.5580279Z ##[group]Fetching the repository
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:04.5586442Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +bee49a2ad47eae4ea149bdced2043b7a45df3dae:refs/remotes/origin/codex/milestone-4-qualification
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:05.9722573Z From https://github.com/raster-labs/SwiftJLS
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:05.9723115Z  * [new ref]         bee49a2ad47eae4ea149bdced2043b7a45df3dae -> origin/codex/milestone-4-qualification
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:05.9737112Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:05.9737440Z ##[group]Determining the checkout info
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:05.9739191Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:05.9745758Z [command]/usr/bin/git sparse-checkout disable
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:05.9868292Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:05.9896251Z ##[group]Checking out the ref
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:05.9899390Z [command]/usr/bin/git checkout --progress --force -B codex/milestone-4-qualification refs/remotes/origin/codex/milestone-4-qualification
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.2635552Z Switched to a new branch 'codex/milestone-4-qualification'
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.2638039Z branch 'codex/milestone-4-qualification' set up to track 'origin/codex/milestone-4-qualification'.
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.2654148Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.2691697Z [command]/usr/bin/git log -1 --format=%H
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.2715507Z bee49a2ad47eae4ea149bdced2043b7a45df3dae
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.2725123Z ##[group]Removing auth
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.2727564Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.2754849Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.2939586Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.2966414Z http.https://github.com/.extraheader
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.2972710Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.3046770Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.3226151Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.3247866Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.3427320Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.3608076Z ##[group]Run swift --version
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.3608279Z ^[[36;1mswift --version^[[0m
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.3610351Z shell: sh -e {0}
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.3610474Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.4589171Z Swift version 6.4.1 (swift-6.4.1-RELEASE)
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.4589505Z Target: x86_64-unknown-linux-gnu
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.4663874Z ##[group]Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.4664270Z ^[[36;1mswift build --package-path Examples/FuzzConsumer -c release --sanitize address^[[0m
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.4664748Z shell: sh -e {0}
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:06.4664866Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:07.5075082Z Building for production...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:07.5075306Z [Planning deferred tasks]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:22.5577837Z [24 / 33] SwiftJLS
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:23.6959379Z [32 / 35] FuzzConsumer-product
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:23.8484165Z [35 / 35] FuzzConsumer-product
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:23.8953154Z Build complete! (16.73 secs)
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:23.9115811Z ##[group]Run apt-get update && apt-get install -y --no-install-recommends python3
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:23.9116153Z ^[[36;1mapt-get update && apt-get install -y --no-install-recommends python3^[[0m
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:23.9116486Z shell: sh -e {0}
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:23.9116604Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:24.2271691Z Get:1 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:24.4712480Z Get:2 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:24.8323216Z Get:3 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [55.6 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:25.0061105Z Get:4 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1410 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:25.2444833Z Get:5 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:25.4325342Z Get:6 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:25.6213801Z Get:7 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:25.6707739Z Get:8 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:25.7025799Z Get:9 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1549 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:25.9548967Z Get:10 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2122 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:26.2031036Z Get:11 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:27.0477372Z Get:12 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:27.0497013Z Get:13 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2231 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:27.1158858Z Get:14 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2170 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:27.1414375Z Get:15 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [61.7 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:27.1417044Z Get:16 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1732 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:27.1624063Z Get:17 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [36.0 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:27.1626070Z Get:18 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.0 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:27.1629358Z Get:19 http://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [669 B]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:27.6720805Z Fetched 33.6 MB in 4s (9083 kB/s)
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:28.1917343Z Reading package lists...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:28.7377910Z Reading package lists...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:28.9001400Z Building dependency tree...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:28.9008455Z Reading state information...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:29.0373240Z The following additional packages will be installed:
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:29.0377324Z   libpython3-stdlib python3-minimal python3.12 python3.12-minimal
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:29.0383914Z Suggested packages:
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:29.0384426Z   python3-doc python3-tk python3-venv python3.12-venv python3.12-doc
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:29.0384954Z   binfmt-support
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:29.0684266Z The following NEW packages will be installed:
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:29.0688039Z   libpython3-stdlib python3 python3-minimal python3.12 python3.12-minimal
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:29.3057827Z 0 upgraded, 5 newly installed, 0 to remove and 6 not upgraded.
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:29.3058154Z Need to get 3046 kB of archives.
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:29.3058352Z After this operation, 9100 kB of additional disk space will be used.
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:29.3058714Z Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12-minimal amd64 3.12.3-1ubuntu0.17 [2335 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.4936210Z Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3-minimal amd64 3.12.3-0ubuntu2.1 [27.4 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.4942377Z Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12 amd64 3.12.3-1ubuntu0.17 [651 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.5273020Z Get:4 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpython3-stdlib amd64 3.12.3-0ubuntu2.1 [10.1 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.5277234Z Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3 amd64 3.12.3-0ubuntu2.1 [23.0 kB]
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6137721Z debconf: delaying package configuration, since apt-utils is not installed
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6509825Z Fetched 3046 kB in 1s (2097 kB/s)
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6616515Z Selecting previously unselected package python3.12-minimal.
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6642708Z (Reading database ... 
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6642871Z (Reading database ... 5%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6643073Z (Reading database ... 10%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6643218Z (Reading database ... 15%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6643344Z (Reading database ... 20%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6643465Z (Reading database ... 25%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6643589Z (Reading database ... 30%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6643712Z (Reading database ... 35%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6643831Z (Reading database ... 40%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6643951Z (Reading database ... 45%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6644072Z (Reading database ... 50%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6644226Z (Reading database ... 55%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6644351Z (Reading database ... 60%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6644617Z (Reading database ... 65%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6655198Z (Reading database ... 70%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6659227Z (Reading database ... 75%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6666175Z (Reading database ... 80%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6675418Z (Reading database ... 85%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6682204Z (Reading database ... 90%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6692882Z (Reading database ... 95%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6693187Z (Reading database ... 100%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6693474Z (Reading database ... 16750 files and directories currently installed.)
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6698397Z Preparing to unpack .../python3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.6728275Z Unpacking python3.12-minimal (3.12.3-1ubuntu0.17) ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:30.7091872Z Setting up python3.12-minimal (3.12.3-1ubuntu0.17) ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2701381Z Selecting previously unselected package python3-minimal.
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2716425Z (Reading database ... 
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2716791Z (Reading database ... 5%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2716979Z (Reading database ... 10%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2717117Z (Reading database ... 15%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2717253Z (Reading database ... 20%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2717541Z (Reading database ... 25%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2717686Z (Reading database ... 30%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2717818Z (Reading database ... 35%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2717945Z (Reading database ... 40%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2718069Z (Reading database ... 45%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2718192Z (Reading database ... 50%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2718314Z (Reading database ... 55%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2718437Z (Reading database ... 60%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2718561Z (Reading database ... 65%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2728774Z (Reading database ... 70%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2732820Z (Reading database ... 75%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2739336Z (Reading database ... 80%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2748227Z (Reading database ... 85%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2754153Z (Reading database ... 90%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2764088Z (Reading database ... 95%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2764285Z (Reading database ... 100%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2764714Z (Reading database ... 16761 files and directories currently installed.)
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2768786Z Preparing to unpack .../python3-minimal_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2775963Z Unpacking python3-minimal (3.12.3-0ubuntu2.1) ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2892126Z Selecting previously unselected package python3.12.
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2902623Z Preparing to unpack .../python3.12_3.12.3-1ubuntu0.17_amd64.deb ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.2908573Z Unpacking python3.12 (3.12.3-1ubuntu0.17) ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3025698Z Selecting previously unselected package libpython3-stdlib:amd64.
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3036911Z Preparing to unpack .../libpython3-stdlib_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3043228Z Unpacking libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3176230Z Setting up python3-minimal (3.12.3-0ubuntu2.1) ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3966126Z Selecting previously unselected package python3.
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3982170Z (Reading database ... 
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3982420Z (Reading database ... 5%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3982631Z (Reading database ... 10%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3982833Z (Reading database ... 15%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3983050Z (Reading database ... 20%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3983242Z (Reading database ... 25%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3983478Z (Reading database ... 30%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3983668Z (Reading database ... 35%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3983861Z (Reading database ... 40%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3984050Z (Reading database ... 45%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3984244Z (Reading database ... 50%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3984437Z (Reading database ... 55%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3985132Z (Reading database ... 60%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3986655Z (Reading database ... 65%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3992308Z (Reading database ... 70%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.3995897Z (Reading database ... 75%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.4002660Z (Reading database ... 80%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.4012063Z (Reading database ... 85%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.4019797Z (Reading database ... 90%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.4028947Z (Reading database ... 95%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.4029141Z (Reading database ... 100%
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.4029498Z (Reading database ... 16808 files and directories currently installed.)
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.4035057Z Preparing to unpack .../python3_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.4062292Z Unpacking python3 (3.12.3-0ubuntu2.1) ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.4209407Z Setting up python3.12 (3.12.3-1ubuntu0.17) ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.9405083Z Setting up libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.9418611Z Setting up python3 (3.12.3-0ubuntu2.1) ...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.9459593Z running python rtupdate hooks for python3.12...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:31.9460155Z running python post-rtupdate hooks for python3.12...
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:32.0191995Z ##[group]Run python3 Scripts/run-mutation-campaign.py --entry "$ENTRY" --seconds "$DURATION"
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:32.0192375Z ^[[36;1mpython3 Scripts/run-mutation-campaign.py --entry "$ENTRY" --seconds "$DURATION"^[[0m
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:32.0192702Z shell: sh -e {0}
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:32.0192815Z env:
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:32.0192921Z   DURATION: 3600
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:32.0193032Z   ENTRY: into
+mutation (into)	UNKNOWN STEP	2026-10-21T10:35:32.0193145Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.1845261Z {"command": ["Examples/FuzzConsumer/.build/release/FuzzConsumer", "Tests/SwiftJLSTests/Fixtures", "into", "3600", "last-input.jls"], "exit_code": 0, "failure": null, "wall_seconds": 3600.104450612, "peak_process_rss_bytes": 486305792, "build": "release with AddressSanitizer; RSS includes sanitizer overhead"}
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.2153017Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.2153265Z with:
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.2153396Z   name: mutation-into
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.2153633Z   path: campaign.jsonl
+mutation (into)	UNKNOWN STEP	last-input.jls
+mutation (into)	UNKNOWN STEP	campaign-stderr.log
+mutation (into)	UNKNOWN STEP	campaign-result.json
+mutation (into)	UNKNOWN STEP	
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.2153873Z   if-no-files-found: warn
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.2154014Z   compression-level: 6
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.2154137Z   overwrite: false
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.2154263Z   include-hidden-files: false
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.2154408Z ##[endgroup]
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.2157728Z ##[command]/usr/bin/docker exec  97189880d1b5cc288214e536f9ffca3ef7d79731620375e95d7f9f5043503869 sh -c "cat /etc/*release | grep ^ID"
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.4226825Z (node:667) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.4227495Z (Use `node --trace-deprecation ...` to show where the warning was created)
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.4280748Z Multiple search paths detected. Calculating the least common ancestor of all paths
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.4281827Z The least common ancestor is /__w/SwiftJLS/SwiftJLS. This will be the root directory of the artifact
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.4282300Z With the provided path, there will be 4 files uploaded
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.4284132Z Artifact name is valid!
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.4296192Z Root directory input is valid!
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.7197478Z Beginning upload of artifact content to blob storage
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.7379290Z (node:667) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.9241287Z Uploaded bytes 20248
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.9714341Z Finished uploading artifact content to blob storage!
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.9715080Z SHA256 digest of uploaded artifact zip is 916de14bbcc29403c7c8d1659d6a42009a48343502cfbc13200a5b1b5cbc6490
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:32.9717284Z Finalizing artifact upload
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.2454339Z Artifact mutation-into.zip successfully finalized. Artifact ID 12341174526
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.2455085Z Artifact mutation-into has been successfully uploaded! Final size is 20248 bytes. Artifact ID is 12341174526
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.2460248Z Artifact download URL: https://github.com/raster-labs/SwiftJLS/actions/runs/39585549272/artifacts/12341174526
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.2659861Z Post job cleanup.
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.2670153Z ##[command]/usr/bin/docker exec  97189880d1b5cc288214e536f9ffca3ef7d79731620375e95d7f9f5043503869 sh -c "cat /etc/*release | grep ^ID"
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.4081033Z [command]/usr/bin/git version
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.4114334Z git version 2.43.0
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.4169946Z Temporarily overriding HOME='/__w/_temp/0c3f341e-abb8-4cf6-a09f-725a35b8e277' before making global git config changes
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.4170611Z Adding repository directory to the temporary git global config as a safe directory
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.4172499Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.4207668Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.4238250Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.4470326Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.4503476Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.4740756Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.4777297Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.5123051Z Stop and remove container: bf001294f78d49a1b94df0862152fa40_swift64noble_3e384d
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.5126670Z ##[command]/usr/bin/docker rm --force 97189880d1b5cc288214e536f9ffca3ef7d79731620375e95d7f9f5043503869
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.7284336Z 97189880d1b5cc288214e536f9ffca3ef7d79731620375e95d7f9f5043503869
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.7312010Z Remove container network: github_network_f143f5c77bf64109b1aef4104024a118
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.7315356Z ##[command]/usr/bin/docker network rm github_network_f143f5c77bf64109b1aef4104024a118
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.8582005Z github_network_f143f5c77bf64109b1aef4104024a118
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.8782100Z Cleaning up orphan processes
+mutation (into)	UNKNOWN STEP	2026-10-21T11:35:33.9068784Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+mutation (owned)	UNKNOWN STEP	﻿2026-10-21T10:34:19.9519382Z Current runner version: '2.338.0'
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9545200Z ##[group]Runner Image Provisioner
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9546057Z Hosted Compute Agent
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9546731Z Version: 20261012.601
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9547373Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9548502Z Build Date: 2026-10-12T17:48:21Z
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9549345Z Worker ID: {c513641d-c93f-424b-bedb-4b75f6aa8a69}
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9550096Z Region: westus3
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9550693Z Cloud: Azure
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9551228Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9552757Z ##[group]Operating System
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9553485Z Ubuntu
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9554014Z 24.04.5
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9554559Z LTS
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9555085Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9555673Z ##[group]Runner Image
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9556318Z Image: ubuntu-24.04
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9556922Z Version: 20261012.334.1
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9558368Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9559984Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9561000Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9562550Z ##[group]GITHUB_TOKEN Permissions
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9564613Z Contents: read
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9565379Z Metadata: read
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9565953Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9568279Z Secret source: Actions
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9569296Z Cache mode: write
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9570058Z Prepare workflow directory
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:19.9990437Z Prepare all required actions
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.0037921Z Getting action download info
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.3465645Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.4559645Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.6696233Z Complete job name: mutation (owned)
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.7224053Z ##[group]Checking docker version
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.7237207Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.8103152Z '1.48'
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.8116525Z Docker daemon API version: '1.48'
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.8117349Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.8274968Z '1.48'
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.8287515Z Docker client API version: '1.48'
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.8292621Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.8295983Z ##[group]Clean up resources from previous jobs
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.8301876Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=56d986"
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.8442822Z ##[command]/usr/bin/docker network prune --force --filter "label=56d986"
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.8572934Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.8573476Z ##[group]Create local container network
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.8584149Z ##[command]/usr/bin/docker network create --label 56d986 github_network_38e02287b4c74d4fa411c738eb52980b
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.9091893Z e38c5b42e7fdfcf02475810f42c572111189a68cb3f848f7f45c12e9016f5ac8
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.9108507Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.9133120Z ##[group]Starting job container
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:20.9156038Z ##[command]/usr/bin/docker pull swift:6.4-noble
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:22.7090342Z 6.4-noble: Pulling from library/swift
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:22.9337332Z f2b4ef06ff01: Pulling fs layer
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:22.9338369Z e789ef60896a: Pulling fs layer
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:22.9338972Z b3c23bbefcef: Pulling fs layer
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:22.9339510Z 6d11467507a7: Pulling fs layer
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:22.9340000Z 6d11467507a7: Waiting
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:23.2610316Z f2b4ef06ff01: Verifying Checksum
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:23.2612630Z f2b4ef06ff01: Download complete
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:23.4514154Z 6d11467507a7: Verifying Checksum
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:23.4515553Z 6d11467507a7: Download complete
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:23.6194013Z e789ef60896a: Verifying Checksum
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:23.6194903Z e789ef60896a: Download complete
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:24.6762491Z f2b4ef06ff01: Pull complete
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:26.8967352Z b3c23bbefcef: Verifying Checksum
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:26.8977081Z b3c23bbefcef: Download complete
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:32.0176438Z e789ef60896a: Pull complete
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:50.9124343Z b3c23bbefcef: Pull complete
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:50.9231018Z 6d11467507a7: Pull complete
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:50.9281945Z Digest: sha256:19cbe56bdaec1918f7cf5fdeba42b9bd55bdd8a6149c9990d0e0e3a89a127d63
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:50.9295639Z Status: Downloaded newer image for swift:6.4-noble
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:50.9305130Z docker.io/library/swift:6.4-noble
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:50.9390091Z ##[command]/usr/bin/docker create --name 94220ddb93d24bcfaa89bbb4b504f051_swift64noble_16678a --label 56d986 --workdir /__w/SwiftJLS/SwiftJLS --network github_network_38e02287b4c74d4fa411c738eb52980b  -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/actions-runner/cached/2.338.0/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" swift:6.4-noble "-f" "/dev/null"
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:50.9690787Z 587901cfd78430458603a92d09389c687941fc45d337231b1b047f90c7da6b95
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:50.9712749Z ##[command]/usr/bin/docker start 587901cfd78430458603a92d09389c687941fc45d337231b1b047f90c7da6b95
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.1776630Z 587901cfd78430458603a92d09389c687941fc45d337231b1b047f90c7da6b95
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.1794441Z ##[command]/usr/bin/docker ps --all --filter id=587901cfd78430458603a92d09389c687941fc45d337231b1b047f90c7da6b95 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.1916477Z 587901cfd78430458603a92d09389c687941fc45d337231b1b047f90c7da6b95 Up Less than a second
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.1936217Z ##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" 587901cfd78430458603a92d09389c687941fc45d337231b1b047f90c7da6b95
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2060014Z CI=true
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2060515Z HOME=/github/home
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2060993Z GITHUB_ACTIONS=true
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2061403Z PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2061893Z SWIFT_SIGNING_KEY=52BB7E3DE28A71BE22EC05FFEF80A866B47A981F
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2062302Z SWIFT_PLATFORM=ubuntu24.04
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2062605Z SWIFT_BRANCH=swift-6.4.1-release
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2062918Z SWIFT_VERSION=swift-6.4.1-RELEASE
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2063416Z SWIFT_WEBROOT=https://download.swift.org
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2082289Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2091475Z ##[group]Waiting for all services to be ready
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2093445Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2408022Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2408958Z with:
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2409188Z   persist-credentials: false
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2409482Z   repository: raster-labs/SwiftJLS
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2412043Z   token: ***
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2412257Z   ssh-strict: true
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2412459Z   ssh-user: git
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2412650Z   clean: true
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2412867Z   sparse-checkout-cone-mode: true
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2413122Z   fetch-depth: 1
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2413316Z   fetch-tags: false
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2413525Z   show-progress: true
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2413732Z   lfs: false
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2413914Z   submodules: false
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2414121Z   set-safe-directory: true
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2414368Z   allow-unsafe-pr-checkout: false
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2414815Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.2477370Z ##[command]/usr/bin/docker exec  587901cfd78430458603a92d09389c687941fc45d337231b1b047f90c7da6b95 sh -c "cat /etc/*release | grep ^ID"
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4473068Z Syncing repository: raster-labs/SwiftJLS
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4474451Z ##[group]Getting Git version info
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4475505Z Working directory is '/__w/SwiftJLS/SwiftJLS'
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4555969Z [command]/usr/bin/git version
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4557666Z git version 2.43.0
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4562861Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4573032Z Temporarily overriding HOME='/__w/_temp/df0d5bcf-0dd7-442c-b4eb-d99b6b18a4ed' before making global git config changes
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4574642Z Adding repository directory to the temporary git global config as a safe directory
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4578728Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4582038Z Deleting the contents of '/__w/SwiftJLS/SwiftJLS'
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4582808Z ##[group]Initializing the repository
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4583333Z [command]/usr/bin/git init /__w/SwiftJLS/SwiftJLS
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4617720Z hint: Using 'master' as the name for the initial branch. This default branch name
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4620852Z hint: is subject to change. To configure the initial branch name to use in all
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4622424Z hint: of your new repositories, which will suppress this warning, call:
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4623689Z hint: 
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4624531Z hint: 	git config --global init.defaultBranch <name>
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4625449Z hint: 
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4626218Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4627390Z hint: 'development'. The just-created branch can be renamed via this command:
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4628587Z hint: 
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4629154Z hint: 	git branch -m <name>
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4636477Z Initialized empty Git repository in /__w/SwiftJLS/SwiftJLS/.git/
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4657666Z [command]/usr/bin/git remote add origin https://github.com/raster-labs/SwiftJLS
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4695295Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4695967Z ##[group]Disabling automatic garbage collection
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4701623Z [command]/usr/bin/git config --local gc.auto 0
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4733874Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4734583Z ##[group]Setting up auth
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4740983Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.4774822Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.5038621Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.5066641Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.5329022Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.5366440Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.5605266Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.5647983Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.5649086Z ##[group]Fetching the repository
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:51.5659926Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +bee49a2ad47eae4ea149bdced2043b7a45df3dae:refs/remotes/origin/codex/milestone-4-qualification
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:53.6005838Z From https://github.com/raster-labs/SwiftJLS
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:53.6006868Z  * [new ref]         bee49a2ad47eae4ea149bdced2043b7a45df3dae -> origin/codex/milestone-4-qualification
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:53.6031319Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:53.6031786Z ##[group]Determining the checkout info
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:53.6032260Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:53.6035680Z [command]/usr/bin/git sparse-checkout disable
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:53.6079184Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:53.6109773Z ##[group]Checking out the ref
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:53.6115135Z [command]/usr/bin/git checkout --progress --force -B codex/milestone-4-qualification refs/remotes/origin/codex/milestone-4-qualification
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:53.9915872Z Switched to a new branch 'codex/milestone-4-qualification'
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:53.9916881Z branch 'codex/milestone-4-qualification' set up to track 'origin/codex/milestone-4-qualification'.
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:53.9938533Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:53.9983081Z [command]/usr/bin/git log -1 --format=%H
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.0011401Z bee49a2ad47eae4ea149bdced2043b7a45df3dae
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.0023822Z ##[group]Removing auth
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.0028166Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.0064094Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.0310876Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.0342757Z http.https://github.com/.extraheader
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.0352031Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.0388585Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.0630904Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.0665973Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.0909979Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.1135434Z ##[group]Run swift --version
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.1135788Z ^[[36;1mswift --version^[[0m
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.1139200Z shell: sh -e {0}
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.1139567Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.2403991Z Swift version 6.4.1 (swift-6.4.1-RELEASE)
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.2404495Z Target: x86_64-unknown-linux-gnu
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.2498703Z ##[group]Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.2499483Z ^[[36;1mswift build --package-path Examples/FuzzConsumer -c release --sanitize address^[[0m
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.2500060Z shell: sh -e {0}
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:54.2500275Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:55.7353803Z Building for production...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:34:55.7354425Z [Pre-planning 1 / 67]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:19.8737932Z [24 / 33] SwiftJLS
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:21.8359176Z [32 / 35] FuzzConsumer-product
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:22.0468750Z [35 / 35] FuzzConsumer-product
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:22.0634772Z Build complete! (26.78 secs)
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:22.0824070Z ##[group]Run apt-get update && apt-get install -y --no-install-recommends python3
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:22.0824691Z ^[[36;1mapt-get update && apt-get install -y --no-install-recommends python3^[[0m
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:22.0825183Z shell: sh -e {0}
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:22.0825383Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:22.2912843Z Get:1 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:22.6143276Z Get:2 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:22.6553141Z Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:22.7444820Z Get:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:22.8347116Z Get:5 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:22.9240986Z Get:6 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:22.9410762Z Get:7 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:23.1249427Z Get:8 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:23.3886693Z Get:9 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [55.6 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:23.5194645Z Get:10 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1732 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:23.5465983Z Get:11 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2170 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:23.5606995Z Get:12 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2231 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:23.5713071Z Get:13 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [61.7 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:23.5723662Z Get:14 http://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [669 B]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:23.5726185Z Get:15 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.0 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:23.5739331Z Get:16 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [36.0 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:23.6046626Z Get:17 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1410 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:24.5001685Z Get:18 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1549 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:24.8193784Z Get:19 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2122 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:25.1639222Z Fetched 33.6 MB in 3s (11.2 MB/s)
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:25.9081681Z Reading package lists...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:26.6699602Z Reading package lists...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:26.8501072Z Building dependency tree...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:26.8501915Z Reading state information...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:26.9982549Z The following additional packages will be installed:
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:26.9986379Z   libpython3-stdlib python3-minimal python3.12 python3.12-minimal
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:26.9992900Z Suggested packages:
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:26.9993561Z   python3-doc python3-tk python3-venv python3.12-venv python3.12-doc
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:26.9994207Z   binfmt-support
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:27.0392187Z The following NEW packages will be installed:
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:27.0397369Z   libpython3-stdlib python3 python3-minimal python3.12 python3.12-minimal
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:27.3664074Z 0 upgraded, 5 newly installed, 0 to remove and 6 not upgraded.
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:27.3664951Z Need to get 3046 kB of archives.
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:27.3665481Z After this operation, 9100 kB of additional disk space will be used.
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:27.3666465Z Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12-minimal amd64 3.12.3-1ubuntu0.17 [2335 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.0936475Z Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3-minimal amd64 3.12.3-0ubuntu2.1 [27.4 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.0941749Z Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12 amd64 3.12.3-1ubuntu0.17 [651 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.1411114Z Get:4 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpython3-stdlib amd64 3.12.3-0ubuntu2.1 [10.1 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.1422262Z Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3 amd64 3.12.3-0ubuntu2.1 [23.0 kB]
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2519169Z debconf: delaying package configuration, since apt-utils is not installed
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2801220Z Fetched 3046 kB in 2s (1455 kB/s)
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2934756Z Selecting previously unselected package python3.12-minimal.
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2967430Z (Reading database ... 
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2968012Z (Reading database ... 5%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2968435Z (Reading database ... 10%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2968780Z (Reading database ... 15%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2969345Z (Reading database ... 20%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2969694Z (Reading database ... 25%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2970040Z (Reading database ... 30%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2970398Z (Reading database ... 35%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2970739Z (Reading database ... 40%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2971072Z (Reading database ... 45%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2971444Z (Reading database ... 50%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2971878Z (Reading database ... 55%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2972293Z (Reading database ... 60%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2972623Z (Reading database ... 65%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2984010Z (Reading database ... 70%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.2991160Z (Reading database ... 75%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.3006596Z (Reading database ... 80%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.3013880Z (Reading database ... 85%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.3022712Z (Reading database ... 90%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.3037152Z (Reading database ... 95%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.3037571Z (Reading database ... 100%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.3038280Z (Reading database ... 16750 files and directories currently installed.)
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.3044548Z Preparing to unpack .../python3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.3078699Z Unpacking python3.12-minimal (3.12.3-1ubuntu0.17) ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:29.3557545Z Setting up python3.12-minimal (3.12.3-1ubuntu0.17) ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0751617Z Selecting previously unselected package python3-minimal.
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0771336Z (Reading database ... 
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0771826Z (Reading database ... 5%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0772376Z (Reading database ... 10%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0772654Z (Reading database ... 15%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0772994Z (Reading database ... 20%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0773435Z (Reading database ... 25%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0773722Z (Reading database ... 30%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0774033Z (Reading database ... 35%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0774302Z (Reading database ... 40%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0774905Z (Reading database ... 45%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0775350Z (Reading database ... 50%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0775784Z (Reading database ... 55%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0776268Z (Reading database ... 60%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0776816Z (Reading database ... 65%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0790792Z (Reading database ... 70%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0798496Z (Reading database ... 75%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0815174Z (Reading database ... 80%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0822394Z (Reading database ... 85%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0831580Z (Reading database ... 90%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0846537Z (Reading database ... 95%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0846950Z (Reading database ... 100%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0847523Z (Reading database ... 16761 files and directories currently installed.)
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0853955Z Preparing to unpack .../python3-minimal_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.0861671Z Unpacking python3-minimal (3.12.3-0ubuntu2.1) ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.1013390Z Selecting previously unselected package python3.12.
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.1029770Z Preparing to unpack .../python3.12_3.12.3-1ubuntu0.17_amd64.deb ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.1037132Z Unpacking python3.12 (3.12.3-1ubuntu0.17) ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.1191653Z Selecting previously unselected package libpython3-stdlib:amd64.
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.1208644Z Preparing to unpack .../libpython3-stdlib_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.1215806Z Unpacking libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.1382938Z Setting up python3-minimal (3.12.3-0ubuntu2.1) ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2477463Z Selecting previously unselected package python3.
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2497692Z (Reading database ... 
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2498106Z (Reading database ... 5%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2499182Z (Reading database ... 10%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2499791Z (Reading database ... 15%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2500124Z (Reading database ... 20%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2500376Z (Reading database ... 25%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2500723Z (Reading database ... 30%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2501000Z (Reading database ... 35%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2501246Z (Reading database ... 40%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2501489Z (Reading database ... 45%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2501733Z (Reading database ... 50%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2501979Z (Reading database ... 55%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2502231Z (Reading database ... 60%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2502474Z (Reading database ... 65%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2515184Z (Reading database ... 70%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2522819Z (Reading database ... 75%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2538620Z (Reading database ... 80%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2545448Z (Reading database ... 85%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2556365Z (Reading database ... 90%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2569238Z (Reading database ... 95%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2569802Z (Reading database ... 100%
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2570258Z (Reading database ... 16808 files and directories currently installed.)
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2575098Z Preparing to unpack .../python3_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2605990Z Unpacking python3 (3.12.3-0ubuntu2.1) ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:30.2821982Z Setting up python3.12 (3.12.3-1ubuntu0.17) ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:31.0930428Z Setting up libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:31.0948613Z Setting up python3 (3.12.3-0ubuntu2.1) ...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:31.1000568Z running python rtupdate hooks for python3.12...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:31.1001600Z running python post-rtupdate hooks for python3.12...
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:31.2010625Z ##[group]Run python3 Scripts/run-mutation-campaign.py --entry "$ENTRY" --seconds "$DURATION"
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:31.2011348Z ^[[36;1mpython3 Scripts/run-mutation-campaign.py --entry "$ENTRY" --seconds "$DURATION"^[[0m
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:31.2011890Z shell: sh -e {0}
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:31.2012085Z env:
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:31.2012264Z   DURATION: 3600
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:31.2012454Z   ENTRY: owned
+mutation (owned)	UNKNOWN STEP	2026-10-21T10:35:31.2012643Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.4095717Z {"command": ["Examples/FuzzConsumer/.build/release/FuzzConsumer", "Tests/SwiftJLSTests/Fixtures", "owned", "3600", "last-input.jls"], "exit_code": 0, "failure": null, "wall_seconds": 3600.1220985699997, "peak_process_rss_bytes": 472195072, "build": "release with AddressSanitizer; RSS includes sanitizer overhead"}
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.4286199Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.4286630Z with:
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.4286845Z   name: mutation-owned
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.4287219Z   path: campaign.jsonl
+mutation (owned)	UNKNOWN STEP	last-input.jls
+mutation (owned)	UNKNOWN STEP	campaign-stderr.log
+mutation (owned)	UNKNOWN STEP	campaign-result.json
+mutation (owned)	UNKNOWN STEP	
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.4287641Z   if-no-files-found: warn
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.4287873Z   compression-level: 6
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.4288386Z   overwrite: false
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.4288608Z   include-hidden-files: false
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.4288846Z ##[endgroup]
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.4292941Z ##[command]/usr/bin/docker exec  587901cfd78430458603a92d09389c687941fc45d337231b1b047f90c7da6b95 sh -c "cat /etc/*release | grep ^ID"
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.7045489Z (node:670) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.7046968Z (Use `node --trace-deprecation ...` to show where the warning was created)
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.7166754Z Multiple search paths detected. Calculating the least common ancestor of all paths
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.7182597Z The least common ancestor is /__w/SwiftJLS/SwiftJLS. This will be the root directory of the artifact
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.7186526Z With the provided path, there will be 4 files uploaded
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.7196872Z Artifact name is valid!
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:31.7204607Z Root directory input is valid!
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.0606394Z Beginning upload of artifact content to blob storage
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.0901131Z (node:670) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.3539156Z Uploaded bytes 19462
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.4179243Z Finished uploading artifact content to blob storage!
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.4180506Z SHA256 digest of uploaded artifact zip is 9253d3635c0e2201d5c41594b17909126afe8d5ae9867691c7ae05c9f797ca5b
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.4181684Z Finalizing artifact upload
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.6517824Z Artifact mutation-owned.zip successfully finalized. Artifact ID 12341569082
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.6519080Z Artifact mutation-owned has been successfully uploaded! Final size is 19462 bytes. Artifact ID is 12341569082
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.6526371Z Artifact download URL: https://github.com/raster-labs/SwiftJLS/actions/runs/39585549272/artifacts/12341569082
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.6758801Z Post job cleanup.
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.6766185Z ##[command]/usr/bin/docker exec  587901cfd78430458603a92d09389c687941fc45d337231b1b047f90c7da6b95 sh -c "cat /etc/*release | grep ^ID"
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.8648329Z [command]/usr/bin/git version
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.8695458Z git version 2.43.0
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.8779689Z Temporarily overriding HOME='/__w/_temp/006f0387-ffa2-4dd1-a71d-6c821c8b89bb' before making global git config changes
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.8800171Z Adding repository directory to the temporary git global config as a safe directory
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.8806051Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.8822350Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.8878719Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.9207865Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.9247272Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.9540770Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:32.9588952Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:33.0009655Z Stop and remove container: 94220ddb93d24bcfaa89bbb4b504f051_swift64noble_16678a
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:33.0014304Z ##[command]/usr/bin/docker rm --force 587901cfd78430458603a92d09389c687941fc45d337231b1b047f90c7da6b95
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:33.1697655Z 587901cfd78430458603a92d09389c687941fc45d337231b1b047f90c7da6b95
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:33.1726400Z Remove container network: github_network_38e02287b4c74d4fa411c738eb52980b
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:33.1731217Z ##[command]/usr/bin/docker network rm github_network_38e02287b4c74d4fa411c738eb52980b
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:33.2819389Z github_network_38e02287b4c74d4fa411c738eb52980b
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:33.2903098Z Cleaning up orphan processes
+mutation (owned)	UNKNOWN STEP	2026-10-21T11:35:33.3290331Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+mutation (inspect)	UNKNOWN STEP	﻿2026-10-21T10:34:20.8399707Z Current runner version: '2.338.0'
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8424982Z ##[group]Runner Image Provisioner
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8425896Z Hosted Compute Agent
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8426569Z Version: 20261012.601
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8427228Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8427948Z Build Date: 2026-10-12T17:48:21Z
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8428740Z Worker ID: {a4555f10-a810-47bf-89f5-45b26af1fb1d}
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8429519Z Region: westus2
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8430126Z Cloud: Azure
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8430669Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8432103Z ##[group]Operating System
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8433195Z Ubuntu
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8433780Z 24.04.5
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8434349Z LTS
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8434885Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8435447Z ##[group]Runner Image
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8436114Z Image: ubuntu-24.04
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8436788Z Version: 20261012.334.1
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8438091Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8439695Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8440737Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8442446Z ##[group]GITHUB_TOKEN Permissions
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8444600Z Contents: read
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8445287Z Metadata: read
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8445865Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8448011Z Secret source: Actions
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8449081Z Cache mode: write
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8450035Z Prepare workflow directory
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8869440Z Prepare all required actions
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:20.8918338Z Getting action download info
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.2660516Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.3780423Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.5911770Z Complete job name: mutation (inspect)
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.6443009Z ##[group]Checking docker version
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.6456041Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.7516138Z '1.48'
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.7526210Z Docker daemon API version: '1.48'
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.7527033Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.7695753Z '1.48'
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.7709040Z Docker client API version: '1.48'
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.7714958Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.7718506Z ##[group]Clean up resources from previous jobs
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.7724788Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=d44688"
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.7873295Z ##[command]/usr/bin/docker network prune --force --filter "label=d44688"
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.8006038Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.8006585Z ##[group]Create local container network
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.8016940Z ##[command]/usr/bin/docker network create --label d44688 github_network_1115d7365462452b9cebdb5e1ec0a4ab
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.8553786Z b07de650c0cbc30a1b2beee07a9ba9441f743d8d7e425ed5c3b9aa8c061c9b46
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.8570416Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.8595162Z ##[group]Starting job container
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:21.8617415Z ##[command]/usr/bin/docker pull swift:6.4-noble
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:22.7580960Z 6.4-noble: Pulling from library/swift
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:23.0437929Z f2b4ef06ff01: Pulling fs layer
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:23.0439984Z e789ef60896a: Pulling fs layer
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:23.0442000Z b3c23bbefcef: Pulling fs layer
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:23.0444146Z 6d11467507a7: Pulling fs layer
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:23.4325357Z f2b4ef06ff01: Verifying Checksum
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:23.4328103Z f2b4ef06ff01: Download complete
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:23.6690603Z 6d11467507a7: Verifying Checksum
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:23.6691329Z 6d11467507a7: Download complete
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:23.8271015Z e789ef60896a: Verifying Checksum
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:23.8278047Z e789ef60896a: Download complete
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:24.8794265Z f2b4ef06ff01: Pull complete
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:27.0664802Z b3c23bbefcef: Verifying Checksum
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:27.0665610Z b3c23bbefcef: Download complete
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:32.0767628Z e789ef60896a: Pull complete
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.0618088Z b3c23bbefcef: Pull complete
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.0740897Z 6d11467507a7: Pull complete
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.0787479Z Digest: sha256:19cbe56bdaec1918f7cf5fdeba42b9bd55bdd8a6149c9990d0e0e3a89a127d63
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.0800829Z Status: Downloaded newer image for swift:6.4-noble
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.0808681Z docker.io/library/swift:6.4-noble
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.0891580Z ##[command]/usr/bin/docker create --name c0902a4d654b44049c9a0c2e5173a5e2_swift64noble_b0bfa6 --label d44688 --workdir /__w/SwiftJLS/SwiftJLS --network github_network_1115d7365462452b9cebdb5e1ec0a4ab  -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/actions-runner/cached/2.338.0/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" swift:6.4-noble "-f" "/dev/null"
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.1161701Z e254cfbb0f041ea150a6cac25b67e1150b8dd686785397123078b438896a8f2e
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.1182539Z ##[command]/usr/bin/docker start e254cfbb0f041ea150a6cac25b67e1150b8dd686785397123078b438896a8f2e
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3218311Z e254cfbb0f041ea150a6cac25b67e1150b8dd686785397123078b438896a8f2e
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3239921Z ##[command]/usr/bin/docker ps --all --filter id=e254cfbb0f041ea150a6cac25b67e1150b8dd686785397123078b438896a8f2e --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3366849Z e254cfbb0f041ea150a6cac25b67e1150b8dd686785397123078b438896a8f2e Up Less than a second
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3386156Z ##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" e254cfbb0f041ea150a6cac25b67e1150b8dd686785397123078b438896a8f2e
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3506990Z CI=true
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3507750Z HOME=/github/home
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3517846Z GITHUB_ACTIONS=true
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3518540Z PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3519246Z SWIFT_SIGNING_KEY=52BB7E3DE28A71BE22EC05FFEF80A866B47A981F
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3519801Z SWIFT_PLATFORM=ubuntu24.04
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3520238Z SWIFT_BRANCH=swift-6.4.1-release
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3520660Z SWIFT_VERSION=swift-6.4.1-RELEASE
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3521280Z SWIFT_WEBROOT=https://download.swift.org
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3529136Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3538458Z ##[group]Waiting for all services to be ready
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3540153Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3855449Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3856163Z with:
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3856396Z   persist-credentials: false
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3856680Z   repository: raster-labs/SwiftJLS
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3858987Z   token: ***
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3859193Z   ssh-strict: true
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3859393Z   ssh-user: git
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3859586Z   clean: true
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3859804Z   sparse-checkout-cone-mode: true
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3860059Z   fetch-depth: 1
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3860255Z   fetch-tags: false
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3860460Z   show-progress: true
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3860676Z   lfs: false
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3860860Z   submodules: false
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3861073Z   set-safe-directory: true
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3861313Z   allow-unsafe-pr-checkout: false
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3861782Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.3924766Z ##[command]/usr/bin/docker exec  e254cfbb0f041ea150a6cac25b67e1150b8dd686785397123078b438896a8f2e sh -c "cat /etc/*release | grep ^ID"
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.5914948Z Syncing repository: raster-labs/SwiftJLS
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.5916882Z ##[group]Getting Git version info
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.5917482Z Working directory is '/__w/SwiftJLS/SwiftJLS'
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.5918802Z [command]/usr/bin/git version
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.5919216Z git version 2.43.0
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.5920593Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.5941472Z Temporarily overriding HOME='/__w/_temp/63e4e0b8-ae45-4fd3-a189-3595bb7011b0' before making global git config changes
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6041858Z Adding repository directory to the temporary git global config as a safe directory
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6053959Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6068585Z Deleting the contents of '/__w/SwiftJLS/SwiftJLS'
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6069775Z ##[group]Initializing the repository
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6070390Z [command]/usr/bin/git init /__w/SwiftJLS/SwiftJLS
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6071229Z hint: Using 'master' as the name for the initial branch. This default branch name
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6072217Z hint: is subject to change. To configure the initial branch name to use in all
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6073571Z hint: of your new repositories, which will suppress this warning, call:
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6074251Z hint: 
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6074772Z hint: 	git config --global init.defaultBranch <name>
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6075374Z hint: 
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6075888Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6076797Z hint: 'development'. The just-created branch can be renamed via this command:
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6077481Z hint: 
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6077852Z hint: 	git branch -m <name>
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6078443Z Initialized empty Git repository in /__w/SwiftJLS/SwiftJLS/.git/
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6084645Z [command]/usr/bin/git remote add origin https://github.com/raster-labs/SwiftJLS
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6122988Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6123758Z ##[group]Disabling automatic garbage collection
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6124391Z [command]/usr/bin/git config --local gc.auto 0
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6164404Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6165016Z ##[group]Setting up auth
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6165699Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6196996Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6443743Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6484624Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6737283Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.6773746Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.7015422Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.7057673Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.7059081Z ##[group]Fetching the repository
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:51.7069207Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +bee49a2ad47eae4ea149bdced2043b7a45df3dae:refs/remotes/origin/codex/milestone-4-qualification
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:52.7756404Z From https://github.com/raster-labs/SwiftJLS
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:52.7757224Z  * [new ref]         bee49a2ad47eae4ea149bdced2043b7a45df3dae -> origin/codex/milestone-4-qualification
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:52.7778667Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:52.7779458Z ##[group]Determining the checkout info
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:52.7780286Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:52.7786467Z [command]/usr/bin/git sparse-checkout disable
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:52.7828140Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:52.7858203Z ##[group]Checking out the ref
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:52.7863120Z [command]/usr/bin/git checkout --progress --force -B codex/milestone-4-qualification refs/remotes/origin/codex/milestone-4-qualification
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.1743279Z Switched to a new branch 'codex/milestone-4-qualification'
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.1744495Z branch 'codex/milestone-4-qualification' set up to track 'origin/codex/milestone-4-qualification'.
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.1768547Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.1813359Z [command]/usr/bin/git log -1 --format=%H
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.1840948Z bee49a2ad47eae4ea149bdced2043b7a45df3dae
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.1851534Z ##[group]Removing auth
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.1856731Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.1890591Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.2129600Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.2165599Z http.https://github.com/.extraheader
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.2172996Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.2208496Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.2443234Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.2477011Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.2709166Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.2935045Z ##[group]Run swift --version
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.2935389Z ^[[36;1mswift --version^[[0m
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.2938855Z shell: sh -e {0}
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.2939095Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.4194257Z Swift version 6.4.1 (swift-6.4.1-RELEASE)
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.4194777Z Target: x86_64-unknown-linux-gnu
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.4286412Z ##[group]Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.4287121Z ^[[36;1mswift build --package-path Examples/FuzzConsumer -c release --sanitize address^[[0m
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.4287650Z shell: sh -e {0}
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:53.4287852Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:54.9179114Z Building for production...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:54.9179832Z [Pre-planning 1 / 67]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:34:55.0182067Z [4 / 31] SwiftJLS-product
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:19.0572888Z [24 / 33] SwiftJLS
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:21.0391780Z [32 / 35] FuzzConsumer-product
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:21.2466246Z [35 / 35] FuzzConsumer-product
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:21.2633492Z Build complete! (26.80 secs)
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:21.2820506Z ##[group]Run apt-get update && apt-get install -y --no-install-recommends python3
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:21.2821117Z ^[[36;1mapt-get update && apt-get install -y --no-install-recommends python3^[[0m
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:21.2821599Z shell: sh -e {0}
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:21.2821800Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:21.6390636Z Get:1 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:21.9332588Z Get:2 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:22.0296725Z Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:22.1342617Z Get:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:22.2865861Z Get:5 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:22.3792027Z Get:6 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:22.5873701Z Get:7 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:22.5917043Z Get:8 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:22.5957304Z Get:9 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1410 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:23.0048511Z Get:10 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2170 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:23.0164682Z Get:11 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2231 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:23.0472026Z Get:12 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [61.7 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:23.0480299Z Get:13 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1732 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:23.0575010Z Get:14 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.0 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:23.0584512Z Get:15 http://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [669 B]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:23.0585675Z Get:16 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [36.0 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:23.5016312Z Get:17 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [55.6 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:23.5065960Z Get:18 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2122 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:23.8034442Z Get:19 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1549 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:24.0099282Z Fetched 33.6 MB in 3s (12.7 MB/s)
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:24.7671403Z Reading package lists...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:25.5290722Z Reading package lists...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:25.6979245Z Building dependency tree...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:25.6979692Z Reading state information...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:25.8360209Z The following additional packages will be installed:
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:25.8362671Z   libpython3-stdlib python3-minimal python3.12 python3.12-minimal
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:25.8368650Z Suggested packages:
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:25.8369204Z   python3-doc python3-tk python3-venv python3.12-venv python3.12-doc
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:25.8369861Z   binfmt-support
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:25.8748487Z The following NEW packages will be installed:
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:25.8753463Z   libpython3-stdlib python3 python3-minimal python3.12 python3.12-minimal
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.0289835Z 0 upgraded, 5 newly installed, 0 to remove and 6 not upgraded.
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.0290649Z Need to get 3046 kB of archives.
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.0291100Z After this operation, 9100 kB of additional disk space will be used.
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.0291929Z Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12-minimal amd64 3.12.3-1ubuntu0.17 [2335 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.7941880Z Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3-minimal amd64 3.12.3-0ubuntu2.1 [27.4 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.7948588Z Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12 amd64 3.12.3-1ubuntu0.17 [651 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.8147749Z Get:4 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpython3-stdlib amd64 3.12.3-0ubuntu2.1 [10.1 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.8154292Z Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3 amd64 3.12.3-0ubuntu2.1 [23.0 kB]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9180299Z debconf: delaying package configuration, since apt-utils is not installed
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9423635Z Fetched 3046 kB in 1s (3266 kB/s)
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9552200Z Selecting previously unselected package python3.12-minimal.
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9587037Z (Reading database ... 
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9587948Z (Reading database ... 5%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9588668Z (Reading database ... 10%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9589278Z (Reading database ... 15%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9589798Z (Reading database ... 20%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9590190Z (Reading database ... 25%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9590584Z (Reading database ... 30%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9590956Z (Reading database ... 35%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9591347Z (Reading database ... 40%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9591731Z (Reading database ... 45%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9592094Z (Reading database ... 50%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9592769Z (Reading database ... 55%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9593141Z (Reading database ... 60%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9593497Z (Reading database ... 65%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9613686Z (Reading database ... 70%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9622008Z (Reading database ... 75%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9630900Z (Reading database ... 80%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9638136Z (Reading database ... 85%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9646883Z (Reading database ... 90%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9665008Z (Reading database ... 95%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9665388Z (Reading database ... 100%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9665901Z (Reading database ... 16750 files and directories currently installed.)
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9674874Z Preparing to unpack .../python3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:26.9709074Z Unpacking python3.12-minimal (3.12.3-1ubuntu0.17) ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.0168158Z Setting up python3.12-minimal (3.12.3-1ubuntu0.17) ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7495721Z Selecting previously unselected package python3-minimal.
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7516592Z (Reading database ... 
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7517144Z (Reading database ... 5%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7517463Z (Reading database ... 10%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7517743Z (Reading database ... 15%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7518008Z (Reading database ... 20%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7518343Z (Reading database ... 25%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7518659Z (Reading database ... 30%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7518959Z (Reading database ... 35%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7519274Z (Reading database ... 40%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7519586Z (Reading database ... 45%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7519929Z (Reading database ... 50%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7520245Z (Reading database ... 55%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7520554Z (Reading database ... 60%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7520882Z (Reading database ... 65%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7544031Z (Reading database ... 70%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7553402Z (Reading database ... 75%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7562782Z (Reading database ... 80%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7569714Z (Reading database ... 85%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7579080Z (Reading database ... 90%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7600035Z (Reading database ... 95%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7600560Z (Reading database ... 100%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7601098Z (Reading database ... 16761 files and directories currently installed.)
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7610249Z Preparing to unpack .../python3-minimal_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7617830Z Unpacking python3-minimal (3.12.3-0ubuntu2.1) ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7763968Z Selecting previously unselected package python3.12.
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7779638Z Preparing to unpack .../python3.12_3.12.3-1ubuntu0.17_amd64.deb ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7787334Z Unpacking python3.12 (3.12.3-1ubuntu0.17) ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7935020Z Selecting previously unselected package libpython3-stdlib:amd64.
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7952126Z Preparing to unpack .../libpython3-stdlib_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.7959431Z Unpacking libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.8110952Z Setting up python3-minimal (3.12.3-0ubuntu2.1) ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9219934Z Selecting previously unselected package python3.
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9240519Z (Reading database ... 
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9241145Z (Reading database ... 5%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9241560Z (Reading database ... 10%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9241954Z (Reading database ... 15%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9242537Z (Reading database ... 20%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9242926Z (Reading database ... 25%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9243306Z (Reading database ... 30%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9243679Z (Reading database ... 35%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9244080Z (Reading database ... 40%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9244452Z (Reading database ... 45%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9244821Z (Reading database ... 50%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9245197Z (Reading database ... 55%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9245574Z (Reading database ... 60%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9245952Z (Reading database ... 65%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9262062Z (Reading database ... 70%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9271326Z (Reading database ... 75%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9280910Z (Reading database ... 80%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9288290Z (Reading database ... 85%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9300226Z (Reading database ... 90%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9318790Z (Reading database ... 95%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9319141Z (Reading database ... 100%
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9319666Z (Reading database ... 16808 files and directories currently installed.)
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9329462Z Preparing to unpack .../python3_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9361049Z Unpacking python3 (3.12.3-0ubuntu2.1) ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:27.9549551Z Setting up python3.12 (3.12.3-1ubuntu0.17) ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:28.7477266Z Setting up libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:28.7494487Z Setting up python3 (3.12.3-0ubuntu2.1) ...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:28.7545552Z running python rtupdate hooks for python3.12...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:28.7546208Z running python post-rtupdate hooks for python3.12...
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:28.8549134Z ##[group]Run python3 Scripts/run-mutation-campaign.py --entry "$ENTRY" --seconds "$DURATION"
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:28.8549859Z ^[[36;1mpython3 Scripts/run-mutation-campaign.py --entry "$ENTRY" --seconds "$DURATION"^[[0m
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:28.8550390Z shell: sh -e {0}
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:28.8550589Z env:
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:28.8550766Z   DURATION: 3600
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:28.8550957Z   ENTRY: inspect
+mutation (inspect)	UNKNOWN STEP	2026-10-21T10:35:28.8551163Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.0861907Z {"command": ["Examples/FuzzConsumer/.build/release/FuzzConsumer", "Tests/SwiftJLSTests/Fixtures", "inspect", "3600", "last-input.jls"], "exit_code": 0, "failure": null, "wall_seconds": 3600.145795755, "peak_process_rss_bytes": 443015168, "build": "release with AddressSanitizer; RSS includes sanitizer overhead"}
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.1066200Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.1066631Z with:
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.1066835Z   name: mutation-inspect
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.1067208Z   path: campaign.jsonl
+mutation (inspect)	UNKNOWN STEP	last-input.jls
+mutation (inspect)	UNKNOWN STEP	campaign-stderr.log
+mutation (inspect)	UNKNOWN STEP	campaign-result.json
+mutation (inspect)	UNKNOWN STEP	
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.1067627Z   if-no-files-found: warn
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.1067853Z   compression-level: 6
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.1068062Z   overwrite: false
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.1068268Z   include-hidden-files: false
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.1068499Z ##[endgroup]
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.1072182Z ##[command]/usr/bin/docker exec  e254cfbb0f041ea150a6cac25b67e1150b8dd686785397123078b438896a8f2e sh -c "cat /etc/*release | grep ^ID"
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.3978112Z (node:664) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.3979364Z (Use `node --trace-deprecation ...` to show where the warning was created)
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.4203341Z Multiple search paths detected. Calculating the least common ancestor of all paths
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.4263959Z The least common ancestor is /__w/SwiftJLS/SwiftJLS. This will be the root directory of the artifact
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.4264850Z With the provided path, there will be 4 files uploaded
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.4265589Z Artifact name is valid!
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.4265955Z Root directory input is valid!
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.7871271Z Beginning upload of artifact content to blob storage
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:29.8138018Z (node:664) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.1283939Z Uploaded bytes 17234
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.2081939Z Finished uploading artifact content to blob storage!
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.2084855Z SHA256 digest of uploaded artifact zip is 8181ac19c5c906f6b72209cee98711d8ee28b18b2187338b661e2e68fa05f2a0
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.2085799Z Finalizing artifact upload
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.4825565Z Artifact mutation-inspect.zip successfully finalized. Artifact ID 12342128854
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.4827642Z Artifact mutation-inspect has been successfully uploaded! Final size is 17234 bytes. Artifact ID is 12342128854
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.4834110Z Artifact download URL: https://github.com/raster-labs/SwiftJLS/actions/runs/39585549272/artifacts/12342128854
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.5063039Z Post job cleanup.
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.5070005Z ##[command]/usr/bin/docker exec  e254cfbb0f041ea150a6cac25b67e1150b8dd686785397123078b438896a8f2e sh -c "cat /etc/*release | grep ^ID"
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.6861944Z [command]/usr/bin/git version
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.6909206Z git version 2.43.0
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.6965094Z Temporarily overriding HOME='/__w/_temp/43891814-7066-433e-9ae0-415c154419ae' before making global git config changes
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.6966311Z Adding repository directory to the temporary git global config as a safe directory
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.6967307Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.7033352Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.7054649Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.7380573Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.7447879Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.7688449Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.7759551Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.8198826Z Stop and remove container: c0902a4d654b44049c9a0c2e5173a5e2_swift64noble_b0bfa6
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.8203488Z ##[command]/usr/bin/docker rm --force e254cfbb0f041ea150a6cac25b67e1150b8dd686785397123078b438896a8f2e
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.9812738Z e254cfbb0f041ea150a6cac25b67e1150b8dd686785397123078b438896a8f2e
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.9840763Z Remove container network: github_network_1115d7365462452b9cebdb5e1ec0a4ab
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:30.9845396Z ##[command]/usr/bin/docker network rm github_network_1115d7365462452b9cebdb5e1ec0a4ab
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:31.0738646Z github_network_1115d7365462452b9cebdb5e1ec0a4ab
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:31.0811831Z Cleaning up orphan processes
+mutation (inspect)	UNKNOWN STEP	2026-10-21T11:35:31.1196357Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

@@ -1,0 +1,86 @@
+Building for production...
+[Planning deferred tasks]
+[36 / 65]
+[38 / 67] UUIDMicroCore
+[50 / 121]
+[58 / 121]
+[60 / 121]
+[65 / 121]
+[69 / 121]
+[72 / 121]
+[74 / 121]
+[75 / 121]
+[81 / 121]
+[83 / 121]
+[87 / 121]
+[88 / 121]
+[90 / 121]
+[92 / 121]
+[94 / 121] UUIDMicroCore
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Package.swift: UUIDMicroCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[101 / 122] UUIDBenchmark-product
+[103 / 123] UUIDBenchmark-product
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Package.swift: UUIDBenchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Package.swift: UUIDBenchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[105 / 123] UUIDBenchmark-product
+[107 / 123] SwiftJLS
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Package.swift: SwiftJLS: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[115 / 125] ReportBenchmark-product
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Sources/ReportBenchmark/main.swift:121:15: warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+119 | let image = try makeImage()
+120 | if let path = ProcessInfo.processInfo.environment["SWIFTJLS_BENCHMARK_DECODE"] {
+121 |     try await decode(Data(contentsOf: URL(fileURLWithPath: path)), verify: true)
+    |               `- warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+122 | }
+123 | let reference = try await encode(image)
+
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Sources/ReportBenchmark/main.swift:124:11: warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+122 | }
+123 | let reference = try await encode(image)
+124 | try await decode(reference, verify: true)
+    |           `- warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+125 | // Optional export is for a separate oracle experiment, never a timed benchmark.
+126 | if let path = ProcessInfo.processInfo.environment["SWIFTJLS_BENCHMARK_EXPORT"] {
+
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Sources/ReportBenchmark/main.swift:130:44: warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+128 | }
+129 | for _ in 0..<warmups {
+130 |     _ = try await encode(image); try await decode(reference, verify: false)
+    |                                            `- warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+131 |     if endToEnd { _ = try await encode(makeImage()) }
+132 | }
+
+[#NoUsage]: <https://docs.swift.org/compiler/documentation/diagnostics/no-usage>
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Sources/ZeroBenchmark/main.swift:121:15: warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+119 | let image = try makeImage()
+120 | if let path = ProcessInfo.processInfo.environment["SWIFTJLS_BENCHMARK_DECODE"] {
+121 |     try await decode(Data(contentsOf: URL(fileURLWithPath: path)), verify: true)
+    |               `- warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+122 | }
+123 | let reference = try await encode(image)
+
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Sources/ZeroBenchmark/main.swift:124:11: warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+122 | }
+123 | let reference = try await encode(image)
+124 | try await decode(reference, verify: true)
+    |           `- warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+125 | // Optional export is for a separate oracle experiment, never a timed benchmark.
+126 | if let path = ProcessInfo.processInfo.environment["SWIFTJLS_BENCHMARK_EXPORT"] {
+
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m[119 / 127] ReportBenchmark-product
+4-final-2026-10-21/diagnostics/decode-report-boundary/Sources/ZeroBenchmark/main.swift:130:44: warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+128 | }
+129 | for _ in 0..<warmups {
+130 |     _ = try await encode(image); try await decode(reference, verify: false)
+    |                                            `- warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+131 |     if endToEnd { _ = try await encode(makeImage()) }
+132 | }
+
+[#NoUsage]: <https://docs.swift.org/compiler/documentation/diagnostics/no-usage>
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Package.swift: ReportBenchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Package.swift: ReportBenchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[123 / 127] ReportBenchmark-product
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Package.swift: ZeroBenchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Package.swift: ZeroBenchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[127 / 127] ReportBenchmark-product
+Build complete! (24.53 secs)

@@ -1,0 +1,201 @@
+{
+  "revision": "bee49a2ad47eae4ea149bdced2043b7a45df3dae",
+  "run_head_sha": "bee49a2ad47eae4ea149bdced2043b7a45df3dae",
+  "run_id": 39585549272,
+  "run_url": "https://github.com/raster-labs/SwiftJLS/actions/runs/39585549272",
+  "artifact_hashes": {
+    "owned": {
+      "campaign-result.json": {
+        "sha256": "2dfe032437ec4b3b514258639bcbc236026ed3e5b2e77506ba426e103bca45e0",
+        "bytes": 353
+      },
+      "campaign-stderr.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "campaign.jsonl": {
+        "sha256": "7b5606215c87c39c77ab3a8a81b859add27ed5e5274cf05715da09a996b43cc9",
+        "bytes": 89259
+      },
+      "last-input.jls": {
+        "sha256": "de651907c7b3df638c5a0b3cbf611cfdf54c4c6d42a6f753300779d40ceb9af1",
+        "bytes": 74
+      }
+    },
+    "into": {
+      "campaign-result.json": {
+        "sha256": "82df9bb3c1a6bc9d8b92f98e2f785d5671e23a756a88f6660ed85c5145a49043",
+        "bytes": 348
+      },
+      "campaign-stderr.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "campaign.jsonl": {
+        "sha256": "5bdb7bce52ea08dfe4922a7d6087bcea0e947a7dabc3e1fc658826fff58a8dc0",
+        "bytes": 87625
+      },
+      "last-input.jls": {
+        "sha256": "2d11210cd4c8f24229966791414dd94a3f5dd6ec163624bea203da1820fb3416",
+        "bytes": 84
+      }
+    },
+    "inspect": {
+      "campaign-result.json": {
+        "sha256": "3dfa92aeca22b12557900ce9afaaf6e4346407e4a2d42e88696baa892087018c",
+        "bytes": 351
+      },
+      "campaign-stderr.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "campaign.jsonl": {
+        "sha256": "2a8e725629225c4df01275bf508cb511a27f199e1869e4e7de19e46d4a9fd953",
+        "bytes": 86677
+      },
+      "last-input.jls": {
+        "sha256": "a5e1cf212b03d4b23d2db3a5ffd02ec39834d35a3d87d064614ab82d1b2c4f58",
+        "bytes": 39
+      }
+    }
+  },
+  "entries": {
+    "owned": {
+      "supervisor": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "owned",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.1220985699997,
+        "peak_process_rss_bytes": 472195072,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 1223832,
+        "complete": true,
+        "decodeCalls": 7378661,
+        "entry": "owned",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 7378661,
+        "rejected": 6154829,
+        "seconds": 3600.00017029,
+        "seedCount": 981
+      },
+      "files": {
+        "campaign-result.json": {
+          "sha256": "2dfe032437ec4b3b514258639bcbc236026ed3e5b2e77506ba426e103bca45e0",
+          "bytes": 353
+        },
+        "campaign-stderr.log": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "campaign.jsonl": {
+          "sha256": "7b5606215c87c39c77ab3a8a81b859add27ed5e5274cf05715da09a996b43cc9",
+          "bytes": 89259
+        },
+        "last-input.jls": {
+          "sha256": "de651907c7b3df638c5a0b3cbf611cfdf54c4c6d42a6f753300779d40ceb9af1",
+          "bytes": 74
+        }
+      }
+    },
+    "into": {
+      "supervisor": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "into",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.104450612,
+        "peak_process_rss_bytes": 486305792,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 1451560,
+        "complete": true,
+        "decodeCalls": 2935862,
+        "entry": "into",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 8749636,
+        "rejected": 7298076,
+        "seconds": 3600.00011443,
+        "seedCount": 981
+      },
+      "files": {
+        "campaign-result.json": {
+          "sha256": "82df9bb3c1a6bc9d8b92f98e2f785d5671e23a756a88f6660ed85c5145a49043",
+          "bytes": 348
+        },
+        "campaign-stderr.log": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "campaign.jsonl": {
+          "sha256": "5bdb7bce52ea08dfe4922a7d6087bcea0e947a7dabc3e1fc658826fff58a8dc0",
+          "bytes": 87625
+        },
+        "last-input.jls": {
+          "sha256": "2d11210cd4c8f24229966791414dd94a3f5dd6ec163624bea203da1820fb3416",
+          "bytes": 84
+        }
+      }
+    },
+    "inspect": {
+      "supervisor": {
+        "command": [
+          "Examples/FuzzConsumer/.build/release/FuzzConsumer",
+          "Tests/SwiftJLSTests/Fixtures",
+          "inspect",
+          "3600",
+          "last-input.jls"
+        ],
+        "exit_code": 0,
+        "failure": null,
+        "wall_seconds": 3600.145795755,
+        "peak_process_rss_bytes": 443015168,
+        "build": "release with AddressSanitizer; RSS includes sanitizer overhead"
+      },
+      "final": {
+        "accepted": 3103186,
+        "complete": true,
+        "decodeCalls": 0,
+        "entry": "inspect",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 9247727,
+        "rejected": 6144541,
+        "seconds": 3600.000314379,
+        "seedCount": 981
+      },
+      "files": {
+        "campaign-result.json": {
+          "sha256": "3dfa92aeca22b12557900ce9afaaf6e4346407e4a2d42e88696baa892087018c",
+          "bytes": 351
+        },
+        "campaign-stderr.log": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "campaign.jsonl": {
+          "sha256": "2a8e725629225c4df01275bf508cb511a27f199e1869e4e7de19e46d4a9fd953",
+          "bytes": 86677
+        },
+        "last-input.jls": {
+          "sha256": "a5e1cf212b03d4b23d2db3a5ffd02ec39834d35a3d87d064614ab82d1b2c4f58",
+          "bytes": 39
+        }
+      }
+    }
+  },
+  "status": "passed",
+  "scope": "Three source-pinned release+ASan mutation experiments; general CI remains owner-reviewed."
+}

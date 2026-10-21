@@ -1,0 +1,189 @@
+{
+  "completed": true,
+  "performance_qualified": false,
+  "processes": 120,
+  "source_guards": {
+    "successor_head": {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "output": "e6a6436c692f5af226bffceb70b7ee65c774edf3\n",
+      "stdout": "e6a6436c692f5af226bffceb70b7ee65c774edf3\n",
+      "stderr": ""
+    },
+    "successor_status": {
+      "command": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=all",
+        "--",
+        "Sources",
+        "Tests",
+        "Package.swift",
+        "VERSION",
+        "Scripts/Benchmark"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "stdout": "",
+      "stderr": ""
+    },
+    "predecessor_head": {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "output": "15aa75164145414f3d5ffb801401c52d40cc5bcc\n",
+      "stdout": "15aa75164145414f3d5ffb801401c52d40cc5bcc\n",
+      "stderr": ""
+    },
+    "predecessor_diff": {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+        "--",
+        "Sources",
+        "Package.swift"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "stdout": "",
+      "stderr": ""
+    },
+    "fixtures": {
+      "command": [
+        "git",
+        "rev-parse",
+        "e6a6436c692f5af226bffceb70b7ee65c774edf3:Tests/SwiftJLSTests/Fixtures"
+      ],
+      "exit_code": 0,
+      "output": "b81c9c42ac2cc2797e5a18ea7e61230bc45f70e8\n",
+      "stdout": "b81c9c42ac2cc2797e5a18ea7e61230bc45f70e8\n",
+      "stderr": ""
+    },
+    "swift": {
+      "command": [
+        "swift",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\nswift-driver version: 1.168.6 ",
+      "stdout": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n",
+      "stderr": "swift-driver version: 1.168.6 "
+    },
+    "source_commit": "e6a6436c692f5af226bffceb70b7ee65c774edf3",
+    "candidate_build_identity_sha256": "c13d7300bc9333f0e99252b52516e55c1fe8733d1d4ba0b41563db87f52b8f04",
+    "candidate_source_hashes": {
+      "Package.swift": "4812930d1d52147b8639649587fc85958ef4b04fd57f4d13652903c9973c6eaf",
+      "Sources/SwiftJLS/CodecAPI.swift": "2aecbc7572e10b24c5119cd69105414039f301ebd448b191498aec23e86cf3ee",
+      "Sources/SwiftJLS/Errors.swift": "f71dd532405f2bca468ef39b29117513c686a89c64dd908ef598d1bca4f4fe6b",
+      "Sources/SwiftJLS/Image.swift": "f69e4120f41db5a41922b9cb41d6bbedf6fd5b9768360efc987d38906fb21cf3",
+      "Sources/SwiftJLS/ImageDescriptor.swift": "ba12d371e2583578a726aabde85fc244648821984bcf630ff365ec2a33e1cd26",
+      "Sources/SwiftJLS/ImageStorage.swift": "6211f868c3ffb1a58bbd516cfe039fcee90bc51dbd58a94d52ff54fd679b1c78",
+      "Sources/SwiftJLS/JPEGLS/ComponentCodec.swift": "6d58aa9a3f77ee8b3efab5c70ca6464da68fa01f626259266735c9daaee70cb2",
+      "Sources/SwiftJLS/JPEGLS/ComponentSamples.swift": "1ce0be11dde2105dd795286985802b7c626206ce74063057a9928ae7b8e3d119",
+      "Sources/SwiftJLS/JPEGLS/HPTransform.swift": "3c1b1d61b0de3692a47a555b215f329e9e92e8e86cb7950fe0087bf9f3d6bc83",
+      "Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift": "c1224495271d1b6c0b74b8533557fd92ede7473fdc21e1affbe2389deb6e6704",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift": "3521e0b70581ff2b6cb315daf10c29514ee6eabe7abd7a7c539fb36cae7fabb9",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift": "8e9419b656ba9f2721702623f569ee0b8da403de56a96105e758655bb101f8ba",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift": "5eeb8a236cb8ca55fb60d1613a60b77999e189518a115c2e08c081129d09ebf4",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSError.swift": "73dd58926e8f15cf96ffffeaba7dc72ccf576a77e43bc10fd9f675170a3d9dc1",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift": "5b4c1388a0651b504fb67206ea88c28d02ab232ee61d66ac126cfa1f461bc5e0",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift": "a0a42030720d63690a4baed0a8599872b5e72a799fffc1e6bcc553bfd32fccb2",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift": "97f9944dd1a62fe76cc5b05c8d216fd7c71968efa1cac0a2945e5885d83781cd",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift": "c67cf575f32f721891a73d1b5895948d518dae4894a353c9bf1f634d7a0dbd13",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift": "b165f853b2118674183466de4030f8192a6a7e62e5ea4398d38d61774b7af1fa",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift": "b419c22bc5adfcaedf7b44ca33283b3b53ef02a7e9c830ab85aee570f6f91ef6",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift": "1901bc5deeea95438852c530ba1b1682af07c1fe2304438b446710298b79a0bc",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift": "30e8e774cf84acae49e188cddedc25d5a7c3b4bcfe14c9aa68a8da3f3fca17a8",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift": "e26a0753893f838f68ea42a0c10ea863ac4771e532bfc6978bd1fb764968838e",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift": "3edc9cbf9a5755e193ce0dfebcd9bc0aba0652a2a0d23fd802da8d58d63ed4d6",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift": "b98f40f6701c2d5edf9d6346c9ba142166b9ec45163ace57f75819f4fd8e0b89",
+      "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift": "5af63c538c3ce0d31f207452e37ddb18d78084a4a90c9c365d6d4380b0bd5e29",
+      "Sources/SwiftJLS/JPEGLS/ScalarSamples.swift": "2a18c8e246c9fc0dfb37fb41798683c5b3c1bbdbb738fd5c26e5dd3c065faa6f",
+      "Sources/SwiftJLS/Options.swift": "dd43c63592bf4d74c53626374fb4494b0815315f0f64bc1a2831f9c066b5d787",
+      "Sources/SwiftJLSCLI/PayloadCommands.swift": "2eadb7719607fef0cb9787f8060ef8c536b86485c7180958014d2677ca1b0fbf",
+      "Sources/SwiftJLSCLI/PayloadIO.swift": "f759f05c4db55d9994e9895b4890a9da3a697c05132b061c770c1e8d9cad4ec2",
+      "Sources/SwiftJLSCLI/main.swift": "22ef948e4154e8378890ba072ec639d86f1cf207bff41298d112e653858f0432",
+      "Tests/SwiftJLSTests/APITests.swift": "b394a963e179ad292c014983c7d9598623df54875d79cafec1bd0a41363c224f",
+      "Tests/SwiftJLSTests/BitstreamWriterTests.swift": "264a35016691b089ae2045e8795f07593ceba31cac680ed10d14659c5839bdf7",
+      "Tests/SwiftJLSTests/CancellationPublicationTests.swift": "96eed0adc2bf6c364465613b57ed805fb23f334b35d47c5374f28f1f3fcf2a66",
+      "Tests/SwiftJLSTests/ComponentCodecTests.swift": "d80d56b5f6f986bf92f316398cc5b9f1238cf76d4682d3c5b0dbd5b511276709",
+      "Tests/SwiftJLSTests/ComponentPrecisionTests.swift": "cc75c032f0ba4f832f149dd24757630644b474a97fb6d01ad7fef60d957bd944",
+      "Tests/SwiftJLSTests/ConcurrentAdmissionTests.swift": "23991b68c0e501a2d36f2d45ca82cac387ab1abfa43f6b3d36ac6a7b42e03dae",
+      "Tests/SwiftJLSTests/ContextIndexTests.swift": "cb3c32dee466040d7a9b3048bf1302fe79c28a661b7eaf5f7ee6dbdc085649f4",
+      "Tests/SwiftJLSTests/DescriptorTests.swift": "c3ee5e7ee2077ae693b66a88d831468c06d031122dc2f66dec343b783e30a6a6",
+      "Tests/SwiftJLSTests/DestinationLifecycleTests.swift": "9d9108a2ead7fb143601e398d5c821b2051d3d123cd05d1afed59ad7111ca751",
+      "Tests/SwiftJLSTests/GradientTableTests.swift": "e8858ab429f3969bf644d7f5ed6f5643673f12e38d90e9e677055ee56274921d",
+      "Tests/SwiftJLSTests/HPTransformTests.swift": "55d99981848cd82c5fbef01a62b6907a680f0a7d648429727fabba1bde5cb9d0",
+      "Tests/SwiftJLSTests/HeaderDescriptorTests.swift": "48dfb1ecbd73b37f1e1dc2a7f546306fa34c0f099909c69ca139df8282a4154a",
+      "Tests/SwiftJLSTests/HeaderFrameAdmissionTests.swift": "59339d2c48361a82ced0fe189828af4d1bf3d0f87b6d80bb8d1f54e1fa37e404",
+      "Tests/SwiftJLSTests/HeaderScanBoundaryTests.swift": "23602898098bf6a8dd1ed581e27f2e44c87068b217c54dffd2b322cc271b7bdd",
+      "Tests/SwiftJLSTests/KernelWorkspaceTests.swift": "a5c19c7778aa3668b4c0ecdb04a79a994da8c48bdd80807cdde05707c474fa4c",
+      "Tests/SwiftJLSTests/LosslessPrecisionValidationTests.swift": "70a062e2e1e9f73c8da3028f50c7157327652e635e10ad8587f5d1b3577d921c",
+      "Tests/SwiftJLSTests/MappingMetadataTests.swift": "a4e7dd854d463baacb5b11e7f7bd31a5b26ddb6786f9e3ec111e6c5769238833",
+      "Tests/SwiftJLSTests/OwnershipTests.swift": "f92d2f297f88f955321783b2b784ef57a67af44f945a4bd4f7ddd21268d80a63",
+      "Tests/SwiftJLSTests/ParserContainerTests.swift": "8166d3901df18bd3c5d76a375ddec0f7900d622fb9c11e2c06f28d983bb24f9d",
+      "Tests/SwiftJLSTests/PredecessorProfileTests.swift": "3dae9c436a470dfa58fc86b09f69b09703633e853ea62c89bda6fe931cbbb87b",
+      "Tests/SwiftJLSTests/RunCheckpointTests.swift": "acc9cfe8566d1217952f847378615e8894e0bdac3668e21dc9d3a2ec156ad623",
+      "Tests/SwiftJLSTests/SampleAccessTests.swift": "cb8a04f2a6a6a31f0f58a9b72ab2638191656848e9a975fe8430c6bd73ab3f82",
+      "Tests/SwiftJLSTests/SampleNativeDecodeTests.swift": "9379b9c230f1f810e22509bb1599822afa0f0328bd3ecb2f0e332c8b7641bc53",
+      "Tests/SwiftJLSTests/ScalarCodecTests.swift": "2e477fc29d7cefceb0893a2b3d9d716a6a45227afc32b113c88a5376a7427fe1",
+      "Tests/SwiftJLSTests/StorageEvidenceTests.swift": "06d79ba758dbaef8eff87f88f74f2220e9032ecfb762c660ada939949bcf5cce",
+      "VERSION": "913c1672433548005a2a6b9c862a939558b9f8ce8357ad85350bfc0d26c0e938",
+      "Tests/SwiftJLSTests/OwnedAdmissionTests.swift": "70fbb5da6a22727e0abce235c283efddd2bb917bd44894d4f01654d593f41058"
+    },
+    "candidate_patch_sha256": "907bcd3c166dae4fbd4aacdb3bd427b6fc0c9eb9c7814168fb8fd8cb157b7046",
+    "candidate_binary_sha256": "2e67435160c617b4d31ed50cd6a1e63ac63c0dfdf067571681f7c7f329eece60",
+    "benchmark_reuse_sha256": "9532240755fc9178095cebb4d966157cf8158f9d2d7b96347ff3801d8f8973fb",
+    "benchmark_build_sha256": "ea31c8f2cbe738a877ec55662a3854a1117437e0dc623cc23ca5998554e8492a",
+    "larger_guard_plan_sha256": "e53e2e11ff679398dbb5de160e72c08a53ca5809fb2117e42777510158048bef"
+  },
+  "end_conditions": {
+    "utc": "2026-10-21T15:38:57.110923+00:00",
+    "power": {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+      "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+      "stderr": ""
+    },
+    "thermal": {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stderr": ""
+    },
+    "load": {
+      "command": [
+        "sysctl",
+        "-n",
+        "vm.loadavg"
+      ],
+      "exit_code": 0,
+      "output": "{ 3.81 3.65 5.40 }\n",
+      "stdout": "{ 3.81 3.65 5.40 }\n",
+      "stderr": ""
+    }
+  },
+  "schedule_sha256": "4809f7b5bb7c1af2b12ea3b7cb51b1b5885289668065ff05721db325392b8d95",
+  "runner_sha256": "1975140a3109849b411502df198f764b7ae76bc53714f55e382947c5f80f97a7",
+  "larger_guard_plan_sha256": "e53e2e11ff679398dbb5de160e72c08a53ca5809fb2117e42777510158048bef"
+}

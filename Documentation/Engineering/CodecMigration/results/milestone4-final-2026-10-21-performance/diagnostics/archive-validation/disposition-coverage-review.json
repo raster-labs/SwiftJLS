@@ -1,0 +1,29 @@
+{
+  "recorded_utc": "2026-10-21T15:54:14.946390+00:00",
+  "source_commit": "e6a6436c692f5af226bffceb70b7ee65c774edf3",
+  "disposition_sha256": "89bbe956945ff57fd2a87492be01a04adfc8d6d5997a8fc9137e2c15030456b5",
+  "coverage_passed": true,
+  "findings": 6,
+  "statuses": {
+    "unresolved": 5,
+    "explained_header_only": 1
+  },
+  "all_evidence_links_resolve": true,
+  "evidence_paths": {
+    "performance-recomputed.json": "work/m4-final-2026-10-21-performance/review-inputs/performance-recomputed.json",
+    "performance/tiny-short-confirmation128/summary.json": "work/m4-owned-admission-measurements/results/pinned-short128/summary.json",
+    "performance/tiny-deep/summary.json": "work/m4-owned-admission-measurements/results/pinned-deep16/summary.json",
+    "diagnostic-measurements-recomputed.json": "work/m4-final-2026-10-21-performance/review-inputs/diagnostic-measurements-recomputed.json",
+    "size-validation/recomputed.json": "work/m4-final-2026-10-21-performance/review-inputs/size-validation/recomputed.json",
+    "size-validation/summary.json": "work/m4-final-2026-10-21-performance/size-validation/summary.json",
+    "size-validation/independent-check.json": "work/m4-final-2026-10-21-performance/size-validation/independent-check.json",
+    "size-validation/predecessor.jls": "work/m4-final-2026-10-21-performance/size-validation/predecessor.jls",
+    "size-validation/successor.jls": "work/m4-final-2026-10-21-performance/size-validation/successor.jls",
+    "performance/incremental-owned-admission-short16/summary.json": "work/m4-owned-admission-measurements/results/direct-short16/summary.json"
+  },
+  "explanation_review": "Four pinned ratios, absolute deltas and familywise intervals agree with prepare4 output; incremental ratio/delta and paired intervals agree with its diagnostic recomputation; size explanation agrees with retained direct-byte and cross-decode proof. No metric replacement, automatic waiver or independent-oracle claim.",
+  "mechanical_issue_resolved": "Root corrected incremental-owned-admission-short 16 to the exact campaign name incremental-owned-admission-short16 in id, covers and evidence path. No authored decision/explanation changed.",
+  "authored_decisions_modified": false,
+  "performance_accepted": false,
+  "archive_published": false
+}

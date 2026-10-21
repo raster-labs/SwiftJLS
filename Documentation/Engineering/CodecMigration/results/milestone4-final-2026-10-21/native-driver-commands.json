@@ -1,0 +1,64 @@
+[
+  {
+    "utc": "2026-10-21T10:39:03.418188+00:00",
+    "label": "existing VM inventory",
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/tools/tart.app/Contents/MacOS/tart",
+      "list"
+    ],
+    "exit_code": 0,
+    "stdout": "Source Name                                                                                                        Disk  Size  Accessed   State  \nlocal  m4-macos26                                                                                                  50 GB 34 GB 6 days ago stopped\nOCI    ghcr.io/cirruslabs/macos-tahoe-base@sha256:6b01ed7bb644831fc3b5fdb297c8541bf7f032633d4ac5ac9b04affa163b3772 50 GB 34 GB 6 days ago stopped\n",
+    "stderr": ""
+  },
+  {
+    "utc": "2026-10-21T10:39:08.609306+00:00",
+    "label": "resolve IP",
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/tools/tart.app/Contents/MacOS/tart",
+      "ip",
+      "m4-macos26",
+      "--wait",
+      "30"
+    ],
+    "exit_code": 0,
+    "stdout": "192.168.64.2\n",
+    "stderr": ""
+  },
+  {
+    "utc": "2026-10-21T10:40:15.835320+00:00",
+    "label": "guest qualification",
+    "command": [
+      "expect",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/vm-ssh.exp",
+      "192.168.64.2",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/known_hosts",
+      "python3 '/Volumes/My Shared Files/evidence/run-native.py'"
+    ],
+    "exit_code": 0,
+    "stdout": "spawn ssh -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/known_hosts -o ConnectTimeout=15 -o PubkeyAuthentication=no admin@192.168.64.2 python3 '/Volumes/My Shared Files/evidence/run-native.py'\nWarning: Permanently added '192.168.64.2' (ED25519) to the list of known hosts.\n\n\n(admin@192.168.64.2) Password:\n{\n  \"source\": \"bee49a2ad47eae4ea149bdced2043b7a45df3dae\",\n  \"commands\": [\n    {\n      \"label\": \"os\",\n      \"command\": [\n        \"sw_vers\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 0.029542165999999995\n    },\n    {\n      \"label\": \"architecture\",\n      \"command\": [\n        \"uname\",\n        \"-m\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 0.0037184999999999996\n    },\n    {\n      \"label\": \"hardware\",\n      \"command\": [\n        \"sysctl\",\n        \"hw.model\",\n        \"hw.memsize\",\n        \"hw.ncpu\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 0.003945249999999997\n    },\n    {\n      \"label\": \"unit\",\n      \"command\": [\n        \"/Volumes/My Shared Files/evidence/swiftpm-testing-helper\",\n        \"--test-bundle-path\",\n        \"/Volumes/My Shared Files/evidence/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests\",\n        \"--testing-library\",\n        \"swift-testing\",\n        \"--xunit-output\",\n        \"/Volumes/My Shared Files/results-2026-10-21/unit.xml\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 8.979415792000001\n    },\n    {\n      \"label\": \"unit-debug\",\n      \"command\": [\n        \"/Volumes/My Shared Files/evidence/swiftpm-testing-helper\",\n        \"--test-bundle-path\",\n        \"/Volumes/My Shared Files/evidence/configurations/debug/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests\",\n        \"--testing-library\",\n        \"swift-testing\",\n        \"--xunit-output\",\n        \"/Volumes/My Shared Files/results-2026-10-21/unit-debug.xml\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 5.3054753749999986\n    },\n    {\n      \"label\": \"unit-asan\",\n      \"command\": [\n        \"/Volumes/My Shared Files/evidence/swiftpm-testing-helper\",\n        \"--test-bundle-path\",\n        \"/Volumes/My Shared Files/evidence/configurations/asan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests\",\n        \"--testing-library\",\n        \"swift-testing\",\n        \"--xunit-output\",\n        \"/Volumes/My Shared Files/results-2026-10-21/unit-asan.xml\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 24.985718\n    },\n    {\n      \"label\": \"unit-tsan\",\n      \"command\": [\n        \"/Volumes/My Shared Files/evidence/swiftpm-testing-helper\",\n        \"--test-bundle-path\",\n        \"/Volumes/My Shared Files/evidence/configurations/tsan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests\",\n        \"--testing-library\",\n        \"swift-testing\",\n        \"--xunit-output\",\n        \"/Volumes/My Shared Files/results-2026-10-21/unit-tsan.xml\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 23.375641541\n    },\n    {\n      \"label\": \"consumer\",\n      \"command\": [\n        \"/Volumes/My Shared Files/evidence/AppleRuntimeConsumer\",\n        \"/Volumes/My Shared Files/evidence/repo/Tests/SwiftJLSTests/Fixtures\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 0.009052708000005794\n    },\n    {\n      \"label\": \"resources\",\n      \"command\": [\n        \"/Volumes/My Shared Files/evidence/ResourceStress\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 0.3942986250000047\n    },\n    {\n      \"label\": \"cli-payload\",\n      \"command\": [\n        \"python3\",\n        \"/Volumes/My Shared Files/evidence/repo/Scripts/test-payload-cli.py\",\n        \"--binary\",\n        \"/Volumes/My Shared Files/evidence/swiftjls-cli\",\n        \"--output\",\n        \"/Volumes/My Shared Files/results-2026-10-21/cli-payload.json\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 0.9737089170000033\n    },\n    {\n      \"label\": \"cli-process\",\n      \"command\": [\n        \"python3\",\n        \"/Volumes/My Shared Files/evidence/repo/Scripts/test-cli.py\",\n        \"--binary\",\n        \"/Volumes/My Shared Files/evidence/swiftjls-cli\",\n        \"--output\",\n        \"/Volumes/My Shared Files/results-2026-10-21/cli-process\"\n      ],\n      \"exit_code\": 0,\n      \"seconds\": 0.7110899999999987\n    }\n  ],\n  \"scope\": \"Swift 6.4 host-built arm64 binaries, executed in hardware-virtualised native arm64 macOS 26.0; no Intel emulation or physical-device claim.\",\n  \"os\": \"ProductName:\\t\\tmacOS\\nProductVersion:\\t\\t26.0\\nBuildVersion:\\t\\t25A354\\n\",\n  \"architecture\": \"arm64\",\n  \"exact_26_0_native_arm64\": true,\n  \"tests\": {\n    \"declarations\": 110,\n    \"failures\": 0,\n    \"skipped\": 0\n  },\n  \"extra_tests\": {\n    \"debug\": {\n      \"declarations\": 110,\n      \"failures\": 0,\n      \"skipped\": 0\n    },\n    \"asan\": {\n      \"declarations\": 110,\n      \"failures\": 0,\n      \"skipped\": 0\n    },\n    \"tsan\": {\n      \"declarations\": 110,\n      \"failures\": 0,\n      \"skipped\": 0\n    }\n  },\n  \"success\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "utc": "2026-10-21T10:40:16.057430+00:00",
+    "label": "stop VM before benchmarks",
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/tools/tart.app/Contents/MacOS/tart",
+      "stop",
+      "m4-macos26"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "utc": "2026-10-21T10:40:16.078713+00:00",
+    "label": "post-run stopped VM inventory",
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/tools/tart.app/Contents/MacOS/tart",
+      "list"
+    ],
+    "exit_code": 0,
+    "stdout": "Source Name                                                                                                        Disk  Size  Accessed     State  \nlocal  m4-macos26                                                                                                  50 GB 34 GB in 0 seconds stopped\nOCI    ghcr.io/cirruslabs/macos-tahoe-base@sha256:6b01ed7bb644831fc3b5fdb297c8541bf7f032633d4ac5ac9b04affa163b3772 50 GB 34 GB 6 days ago   stopped\n",
+    "stderr": ""
+  }
+]

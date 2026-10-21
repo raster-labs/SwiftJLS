@@ -1,0 +1,29 @@
+{
+  "run_id": 39623942298,
+  "revision": "e6a6436c692f5af226bffceb70b7ee65c774edf3",
+  "run_log_sha256": "cd333d99452ad9ff4cd97ca3e88a324193c488b0a45946819e01b0dd7a54c365",
+  "toolchain": "Swift version 6.4.1 (swift-6.4.1-RELEASE)",
+  "entries": {
+    "owned": {
+      "source_checkout_log": "mutation (owned)\tRun actions/checkout@11d5960a326750d5838078e36cf38b85af677262\t2026-10-21T15:15:49.0874420Z e6a6436c692f5af226bffceb70b7ee65c774edf3",
+      "compiler_log": "mutation (owned)\tRun swift --version\t2026-10-21T15:15:49.3237556Z Swift version 6.4.1 (swift-6.4.1-RELEASE)",
+      "successful_release_asan_build_log": "mutation (owned)\tRun swift build --package-path Examples/FuzzConsumer -c release --sanitize address\t2026-10-21T15:16:17.0425897Z Build complete! (26.70 secs)",
+      "successful_supervisor_log": "mutation (owned)\tRun bounded campaign\t2026-10-21T16:16:25.1771644Z {\"command\": [\"Examples/FuzzConsumer/.build/release/FuzzConsumer\", \"Tests/SwiftJLSTests/Fixtures\", \"owned\", \"3600\", \"last-input.jls\"], \"exit_code\": 0, \"failure\": null, \"wall_seconds\": 3600.1219195989997, \"peak_process_rss_bytes\": 472600576, \"build\": \"release with AddressSanitizer; RSS includes sanitizer overhead\"}"
+    },
+    "into": {
+      "source_checkout_log": "mutation (into)\tRun actions/checkout@11d5960a326750d5838078e36cf38b85af677262\t2026-10-21T15:16:00.6264677Z e6a6436c692f5af226bffceb70b7ee65c774edf3",
+      "compiler_log": "mutation (into)\tRun swift --version\t2026-10-21T15:16:00.8113003Z Swift version 6.4.1 (swift-6.4.1-RELEASE)",
+      "successful_release_asan_build_log": "mutation (into)\tRun swift build --package-path Examples/FuzzConsumer -c release --sanitize address\t2026-10-21T15:16:18.8784532Z Build complete! (17.33 secs)",
+      "successful_supervisor_log": "mutation (into)\tRun bounded campaign\t2026-10-21T16:16:26.4876356Z {\"command\": [\"Examples/FuzzConsumer/.build/release/FuzzConsumer\", \"Tests/SwiftJLSTests/Fixtures\", \"into\", \"3600\", \"last-input.jls\"], \"exit_code\": 0, \"failure\": null, \"wall_seconds\": 3600.102935501, \"peak_process_rss_bytes\": 492838912, \"build\": \"release with AddressSanitizer; RSS includes sanitizer overhead\"}"
+    },
+    "inspect": {
+      "source_checkout_log": "mutation (inspect)\tRun actions/checkout@11d5960a326750d5838078e36cf38b85af677262\t2026-10-21T15:15:49.7028627Z e6a6436c692f5af226bffceb70b7ee65c774edf3",
+      "compiler_log": "mutation (inspect)\tRun swift --version\t2026-10-21T15:15:49.9466599Z Swift version 6.4.1 (swift-6.4.1-RELEASE)",
+      "successful_release_asan_build_log": "mutation (inspect)\tRun swift build --package-path Examples/FuzzConsumer -c release --sanitize address\t2026-10-21T15:16:17.5418751Z Build complete! (26.51 secs)",
+      "successful_supervisor_log": "mutation (inspect)\tRun bounded campaign\t2026-10-21T16:16:26.3721997Z {\"command\": [\"Examples/FuzzConsumer/.build/release/FuzzConsumer\", \"Tests/SwiftJLSTests/Fixtures\", \"inspect\", \"3600\", \"last-input.jls\"], \"exit_code\": 0, \"failure\": null, \"wall_seconds\": 3600.131496161, \"peak_process_rss_bytes\": 440086528, \"build\": \"release with AddressSanitizer; RSS includes sanitizer overhead\"}"
+    }
+  },
+  "passed": true,
+  "binary_sha256": null,
+  "binary_note": "The workflow retains mutation output artifacts, not the executable; checkout/build/run provenance is verified from the source-specific run log."
+}

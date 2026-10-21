@@ -1,0 +1,126 @@
+[
+  {
+    "command": [
+      "python3",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/apple-build-value.py"
+    ],
+    "label": "apple-build-value",
+    "exit_code": 0,
+    "seconds": 58.786976958000004
+  },
+  {
+    "command": [
+      "python3",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/apple-runtime-value.py",
+      "26.0"
+    ],
+    "label": "apple-runtime-value",
+    "exit_code": 0,
+    "seconds": 77.35116612499999
+  },
+  {
+    "command": [
+      "python3",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/apple-resource-value.py"
+    ],
+    "label": "apple-resource-value",
+    "exit_code": 0,
+    "seconds": 51.922060542
+  },
+  {
+    "command": [
+      "swift",
+      "build",
+      "--build-system",
+      "swiftbuild",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "Examples/AppleRuntimeConsumer",
+      "--scratch-path",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/build/AppleRuntimeConsumer"
+    ],
+    "label": "native-AppleRuntimeConsumer-value",
+    "exit_code": 0,
+    "seconds": 28.534482790999988
+  },
+  {
+    "command": [
+      "swift",
+      "build",
+      "--build-system",
+      "swiftbuild",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "Examples/ResourceStress",
+      "--scratch-path",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/build/ResourceStress"
+    ],
+    "label": "native-ResourceStress-value",
+    "exit_code": 0,
+    "seconds": 27.94306549999999
+  },
+  {
+    "command": [
+      "swift",
+      "build",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "work/m4-benchmark/successor"
+    ],
+    "label": "benchmark-value",
+    "exit_code": 0,
+    "seconds": 13.383274208000017
+  },
+  {
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/build/AppleRuntimeConsumer/out/Products/Release/AppleRuntimeConsumer",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Tests/SwiftJLSTests/Fixtures"
+    ],
+    "label": "host-AppleRuntimeConsumer-value",
+    "exit_code": 0,
+    "seconds": 0.34981154199999764
+  },
+  {
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/build/ResourceStress/out/Products/Release/ResourceStress"
+    ],
+    "label": "host-ResourceStress-value",
+    "exit_code": 0,
+    "seconds": 0.7059715839999967
+  },
+  {
+    "command": [
+      "python3",
+      "Scripts/test-payload-cli.py",
+      "--binary",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/test-build/release/out/Products/Release/swiftjls-cli",
+      "--output",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/cli-payload-value.json"
+    ],
+    "label": "cli-payload-value",
+    "exit_code": 0,
+    "seconds": 1.2718795000000114
+  },
+  {
+    "command": [
+      "python3",
+      "Scripts/test-cli.py",
+      "--binary",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/test-build/release/out/Products/Release/swiftjls-cli",
+      "--output",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/cli-process-value"
+    ],
+    "label": "cli-process-value",
+    "exit_code": 0,
+    "seconds": 1.450881250000009
+  }
+]

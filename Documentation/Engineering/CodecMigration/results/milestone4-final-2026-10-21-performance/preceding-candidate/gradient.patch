@@ -1,0 +1,169 @@
+--- a/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift
++++ b/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift
+@@ -41,8 +41,8 @@
+     private let qbpp: Int
+ 
+     /// Gradient quantisation lookup table for the inner range (−T3, T3),
+-    /// indexed by `gradient + gradientTableOffset`. Built in `init` by
+-    /// evaluating the reference branch chain, so it is bit-identical to it.
++    /// indexed by `gradient + gradientTableOffset`. Initialised by constant
++    /// interval fills when NEAR < T1, otherwise by the reference branch chain.
+     private let gradientTable: [Int]
+     private let gradientTableOffset: Int
+ 
+@@ -73,26 +73,47 @@
+             self.range = (parameters.maxValue + 2 * near) / qbpp + 1
+         }
+ 
+-        // Build the gradient quantisation table for the inner range from the
+-        // reference branch chain (values at/beyond ±T3 are handled by the
+-        // early exits in `quantizeGradient`).
++        // Fill the gradient quantisation intervals directly when NEAR < T1;
++        // retain the reference branch chain for the internal NEAR >= T1 case.
++        // Values at/beyond ±T3 use the early exits in `quantizeGradient`.
+         let t3 = parameters.threshold3
+         self.gradientTableOffset = t3
+-        var table = [Int](repeating: 0, count: 2 * t3 + 1)
+-        for i in 0..<table.count {
+-            table[i] = Self.quantizeGradientReference(
+-                i - t3,
+-                t1: parameters.threshold1, t2: parameters.threshold2,
+-                t3: t3, near: near
+-            )
++        let t1 = parameters.threshold1, t2 = parameters.threshold2
++        if near < t1 {
++            let count = 2 * t3 + 1
++            self.gradientTable = Array(unsafeUninitializedCapacity: count) { buffer, initializedCount in
++                // Validated parameters prove 1 <= T1 <= T2 <= T3 <= 65535.
++                // With NEAR < T1, these adjacent half-open ranges partition
++                // 0..<count exactly, including empty runs for equal thresholds.
++                // Initialise every Int once; no element is read before initialisation.
++                UnsafeMutableBufferPointer(rebasing: buffer[0..<1]).initialize(repeating: -4)
++                UnsafeMutableBufferPointer(rebasing: buffer[1..<(t3 - t2 + 1)]).initialize(repeating: -3)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t2 + 1)..<(t3 - t1 + 1)]).initialize(repeating: -2)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t1 + 1)..<(t3 - near)]).initialize(repeating: -1)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - near)..<(t3 + near + 1)]).initialize(repeating: 0)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + near + 1)..<(t3 + t1)]).initialize(repeating: 1)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + t1)..<(t3 + t2)]).initialize(repeating: 2)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + t2)..<(2 * t3)]).initialize(repeating: 3)
++                UnsafeMutableBufferPointer(rebasing: buffer[(2 * t3)..<count]).initialize(repeating: 4)
++                initializedCount = count
++            }
++        } else {
++            // Preserve the existing internal constructor's branch precedence
++            // for NEAR >= T1, although public codestream admission rejects it.
++            var table = [Int](repeating: 0, count: 2 * t3 + 1)
++            for i in 0..<table.count {
++                table[i] = Self.quantizeGradientReference(
++                    i - t3, t1: t1, t2: t2, t3: t3, near: near
++                )
++            }
++            self.gradientTable = table
+         }
+-        self.gradientTable = table
+     }
+ 
+     /// Reference gradient quantisation using the strict upper interval
+     /// boundaries in ITU-T.87 Table A.7.
+-    /// Used to build `gradientTable`; kept as the single source of truth
+-    /// for the boundary semantics.
++    /// Builds `gradientTable` for the internal NEAR >= T1 fallback;
++    /// the interval fills preserve these semantics when NEAR < T1.
+     private static func quantizeGradientReference(
+         _ gradient: Int, t1: Int, t2: Int, t3: Int, near: Int
+     ) -> Int {
+@@ -146,7 +167,7 @@
+     /// - Returns: Quantized gradient in range [-4, 4]
+     func quantizeGradient(_ gradient: Int) -> Int {
+         // Gradients at/beyond ±T3 always map to ±4; the inner range uses the
+-        // pre-computed table (built from the reference branch chain).
++        // pre-computed table (interval fills or the reference fallback).
+         if gradient <= -parameters.threshold3 { return -4 }
+         if gradient >= parameters.threshold3 { return 4 }
+         return gradientTable[gradient + gradientTableOffset]
+--- /dev/null
++++ b/Tests/SwiftJLSTests/GradientTableTests.swift
+@@ -0,0 +1,83 @@
++// SPDX-License-Identifier: Apache-2.0
++import Testing
++@testable import SwiftJLS
++
++@Suite("Decoder gradient table intervals")
++struct GradientTableTests {
++    // An independent branch oracle preserves the published quantizer's outer
++    // clamps and historical precedence, including internal NEAR >= T1 inputs.
++    // The candidate instead fills nine constant intervals once at construction.
++    private func reference(_ gradient: Int, _ p: JPEGLSPresetParameters, near: Int) -> Int {
++        if gradient <= -p.threshold3 { return -4 }
++        if gradient >= p.threshold3 { return 4 }
++        if gradient <= -p.threshold2 { return -3 }
++        if gradient <= -p.threshold1 { return -2 }
++        if gradient < -near { return -1 }
++        if gradient <= near { return 0 }
++        if gradient < p.threshold1 { return 1 }
++        if gradient < p.threshold2 { return 2 }
++        return 3
++    }
++
++    private func firstMismatch(_ p: JPEGLSPresetParameters, near: Int,
++                               gradients: ClosedRange<Int>) throws -> String? {
++        let decoder = try JPEGLSRegularModeDecoder(parameters: p, near: near)
++        for gradient in gradients {
++            let actual = decoder.quantizeGradient(gradient)
++            let expected = reference(gradient, p, near: near)
++            if actual != expected {
++                return "T=(\(p.threshold1),\(p.threshold2),\(p.threshold3)), NEAR=\(near), gradient=\(gradient): \(actual) != \(expected)"
++            }
++        }
++        // Very large gradients must use the unchanged outer clamps without
++        // indexing the table or adding T3 to an extreme signed value.
++        if decoder.quantizeGradient(Int.min) != -4 || decoder.quantizeGradient(Int.max) != 4 {
++            return "Extreme gradient did not use its outer clamp."
++        }
++        return nil
++    }
++
++    @Test func everySmallThresholdTripleAndNearValueMatchesReference() throws {
++        // Exhaust all 120 ordered triples up to eight and all nine NEAR values.
++        // Includes equality/empty intervals, NEAR == T1 and NEAR above T3.
++        for t1 in 1...8 { for t2 in t1...8 { for t3 in t2...8 {
++            let p = try JPEGLSPresetParameters(maxValue: 8,
++                threshold1: t1, threshold2: t2, threshold3: t3, reset: 64)
++            for near in 0...8 {
++                let mismatch = try firstMismatch(p, near: near, gradients: -10...10)
++                #expect(mismatch == nil, "\(mismatch ?? "")")
++            }
++        } } }
++    }
++
++    @Test func defaultsMatchEveryPossibleSampleGradient() throws {
++        for bits in 2...16 {
++            let maximum = (1 << bits) - 1
++            let bounds = Set([0, min(3, maximum / 2), min(255, maximum / 2)]).sorted()
++            for near in bounds {
++                let p = try JPEGLSPresetParameters.defaultParameters(bitsPerSample: bits, near: near)
++                let mismatch = try firstMismatch(p, near: near, gradients: (-maximum)...maximum)
++                #expect(mismatch == nil, "\(mismatch ?? "")")
++            }
++        }
++    }
++
++    @Test func maximumTableAndFallbackBoundariesMatchEveryGradient() throws {
++        // Largest table extent, both equal-threshold positions, an empty ±1
++        // interval, and the exact fallback boundary at NEAR == T1.
++        let cases: [(Int, Int, Int, Int)] = [
++            (1, 1, 65535, 0),
++            (1, 65535, 65535, 0),
++            (65535, 65535, 65535, 255),
++            (255, 255, 65535, 254),
++            (255, 255, 65535, 255),
++            (1, 1, 1, 255)
++        ]
++        for (t1, t2, t3, near) in cases {
++            let p = try JPEGLSPresetParameters(maxValue: 65535,
++                threshold1: t1, threshold2: t2, threshold3: t3, reset: 65535)
++            let mismatch = try firstMismatch(p, near: near, gradients: -65536...65536)
++            #expect(mismatch == nil, "\(mismatch ?? "")")
++        }
++    }
++}
