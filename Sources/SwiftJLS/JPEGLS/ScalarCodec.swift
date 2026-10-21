@@ -85,17 +85,17 @@ enum ScalarCodec {
             try budget.admit(pixelBytes: image.storage.byteCount, workspaceBytes: checkedAdd(workspace, checkedMultiply(metadata.byteCount, 32)), compressedBytes: outputLimit)
             options.progress?(try ProgressUpdate(phase: .processing, completedUnits: 0, totalUnits: samples))
             try budget.check()
-            let writer = JPEGLSBitstreamWriter(capacity: min(outputLimit, 4096), maximumBytes: outputLimit)
+            var writer = JPEGLSBitstreamWriter(capacity: min(outputLimit, 4096), maximumBytes: outputLimit)
             let kernel = JPEGLSScalarKernel()
             let frame = try JPEGLSFrameHeader(bitsPerSample: descriptor.meaningfulBits,
                 height: descriptor.height, width: descriptor.width, componentCount: 1,
                 components: [.init(id: 1)])
-            let scan = try JPEGLSScanHeader(componentCount: 1, components: [.init(id: 1, mappingTableID: metadata.mapping?.componentTableIDs[0] ?? 0)],
-                near: near, interleaveMode: .none, pointTransform: 0)
+            let scan = try JPEGLSScanHeader.singleComponent(mappingTableID: metadata.mapping?.componentTableIDs[0] ?? 0,
+                near: near)
             writer.writeMarker(.startOfImage)
-            try metadata.writeSPIFF(to: writer)
-            try metadata.ancillary.write(to: writer)
-            try kernel.writeFrameHeaderInternal(frame, to: writer)
+            try metadata.writeSPIFF(to: &writer)
+            try metadata.ancillary.write(to: &writer)
+            try kernel.writeFrameHeaderInternal(frame, to: &writer)
             if configuration.codecOptions.preset != nil {
                 writer.writeMarker(.jpegLSExtension)
                 writer.writeUInt16(13)
@@ -109,19 +109,23 @@ enum ScalarCodec {
                 writer.writeUInt16(4)
                 writer.writeUInt16(UInt16(interval))
             }
-            try metadata.mapping?.write(to: writer, budget: budget)
-            try kernel.writeScanHeaderInternal(scan, to: writer)
+            try metadata.mapping?.write(to: &writer, budget: budget)
+            try kernel.writeScanHeaderInternal(scan, to: &writer)
             try image.storage.withUnsafeBytes { bytes in
                 guard bytes.count == image.storage.byteCount, bytes.count >= descriptor.requiredByteCount else {
                     throw CodecError(.storageUnavailable, "Input provider changed its capacity.")
                 }
                 let view = ScalarSampleReader(bytes: .init(rebasing: bytes[plane.offset..<descriptor.requiredByteCount]),
                     littleEndian: descriptor.byteOrder == .littleEndian, sampleBytes: descriptor.storageBits / 8)
-                try view.validate(width: descriptor.width, height: descriptor.height,
-                    rowStride: plane.rowBytes / view.sampleBytes, maximum: parameters.maxValue,
-                    checkpoint: { try budget.check() })
-                let regular = try JPEGLSRegularMode(parameters: parameters)
-                let run = try JPEGLSRunMode(parameters: parameters)
+                if near > 0 {
+                    try view.validate(width: descriptor.width, height: descriptor.height,
+                        rowStride: plane.rowBytes / view.sampleBytes, maximum: parameters.maxValue,
+                        checkpoint: { try budget.check() })
+                }
+                // Near-lossless coding constructs its own correctly quantised
+                // state. Do not retain an unused lossless gradient table too.
+                let regular = near == 0 ? try JPEGLSRegularMode(parameters: parameters) : nil
+                let run = near == 0 ? try JPEGLSRunMode(parameters: parameters) : nil
                 let coding = kernel.computeGolombLimitInternal(parameters: parameters, near: near, bitsPerSample: descriptor.meaningfulBits)
                 for chunk in 0..<chunks {
                     let first = interval > 0 ? chunk * interval : 0
@@ -131,14 +135,22 @@ enum ScalarCodec {
                             littleEndian: view.littleEndian, sampleBytes: view.sampleBytes)
                         try kernel.encodeNearLossless(buf: rowView, rowStride: plane.rowBytes / view.sampleBytes,
                             width: descriptor.width, height: last - first, near: near,
-                            parameters: parameters, writer: writer, bits: descriptor.meaningfulBits,
-                            checkpoint: { try budget.check(); try writer.checkLimit() })
+                            parameters: parameters, writer: &writer, bits: descriptor.meaningfulBits,
+                            checkpoint: { try budget.check() })
                     } else {
+                        guard let regular, let run else {
+                            throw CodecError(.internalFailure, "Lossless coding state is unavailable.")
+                        }
                         var context = try JPEGLSContextModel(parameters: parameters)
+                        // Lossless runs prove their skipped samples equal a
+                        // checked causal value; validate other samples while
+                        // coding. Full-container values are valid by storage.
+                        let maximum = parameters.maxValue < (view.sampleBytes == 1 ? 255 : 65535)
+                            ? parameters.maxValue : nil
                         try kernel.encodeFlatRowsLossless(buf: view, rowStride: plane.rowBytes / view.sampleBytes,
-                            rowRange: first..<last, width: descriptor.width, regularMode: regular,
-                            runMode: run, context: &context, writer: writer, limit: coding.limit,
-                            qbppBits: coding.qbppBits, checkpoint: { try budget.check(); try writer.checkLimit() })
+                            rowRange: first..<last, sampleMaximum: maximum, width: descriptor.width, regularMode: regular,
+                            runMode: run, context: &context, writer: &writer, limit: coding.limit,
+                            qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
                     }
                     if chunk + 1 < chunks {
                         writer.flush()
@@ -155,7 +167,7 @@ enum ScalarCodec {
             let result = EncodedImage(data: data, encoding: .init(format: "JPEG-LS", mode: configuration.mode),
                 report: OperationReport(backend: .scalarCPU, fallbackReason: fallback(options.executionPolicy),
                     fidelity: near == 0 ? .exactSamples : .boundedError(near), pixelAllocationCount: 0, peakPixelBytes: 0,
-                    peakWorkspaceBytes: nil, elapsedSeconds: ProcessInfo.processInfo.systemUptime - budget.started))
+                    peakWorkspaceBytes: nil, elapsedSeconds: budget.elapsedSeconds))
             options.progress?(try ProgressUpdate(phase: .completed, completedUnits: samples, totalUnits: samples))
             try budget.check()
             return result
@@ -206,7 +218,7 @@ enum ScalarCodec {
             let result = DecodedImage(image: image, report: OperationReport(backend: .scalarCPU,
                 fallbackReason: fallback(options.executionPolicy), fidelity: fidelity,
                 pixelAllocationCount: supplied == nil ? 1 : 0, peakPixelBytes: supplied == nil ? pixelBytes : 0,
-                peakWorkspaceBytes: nil, elapsedSeconds: ProcessInfo.processInfo.systemUptime - budget.started))
+                peakWorkspaceBytes: nil, elapsedSeconds: budget.elapsedSeconds))
             options.progress?(try ProgressUpdate(phase: .completed, completedUnits: samples, totalUnits: samples))
             try budget.check()
             return result

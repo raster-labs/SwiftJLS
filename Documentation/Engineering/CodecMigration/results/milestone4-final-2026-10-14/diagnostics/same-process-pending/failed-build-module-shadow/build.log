@@ -1,0 +1,113 @@
+Fetching https://github.com/apple/swift-argument-parser.git from cache
+Fetched https://github.com/apple/swift-argument-parser.git from cache (0.90s)
+Computing version for https://github.com/apple/swift-argument-parser.git
+Computed https://github.com/apple/swift-argument-parser.git at 1.8.2 (0.95s)
+Creating working copy for https://github.com/apple/swift-argument-parser.git
+Working copy of https://github.com/apple/swift-argument-parser.git resolved at 1.8.2
+Building for production...
+[Planning deferred tasks]
+[28 / 47]
+[30 / 49] JPEGLS
+[45 / 154]
+[54 / 154]
+[59 / 154]
+[66 / 154]
+[71 / 154]
+[72 / 154]
+[79 / 154]
+[83 / 154]
+[88 / 154]
+[92 / 154]
+[94 / 154]
+[98 / 154]
+[100 / 154]
+[102 / 154]
+[106 / 154]
+[113 / 154]
+[115 / 154]
+[117 / 154]
+[121 / 154]
+[124 / 154]
+[126 / 154]
+[129 / 154]
+[131 / 154]
+[133 / 154]
+[135 / 154]
+[136 / 154]
+[137 / 154] JPEGLS
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/JLSwift/Package.swift: JPEGLS: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[143 / 154] SwiftJLS
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Package.swift: SwiftJLS: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[150 / 155] Benchmark-product
+error: SwiftCompile normal arm64 failed with a nonzero exit code. Command line:     cd /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work
+    
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/Sources/Benchmark/main.swift:48:46: error: 'MultiComponentImageData' is not a member type of struct 'JPEGLS.JPEGLS'
+ 46 | }
+ 47 | 
+ 48 | func makePredecessorImage() throws -> JPEGLS.MultiComponentImageData {
+    |                                              `- error: 'MultiComponentImageData' is not a member type of struct 'JPEGLS.JPEGLS'
+ 49 |     func plane(_ c: Int) -> [[Int]] { (0..<height).map { y in (0..<width).map { x in inputSample(x, y, c) } } }
+ 50 |     return try components == 1
+
+JPEGLS.JPEGLS:1:15: note: 'JPEGLS' declared here
+1 | public struct JPEGLS {
+  |               `- note: 'JPEGLS' declared here
+2 |     public static let version: String
+3 | }
+
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/Sources/Benchmark/main.swift:54:36: error: type 'JPEGLS' has no member 'JPEGLSInterleaveMode'
+ 52 |         : JPEGLS.MultiComponentImageData.rgb(redPixels: plane(0), greenPixels: plane(1), bluePixels: plane(2), bitsPerSample: bits)
+ 53 | }
+ 54 | guard let predecessorMode = JPEGLS.JPEGLSInterleaveMode(rawValue: UInt8(interleave)) else { throw Failure() }
+    |                                    `- error: type 'JPEGLS' has no member 'JPEGLSInterleaveMode'
+ 55 | func encodePredecessor(_ image: JPEGLS.MultiComponentImageData) async throws -> Data { try JPEGLS.JPEGLSEncoder().encode(image, configuration: .init(near: near, interleaveMode: predecessorMode)) }
+ 56 | func decodePredecessor(_ data: Data, verify: Bool) async throws {
+
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/Sources/Benchmark/main.swift:55:40: error: 'MultiComponentImageData' is not a member type of struct 'JPEGLS.JPEGLS'
+ 53 | }
+ 54 | guard let predecessorMode = JPEGLS.JPEGLSInterleaveMode(rawValue: UInt8(interleave)) else { throw Failure() }
+ 55 | func encodePredecessor(_ image: JPEGLS.MultiComponentImageData) async throws -> Data { try JPEGLS.JPEGLSEncoder().encode(image, configuration: .init(near: near, interleaveMode: predecessorMode)) }
+    |                                        `- error: 'MultiComponentImageData' is not a member type of struct 'JPEGLS.JPEGLS'
+ 56 | func decodePredecessor(_ data: Data, verify: Bool) async throws {
+ 57 |     let image = try JPEGLS.JPEGLSDecoder().decode(data)
+
+JPEGLS.JPEGLS:1:15: note: 'JPEGLS' declared here
+1 | public struct JPEGLS {
+  |               `- note: 'JPEGLS' declared here
+2 |     public static let version: String
+3 | }
+
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/Sources/Benchmark/main.swift:51:18: error: type 'JPEGLS' has no member 'MultiComponentImageData'
+ 49 |     func plane(_ c: Int) -> [[Int]] { (0..<height).map { y in (0..<width).map { x in inputSample(x, y, c) } } }
+ 50 |     return try components == 1
+ 51 |         ? JPEGLS.MultiComponentImageData.grayscale(pixels: plane(0), bitsPerSample: bits)
+    |                  `- error: type 'JPEGLS' has no member 'MultiComponentImageData'
+ 52 |         : JPEGLS.MultiComponentImageData.rgb(redPixels: plane(0), greenPixels: plane(1), bluePixels: plane(2), bitsPerSample: bits)
+ 53 | }
+
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/Sources/Benchmark/main.swift:52:18: error: type 'JPEGLS' has no member 'MultiComponentImageData'
+ 50 |     return try components == 1
+ 51 |         ? JPEGLS.MultiComponentImageData.grayscale(pixels: plane(0), bitsPerSample: bits)
+ 52 |         : JPEGLS.MultiComponentImageData.rgb(redPixels: plane(0), greenPixels: plane(1), bluePixels: plane(2), bitsPerSample: bits)
+    |                  `- error: type 'JPEGLS' has no member 'MultiComponentImageData'
+ 53 | }
+ 54 | guard let predecessorMode = JPEGLS.JPEGLSInterleaveMode(rawValue: UInt8(interleave)) else { throw Failure() }
+
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/Sources/Benchmark/main.swift:55:99: error: type 'JPEGLS' has no member 'JPEGLSEncoder'
+ 53 | }
+ 54 | guard let predecessorMode = JPEGLS.JPEGLSInterleaveMode(rawValue: UInt8(interleave)) else { throw Failure() }
+ 55 | func encodePredecessor(_ image: JPEGLS.MultiComponentImageData) async throws -> Data { try JPEGLS.JPEGLSEncoder().encode(image, configuration: .init(near: near, interleaveMode: predecessorMode)) }
+    |                                                                                                   `- error: type 'JPEGLS' has no member 'JPEGLSEncoder'
+ 56 | func decodePredecessor(_ data: Data, verify: Bool) async throws {
+ 57 |     let image = try JPEGLS.JPEGLSDecoder().decode(data)
+
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/Sources/Benchmark/main.swift:57:28: error: type 'JPEGLS' has no member 'JPEGLSDecoder'
+ 55 | func encodePredecessor(_ image: JPEGLS.MultiComponentImageData) async throws -> Data { try JPEGLS.JPEGLSEncoder().encode(image, configuration: .init(near: near, interleaveMode: predecessorMode)) }
+ 56 | func decodePredecessor(_ data: Data, verify: Bool) async throws {
+ 57 |     let image = try JPEGLS.JPEGLSDecoder().decode(data)
+    |                            `- error: type 'JPEGLS' has no member 'JPEGLSDecoder'
+ 58 |     guard image.frameHeader.bitsPerSample == bits else { throw Failure() }
+ 59 |     if verify {
+Failed frontend command:
+/Library/Developer/CommandLineTools/usr/bin/swift-frontend -frontend -c /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/Sources/Benchmark/main.swift -emit-module-path /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SameProcessDiagnostic.build/Release/Benchmark-p.build/Objects-normal/arm64/Benchmark.swiftmodule -emit-module-doc-path /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SameProcessDiagnostic.build/Release/Benchmark-p.build/Objects-normal/arm64/Benchmark.swiftdoc -emit-module-source-info-path /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SameProcessDiagnostic.build/Release/Benchmark-p.build/Objects-normal/arm64/Benchmark.swiftsourceinfo -emit-dependencies-path /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SameProcessDiagnostic.build/Release/Benchmark-p.build/Objects-normal/arm64/Benchmark-primary.d -emit-const-values-path /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SameProcessDiagnostic.build/Release/Benchmark-p.build/Objects-normal/arm64/Benchmark-primary.swiftconstvalues -serialize-diagnostics-path /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SameProcessDiagnostic.build/Release/Benchmark-p.build/Objects-normal/arm64/Benchmark-primary.dia -emit-abi-descriptor-path /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SameProcessDiagnostic.build/Release/Benchmark-p.build/Objects-normal/arm64/Benchmark.abi.json -target arm64-apple-macos26.0 -disable-cross-import-overlay-search -swift-module-cross-import Darwin /Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk/usr/include/Darwin.swiftcrossimport/xlocale.swiftoverlay -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/libObservationMacros.dylib\#\#ObservationMacros -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#\#SwiftMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SameProcessDiagnostic.build/Release/Benchmark-p.build/Objects-normal/arm64/Benchmark-dependencies-1.json -Xllvm -aarch64-use-tbi -enable-objc-interop -stack-check -sdk /Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk -I /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Products/Release -Isystem /Library/Developer/CommandLineTools/Developer/usr/lib -F /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Products/Release/PackageFrameworks -F /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Products/Release -F /Library/Developer/CommandLineTools/Library/Developer/Frameworks -F /Library/Developer/CommandLineTools/Developer/Library/Frameworks -module-cache-path /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SwiftExplicitPrecompiledModules -no-color-diagnostics -Xcc -fno-color-diagnostics -g -debug-info-format\=dwarf -dwarf-version\=5 -swift-version 6 -O -D SWIFT_PACKAGE -D Xcode -serialize-debugging-options -enable-experimental-feature DebugDescriptionMacro -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work -file-compilation-dir /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work -Xcc -ivfsstatcache -Xcc /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/SDKStatCaches.noindex/macosx27.0-26A425-1aa54e4a50e311dbd51de5aafe7eca3dffd68ff603bdaacc80b00cb8898de72d.sdkstatcache -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -Xcc -I/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Products/Release/include -Xcc -I/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SameProcessDiagnostic.build/Release/Benchmark-p.build/DerivedSources-normal/arm64 -Xcc -I/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SameProcessDiagnostic.build/Release/Benchmark-p.build/DerivedSources/arm64 -Xcc -I/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SameProcessDiagnostic.build/Release/Benchmark-p.build/DerivedSources -Xcc -DSWIFT_PACKAGE -no-auto-bridging-header-chaining -module-name Benchmark -package-name m4_same_process_diagnostic -const-gather-protocols-file /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SameProcessDiagnostic.build/Release/Benchmark-p.build/Objects-normal/arm64/Benchmark_const_extract_protocols.json -disable-clang-spi -clang-target arm64-apple-macos27.0 -target-sdk-version 27.0 -target-sdk-name macosx27.0 -in-process-plugin-server-path /Library/Developer/CommandLineTools/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -enable-default-cmo -num-threads 16 -o /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SameProcessDiagnostic.build/Release/Benchmark-p.build/Objects-normal/arm64/main.o -debug-module-path /Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-same-process-diagnostic/.build/out/Intermediates.noindex/SameProcessDiagnostic.build/Release/Benchmark-p.build/Objects-normal/arm64/Benchmark.swiftmodule -index-unit-output-path /SameProcessDiagnostic.build/Release/Benchmark-p.build/Objects-normal/arm64/main.o
+error: Build failed

@@ -1,0 +1,68 @@
+_$s6JPEGLS16TIFFEncoderErrorOs0C0AAsADP9_userInfoyXlSgvgTW:
+000000010004a5c0	b	0x100048dd8
+_$s6JPEGLS16TIFFDecoderErrorOs0C0AAsADP9_userInfoyXlSgvgTW:
+000000010004a5c4	b	0x100048dd8
+_$s6JPEGLS16TIFFEncoderErrorOs0C0AAsADP19_getEmbeddedNSErroryXlSgyFTW:
+000000010004a5c8	b	0x100048ddc
+_$s6JPEGLS16TIFFDecoderErrorOs0C0AAsADP19_getEmbeddedNSErroryXlSgyFTW:
+000000010004a5cc	b	0x100048ddc
+_$s17AsyncBaselineCoreAAO6encode_13configuration10Foundation4DataV6JPEGLS019MultiComponentImageG0V_AH13JPEGLSEncoderV13ConfigurationVtYaKFZ:
+000000010004a5d0	stp	x0, x1, [x22, #0x10]
+000000010004a5d4	adrp	x0, 0 ; 0x10004a000
+000000010004a5d8	add	x0, x0, #0x5e8
+000000010004a5dc	mov	x1, #0x0
+000000010004a5e0	mov	x2, #0x0
+000000010004a5e4	b	0x10004bb8c ; symbol stub for: _swift_task_switch
+_$s17AsyncBaselineCoreAAO6encode_13configuration10Foundation4DataV6JPEGLS019MultiComponentImageG0V_AH13JPEGLSEncoderV13ConfigurationVtYaKFZTY0_:
+000000010004a5e8	orr	x29, x29, #0x1000000000000000
+000000010004a5ec	sub	sp, sp, #0x30
+000000010004a5f0	str	x21, [sp, #0x10]
+000000010004a5f4	stp	x29, x30, [sp, #0x20]
+000000010004a5f8	str	x22, [sp, #0x18]
+000000010004a5fc	add	x29, sp, #0x20
+000000010004a600	ldp	x0, x1, [x22, #0x10]
+000000010004a604	mov	x21, #0x0
+000000010004a608	bl	_$s6JPEGLS13JPEGLSEncoderV6encode_13configuration10Foundation4DataVAA019MultiComponentImageF0V_AC13ConfigurationVtKF
+000000010004a60c	cbz	x21, 0x10004a62c
+000000010004a610	ldr	x0, [x22, #0x8]
+000000010004a614	mov	x20, x21
+000000010004a618	ldp	x29, x30, [sp, #0x20]
+000000010004a61c	ldr	x21, [sp, #0x10]
+000000010004a620	and	x29, x29, #0xefffffffffffffff
+000000010004a624	add	sp, sp, #0x30
+000000010004a628	br	x0
+000000010004a62c	ldr	x2, [x22, #0x8]
+000000010004a630	mov	x20, #0x0
+000000010004a634	ldp	x29, x30, [sp, #0x20]
+000000010004a638	ldr	x21, [sp, #0x10]
+000000010004a63c	and	x29, x29, #0xefffffffffffffff
+000000010004a640	add	sp, sp, #0x30
+000000010004a644	br	x2
+_$s17AsyncBaselineCoreAAO6decodey6JPEGLS23MultiComponentImageDataV10Foundation0I0VYaKFZ:
+000000010004a648	stp	x1, x2, [x22, #0x48]
+000000010004a64c	str	x0, [x22, #0x40]
+000000010004a650	adrp	x0, 0 ; 0x10004a000
+000000010004a654	add	x0, x0, #0x664
+000000010004a658	mov	x1, #0x0
+000000010004a65c	mov	x2, #0x0
+000000010004a660	b	0x10004bb8c ; symbol stub for: _swift_task_switch
+_$s17AsyncBaselineCoreAAO6decodey6JPEGLS23MultiComponentImageDataV10Foundation0I0VYaKFZTY0_:
+000000010004a664	orr	x29, x29, #0x1000000000000000
+000000010004a668	sub	sp, sp, #0x30
+000000010004a66c	str	x21, [sp, #0x10]
+000000010004a670	stp	x29, x30, [sp, #0x20]
+000000010004a674	str	x22, [sp, #0x18]
+000000010004a678	add	x29, sp, #0x20
+000000010004a67c	ldp	x0, x1, [x22, #0x48]
+000000010004a680	add	x8, x22, #0x10
+000000010004a684	mov	x21, #0x0
+000000010004a688	bl	_$s6JPEGLS13JPEGLSDecoderV6decodeyAA23MultiComponentImageDataV10Foundation0G0VKF
+000000010004a68c	cbz	x21, 0x10004a69c
+000000010004a690	ldr	x0, [x22, #0x8]
+000000010004a694	mov	x20, x21
+000000010004a698	b	0x10004a6b8
+000000010004a69c	ldr	x8, [x22, #0x40]
+000000010004a6a0	ldp	q0, q1, [x22, #0x10]
+000000010004a6a4	ldur	q2, [x22, #0x30]
+000000010004a6a8	stp	q1, q2, [x8, #0x10]
+000000010004a6ac	str	q0, [x8]

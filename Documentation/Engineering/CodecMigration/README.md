@@ -2,6 +2,8 @@
 
 Current milestone status and known gaps are in [the completion audit](Completion.md). Current feature and compatibility status is in [Predecessor parity](Parity.md), and current executed/outstanding gates are in [Validation](Validation.md). The sections below preserve the sequence of implementation checkpoints; older pending/unsupported statements are historical.
 
+The [14 October Milestone 4 follow-up](Milestone4Followup.md) records the current source, performance changes, controlled representative comparison, per-operation heap/stack measurements and platform qualification. Its [hashed evidence manifest](results/milestone4-followup-2026-10-14.json) keeps intermediate and final-source results separate. Milestone 5 remains deferred.
+
 The 12 October follow-up closes DICOM padding and inactive-DRI compatibility, adds concurrent resource qualification and records the user-requested physical Watch exclusion. The 13 October clarification records that the user has no physical devices available; hardware admission remains unexecuted. Use the current links above for remaining gates; the entries below are historical.
 
 ## Historical checkpoints — 10 October 2026
@@ -113,3 +115,5 @@ Hosted run 38038658214 at `91ad84c2dee377c4075c3b81aa3b5b3f0a1e0add` passed all 
 The final CLI payload run passed 53 checks, adding inspect/validate/rejected-NRRD-output checks for all three HP transforms at both precisions. Colour decode remains unavailable in the greyscale-only NRRD CLI profile; rejection produces no binary output. Exact commands and results are in `results/latest-cli-*.json`.
 
 The component checkpoint's one-hour AddressSanitizer campaign finished successfully in run 38035778098: 7,952,132 owned-decode calls; 2,842,133 decode-into calls among 8,310,588 mutations; and 5,134,941 inspections. All three jobs exited zero, without a reported finding or heartbeat timeout. Each used the 749-seed corpus at `9ca35c5`; `results/fuzz-components-hour.json` records exact duration/count/RSS data. This closes duration for that pre-HP checkpoint only. The standard/legacy HP campaign at `7a3b223` remains run 38038598071. Hosted follow-up 38039010932 at `9a0a098` also passed all 14 jobs with the stronger ten-sample-array allocator predicate.
+
+The latest [Milestone 4 follow-up](Milestone4.md) records component sample-access improvements, current-source OS 26.0 simulator tests and [powered representative performance](PoweredPerformance.md). The [evidence manifest](results/milestone4-powered-2026-10-13.json) retains exact source and measurement scopes. Milestone 4 remains incomplete; Milestone 5 is deferred.

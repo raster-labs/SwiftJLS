@@ -1,0 +1,93 @@
+[
+  {
+    "command": [
+      "python3",
+      "work/m4-final-2026-10-14/apple-build-value.py"
+    ],
+    "label": "apple-build-value",
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "python3",
+      "work/m4-final-2026-10-14/apple-runtime-value.py",
+      "26.0"
+    ],
+    "label": "apple-runtime-value",
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "python3",
+      "work/m4-final-2026-10-14/apple-resource-value.py"
+    ],
+    "label": "apple-resource-value",
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "swift",
+      "build",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "Examples/AppleRuntimeConsumer"
+    ],
+    "label": "native-AppleRuntimeConsumer-value",
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "swift",
+      "build",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "Examples/ResourceStress"
+    ],
+    "label": "native-ResourceStress-value",
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "swift",
+      "build",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "work/m4-benchmark/successor"
+    ],
+    "label": "benchmark-value",
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "python3",
+      "Scripts/test-payload-cli.py",
+      "--binary",
+      "work/m4-2026-10-14/run-tests-value/release/out/Products/Release/swiftjls-cli",
+      "--output",
+      "work/m4-final-2026-10-14/cli-payload-value.json"
+    ],
+    "label": "cli-payload-value",
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "python3",
+      "Scripts/test-cli.py",
+      "--binary",
+      "work/m4-2026-10-14/run-tests-value/release/out/Products/Release/swiftjls-cli",
+      "--output",
+      "work/m4-final-2026-10-14/cli-process-value"
+    ],
+    "label": "cli-process-value",
+    "exit_code": 0
+  }
+]

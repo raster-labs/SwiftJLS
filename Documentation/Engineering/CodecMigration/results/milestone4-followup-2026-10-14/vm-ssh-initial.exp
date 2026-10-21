@@ -1,0 +1,13 @@
+#!/usr/bin/expect -f
+set timeout 600
+set vmip [lindex $argv 0]
+set known [lindex $argv 1]
+set command [lindex $argv 2]
+spawn ssh -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=$known -o ConnectTimeout=15 -o PubkeyAuthentication=no admin@$vmip $command
+expect {
+    -re "(?i)password:" {send -- "admin\r"; exp_continue}
+    timeout {exit 124}
+    eof {}
+}
+set result [wait]
+exit [lindex $result 3]

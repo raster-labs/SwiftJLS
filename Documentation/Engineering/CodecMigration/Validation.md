@@ -1,8 +1,32 @@
-# Predecessor migration validation — updated 13 October 2026
+# Predecessor migration validation — updated 14 October 2026
 
-The native codec, mapping tables and metadata are implemented in the owning SwiftJLS API. [PR 14](https://github.com/raster-labs/SwiftJLS/pull/14) merged on 12 October as `f481f6031279b8ca5c51f559df33cc66a9e4e06b`. [The completion audit](Completion.md) records closure of the inactive-DRI compatibility gap and the qualification gates still outstanding. Stable-release qualification remains open for controlled performance and target-device memory measurements. This record does not authorise release, tagging, merging, predecessor archival or consumer cutover.
+The native codec, mapping tables and metadata are implemented in the owning SwiftJLS API. [PR 14](https://github.com/raster-labs/SwiftJLS/pull/14) merged on 12 October as `f481f6031279b8ca5c51f559df33cc66a9e4e06b`. [The completion audit](Completion.md) records the current milestone status. Current-source host, native macOS 26.0 and exact OS 26.0 simulator validation pass; the powered 63-case campaign is complete with unresolved decode regressions; all physical-device tests and Milestone 5 remain pending by owner direction. The owner verifies CI and merges the pushed branch in GitHub. Release, tagging, predecessor archival and consumer cutover remain outside this task.
 
-## Current qualification follow-up — 12 October
+## Current Milestone 4 qualification — 14 October
+
+Production checkpoint `c330b731e250d6b4c054c1c6a91fa9894e32a8c3` is pushed and passes 108 declarations in 20 suites separately in debug, release, AddressSanitizer and ThreadSanitizer on both the host and native arm64 macOS 26.0 (25A354) guest. The guest also passes 73 payload/103 process CLI checks, the independent consumer and resource workload. All five exact OS 26.0 simulator consumers, four resource profiles and SDK builds pass. The guest uses Apple hardware virtualisation; it is native-architecture runtime evidence, not physical-device execution. The powered 63-case campaign is complete; remaining decode regressions keep performance qualification open. No earlier platform or performance result is relabelled as a pass for this source. Results are recorded in [the closeout](Milestone4Closeout.md) and [final evidence](results/milestone4-final-2026-10-14.json).
+
+The final changes avoid three descriptor-container costs (singleton component uniqueness storage, temporary sampling arrays and a single-plane overlap array) while retaining mapped-component validation and checked arithmetic. Row-entry admission covers the first lossless run scan and a column-zero decode run of at most 256 samples; later scans and long-run post-parse checks remain. Regression tests observe the exact read/write boundaries and cancellation. Workspace measurement scope remains explicit in [WorkspaceAccounting.md](WorkspaceAccounting.md).
+
+## Intermediate Milestone 4 qualification — 14 October
+
+Production checkpoint `940da40b867cd14f7888492162c13e237609d991` passes 103 declarations in 18 suites separately in debug, release, AddressSanitizer and ThreadSanitizer on the host and native arm64 macOS 26.0 (25A354) guest. Exact OS 26.0 simulator consumers, resource workloads and SDK builds also pass. The native guest additionally passes the independent consumer, 32-frame resource workload, 73 payload CLI checks and 103 process/help/manual/install checks. Two guest packaging failures remain diagnostic evidence; the fresh payload and restarted guest run passed. The VM was stopped before performance measurements.
+
+At the later `c330b73` checkpoint, the powered 63-case campaign is complete, with five decode outliers still requiring disposition. The separate tiny repeats retain additional latency outliers. See [the implementation closeout](Milestone4Closeout.md) and [final evidence record](results/milestone4-final-2026-10-14.json); no performance pass is claimed. [Workspace accounting](WorkspaceAccounting.md) completes source bounds and attribution of the refreshed 89-operation requested-heap matrix. It separates algorithm state, compressed data, pixels, descriptors/control and runtime allocations. This is complete within its stated scope; a universal heap-plus-stack-plus-allocator peak remains unknown, so production `peakWorkspaceBytes` stays `nil`. Earlier measurements below retain their original revisions.
+
+## Earlier Milestone 4 follow-up — 14 October
+
+Earlier production checkpoint `8389b29003a187b6c54c9d1cad463758f531ca24` adds bounded component run operations, reads lossless predictors from the source and passes the bit writer by mutable value through encoding kernels. All 84 declarations pass in debug/release/ASan/TSan, and 73 payload plus 103 process CLI checks pass. Five exact OS 26.0 simulator consumers and four non-Watch 32-frame resource workloads pass on this source. All 22 hosted checks and three one-hour ASan mutation campaigns pass. Native arm64 macOS 26.0 (25A354) also passes all four 84-declaration configurations, both CLI suites, the independent consumer and the 32-frame resource workload. Per-operation heap and stack measurements have run on GitHub. See [the current follow-up](Milestone4Followup.md) and [hashed evidence](results/milestone4-followup-2026-10-14.json) for final benchmark, mutation and native-minimum results and limitations. Historical results below retain their own source revisions.
+
+## Earlier Milestone 4 follow-up — 13 October
+
+PR 15 merged as `571fd7c905f7ef70b4f494513ecf979d620bebd5`. The 13 October checkpoint `36fb97e0a654c0d18802b666df2b07d24cb0637a` improves component validation and packed-row addressing, adds two regression declarations and extends the benchmark with measured preparation and validated case selection. Public API, fixtures, common contracts, manifest and production resource defaults are unchanged.
+
+All 82 declarations pass separately in debug/release/ASan/TSan; 73 payload and 103 process CLI checks, the independent consumer, 17 runner controls and all 17 hosted checks pass. Five exact OS 26.0 simulator consumers and four non-Watch 32-frame concurrent resource workloads pass on this source. Powered benchmarks now cover 24 scalar and 39 owner-selected representative RGB cases. Fresh owned/into/inspect ASan mutation campaigns each pass at least one hour using all 981 seeds, with zero exit status and empty sanitizer stderr. See [Milestone4.md](Milestone4.md), [powered performance](PoweredPerformance.md) and [current evidence](results/milestone4-powered-2026-10-13.json) for hashes, commands, measurements and limitations.
+
+Measured performance regressions, complete per-operation workspace and physical-device admission remain open. Native macOS 26.0 is not established by this local host. Milestone 5 is deferred. The sections below retain earlier revision-specific results; their 80-test counts and battery conditions do not describe the new run.
+
+## Recorded qualification follow-up — 12 October
 
 Runtime `4008f213cc749514300de55dfc17b389fbd3b561` accepts inactive interleaved DRI without changing active-restart restrictions, resource ceilings or ownership. Later commits add tests, measurement tooling and documentation; production sources, package manifest, mutation harness and fixture bytes remain identical to that runtime checkpoint.
 
@@ -23,7 +47,7 @@ Commands: the four `swift test` modes and bundled TestingMacros flag are the sam
 
 ## Earlier 12 October checkpoint — DICOM padding
 
-[PR 15](https://github.com/raster-labs/SwiftJLS/pull/15) remains unmerged. Runtime checkpoint `3f16daf61f88bc136b6db478fd13abac234af4f5` permits the predecessor fix branch’s single DICOM padding byte while retaining all size and complete-stream checks. The documentation audit changes no source, tests, scripts, fixtures or manifest relative to that checkpoint.
+At this earlier checkpoint, [PR 15](https://github.com/raster-labs/SwiftJLS/pull/15) was unmerged (it merged on 13 October). Runtime checkpoint `3f16daf61f88bc136b6db478fd13abac234af4f5` permits the predecessor fix branch’s single DICOM padding byte while retaining all size and complete-stream checks. The documentation audit changes no source, tests, scripts, fixtures or manifest relative to that checkpoint.
 
 - Debug, release, AddressSanitizer and ThreadSanitizer: 77 declarations in nine suites pass in each; 73 CLI payload checks and the independent consumer pass.
 - Eighteen bounded-decoding comparisons match unchanged JLSwift fix revision `e4594319b83a79189a3e349ab282e2872b7ebd7a`. Different Int/UInt16 sample sizes are reflected in the byte-limit tests.

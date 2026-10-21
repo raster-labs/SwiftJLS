@@ -1,0 +1,35 @@
+name: Per-operation workspace evidence
+on:
+  push:
+    paths:
+      - 'Sources/**'
+      - 'Examples/WorkspaceProbe/**'
+      - 'Scripts/StorageEvidence/measure-operation.py'
+      - 'Scripts/StorageEvidence/run-workspace-profiles.py'
+      - '.github/workflows/workspace.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  allocations:
+    runs-on: ubuntu-24.04
+    container: swift:6.4-noble
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Build marked ordinary-release consumer
+        run: |
+          apt-get update && apt-get install -y --no-install-recommends heaptrack python3
+          swift build -c release -Xswiftc -g --package-path Examples/WorkspaceProbe
+          python3 Scripts/StorageEvidence/measure-operation.py --self-test
+      - name: Measure individual public operations
+        run: |
+          mkdir -p /tmp/workspace-evidence
+          python3 Scripts/StorageEvidence/run-workspace-profiles.py --binary Examples/WorkspaceProbe/.build/release/WorkspaceProbe --output /tmp/workspace-evidence --revision "$GITHUB_SHA"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: per-operation-workspace
+          path: /tmp/workspace-evidence

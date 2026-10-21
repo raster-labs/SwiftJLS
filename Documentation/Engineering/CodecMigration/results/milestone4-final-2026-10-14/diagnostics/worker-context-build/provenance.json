@@ -1,0 +1,51 @@
+{
+  "canonical_consumer": "Scripts/Benchmark/Consumer.swift",
+  "canonical_consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+  "derived_consumer_sha256": "1fde09d18539204ddf896cd47a70283b8072f379870748b9a0d22582d94af6ad",
+  "successor_commit": "940da40b867cd14f7888492162c13e237609d991",
+  "successor_sources_tree": "13f5c49e5fc27e01d46c765f88b050e6c73eccfc",
+  "successor_uncommitted_source_patch_sha256": "5e719f3cea59bfb76032b9ed2f5e56ed35d2a8d80438204041fc1b1146c38e25",
+  "predecessor_commit": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "scope": "Build-only diagnostic; identical derived consumer in both packages; no timings collected",
+  "builds": [
+    {
+      "label": "predecessor",
+      "command": [
+        "swift",
+        "build",
+        "-c",
+        "release",
+        "--jobs",
+        "4",
+        "--package-path",
+        "work/m4-worker-diagnostic/predecessor"
+      ],
+      "developer_dir": "/Library/Developer/CommandLineTools",
+      "exit_code": 0,
+      "consumer_sha256": "1fde09d18539204ddf896cd47a70283b8072f379870748b9a0d22582d94af6ad",
+      "binary": "work/m4-worker-diagnostic/predecessor/.build/release/Benchmark",
+      "binary_sha256": "55ab24863fd2aa72da408f0b8da17d55285ba070fcd2fff31a4decd4165e7e1b"
+    },
+    {
+      "label": "successor",
+      "command": [
+        "swift",
+        "build",
+        "-c",
+        "release",
+        "--jobs",
+        "4",
+        "--package-path",
+        "work/m4-worker-diagnostic/successor"
+      ],
+      "developer_dir": "/Library/Developer/CommandLineTools",
+      "exit_code": 0,
+      "consumer_sha256": "1fde09d18539204ddf896cd47a70283b8072f379870748b9a0d22582d94af6ad",
+      "binary": "work/m4-worker-diagnostic/successor/.build/release/Benchmark",
+      "binary_sha256": "ac6fdae8341f630b88e13150199011e99774e67f726e820afd24cc05042f3cd9"
+    }
+  ],
+  "toolchain": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+  "sdk_path": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+  "successor_source_patch_sha256_after_build": "5e719f3cea59bfb76032b9ed2f5e56ed35d2a8d80438204041fc1b1146c38e25"
+}

@@ -1,0 +1,40 @@
+{
+  "power": {
+    "command": [
+      "pmset",
+      "-g",
+      "batt"
+    ],
+    "exit_code": 0,
+    "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23396451)\t85%; charging; 0:48 remaining present: true\n",
+    "stderr": ""
+  },
+  "thermal": {
+    "command": [
+      "pmset",
+      "-g",
+      "therm"
+    ],
+    "exit_code": 0,
+    "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+    "stderr": ""
+  },
+  "load": {
+    "command": [
+      "sysctl",
+      "-n",
+      "vm.loadavg"
+    ],
+    "exit_code": 0,
+    "stdout": "{ 4.24 10.75 9.47 }\n",
+    "stderr": ""
+  },
+  "vm": {
+    "command": [
+      "vm_stat"
+    ],
+    "exit_code": 0,
+    "stdout": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   300045.\nPages active:                                 679931.\nPages inactive:                               671063.\nPages speculative:                              8070.\nPages throttled:                                   0.\nPages wired down:                             333903.\nPages purgeable:                               30416.\n\"Translation faults\":                     3569541268.\nPages copy-on-write:                       436560253.\nPages zero filled:                        4052297143.\nPages reactivated:                          19284980.\nPages purged:                               47020851.\nFile-backed pages:                            560600.\nAnonymous pages:                              798464.\nPages stored in compressor:                  2759161.\nPages occupied by compressor:                2142964.\nDecompressions:                             24558626.\nCompressions:                               32354510.\nPageins:                                    34715653.\nPageouts:                                       9285.\nSwapins:                                     3225564.\nSwapouts:                                    3951893.\n",
+    "stderr": ""
+  }
+}

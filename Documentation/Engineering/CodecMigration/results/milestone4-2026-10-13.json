@@ -1,0 +1,431 @@
+{
+  "date": "2026-10-13",
+  "starting_main": "571fd7c905f7ef70b4f494513ecf979d620bebd5",
+  "measurement_source_commit": "1f545847dfecfc3ffa298d0fe8455637f6ca89a9",
+  "predecessor": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "suite_policy": "0.10.0",
+  "version": "1.1.0-dev.2",
+  "unchanged_paths": [
+    "Sources",
+    "Tests",
+    "Package.swift",
+    "VERSION",
+    "Documentation/COMMON_CONTRACT_SHA256.txt"
+  ],
+  "production_source_tree": "7f5599479a4bcc33683be61e119f33014185607a",
+  "test_tree": "f1f0add054822ba21f93762ec813f8a793e39b9d",
+  "checks": [
+    {
+      "label": "debug",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "work/m4-runs/debug",
+        "--disable-xctest",
+        "--xunit-output",
+        "work/m4-runs/debug.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+      ],
+      "exit_code": 0,
+      "seconds": 26.209918334,
+      "declarations": 80,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "label": "release",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "work/m4-runs/release",
+        "--disable-xctest",
+        "--xunit-output",
+        "work/m4-runs/release.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+        "-c",
+        "release"
+      ],
+      "exit_code": 0,
+      "seconds": 32.300921540999994,
+      "declarations": 80,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "label": "asan",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "work/m4-runs/asan",
+        "--disable-xctest",
+        "--xunit-output",
+        "work/m4-runs/asan.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+        "--sanitize",
+        "address"
+      ],
+      "exit_code": 0,
+      "seconds": 46.967983,
+      "declarations": 80,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "label": "tsan",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "work/m4-runs/tsan",
+        "--disable-xctest",
+        "--xunit-output",
+        "work/m4-runs/tsan.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+        "--sanitize",
+        "thread"
+      ],
+      "exit_code": 0,
+      "seconds": 44.05113333300001,
+      "declarations": 80,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "label": "payload-cli",
+      "command": [
+        "python3",
+        "Scripts/test-payload-cli.py",
+        "--binary",
+        "work/m4-runs/release/out/Products/Release/swiftjls-cli",
+        "--output",
+        "work/m4-runs/payload-cli.json"
+      ],
+      "exit_code": 0,
+      "checks": 73
+    },
+    {
+      "label": "cli",
+      "command": [
+        "python3",
+        "Scripts/test-cli.py",
+        "--binary",
+        "work/m4-runs/release/out/Products/Release/swiftjls-cli",
+        "--output",
+        "work/m4-runs/cli"
+      ],
+      "exit_code": 0,
+      "checks": 103
+    },
+    {
+      "label": "IndependentConsumer",
+      "command": [
+        "swift",
+        "run",
+        "--build-system",
+        "swiftbuild",
+        "-c",
+        "release",
+        "--jobs",
+        "4",
+        "--package-path",
+        "Examples/IndependentConsumer"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "ResourceStress",
+      "command": [
+        "swift",
+        "run",
+        "--build-system",
+        "swiftbuild",
+        "-c",
+        "release",
+        "--jobs",
+        "4",
+        "--package-path",
+        "Examples/ResourceStress"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "benchmark": {
+    "scope": "Harness correctness only; battery power, concurrent validation and no controlled thermal/load conditions",
+    "scalar_profiles": 6,
+    "colour_profiles": 36,
+    "paired_blocks_per_profile": 4,
+    "observations_per_operation_per_producer": 20,
+    "performance_qualified": false
+  },
+  "apple": {
+    "compiler": "Xcode 27.0 (27A266a), Swift 6.4",
+    "sdk": "27.0",
+    "deployment_target": "26.0",
+    "simulator_consumer_builds": [
+      "iOS",
+      "tvOS",
+      "visionOS",
+      "watchOS"
+    ],
+    "watch_arm64_32_module_build": "passed",
+    "runtime_status": "Awaiting simulator installation; no local runtime pass recorded yet",
+    "physical_devices": "devicectl reports no devices"
+  },
+  "initial_failures": [
+    {
+      "command": "DEVELOPER_DIR=/Library/Developer/CommandLineTools python3 Scripts/validate-swift64.py --checks debug,release,consumer,asan,tsan --output work/m4-validation --jobs 4",
+      "exit_code": 1,
+      "reason": "TestingMacros plugin not loaded during debug discovery"
+    },
+    {
+      "command": "swift test --build-system native --jobs 4 --scratch-path work/m4-native-debug --disable-xctest --xunit-output work/m4-native-debug.xml",
+      "exit_code": 1,
+      "reason": "Testing module unavailable to the native backend"
+    },
+    {
+      "command": "xcrun xctrace record --template Allocations --output work/m4-allocations.trace --time-limit 20s --launch -- work/m4-benchmark/successor/.build/release/Benchmark 512 512 12 noise 0 1 successor",
+      "exit_code": 2,
+      "reason": "Failed to attach to target process; no allocation measurements obtained"
+    },
+    {
+      "url": "https://github.com/raster-labs/SwiftJLS/actions/runs/38358620457",
+      "reason": "Consumer/check-out package identity collision; corrected in 1f54584"
+    }
+  ],
+  "source_sha256": {
+    "Scripts/Benchmark/Consumer.swift": "862798204bb8de94f3642a9ac11efb1421aa68cf49bfe39ef10e68cf219f065d",
+    "Scripts/Benchmark/compare.py": "d7f3751e5a7fec9596ac4bb821f753f0d2b01b8cdffc6df7f5b5d7aaa665421d",
+    "Scripts/Benchmark/test-runner.py": "36170b9c113534659e2d2b5b4d23012062543aeb54dec974459d33bebdfdb1f8",
+    ".github/workflows/benchmark-smoke.yml": "ff6014d9a99ab169dad4684badde2504a02da15945f4a9eb7a87a76463dc0980"
+  },
+  "artifacts": {
+    "debug.xml": {
+      "sha256": "f1f99ac11893698d4228eaebf3645818cd7923b4ed8c83f18b8d449d3dcb01c1",
+      "bytes": 10569
+    },
+    "debug.log.gz": {
+      "sha256": "a213ab3d3a90b64725197dc4cbb959d343b26e937c826d11a62eb64c1877b093",
+      "bytes": 3582
+    },
+    "release.xml": {
+      "sha256": "9da1a3085adc7caa3245da4093b503cd0dfa53af4db1006c23bf75476215bffd",
+      "bytes": 10566
+    },
+    "release.log.gz": {
+      "sha256": "92560bf9e3ba937b436258ad2920976607e0da5a3d1162021e8936e34f870cbf",
+      "bytes": 3482
+    },
+    "asan.xml": {
+      "sha256": "9c91e81bcf618d0a2fa34789340fd5ca7cfa4c0f488b78044dfbbf58a6e4fd8d",
+      "bytes": 10597
+    },
+    "asan.log.gz": {
+      "sha256": "4931a0a12a33eda1f1d7f566a1edde40e905a090969e1f1fbd23772346071a09",
+      "bytes": 3754
+    },
+    "tsan.xml": {
+      "sha256": "9c59e1deb7dee2236bde40ca7d56ec4ec0098bd79a541120db01221e0e39fdb0",
+      "bytes": 10585
+    },
+    "tsan.log.gz": {
+      "sha256": "08aac8621f773813240f944c55074f405bc5ac18b03d82a405a9ec9abe3b3019",
+      "bytes": 3649
+    },
+    "independent-consumer.log.gz": {
+      "sha256": "3860fd9d38636ece609fcb7644d1b91119c7bf5d1e0848a78eb372565ca4f445",
+      "bytes": 434
+    },
+    "resource-stress.log.gz": {
+      "sha256": "0fd547fcf2f94e3ce77c4ffe771b7160a43d472e6c67dc021f675f2992ba948d",
+      "bytes": 486
+    },
+    "payload-cli.json": {
+      "sha256": "3447e1a1379e95bd6547baf420778fdfba788555475bd0012e98c47dd7585c8b",
+      "bytes": 9923
+    },
+    "environment-xcode.json": {
+      "sha256": "968274412f2608ded0fd9c2e30d2b32ffae1f5a0058914b65fb97f64a671d456",
+      "bytes": 1548
+    },
+    "cli-report.json": {
+      "sha256": "51e9b5930e2e811b694bcab0a8a2f3f488913589be05398ed816bf0c9023371a",
+      "bytes": 81023
+    },
+    "initial-testing-plugin-failure.log.gz": {
+      "sha256": "90875197e49fa63c4252faaaa22b102e9e0ee69211c2e001b7a845fa76b67c66",
+      "bytes": 5867
+    },
+    "native-testing-module-failure.log.gz": {
+      "sha256": "237d8e3cdd280a041b9bf4f470354ad53608a9f5d437b9601efe31e8e0299cba",
+      "bytes": 1164
+    },
+    "runner-controls.json": {
+      "sha256": "575848c2a8a79846d5928373769493f4562bb5bf975e57291f18d4096a586a56",
+      "bytes": 314
+    },
+    "ci-identity-failure.log.gz": {
+      "sha256": "39072e5f9d03ceeba97142451eb1e9e288b8be1842b8c4fc0acae6353207d92d",
+      "bytes": 2899
+    },
+    "predecessor-final-build.log.gz": {
+      "sha256": "c981dbfcdaca2ec818ae3f0d45bbaa831022c877e32d2c8d433b1dc9d51f4b10",
+      "bytes": 391
+    },
+    "successor-final-build.log.gz": {
+      "sha256": "14d893394e55c30f33065bf4040b2b273ca5f57924463102044585fe573f9419",
+      "bytes": 351
+    },
+    "final-scalar-environment.json": {
+      "sha256": "ecce4fb071b0d16e974497cb04c60059302edde0cf3aa67b82ecce26b9d1270b",
+      "bytes": 2532
+    },
+    "final-scalar-summary.json": {
+      "sha256": "2861da3d37e4d024df96ddc3d6cde7d5f6835bb36fa2396d76e3e7c67031c83f",
+      "bytes": 17391
+    },
+    "final-scalar-raw.jsonl.gz": {
+      "sha256": "f87947d648705576663c7bb29b3a5bb44de2be995b307f0859095955bd9fae1e",
+      "bytes": 8981
+    },
+    "final-scalar-power-end.json": {
+      "sha256": "48745a2b99f15b9075e8027f657108950fc4dcc0c42ec011d66a6f3307665153",
+      "bytes": 208
+    },
+    "final-scalar-thermal-end.json": {
+      "sha256": "75aac99887370d356019a5093c99823844411c6952d731d329e52c21065f4105",
+      "bytes": 241
+    },
+    "final-scalar-load-end.json": {
+      "sha256": "f05c441fdcb1fe1f26c979a17558eef8d13befe7c76e322f24ad6126faecb38b",
+      "bytes": 118
+    },
+    "final-colour-environment.json": {
+      "sha256": "cfa38020ab104eae16590df149d8ca2d29cb23f00e0cef63c0e6eebc0bc9806e",
+      "bytes": 2553
+    },
+    "final-colour-summary.json": {
+      "sha256": "bd502ff333144c9fe2a5300b5fd2624bf6227f65f81b8e383ac4202b3978c12e",
+      "bytes": 104216
+    },
+    "final-colour-raw.jsonl.gz": {
+      "sha256": "f8eaf9d86abe21f21ac68b3124e5fa40f91b4e6551716048bc6da207fe608918",
+      "bytes": 52872
+    },
+    "final-colour-power-end.json": {
+      "sha256": "48745a2b99f15b9075e8027f657108950fc4dcc0c42ec011d66a6f3307665153",
+      "bytes": 208
+    },
+    "final-colour-thermal-end.json": {
+      "sha256": "75aac99887370d356019a5093c99823844411c6952d731d329e52c21065f4105",
+      "bytes": 241
+    },
+    "final-colour-load-end.json": {
+      "sha256": "f05c441fdcb1fe1f26c979a17558eef8d13befe7c76e322f24ad6126faecb38b",
+      "bytes": 118
+    },
+    "apple-build-results.json": {
+      "sha256": "d723fc04a6b28d83fae0092e5e34d6c0556b6b762033d6ac1133d41c411c25e3",
+      "bytes": 27030
+    },
+    "apple-watch32.log.gz": {
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "bytes": 20
+    },
+    "apple-appletvsimulator-library.log.gz": {
+      "sha256": "2d61e1fe9661fec25ca120c99ec8ff665c83bf4a6ed0e4bc17b7dacecedb0423",
+      "bytes": 127
+    },
+    "apple-appletvsimulator-sign-consumer.log.gz": {
+      "sha256": "5402ba59f7d01b2856e72f5795356bd084c53997407337afc0b76d483890f25f",
+      "bytes": 143
+    },
+    "apple-appletvsimulator-consumer.log.gz": {
+      "sha256": "2d61e1fe9661fec25ca120c99ec8ff665c83bf4a6ed0e4bc17b7dacecedb0423",
+      "bytes": 127
+    },
+    "apple-appletvsimulator-sign-library.log.gz": {
+      "sha256": "31a13f22bd569bb07bad75c5761e998b92966ec83bf8ef8d0f0299faaaca6d4f",
+      "bytes": 137
+    },
+    "apple-watchsimulator-library.log.gz": {
+      "sha256": "20445f9722bcfa57cdd6cb837eea496feac894a7cccf887112df0bc0c6d65168",
+      "bytes": 129
+    },
+    "apple-watchsimulator-sign-consumer.log.gz": {
+      "sha256": "3164cc90a3dcbed7a5fa1589055dd9aef3b1b68ed64000447016a0a6d02057f5",
+      "bytes": 143
+    },
+    "apple-watchsimulator-consumer.log.gz": {
+      "sha256": "20445f9722bcfa57cdd6cb837eea496feac894a7cccf887112df0bc0c6d65168",
+      "bytes": 129
+    },
+    "apple-watchsimulator-sign-library.log.gz": {
+      "sha256": "05b49dfb7493beb2735cf11ea2c884154e4e6bbdbf2cbcf42ccf914b55471ecd",
+      "bytes": 137
+    },
+    "apple-iphonesimulator-library.log.gz": {
+      "sha256": "5273ef021432dd2a96f379fcfef7719c1d1af24e8c67cfb3853e5eb51e7436d2",
+      "bytes": 126
+    },
+    "apple-iphonesimulator-sign-consumer.log.gz": {
+      "sha256": "2e9153e205237be73061f2b6b795c94efb6b104eda6840597180ae1b7cff3294",
+      "bytes": 142
+    },
+    "apple-iphonesimulator-consumer.log.gz": {
+      "sha256": "5273ef021432dd2a96f379fcfef7719c1d1af24e8c67cfb3853e5eb51e7436d2",
+      "bytes": 126
+    },
+    "apple-iphonesimulator-sign-library.log.gz": {
+      "sha256": "7dc3ed5e8644dfe26ed9a53beac29364509b931678b6af3a120051f25921b174",
+      "bytes": 138
+    },
+    "apple-xrsimulator-library.log.gz": {
+      "sha256": "30cff3995063feebd016677fe5fb8e846a537897d5150b54315f124e7c5ee360",
+      "bytes": 127
+    },
+    "apple-xrsimulator-sign-consumer.log.gz": {
+      "sha256": "fbe4bfc39110dbbd992cbbaf08f3b61b0b99ab75b2dafbb330838e50654871bf",
+      "bytes": 140
+    },
+    "apple-xrsimulator-consumer.log.gz": {
+      "sha256": "30cff3995063feebd016677fe5fb8e846a537897d5150b54315f124e7c5ee360",
+      "bytes": 127
+    },
+    "apple-xrsimulator-sign-library.log.gz": {
+      "sha256": "ede31a9f37fa1d29f83868af4bf2a3dfc05b9b829eaf9492767ad1c040056182",
+      "bytes": 136
+    }
+  },
+  "status": "Milestone 4 incomplete; Milestone 5 deferred"
+}

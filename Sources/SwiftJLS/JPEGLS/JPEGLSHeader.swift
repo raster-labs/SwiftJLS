@@ -1,14 +1,21 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2026 Raster Images Private Limited
 import Foundation
+import Dispatch
 
 /// Operation-local, monotonic admission and cancellation budget. No shared state.
 struct CodecBudget {
     let limits: ResourceLimits
-    let started = ProcessInfo.processInfo.systemUptime
+    // Compare elapsed seconds without converting a potentially huge finite
+    // deadline to an integer. Dispatch uses the monotonic uptime clock without
+    // the Foundation object lookup at every bounded kernel checkpoint.
+    private let started = DispatchTime.now().uptimeNanoseconds
+    var elapsedSeconds: Double {
+        Double(DispatchTime.now().uptimeNanoseconds - started) / 1_000_000_000
+    }
     func check() throws {
         try Task.checkCancellation()
-        guard ProcessInfo.processInfo.systemUptime - started < limits.deadlineSeconds else {
+        guard elapsedSeconds < limits.deadlineSeconds else {
             throw CodecError(.resourceLimitExceeded, "Codec operation deadline exceeded.")
         }
     }
@@ -46,20 +53,33 @@ struct JPEGLSHeader {
     let outputBits: Int
     let mapsSamples: Bool
     let metadataBytes: Int
+    // Geometry and sample interpretation are immutable. Keep the layout already
+    // checked for parser admission instead of rebuilding its arrays on decode.
+    private let admittedDescriptor: ImageDescriptor
     var near: Int { records.reduce(0) { max($0, $1.near) } }
     var parameters: JPEGLSPresetParameters { records[0].parameters }
     var scans: [Range<Int>] { records[0].ranges }
     var restartInterval: Int { records[0].restartInterval }
     var scan: Range<Int> { scans[0] }
-    var roles: [ComponentRole] {
-        if grey { return [.grey] }
-        if rgb { return [.red, .green, .blue] }
-        return componentIDs.map { .uninterpreted("JPEG-LS:\($0)") }
-    }
+    var roles: [ComponentRole] { admittedDescriptor.components }
     func descriptor(limits: ResourceLimits) throws -> ImageDescriptor {
+        do {
+            try admittedDescriptor.validate(limits: limits)
+        } catch {
+            // Reproduce the existing constructor's diagnostic and check order
+            // for a rejected request; only successful layouts are reused.
+            return try Self.makeDescriptor(width: width, height: height, outputBits: outputBits,
+                componentIDs: componentIDs, sampling: sampling, rgb: rgb, grey: grey, limits: limits)
+        }
+        return admittedDescriptor
+    }
+    private static func makeDescriptor(width: Int, height: Int, outputBits: Int,
+                                       componentIDs: [UInt8], sampling: [UInt8], rgb: Bool, grey: Bool,
+                                       limits: ResourceLimits) throws -> ImageDescriptor {
         if grey {
             return try .greyscale16(width: width, height: height, meaningfulBits: outputBits, limits: limits)
         }
+        let roles: [ComponentRole] = rgb ? [.red, .green, .blue] : componentIDs.map { .uninterpreted("JPEG-LS:\($0)") }
         let hMax = sampling.map { Int($0 >> 4) }.max() ?? 1
         let vMax = sampling.map { Int($0 & 15) }.max() ?? 1
         var end = 0
@@ -74,6 +94,29 @@ struct JPEGLSHeader {
         }
         return try ImageDescriptor(width: width, height: height, meaningfulBits: outputBits,
             components: roles, colour: rgb ? .rgb : .unknown, planes: planes, limits: limits)
+    }
+
+    /// Admit the canonical UInt16 frame extent without allocating a temporary
+    /// descriptor. The final interpreted layout is still constructed at EOI.
+    static func validateFrameAdmission(width: Int, height: Int, meaningfulBits: Int = 16,
+                                       limits: ResourceLimits) throws {
+        if width > 0, height > 0, (1...16).contains(meaningfulBits) {
+            let row = width.multipliedReportingOverflow(by: 2)
+            let capacity = row.partialValue.multipliedReportingOverflow(by: height)
+            if !row.overflow, !capacity.overflow,
+               width <= limits.maximumDimension, height <= limits.maximumDimension,
+               capacity.partialValue / 2 <= limits.maximumPixels,
+               capacity.partialValue <= limits.maximumDecodedBytes {
+                // Positive checked capacity proves width*height fits too. For
+                // one tightly packed grey plane, all component, sampling,
+                // alignment and extent checks follow from this geometry.
+                return
+            }
+        }
+        // Preserve the constructor's exact error and check order for every
+        // rejected case, including overflow before a dimension-limit failure.
+        _ = try ImageDescriptor.greyscale16(width: width, height: height,
+            meaningfulBits: meaningfulBits, limits: limits)
     }
 
     func retainedMetadata(_ policy: MetadataPolicy) -> ImageMetadata {
@@ -193,12 +236,16 @@ struct JPEGLSHeader {
                         metadata = ImageMetadata(entries: metadata.entries.merging(mapping.metadata.entries) { _, new in new }, requiredKeys: metadata.requiredKeys.union([JPEGLSMappingTables.key]))
                     }
                     let retainedBytes = try metadata.validate(limits: budget.limits)
+                    let rgb = spiff?.rgb ?? (transform.map { $0 != .none } ?? false)
+                    let grey = spiff?.grey ?? (f.ids.count == 1)
+                    let resolvedOutputBits = mapsSamples ? outputBits : f.bits
+                    let descriptor = try makeDescriptor(width: f.width, height: f.height, outputBits: resolvedOutputBits,
+                        componentIDs: f.ids, sampling: f.sampling, rgb: rgb, grey: grey, limits: budget.limits)
                     let header = Self(width: f.width, height: f.height, bits: f.bits,
-                        componentIDs: f.ids, sampling: f.sampling, rgb: spiff?.rgb ?? (transform.map { $0 != .none } ?? false),
-                        grey: spiff?.grey ?? (f.ids.count == 1),
+                        componentIDs: f.ids, sampling: f.sampling, rgb: rgb, grey: grey,
                         colourTransform: transform ?? .none, records: records, metadata: metadata, mapping: mapping,
-                        outputBits: mapsSamples ? outputBits : f.bits, mapsSamples: mapsSamples, metadataBytes: max(metadataBytes, retainedBytes))
-                    let descriptor = try header.descriptor(limits: budget.limits)
+                        outputBits: resolvedOutputBits, mapsSamples: mapsSamples, metadataBytes: max(metadataBytes, retainedBytes),
+                        admittedDescriptor: descriptor)
                     try budget.admit(pixelBytes: descriptor.requiredByteCount, workspaceBytes: checkedAdd(checkedMultiply(header.metadataBytes, 32), directoryBytes), compressedBytes: data.count)
                     return header
                 }
@@ -275,7 +322,7 @@ struct JPEGLSHeader {
                     }
                     guard (2...16).contains(bits) else { throw malformed() }
                     if width > 0 && height > 0 {
-                        _ = try ImageDescriptor.greyscale16(width: width, height: height, meaningfulBits: bits, limits: budget.limits)
+                        try validateFrameAdmission(width: width, height: height, meaningfulBits: bits, limits: budget.limits)
                     }
                     let imageBytes = try checkedMultiply(checkedMultiply(width, height), count * 2)
                     guard imageBytes <= budget.limits.maximumDecodedBytes, imageBytes <= budget.limits.maximumMemoryBytes else {
@@ -337,7 +384,7 @@ struct JPEGLSHeader {
                         let first = try dimension(payload + 2), second = try dimension(payload + 2 + size)
                         let width = codecOptions.legacyExtendedDimensions ? first : second
                         let height = codecOptions.legacyExtendedDimensions ? second : first
-                        _ = try ImageDescriptor.greyscale16(width: width, height: height, limits: budget.limits)
+                        try validateFrameAdmission(width: width, height: height, limits: budget.limits)
                         extendedSize = (width, height)
                         if var f = frame {
                             guard (f.width == 0 || f.width == width), (f.height == 0 || f.height == height) else { throw malformed() }
@@ -353,7 +400,7 @@ struct JPEGLSHeader {
                     restartInterval = Int(clamping: wireInterval)
                 case 0xda:
                     guard let f = frame, length >= 6, f.width > 0, f.height > 0 else { throw malformed() }
-                    _ = try ImageDescriptor.greyscale16(width: f.width, height: f.height, meaningfulBits: f.bits, limits: budget.limits)
+                    try validateFrameAdmission(width: f.width, height: f.height, meaningfulBits: f.bits, limits: budget.limits)
                     if let s = spiff {
                         guard s.width == f.width, s.height == f.height, s.bits == f.bits, s.components == f.ids.count else { throw malformed() }
                     }
@@ -424,8 +471,23 @@ struct JPEGLSHeader {
                     var ranges: [Range<Int>] = [], scanStart = end
                     while true {
                         var scanEnd = scanStart
+                        var nextCheckpoint = scanStart
                         while scanEnd + 1 < bytes.count {
-                            if scanEnd & 4095 == 0 { try budget.check() }
+                            if scanEnd >= nextCheckpoint {
+                                try budget.check()
+                                nextCheckpoint = scanEnd + min(4096, bytes.count - scanEnd)
+                            }
+                            // Skip only words with no FF byte. A candidate word
+                            // is examined byte by byte, preserving stuffing,
+                            // fill-marker and truncated-terminal validation.
+                            if bytes.count - scanEnd >= 8 {
+                                let word = bytes.loadUnaligned(fromByteOffset: scanEnd, as: UInt64.self)
+                                let inverted = ~word
+                                if ((inverted &- 0x0101010101010101) & ~inverted & 0x8080808080808080) == 0 {
+                                    scanEnd += min(8, nextCheckpoint - scanEnd)
+                                    continue
+                                }
+                            }
                             if bytes[scanEnd] == 255 && bytes[scanEnd + 1] >= 128 { break }
                             scanEnd += 1
                         }

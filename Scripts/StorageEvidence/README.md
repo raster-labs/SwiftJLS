@@ -19,3 +19,45 @@ On Linux, `python3 Scripts/StorageEvidence/trace-files.py --binary PATH --output
 `measure-peaks.py --profile PROFILE.gz --output REPORT.json --revision SHA` replays interpreted Heaptrack 1.5.0 allocation/free events to measure peak simultaneously live requested heap bytes. `--self-test` checks overlapping lifetimes, group peaks, allocation counts and invalid-free rejection. The parser follows the documented implementation of [Heaptrack format 3](https://github.com/KDE/heaptrack/blob/v1.5.0/src/analyze/accumulatedtracedata.cpp); it does not import Heaptrack code. The overall peak and allocation count must agree with the accompanying Heaptrack analysis. Group peaks occur at different times and must not be added. Pixel attribution recognises `OwnedImageStorage` array initialisers; arbitrary sample arrays outside those stacks remain in other groups and still require source/stack review. Pixel array headers/capacity are included. Nonpixel codec heap includes compressed buffers and metadata; runtime/unattributed heap and stack storage are not silently relabelled as algorithm workspace. This improves the earlier stack-count-only evidence, but it does not populate unknown per-operation workspace reports.
 
 [ResourceStress](../../Examples/ResourceStress/README.md) supplies an ordinary-release concurrent workload: four bounded workers and 32 512×512 scalar/colour lossless/near-lossless frame transactions. CI retains both its checked sample/identity/report results and its independent heap profile. The worker bound belongs to the harness; per-operation limits do not become a process-wide scheduler.
+
+`Examples/WorkspaceProbe` marks one public encode, owned decode, supplied decode
+or inspect operation after setup. Results stay live through the end marker and
+sample verification follows it. `measure-operation.py` replays Heaptrack events
+between those markers, retaining baseline live bytes, per-category peaks, phase
+allocation calls and every allocation stack. It rejects missing/repeated markers
+and invalid frees. Run its `--self-test` before collecting evidence.
+
+The `Per-operation workspace evidence` workflow uses `run-workspace-profiles.py`
+to record 89 separate processes: the original 32 combinations of 17²/512²,
+scalar/RGB, NEAR 0/3 and four operations; 48 additional line, planar, 16-bit,
+maximum-threshold preset, restart and HP1/2/3 operations; and nine fixture
+operations covering subsampling, mapping and extended dimensions. Builds use
+Swift 6.4 ordinary release with debug symbols. These are measured requested heap
+bytes on the hosted Linux runner. Allocation stacks and requested-size histograms
+distinguish pixel, compressed, algorithm-state, metadata/descriptor and runtime
+paths. Unknown codec stacks remain explicit and prevent
+`codec_heap_attribution_complete` from being true. Size-bounded recognisers retain
+negative controls so unrelated or larger allocations cannot inherit a category.
+Peaks from different categories must not be added.
+
+[WorkspaceAccounting.md](../../Documentation/Engineering/CodecMigration/WorkspaceAccounting.md)
+links the full source inventory, per-path bounds and measured allocation evidence.
+Complete attribution of observed codec heap does not establish an exact combined
+heap/stack/allocator counter. Stack high-water bytes and allocator overhead remain
+unknown, `pure_algorithm_workspace_complete` remains false for this measurement,
+and production `peakWorkspaceBytes` remains unknown. Keep profile hashes and
+source revisions with every reported result.
+
+The separate `Marked workspace stack observation` workflow uses pinned Valgrind
+3.27.1 (`b50f9a09ca65cc983c934bd0f50059304f3e939f`) with Massif stack tracking.
+Conditional client requests in the development consumer write beginning/end
+snapshots. `measure-massif.py` rejects missing or unordered boundaries and zero stack
+observations. Short operations without interior snapshots are explicitly marked
+as boundary-only observations with unknown transient interior peaks. It reports snapshot maxima for the
+marked interval, including the whole runtime's stacks. These are observed peaks,
+not exhaustive codec stack high-water guarantees; Massif's extra heap is an
+allocator model. Keep this instrumented experiment distinct from ordinary-release
+Heaptrack counts and performance timings. A profiler crash is an unsuccessful
+measurement, not a zero or a codec pass.
+
+The operation ledger also retains category bytes at the **same instant** as the total requested-heap peak. Those simultaneous values reconcile to the total; independent category maxima do not. The total increase over the live setup baseline is reported separately. Swift generic metadata caches are runtime storage even when a codec call caused their first use. Remaining unattributed allocations retain their stacks and bytes.

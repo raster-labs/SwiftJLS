@@ -1,0 +1,34 @@
+[
+  {
+    "command": [
+      "heaptrack",
+      "--version"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack",
+      "-o",
+      "/tmp/copy-mutation/mutant/allocations",
+      "/tmp/swiftjls-copy-mutation-thokyaz6/SwiftJLS/Examples/CrossCodecConsumer/.build/x86_64-unknown-linux-gnu/release/CrossCodecConsumer"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack_print",
+      "-f",
+      "/tmp/copy-mutation/mutant/allocations.gz",
+      "-n",
+      "1000",
+      "-s",
+      "1000",
+      "-H",
+      "/tmp/copy-mutation/mutant/sizes.tsv",
+      "-F",
+      "/tmp/copy-mutation/mutant/allocation-stacks.txt"
+    ],
+    "exit_code": 0
+  }
+]

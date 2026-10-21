@@ -1,0 +1,68 @@
+{
+  "runtime": {
+    "name": "iOS 27.0",
+    "version": "27.0",
+    "buildversion": "24A434",
+    "identifier": "com.apple.CoreSimulator.SimRuntime.iOS-27-0",
+    "isAvailable": true
+  },
+  "device": {
+    "name": "iPad Pro 13-inch (M5)",
+    "deviceTypeIdentifier": "com.apple.CoreSimulator.SimDeviceType.iPad-Pro-13-inch-M5-12GB",
+    "state": "Shutdown",
+    "isAvailable": true
+  },
+  "commands": [
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "boot",
+        "<simulator-udid>"
+      ],
+      "exit_code": 0,
+      "seconds": 0.39132437499999995,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "bootstatus",
+        "<simulator-udid>",
+        "-b"
+      ],
+      "exit_code": 0,
+      "seconds": 16.151589750000003,
+      "stdout": "Monitoring boot status for iPad Pro 13-inch (M5) (<simulator-udid>).\n[2026-10-13 06:57:33 +0000] Status=1, isTerminal=NO, Elapsed=00:01.\n\tWaiting on BackBoard\n\n[2026-10-13 06:57:34 +0000] Status=2, isTerminal=NO, Elapsed=00:01.\n\tWaiting on Data Migration\n\t\tReason:(null)\n\t\tMigration Elapsed:00:00 seconds\n\n[2026-10-13 06:57:34 +0000] Status=2, isTerminal=NO, Elapsed=00:02.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:00 seconds\n\n[2026-10-13 06:57:35 +0000] Status=2, isTerminal=NO, Elapsed=00:03.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:01 seconds\n\n[2026-10-13 06:57:36 +0000] Status=2, isTerminal=NO, Elapsed=00:04.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:02 seconds\n\n[2026-10-13 06:57:37 +0000] Status=2, isTerminal=NO, Elapsed=00:05.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:03 seconds\n\n[2026-10-13 06:57:38 +0000] Status=2, isTerminal=NO, Elapsed=00:06.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:04 seconds\n\n[2026-10-13 06:57:39 +0000] Status=2, isTerminal=NO, Elapsed=00:07.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:05 seconds\n\n[2026-10-13 06:57:40 +0000] Status=2, isTerminal=NO, Elapsed=00:08.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:06 seconds\n\n[2026-10-13 06:57:41 +0000] Status=2, isTerminal=NO, Elapsed=00:09.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:07 seconds\n\n[2026-10-13 06:57:42 +0000] Status=2, isTerminal=NO, Elapsed=00:10.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:08 seconds\n\n[2026-10-13 06:57:43 +0000] Status=2, isTerminal=NO, Elapsed=00:11.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)\n\t\tMigration Elapsed:00:09 seconds\n\n[2026-10-13 06:57:45 +0000] Status=2, isTerminal=NO, Elapsed=00:13.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)\n\t\tMigration Elapsed:00:10 seconds\n\n[2026-10-13 06:57:45 +0000] Status=2, isTerminal=NO, Elapsed=00:13.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)\n\t\tMigration Elapsed:00:11 seconds\n\n[2026-10-13 06:57:46 +0000] Status=2, isTerminal=NO, Elapsed=00:14.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.MobileSafari.migrator (MobileSafari.migrator)\n\t\tMigration Elapsed:00:12 seconds\n\n[2026-10-13 06:57:47 +0000] Status=2, isTerminal=NO, Elapsed=00:15.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.MobileSafari.migrator (MobileSafari.migrator)\n\t\tMigration Elapsed:00:13 seconds\n\n[2026-10-13 06:57:48 +0000] Status=4294967295, isTerminal=YES, Elapsed=00:16.\n\tFinished\n\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "spawn",
+        "<simulator-udid>",
+        "<repo>/work/m4-apple/iphonesimulator/AppleRuntimeConsumer",
+        "<repo>/Tests/SwiftJLSTests/Fixtures"
+      ],
+      "exit_code": 0,
+      "seconds": 1.286337500000002,
+      "stdout": "Independent consumer passed: native lossless coding preserves padded 12-bit samples and destination identity.\nApple runtime passed: direct storage, RGB/HP, mapping, metadata, Watch limits and cancellation.\nCombined legacy mapping/HP runtime passed.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "shutdown",
+        "<simulator-udid>"
+      ],
+      "exit_code": 0,
+      "seconds": 3.2640782089999973,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

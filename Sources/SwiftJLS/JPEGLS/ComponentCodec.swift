@@ -43,7 +43,7 @@ enum ComponentCodec {
         guard Set(ids).count == ids.count else { throw CodecError(.invalidArgument, "Duplicate component IDs.") }
         return ids
     }
-    static func writeRGBHeader(width: Int, height: Int, bits: Int, writer: JPEGLSBitstreamWriter) {
+    static func writeRGBHeader(width: Int, height: Int, bits: Int, writer: inout JPEGLSBitstreamWriter) {
         func long(_ value: Int) {
             writer.writeUInt16(UInt16(value >> 16)); writer.writeUInt16(UInt16(value & 65535))
         }
@@ -109,19 +109,19 @@ enum ComponentCodec {
             }
             options.progress?(try .init(phase: .processing, completedUnits: 0, totalUnits: samples))
             try budget.check()
-            let writer = JPEGLSBitstreamWriter(capacity: min(outputLimit, 4096), maximumBytes: outputLimit)
+            var writer = JPEGLSBitstreamWriter(capacity: min(outputLimit, 4096), maximumBytes: outputLimit)
             let kernel = JPEGLSScalarKernel()
             writer.writeMarker(.startOfImage)
-            try metadata.writeSPIFF(to: writer)
-            if d.colour == .rgb && metadata.spiff == nil { writeRGBHeader(width: d.width, height: d.height, bits: d.meaningfulBits, writer: writer) }
+            try metadata.writeSPIFF(to: &writer)
+            if d.colour == .rgb && metadata.spiff == nil { writeRGBHeader(width: d.width, height: d.height, bits: d.meaningfulBits, writer: &writer) }
             if transform != .none {
                 writer.writeByte(255); writer.writeByte(0xe8); writer.writeUInt16(7)
                 for byte: UInt8 in [109, 114, 102, 120, transform.rawValue] { writer.writeByte(byte) }
             }
-            try metadata.ancillary.write(to: writer)
+            try metadata.ancillary.write(to: &writer)
             let frame = try JPEGLSFrameHeader(bitsPerSample: d.meaningfulBits, height: d.height,
                 width: d.width, componentCount: componentIDs.count, components: componentIDs.map { .init(id: $0) })
-            try kernel.writeFrameHeaderInternal(frame, to: writer)
+            try kernel.writeFrameHeaderInternal(frame, to: &writer)
             if configuration.codecOptions.preset != nil {
                 writer.writeMarker(.jpegLSExtension); writer.writeUInt16(13); writer.writeByte(1)
                 for value in [parameters.maxValue, parameters.threshold1, parameters.threshold2, parameters.threshold3, parameters.reset] {
@@ -131,7 +131,7 @@ enum ComponentCodec {
             if interval > 0 {
                 writer.writeMarker(.defineRestartInterval); writer.writeUInt16(4); writer.writeUInt16(UInt16(interval))
             }
-            try metadata.mapping?.write(to: writer, budget: budget)
+            try metadata.mapping?.write(to: &writer, budget: budget)
             try image.storage.withUnsafeBytes { bytes in
                 guard bytes.count == image.storage.byteCount, bytes.count >= d.requiredByteCount else {
                     throw CodecError(.storageUnavailable, "Provider returned inconsistent storage.")
@@ -141,12 +141,15 @@ enum ComponentCodec {
                         offset: location.offset, rowBytes: location.rowBytes, pixelStride: location.pixelStride,
                         sampleBytes: d.storageBits / 8, littleEndian: d.byteOrder == .littleEndian)
                 }
-                for view in views {
-                    for index in 0..<view.count {
-                        if index & 255 == 0 { try budget.check() }
-                        guard view[index] <= parameters.maxValue else { throw CodecError(.invalidArgument, "Sample exceeds declared precision.") }
+                if near > 0 || transform != .none {
+                    // Approximate runs and HP's modular arithmetic cannot
+                    // prove the range of every original sample while coding.
+                    for view in views {
+                        try view.validate(maximum: parameters.maxValue, checkpoint: { try budget.check() })
                     }
                 }
+                let sampleMaximum = near == 0 && transform == .none &&
+                    parameters.maxValue < (d.storageBits == 8 ? 255 : 65535) ? parameters.maxValue : nil
                 if configuration.codecOptions.interleaveMode != .none {
                     guard let mode = JPEGLSInterleaveMode(rawValue: configuration.codecOptions.interleaveMode.rawValue) else {
                         throw CodecError(.internalFailure, "Interleave mapping failed.")
@@ -154,18 +157,19 @@ enum ComponentCodec {
                     let scan = try JPEGLSScanHeader(componentCount: componentIDs.count,
                         components: componentIDs.enumerated().map { .init(id: $0.element, mappingTableID: metadata.mapping?.componentTableIDs[$0.offset] ?? 0) },
                         near: near, interleaveMode: mode, pointTransform: 0)
-                    try kernel.writeScanHeaderInternal(scan, to: writer)
+                    try kernel.writeScanHeaderInternal(scan, to: &writer)
                     if transform == .none {
                         try kernel.encodeInterleaved(views: views, width: d.width, height: d.height,
                         mode: configuration.codecOptions.interleaveMode, near: near, parameters: parameters,
-                        bits: d.meaningfulBits, writer: writer, checkpoint: { try budget.check(); try writer.checkLimit() })
+                        bits: d.meaningfulBits, sampleMaximum: sampleMaximum,
+                        writer: &writer, checkpoint: { try budget.check() })
                     } else {
                         let transformed = (0..<3).map { component in
                             HPComponentReader(views: views, component: component, transform: transform, bits: d.meaningfulBits)
                         }
                         try kernel.encodeInterleaved(views: transformed, width: d.width, height: d.height,
                             mode: configuration.codecOptions.interleaveMode, near: 0, parameters: parameters,
-                            bits: d.meaningfulBits, writer: writer, checkpoint: { try budget.check(); try writer.checkLimit() })
+                            bits: d.meaningfulBits, writer: &writer, checkpoint: { try budget.check() })
                     }
                     writer.flush()
                     return
@@ -174,7 +178,7 @@ enum ComponentCodec {
                     let scan = try JPEGLSScanHeader(componentCount: 1,
                         components: [.init(id: componentIDs[component], mappingTableID: metadata.mapping?.componentTableIDs[component] ?? 0)],
                         near: near, interleaveMode: .none, pointTransform: 0)
-                    try kernel.writeScanHeaderInternal(scan, to: writer)
+                    try kernel.writeScanHeaderInternal(scan, to: &writer)
                     let coding = kernel.computeGolombLimitInternal(parameters: parameters, near: near, bitsPerSample: d.meaningfulBits)
                     for chunk in 0..<chunks {
                         let first = interval > 0 ? chunk * interval : 0
@@ -182,14 +186,15 @@ enum ComponentCodec {
                         if near > 0 {
                             try kernel.encodeNearLossless(buf: view.rows(first..<last), rowStride: d.width,
                                 width: d.width, height: last - first, near: near, parameters: parameters,
-                                writer: writer, bits: d.meaningfulBits, checkpoint: { try budget.check(); try writer.checkLimit() })
+                                writer: &writer, bits: d.meaningfulBits, checkpoint: { try budget.check() })
                         } else {
                             let regular = try JPEGLSRegularMode(parameters: parameters)
                             let run = try JPEGLSRunMode(parameters: parameters)
                             var context = try JPEGLSContextModel(parameters: parameters)
                             try kernel.encodeFlatRowsLossless(buf: view, rowStride: d.width, rowRange: first..<last,
-                                width: d.width, regularMode: regular, runMode: run, context: &context, writer: writer,
-                                limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check(); try writer.checkLimit() })
+                                sampleMaximum: sampleMaximum, width: d.width,
+                                regularMode: regular, runMode: run, context: &context, writer: &writer,
+                                limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
                         }
                         writer.flush()
                         if chunk + 1 < chunks { writer.writeByte(255); writer.writeByte(0xd0 + UInt8(chunk % 8)) }
@@ -203,7 +208,7 @@ enum ComponentCodec {
             return EncodedImage(data: data, encoding: .init(format: "JPEG-LS", mode: configuration.mode),
                 report: OperationReport(backend: .scalarCPU, fallbackReason: ScalarCodec.fallback(options.executionPolicy),
                     fidelity: near == 0 ? .exactSamples : .boundedError(near), pixelAllocationCount: 0,
-                    peakPixelBytes: 0, peakWorkspaceBytes: nil, elapsedSeconds: ProcessInfo.processInfo.systemUptime - budget.started))
+                    peakPixelBytes: 0, peakWorkspaceBytes: nil, elapsedSeconds: budget.elapsedSeconds))
         }
     }
     static func decode(_ data: Data, header: JPEGLSHeader, into supplied: ImageDestination?, options: DecodeOptions,
@@ -214,10 +219,10 @@ enum ComponentCodec {
               d.components == header.roles, d.colour == (header.rgb ? .rgb : .unknown) else {
             throw CodecError(.incompatibleImageLayout, "Destination geometry, precision or interpretation does not match the codestream.")
         }
-        let hMax = header.sampling.map { Int($0 >> 4) }.max() ?? 1
-        let vMax = header.sampling.map { Int($0 & 15) }.max() ?? 1
-        let destinationHMax = locations.map(\.horizontal).max() ?? 1
-        let destinationVMax = locations.map(\.vertical).max() ?? 1
+        let hMax = header.sampling.reduce(1) { max($0, Int($1 >> 4)) }
+        let vMax = header.sampling.reduce(1) { max($0, Int($1 & 15)) }
+        let destinationHMax = locations.reduce(1) { max($0, $1.horizontal) }
+        let destinationVMax = locations.reduce(1) { max($0, $1.vertical) }
         for (i, location) in locations.enumerated() {
             guard location.horizontal * hMax == Int(header.sampling[i] >> 4) * destinationHMax,
                   location.vertical * vMax == Int(header.sampling[i] & 15) * destinationVMax,
@@ -226,7 +231,7 @@ enum ComponentCodec {
                 throw CodecError(.incompatibleImageLayout, "Destination component sampling does not match the codestream.")
             }
         }
-        let table = try header.records.map { try ScalarCodec.tableBytes($0.parameters) }.max() ?? 0
+        let table = try header.records.reduce(0) { try max($0, ScalarCodec.tableBytes($1.parameters)) }
         let ranges = header.records.reduce(0) { $0 + $1.ranges.count }
         let workspace = try checkedAdd(checkedAdd(ScalarCodec.contextBytes, table),
             checkedAdd(checkedMultiply(data.count, 2), checkedMultiply(ranges, MemoryLayout<Range<Int>>.stride * 2)))
@@ -268,9 +273,22 @@ enum ComponentCodec {
                     let start = data.index(data.startIndex, offsetBy: range.lowerBound)
                     let end = data.index(data.startIndex, offsetBy: range.upperBound)
                     let reader = JPEGLSBitstreamReader(data: data[start..<end])
-                    try kernel.decodeFlatRegion(into: whole.rows(first..<last), rowStride: d.width, reader: reader,
-                        rows: last - first, width: d.width, parameters: scan.parameters, near: scan.near,
-                        limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
+                    let region = whole.rows(first..<last)
+                    if region.pixelStride == region.sampleBytes && region.rowBytes % region.sampleBytes == 0 {
+                        // A contiguous component is the same scoped scalar
+                        // layout, including padded rows and odd byte origins.
+                        // Avoid general per-sample component addressing here,
+                        // as in the line-interleaved decoder.
+                        let scalar = ScalarSampleWriter(bytes: .init(rebasing: region.bytes[region.offset...]),
+                            littleEndian: region.littleEndian, sampleBytes: region.sampleBytes)
+                        try kernel.decodeFlatRegion(into: scalar, rowStride: region.rowBytes / region.sampleBytes, reader: reader,
+                            rows: last - first, width: d.width, parameters: scan.parameters, near: scan.near,
+                            limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
+                    } else {
+                        try kernel.decodeFlatRegion(into: region, rowStride: d.width, reader: reader,
+                            rows: last - first, width: d.width, parameters: scan.parameters, near: scan.near,
+                            limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
+                    }
                     try reader.validateEndOfScan()
                 }
             }
@@ -305,6 +323,6 @@ enum ComponentCodec {
         return DecodedImage(image: image, report: OperationReport(backend: .scalarCPU,
             fallbackReason: ScalarCodec.fallback(options.executionPolicy), fidelity: fidelity,
             pixelAllocationCount: supplied == nil ? 1 : 0, peakPixelBytes: supplied == nil ? pixelBytes : 0,
-            peakWorkspaceBytes: nil, elapsedSeconds: ProcessInfo.processInfo.systemUptime - budget.started))
+            peakWorkspaceBytes: nil, elapsedSeconds: budget.elapsedSeconds))
     }
 }

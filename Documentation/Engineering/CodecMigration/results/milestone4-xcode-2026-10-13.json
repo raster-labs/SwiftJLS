@@ -1,0 +1,127 @@
+{
+  "date": "2026-10-13",
+  "source_commit": "b44fe03f25df06f0a55f716ac79e8d6979b1e5d6",
+  "production_sources_unchanged": true,
+  "apple": {
+    "simulator_results": [
+      {
+        "runtime": {
+          "name": "iOS 27.0",
+          "version": "27.0",
+          "buildversion": "24A434",
+          "identifier": "com.apple.CoreSimulator.SimRuntime.iOS-27-0",
+          "isAvailable": true
+        },
+        "device": "iPad Pro 13-inch (M5)",
+        "passed": true,
+        "evidence": "iOS-27.0-iPad_Pro_13-inch_(M5).json"
+      },
+      {
+        "runtime": {
+          "name": "iOS 27.0",
+          "version": "27.0",
+          "buildversion": "24A434",
+          "identifier": "com.apple.CoreSimulator.SimRuntime.iOS-27-0",
+          "isAvailable": true
+        },
+        "device": "iPhone 18 Pro",
+        "passed": true,
+        "evidence": "iOS-27.0-iPhone_18_Pro.json"
+      }
+    ],
+    "minimum_runtime_qualified": false,
+    "exact_26_downloads": {
+      "m4-watchos26-download.log": "Downloading watchOS 26.0 Simulator (23R353) (arm64): 11.1% (426.3 MB of 3.83 GB)",
+      "m4-visionos26-download.log": "Downloading visionOS 26.0 Simulator (23M336) (arm64): Preparing to download...",
+      "m4-tvos26-download.log": "Downloading tvOS 26.0 Simulator (23J352) (arm64): 16.9% (611.8 MB of 3.62 GB)",
+      "m4-ios26-download.log": "Downloading iOS 26.0 Simulator (23A343) (arm64): 63.9% (5.1 GB of 7.99 GB)"
+    },
+    "physical_devices": "Unavailable; user previously confirmed no devices"
+  },
+  "profiling": {
+    "developer_authorisation": "Developer mode is currently enabled.",
+    "failed_authorised_attach_exit": 2,
+    "successful_recording_exit": 0,
+    "target_exit": 0,
+    "command": [
+      "xcrun",
+      "xctrace",
+      "record",
+      "--template",
+      "Allocations",
+      "--output",
+      "work/m4-allocations-debugsigned.trace",
+      "--time-limit",
+      "20s",
+      "--launch",
+      "--",
+      "<repo>/work/m4-profile-Benchmark",
+      "512",
+      "512",
+      "12",
+      "noise",
+      "0",
+      "1",
+      "successor"
+    ],
+    "target_preparation": "Copied ordinary release benchmark executable, then ad-hoc signed only that copy with com.apple.security.get-task-allow=true",
+    "local_trace": "work/m4-allocations-debugsigned.trace",
+    "trace_published": false,
+    "ui_verification": "Instruments opened the trace and displayed allocation Statistics and Call Trees. Some stack symbols are unresolved.",
+    "workspace_qualified": false,
+    "limitations": [
+      "One scalar 512x512 12-bit seeded-noise process including setup and several encode/decode boundaries",
+      "Not a complete per-operation peak or separation of algorithm workspace, compressed storage, metadata, runtime and stack",
+      "Raw trace retained locally; redacted TOC, recording logs and per-file hashes supplied"
+    ]
+  },
+  "power": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=23396451)\t89%; discharging; 5:29 remaining present: true",
+  "ci": {
+    "commit": "b44fe03f25df06f0a55f716ac79e8d6979b1e5d6",
+    "evidence": "m4-pr-checks-final.json",
+    "passed": 16
+  },
+  "artifacts": {
+    "iOS-27.0-iPad_Pro_13-inch_(M5).json": {
+      "sha256": "9151f572e6778fbe2df985a6625de9efee1431ecd95c4edb354893a862a22e46",
+      "bytes": 5493
+    },
+    "iOS-27.0-iPhone_18_Pro.json": {
+      "sha256": "393ad2faee51cd38db16ee88e0451b052d583d1452907b203331b7dda061cb75",
+      "bytes": 6147
+    },
+    "m4-allocations-authorized.log": {
+      "sha256": "61ecbddd5d88c97fc9e347527b216c50369d78f76aff92ae87f5460719bc52b5",
+      "bytes": 515
+    },
+    "m4-allocations-debugsigned.log": {
+      "sha256": "d0f1b760247fc3b9469672dffd426cbcebf3f0b16248803c4d489930bea39895",
+      "bytes": 276
+    },
+    "m4-profile-entitlements.plist": {
+      "sha256": "c325fb70404ffb102ce247c356481784e5e4fc76c06cad396349c002ae11dd26",
+      "bytes": 236
+    },
+    "run-m4-simulators.py": {
+      "sha256": "6ba4a7c923465846d319da8aac0452b49393924327600e482848af5c01d71220",
+      "bytes": 1832
+    },
+    "m4-apple-build.py": {
+      "sha256": "79ae5edc0ad9ab85129a953e5d8d41990e1bb59c2a2514413dfe6018cf609948",
+      "bytes": 2258
+    },
+    "m4-pr-checks-final.json": {
+      "sha256": "efda5c9f2e346fe8a82683bb55bde1b2567aed5bbefee098b13aaae8c33138cd",
+      "bytes": 2389
+    },
+    "allocations-toc-redacted.xml": {
+      "sha256": "6d83a1be6df57b5ee5e0a8adf3ab28d7df93efe7de5f017ef1ed7ee2e7414543",
+      "bytes": 5055
+    },
+    "local-trace-files.json": {
+      "sha256": "b86a999de8562d6b6f34ab81b4e392b0bc287b165410a2d0e09fad645dea4b7e",
+      "bytes": 15517
+    }
+  },
+  "status": "Milestone 4 incomplete; Milestone 5 deferred"
+}

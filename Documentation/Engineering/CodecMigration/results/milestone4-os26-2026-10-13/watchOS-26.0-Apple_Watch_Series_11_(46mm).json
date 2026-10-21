@@ -1,0 +1,68 @@
+{
+  "runtime": {
+    "name": "watchOS 26.0",
+    "version": "26.0",
+    "buildversion": "23R353",
+    "identifier": "com.apple.CoreSimulator.SimRuntime.watchOS-26-0",
+    "isAvailable": true
+  },
+  "device": {
+    "name": "Apple Watch Series 11 (46mm)",
+    "deviceTypeIdentifier": "com.apple.CoreSimulator.SimDeviceType.Apple-Watch-Series-11-46mm",
+    "state": "Shutdown",
+    "isAvailable": true
+  },
+  "commands": [
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "boot",
+        "<simulator-5>"
+      ],
+      "exit_code": 0,
+      "seconds": 0.7268373750000023,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "bootstatus",
+        "<simulator-5>",
+        "-b"
+      ],
+      "exit_code": 0,
+      "seconds": 16.022190499999994,
+      "stdout": "Monitoring boot status for Apple Watch Series 11 (46mm) (<simulator-5>).\n[2026-10-13 08:18:23 +0000] Status=2, isTerminal=NO, Elapsed=00:01.\n\tWaiting on Data Migration\n\t\tReason:(null)\n\t\tMigration Elapsed:00:00 seconds\n\n[2026-10-13 08:18:23 +0000] Status=2, isTerminal=NO, Elapsed=00:01.\n\tWaiting on Data Migration\n\t\tReason:Gathering plugins\n\t\tMigration Elapsed:00:00 seconds\n\n[2026-10-13 08:18:24 +0000] Status=2, isTerminal=NO, Elapsed=00:02.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:01 seconds\n\n[2026-10-13 08:18:25 +0000] Status=2, isTerminal=NO, Elapsed=00:03.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:02 seconds\n\n[2026-10-13 08:18:26 +0000] Status=2, isTerminal=NO, Elapsed=00:04.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:03 seconds\n\n[2026-10-13 08:18:27 +0000] Status=2, isTerminal=NO, Elapsed=00:05.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator) (Concurrent: Running plugin com.apple.MobileSlideShow (MobileSlideShow.migrator, concurrent after com.apple.accounts.migrator))\n\t\tMigration Elapsed:00:04 seconds\n\n[2026-10-13 08:18:28 +0000] Status=4, isTerminal=NO, Elapsed=00:06.\n\tWaiting on System App\n\n[2026-10-13 08:18:29 +0000] Status=4, isTerminal=NO, Elapsed=00:07.\n\tWaiting on System App\n\n[2026-10-13 08:18:30 +0000] Status=4, isTerminal=NO, Elapsed=00:08.\n\tWaiting on System App\n\n[2026-10-13 08:18:31 +0000] Status=4, isTerminal=NO, Elapsed=00:09.\n\tWaiting on System App\n\n[2026-10-13 08:18:32 +0000] Status=4, isTerminal=NO, Elapsed=00:10.\n\tWaiting on System App\n\n[2026-10-13 08:18:33 +0000] Status=4, isTerminal=NO, Elapsed=00:11.\n\tWaiting on System App\n\n[2026-10-13 08:18:34 +0000] Status=4, isTerminal=NO, Elapsed=00:12.\n\tWaiting on System App\n\n[2026-10-13 08:18:35 +0000] Status=4, isTerminal=NO, Elapsed=00:13.\n\tWaiting on System App\n\n[2026-10-13 08:18:36 +0000] Status=4, isTerminal=NO, Elapsed=00:14.\n\tWaiting on System App\n\n[2026-10-13 08:18:37 +0000] Status=4, isTerminal=NO, Elapsed=00:15.\n\tWaiting on System App\n\n[2026-10-13 08:18:38 +0000] Status=4294967295, isTerminal=YES, Elapsed=00:16.\n\tFinished\n\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "spawn",
+        "<simulator-5>",
+        "<repo>/work/m4-apple/watchsimulator/AppleRuntimeConsumer",
+        "<repo>/Tests/SwiftJLSTests/Fixtures"
+      ],
+      "exit_code": 0,
+      "seconds": 0.23252979199999402,
+      "stdout": "Independent consumer passed: native lossless coding preserves padded 12-bit samples and destination identity.\nApple runtime passed: direct storage, RGB/HP, mapping, metadata, Watch limits and cancellation.\nCombined legacy mapping/HP runtime passed.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "shutdown",
+        "<simulator-5>"
+      ],
+      "exit_code": 0,
+      "seconds": 3.1686265830000053,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}
