@@ -179,8 +179,7 @@ extension JPEGLSScalarKernel {
                 : (y > 0 ? Int(view[previous + x - 1]) : 0),
             d: y > 0 ? Int(view[previous + min(x + 1, width - 1)]) : 0)
     }
-    func decodedNeighbours(_ view: ComponentSampleWriter, x: Int, y: Int, edge: Int) -> Neighbours {
-        let width = view.width
+    private func decodedNeighbours<Writer: JPEGSampleWriter>(_ view: Writer, width: Int, x: Int, y: Int, edge: Int) -> Neighbours {
         let b = y > 0 ? Int(view[(y - 1) * width + x]) : 0
         return Neighbours(a: x == 0 ? b : Int(view[y * width + x - 1]), b: b,
             c: x == 0 ? edge : (y > 0 ? Int(view[(y - 1) * width + x - 1]) : 0),
@@ -231,6 +230,37 @@ extension JPEGLSScalarKernel {
             }
             return
         }
+        // The sample-interleaved owned destination is a packed UInt16 plane
+        // per component. Select its native format once within the storage
+        // borrow; odd base addresses remain valid for unaligned raw access.
+        // Padded, sparse, byte-sized and opposite-endian layouts use the same
+        // generic loop through their original checked component view.
+        if views.allSatisfy({ $0.sampleBytes == 2 && $0.pixelStride == 2 &&
+            $0.rowBytes % 2 == 0 && $0.rowBytes / 2 == width &&
+            $0.width == width && $0.height == height }) {
+            let nativeViews = views.compactMap { view in
+                ScalarSampleWriter(bytes: .init(rebasing: view.bytes[view.offset...]),
+                    littleEndian: view.littleEndian, sampleBytes: 2).nativeLayout
+            }
+            if nativeViews.count == views.count {
+                try decodeSampleInterleaved(views: nativeViews, width: width, height: height,
+                    reader: reader, decoder: decoder, run: run, context: &context, parameters: parameters,
+                    near: near, limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: checkpoint)
+                return
+            }
+        }
+        try decodeSampleInterleaved(views: views, width: width, height: height,
+            reader: reader, decoder: decoder, run: run, context: &context, parameters: parameters,
+            near: near, limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: checkpoint)
+    }
+
+    private func decodeSampleInterleaved<Writer: JPEGSampleWriter>(views: [Writer], width: Int, height: Int,
+                           reader: JPEGLSBitstreamReader, decoder: JPEGLSRegularModeDecoder, run: JPEGLSRunModeDecoder,
+                           context: inout JPEGLSContextModel, parameters: JPEGLSPresetParameters,
+                           near: Int, limit: Int, qbppBits: Int, checkpoint: () throws -> Void) throws {
+        // Header and destination admission allow sample interleaving only
+        // at full resolution: every component uses this width and height.
+        var edges = InlineArray<4, Int>(repeating: 0)
         var oldEdges = edges
         var neighbours = InlineArray<4, Neighbours>(repeating: .zero)
         let active = views.indices
@@ -245,7 +275,7 @@ extension JPEGLSScalarKernel {
                 if x & 63 == 0 { try checkpoint() }
                 var isRun = true
                 for c in active {
-                    let n = decodedNeighbours(views[c], x: x, y: y, edge: oldEdges[c]); neighbours[c] = n
+                    let n = decodedNeighbours(views[c], width: width, x: x, y: y, edge: oldEdges[c]); neighbours[c] = n
                     if abs(n.d - n.b) > near || abs(n.b - n.c) > near || abs(n.c - n.a) > near { isRun = false }
                 }
                 if isRun {
@@ -258,13 +288,13 @@ extension JPEGLSScalarKernel {
                     }
                     x += length
                     if length < remaining {
-                        let adjustedLimit = coding.limit - run.computeJ(runIndex: context.currentRunIndex) - 1
+                        let adjustedLimit = limit - run.computeJ(runIndex: context.currentRunIndex) - 1
                         for c in active {
                             let ra = neighbours[c].a
                             let rb = y > 0 ? Int(views[c][(y - 1) * width + x]) : 0
                             let type = 0
                             let k = context.computeRunInterruptionGolombK(riType: type)
-                            let mapped = try readGolombCode(reader: reader, k: k, limit: adjustedLimit, qbppBits: coding.qbppBits)
+                            let mapped = try readGolombCode(reader: reader, k: k, limit: adjustedLimit, qbppBits: qbppBits)
                             let error = context.computeRunInterruptionErrorValue(temp: mapped + type, k: k, riType: type)
                             let value = run.reconstructSample(prediction: type == 1 ? ra : rb,
                                 error: type == 1 ? error : error * (rb >= ra ? 1 : -1))
@@ -280,7 +310,7 @@ extension JPEGLSScalarKernel {
                             context: &context, a: n.a, b: n.b, c: n.c,
                             q1: decoder.quantizeGradient(n.d - n.b), q2: decoder.quantizeGradient(n.b - n.c),
                             q3: decoder.quantizeGradient(n.c - n.a), parameters: parameters, near: near,
-                            limit: coding.limit, qbppBits: coding.qbppBits)
+                            limit: limit, qbppBits: qbppBits)
                         views[c][y * width + x] = UInt16(value)
                     }
                     x += 1
