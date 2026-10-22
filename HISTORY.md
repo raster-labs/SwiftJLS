@@ -1,5 +1,11 @@
 # History and provenance — SwiftJLS
 
+## Powered maintenance comparison — 2026-10-22 (unreleased)
+
+- Compare the common owning APIs at `62309d3` and `e66f7da` using identical release consumers, six cases and alternating process order.
+- Retain the initial preparation/RSS flags and one fixed repeat with identical-binary controls. The pooled preparation slowdown does not recur; whole-process RSS remains inconclusive.
+- Archive all 96 process records and 194 AC/no-warning observations. Background activity, earlier performance findings, physical-device testing and Milestone 5 remain explicit limitations. See [the maintenance record](Documentation/Engineering/CodecMigration/RecentFixes.md#powered-maintenance-comparison--22-october).
+
 ## Predecessor maintenance-fix migration — 2026-10-22 (unreleased)
 
 - Add the explicit `QualifiedMonochromeDecoder` caller-workspace profile with synchronous nonthrowing outcomes, checked budgets, deadline/cancellation and complete-stream admission.

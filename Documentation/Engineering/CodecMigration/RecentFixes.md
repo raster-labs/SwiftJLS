@@ -33,7 +33,28 @@ The probe initially found ten high-NEAR standard-oracle failures. Investigation 
 
 The caller payload is 144,864 bytes on the measured 64-bit ABI (137,968 bytes by the 32-bit layout formula). This is fixed reusable scratch, separate from borrowed encoded bytes and final UInt16 output. The observer covers exported Linux allocator entry points on the operation thread. Hidden allocator calls, direct mappings, other threads, stack/runtime costs and caller preparation are outside that observation; universal workspace totals remain unknown. The test-only adapter, C interposer and reference generators are not production dependencies.
 
-The Mac switched to battery before controlled timing. No fresh controlled performance comparison is claimed. Earlier source-pinned performance/workspace archives keep their original scope. Swift 6.2, other hosted architectures, current-source minimum-OS runtime qualification and the one-hour campaigns remain for CI/qualification; the owner verifies CI and merges.
+The Mac initially switched to battery before timing. The later powered comparison below records the resumed work; the original validation manifest retains its historical battery state. Earlier source-pinned performance/workspace archives keep their original scope. Swift 6.2, other hosted architectures, current-source minimum-OS runtime qualification and the one-hour campaigns remain for CI/qualification; the owner verifies CI and merges.
+
+## Powered maintenance comparison — 22 October
+
+After power was restored, a separate [hashed comparison record](results/recent-fixes-powered-2026-10-22.json) compared pre-fix SwiftJLS `62309d3` with implementation `e66f7da`. Both immutable source snapshots were rebuilt using the same Swift 6.4 release toolchain and identical benchmark consumer, without the predecessor compilation flag. This measures the common owning APIs, not the new caller-workspace API, ICC-bearing encoding or inspection-specific latency.
+
+Six scalar/RGB cases cover 37×23 and 512×512 images. Four alternating paired blocks supply five warm-ups and five timed observations per process: 20 samples per producer, case and operation. All processes validate complete reconstructed samples before timing, and encoded sizes match across revisions. Ratios below one favour the candidate:
+
+| Case | Encode | Decode | Prepare | Prepare + encode | Maximum process RSS |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 37×23, 12-bit scalar noise | 0.791 | 0.980 | 0.967 | 0.857 | 1.026 |
+| 37×23, 16-bit scalar flat | 0.970 | 0.958 | 1.015 | 1.011 | 1.021 |
+| 512×512, 12-bit scalar noise | 1.034 | 1.009 | **1.140** | 1.043 | **1.159** |
+| 512×512, 16-bit scalar flat | 0.902 | 0.956 | 0.981 | 0.990 | 0.958 |
+| 512×512, 16-bit RGB noise, line | 0.997 | 1.009 | 0.915 | 0.999 | 0.948 |
+| 512×512, 12-bit RGB ramp, sample | 0.958 | 0.973 | 0.957 | 0.956 | 1.011 |
+
+The preparation and maximum-RSS flags triggered one fixed investigation: 16 direct paired blocks and eight interleaved same-candidate control pairs, using unchanged binaries. The repeat pooled encode/decode/preparation/combined ratios are **0.994 / 0.992 / 0.990 / 1.006**. The preparation slowdown did not recur in pooled results, although four of 16 individual preparation pairs exceed 1.05. All observations and paired spreads remain archived; the repeat does not replace the original data.
+
+**Whole-process RSS remains inconclusive.** Its repeat maximum ratio is 1.012, but its median ratio is 1.051. The identical-candidate control median ratio is 0.944, showing process variability without proving its cause or waiving the finding. Preparation, descriptor, storage and benchmark sources are byte-identical between revisions; compiler layout and runtime effects are not thereby excluded. RSS is not a measurement of pure algorithm workspace.
+
+All 194 condition observations report AC power and no recorded thermal/performance warning. System, application and VM activity remained visible, so this is a powered developer-workstation comparison, not idle isolation. Independent recomputation reconciles all 96 process records, schedules, source/binary identities and statistics. There is no population-equivalence, full performance-gate or Milestone 4 completion claim. The earlier short-decode findings remain pending.
 
 ## Qualification boundary
 

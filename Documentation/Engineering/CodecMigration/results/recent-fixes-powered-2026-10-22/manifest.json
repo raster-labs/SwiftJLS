@@ -1,0 +1,851 @@
+{
+  "revisions": {
+    "baseline": "62309d3c59b04c5896d6ea076aae5ce06f5f33e3",
+    "candidate": "e66f7da0d663756bae2d1495454d59b028228f7f"
+  },
+  "cases": [
+    [
+      37,
+      23,
+      12,
+      "noise",
+      1,
+      0,
+      0
+    ],
+    [
+      37,
+      23,
+      16,
+      "flat",
+      1,
+      0,
+      0
+    ],
+    [
+      512,
+      512,
+      12,
+      "noise",
+      1,
+      0,
+      0
+    ],
+    [
+      512,
+      512,
+      16,
+      "flat",
+      1,
+      0,
+      0
+    ],
+    [
+      512,
+      512,
+      16,
+      "noise",
+      3,
+      0,
+      1
+    ],
+    [
+      512,
+      512,
+      12,
+      "ramp",
+      3,
+      0,
+      2
+    ]
+  ],
+  "operations": [
+    "encode",
+    "decode",
+    "prepare",
+    "prepare_encode"
+  ],
+  "blocks": 4,
+  "warmups": 5,
+  "iterations": 5,
+  "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+  "runner_sha256": "634c2f4f4aa93e99087696955700b003501f0828e7b0ea389a08f46d47830e4c",
+  "developer_dir": "/Library/Developer/CommandLineTools",
+  "builds": {
+    "baseline": {
+      "command": [
+        "swift",
+        "build",
+        "-c",
+        "release",
+        "--jobs",
+        "4",
+        "--package-path",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-powered-2026-10-22/baseline-consumer"
+      ],
+      "exit_code": 0,
+      "seconds": 31.147430625000002
+    },
+    "candidate": {
+      "command": [
+        "swift",
+        "build",
+        "-c",
+        "release",
+        "--jobs",
+        "4",
+        "--package-path",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-powered-2026-10-22/candidate-consumer"
+      ],
+      "exit_code": 0,
+      "seconds": 32.089978209
+    }
+  },
+  "source_files": {
+    "baseline": {
+      "Package.swift": "4812930d1d52147b8639649587fc85958ef4b04fd57f4d13652903c9973c6eaf",
+      "Sources/SwiftJLS/CodecAPI.swift": "2aecbc7572e10b24c5119cd69105414039f301ebd448b191498aec23e86cf3ee",
+      "Sources/SwiftJLS/Errors.swift": "f71dd532405f2bca468ef39b29117513c686a89c64dd908ef598d1bca4f4fe6b",
+      "Sources/SwiftJLS/Image.swift": "f69e4120f41db5a41922b9cb41d6bbedf6fd5b9768360efc987d38906fb21cf3",
+      "Sources/SwiftJLS/ImageDescriptor.swift": "ba12d371e2583578a726aabde85fc244648821984bcf630ff365ec2a33e1cd26",
+      "Sources/SwiftJLS/ImageStorage.swift": "6211f868c3ffb1a58bbd516cfe039fcee90bc51dbd58a94d52ff54fd679b1c78",
+      "Sources/SwiftJLS/JPEGLS/ComponentCodec.swift": "6d58aa9a3f77ee8b3efab5c70ca6464da68fa01f626259266735c9daaee70cb2",
+      "Sources/SwiftJLS/JPEGLS/ComponentSamples.swift": "1ce0be11dde2105dd795286985802b7c626206ce74063057a9928ae7b8e3d119",
+      "Sources/SwiftJLS/JPEGLS/HPTransform.swift": "3c1b1d61b0de3692a47a555b215f329e9e92e8e86cb7950fe0087bf9f3d6bc83",
+      "Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift": "c1224495271d1b6c0b74b8533557fd92ede7473fdc21e1affbe2389deb6e6704",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift": "3521e0b70581ff2b6cb315daf10c29514ee6eabe7abd7a7c539fb36cae7fabb9",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift": "8e9419b656ba9f2721702623f569ee0b8da403de56a96105e758655bb101f8ba",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift": "5eeb8a236cb8ca55fb60d1613a60b77999e189518a115c2e08c081129d09ebf4",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSError.swift": "73dd58926e8f15cf96ffffeaba7dc72ccf576a77e43bc10fd9f675170a3d9dc1",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift": "5b4c1388a0651b504fb67206ea88c28d02ab232ee61d66ac126cfa1f461bc5e0",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift": "a0a42030720d63690a4baed0a8599872b5e72a799fffc1e6bcc553bfd32fccb2",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift": "97f9944dd1a62fe76cc5b05c8d216fd7c71968efa1cac0a2945e5885d83781cd",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift": "c67cf575f32f721891a73d1b5895948d518dae4894a353c9bf1f634d7a0dbd13",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift": "b165f853b2118674183466de4030f8192a6a7e62e5ea4398d38d61774b7af1fa",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift": "b419c22bc5adfcaedf7b44ca33283b3b53ef02a7e9c830ab85aee570f6f91ef6",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift": "1901bc5deeea95438852c530ba1b1682af07c1fe2304438b446710298b79a0bc",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift": "30e8e774cf84acae49e188cddedc25d5a7c3b4bcfe14c9aa68a8da3f3fca17a8",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift": "e26a0753893f838f68ea42a0c10ea863ac4771e532bfc6978bd1fb764968838e",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift": "3edc9cbf9a5755e193ce0dfebcd9bc0aba0652a2a0d23fd802da8d58d63ed4d6",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift": "b98f40f6701c2d5edf9d6346c9ba142166b9ec45163ace57f75819f4fd8e0b89",
+      "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift": "5af63c538c3ce0d31f207452e37ddb18d78084a4a90c9c365d6d4380b0bd5e29",
+      "Sources/SwiftJLS/JPEGLS/ScalarSamples.swift": "2a18c8e246c9fc0dfb37fb41798683c5b3c1bbdbb738fd5c26e5dd3c065faa6f",
+      "Sources/SwiftJLS/Options.swift": "dd43c63592bf4d74c53626374fb4494b0815315f0f64bc1a2831f9c066b5d787",
+      "Sources/SwiftJLSCLI/PayloadCommands.swift": "2eadb7719607fef0cb9787f8060ef8c536b86485c7180958014d2677ca1b0fbf",
+      "Sources/SwiftJLSCLI/PayloadIO.swift": "f759f05c4db55d9994e9895b4890a9da3a697c05132b061c770c1e8d9cad4ec2",
+      "Sources/SwiftJLSCLI/main.swift": "22ef948e4154e8378890ba072ec639d86f1cf207bff41298d112e653858f0432"
+    },
+    "candidate": {
+      "Package.swift": "4812930d1d52147b8639649587fc85958ef4b04fd57f4d13652903c9973c6eaf",
+      "Sources/SwiftJLS/CodecAPI.swift": "f8cd258111d74a6bea454566feaf2c86d1120965f3dba081c620c86bd0948d21",
+      "Sources/SwiftJLS/Errors.swift": "f71dd532405f2bca468ef39b29117513c686a89c64dd908ef598d1bca4f4fe6b",
+      "Sources/SwiftJLS/Image.swift": "f69e4120f41db5a41922b9cb41d6bbedf6fd5b9768360efc987d38906fb21cf3",
+      "Sources/SwiftJLS/ImageDescriptor.swift": "ba12d371e2583578a726aabde85fc244648821984bcf630ff365ec2a33e1cd26",
+      "Sources/SwiftJLS/ImageStorage.swift": "6211f868c3ffb1a58bbd516cfe039fcee90bc51dbd58a94d52ff54fd679b1c78",
+      "Sources/SwiftJLS/JPEGLS/ComponentCodec.swift": "62737239646a1f078a535a493f0370ba3e02e05fd3ba2424eb14af81ca4e1d85",
+      "Sources/SwiftJLS/JPEGLS/ComponentSamples.swift": "1ce0be11dde2105dd795286985802b7c626206ce74063057a9928ae7b8e3d119",
+      "Sources/SwiftJLS/JPEGLS/HPTransform.swift": "3c1b1d61b0de3692a47a555b215f329e9e92e8e86cb7950fe0087bf9f3d6bc83",
+      "Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift": "c1224495271d1b6c0b74b8533557fd92ede7473fdc21e1affbe2389deb6e6704",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift": "3521e0b70581ff2b6cb315daf10c29514ee6eabe7abd7a7c539fb36cae7fabb9",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift": "8e9419b656ba9f2721702623f569ee0b8da403de56a96105e758655bb101f8ba",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift": "5eeb8a236cb8ca55fb60d1613a60b77999e189518a115c2e08c081129d09ebf4",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSError.swift": "73dd58926e8f15cf96ffffeaba7dc72ccf576a77e43bc10fd9f675170a3d9dc1",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift": "5b4c1388a0651b504fb67206ea88c28d02ab232ee61d66ac126cfa1f461bc5e0",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift": "0ea64fd62754175071e8ba63760f6e26e303cf5e97b3e704306c6d17cfd8dbdd",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift": "97f9944dd1a62fe76cc5b05c8d216fd7c71968efa1cac0a2945e5885d83781cd",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift": "c67cf575f32f721891a73d1b5895948d518dae4894a353c9bf1f634d7a0dbd13",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift": "b165f853b2118674183466de4030f8192a6a7e62e5ea4398d38d61774b7af1fa",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift": "b419c22bc5adfcaedf7b44ca33283b3b53ef02a7e9c830ab85aee570f6f91ef6",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift": "1901bc5deeea95438852c530ba1b1682af07c1fe2304438b446710298b79a0bc",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift": "30e8e774cf84acae49e188cddedc25d5a7c3b4bcfe14c9aa68a8da3f3fca17a8",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift": "e26a0753893f838f68ea42a0c10ea863ac4771e532bfc6978bd1fb764968838e",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift": "3edc9cbf9a5755e193ce0dfebcd9bc0aba0652a2a0d23fd802da8d58d63ed4d6",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift": "b98f40f6701c2d5edf9d6346c9ba142166b9ec45163ace57f75819f4fd8e0b89",
+      "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift": "0923dc6fb191c2ac888178ddf2ba8de7594a90da7c3b8447213a012d06e9559a",
+      "Sources/SwiftJLS/JPEGLS/ScalarSamples.swift": "2a18c8e246c9fc0dfb37fb41798683c5b3c1bbdbb738fd5c26e5dd3c065faa6f",
+      "Sources/SwiftJLS/Options.swift": "dd43c63592bf4d74c53626374fb4494b0815315f0f64bc1a2831f9c066b5d787",
+      "Sources/SwiftJLS/Qualified/QualifiedContext.swift": "d121db5432eb9e0e5525a1c469ff9bba93db370362ad35ed72f1cd18db003317",
+      "Sources/SwiftJLS/Qualified/QualifiedCursor.swift": "5a10d7649f0c3e3891eb455637be17b8a36103614ef9bb5afa6bd742183c579a",
+      "Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift": "c309c0131ca776e4cc04190c344c28f0da5ecd9da0198cd34ac27c3e7f8abbaf",
+      "Sources/SwiftJLS/Qualified/QualifiedKernel.swift": "e0facfd1d2814d028b285e3a653b1c2de9fe3af40dd6108d7e9084563e941911",
+      "Sources/SwiftJLS/Qualified/QualifiedMarkers.swift": "0b1a28c737b75f778ec1daad14d53426e305fca61b59d90f2d98fe5812cbc72f",
+      "Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift": "74ad31bba36b21bdbb1ad0f67a0b8eccfd442967a906ad862406749c0fb20d69",
+      "Sources/SwiftJLS/Qualified/QualifiedOutcome.swift": "b86193ff4179517f9e305ee662bd65983e6015b189daeb9bdbfef596c87f2fc1",
+      "Sources/SwiftJLS/Qualified/QualifiedParameters.swift": "7ffd5ee528680f280e037519899e25108dca584a5d3ab854d35c9c8e264298ca",
+      "Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift": "19d9bb41c18c03f0f42be564a7f9e78a57cec4ba0c45e987e6a3d01fa1ea7d87",
+      "Sources/SwiftJLS/Qualified/QualifiedParser.swift": "68f856138d0bdcb9f737da659e9cffac0f5f233d96f1dab6fc18f798951467ba",
+      "Sources/SwiftJLS/Qualified/QualifiedPrediction.swift": "4437f09db60927663443b3ee8c1022c44ae8e2de25fc69e16b34395fb6d3fe59",
+      "Sources/SwiftJLSCLI/PayloadCommands.swift": "2eadb7719607fef0cb9787f8060ef8c536b86485c7180958014d2677ca1b0fbf",
+      "Sources/SwiftJLSCLI/PayloadIO.swift": "f759f05c4db55d9994e9895b4890a9da3a697c05132b061c770c1e8d9cad4ec2",
+      "Sources/SwiftJLSCLI/main.swift": "22ef948e4154e8378890ba072ec639d86f1cf207bff41298d112e653858f0432"
+    }
+  },
+  "method": "Common owning SwiftJLS API at both revisions; same consumer, release without sanitizers, per-process correctness before timing, four alternating paired blocks.20 observations per producer/case/operation. No population-confidence or fullM4 qualification claim.",
+  "environment": {
+    "swift": {
+      "command": [
+        "swift",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n",
+      "stderr": "swift-driver version: 1.168.6 "
+    },
+    "os": {
+      "command": [
+        "sw_vers"
+      ],
+      "exit_code": 0,
+      "stdout": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434\n",
+      "stderr": ""
+    },
+    "hardware": {
+      "command": [
+        "sysctl",
+        "hw.model",
+        "hw.ncpu",
+        "hw.memsize",
+        "machdep.cpu.brand_string"
+      ],
+      "exit_code": 0,
+      "stdout": "hw.model: Mac16,5\nhw.ncpu: 16\nhw.memsize: 68719476736\nmachdep.cpu.brand_string: Apple M4 Max\n",
+      "stderr": ""
+    }
+  },
+  "binaries": {
+    "baseline": {
+      "path": "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-powered-2026-10-22/baseline-consumer/.build/release/Benchmark",
+      "sha256": "160c12ec8a507c78b8e2f175ecaa9854c0f5609fa4ef01180399e833b90d25ea"
+    },
+    "candidate": {
+      "path": "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-powered-2026-10-22/candidate-consumer/.build/release/Benchmark",
+      "sha256": "d9ac0304c35c21660aaad44296ccf63a7c8dfaca970cfd2c3e2d0ef8f33c0ca1"
+    }
+  },
+  "schedule": [
+    {
+      "case": [
+        37,
+        23,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 0,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        37,
+        23,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 0,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        37,
+        23,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 1,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        37,
+        23,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 1,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        37,
+        23,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 2,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        37,
+        23,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 2,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        37,
+        23,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 3,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        37,
+        23,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 3,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        37,
+        23,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 0,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        37,
+        23,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 0,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        37,
+        23,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 1,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        37,
+        23,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 1,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        37,
+        23,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 2,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        37,
+        23,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 2,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        37,
+        23,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 3,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        37,
+        23,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 3,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 0,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 0,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 1,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 1,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 2,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 2,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 3,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "noise",
+        1,
+        0,
+        0
+      ],
+      "block": 3,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 0,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 0,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 1,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 1,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 2,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 2,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 3,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "flat",
+        1,
+        0,
+        0
+      ],
+      "block": 3,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "noise",
+        3,
+        0,
+        1
+      ],
+      "block": 0,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "noise",
+        3,
+        0,
+        1
+      ],
+      "block": 0,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "noise",
+        3,
+        0,
+        1
+      ],
+      "block": 1,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "noise",
+        3,
+        0,
+        1
+      ],
+      "block": 1,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "noise",
+        3,
+        0,
+        1
+      ],
+      "block": 2,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "noise",
+        3,
+        0,
+        1
+      ],
+      "block": 2,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "noise",
+        3,
+        0,
+        1
+      ],
+      "block": 3,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        16,
+        "noise",
+        3,
+        0,
+        1
+      ],
+      "block": 3,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "ramp",
+        3,
+        0,
+        2
+      ],
+      "block": 0,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "ramp",
+        3,
+        0,
+        2
+      ],
+      "block": 0,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "ramp",
+        3,
+        0,
+        2
+      ],
+      "block": 1,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "ramp",
+        3,
+        0,
+        2
+      ],
+      "block": 1,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "ramp",
+        3,
+        0,
+        2
+      ],
+      "block": 2,
+      "label": "baseline"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "ramp",
+        3,
+        0,
+        2
+      ],
+      "block": 2,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "ramp",
+        3,
+        0,
+        2
+      ],
+      "block": 3,
+      "label": "candidate"
+    },
+    {
+      "case": [
+        512,
+        512,
+        12,
+        "ramp",
+        3,
+        0,
+        2
+      ],
+      "block": 3,
+      "label": "baseline"
+    }
+  ]
+}
