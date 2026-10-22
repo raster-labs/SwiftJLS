@@ -168,10 +168,22 @@ struct JPEGLSHeader {
             func unsupported(_ message: String) -> CodecError { .init(.unsupportedFeature, message) }
             func word(_ offset: Int) -> Int { Int(bytes[offset]) << 8 | Int(bytes[offset + 1]) }
             func longWord(_ offset: Int) -> UInt32 { UInt32(word(offset)) << 16 | UInt32(word(offset + 2)) }
-            guard bytes.count >= 2, bytes[0] == 255, bytes[1] == 216 else {
+            guard bytes.count >= 2, bytes[0] == 255 else {
                 throw CodecError(.unsupportedFormat, "Input is not a JPEG-LS codestream.")
             }
-            var cursor = 2
+            // Marker fill is permitted before SOI too. Keep offsets relative
+            // to the complete supplied stream so DICOM padding parity includes
+            // this fill, while Data slice indices remain irrelevant.
+            var cursor = 1
+            while bytes[cursor] == 255 {
+                cursor += 1
+                if cursor & 4095 == 0 { try budget.check() }
+                guard cursor < bytes.count else { throw malformed() }
+            }
+            guard bytes[cursor] == 216 else {
+                throw CodecError(.unsupportedFormat, "Input is not a JPEG-LS codestream.")
+            }
+            cursor += 1
             var frame: (width: Int, height: Int, bits: Int, ids: [UInt8], sampling: [UInt8])?
             var preset: [Int]?
             var extendedSize: (width: Int, height: Int)?

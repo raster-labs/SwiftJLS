@@ -15,12 +15,13 @@ enum ScalarCodec {
         layouts: ["greyscale8", "greyscale16", "components8", "components16"], availableBackends: [.scalarCPU],
         canInspect: true, canEncode: true, canDecode: true)
 
-    static func layout(_ descriptor: ImageDescriptor, limits: ResourceLimits) throws -> PlaneDescriptor {
+    static func layout(_ descriptor: ImageDescriptor, limits: ResourceLimits,
+                       discardICC: Bool = false) throws -> PlaneDescriptor {
         try descriptor.validate(limits: limits)
         guard descriptor.sampleType == .unsignedInteger, (descriptor.storageBits == 8 || descriptor.storageBits == 16),
               (2...16).contains(descriptor.meaningfulBits), descriptor.planes.count == 1,
               descriptor.components == [.grey], descriptor.colour == .greyscale,
-              descriptor.alpha == .absent, descriptor.iccProfile == nil,
+              descriptor.alpha == .absent, descriptor.iccProfile == nil || discardICC,
               descriptor.width <= Int(clamping: UInt32.max), descriptor.height <= Int(clamping: UInt32.max) else {
             throw CodecError(.unsupportedFeature, "The migrated scalar profile requires unsigned greyscale without ICC metadata.")
         }
@@ -51,9 +52,16 @@ enum ScalarCodec {
         let budget = CodecBudget(limits: options.resourceLimits)
         return try mapped {
             let descriptor = image.descriptor
-            let plane = try layout(descriptor, limits: budget.limits)
+            let plane = try layout(descriptor, limits: budget.limits,
+                                   discardICC: options.metadataPolicy == .discardAncillary)
             guard configuration.codecOptions.interleaveMode == .none, configuration.codecOptions.colourTransform == .none else {
                 throw CodecError(.unsupportedFeature, "Greyscale requires non-interleaved coding.")
+            }
+            let discardedICCBytes = descriptor.iccProfile?.count ?? 0
+            if discardedICCBytes > 0 {
+                // Discard changes emitted metadata, not the retained input's
+                // admission cost. No descriptor or pixel owner is copied.
+                _ = try image.metadata.validate(limits: budget.limits, additionalBytes: discardedICCBytes)
             }
             let metadata = try JPEGMetadataEncoding(image, options: options)
             let near: Int
@@ -82,7 +90,9 @@ enum ScalarCodec {
             let worstOutput = try checkedAdd(checkedAdd(checkedMultiply(samples, 10), checkedAdd(64, metadata.byteCount)), checkedMultiply(chunks, 4))
             let outputLimit = min(worstOutput, budget.limits.maximumCompressedBytes)
             let workspace = try checkedAdd(checkedAdd(contextBytes, tableBytes(parameters)), checkedAdd(checkedMultiply(outputLimit, 2), near > 0 ? checkedMultiply(descriptor.width, 4) : 0))
-            try budget.admit(pixelBytes: image.storage.byteCount, workspaceBytes: checkedAdd(workspace, checkedMultiply(metadata.byteCount, 32)), compressedBytes: outputLimit)
+            try budget.admit(pixelBytes: image.storage.byteCount,
+                workspaceBytes: checkedAdd(checkedAdd(workspace, checkedMultiply(metadata.byteCount, 32)), discardedICCBytes),
+                compressedBytes: outputLimit)
             options.progress?(try ProgressUpdate(phase: .processing, completedUnits: 0, totalUnits: samples))
             try budget.check()
             var writer = JPEGLSBitstreamWriter(capacity: min(outputLimit, 4096), maximumBytes: outputLimit)

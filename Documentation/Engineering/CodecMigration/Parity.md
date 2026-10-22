@@ -1,5 +1,7 @@
 # Predecessor profile coverage and qualification — 12 October 2026
 
+The [22 October maintenance-fix record](RecentFixes.md) documents the new caller-workspace profile, marker fill, ICC discard and inspection policy, with separate final validation. Earlier source-pinned performance/platform results remain historical; physical-device tests and Milestone 5 remain pending, and existing performance findings remain open.
+
 Baseline: JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`; suite policy 0.10.0. This record supersedes the older profile limitations in the chronological checkpoint log. No release or consumer cutover is authorised by this record.
 
 [The completion audit](Completion.md) records the merged PR 15 baseline and remaining qualification. The inactive-DRI compatibility gap is closed in runtime checkpoint `4008f21`; this profile inventory does not imply that all release qualification gates have passed.
@@ -60,4 +62,4 @@ The merged PR 15 runtime passes 80 declarations in ten suites in local debug/rel
 
 Current scoped workspace accounting includes source bounds and 89 fully attributed observed operations; universal heap-plus-stack-plus-allocator totals remain unknown. The metadata allowance conservatively admits 32 times retained metadata bytes for archives, table copies and container overhead; this is an admission ceiling, not a measured allocation claim. Earlier mutation campaigns retain their source revisions; current-source duration evidence is linked from [Validation.md](Validation.md).
 
-The current Milestone 4 checkpoint `e6a6436` passes 120 declarations in 24 suites under debug/release/ASan/TSan on both the host and native arm64 macOS 26.0 (25A354) guest. Five exact OS 26.0 simulator consumers, CLI/resource consumers and SDK builds pass. The native guest uses hardware virtualisation. [Current qualification](Milestone4Performance.md) records native sample-interleaved decode improvements, powered representative measurements, the performance disposition and refreshed workspace evidence. All physical-device tests remain pending; Milestone 5 is deferred.
+The 21 October Milestone 4 checkpoint `e6a6436` passes 120 declarations in 24 suites under debug/release/ASan/TSan on both the host and native arm64 macOS 26.0 (25A354) guest. Five exact OS 26.0 simulator consumers, CLI/resource consumers and SDK builds pass. The native guest uses hardware virtualisation. [Current qualification](Milestone4Performance.md) records native sample-interleaved decode improvements, powered representative measurements, the performance disposition and refreshed workspace evidence. All physical-device tests remain pending; Milestone 5 is deferred.

@@ -4,6 +4,14 @@ This source inventory covers the public scalar CPU encode, owned decode, supplie
 
 Full scoped source bounds and attribution of observed codec heap are complete, with every unmeasured quantity stated explicitly. MEM-10 requires operation/row bounds; MEM-12 requires workspace measurements where measurable and unknown values otherwise. Completing that accounting does not establish an exact universal heap-plus-stack-plus-allocator total. Production `peakWorkspaceBytes` remains `nil`, and the measurement's `pure_algorithm_workspace_complete` remains false.
 
+## 22 October caller-workspace profile
+
+The separate `QualifiedMonochromeDecoder` uses caller-provided fixed payload rather than the owning paths tabulated below. Its source-defined payload is `256 * MemoryLayout<Int>.stride + 65_536 * MemoryLayout<UInt16>.stride + QualifiedContextModel.workspaceByteCount`: palette widths/entries and scalar regular/run contexts. This is 144,864 bytes on the measured 64-bit ABI and 137,968 bytes by the 32-bit layout formula. Input and final UInt16 output remain borrowed; no row or full-frame staging buffer is created. Inspection requires the same reusable scratch but does not decode entropy. Both operations charge complete supplied capacities, including unused suffixes, against independent workspace and total-memory limits before parsing or reconstruction.
+
+The development ordinary-release allocation probe observes selected Linux allocator entry points, with positive controls, cold operations, valid fixtures, rejection and cancellation cases. [The maintenance-fix record](RecentFixes.md) retains measured results and exclusions. This is not a universal no-allocation guarantee: hidden allocator calls, direct mappings, other threads, stack/runtime state and caller callbacks require separate evidence. Earlier 89-operation owning-path measurements are not measurements of this added API or the changed source.
+
+ICC discard also charges the retained input profile once in operation workspace/total admission before borrowing pixels. The profile is not emitted, copied or multiplied into the retained-metadata expansion allowance. Existing owning-path universal `peakWorkspaceBytes` remains unknown.
+
 ## Units and lifetime
 
 Let `I = MemoryLayout<Int>.stride`, `C` be the admitted component count (1–4), `W` the active component width, `T3` the validated gradient threshold, and `G = (2*T3+1)*I`. `T3 <= 65535`, so a gradient table has at most 131,071 elements. The context payload is `365*4*I`: 11,680 bytes on 64-bit hosts or 5,840 bytes with 32-bit `Int`. Payload sizes below exclude allocation headers, capacity rounding and allocator overhead; the requested-heap ledger includes the first two where Heaptrack observes them.

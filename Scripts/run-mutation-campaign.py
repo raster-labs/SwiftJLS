@@ -4,7 +4,7 @@
 import argparse, json, os, pathlib, selectors, signal, subprocess, time
 p = argparse.ArgumentParser()
 p.add_argument('--seconds', type=int, required=True)
-p.add_argument('--entry', choices=['owned', 'into', 'inspect'], required=True)
+p.add_argument('--entry', choices=['owned', 'into', 'inspect', 'qualified', 'qualified-inspect'], required=True)
 a = p.parse_args()
 assert 1 <= a.seconds <= 3900
 command = ['Examples/FuzzConsumer/.build/release/FuzzConsumer', 'Tests/SwiftJLSTests/Fixtures', a.entry, str(a.seconds), 'last-input.jls']

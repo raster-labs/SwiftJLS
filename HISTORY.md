@@ -1,5 +1,12 @@
 # History and provenance — SwiftJLS
 
+## Predecessor maintenance-fix migration — 2026-10-22 (unreleased)
+
+- Add the explicit `QualifiedMonochromeDecoder` caller-workspace profile with synchronous nonthrowing outcomes, checked budgets, deadline/cancellation and complete-stream admission.
+- Accept leading marker fill, permit explicit ICC discard without altering pixels, and reject progress callbacks on synchronous inspection.
+- Add independent fixtures, malformed-input and lifetime regressions, a development allocation probe with positive controls, and qualified-entry mutation coverage.
+- Keep exact validation and allocation scope in [the maintenance-fix record](Documentation/Engineering/CodecMigration/RecentFixes.md). Earlier performance findings, physical-device admission and Milestone 5 remain open; the owner verifies CI and merges.
+
 Entries below describe their dated checkpoints. Current merged/candidate revisions, completed milestones and open gates are in [the completion audit](Documentation/Engineering/CodecMigration/Completion.md); old CI billing and unsupported-codec statements are not current status.
 
 ## Documentation foundation — 17 September 2026

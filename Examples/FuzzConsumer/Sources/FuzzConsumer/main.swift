@@ -15,8 +15,8 @@ struct Generator {
 struct CampaignFailure: Error { let reason: String }
 guard CommandLine.arguments.count == 5,
       let seconds = Double(CommandLine.arguments[3]), seconds > 0,
-      ["owned", "into", "inspect"].contains(CommandLine.arguments[2]) else {
-    throw CampaignFailure(reason: "Usage: FuzzConsumer FIXTURES owned|into|inspect SECONDS LAST_INPUT")
+      ["owned", "into", "inspect", "qualified", "qualified-inspect"].contains(CommandLine.arguments[2]) else {
+    throw CampaignFailure(reason: "Usage: FuzzConsumer FIXTURES owned|into|inspect|qualified|qualified-inspect SECONDS LAST_INPUT")
 }
 let directory = URL(fileURLWithPath: CommandLine.arguments[1])
 let entry = CommandLine.arguments[2]
@@ -34,6 +34,22 @@ let decoders = [try Decoder(), try Decoder(configuration: .init(codecOptions:
     .init(restartIntervalLines: 0, hpInterpretation: .legacyJLSwift, legacyMappingContinuations: true,
           legacyExtendedDimensions: true, legacyPresetDefaults: true))),
     try Decoder(configuration: .init(codecOptions: .init(restartIntervalLines: 0, mappingOutputPrecision: 16)))]
+// The advanced synchronous API retains no owners. The harness owns all three
+// disjoint spans for the entire call and discards partial output on failure.
+let qualified = QualifiedMonochromeDecoder(profile: .jlswift0101, limits: .init(
+    maximumEncodedBytes: 1024 * 1024, maximumPixels: 262144,
+    maximumDecodedBytes: 2 * 1024 * 1024, maximumDimension: 70000,
+    maximumWorkspaceBytes: 2 * 1024 * 1024, maximumMemoryBytes: 64 * 1024 * 1024,
+    deadlineSeconds: 0.1))
+let qualifiedScratch = UnsafeMutableRawPointer.allocate(
+    byteCount: QualifiedMonochromeDecoder.workspaceByteCount,
+    alignment: QualifiedMonochromeDecoder.workspaceAlignment)
+let qualifiedStorage = UnsafeMutablePointer<UInt16>.allocate(capacity: 262144 + 16)
+qualifiedStorage.initialize(repeating: 0xa55a, count: 262144 + 16)
+defer { qualifiedScratch.deallocate(); qualifiedStorage.deallocate() }
+let qualifiedWorkspace = UnsafeMutableRawBufferPointer(start: qualifiedScratch,
+    count: QualifiedMonochromeDecoder.workspaceByteCount)
+let qualifiedOutput = UnsafeMutableBufferPointer(start: qualifiedStorage + 8, count: 262144)
 var generator = Generator()
 var iterations = 0, accepted = 0, rejected = 0, decodeCalls = 0
 let start = ProcessInfo.processInfo.systemUptime
@@ -69,7 +85,35 @@ while ProcessInfo.processInfo.systemUptime - start < seconds {
         candidate.append(contentsOf: [255, 217])
     }
     try candidate.write(to: lastInput)
-    do {
+    if entry == "qualified" || entry == "qualified-inspect" {
+        let outcome = candidate.withUnsafeBytes { input in
+            if entry == "qualified-inspect" {
+                return qualified.inspect(input, workspace: qualifiedWorkspace)
+            }
+            decodeCalls += 1
+            return qualified.decode(input, into: qualifiedOutput, workspace: qualifiedWorkspace)
+        }
+        switch outcome {
+        case .success(let info):
+            guard info.width > 0, info.height > 0, info.sampleCount <= qualifiedOutput.count else {
+                throw CampaignFailure(reason: "Qualified result escaped admitted geometry")
+            }
+            if entry == "qualified" {
+                let maximum = (1 << info.bitsPerSample) - 1
+                for index in 0..<info.sampleCount where Int(qualifiedOutput[index]) > maximum {
+                    throw CampaignFailure(reason: "Qualified sample escaped declared precision")
+                }
+            }
+            accepted += 1
+        case .failure: rejected += 1
+        }
+        for index in 0..<8 {
+            guard qualifiedStorage[index] == 0xa55a,
+                  qualifiedStorage[262144 + 8 + index] == 0xa55a else {
+                throw CampaignFailure(reason: "Qualified decoder changed destination guard bytes")
+            }
+        }
+    } else { do {
         let decoder = decoders[(iterations / 8) % decoders.count]
         switch entry {
         case "inspect": _ = try decoder.inspect(candidate, options: options)
@@ -86,7 +130,7 @@ while ProcessInfo.processInfo.systemUptime - start < seconds {
             }
         }
         accepted += 1
-    } catch is CodecError { rejected += 1 }
+    } catch is CodecError { rejected += 1 } }
     iterations += 1
     let now = ProcessInfo.processInfo.systemUptime
     if now - reported >= 5 {

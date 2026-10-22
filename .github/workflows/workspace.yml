@@ -4,6 +4,8 @@ on:
     paths:
       - 'Sources/**'
       - 'Examples/WorkspaceProbe/**'
+      - 'Examples/QualifiedAllocationProbe/**'
+      - 'Tests/SwiftJLSTests/Fixtures/**'
       - 'Scripts/StorageEvidence/measure-operation.py'
       - 'Scripts/StorageEvidence/run-workspace-profiles.py'
       - '.github/workflows/workspace.yml'
@@ -11,6 +13,26 @@ on:
 permissions:
   contents: read
 jobs:
+  qualified-caller-workspace:
+    runs-on: ubuntu-24.04
+    container: swift:6.4-noble
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Build ordinary-release caller-workspace probe
+        run: |
+          apt-get update && apt-get install -y --no-install-recommends python3
+          swift build -c release --package-path Examples/QualifiedAllocationProbe
+      - name: Check allocation controls and bounded operations
+        run: |
+          python3 Examples/QualifiedAllocationProbe/run.py --binary Examples/QualifiedAllocationProbe/.build/release/QualifiedAllocationProbe --fixtures Tests/SwiftJLSTests/Fixtures --output /tmp/qualified-evidence --explicit-standard-defaults
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: qualified-caller-workspace
+          path: /tmp/qualified-evidence
   allocations:
     runs-on: ubuntu-24.04
     container: swift:6.4-noble

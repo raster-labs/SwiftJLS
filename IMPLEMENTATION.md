@@ -1,5 +1,7 @@
 # SwiftJLS — staged implementation instructions
 
+The [22 October maintenance-fix record](Documentation/Engineering/CodecMigration/RecentFixes.md) documents the new caller-workspace profile, marker fill, ICC discard and inspection policy, with separate final validation. Earlier source-pinned performance/platform results remain historical; physical-device tests and Milestone 5 remain pending, and existing performance findings remain open.
+
 Read AGENTS.md and every common contract document first. The owner-assigned migration now includes the native codec, mapping tables, metadata and predecessor compatibility profiles. Follow the common contract when predecessor conventions differ. Maintain performance, reliability and security together. The implemented feature matrix is in [Parity.md](Documentation/Engineering/CodecMigration/Parity.md); executed and outstanding qualification is in [Validation.md](Documentation/Engineering/CodecMigration/Validation.md). Implementation completion does not authorise a stable release or consumer cutover.
 
 For applications replacing the predecessor dependency, use [MIGRATION.md](MIGRATION.md). It records current owning APIs, codec profiles, compatibility options and deferred features; this document governs implementation inside SwiftJLS. Refresh the application guide as later milestones become available and tested.
@@ -14,7 +16,7 @@ Do not migrate code from moving main without recording the selected revision. Re
 
 ## Milestones and exit evidence
 
-[The completion audit](Documentation/Engineering/CodecMigration/Completion.md) maps these statuses to exact evidence and remaining acceptance requirements. The DICOM-padding, inactive-DRI and qualification follow-up merged in PR 15 as `571fd7c905f7ef70b4f494513ecf979d620bebd5` on 13 October 2026. [The current Milestone 4 performance record](Documentation/Engineering/CodecMigration/Milestone4Performance.md) and [workspace accounting](Documentation/Engineering/CodecMigration/WorkspaceAccounting.md) record the current task. Current-source host/native macOS 26.0 and exact OS 26.0 simulator checks pass; fixed short/deep comparisons retain unresolved short decode findings; do not infer completion from earlier measurements. The owner verifies GitHub CI and merges the pushed branch; all physical-device testing and Milestone 5 remain pending.
+[The completion audit](Documentation/Engineering/CodecMigration/Completion.md) maps these statuses to exact evidence and remaining acceptance requirements. The DICOM-padding, inactive-DRI and qualification follow-up merged in PR 15 as `571fd7c905f7ef70b4f494513ecf979d620bebd5` on 13 October 2026. [The current Milestone 4 performance record](Documentation/Engineering/CodecMigration/Milestone4Performance.md) and [workspace accounting](Documentation/Engineering/CodecMigration/WorkspaceAccounting.md) record the current task. The 21 October source passed host/native macOS 26.0 and exact OS 26.0 simulator checks; fixed short/deep comparisons retain unresolved short decode findings; do not infer completion from earlier measurements. The owner verifies GitHub CI and merges the pushed branch; all physical-device testing and Milestone 5 remain pending.
 
 | Milestone | Work | Exit evidence | Audited status, 21 October 2026 |
 | --- | --- | --- | --- |

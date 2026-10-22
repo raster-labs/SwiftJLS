@@ -8,6 +8,10 @@ This guide is for application maintainers and coding agents changing a dependenc
 
 The active migration uses suite policy **0.10.0** and predecessor commit **`15aa75164145414f3d5ffb801401c52d40cc5bcc`**. The dependency and API links below use that pinned baseline; historical engineering records retain their original revisions. Compare your application's actual pinned revision before applying it; other predecessor versions may differ. The successor's implemented surface is in [Sources/SwiftJLS](Sources/SwiftJLS); executed coverage and unavailable gates are in [the current qualification record](Documentation/Engineering/CodecMigration/Validation.md).
 
+The [22 October maintenance follow-up](Documentation/Engineering/CodecMigration/RecentFixes.md) additionally pins predecessor `d17545284a23e93f3d884a18f1046c4e305daa35`. Its advanced `QualifiedMonochromeDecoder(profile: .jlswift0101)` accepts caller-owned raw input, output and fixed scratch, returns nonthrowing scalar outcomes, and explicitly retains predecessor interpretation conventions. Read [the caller-workspace guide](Documentation/QualifiedMonochrome.md) before using it; it is separate from the owning API below.
+
+Synchronous `Decoder.inspect` rejects progress callbacks instead of ignoring them. Encoding an ICC-tagged descriptor requires explicit `.discardAncillary`; the profile is charged to budgets and discarded without changing samples or transforming colour. Preservation and ICC decode destinations remain unsupported. Leading `FF` fill before SOI is accepted within the same complete-stream and resource checks.
+
 ## Dependency and deployment changes
 
 | Item | Predecessor at the inspected commit | Successor now |

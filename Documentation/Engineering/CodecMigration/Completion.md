@@ -1,6 +1,8 @@
-# Migration completion audit — updated 21 October 2026
+# Migration completion audit — updated 22 October 2026
 
-**Current-source software validation and scoped workspace accounting are complete; the performance gate remains open.** Source `e6a6436` passes 120 declarations in 24 suites in four local and native arm64 macOS 26.0 configurations. All five exact OS 26.0 simulator consumers, four resource profiles and SDK builds pass. Native macOS execution uses Apple hardware virtualisation; it is not physical-device qualification. Scoped workspace accounting retains explicit measurement revisions and unknown universal totals. All physical-device tests remain pending at the owner’s request, and Milestone 5 remains deferred.
+The [22 October maintenance-fix record](RecentFixes.md) documents the new caller-workspace profile, marker fill, ICC discard and inspection policy, with separate final validation. Earlier source-pinned performance/platform results remain historical; physical-device tests and Milestone 5 remain pending, and existing performance findings remain open.
+
+**The 21 October checkpoint completed its scoped software validation and workspace accounting; the performance gate remains open.** Source `e6a6436` passes 120 declarations in 24 suites in four local and native arm64 macOS 26.0 configurations. All five exact OS 26.0 simulator consumers, four resource profiles and SDK builds pass. Native macOS execution uses Apple hardware virtualisation; it is not physical-device qualification. Scoped workspace accounting retains explicit measurement revisions and unknown universal totals. All physical-device tests remain pending at the owner’s request, and Milestone 5 remains deferred.
 
 This audit applies [IMPLEMENTATION.md](../../../IMPLEMENTATION.md), [TESTING.md](../../TESTING.md), [PERFORMANCE.md](../../PERFORMANCE.md) and [PLATFORMS.md](../../PLATFORMS.md). Historical evidence and the seven shared contracts are preserved.
 

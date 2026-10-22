@@ -1,8 +1,10 @@
 # Predecessor migration validation — updated 21 October 2026
 
+The [22 October maintenance-fix record](RecentFixes.md) documents the new caller-workspace profile, marker fill, ICC discard and inspection policy, with separate final validation. Earlier source-pinned performance/platform results remain historical; physical-device tests and Milestone 5 remain pending, and existing performance findings remain open.
+
 The native codec, mapping tables and metadata are implemented in the owning SwiftJLS API. [PR 14](https://github.com/raster-labs/SwiftJLS/pull/14) merged on 12 October as `f481f6031279b8ca5c51f559df33cc66a9e4e06b`. [The completion audit](Completion.md) records the current milestone status. Current-source host, native macOS 26.0 and exact OS 26.0 simulator validation pass; fixed short/deep comparisons retain unresolved short decode findings; all physical-device tests and Milestone 5 remain pending by owner direction. The owner verifies CI and merges the pushed branch in GitHub. Release, tagging, predecessor archival and consumer cutover remain outside this task.
 
-## Current Milestone 4 qualification — 21 October
+## Prior Milestone 4 qualification — 21 October
 
 Production checkpoint `e6a6436c692f5af226bffceb70b7ee65c774edf3` includes native sample-interleaved UInt16 views and bounded descriptor/parser/table/owned-admission setup improvements. All 120 declarations in 24 suites pass separately in debug, release, AddressSanitizer and ThreadSanitizer on the host and native arm64 macOS 26.0 (25A354) guest, with zero failures/skips. Host and guest CLI checks (73 payload/103 process), independent consumers and bounded resource workloads pass. Five exact OS 26.0 simulator consumers, four non-Watch resource profiles, four SDK-family builds and the Watch arm64_32 module build pass. Native macOS execution uses hardware virtualisation and does not qualify physical devices.
 
