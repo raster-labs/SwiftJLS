@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checks": [
+    "seed reproducibility (SEED=20261022)",
+    "joint 24-block resampling across all 4 labels",
+    "candidate-copy kept strictly separate from candidate (never pooled)",
+    "known proportional signals for all 4 predeclared contrasts",
+    "independent scalar bootstrap median verification",
+    "Bonferroni-4 quantiles (0.00625, 0.99375)",
+    "predeclared gate uses upper interval bound and overall maxima ratio only (not max block ratio)",
+    "A/A interval excluding unity or >5% shift triggers control_review_required and blocks pass",
+    "explicit confirmed_measured_regression vs within_finite_criterion vs open states"
+  ],
+  "numpy": "2.3.5",
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "draw_probe_sha256": "2936c94c13288eb6836d5e33f54a9bc04f60d9f01802c4538e8480be3ea816d8"
+}

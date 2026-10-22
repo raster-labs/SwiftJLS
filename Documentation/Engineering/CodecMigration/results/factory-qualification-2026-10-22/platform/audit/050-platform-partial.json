@@ -1,0 +1,283 @@
+{
+  "status": "accepted_completed_host_sdk_runtime_subset",
+  "checked_utc": "2026-10-22T14:50:51.694775+00:00",
+  "source_manifest_sha256": "7677a4d227a13567cadd3163c68123fe96ea2fe939f3e1efc0ef8e96b32de5b1",
+  "source_files_verified": 2911,
+  "source_equals_factory002_050": true,
+  "receipts_unchanged_during_audit": true,
+  "receipt_sha256": {
+    "tests/source.json": "67e88eb408ca9782acc96d93b74884f795489fd0d1ab1a1d2efa3870f7edb260",
+    "tests/results.json": "326892acd2c29513ce4ce686fa956d2baa9abf367135c73d49c02c5b9a593a8a",
+    "tests/toolchain.json": "0dd5604ab81f62cdfa321a02d6ef58017f9e41ebbd8ba0ae54523e4be41be21b",
+    "qualification-source.json": "67e88eb408ca9782acc96d93b74884f795489fd0d1ab1a1d2efa3870f7edb260",
+    "apple-value/build-results.json": "4c2fcc5263b2bda90fe4d5c1a3d408ce75398c38561f627f393ed71be6c9eb52",
+    "apple-value/binary-manifest.json": "af5d9789c670a2e91b77a21de4bad7a7c9a8728578b1ce91f544a7193776a290",
+    "apple-value/environment.json": "2a92ec70defcf3ddf9162fa4004300e0feca65942b601cf66611271155f2f2e3",
+    "simulator-restore-after-runtime.json": "7e866006594d5df4a613bcc739ba1696bbd6927e66dbcab2f4b85ab26f5a58ae",
+    "apple-value/iOS-26.0-iPad_Pro_13-inch_(M5).json": "0bff6b58d680204626134d57b74a3bdfc2446a6676d55cbe5d1f00344ba716c9",
+    "apple-value/iOS-26.0-iPhone_17_Pro.json": "cd14dd99a4c5c0b428873bde2696fe83cadb71b90cd204cedc9f02a3bbbf4610",
+    "apple-value/tvOS-26.0-Apple_TV_4K_(3rd_generation).json": "d6081f7e1f89714b739df1ae0bccd69b959bee42e477f8563279b8d649c39ac0",
+    "apple-value/visionOS-26.0-Apple_Vision_Pro.json": "322aac400224dba2d7ce89fa64989db4980175ef511b3ab21f1470c548eca25a",
+    "apple-value/watchOS-26.0-Apple_Watch_Series_11_(46mm).json": "5807537707b1b8742f57a8172f091329c481bb44ddf6c98d85594c964226ed3f"
+  },
+  "driver_sha256": {
+    "qualification-source.py": "03eff4d74e423afb356adf17945a4137314653bec6b2288ee0210c4f1e8762ae",
+    "apple-build-value.py": "22c6f4deb54923f8f86cd3581d49317574ce2e428091c285fd56cfd2aa82e99d",
+    "apple-runtime-value.py": "0369c8fb3c9fedc978bbab9dbb069276c15c90c99261efa0a7c44a3a8ba6af07",
+    "apple-resource-value.py": "5da0a1e6f8b2b3b5bd3196b28b811560c4e66bb618344aaf5a235ae9c65ec089",
+    "run-tests.py": "63c6ad780ece339890b235c8baba9eb431acac5653561ae296e0710ecfc7f4bb",
+    "prepare-native.py": "332d3cd7879f9352ebbb54ed94de4c8ae1e78445a004c4156bf1fd599134b1e3",
+    "run-native-template.py": "a1befbd302c030c235d28d45f46fd8a31e16325db6ab62f2c2f4d419a3cc8bcb",
+    "qualify.py": "bb76a51aecf0783ac6740180be623893ffb4edd95af55080a72b70d6a2fae101"
+  },
+  "drivers_changed_since_preflight": {
+    "run-tests.py": {
+      "previous": "98a97d95d0814f0d9d9a6454af9bc4a3db16086e3c158a8e45170f8d0f94deb7",
+      "current": "63c6ad780ece339890b235c8baba9eb431acac5653561ae296e0710ecfc7f4bb"
+    },
+    "prepare-native.py": {
+      "previous": "cd7908054f3f6642aedd33578d0c16b7be69967c03081a9ca9a84fce17771e82",
+      "current": "332d3cd7879f9352ebbb54ed94de4c8ae1e78445a004c4156bf1fd599134b1e3"
+    },
+    "run-native-template.py": {
+      "previous": "f2c79827493e4bdf92209cce9b9d0965064cac2d3628c296f3677065b05f7a51",
+      "current": "a1befbd302c030c235d28d45f46fd8a31e16325db6ab62f2c2f4d419a3cc8bcb"
+    },
+    "qualify.py": {
+      "previous": "47fac8fae50188a2f70b268cd33fdf15bf016e62884baca9a6dd9dc5936217ae",
+      "current": "bb76a51aecf0783ac6740180be623893ffb4edd95af55080a72b70d6a2fae101"
+    }
+  },
+  "host_toolchain": {
+    "developer_dir": "/Library/Developer/CommandLineTools",
+    "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n",
+    "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434\n",
+    "arch": "arm64"
+  },
+  "host_tests": [
+    {
+      "mode": "debug",
+      "tests": 149,
+      "console_suites": 27,
+      "xml_classname_groups": 28,
+      "xml_sha256": "ad5d1bb2612d19d3969a2d1258ba0383b1c2a5e0ceb3323a13f4a21257d02cd4",
+      "log_sha256": "9b36ff0a8f374e387a233d61ecc59b21460f43a14e712c5530458b4d298f5330",
+      "bundle_sha256": "494747054586e95278f482ae2299a1c20a9e9c8207dec123260364a1fa934ac2"
+    },
+    {
+      "mode": "release",
+      "tests": 149,
+      "console_suites": 27,
+      "xml_classname_groups": 28,
+      "xml_sha256": "9b6a4e09cad7469cd94121ac0635f64e932de2b0bac7e03a80351be582c1d585",
+      "log_sha256": "7b94f40059a4bfa259d6b0d127e4547d7f8ab74d098e071ee86dce8002199418",
+      "bundle_sha256": "5017b8445e5660885cfa2efb0238271c5ff46c2df9cb6b887ce681b09520e216"
+    },
+    {
+      "mode": "asan",
+      "tests": 149,
+      "console_suites": 27,
+      "xml_classname_groups": 28,
+      "xml_sha256": "e8b80076a81e3f865a7795a4735ff9b953f117703e9cfeab5b848c86cbdb67d3",
+      "log_sha256": "3d05e05757b1502a156beb68fc9e141b376e5593c7525381a33ddbd694afcfcf",
+      "bundle_sha256": "6e6d9e38b975cb5b578ddfa30c9826e0a4a85d9a063b097e12b2ccdb716a4dac"
+    },
+    {
+      "mode": "tsan",
+      "tests": 149,
+      "console_suites": 27,
+      "xml_classname_groups": 28,
+      "xml_sha256": "5a676ede9ab0df887b1651626c66a240f3dbd277dbd1ab1600e233d2f871fd16",
+      "log_sha256": "08283ca94977c3170eab0ca1dead810de0bed98e8cb4ba30a68287e0233b8775",
+      "bundle_sha256": "4a3abaaa3c89e76e335c30d1aa0194620125368a167c5521b37d179441512913"
+    }
+  ],
+  "sdk_environment": {
+    "developer_dir": "/Applications/Xcode.app/Contents/Developer",
+    "xcodebuild": "Xcode 27.1\nBuild version 27A9275\n",
+    "swiftc": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n",
+    "sdks": {
+      "iphonesimulator": {
+        "triple": "arm64-apple-ios26.0-simulator",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk",
+        "sdk_version": "27.1"
+      },
+      "appletvsimulator": {
+        "triple": "arm64-apple-tvos26.0-simulator",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator27.0.sdk",
+        "sdk_version": "27.0"
+      },
+      "xrsimulator": {
+        "triple": "arm64-apple-xros26.0-simulator",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator27.0.sdk",
+        "sdk_version": "27.0"
+      },
+      "watchsimulator": {
+        "triple": "arm64-apple-watchos26.0-simulator",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/SDKs/WatchSimulator27.0.sdk",
+        "sdk_version": "27.0"
+      },
+      "watchos": {
+        "triple": "arm64_32-apple-watchos26.0",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/WatchOS.platform/Developer/SDKs/WatchOS27.0.sdk",
+        "sdk_version": "27.0"
+      }
+    },
+    "source_manifest_sha256": "7677a4d227a13567cadd3163c68123fe96ea2fe939f3e1efc0ef8e96b32de5b1",
+    "sources_patch_sha256": "b46c380d1a7a8e9f5a0a1a4ed5a36390e0e99ec21ad18c9d15d5fef538cafc7b"
+  },
+  "sdk_command_count": 17,
+  "sdk_binary_manifest": {
+    "iphonesimulator": {
+      "triple": "arm64-apple-ios26.0-simulator",
+      "library_dylib": "apple-value/iphonesimulator/libSwiftJLS.dylib",
+      "library_dylib_sha256": "2db0c3bd738563ee15c281bcac8c696166b6302013724b2b76260de2a4938f63",
+      "library_dylib_bytes": 787552,
+      "swiftmodule": "apple-value/iphonesimulator/SwiftJLS.swiftmodule",
+      "swiftmodule_sha256": "bffb746aaf54498aa1b2a3e6697b6f4966f86905e25809002331809ca7a4d1fc",
+      "consumer_binary": "apple-value/iphonesimulator/AppleRuntimeConsumer",
+      "consumer_binary_sha256": "17660afe4307d167bf1dd97b27f82be726a9c325c3136d0a5d4140992b3f3192",
+      "consumer_binary_bytes": 85168
+    },
+    "appletvsimulator": {
+      "triple": "arm64-apple-tvos26.0-simulator",
+      "library_dylib": "apple-value/appletvsimulator/libSwiftJLS.dylib",
+      "library_dylib_sha256": "ffe87f586c3d400ebcb1e6f32db9f23f39e664cd941461df8bb8f083019a4a92",
+      "library_dylib_bytes": 787552,
+      "swiftmodule": "apple-value/appletvsimulator/SwiftJLS.swiftmodule",
+      "swiftmodule_sha256": "2e6af3a6c0192d3f70edadf1a12516a06b0d1fb69d8acd8722b445471b31ff3d",
+      "consumer_binary": "apple-value/appletvsimulator/AppleRuntimeConsumer",
+      "consumer_binary_sha256": "8496de6425e85032ddf22b421b850745e49c7735a2a4538ec62708b2398b6a15",
+      "consumer_binary_bytes": 85168
+    },
+    "xrsimulator": {
+      "triple": "arm64-apple-xros26.0-simulator",
+      "library_dylib": "apple-value/xrsimulator/libSwiftJLS.dylib",
+      "library_dylib_sha256": "b12844abfc18267e42faa76ca1466234095704a7751d34df22dfa6af144684f0",
+      "library_dylib_bytes": 787600,
+      "swiftmodule": "apple-value/xrsimulator/SwiftJLS.swiftmodule",
+      "swiftmodule_sha256": "848cfc51fbf789ff560cfb8f7c82271af1f91bd32cd5e1791b43a4e8ea55aac6",
+      "consumer_binary": "apple-value/xrsimulator/AppleRuntimeConsumer",
+      "consumer_binary_sha256": "d8fb5daaf079a609708a672c1bae20e3ff542ba7936a1a5b736510d8165ef1d7",
+      "consumer_binary_bytes": 85232
+    },
+    "watchsimulator": {
+      "triple": "arm64-apple-watchos26.0-simulator",
+      "library_dylib": "apple-value/watchsimulator/libSwiftJLS.dylib",
+      "library_dylib_sha256": "0f6e5bf258b7a16938acf47dd8acf262ff9734dc41109002ba36eac231bfc0c8",
+      "library_dylib_bytes": 787552,
+      "swiftmodule": "apple-value/watchsimulator/SwiftJLS.swiftmodule",
+      "swiftmodule_sha256": "1617fbc8ccb6c148ebb018f3907eb4b2ff0c5bb5e0b07d6d010e352ad67a18c1",
+      "consumer_binary": "apple-value/watchsimulator/AppleRuntimeConsumer",
+      "consumer_binary_sha256": "b76f91fb5afef8caa9b10cb0065073e9703cef3a0d4839c3ef476fdaee698b1e",
+      "consumer_binary_bytes": 85168
+    },
+    "watchos_arm64_32": {
+      "triple": "arm64_32-apple-watchos26.0",
+      "swiftmodule": "apple-value/SwiftJLS-watch32.swiftmodule",
+      "swiftmodule_sha256": "8882e91b938a67571ac2fc6a16ee8f5a27ceaaafba31b0ee682dab559510752b",
+      "swiftmodule_bytes": 536292
+    }
+  },
+  "runtime_consumers": [
+    {
+      "device": "iPad Pro 13-inch (M5)",
+      "udid": "1328AD68-A18F-4068-A392-16F6A5A13795",
+      "runtime": "iOS 26.0",
+      "version": "26.0",
+      "build": "23A343",
+      "sdk": "iphonesimulator",
+      "commands": 4,
+      "exit_codes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "receipt_sha256": "0bff6b58d680204626134d57b74a3bdfc2446a6676d55cbe5d1f00344ba716c9",
+      "consumer_sha256": "17660afe4307d167bf1dd97b27f82be726a9c325c3136d0a5d4140992b3f3192",
+      "library_sha256": "2db0c3bd738563ee15c281bcac8c696166b6302013724b2b76260de2a4938f63",
+      "initial_final_state": "Shutdown"
+    },
+    {
+      "device": "iPhone 17 Pro",
+      "udid": "9021546C-CD90-4663-A01B-B4E92851C3DF",
+      "runtime": "iOS 26.0",
+      "version": "26.0",
+      "build": "23A343",
+      "sdk": "iphonesimulator",
+      "commands": 2,
+      "exit_codes": [
+        0,
+        0
+      ],
+      "receipt_sha256": "cd14dd99a4c5c0b428873bde2696fe83cadb71b90cd204cedc9f02a3bbbf4610",
+      "consumer_sha256": "17660afe4307d167bf1dd97b27f82be726a9c325c3136d0a5d4140992b3f3192",
+      "library_sha256": "2db0c3bd738563ee15c281bcac8c696166b6302013724b2b76260de2a4938f63",
+      "initial_final_state": "Booted"
+    },
+    {
+      "device": "Apple TV 4K (3rd generation)",
+      "udid": "3ED74F7E-454E-41DF-8DC8-825EDEE4DA82",
+      "runtime": "tvOS 26.0",
+      "version": "26.0",
+      "build": "23J352",
+      "sdk": "appletvsimulator",
+      "commands": 4,
+      "exit_codes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "receipt_sha256": "d6081f7e1f89714b739df1ae0bccd69b959bee42e477f8563279b8d649c39ac0",
+      "consumer_sha256": "8496de6425e85032ddf22b421b850745e49c7735a2a4538ec62708b2398b6a15",
+      "library_sha256": "ffe87f586c3d400ebcb1e6f32db9f23f39e664cd941461df8bb8f083019a4a92",
+      "initial_final_state": "Shutdown"
+    },
+    {
+      "device": "Apple Vision Pro",
+      "udid": "9D9B3976-E27A-490B-906D-D98B412251BD",
+      "runtime": "visionOS 26.0",
+      "version": "26.0",
+      "build": "23M336",
+      "sdk": "xrsimulator",
+      "commands": 4,
+      "exit_codes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "receipt_sha256": "322aac400224dba2d7ce89fa64989db4980175ef511b3ab21f1470c548eca25a",
+      "consumer_sha256": "d8fb5daaf079a609708a672c1bae20e3ff542ba7936a1a5b736510d8165ef1d7",
+      "library_sha256": "b12844abfc18267e42faa76ca1466234095704a7751d34df22dfa6af144684f0",
+      "initial_final_state": "Shutdown"
+    },
+    {
+      "device": "Apple Watch Series 11 (46mm)",
+      "udid": "1FEFBD8C-164D-44F4-A940-88ECE79574DE",
+      "runtime": "watchOS 26.0",
+      "version": "26.0",
+      "build": "23R353",
+      "sdk": "watchsimulator",
+      "commands": 4,
+      "exit_codes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "receipt_sha256": "5807537707b1b8742f57a8172f091329c481bb44ddf6c98d85594c964226ed3f",
+      "consumer_sha256": "b76f91fb5afef8caa9b10cb0065073e9703cef3a0d4839c3ef476fdaee698b1e",
+      "library_sha256": "0f6e5bf258b7a16938acf47dd8acf262ff9734dc41109002ba36eac231bfc0c8",
+      "initial_final_state": "Shutdown"
+    }
+  ],
+  "pending_not_audited": [
+    "resource simulator results",
+    "native guest execution",
+    "host consumer and CLI outputs"
+  ],
+  "scope": "Independent read/hash/XML/command audit only. No build/test/measurement/VM operation."
+}

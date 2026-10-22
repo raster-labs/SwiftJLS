@@ -1,0 +1,854 @@
+{
+  "errors": [],
+  "counts": {
+    "raw": 504,
+    "events": 504,
+    "conditions": 8,
+    "endpoints": 29
+  },
+  "first_start": "2026-10-22T14:21:54.649053+00:00",
+  "last_finish": "2026-10-22T14:21:59.483261+00:00",
+  "dispositions": {
+    "unresolved": 10,
+    "within_measured_gate": 14,
+    "spans_zero": 4,
+    "negative_delta_confirmed": 1
+  },
+  "ordinary_medians_seconds": {
+    "three_change_ref": {
+      "encode": 9.625000529922545e-06,
+      "decode": 1.2833334039896727e-05,
+      "prepare": 2.833330654539168e-06,
+      "fresh_encode": 1.0104165994562209e-05,
+      "prepare_encode": 1.3124998076818883e-05
+    },
+    "admission_001": {
+      "encode": 9.625000529922545e-06,
+      "decode": 1.3020835467614233e-05,
+      "prepare": 2.749991836026311e-06,
+      "fresh_encode": 1.087499549612403e-05,
+      "prepare_encode": 1.3604170817416161e-05
+    },
+    "factory_002": {
+      "encode": 9.66666266322136e-06,
+      "decode": 1.1374999303370714e-05,
+      "prepare": 2.7083297027274966e-06,
+      "fresh_encode": 1.06250008684583e-05,
+      "prepare_encode": 1.3374999980442226e-05
+    },
+    "factory_002_zero_icc": {
+      "encode": 9.749994205776602e-06,
+      "decode": 1.1854164768010378e-05,
+      "prepare": 2.7500063879415393e-06,
+      "fresh_encode": 1.0854164429474622e-05,
+      "prepare_encode": 1.395832805428654e-05
+    },
+    "three_change_inst": {
+      "encode": 9.750001481734216e-06,
+      "decode": 1.3000004400964826e-05,
+      "prepare": 2.916669473052025e-06,
+      "fresh_encode": 1.0854164429474622e-05,
+      "prepare_encode": 1.3916665920987725e-05
+    },
+    "factory_002_inst": {
+      "encode": 9.541661711409688e-06,
+      "decode": 1.09999964479357e-05,
+      "prepare": 2.7916685212403536e-06,
+      "fresh_encode": 9.937502909451723e-06,
+      "prepare_encode": 1.302082819165662e-05
+    }
+  },
+  "endpoints": [
+    {
+      "endpoint_index": 1,
+      "group": "ordinary_5op_ratio",
+      "contrast": "factory_002_vs_three_change_ref",
+      "operation": "encode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 1.0043285330914313,
+      "familywise_bonferroni_29_95": [
+        0.9521939793847639,
+        1.0607526536732987
+      ],
+      "marginal_95": [
+        0.9705884942506471,
+        1.034781842863694
+      ],
+      "interpretation_family29": "unresolved"
+    },
+    {
+      "endpoint_index": 2,
+      "group": "ordinary_5op_ratio",
+      "contrast": "factory_002_vs_three_change_ref",
+      "operation": "decode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 0.8863635332804173,
+      "familywise_bonferroni_29_95": [
+        0.8233915525199526,
+        0.9579805001087338
+      ],
+      "marginal_95": [
+        0.8461499257119907,
+        0.9336755491022324
+      ],
+      "interpretation_family29": "within_measured_gate"
+    },
+    {
+      "endpoint_index": 3,
+      "group": "ordinary_5op_ratio",
+      "contrast": "factory_002_vs_three_change_ref",
+      "operation": "prepare",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 0.9558819752959605,
+      "familywise_bonferroni_29_95": [
+        0.9000009978446556,
+        0.9850762606728454
+      ],
+      "marginal_95": [
+        0.9142851440887683,
+        0.9705862715389949
+      ],
+      "interpretation_family29": "within_measured_gate"
+    },
+    {
+      "endpoint_index": 4,
+      "group": "ordinary_5op_ratio",
+      "contrast": "factory_002_vs_three_change_ref",
+      "operation": "fresh_encode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 1.0515465476493944,
+      "familywise_bonferroni_29_95": [
+        0.9855658563626463,
+        1.1120503091157583
+      ],
+      "marginal_95": [
+        1.0142282364512987,
+        1.0907169855807133
+      ],
+      "interpretation_family29": "unresolved"
+    },
+    {
+      "endpoint_index": 5,
+      "group": "ordinary_5op_ratio",
+      "contrast": "factory_002_vs_three_change_ref",
+      "operation": "prepare_encode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 1.019047766876621,
+      "familywise_bonferroni_29_95": [
+        0.9629293478402595,
+        1.0770499593500589
+      ],
+      "marginal_95": [
+        0.9799679213590299,
+        1.0533967391304346
+      ],
+      "interpretation_family29": "unresolved"
+    },
+    {
+      "endpoint_index": 6,
+      "group": "ordinary_5op_ratio",
+      "contrast": "factory_002_vs_admission_001",
+      "operation": "encode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 1.0043285330914313,
+      "familywise_bonferroni_29_95": [
+        0.9581584395080193,
+        1.049783422156707
+      ],
+      "marginal_95": [
+        0.9743587830123206,
+        1.0280807112944814
+      ],
+      "interpretation_family29": "within_measured_gate"
+    },
+    {
+      "endpoint_index": 7,
+      "group": "ordinary_5op_ratio",
+      "contrast": "factory_002_vs_admission_001",
+      "operation": "decode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 0.8735998033047044,
+      "familywise_bonferroni_29_95": [
+        0.8280304772013352,
+        0.9177629424881699
+      ],
+      "marginal_95": [
+        0.8452952352730495,
+        0.9019292875541806
+      ],
+      "interpretation_family29": "within_measured_gate"
+    },
+    {
+      "endpoint_index": 8,
+      "group": "ordinary_5op_ratio",
+      "contrast": "factory_002_vs_admission_001",
+      "operation": "prepare",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 0.9848500883700748,
+      "familywise_bonferroni_29_95": [
+        0.9545449734889776,
+        1.0153829621470596
+      ],
+      "marginal_95": [
+        0.962407436584213,
+        1.0
+      ],
+      "interpretation_family29": "within_measured_gate"
+    },
+    {
+      "endpoint_index": 9,
+      "group": "ordinary_5op_ratio",
+      "contrast": "factory_002_vs_admission_001",
+      "operation": "fresh_encode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 0.9770119787401448,
+      "familywise_bonferroni_29_95": [
+        0.9274801783019723,
+        1.0196675234231292
+      ],
+      "marginal_95": [
+        0.9500000671626855,
+        1.0038619357953174
+      ],
+      "interpretation_family29": "within_measured_gate"
+    },
+    {
+      "endpoint_index": 10,
+      "group": "ordinary_5op_ratio",
+      "contrast": "factory_002_vs_admission_001",
+      "operation": "prepare_encode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 0.9831543693438082,
+      "familywise_bonferroni_29_95": [
+        0.937870363577561,
+        1.024374559569958
+      ],
+      "marginal_95": [
+        0.9538683346975395,
+        1.0061353702434008
+      ],
+      "interpretation_family29": "within_measured_gate"
+    },
+    {
+      "endpoint_index": 11,
+      "group": "ordinary_5op_ratio",
+      "contrast": "admission_001_vs_three_change_ref",
+      "operation": "encode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 1.0,
+      "familywise_bonferroni_29_95": [
+        0.9643608141748425,
+        1.0394739865356484
+      ],
+      "marginal_95": [
+        0.9788143682268798,
+        1.0242287360070896
+      ],
+      "interpretation_family29": "within_measured_gate"
+    },
+    {
+      "endpoint_index": 12,
+      "group": "ordinary_5op_ratio",
+      "contrast": "admission_001_vs_three_change_ref",
+      "operation": "decode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 1.0146105000566958,
+      "familywise_bonferroni_29_95": [
+        0.960387093715558,
+        1.0818821068627316
+      ],
+      "marginal_95": [
+        0.9779865199833504,
+        1.058021336194052
+      ],
+      "interpretation_family29": "unresolved"
+    },
+    {
+      "endpoint_index": 13,
+      "group": "ordinary_5op_ratio",
+      "contrast": "admission_001_vs_three_change_ref",
+      "operation": "prepare",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 0.9705862715389949,
+      "familywise_bonferroni_29_95": [
+        0.9285692903328809,
+        1.0
+      ],
+      "marginal_95": [
+        0.9420300858438614,
+        0.9850762606728454
+      ],
+      "interpretation_family29": "within_measured_gate"
+    },
+    {
+      "endpoint_index": 14,
+      "group": "ordinary_5op_ratio",
+      "contrast": "admission_001_vs_three_change_ref",
+      "operation": "fresh_encode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 1.0762882856414533,
+      "familywise_bonferroni_29_95": [
+        1.0280125702071068,
+        1.124945819720881
+      ],
+      "marginal_95": [
+        1.04800112317641,
+        1.1078217214642925
+      ],
+      "interpretation_family29": "unresolved"
+    },
+    {
+      "endpoint_index": 15,
+      "group": "ordinary_5op_ratio",
+      "contrast": "admission_001_vs_three_change_ref",
+      "operation": "prepare_encode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 1.0365084046331088,
+      "familywise_bonferroni_29_95": [
+        0.993770990251081,
+        1.0914629280702584
+      ],
+      "marginal_95": [
+        1.0061923622126423,
+        1.0686279992649854
+      ],
+      "interpretation_family29": "unresolved"
+    },
+    {
+      "endpoint_index": 16,
+      "group": "zero_icc_2op_ratio",
+      "contrast": "factory_002_zero_icc_vs_factory_002",
+      "operation": "fresh_encode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 1.021568333391541,
+      "familywise_bonferroni_29_95": [
+        0.9653978235891689,
+        1.0887037490035143
+      ],
+      "marginal_95": [
+        0.9846746524934299,
+        1.0576547740141433
+      ],
+      "interpretation_family29": "unresolved"
+    },
+    {
+      "endpoint_index": 17,
+      "group": "zero_icc_2op_ratio",
+      "contrast": "factory_002_zero_icc_vs_factory_002",
+      "operation": "prepare_encode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 1.0436133139960593,
+      "familywise_bonferroni_29_95": [
+        0.9910178951969266,
+        1.1045780776104333
+      ],
+      "marginal_95": [
+        1.012269669180665,
+        1.079365325746749
+      ],
+      "interpretation_family29": "unresolved"
+    },
+    {
+      "endpoint_index": 18,
+      "group": "zero_icc_2op_ratio",
+      "contrast": "factory_002_zero_icc_vs_three_change_ref",
+      "operation": "fresh_encode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 1.0742266541658205,
+      "familywise_bonferroni_29_95": [
+        1.0100070671855348,
+        1.1398316810730738
+      ],
+      "marginal_95": [
+        1.034343936066107,
+        1.114893041532046
+      ],
+      "interpretation_family29": "unresolved"
+    },
+    {
+      "endpoint_index": 19,
+      "group": "zero_icc_2op_ratio",
+      "contrast": "factory_002_zero_icc_vs_three_change_ref",
+      "operation": "prepare_encode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 1.063491817110394,
+      "familywise_bonferroni_29_95": [
+        1.0092593291244167,
+        1.1269722500116899
+      ],
+      "marginal_95": [
+        1.0231477838512557,
+        1.1027740270394994
+      ],
+      "interpretation_family29": "unresolved"
+    },
+    {
+      "endpoint_index": 20,
+      "group": "instrumented_subphase_ratio",
+      "contrast": "factory_002_inst_vs_three_change_inst",
+      "subphase": "prepare",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 0.9571425720443841,
+      "familywise_bonferroni_29_95": [
+        0.9285692903328809,
+        1.0000025641639836
+      ],
+      "marginal_95": [
+        0.9428534365769937,
+        0.9857108645326096
+      ],
+      "interpretation_family29": "within_measured_gate"
+    },
+    {
+      "endpoint_index": 21,
+      "group": "instrumented_subphase_ratio",
+      "contrast": "factory_002_inst_vs_three_change_inst",
+      "subphase": "fresh_entry",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 0.9866635001792791,
+      "familywise_bonferroni_29_95": [
+        0.9294880405484065,
+        1.0270240932581354
+      ],
+      "marginal_95": [
+        0.9480530672411838,
+        1.0133318432216216
+      ],
+      "interpretation_family29": "within_measured_gate"
+    },
+    {
+      "endpoint_index": 22,
+      "group": "instrumented_subphase_ratio",
+      "contrast": "factory_002_inst_vs_three_change_inst",
+      "subphase": "fresh_body",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 0.921348799610727,
+      "familywise_bonferroni_29_95": [
+        0.8404891612173662,
+        0.9767466415425351
+      ],
+      "marginal_95": [
+        0.8804327607478409,
+        0.9540239574802897
+      ],
+      "interpretation_family29": "within_measured_gate"
+    },
+    {
+      "endpoint_index": 23,
+      "group": "instrumented_subphase_ratio",
+      "contrast": "factory_002_inst_vs_three_change_inst",
+      "subphase": "fresh_exit",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 0.9876556517539926,
+      "familywise_bonferroni_29_95": [
+        0.9404745571035968,
+        1.0249972715168183
+      ],
+      "marginal_95": [
+        0.9518122985516759,
+        1.0124986357584091
+      ],
+      "interpretation_family29": "within_measured_gate"
+    },
+    {
+      "endpoint_index": 24,
+      "group": "instrumented_subphase_ratio",
+      "contrast": "factory_002_inst_vs_three_change_inst",
+      "subphase": "prepare_encode",
+      "type": "ratio",
+      "available": true,
+      "point_estimate": 0.9356284231857508,
+      "familywise_bonferroni_29_95": [
+        0.8804663045524866,
+        0.9952593084833127
+      ],
+      "marginal_95": [
+        0.8938957074211734,
+        0.9633029923555688
+      ],
+      "interpretation_family29": "within_measured_gate"
+    },
+    {
+      "endpoint_index": 25,
+      "group": "instrumented_subphase_paired_delta_ns",
+      "contrast": "factory_002_inst_vs_three_change_inst",
+      "subphase": "prepare",
+      "type": "paired_delta_ns",
+      "available": true,
+      "point_estimate": -166.66308511048555,
+      "familywise_bonferroni_29_95": [
+        -270.8256943151355,
+        0.0
+      ],
+      "marginal_95": [
+        -208.33977032452822,
+        -83.3242665976286
+      ],
+      "interpretation_family29": "spans_zero"
+    },
+    {
+      "endpoint_index": 26,
+      "group": "instrumented_subphase_paired_delta_ns",
+      "contrast": "factory_002_inst_vs_three_change_inst",
+      "subphase": "fresh_entry",
+      "type": "paired_delta_ns",
+      "available": true,
+      "point_estimate": -41.6621332988143,
+      "familywise_bonferroni_29_95": [
+        -312.50237952917814,
+        83.33881851285696
+      ],
+      "marginal_95": [
+        -229.16356101632118,
+        41.6621332988143
+      ],
+      "interpretation_family29": "spans_zero"
+    },
+    {
+      "endpoint_index": 27,
+      "group": "instrumented_subphase_paired_delta_ns",
+      "contrast": "factory_002_inst_vs_three_change_inst",
+      "subphase": "fresh_body",
+      "type": "paired_delta_ns",
+      "available": true,
+      "point_estimate": -187.4941517598927,
+      "familywise_bonferroni_29_95": [
+        -458.33439799025655,
+        -0.014551915228366852
+      ],
+      "marginal_95": [
+        -416.6577127762139,
+        -41.676685214042664
+      ],
+      "interpretation_family29": "negative_delta_confirmed"
+    },
+    {
+      "endpoint_index": 28,
+      "group": "instrumented_subphase_paired_delta_ns",
+      "contrast": "factory_002_inst_vs_three_change_inst",
+      "subphase": "fresh_exit",
+      "type": "paired_delta_ns",
+      "available": true,
+      "point_estimate": -41.676685214042664,
+      "familywise_bonferroni_29_95": [
+        -208.33977032452822,
+        124.98639989644289
+      ],
+      "marginal_95": [
+        -166.67763702571392,
+        62.50047590583563
+      ],
+      "interpretation_family29": "spans_zero"
+    },
+    {
+      "endpoint_index": 29,
+      "group": "instrumented_subphase_paired_delta_ns",
+      "contrast": "factory_002_inst_vs_three_change_inst",
+      "subphase": "prepare_encode",
+      "type": "paired_delta_ns",
+      "available": true,
+      "point_estimate": -416.67226469144225,
+      "familywise_bonferroni_29_95": [
+        -1583.3429642952979,
+        145.84657037630677
+      ],
+      "marginal_95": [
+        -1291.6716514155269,
+        -62.50775186344981
+      ],
+      "interpretation_family29": "spans_zero"
+    }
+  ],
+  "instrumentation_perturbation": {
+    "three_change_inst_vs_three_change_ref": {
+      "encode": {
+        "descriptive_only": true,
+        "control_arm": "three_change_ref",
+        "instrumented_arm": "three_change_inst",
+        "pooled_median_seconds": {
+          "three_change_ref": 9.625000529922545e-06,
+          "three_change_inst": 9.750001481734216e-06
+        },
+        "pooled_ratio": 1.0129871111615074,
+        "pooled_delta_ns": 125.00095181167126,
+        "median_block_ratio": 1.011438036953826,
+        "median_block_delta_ns": 104.17716111987829,
+        "delta_ns_iqr": [
+          -583.342625759542,
+          864.5911293569952
+        ],
+        "delta_ns_range": [
+          -4875.008016824722,
+          8958.319085650146
+        ]
+      },
+      "decode": {
+        "descriptive_only": true,
+        "control_arm": "three_change_ref",
+        "instrumented_arm": "three_change_inst",
+        "pooled_median_seconds": {
+          "three_change_ref": 1.2833334039896727e-05,
+          "three_change_inst": 1.3000004400964826e-05
+        },
+        "pooled_ratio": 1.012987300147409,
+        "pooled_delta_ns": 166.67036106809974,
+        "median_block_ratio": 1.0322694553775824,
+        "median_block_delta_ns": 395.8339220844209,
+        "delta_ns_iqr": [
+          -1427.0881365519017,
+          1593.7548596411943
+        ],
+        "delta_ns_range": [
+          -9458.322892896831,
+          8208.342478610575
+        ]
+      },
+      "prepare": {
+        "descriptive_only": true,
+        "control_arm": "three_change_ref",
+        "instrumented_arm": "three_change_inst",
+        "pooled_median_seconds": {
+          "three_change_ref": 2.833330654539168e-06,
+          "three_change_inst": 2.916669473052025e-06
+        },
+        "pooled_ratio": 1.0294137284610052,
+        "pooled_delta_ns": 83.33881851285696,
+        "median_block_ratio": 1.0212252712263232,
+        "median_block_delta_ns": 62.50047590583563,
+        "delta_ns_iqr": [
+          -93.75071385875344,
+          333.3261702209711
+        ],
+        "delta_ns_range": [
+          -1791.6609067469835,
+          1458.3347365260124
+        ]
+      },
+      "fresh_encode": {
+        "descriptive_only": true,
+        "control_arm": "three_change_ref",
+        "instrumented_arm": "three_change_inst",
+        "pooled_median_seconds": {
+          "three_change_ref": 1.0104165994562209e-05,
+          "three_change_inst": 1.0854164429474622e-05
+        },
+        "pooled_ratio": 1.0742266541658205,
+        "pooled_delta_ns": 749.9984349124134,
+        "median_block_ratio": 1.0420951147838982,
+        "median_block_delta_ns": 416.67226469144225,
+        "delta_ns_iqr": [
+          -499.99289331026375,
+          1687.5055734999478
+        ],
+        "delta_ns_range": [
+          -4124.987754039466,
+          11583.324521780014
+        ]
+      },
+      "prepare_encode": {
+        "descriptive_only": true,
+        "control_arm": "three_change_ref",
+        "instrumented_arm": "three_change_inst",
+        "pooled_median_seconds": {
+          "three_change_ref": 1.3124998076818883e-05,
+          "three_change_inst": 1.3916665920987725e-05
+        },
+        "pooled_ratio": 1.0603175588701281,
+        "pooled_delta_ns": 791.6678441688418,
+        "median_block_ratio": 1.0273987200235535,
+        "median_block_delta_ns": 375.00285543501377,
+        "delta_ns_iqr": [
+          -656.2549970112741,
+          2041.662810370326
+        ],
+        "delta_ns_range": [
+          -6208.327249623835,
+          15874.989912845194
+        ]
+      }
+    },
+    "factory_002_inst_vs_factory_002": {
+      "encode": {
+        "descriptive_only": true,
+        "control_arm": "factory_002",
+        "instrumented_arm": "factory_002_inst",
+        "pooled_median_seconds": {
+          "factory_002": 9.66666266322136e-06,
+          "factory_002_inst": 9.541661711409688e-06
+        },
+        "pooled_ratio": 0.9870688616985404,
+        "pooled_delta_ns": -125.00095181167126,
+        "median_block_ratio": 0.9917242600116516,
+        "median_block_delta_ns": -83.3242665976286,
+        "delta_ns_iqr": [
+          -895.8231774158776,
+          583.3280738443136
+        ],
+        "delta_ns_range": [
+          -4916.670150123537,
+          6958.332960493863
+        ]
+      },
+      "decode": {
+        "descriptive_only": true,
+        "control_arm": "factory_002",
+        "instrumented_arm": "factory_002_inst",
+        "pooled_median_seconds": {
+          "factory_002": 1.1374999303370714e-05,
+          "factory_002_inst": 1.09999964479357e-05
+        },
+        "pooled_ratio": 0.9670327139867261,
+        "pooled_delta_ns": -375.00285543501377,
+        "median_block_ratio": 0.9831784005354876,
+        "median_block_delta_ns": -187.50870367512107,
+        "delta_ns_iqr": [
+          -1218.7556421849877,
+          968.7501005828381
+        ],
+        "delta_ns_range": [
+          -6250.003934837878,
+          5416.659405454993
+        ]
+      },
+      "prepare": {
+        "descriptive_only": true,
+        "control_arm": "factory_002",
+        "instrumented_arm": "factory_002_inst",
+        "pooled_median_seconds": {
+          "factory_002": 2.7083297027274966e-06,
+          "factory_002_inst": 2.7916685212403536e-06
+        },
+        "pooled_ratio": 1.0307712973161756,
+        "pooled_delta_ns": 83.33881851285696,
+        "median_block_ratio": 1.0000025307742144,
+        "median_block_delta_ns": 0.007275957614183426,
+        "delta_ns_iqr": [
+          -166.66308511048555,
+          354.1717887856066
+        ],
+        "delta_ns_range": [
+          -1499.9823179095984,
+          2374.988980591297
+        ]
+      },
+      "fresh_encode": {
+        "descriptive_only": true,
+        "control_arm": "factory_002",
+        "instrumented_arm": "factory_002_inst",
+        "pooled_median_seconds": {
+          "factory_002": 1.06250008684583e-05,
+          "factory_002_inst": 9.937502909451723e-06
+        },
+        "pooled_ratio": 0.9352943150294223,
+        "pooled_delta_ns": -687.4979590065777,
+        "median_block_ratio": 0.9737392158194602,
+        "median_block_delta_ns": -250.0019036233425,
+        "delta_ns_iqr": [
+          -1489.5995263941586,
+          572.9161784984171
+        ],
+        "delta_ns_range": [
+          -5374.997272156179,
+          5874.986527487636
+        ]
+      },
+      "prepare_encode": {
+        "descriptive_only": true,
+        "control_arm": "factory_002",
+        "instrumented_arm": "factory_002_inst",
+        "pooled_median_seconds": {
+          "factory_002": 1.3374999980442226e-05,
+          "factory_002_inst": 1.302082819165662e-05
+        },
+        "pooled_ratio": 0.9735198662202992,
+        "pooled_delta_ns": -354.1717887856066,
+        "median_block_ratio": 0.9895722823341178,
+        "median_block_delta_ns": -124.98639989644289,
+        "delta_ns_iqr": [
+          -1510.4269550647587,
+          1083.3318810909986
+        ],
+        "delta_ns_range": [
+          -6333.328201435506,
+          7624.999852851033
+        ]
+      }
+    }
+  },
+  "summed_cpu_range": [
+    221.3,
+    397.0
+  ],
+  "top_cpu_processes": [
+    [
+      "/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/corespotlightd",
+      141.4
+    ],
+    [
+      "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+      79.3
+    ],
+    [
+      "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+      52.5
+    ],
+    [
+      "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/PairedSync.framework/Support/pairedsyncd",
+      34.9
+    ],
+    [
+      "/Users/pushparaj/.codex/computer-use/Codex Computer Use.app/Contents/MacOS/SkyComputerUseService",
+      32.5
+    ],
+    [
+      "/Applications/Antigravity.app/Contents/Frameworks/Antigravity Helper (Renderer).app/Contents/MacOS/Antigravity Helper (Renderer)",
+      25.6
+    ],
+    [
+      "/System/Library/PrivateFrameworks/IntelligencePlatformCompute.framework/Versions/A/XPCServices/IntelligencePlatformComputeService.xpc/Contents/MacOS/IntelligencePlatformComputeService",
+      23.5
+    ],
+    [
+      "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/155.0.8059.80/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+      19.9
+    ]
+  ],
+  "complete_sha256": "1a240f90395c15f708b3864db1b99bedf37d6bc0304d5cd9f07c2f315ba66323",
+  "bootstrap_reproduction": {
+    "summary.json": {
+      "byte_identical": true,
+      "source_sha256": "be97f1e49e60051382abd29781efd91b6833c1698de33aadca1e8fd5a1be9899",
+      "reproduced_sha256": "be97f1e49e60051382abd29781efd91b6833c1698de33aadca1e8fd5a1be9899"
+    },
+    "bootstrap-metadata.json": {
+      "byte_identical": true,
+      "source_sha256": "6ab3a54fb34faf4fdd2353da2b3e7261364a591e860d1664f20dfc96b6f33883",
+      "reproduced_sha256": "6ab3a54fb34faf4fdd2353da2b3e7261364a591e860d1664f20dfc96b6f33883"
+    }
+  },
+  "bootstrap_draw_indices_sha256": "db9dabf13ba2f72e7459f676ca942f5c881166749e2fcb946ad5fa8200d292dc",
+  "scope": "single p12-flat six-arm diagnostic; not replacement acceptance evidence"
+}

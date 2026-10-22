@@ -1,0 +1,2147 @@
+{
+  "schema": "swiftjls-m4-p12-flat-6arm-diagnostic-v1",
+  "audit_reference": "048-diagnostic-decision.md",
+  "prepare_receipt_sha256": "0e4fcc413af78d9bc26654c1a5047de01c5948b2c6baff3b50804be464301ef4",
+  "schedule_seed": 20261022045,
+  "analysis_seed": 20261022,
+  "blocks": 84,
+  "strata": 12,
+  "blocks_per_stratum": 7,
+  "arms": [
+    "three_change_ref",
+    "admission_001",
+    "factory_002",
+    "factory_002_zero_icc",
+    "three_change_inst",
+    "factory_002_inst"
+  ],
+  "orders_12": [
+    [
+      "three_change_ref",
+      "admission_001",
+      "factory_002",
+      "factory_002_zero_icc",
+      "three_change_inst",
+      "factory_002_inst"
+    ],
+    [
+      "admission_001",
+      "factory_002",
+      "factory_002_zero_icc",
+      "three_change_inst",
+      "factory_002_inst",
+      "three_change_ref"
+    ],
+    [
+      "factory_002",
+      "factory_002_zero_icc",
+      "three_change_inst",
+      "factory_002_inst",
+      "three_change_ref",
+      "admission_001"
+    ],
+    [
+      "factory_002_zero_icc",
+      "three_change_inst",
+      "factory_002_inst",
+      "three_change_ref",
+      "admission_001",
+      "factory_002"
+    ],
+    [
+      "three_change_inst",
+      "factory_002_inst",
+      "three_change_ref",
+      "admission_001",
+      "factory_002",
+      "factory_002_zero_icc"
+    ],
+    [
+      "factory_002_inst",
+      "three_change_ref",
+      "admission_001",
+      "factory_002",
+      "factory_002_zero_icc",
+      "three_change_inst"
+    ],
+    [
+      "factory_002_inst",
+      "three_change_inst",
+      "factory_002_zero_icc",
+      "factory_002",
+      "admission_001",
+      "three_change_ref"
+    ],
+    [
+      "three_change_inst",
+      "factory_002_zero_icc",
+      "factory_002",
+      "admission_001",
+      "three_change_ref",
+      "factory_002_inst"
+    ],
+    [
+      "factory_002_zero_icc",
+      "factory_002",
+      "admission_001",
+      "three_change_ref",
+      "factory_002_inst",
+      "three_change_inst"
+    ],
+    [
+      "factory_002",
+      "admission_001",
+      "three_change_ref",
+      "factory_002_inst",
+      "three_change_inst",
+      "factory_002_zero_icc"
+    ],
+    [
+      "admission_001",
+      "three_change_ref",
+      "factory_002_inst",
+      "three_change_inst",
+      "factory_002_zero_icc",
+      "factory_002"
+    ],
+    [
+      "three_change_ref",
+      "factory_002_inst",
+      "three_change_inst",
+      "factory_002_zero_icc",
+      "factory_002",
+      "admission_001"
+    ]
+  ],
+  "processes": 504,
+  "warmups": 5,
+  "iterations": 5,
+  "end_to_end": true,
+  "position_occurrences_per_arm": 14,
+  "pairwise_order_occurrences": 42,
+  "simultaneous_family_endpoints": 29,
+  "case": {
+    "id": "p12-flat",
+    "width": 37,
+    "height": 23,
+    "bits": 12,
+    "pattern": "flat",
+    "components": 1,
+    "near": 0,
+    "interleave": 0,
+    "expected_encoded_bytes": 56
+  },
+  "producers": {
+    "three_change_ref": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/p12_flat_prepare_encode_diag_001/binaries/Benchmark-three_change_ref-074a63beb065",
+      "sha256": "074a63beb065f48aae0c173e904f688c6008f6fceb00016eae09a082e1802e44",
+      "swiftjls_file_count": 27,
+      "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+      "package_swift_sha256": "7548ffeef942e7251edb43d428dc86016110d3a8d80c507c866f47364f68078b",
+      "task_store_sha256": "47e5600e701f876987260451b2508cb4d508d388f62a7d4fd29e32f6331b65cd",
+      "patches": {}
+    },
+    "admission_001": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/p12_flat_prepare_encode_diag_001/binaries/Benchmark-admission_001-d966c2ea5356",
+      "sha256": "d966c2ea53563d5604efefb7643d7cf99c7f0d43628bff99c731d5b559f7174a",
+      "swiftjls_file_count": 38,
+      "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+      "package_swift_sha256": "7548ffeef942e7251edb43d428dc86016110d3a8d80c507c866f47364f68078b",
+      "task_store_sha256": "238e6699832084692c47f19c7179b9f72b976fdd30e995a3ecbb42034876f533",
+      "patches": {}
+    },
+    "factory_002": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/p12_flat_prepare_encode_diag_001/binaries/Benchmark-factory_002-25527755e300",
+      "sha256": "25527755e3000e94cfda80acca9b09e18671e22ab8a39aff9f61757f7ed884c2",
+      "swiftjls_file_count": 38,
+      "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+      "package_swift_sha256": "7548ffeef942e7251edb43d428dc86016110d3a8d80c507c866f47364f68078b",
+      "task_store_sha256": "323c412293459f4a3232e18d287809d0191ec0ad3c6730331b065d8f2d71455a",
+      "patches": {}
+    },
+    "factory_002_zero_icc": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/p12_flat_prepare_encode_diag_001/binaries/Benchmark-factory_002_zero_icc-183341357cd8",
+      "sha256": "183341357cd878e876aabb9fcde6c40d1ccc53a47de93823b7cc3c5d5aca1046",
+      "swiftjls_file_count": 38,
+      "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+      "package_swift_sha256": "7548ffeef942e7251edb43d428dc86016110d3a8d80c507c866f47364f68078b",
+      "task_store_sha256": "e1347af46724482131e684606cec6c1ff32f1aad8338ca4128ea7c9b512660b4",
+      "patches": {
+        "ScalarCodec.patch": {
+          "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/p12_flat_prepare_encode_diag_001/diffs/factory_002_zero_icc-ScalarCodec.patch",
+          "sha256": "4982a383ee0f3b8d5587e6d4bfa57f92b60cd349c9d23ee74511b1484ad6875b"
+        }
+      }
+    },
+    "three_change_inst": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/p12_flat_prepare_encode_diag_001/binaries/Benchmark-three_change_inst-1e9d624d88e3",
+      "sha256": "1e9d624d88e3e4d997faf39fed636a03fe26245f9e8dccb077e3a0e930abe344",
+      "swiftjls_file_count": 27,
+      "consumer_sha256": "6eb656478e142f3190d5ad97859305145d3d41cec75528915b95db252fe69aba",
+      "package_swift_sha256": "7548ffeef942e7251edb43d428dc86016110d3a8d80c507c866f47364f68078b",
+      "task_store_sha256": "416ecc8daea436bd97e36ee0dfbfaf619b63907881dfe24ea1f396a1b2778181",
+      "patches": {
+        "CodecAPI.patch": {
+          "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/p12_flat_prepare_encode_diag_001/diffs/three_change_inst-CodecAPI.patch",
+          "sha256": "de8a8f83296e7186fad13616778a254e8a2959581dccaf146d161b4f027b3aa7"
+        },
+        "Consumer.patch": {
+          "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/p12_flat_prepare_encode_diag_001/diffs/instrumented-consumer.patch",
+          "sha256": "d8ae9c163e1748e63ec126051a3941fabfbb8b6b588950d7c7baa50c482e3409"
+        }
+      }
+    },
+    "factory_002_inst": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/p12_flat_prepare_encode_diag_001/binaries/Benchmark-factory_002_inst-9349b26eed43",
+      "sha256": "9349b26eed4326f71e4cb1a8c0b29b61fbe72badf3609e9d123e9583541f081e",
+      "swiftjls_file_count": 38,
+      "consumer_sha256": "6eb656478e142f3190d5ad97859305145d3d41cec75528915b95db252fe69aba",
+      "package_swift_sha256": "7548ffeef942e7251edb43d428dc86016110d3a8d80c507c866f47364f68078b",
+      "task_store_sha256": "62ecc84426c93e8c45bc2d4139470c38f99bbc92ff1ce51e1f4ee3c74525adaf",
+      "patches": {
+        "CodecAPI.patch": {
+          "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/p12_flat_prepare_encode_diag_001/diffs/factory_002_inst-CodecAPI.patch",
+          "sha256": "de8a8f83296e7186fad13616778a254e8a2959581dccaf146d161b4f027b3aa7"
+        },
+        "Consumer.patch": {
+          "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/p12_flat_prepare_encode_diag_001/diffs/instrumented-consumer.patch",
+          "sha256": "d8ae9c163e1748e63ec126051a3941fabfbb8b6b588950d7c7baa50c482e3409"
+        }
+      }
+    }
+  },
+  "schedule": [
+    {
+      "block": 0,
+      "stratum_index": 6,
+      "order": [
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 1,
+      "stratum_index": 2,
+      "order": [
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 2,
+      "stratum_index": 2,
+      "order": [
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 3,
+      "stratum_index": 3,
+      "order": [
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 4,
+      "stratum_index": 6,
+      "order": [
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 5,
+      "stratum_index": 2,
+      "order": [
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 6,
+      "stratum_index": 3,
+      "order": [
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 7,
+      "stratum_index": 8,
+      "order": [
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 8,
+      "stratum_index": 10,
+      "order": [
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 9,
+      "stratum_index": 5,
+      "order": [
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 10,
+      "stratum_index": 11,
+      "order": [
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 11,
+      "stratum_index": 4,
+      "order": [
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 12,
+      "stratum_index": 6,
+      "order": [
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 13,
+      "stratum_index": 7,
+      "order": [
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 14,
+      "stratum_index": 10,
+      "order": [
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 15,
+      "stratum_index": 0,
+      "order": [
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 16,
+      "stratum_index": 4,
+      "order": [
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 17,
+      "stratum_index": 11,
+      "order": [
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 18,
+      "stratum_index": 1,
+      "order": [
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 19,
+      "stratum_index": 11,
+      "order": [
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 20,
+      "stratum_index": 1,
+      "order": [
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 21,
+      "stratum_index": 5,
+      "order": [
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 22,
+      "stratum_index": 4,
+      "order": [
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 23,
+      "stratum_index": 9,
+      "order": [
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 24,
+      "stratum_index": 9,
+      "order": [
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 25,
+      "stratum_index": 0,
+      "order": [
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 26,
+      "stratum_index": 3,
+      "order": [
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 27,
+      "stratum_index": 1,
+      "order": [
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 28,
+      "stratum_index": 8,
+      "order": [
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 29,
+      "stratum_index": 11,
+      "order": [
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 30,
+      "stratum_index": 9,
+      "order": [
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 31,
+      "stratum_index": 5,
+      "order": [
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 32,
+      "stratum_index": 10,
+      "order": [
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 33,
+      "stratum_index": 2,
+      "order": [
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 34,
+      "stratum_index": 7,
+      "order": [
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 35,
+      "stratum_index": 3,
+      "order": [
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 36,
+      "stratum_index": 7,
+      "order": [
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 37,
+      "stratum_index": 5,
+      "order": [
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 38,
+      "stratum_index": 6,
+      "order": [
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 39,
+      "stratum_index": 1,
+      "order": [
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 40,
+      "stratum_index": 8,
+      "order": [
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 41,
+      "stratum_index": 0,
+      "order": [
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 42,
+      "stratum_index": 9,
+      "order": [
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 43,
+      "stratum_index": 1,
+      "order": [
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 44,
+      "stratum_index": 7,
+      "order": [
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 45,
+      "stratum_index": 0,
+      "order": [
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 46,
+      "stratum_index": 4,
+      "order": [
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 47,
+      "stratum_index": 5,
+      "order": [
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 48,
+      "stratum_index": 8,
+      "order": [
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 49,
+      "stratum_index": 10,
+      "order": [
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 50,
+      "stratum_index": 7,
+      "order": [
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 51,
+      "stratum_index": 3,
+      "order": [
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 52,
+      "stratum_index": 10,
+      "order": [
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 53,
+      "stratum_index": 5,
+      "order": [
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 54,
+      "stratum_index": 7,
+      "order": [
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 55,
+      "stratum_index": 11,
+      "order": [
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 56,
+      "stratum_index": 5,
+      "order": [
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 57,
+      "stratum_index": 2,
+      "order": [
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 58,
+      "stratum_index": 11,
+      "order": [
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 59,
+      "stratum_index": 4,
+      "order": [
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 60,
+      "stratum_index": 0,
+      "order": [
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 61,
+      "stratum_index": 8,
+      "order": [
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 62,
+      "stratum_index": 1,
+      "order": [
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 63,
+      "stratum_index": 9,
+      "order": [
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 64,
+      "stratum_index": 6,
+      "order": [
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 65,
+      "stratum_index": 6,
+      "order": [
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 66,
+      "stratum_index": 2,
+      "order": [
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 67,
+      "stratum_index": 2,
+      "order": [
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 68,
+      "stratum_index": 11,
+      "order": [
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 69,
+      "stratum_index": 6,
+      "order": [
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 70,
+      "stratum_index": 1,
+      "order": [
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 71,
+      "stratum_index": 9,
+      "order": [
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 72,
+      "stratum_index": 0,
+      "order": [
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 73,
+      "stratum_index": 10,
+      "order": [
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 74,
+      "stratum_index": 3,
+      "order": [
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 75,
+      "stratum_index": 7,
+      "order": [
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 76,
+      "stratum_index": 0,
+      "order": [
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 77,
+      "stratum_index": 8,
+      "order": [
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 78,
+      "stratum_index": 10,
+      "order": [
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc",
+        "factory_002"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 79,
+      "stratum_index": 4,
+      "order": [
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 80,
+      "stratum_index": 8,
+      "order": [
+        "factory_002_zero_icc",
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 81,
+      "stratum_index": 4,
+      "order": [
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002",
+        "factory_002_zero_icc"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 82,
+      "stratum_index": 9,
+      "order": [
+        "factory_002",
+        "admission_001",
+        "three_change_ref",
+        "factory_002_inst",
+        "three_change_inst",
+        "factory_002_zero_icc"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    },
+    {
+      "block": 83,
+      "stratum_index": 3,
+      "order": [
+        "factory_002_zero_icc",
+        "three_change_inst",
+        "factory_002_inst",
+        "three_change_ref",
+        "admission_001",
+        "factory_002"
+      ],
+      "case": {
+        "id": "p12-flat",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 56
+      }
+    }
+  ]
+}

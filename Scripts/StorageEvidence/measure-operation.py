@@ -22,6 +22,44 @@ def classify(frames, size=None):
             'swift_getTupleTypeMetadata', 'swift_getExistentialTypeMetadata', 'Swift._swift_getKeyPath',
             'Swift.InstantiateKeyPathBuffer', 'Swift.AnyKeyPath._create']):
         return 'runtime_or_unattributed'
+    # On Linux AArch64, ELF '$x' mapping symbols in libswiftCore.so shadow
+    # the local GenericMetadataCache::getWithInit symbol in frames[:8].
+    # Match only the exact 48-byte 14-frame canonical generic-metadata
+    # initialization prefix immediately below either the synthetic-setup
+    # OwnedImageStorage.withUnsafeMutableBytes closure or the fixture-setup
+    # FoundationEssentials.ProcessInfo.activeProcessorCount / ResourceLimits.init chain.
+    canonical_metadata_prefix = [
+        'operator new(unsigned long)',
+        '$x',
+        'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)',
+        '$x',
+        '$x',
+        'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)',
+        'swift_getCanonicalPrespecializedGenericMetadata',
+        '__swift_instantiateCanonicalPrespecializedGenericMetadata',
+        '$x',
+        '$x',
+        'swift_getTypeByMangledNode',
+        'swift_getTypeByMangledName',
+        '$x',
+        '__swift_instantiateConcreteTypeFromMangledName',
+    ]
+    fixture_canonical_tail = [
+        'generic specialization <Swift.String, Any> of Swift._NativeDictionary._copyOrMoveAndResize(capacity: Swift.Int, moveElements: Swift.Bool) -> ()',
+        'generic specialization <Swift.String, Any> of Swift._NativeDictionary.setValue(_: __owned B, forKey: A, isUnique: Swift.Bool) -> ()',
+        'generic specialization <FoundationEssentials.URL> of FoundationEssentials.readBytesFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions, attributesToRead: [Swift.String], attributes: inout [Swift.String : FoundationEssentials.Data]) throws -> FoundationEssentials.ReadBytesResult',
+        'merged generic specialization <FoundationEssentials.URL> of FoundationEssentials.readDataFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions) throws -> FoundationEssentials.Data',
+        'generic specialization <FoundationEssentials.URL> of FoundationEssentials.readDataFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions) throws -> FoundationEssentials.Data',
+        'function signature specialization <Arg[2] = Dead> of static FoundationEssentials._ProcessInfo.coreCount(quota: FoundationEssentials.URL, period: FoundationEssentials.URL) -> Swift.Int?',
+        'FoundationEssentials.ProcessInfo.activeProcessorCount.getter : Swift.Int',
+        'SwiftJLS.ResourceLimits.init(watch: Swift.Bool) -> SwiftJLS.ResourceLimits',
+    ]
+    if size == 48 and len(frames) > 14 and frames[:14] == canonical_metadata_prefix:
+        norm_tail = [re.sub(r'\((\w+) in _[0-9A-Fa-f]+\)', r'\1', f) for f in frames[14:22]]
+        if norm_tail[0] == 'closure #1 (inout SwiftJLS.OwnedImageStorage.State) throws -> A in SwiftJLS.OwnedImageStorage.withUnsafeMutableBytes<A>(lease: SwiftJLS.StorageWriteLease, _: (Swift.UnsafeMutableRawBufferPointer) throws -> A) throws -> A':
+            return 'runtime_or_unattributed'
+        if norm_tail == fixture_canonical_tail:
+            return 'runtime_or_unattributed'
     # Fixture setup first asks ResourceLimits for the processor count. The
     # observed Foundation singleton and three cached Linux cgroup URLs are
     # process-runtime storage. Require their named initialiser and ProcessInfo
@@ -33,6 +71,33 @@ def classify(frames, size=None):
         return 'runtime_or_unattributed'
     if 'SwiftJLS.OwnedImageStorage.init' in stack and 'Swift.Array.init(repeating:' in stack:
         return 'owned_pixel_buffer'
+    owned_factory_pixel_stack = [
+        'swift_slowAlloc',
+        'swift_allocObject',
+        'Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>',
+        'generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)',
+        'generic specialization <Swift.UInt8> of Swift.Array.init(repeating: A, count: Swift.Int) -> [A]',
+        'static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage',
+    ]
+    if frames[:6] == owned_factory_pixel_stack:
+        return 'owned_pixel_buffer'
+    # The directly allocated JPEGLSBitstreamReader object in ScalarCodec.decode
+    # is six 64-bit words plus the 16-byte object header (64 requested bytes).
+    # Classify only requested size 64 with the exact 3-frame immediate
+    # constructor prefix as algorithm_state; reject wrong/missing sizes, wrong
+    # allocators, changed constructors, or intervening frames before the broad
+    # compressed_buffer rule, while retaining real compressed-array stacks
+    # allocated deeper under JPEGLSBitstreamReader.init(data:).
+    reader_object_prefix = [
+        'swift_slowAlloc',
+        'swift_allocObject',
+        'SwiftJLS.JPEGLSBitstreamReader.__allocating_init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader',
+    ]
+    if frames[:3] == reader_object_prefix:
+        return 'algorithm_state' if size == 64 else 'unattributed_codec'
+    if any('SwiftJLS.JPEGLSBitstreamReader.__allocating_init' in f for f in frames) and not any(
+            'SwiftJLS.JPEGLSBitstreamReader.init(' in f for f in frames):
+        return 'unattributed_codec'
     if re.search(r'SwiftJLS\.JPEGLSBitstream(?:Reader|Writer(?:State)?)\.(?:__allocating_init|init|append|getData|write)', stack):
         return 'compressed_buffer'
     # In these reviewed encode entry closures, the UInt8 array allocation is
@@ -287,12 +352,99 @@ def self_test():
     assert classify(['operator new(unsigned long)',
         'swift::Lazy<(anonymous namespace)::GenericMetadataCache>::getWithInit',
         'SwiftJLS.OwnedImageStorage.withUnsafeMutableBytes'], 40) == 'runtime_or_unattributed'
+    canonical_metadata_stack = [
+        'operator new(unsigned long)',
+        '$x',
+        'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)',
+        '$x',
+        '$x',
+        'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)',
+        'swift_getCanonicalPrespecializedGenericMetadata',
+        '__swift_instantiateCanonicalPrespecializedGenericMetadata',
+        '$x',
+        '$x',
+        'swift_getTypeByMangledNode',
+        'swift_getTypeByMangledName',
+        '$x',
+        '__swift_instantiateConcreteTypeFromMangledName',
+        'closure #1 (inout SwiftJLS.OwnedImageStorage.(State in _E3A3FF9B1E0185F10C196E0592093825)) throws -> A in SwiftJLS.OwnedImageStorage.withUnsafeMutableBytes<A>(lease: SwiftJLS.StorageWriteLease, _: (Swift.UnsafeMutableRawBufferPointer) throws -> A) throws -> A',
+    ]
+    assert classify(canonical_metadata_stack, 48) == 'runtime_or_unattributed'
+    assert classify(canonical_metadata_stack[:-1] + [canonical_metadata_stack[-1].replace('_E3A3FF9B1E0185F10C196E0592093825', '_0123456789ABCDEF')], 48) == 'runtime_or_unattributed'
+    for size in [None, 40, 47, 49, 64, 1048576]:
+        assert classify(canonical_metadata_stack, size) == 'unattributed_codec'
+    assert classify(['malloc'] + canonical_metadata_stack[1:], 48) == 'unattributed_codec'
+    assert classify(['swift_slowAlloc'] + canonical_metadata_stack[1:], 48) == 'unattributed_codec'
+    assert classify(canonical_metadata_stack[:6] + canonical_metadata_stack[7:], 48) == 'unattributed_codec'
+    assert classify(canonical_metadata_stack[:6] + ['$x'] + canonical_metadata_stack[7:], 48) == 'unattributed_codec'
+    assert classify(canonical_metadata_stack[:7] + ['$x'] + canonical_metadata_stack[8:], 48) == 'unattributed_codec'
+    assert classify(canonical_metadata_stack[:6] + ['SwiftJLS.Other.allocate'] + canonical_metadata_stack[6:], 48) == 'unattributed_codec'
+    assert classify(canonical_metadata_stack[:13] + ['SwiftJLS.Other.allocate'] + canonical_metadata_stack[13:], 48) == 'unattributed_codec'
+    assert classify(canonical_metadata_stack[:14] + [outer.format('Scalar')], 48) == 'unattributed_codec'
+    assert classify(canonical_metadata_stack[:6] + [canonical_metadata_stack[-1]], 48) == 'unattributed_codec'
+    fixture_canonical_stack = canonical_metadata_stack[:14] + [
+        'generic specialization <Swift.String, Any> of Swift._NativeDictionary._copyOrMoveAndResize(capacity: Swift.Int, moveElements: Swift.Bool) -> ()',
+        'generic specialization <Swift.String, Any> of Swift._NativeDictionary.setValue(_: __owned B, forKey: A, isUnique: Swift.Bool) -> ()',
+        'generic specialization <FoundationEssentials.URL> of FoundationEssentials.readBytesFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions, attributesToRead: [Swift.String], attributes: inout [Swift.String : FoundationEssentials.Data]) throws -> FoundationEssentials.ReadBytesResult',
+        'merged generic specialization <FoundationEssentials.URL> of FoundationEssentials.readDataFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions) throws -> FoundationEssentials.Data',
+        'generic specialization <FoundationEssentials.URL> of FoundationEssentials.readDataFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions) throws -> FoundationEssentials.Data',
+        'function signature specialization <Arg[2] = Dead> of static FoundationEssentials._ProcessInfo.(coreCount in _5E3BF990DD92C0080D372AA0CF8A3C95)(quota: FoundationEssentials.URL, period: FoundationEssentials.URL) -> Swift.Int?',
+        'FoundationEssentials.ProcessInfo.activeProcessorCount.getter : Swift.Int',
+        'SwiftJLS.ResourceLimits.init(watch: Swift.Bool) -> SwiftJLS.ResourceLimits',
+    ]
+    assert classify(fixture_canonical_stack, 48) == 'runtime_or_unattributed'
+    for size in [None, 40, 47, 49, 64, 1048576]:
+        assert classify(fixture_canonical_stack, size) == 'unattributed_codec'
+    assert classify(['malloc'] + fixture_canonical_stack[1:], 48) == 'unattributed_codec'
+    assert classify(fixture_canonical_stack[:6] + fixture_canonical_stack[7:], 48) == 'unattributed_codec'
+    assert classify(fixture_canonical_stack[:14] + ['SwiftJLS.Other.allocate'] + fixture_canonical_stack[14:], 48) == 'unattributed_codec'
+    assert classify(fixture_canonical_stack[:-1] + [outer.format('Scalar')], 48) == 'unattributed_codec'
     assert classify(['swift_getExistentialTypeMetadata',
         'SwiftJLS.OwnedImageStorage.locked'], 16) == 'runtime_or_unattributed'
     foundation_cache = prefix + ['one-time initialization function for (cfsQuotaURL in _ABC123)',
         'FoundationEssentials.ProcessInfo.activeProcessorCount.getter', 'SwiftJLS.ResourceLimits.init']
     assert classify(foundation_cache, 176) == 'runtime_or_unattributed'
     assert classify(prefix + ['SwiftJLS.Other.allocate'] + foundation_cache[2:], 176) == 'unattributed_codec'
+    owned_factory_stack = prefix + [
+        'Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>',
+        'generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)',
+        'generic specialization <Swift.UInt8> of Swift.Array.init(repeating: A, count: Swift.Int) -> [A]',
+        'static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage',
+    ]
+    assert classify(owned_factory_stack, 610) == 'owned_pixel_buffer'
+    assert classify(['malloc'] + owned_factory_stack[1:], 610) == 'unattributed_codec'
+    assert classify(owned_factory_stack[:5] + ['SwiftJLS.Other.allocate'] + owned_factory_stack[5:], 610) == 'unattributed_codec'
+    assert classify([f.replace('<Swift.UInt8>', '<Swift.Int>') for f in owned_factory_stack], 610) == 'unattributed_codec'
+    assert classify(owned_factory_stack[:5] + ['closure #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in ' + owned_factory_stack[5]], 610) == 'unattributed_codec'
+    reader_object_stack = prefix + [
+        'SwiftJLS.JPEGLSBitstreamReader.__allocating_init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader',
+    ]
+    reader_object_full_stack = reader_object_stack + [
+        'fill #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage',
+    ]
+    assert classify(reader_object_stack, 64) == 'algorithm_state'
+    assert classify(reader_object_full_stack, 64) == 'algorithm_state'
+    for bad_size in [None, 0, 32, 63, 65, 404, 1048576]:
+        assert classify(reader_object_stack, bad_size) == 'unattributed_codec'
+        assert classify(reader_object_full_stack, bad_size) == 'unattributed_codec'
+    assert classify(['malloc'] + reader_object_stack[1:], 64) == 'unattributed_codec'
+    assert classify(['operator new(unsigned long)'] + reader_object_stack[1:], 64) == 'unattributed_codec'
+    assert classify(['swift_slowAlloc', 'malloc'] + reader_object_stack[2:], 64) == 'unattributed_codec'
+    assert classify(prefix + ['SwiftJLS.JPEGLSBitstreamReader.__allocating_init(bytes: [Swift.UInt8]) -> SwiftJLS.JPEGLSBitstreamReader'], 64) == 'unattributed_codec'
+    assert classify(prefix + ['SwiftJLS.JPEGLSBitstreamReader.__allocating_init() -> SwiftJLS.JPEGLSBitstreamReader'], 64) == 'unattributed_codec'
+    assert classify(prefix + ['SwiftJLS.Other.allocate'] + reader_object_stack[2:], 64) == 'unattributed_codec'
+    assert classify(['SwiftJLS.Other.allocate'] + reader_object_stack, 64) == 'unattributed_codec'
+    assert classify(prefix + ['Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>'] + reader_object_stack[2:], 64) == 'unattributed_codec'
+    assert classify(prefix + ['generic specialization <Swift.UInt8, FoundationEssentials.Data> of Swift.Array.init<A where A == A1.Element, A1: Swift.Sequence>(A1) -> [A]'] + reader_object_stack[2:], 64) == 'unattributed_codec'
+    compressed_reader_array_stack = prefix + [
+        'generic specialization <serialized, FoundationEssentials.Data> of Swift._copyCollectionToContiguousArray<A where A: Swift.Collection>(A) -> Swift.ContiguousArray<A.Element>',
+        'protocol witness for Swift.Sequence._copyToContiguousArray() -> Swift.ContiguousArray<A.Element> in conformance FoundationEssentials.Data : Swift.Sequence in FoundationEssentials',
+        'generic specialization <Swift.UInt8, FoundationEssentials.Data> of Swift.Array.init<A where A == A1.Element, A1: Swift.Sequence>(A1) -> [A]',
+        'SwiftJLS.JPEGLSBitstreamReader.init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader',
+        'SwiftJLS.JPEGLSBitstreamReader.__allocating_init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader',
+    ]
+    assert classify(compressed_reader_array_stack, 404) == 'compressed_buffer'
+    assert classify(compressed_reader_array_stack, 64) == 'compressed_buffer'
     r = replay(lines)
     assert r['phase_total_requested_heap_peak_bytes'] == 120
     assert r['baseline_total_requested_heap_bytes'] == 100

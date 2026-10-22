@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-22T09:44:44.804103+00:00",
+  "snapshot_root": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/frozen-candidate-validation-001/SwiftJLS",
+  "events_jsonl": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-extended-validation-001-events.jsonl",
+  "events_jsonl_sha256": "7f2a79066fa27e77e8447c6babac44263cc19a84c74f5742fc895bf364f84fe6",
+  "tracked_file_hashes": {
+    "Sources/SwiftJLS/Image.swift": "66e01ed08984a14534faffd996c76efa4f4073cc756da61106e235671acbda81",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift": "c57fc4569e1f1683d428a7c9e6ed96e1583219a04a15856af90737d79578abf8",
+    "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift": "7b52505d2a8d34beb8a0d2996e12f579710e47ff224cdd7d4adad3efebabb5f3",
+    "Scripts/StorageEvidence/run-workspace-profiles.py": "2e7b0e9ebb84d6ca5692882b6bd4159e831d7ea28a0dfcb6ee563b94ff47b017",
+    "Tests/SwiftJLSTests/OwnedAdmissionTests.swift": "27cf6f194f4dd4a5b779d6cc27715f5f66432a060972cdca3d37c7b6a9fad0b8"
+  },
+  "reports": {
+    "payload_cli": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-payload-cli-001.json",
+      "sha256": "8e9f07a71df3cdb006c7342f19c1fc5f055ff22975f6d9a0bcbe3177176115f4"
+    },
+    "interop_scalar": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-interop-scalar-001.json",
+      "sha256": "734785044b787c285e13e8ae087bdab2353fa8f54a795b0ce45c38f227770c4d",
+      "passed_count": 482
+    },
+    "interop_component": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-interop-component-001.json",
+      "sha256": "66461e596c1a746f8795d263981a30e5696694224862b8ff7d4127211c4122f8",
+      "passed_count": 372
+    },
+    "interop_mapping": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-interop-mapping-001.json",
+      "sha256": "c631c6c82e70bd8977c5853a7fa3105a455607d874cb918128f01c5bc8d7bcdd",
+      "passed_count": 136
+    },
+    "copy_probe_linux_swift64_noble": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-linux-copy-probe-001.json",
+      "sha256": "743b431053b91e16b3cf09c991c97e360bdabda1b9f64f30531de9bd7cc8d055",
+      "binary_sha256": "eea41921bf352e8291c87f03514e716cd4fb2b28bc3ae986a5cbd60e566aa8db",
+      "total_rows": 20,
+      "normal_zero_copy_rows": 10,
+      "injected_full_capacity_rows": 10
+    }
+  },
+  "steps": [
+    {
+      "step": "common_contract_sha256",
+      "returncode": 0,
+      "elapsed_seconds": 0.0128,
+      "stdout_tail": [
+        "PLATFORMS.md: OK",
+        "SUITE_POLICY.md: OK",
+        "TESTING.md: OK"
+      ]
+    },
+    {
+      "step": "build_swiftjls_cli_release",
+      "returncode": 0,
+      "elapsed_seconds": 18.0769,
+      "stdout_tail": [
+        "[70\u2009/\u200972] swiftjls-cli-product",
+        "[71\u2009/\u200972] swiftjls-cli-product",
+        "Build complete! (16.99 secs)"
+      ]
+    },
+    {
+      "step": "test_payload_cli",
+      "returncode": 0,
+      "elapsed_seconds": 1.2156,
+      "stdout_tail": [
+        "73 payload checks passed"
+      ]
+    },
+    {
+      "step": "example_independent_consumer",
+      "returncode": 0,
+      "elapsed_seconds": 16.2381,
+      "stdout_tail": [
+        "Independent consumer passed: native lossless coding preserves padded 12-bit samples and destination identity."
+      ]
+    },
+    {
+      "step": "example_cross_codec_consumer",
+      "returncode": 0,
+      "elapsed_seconds": 19.1223,
+      "stdout_tail": [
+        "    \"width\" : 37",
+        "  }",
+        "]"
+      ]
+    },
+    {
+      "step": "example_resource_stress",
+      "returncode": 0,
+      "elapsed_seconds": 17.5167,
+      "stdout_tail": [
+        "    \"suppliedPixelAllocations\" : 0",
+        "  }",
+        "]"
+      ]
+    },
+    {
+      "step": "example_apple_runtime_consumer_macos",
+      "returncode": 0,
+      "elapsed_seconds": 16.9667,
+      "stdout_tail": [
+        "Independent consumer passed: native lossless coding preserves padded 12-bit samples and destination identity.",
+        "Apple runtime passed: direct storage, RGB/HP, mapping, metadata, Watch limits and cancellation.",
+        "Combined legacy mapping/HP runtime passed."
+      ]
+    },
+    {
+      "step": "interop_consumer_encode",
+      "returncode": 0,
+      "elapsed_seconds": 17.651,
+      "stdout_tail": [
+        "Wrote 518 SwiftJLS outputs for independent decoding.",
+        "Wrote component and component-restart outputs for independent decoding.",
+        "Wrote six explicitly decoded legacy HP migrations for independent sample verification."
+      ]
+    },
+    {
+      "step": "clone_charls_oracle",
+      "returncode": 0,
+      "elapsed_seconds": 4.5204,
+      "stdout_tail": []
+    },
+    {
+      "step": "checkout_charls_36dd3307",
+      "returncode": 0,
+      "elapsed_seconds": 0.1033,
+      "stdout_tail": []
+    },
+    {
+      "step": "build_charls_driver_36dd3307",
+      "returncode": 0,
+      "elapsed_seconds": 4.6084,
+      "stdout_tail": []
+    },
+    {
+      "step": "verify_interop_scalar",
+      "returncode": 0,
+      "elapsed_seconds": 1.9891,
+      "stdout_tail": [
+        "482 independent sample checks passed"
+      ]
+    },
+    {
+      "step": "verify_interop_components",
+      "returncode": 0,
+      "elapsed_seconds": 1.4312,
+      "stdout_tail": [
+        "372 independent component checks passed"
+      ]
+    },
+    {
+      "step": "checkout_charls_04e44bb7",
+      "returncode": 0,
+      "elapsed_seconds": 0.1276,
+      "stdout_tail": []
+    },
+    {
+      "step": "build_mapping_driver_04e44bb7",
+      "returncode": 0,
+      "elapsed_seconds": 5.0036,
+      "stdout_tail": []
+    },
+    {
+      "step": "verify_interop_mapping",
+      "returncode": 0,
+      "elapsed_seconds": 0.9005,
+      "stdout_tail": [
+        "136 independently verified mapping, extended and legacy migration outputs"
+      ]
+    },
+    {
+      "step": "example_copy_probe_linux_swift64_noble",
+      "returncode": 0,
+      "elapsed_seconds": 14.2115,
+      "stdout_tail": [
+        "  \"scope\" : \"Linux ordinary release memcpy\\/memmove reads from the retained pixel owner during the actual scoped encoder borrow. Inlined copies are not intercepted; allocation mutation and source review are separate evidence.\",",
+        "  \"self_test\" : true",
+        "}"
+      ]
+    }
+  ]
+}

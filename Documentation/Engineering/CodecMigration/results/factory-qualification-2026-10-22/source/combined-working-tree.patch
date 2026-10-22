@@ -1,0 +1,908 @@
+diff --git a/Scripts/StorageEvidence/measure-operation.py b/Scripts/StorageEvidence/measure-operation.py
+index c912ab4..4fbc72c 100644
+--- a/Scripts/StorageEvidence/measure-operation.py
++++ b/Scripts/StorageEvidence/measure-operation.py
+@@ -22,6 +22,44 @@ def classify(frames, size=None):
+             'swift_getTupleTypeMetadata', 'swift_getExistentialTypeMetadata', 'Swift._swift_getKeyPath',
+             'Swift.InstantiateKeyPathBuffer', 'Swift.AnyKeyPath._create']):
+         return 'runtime_or_unattributed'
++    # On Linux AArch64, ELF '$x' mapping symbols in libswiftCore.so shadow
++    # the local GenericMetadataCache::getWithInit symbol in frames[:8].
++    # Match only the exact 48-byte 14-frame canonical generic-metadata
++    # initialization prefix immediately below either the synthetic-setup
++    # OwnedImageStorage.withUnsafeMutableBytes closure or the fixture-setup
++    # FoundationEssentials.ProcessInfo.activeProcessorCount / ResourceLimits.init chain.
++    canonical_metadata_prefix = [
++        'operator new(unsigned long)',
++        '$x',
++        'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)',
++        '$x',
++        '$x',
++        'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)',
++        'swift_getCanonicalPrespecializedGenericMetadata',
++        '__swift_instantiateCanonicalPrespecializedGenericMetadata',
++        '$x',
++        '$x',
++        'swift_getTypeByMangledNode',
++        'swift_getTypeByMangledName',
++        '$x',
++        '__swift_instantiateConcreteTypeFromMangledName',
++    ]
++    fixture_canonical_tail = [
++        'generic specialization <Swift.String, Any> of Swift._NativeDictionary._copyOrMoveAndResize(capacity: Swift.Int, moveElements: Swift.Bool) -> ()',
++        'generic specialization <Swift.String, Any> of Swift._NativeDictionary.setValue(_: __owned B, forKey: A, isUnique: Swift.Bool) -> ()',
++        'generic specialization <FoundationEssentials.URL> of FoundationEssentials.readBytesFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions, attributesToRead: [Swift.String], attributes: inout [Swift.String : FoundationEssentials.Data]) throws -> FoundationEssentials.ReadBytesResult',
++        'merged generic specialization <FoundationEssentials.URL> of FoundationEssentials.readDataFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions) throws -> FoundationEssentials.Data',
++        'generic specialization <FoundationEssentials.URL> of FoundationEssentials.readDataFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions) throws -> FoundationEssentials.Data',
++        'function signature specialization <Arg[2] = Dead> of static FoundationEssentials._ProcessInfo.coreCount(quota: FoundationEssentials.URL, period: FoundationEssentials.URL) -> Swift.Int?',
++        'FoundationEssentials.ProcessInfo.activeProcessorCount.getter : Swift.Int',
++        'SwiftJLS.ResourceLimits.init(watch: Swift.Bool) -> SwiftJLS.ResourceLimits',
++    ]
++    if size == 48 and len(frames) > 14 and frames[:14] == canonical_metadata_prefix:
++        norm_tail = [re.sub(r'\((\w+) in _[0-9A-Fa-f]+\)', r'\1', f) for f in frames[14:22]]
++        if norm_tail[0] == 'closure #1 (inout SwiftJLS.OwnedImageStorage.State) throws -> A in SwiftJLS.OwnedImageStorage.withUnsafeMutableBytes<A>(lease: SwiftJLS.StorageWriteLease, _: (Swift.UnsafeMutableRawBufferPointer) throws -> A) throws -> A':
++            return 'runtime_or_unattributed'
++        if norm_tail == fixture_canonical_tail:
++            return 'runtime_or_unattributed'
+     # Fixture setup first asks ResourceLimits for the processor count. The
+     # observed Foundation singleton and three cached Linux cgroup URLs are
+     # process-runtime storage. Require their named initialiser and ProcessInfo
+@@ -33,6 +71,33 @@ def classify(frames, size=None):
+         return 'runtime_or_unattributed'
+     if 'SwiftJLS.OwnedImageStorage.init' in stack and 'Swift.Array.init(repeating:' in stack:
+         return 'owned_pixel_buffer'
++    owned_factory_pixel_stack = [
++        'swift_slowAlloc',
++        'swift_allocObject',
++        'Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>',
++        'generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)',
++        'generic specialization <Swift.UInt8> of Swift.Array.init(repeating: A, count: Swift.Int) -> [A]',
++        'static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage',
++    ]
++    if frames[:6] == owned_factory_pixel_stack:
++        return 'owned_pixel_buffer'
++    # The directly allocated JPEGLSBitstreamReader object in ScalarCodec.decode
++    # is six 64-bit words plus the 16-byte object header (64 requested bytes).
++    # Classify only requested size 64 with the exact 3-frame immediate
++    # constructor prefix as algorithm_state; reject wrong/missing sizes, wrong
++    # allocators, changed constructors, or intervening frames before the broad
++    # compressed_buffer rule, while retaining real compressed-array stacks
++    # allocated deeper under JPEGLSBitstreamReader.init(data:).
++    reader_object_prefix = [
++        'swift_slowAlloc',
++        'swift_allocObject',
++        'SwiftJLS.JPEGLSBitstreamReader.__allocating_init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader',
++    ]
++    if frames[:3] == reader_object_prefix:
++        return 'algorithm_state' if size == 64 else 'unattributed_codec'
++    if any('SwiftJLS.JPEGLSBitstreamReader.__allocating_init' in f for f in frames) and not any(
++            'SwiftJLS.JPEGLSBitstreamReader.init(' in f for f in frames):
++        return 'unattributed_codec'
+     if re.search(r'SwiftJLS\.JPEGLSBitstream(?:Reader|Writer(?:State)?)\.(?:__allocating_init|init|append|getData|write)', stack):
+         return 'compressed_buffer'
+     # In these reviewed encode entry closures, the UInt8 array allocation is
+@@ -287,12 +352,99 @@ def self_test():
+     assert classify(['operator new(unsigned long)',
+         'swift::Lazy<(anonymous namespace)::GenericMetadataCache>::getWithInit',
+         'SwiftJLS.OwnedImageStorage.withUnsafeMutableBytes'], 40) == 'runtime_or_unattributed'
++    canonical_metadata_stack = [
++        'operator new(unsigned long)',
++        '$x',
++        'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)',
++        '$x',
++        '$x',
++        'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)',
++        'swift_getCanonicalPrespecializedGenericMetadata',
++        '__swift_instantiateCanonicalPrespecializedGenericMetadata',
++        '$x',
++        '$x',
++        'swift_getTypeByMangledNode',
++        'swift_getTypeByMangledName',
++        '$x',
++        '__swift_instantiateConcreteTypeFromMangledName',
++        'closure #1 (inout SwiftJLS.OwnedImageStorage.(State in _E3A3FF9B1E0185F10C196E0592093825)) throws -> A in SwiftJLS.OwnedImageStorage.withUnsafeMutableBytes<A>(lease: SwiftJLS.StorageWriteLease, _: (Swift.UnsafeMutableRawBufferPointer) throws -> A) throws -> A',
++    ]
++    assert classify(canonical_metadata_stack, 48) == 'runtime_or_unattributed'
++    assert classify(canonical_metadata_stack[:-1] + [canonical_metadata_stack[-1].replace('_E3A3FF9B1E0185F10C196E0592093825', '_0123456789ABCDEF')], 48) == 'runtime_or_unattributed'
++    for size in [None, 40, 47, 49, 64, 1048576]:
++        assert classify(canonical_metadata_stack, size) == 'unattributed_codec'
++    assert classify(['malloc'] + canonical_metadata_stack[1:], 48) == 'unattributed_codec'
++    assert classify(['swift_slowAlloc'] + canonical_metadata_stack[1:], 48) == 'unattributed_codec'
++    assert classify(canonical_metadata_stack[:6] + canonical_metadata_stack[7:], 48) == 'unattributed_codec'
++    assert classify(canonical_metadata_stack[:6] + ['$x'] + canonical_metadata_stack[7:], 48) == 'unattributed_codec'
++    assert classify(canonical_metadata_stack[:7] + ['$x'] + canonical_metadata_stack[8:], 48) == 'unattributed_codec'
++    assert classify(canonical_metadata_stack[:6] + ['SwiftJLS.Other.allocate'] + canonical_metadata_stack[6:], 48) == 'unattributed_codec'
++    assert classify(canonical_metadata_stack[:13] + ['SwiftJLS.Other.allocate'] + canonical_metadata_stack[13:], 48) == 'unattributed_codec'
++    assert classify(canonical_metadata_stack[:14] + [outer.format('Scalar')], 48) == 'unattributed_codec'
++    assert classify(canonical_metadata_stack[:6] + [canonical_metadata_stack[-1]], 48) == 'unattributed_codec'
++    fixture_canonical_stack = canonical_metadata_stack[:14] + [
++        'generic specialization <Swift.String, Any> of Swift._NativeDictionary._copyOrMoveAndResize(capacity: Swift.Int, moveElements: Swift.Bool) -> ()',
++        'generic specialization <Swift.String, Any> of Swift._NativeDictionary.setValue(_: __owned B, forKey: A, isUnique: Swift.Bool) -> ()',
++        'generic specialization <FoundationEssentials.URL> of FoundationEssentials.readBytesFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions, attributesToRead: [Swift.String], attributes: inout [Swift.String : FoundationEssentials.Data]) throws -> FoundationEssentials.ReadBytesResult',
++        'merged generic specialization <FoundationEssentials.URL> of FoundationEssentials.readDataFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions) throws -> FoundationEssentials.Data',
++        'generic specialization <FoundationEssentials.URL> of FoundationEssentials.readDataFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions) throws -> FoundationEssentials.Data',
++        'function signature specialization <Arg[2] = Dead> of static FoundationEssentials._ProcessInfo.(coreCount in _5E3BF990DD92C0080D372AA0CF8A3C95)(quota: FoundationEssentials.URL, period: FoundationEssentials.URL) -> Swift.Int?',
++        'FoundationEssentials.ProcessInfo.activeProcessorCount.getter : Swift.Int',
++        'SwiftJLS.ResourceLimits.init(watch: Swift.Bool) -> SwiftJLS.ResourceLimits',
++    ]
++    assert classify(fixture_canonical_stack, 48) == 'runtime_or_unattributed'
++    for size in [None, 40, 47, 49, 64, 1048576]:
++        assert classify(fixture_canonical_stack, size) == 'unattributed_codec'
++    assert classify(['malloc'] + fixture_canonical_stack[1:], 48) == 'unattributed_codec'
++    assert classify(fixture_canonical_stack[:6] + fixture_canonical_stack[7:], 48) == 'unattributed_codec'
++    assert classify(fixture_canonical_stack[:14] + ['SwiftJLS.Other.allocate'] + fixture_canonical_stack[14:], 48) == 'unattributed_codec'
++    assert classify(fixture_canonical_stack[:-1] + [outer.format('Scalar')], 48) == 'unattributed_codec'
+     assert classify(['swift_getExistentialTypeMetadata',
+         'SwiftJLS.OwnedImageStorage.locked'], 16) == 'runtime_or_unattributed'
+     foundation_cache = prefix + ['one-time initialization function for (cfsQuotaURL in _ABC123)',
+         'FoundationEssentials.ProcessInfo.activeProcessorCount.getter', 'SwiftJLS.ResourceLimits.init']
+     assert classify(foundation_cache, 176) == 'runtime_or_unattributed'
+     assert classify(prefix + ['SwiftJLS.Other.allocate'] + foundation_cache[2:], 176) == 'unattributed_codec'
++    owned_factory_stack = prefix + [
++        'Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>',
++        'generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)',
++        'generic specialization <Swift.UInt8> of Swift.Array.init(repeating: A, count: Swift.Int) -> [A]',
++        'static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage',
++    ]
++    assert classify(owned_factory_stack, 610) == 'owned_pixel_buffer'
++    assert classify(['malloc'] + owned_factory_stack[1:], 610) == 'unattributed_codec'
++    assert classify(owned_factory_stack[:5] + ['SwiftJLS.Other.allocate'] + owned_factory_stack[5:], 610) == 'unattributed_codec'
++    assert classify([f.replace('<Swift.UInt8>', '<Swift.Int>') for f in owned_factory_stack], 610) == 'unattributed_codec'
++    assert classify(owned_factory_stack[:5] + ['closure #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in ' + owned_factory_stack[5]], 610) == 'unattributed_codec'
++    reader_object_stack = prefix + [
++        'SwiftJLS.JPEGLSBitstreamReader.__allocating_init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader',
++    ]
++    reader_object_full_stack = reader_object_stack + [
++        'fill #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage',
++    ]
++    assert classify(reader_object_stack, 64) == 'algorithm_state'
++    assert classify(reader_object_full_stack, 64) == 'algorithm_state'
++    for bad_size in [None, 0, 32, 63, 65, 404, 1048576]:
++        assert classify(reader_object_stack, bad_size) == 'unattributed_codec'
++        assert classify(reader_object_full_stack, bad_size) == 'unattributed_codec'
++    assert classify(['malloc'] + reader_object_stack[1:], 64) == 'unattributed_codec'
++    assert classify(['operator new(unsigned long)'] + reader_object_stack[1:], 64) == 'unattributed_codec'
++    assert classify(['swift_slowAlloc', 'malloc'] + reader_object_stack[2:], 64) == 'unattributed_codec'
++    assert classify(prefix + ['SwiftJLS.JPEGLSBitstreamReader.__allocating_init(bytes: [Swift.UInt8]) -> SwiftJLS.JPEGLSBitstreamReader'], 64) == 'unattributed_codec'
++    assert classify(prefix + ['SwiftJLS.JPEGLSBitstreamReader.__allocating_init() -> SwiftJLS.JPEGLSBitstreamReader'], 64) == 'unattributed_codec'
++    assert classify(prefix + ['SwiftJLS.Other.allocate'] + reader_object_stack[2:], 64) == 'unattributed_codec'
++    assert classify(['SwiftJLS.Other.allocate'] + reader_object_stack, 64) == 'unattributed_codec'
++    assert classify(prefix + ['Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>'] + reader_object_stack[2:], 64) == 'unattributed_codec'
++    assert classify(prefix + ['generic specialization <Swift.UInt8, FoundationEssentials.Data> of Swift.Array.init<A where A == A1.Element, A1: Swift.Sequence>(A1) -> [A]'] + reader_object_stack[2:], 64) == 'unattributed_codec'
++    compressed_reader_array_stack = prefix + [
++        'generic specialization <serialized, FoundationEssentials.Data> of Swift._copyCollectionToContiguousArray<A where A: Swift.Collection>(A) -> Swift.ContiguousArray<A.Element>',
++        'protocol witness for Swift.Sequence._copyToContiguousArray() -> Swift.ContiguousArray<A.Element> in conformance FoundationEssentials.Data : Swift.Sequence in FoundationEssentials',
++        'generic specialization <Swift.UInt8, FoundationEssentials.Data> of Swift.Array.init<A where A == A1.Element, A1: Swift.Sequence>(A1) -> [A]',
++        'SwiftJLS.JPEGLSBitstreamReader.init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader',
++        'SwiftJLS.JPEGLSBitstreamReader.__allocating_init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader',
++    ]
++    assert classify(compressed_reader_array_stack, 404) == 'compressed_buffer'
++    assert classify(compressed_reader_array_stack, 64) == 'compressed_buffer'
+     r = replay(lines)
+     assert r['phase_total_requested_heap_peak_bytes'] == 120
+     assert r['baseline_total_requested_heap_bytes'] == 100
+diff --git a/Scripts/StorageEvidence/run-workspace-profiles.py b/Scripts/StorageEvidence/run-workspace-profiles.py
+index 619b948..be29642 100644
+--- a/Scripts/StorageEvidence/run-workspace-profiles.py
++++ b/Scripts/StorageEvidence/run-workspace-profiles.py
+@@ -1,27 +1,123 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: Apache-2.0
+ """Collect the marked workspace matrix; preserve every command and profile."""
+-import argparse, json, pathlib, subprocess
+-p=argparse.ArgumentParser()
+-p.add_argument('--binary', required=True)
+-p.add_argument('--output', type=pathlib.Path, required=True)
+-p.add_argument('--revision', required=True)
+-a=p.parse_args();a.output.mkdir(parents=True, exist_ok=True)
+-cases=[]
+-for size in [17,512]:
+-    for components in [1,3]:
+-        for near in [0,3]:
+-            for operation in ['encode','owned','into','inspect']:
+-                cases.append((f'{size}-{components}-{near}-{operation}',[operation,str(size),str(size),str(components),str(near)]))
+-for profile,components,near in [('line',3,0),('line',3,3),('planar',3,0),('planar',3,3),('p16',1,0),('p16',3,3),('preset',1,3),('preset',3,0),('restart',3,3),('hp1',3,0),('hp2',3,0),('hp3',3,0)]:
+-    for operation in ['encode','owned','into','inspect']:
+-        cases.append((f'{profile}-{components}-{near}-{operation}',[operation,'257','129',str(components),str(near),profile]))
+-for name in ['subsampled-zero-n0','map-p16-c3-i0-w1-n0','extended-p12-65537x2']:
+-    for operation in ['owned','into','inspect']:
+-        cases.append((f'{name}-{operation}',[operation,'--fixture',f'Tests/SwiftJLSTests/Fixtures/{name}.jls']))
+-(a.output/'matrix.json').write_text(json.dumps(dict(revision=a.revision,cases=cases),indent=2)+'\n')
+-for name,args in cases:
+-    output=a.output/name
+-    subprocess.run(['python3','Scripts/StorageEvidence/trace-heap.py','--binary',a.binary,'--output',str(output),'--scope','One marked operation; setup retained and verification after the end marker','--',*args],check=True,stdout=subprocess.DEVNULL)
+-    subprocess.run(['python3','Scripts/StorageEvidence/measure-operation.py','--profile',str(output/'allocations.gz'),'--output',str(output/'operation.json'),'--revision',a.revision],check=True)
+-    print(name+' passed',flush=True)
++import argparse, hashlib, json, pathlib, subprocess
++
++
++def verify_operation_report(name, operation, report, expected_revision, profile_path=None):
++    if report.get('revision') != expected_revision:
++        raise AssertionError(f'{name}: revision mismatch ({report.get("revision")} != {expected_revision})')
++    if profile_path is not None:
++        expected_sha = hashlib.sha256(profile_path.read_bytes()).hexdigest()
++        if report.get('profile_sha256') != expected_sha:
++            raise AssertionError(f'{name}: profile_sha256 mismatch')
++    if report.get('codec_heap_attribution_complete') is not True:
++        raise AssertionError(f'{name}: codec_heap_attribution_complete is not true')
++    groups = report.get('groups', {})
++    unattributed = groups.get('unattributed_codec', {})
++    if unattributed.get('phase_allocation_calls', 0) != 0 or unattributed.get('baseline_live_bytes', 0) != 0:
++        raise AssertionError(f'{name}: non-zero unattributed_codec activity: {unattributed}')
++    phase_peak = report['phase_total_requested_heap_peak_bytes']
++    baseline_total = report['baseline_total_requested_heap_bytes']
++    if report['phase_total_peak_above_baseline_bytes'] != phase_peak - baseline_total:
++        raise AssertionError(f'{name}: phase_total_peak_above_baseline_bytes identity failed')
++    simultaneous = report.get('simultaneous_categories_at_phase_peak_bytes', {})
++    if phase_peak > baseline_total and sum(simultaneous.values()) != phase_peak:
++        raise AssertionError(f'{name}: simultaneous category sum {sum(simultaneous.values())} != {phase_peak}')
++    for group_name, g in groups.items():
++        if g['peak_above_baseline_bytes'] != g['peak_live_bytes'] - g['baseline_live_bytes']:
++            raise AssertionError(f'{name}: {group_name} peak_above_baseline_bytes mismatch')
++    owned_group = groups.get('owned_pixel_buffer', {})
++    owned_calls = owned_group.get('phase_allocation_calls', 0)
++    owned_peak_delta = owned_group.get('peak_above_baseline_bytes', 0)
++    expected_owned_calls = 1 if operation == 'owned' else 0
++    if owned_calls != expected_owned_calls:
++        raise AssertionError(f'{name}: expected {expected_owned_calls} owned_pixel_buffer calls for {operation}, got {owned_calls}')
++    if operation == 'owned' and owned_peak_delta <= 0:
++        raise AssertionError(f'{name}: owned operation must record positive owned_pixel_buffer peak_above_baseline_bytes')
++    if operation != 'owned' and owned_peak_delta != 0:
++        raise AssertionError(f'{name}: {operation} operation must have 0 owned_pixel_buffer peak_above_baseline_bytes, got {owned_peak_delta}')
++
++
++def self_test():
++    valid_owned = dict(
++        revision='abc123',
++        codec_heap_attribution_complete=True,
++        phase_total_requested_heap_peak_bytes=160,
++        baseline_total_requested_heap_bytes=100,
++        phase_total_peak_above_baseline_bytes=60,
++        simultaneous_categories_at_phase_peak_bytes=dict(owned_pixel_buffer=140, algorithm_state=20),
++        groups=dict(
++            owned_pixel_buffer=dict(baseline_live_bytes=100, peak_live_bytes=140, peak_above_baseline_bytes=40, end_live_bytes=140, phase_allocation_calls=1, phase_allocated_bytes=40),
++            algorithm_state=dict(baseline_live_bytes=0, peak_live_bytes=20, peak_above_baseline_bytes=20, end_live_bytes=0, phase_allocation_calls=1, phase_allocated_bytes=20),
++        ),
++    )
++    verify_operation_report('test-owned', 'owned', valid_owned, 'abc123')
++    valid_into = json.loads(json.dumps(valid_owned))
++    valid_into['groups']['owned_pixel_buffer'] = dict(baseline_live_bytes=100, peak_live_bytes=100, peak_above_baseline_bytes=0, end_live_bytes=100, phase_allocation_calls=0, phase_allocated_bytes=0)
++    valid_into['phase_total_requested_heap_peak_bytes'] = 120
++    valid_into['phase_total_peak_above_baseline_bytes'] = 20
++    valid_into['simultaneous_categories_at_phase_peak_bytes'] = dict(owned_pixel_buffer=100, algorithm_state=20)
++    verify_operation_report('test-into', 'into', valid_into, 'abc123')
++    for mutator in [
++        lambda r: r.update(codec_heap_attribution_complete=False),
++        lambda r: r['groups'].update(unattributed_codec=dict(baseline_live_bytes=0, peak_live_bytes=16, peak_above_baseline_bytes=16, end_live_bytes=0, phase_allocation_calls=1, phase_allocated_bytes=16)),
++        lambda r: r['groups'].update(unattributed_codec=dict(baseline_live_bytes=16, peak_live_bytes=16, peak_above_baseline_bytes=0, end_live_bytes=16, phase_allocation_calls=0, phase_allocated_bytes=0)),
++        lambda r: r.update(phase_total_peak_above_baseline_bytes=999),
++        lambda r: r.update(simultaneous_categories_at_phase_peak_bytes=dict(owned_pixel_buffer=100)),
++        lambda r: r['groups']['owned_pixel_buffer'].update(phase_allocation_calls=0),
++        lambda r: r['groups']['owned_pixel_buffer'].update(phase_allocation_calls=2),
++        lambda r: r.update(revision='wrong'),
++    ]:
++        bad = json.loads(json.dumps(valid_owned))
++        mutator(bad)
++        try:
++            verify_operation_report('bad-owned', 'owned', bad, 'abc123')
++        except AssertionError:
++            pass
++        else:
++            raise AssertionError('Invalid workspace operation report was accepted')
++    try:
++        verify_operation_report('bad-into', 'into', valid_owned, 'abc123')
++    except AssertionError:
++        pass
++    else:
++        raise AssertionError('Owned pixel allocation in into mode was accepted')
++    print('Workspace profile runner controls passed')
++
++
++if __name__ == '__main__':
++    p=argparse.ArgumentParser()
++    p.add_argument('--binary')
++    p.add_argument('--output', type=pathlib.Path)
++    p.add_argument('--revision')
++    p.add_argument('--self-test', action='store_true')
++    a=p.parse_args()
++    if a.self_test:
++        self_test()
++        raise SystemExit(0)
++    if not all([a.binary, a.output, a.revision]):
++        p.error('binary, output, revision required')
++    a.output.mkdir(parents=True, exist_ok=True)
++    cases=[]
++    for size in [17,512]:
++        for components in [1,3]:
++            for near in [0,3]:
++                for operation in ['encode','owned','into','inspect']:
++                    cases.append((f'{size}-{components}-{near}-{operation}',[operation,str(size),str(size),str(components),str(near)]))
++    for profile,components,near in [('line',3,0),('line',3,3),('planar',3,0),('planar',3,3),('p16',1,0),('p16',3,3),('preset',1,3),('preset',3,0),('restart',3,3),('hp1',3,0),('hp2',3,0),('hp3',3,0)]:
++        for operation in ['encode','owned','into','inspect']:
++            cases.append((f'{profile}-{components}-{near}-{operation}',[operation,'257','129',str(components),str(near),profile]))
++    for name in ['subsampled-zero-n0','map-p16-c3-i0-w1-n0','extended-p12-65537x2']:
++        for operation in ['owned','into','inspect']:
++            cases.append((f'{name}-{operation}',[operation,'--fixture',f'Tests/SwiftJLSTests/Fixtures/{name}.jls']))
++    (a.output/'matrix.json').write_text(json.dumps(dict(revision=a.revision,cases=cases),indent=2)+'\n')
++    for name,args in cases:
++        output=a.output/name
++        profile_path=output/'allocations.gz'
++        report_path=output/'operation.json'
++        subprocess.run(['python3','Scripts/StorageEvidence/trace-heap.py','--binary',a.binary,'--output',str(output),'--scope','One marked operation; setup retained and verification after the end marker','--',*args],check=True,stdout=subprocess.DEVNULL)
++        subprocess.run(['python3','Scripts/StorageEvidence/measure-operation.py','--profile',str(profile_path),'--output',str(report_path),'--revision',a.revision],check=True)
++        report=json.loads(report_path.read_text())
++        verify_operation_report(name, args[0], report, a.revision, profile_path)
++        print(name+' passed',flush=True)
+diff --git a/Sources/SwiftJLS/Image.swift b/Sources/SwiftJLS/Image.swift
+index beaa0f8..4e1afe4 100644
+--- a/Sources/SwiftJLS/Image.swift
++++ b/Sources/SwiftJLS/Image.swift
+@@ -54,6 +54,50 @@ public struct Image: Sendable {
+         self.descriptor = descriptor; self.storage = storage; self.metadata = metadata
+     }
+ 
++    // Used only by `ImageDestination.write` and `Image.writeAdmittedOwned`
++    // after sealing an exact-capacity owned allocation whose `descriptor`,
++    // `metadata` and combined memory budget were already admitted against
++    // the destination's or operation's immutable limits.
++    init(admittedOwnedDescriptor descriptor: ImageDescriptor,
++         sealedOwnedStorage storage: any ReadOnlyImageStorage,
++         admittedMetadata metadata: ImageMetadata) {
++        self.descriptor = descriptor; self.storage = storage; self.metadata = metadata
++    }
++
++    // Internal fresh-owned fill-and-publish factory for `ScalarCodec.decode`
++    // when `supplied == nil`. `descriptor` must already be admitted under `limits`.
++    // Validates capacity, metadata, ICC and combined memory before allocation/fill,
++    // and preserves pre-allocation, pre-fill, post-fill and post-seal cancellation.
++    static func writeAdmittedOwned(
++        descriptor: ImageDescriptor,
++        metadata: ImageMetadata = .empty,
++        limits: ResourceLimits,
++        _ body: (UnsafeMutableRawBufferPointer) throws -> Void
++    ) throws -> Image {
++        let byteCount = descriptor.requiredByteCount
++        guard byteCount > 0 else { throw CodecError(.invalidArgument, "Storage capacity must be positive.") }
++        guard byteCount <= limits.maximumDecodedBytes,
++              try checkedAdd(byteCount, descriptor.iccProfile?.count ?? 0) <= limits.maximumMemoryBytes else {
++            throw CodecError(.resourceLimitExceeded, "Storage allocation exceeds the admission budget.")
++        }
++        let metadataBytes = try metadata.validate(limits: limits, additionalBytes: descriptor.iccProfile?.count ?? 0)
++        guard try checkedAdd(byteCount, metadataBytes) <= limits.maximumMemoryBytes else {
++            throw CodecError(.resourceLimitExceeded, "Destination and metadata exceed the admission budget.")
++        }
++        let sealed = try OwnedImageStorage.fillAndSealAdmittedOwned(
++            byteCount: byteCount,
++            limits: limits,
++            body
++        )
++        let image = Image(
++            admittedOwnedDescriptor: descriptor,
++            sealedOwnedStorage: sealed,
++            admittedMetadata: metadata
++        )
++        try Task.checkCancellation()
++        return image
++    }
++
+     /// A safe sample accessor for the required greyscale profile; never reads padding.
+     public func sampleUInt16(x: Int, y: Int) throws -> UInt16 {
+         try validateGreyscale16(descriptor)
+@@ -85,8 +129,9 @@ public final class ImageDestination: Sendable {
+     private struct Lifecycle: Sendable {
+         var started = false
+         var finished = false
++        var admittedOwnedStorage = false
+     }
+-    private let lifecycle = Mutex(Lifecycle())
++    private let lifecycle: Mutex<Lifecycle>
+ 
+     public init(descriptor: ImageDescriptor, storage: any WritableImageStorage,
+                 limits: ResourceLimits = .default) throws {
+@@ -99,6 +144,7 @@ public final class ImageDestination: Sendable {
+             throw CodecError(.incompatibleImageLayout, "Destination storage is too short.")
+         }
+         self.descriptor = descriptor; self.storage = storage; self.limits = limits
++        self.lifecycle = Mutex(Lifecycle())
+         self.lease = try storage.reserveWrite()
+     }
+     // Only `allocate` may use this initializer, after descriptor and combined
+@@ -109,6 +155,7 @@ public final class ImageDestination: Sendable {
+     private init(admittedOwnedDescriptor descriptor: ImageDescriptor,
+                  storage: OwnedImageStorage, limits: ResourceLimits) throws {
+         self.descriptor = descriptor; self.storage = storage; self.limits = limits
++        self.lifecycle = Mutex(Lifecycle(admittedOwnedStorage: true))
+         self.lease = try storage.reserveWrite()
+     }
+ 
+@@ -123,6 +170,10 @@ public final class ImageDestination: Sendable {
+         guard try checkedAdd(descriptor.requiredByteCount, descriptor.iccProfile?.count ?? 0) <= limits.maximumMemoryBytes else {
+             throw CodecError(.resourceLimitExceeded, "Destination exceeds the admission budget.")
+         }
++        return try allocate(admittedDescriptor: descriptor, limits: limits)
++    }
++
++    static func allocate(admittedDescriptor descriptor: ImageDescriptor, limits: ResourceLimits) throws -> ImageDestination {
+         let storage = try OwnedImageStorage(byteCount: descriptor.requiredByteCount, limits: limits)
+         return try Self(admittedOwnedDescriptor: descriptor, storage: storage, limits: limits)
+     }
+@@ -140,10 +191,10 @@ public final class ImageDestination: Sendable {
+         guard try checkedAdd(storage.byteCount, metadataBytes) <= limits.maximumMemoryBytes else {
+             throw CodecError(.resourceLimitExceeded, "Destination and metadata exceed the admission budget.")
+         }
+-        let accepted = lifecycle.withLock { value in
+-            guard !value.started else { return false }
++        let (accepted, admittedOwnedStorage) = lifecycle.withLock { value -> (Bool, Bool) in
++            guard !value.started else { return (false, value.admittedOwnedStorage) }
+             value.started = true
+-            return true
++            return (true, value.admittedOwnedStorage)
+         }
+         guard accepted else { throw CodecError(.storageUnavailable, "Destination was already used.") }
+         do {
+@@ -156,9 +207,15 @@ public final class ImageDestination: Sendable {
+             }
+             try Task.checkCancellation()
+             let sealed = try storage.finishAndSeal(lease: lease)
+-            let image = try Image(descriptor: descriptor, storage: sealed, metadata: metadata, limits: limits)
++            let image: Image
++            if admittedOwnedStorage {
++                image = Image(admittedOwnedDescriptor: descriptor, sealedOwnedStorage: sealed, admittedMetadata: metadata)
++            } else {
++                image = try Image(descriptor: descriptor, storage: sealed, metadata: metadata, limits: limits)
++            }
+             // External providers may perform bounded finalisation or validation
+-            // work. Cancellation during either callback must prevent publication.
++            // work, and owned sealing still acquires the mutex and allocates the
++            // immutable owner. Cancellation before publication must always reject.
+             try Task.checkCancellation()
+             lifecycle.withLock { $0.finished = true }
+             return image
+diff --git a/Sources/SwiftJLS/ImageStorage.swift b/Sources/SwiftJLS/ImageStorage.swift
+index be9abc8..6ea7c27 100644
+--- a/Sources/SwiftJLS/ImageStorage.swift
++++ b/Sources/SwiftJLS/ImageStorage.swift
+@@ -99,6 +99,33 @@ public final class OwnedImageStorage: WritableImageStorage, Sendable {
+         }
+     }
+ 
++    // Internal fresh-owned fill-and-seal helper for `Image.writeAdmittedOwned`.
++    // Allocates one zero-initialised byte array, runs the synchronous fill borrow,
++    // and returns an immutable `SealedImageStorage` with a fresh `allocationID`.
++    // No mutable storage or destination owner escapes, and failed fills never publish.
++    static func fillAndSealAdmittedOwned(
++        byteCount: Int,
++        limits: ResourceLimits,
++        _ body: (UnsafeMutableRawBufferPointer) throws -> Void
++    ) throws -> any ReadOnlyImageStorage {
++        try Task.checkCancellation()
++        guard byteCount > 0 else { throw CodecError(.invalidArgument, "Storage capacity must be positive.") }
++        guard byteCount <= limits.maximumDecodedBytes, byteCount <= limits.maximumMemoryBytes else {
++            throw CodecError(.resourceLimitExceeded, "Storage allocation exceeds the admission budget.")
++        }
++        let allocationID = UUID()
++        var bytes = [UInt8](repeating: 0, count: byteCount)
++        try Task.checkCancellation()
++        try bytes.withUnsafeMutableBytes { rawBytes in
++            guard rawBytes.count == byteCount else {
++                throw CodecError(.storageUnavailable, "Provider returned inconsistent capacity.")
++            }
++            try body(rawBytes)
++        }
++        try Task.checkCancellation()
++        return SealedImageStorage(bytes: bytes, allocationID: allocationID)
++    }
++
+     private static func check(_ lease: StorageWriteLease, _ state: borrowing State) throws {
+         guard state.phase == .writing, state.lease == lease else {
+             throw CodecError(.storageUnavailable, "Write lease is stale, foreign or unavailable.")
+diff --git a/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift b/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift
+index d739461..7479ae3 100644
+--- a/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift
++++ b/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift
+@@ -55,7 +55,7 @@ struct JPEGLSHeader {
+     let metadataBytes: Int
+     // Geometry and sample interpretation are immutable. Keep the layout already
+     // checked for parser admission instead of rebuilding its arrays on decode.
+-    private let admittedDescriptor: ImageDescriptor
++    let admittedDescriptor: ImageDescriptor
+     var near: Int { records.reduce(0) { max($0, $1.near) } }
+     var parameters: JPEGLSPresetParameters { records[0].parameters }
+     var scans: [Range<Int>] { records[0].ranges }
+diff --git a/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift b/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift
+index bbdc2f2..0d689e3 100644
+--- a/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift
++++ b/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift
+@@ -43,9 +43,8 @@ enum ScalarCodec {
+         let budget = CodecBudget(limits: options.resourceLimits)
+         return try mapped {
+             let header = try JPEGLSHeader.parse(data, budget: budget, codecOptions: codecOptions)
+-            let descriptor = try header.descriptor(limits: options.resourceLimits)
+             try budget.check()
+-            return ImageInfo(format: "JPEG-LS", descriptor: descriptor, frameCount: 1, metadata: header.retainedMetadata(options.metadataPolicy))
++            return ImageInfo(format: "JPEG-LS", descriptor: header.admittedDescriptor, frameCount: 1, metadata: header.retainedMetadata(options.metadataPolicy))
+         }
+     }
+     static func encode(_ image: Image, configuration: EncoderConfiguration, options: EncodeOptions) throws -> EncodedImage {
+@@ -191,11 +190,21 @@ enum ScalarCodec {
+             if !header.grey {
+                 return try ComponentCodec.decode(data, header: header, into: supplied, options: options, budget: budget, hpInterpretation: codecOptions.hpInterpretation)
+             }
+-            let descriptor = try supplied?.descriptor ?? header.descriptor(limits: budget.limits)
+-            let plane = try layout(descriptor, limits: budget.limits)
+-            guard descriptor.width == header.width, descriptor.height == header.height,
+-                  descriptor.meaningfulBits == header.outputBits, descriptor.storageBits >= header.bits else {
+-                throw CodecError(.incompatibleImageLayout, "Destination geometry or precision does not match the codestream.")
++            let descriptor: ImageDescriptor
++            let plane: PlaneDescriptor
++            if let supplied {
++                descriptor = supplied.descriptor
++                plane = try layout(descriptor, limits: budget.limits)
++                guard descriptor.width == header.width, descriptor.height == header.height,
++                      descriptor.meaningfulBits == header.outputBits, descriptor.storageBits >= header.bits else {
++                    throw CodecError(.incompatibleImageLayout, "Destination geometry or precision does not match the codestream.")
++                }
++            } else {
++                descriptor = header.admittedDescriptor
++                guard (2...16).contains(descriptor.meaningfulBits) && descriptor.storageBits >= header.bits else {
++                    throw CodecError(.unsupportedFeature, "The migrated scalar profile requires unsigned greyscale without ICC metadata.")
++                }
++                plane = descriptor.planes[0]
+             }
+             let workspace = try checkedAdd(checkedAdd(contextBytes, tableBytes(header.parameters)), checkedAdd(checkedMultiply(data.count, 2), checkedMultiply(header.scans.count, MemoryLayout<Range<Int>>.stride * 2)))
+             let pixelBytes = supplied?.storage.byteCount ?? descriptor.requiredByteCount
+@@ -203,11 +212,14 @@ enum ScalarCodec {
+             let samples = try checkedMultiply(header.width, header.height)
+             options.progress?(try ProgressUpdate(phase: .processing, completedUnits: 0, totalUnits: samples))
+             try budget.check()
+-            let destination = try supplied ?? ImageDestination.allocate(descriptor: descriptor, limits: budget.limits)
+             let kernel = JPEGLSScalarKernel()
+             let coding = kernel.computeGolombLimitInternal(parameters: header.parameters, near: header.near, bitsPerSample: header.bits)
++            // On the already-admitted owned path, geometry/capacity cannot newly fail;
++            // computing fidelity before the private owned allocation preserves its
++            // budget/cancellation checks without a preparation-closure wrapper.
+             let fidelity = try header.fidelity(budget: budget)
+-            let image = try destination.write(metadata: header.retainedMetadata(options.metadataPolicy)) { bytes in
++            let metadata = header.retainedMetadata(options.metadataPolicy)
++            func fill(_ bytes: UnsafeMutableRawBufferPointer) throws {
+                 for (chunk, scan) in header.scans.enumerated() {
+                     let firstRow = header.restartInterval > 0 ? chunk * header.restartInterval : 0
+                     let rows = header.restartInterval > 0 ? min(header.restartInterval, header.height - firstRow) : header.height
+@@ -225,6 +237,8 @@ enum ScalarCodec {
+                 try header.mapSamples(in: bytes, descriptor: descriptor, budget: budget)
+                 try budget.check()
+             }
++            let image = try supplied?.write(metadata: metadata, fill)
++                ?? Image.writeAdmittedOwned(descriptor: descriptor, metadata: metadata, limits: budget.limits, fill)
+             let result = DecodedImage(image: image, report: OperationReport(backend: .scalarCPU,
+                 fallbackReason: fallback(options.executionPolicy), fidelity: fidelity,
+                 pixelAllocationCount: supplied == nil ? 1 : 0, peakPixelBytes: supplied == nil ? pixelBytes : 0,
+diff --git a/Tests/SwiftJLSTests/OwnedAdmissionTests.swift b/Tests/SwiftJLSTests/OwnedAdmissionTests.swift
+index 74cc4d3..d544e6e 100644
+--- a/Tests/SwiftJLSTests/OwnedAdmissionTests.swift
++++ b/Tests/SwiftJLSTests/OwnedAdmissionTests.swift
+@@ -71,4 +71,324 @@ struct OwnedAdmissionTests {
+         }
+         await #expect(throws: CancellationError.self) { try await cancelled.value }
+     }
++
++    @Test func admittedOwnedWriteRejectsPostFillCancellationAndInvalidatesStorage() async throws {
++        let descriptor = try ImageDescriptor.greyscale16(width: 2, height: 1)
++        let destination = try ImageDestination.allocate(descriptor: descriptor)
++        let cancelledWrite = Task {
++            try destination.write { bytes in
++                bytes.initializeMemory(as: UInt8.self, repeating: 0)
++                withUnsafeCurrentTask { $0?.cancel() }
++            }
++        }
++        await #expect(throws: CancellationError.self) { try await cancelledWrite.value }
++        #expect(throws: CodecError(.storageUnavailable, "Destination was already used.")) {
++            _ = try destination.write { $0.initializeMemory(as: UInt8.self, repeating: 0) }
++        }
++        #expect(throws: CodecError(.storageUnavailable, "Storage already has a writer or is sealed/invalid.")) {
++            _ = try destination.storage.reserveWrite()
++        }
++
++        let destinationUInt16 = try ImageDestination.allocate(descriptor: descriptor)
++        let cancelledUInt16 = Task {
++            try destinationUInt16.writeUInt16 { x, _ in
++                if x == 1 {
++                    withUnsafeCurrentTask { $0?.cancel() }
++                }
++                return 0
++            }
++        }
++        await #expect(throws: CancellationError.self) { try await cancelledUInt16.value }
++        #expect(throws: CodecError(.storageUnavailable, "Storage already has a writer or is sealed/invalid.")) {
++            _ = try destinationUInt16.storage.reserveWrite()
++        }
++    }
++
++    @Test func ownedDecodeAndInspectReuseAdmittedDescriptorAndKeepBudgetGuards() async throws {
++        let descriptor = try ImageDescriptor.greyscale16(width: 4, height: 3, meaningfulBits: 12)
++        let source = try ImageDestination.allocate(descriptor: descriptor).writeUInt16 { x, y in
++            UInt16((x * 17 + y * 31) & 0x0FFF)
++        }
++        let encoded = try await Encoder().encode(source)
++        let info = try Decoder().inspect(encoded.data)
++        #expect(info.descriptor == descriptor)
++
++        let decodedOwned = try await Decoder().decode(encoded.data)
++        #expect(decodedOwned.image.descriptor == descriptor)
++        #expect(decodedOwned.report.pixelAllocationCount == 1)
++        #expect(decodedOwned.report.peakPixelBytes == 24)
++        for y in 0..<3 {
++            for x in 0..<4 {
++                #expect(try decodedOwned.image.sampleUInt16(x: x, y: y) == UInt16((x * 17 + y * 31) & 0x0FFF))
++            }
++        }
++
++        let supplied = try ImageDestination.allocate(descriptor: descriptor)
++        let decodedInto = try await Decoder().decode(encoded.data, into: supplied)
++        #expect(decodedInto.image.descriptor == descriptor)
++        #expect(decodedInto.report.pixelAllocationCount == 0)
++        #expect(decodedInto.report.peakPixelBytes == 0)
++
++        let tightDecodedLimits = try ResourceLimits(maximumDecodedBytes: 23)
++        await #expect(throws: CodecError(.resourceLimitExceeded, "Decoded storage limit exceeded.")) {
++            _ = try await Decoder().decode(encoded.data, options: .init(resourceLimits: tightDecodedLimits))
++        }
++        let tightMemoryLimits = try ResourceLimits(maximumMemoryBytes: encoded.data.count + 24)
++        await #expect(throws: CodecError(.resourceLimitExceeded, "Codec operation exceeds its memory budget.")) {
++            _ = try await Decoder().decode(encoded.data, options: .init(resourceLimits: tightMemoryLimits))
++        }
++    }
++
++    @Test func ownedWriteMetadataPreflightRejectsBeforeStartAndRetainsReservationForRetry() throws {
++        let plane = try PlaneDescriptor(width: 1, height: 1, rowBytes: 2, byteCount: 2)
++        let descriptor = try ImageDescriptor(width: 1, height: 1, planes: [plane], iccProfile: Data([0xAA, 0xBB]))
++        let meta2 = ImageMetadata(entries: ["a": Data([0xCC])], requiredKeys: ["a"])
++
++        // 1. Exact pixel (2) + ICC (2) + metadata (2) = 6 capacity succeeds.
++        let exactLimits = try ResourceLimits(
++            maximumDecodedBytes: 2, maximumMetadataBytes: 4, maximumICCBytes: 2, maximumMemoryBytes: 6
++        )
++        let exactDest = try ImageDestination.allocate(descriptor: descriptor, limits: exactLimits)
++        let exactImg = try exactDest.write(metadata: meta2) { bytes in
++            bytes[0] = 0x34
++            bytes[1] = 0x12
++        }
++        #expect(exactImg.storage.allocationID == exactDest.storage.allocationID)
++        #expect(try exactImg.sampleUInt16(x: 0, y: 0) == 0x1234)
++        #expect(exactImg.metadata == meta2)
++
++        // 2. Missing required key and 1-byte-short aggregate memory limit (5 vs 6) reject before
++        // fill starts, and corrected metadata can then reuse the same destination reservation.
++        let shortMemLimits = try ResourceLimits(
++            maximumDecodedBytes: 2, maximumMetadataBytes: 4, maximumICCBytes: 2, maximumMemoryBytes: 5
++        )
++        let retryMemDest = try ImageDestination.allocate(descriptor: descriptor, limits: shortMemLimits)
++        var fillRan = false
++        let missingKeyMeta = ImageMetadata(entries: ["a": Data([0xCC])], requiredKeys: ["missing"])
++        #expect(throws: CodecError(.invalidArgument, "Required metadata has no value.")) {
++            _ = try retryMemDest.write(metadata: missingKeyMeta) { _ in fillRan = true }
++        }
++        #expect(!fillRan)
++        #expect(throws: CodecError(.resourceLimitExceeded, "Destination and metadata exceed the admission budget.")) {
++            _ = try retryMemDest.write(metadata: meta2) { _ in fillRan = true }
++        }
++        #expect(!fillRan)
++        let retriedMemImg = try retryMemDest.write(metadata: .empty) { bytes in
++            fillRan = true
++            bytes[0] = 0x78
++            bytes[1] = 0x56
++        }
++        #expect(fillRan)
++        #expect(retriedMemImg.storage.allocationID == retryMemDest.storage.allocationID)
++        #expect(try retriedMemImg.sampleUInt16(x: 0, y: 0) == 0x5678)
++        #expect(retriedMemImg.metadata == .empty)
++
++        // 3. 1-byte-short metadata limit (maximumMetadataBytes: 3 vs ICC 2 + meta 2 = 4) rejects
++        // before fill starts, and 1-byte metadata (ICC 2 + meta 1 = 3) reuses the same destination.
++        let shortMetaLimits = try ResourceLimits(
++            maximumDecodedBytes: 2, maximumMetadataBytes: 3, maximumICCBytes: 2, maximumMemoryBytes: 6
++        )
++        let retryMetaDest = try ImageDestination.allocate(descriptor: descriptor, limits: shortMetaLimits)
++        var metaFillRan = false
++        #expect(throws: CodecError(.resourceLimitExceeded, "Metadata limit exceeded.")) {
++            _ = try retryMetaDest.write(metadata: meta2) { _ in metaFillRan = true }
++        }
++        #expect(!metaFillRan)
++        let meta1 = ImageMetadata(entries: ["a": Data()], requiredKeys: ["a"])
++        let retriedMetaImg = try retryMetaDest.write(metadata: meta1) { bytes in
++            metaFillRan = true
++            bytes[0] = 0xBC
++            bytes[1] = 0x9A
++        }
++        #expect(metaFillRan)
++        #expect(retriedMetaImg.storage.allocationID == retryMetaDest.storage.allocationID)
++        #expect(try retriedMetaImg.sampleUInt16(x: 0, y: 0) == 0x9ABC)
++        #expect(retriedMetaImg.metadata == meta1)
++    }
++
++    @Test func freshOwnedFactoryLifecycleMetadataAndLimits() async throws {
++        let plane = try PlaneDescriptor(width: 1, height: 1, rowBytes: 2, byteCount: 2)
++        let descriptor = try ImageDescriptor(width: 1, height: 1, planes: [plane], iccProfile: Data([0xAA, 0xBB]))
++        let meta = ImageMetadata(entries: ["a": Data([0xCC])], requiredKeys: ["a"])
++        let exactLimits = try ResourceLimits(
++            maximumDecodedBytes: 2, maximumMetadataBytes: 4, maximumICCBytes: 2, maximumMemoryBytes: 6
++        )
++
++        var fillRan = false
++        let missingKey = ImageMetadata(entries: ["a": Data([0xCC])], requiredKeys: ["missing"])
++        #expect(throws: CodecError(.invalidArgument, "Required metadata has no value.")) {
++            _ = try Image.writeAdmittedOwned(descriptor: descriptor, metadata: missingKey, limits: exactLimits) { _ in
++                fillRan = true
++            }
++        }
++        #expect(!fillRan)
++
++        let shortDecoded = try ResourceLimits(
++            maximumDecodedBytes: 1, maximumMetadataBytes: 4, maximumICCBytes: 2, maximumMemoryBytes: 6
++        )
++        #expect(throws: CodecError(.resourceLimitExceeded, "Storage allocation exceeds the admission budget.")) {
++            _ = try Image.writeAdmittedOwned(descriptor: descriptor, metadata: meta, limits: shortDecoded) { _ in
++                fillRan = true
++            }
++        }
++        #expect(!fillRan)
++
++        let shortICCMem = try ResourceLimits(
++            maximumDecodedBytes: 2, maximumMetadataBytes: 4, maximumICCBytes: 2, maximumMemoryBytes: 3
++        )
++        #expect(throws: CodecError(.resourceLimitExceeded, "Storage allocation exceeds the admission budget.")) {
++            _ = try Image.writeAdmittedOwned(descriptor: descriptor, metadata: meta, limits: shortICCMem) { _ in
++                fillRan = true
++            }
++        }
++        #expect(!fillRan)
++
++        let shortMeta = try ResourceLimits(
++            maximumDecodedBytes: 2, maximumMetadataBytes: 3, maximumICCBytes: 2, maximumMemoryBytes: 6
++        )
++        #expect(throws: CodecError(.resourceLimitExceeded, "Metadata limit exceeded.")) {
++            _ = try Image.writeAdmittedOwned(descriptor: descriptor, metadata: meta, limits: shortMeta) { _ in
++                fillRan = true
++            }
++        }
++        #expect(!fillRan)
++
++        let shortCombined = try ResourceLimits(
++            maximumDecodedBytes: 2, maximumMetadataBytes: 4, maximumICCBytes: 2, maximumMemoryBytes: 5
++        )
++        #expect(throws: CodecError(.resourceLimitExceeded, "Destination and metadata exceed the admission budget.")) {
++            _ = try Image.writeAdmittedOwned(descriptor: descriptor, metadata: meta, limits: shortCombined) { _ in
++                fillRan = true
++            }
++        }
++        #expect(!fillRan)
++
++        let first = try Image.writeAdmittedOwned(descriptor: descriptor, metadata: meta, limits: exactLimits) { bytes in
++            #expect(bytes.count == 2)
++            #expect(bytes.allSatisfy { $0 == 0 })
++            bytes[0] = 0x34
++            bytes[1] = 0x12
++        }
++        let second = try Image.writeAdmittedOwned(descriptor: descriptor, metadata: meta, limits: exactLimits) { bytes in
++            #expect(bytes.allSatisfy { $0 == 0 })
++            bytes[0] = 0x78
++            bytes[1] = 0x56
++        }
++        #expect(first.storage.allocationID != second.storage.allocationID)
++        #expect(first.storage.byteCount == 2)
++        #expect(first.metadata == meta)
++        #expect(try first.sampleUInt16(x: 0, y: 0) == 0x1234)
++        #expect(try second.sampleUInt16(x: 0, y: 0) == 0x5678)
++
++        let fillFailure = CodecError(.malformedInput, "Simulated fill failure.")
++        #expect(throws: fillFailure) {
++            _ = try Image.writeAdmittedOwned(descriptor: descriptor, metadata: meta, limits: exactLimits) { bytes in
++                bytes[0] = 0xFF
++                throw fillFailure
++            }
++        }
++
++        let cancelledBefore = Task {
++            withUnsafeCurrentTask { $0?.cancel() }
++            return try Image.writeAdmittedOwned(descriptor: descriptor, metadata: meta, limits: exactLimits) { _ in }
++        }
++        await #expect(throws: CancellationError.self) { _ = try await cancelledBefore.value }
++
++        let cancelledDuringFill = Task {
++            try Image.writeAdmittedOwned(descriptor: descriptor, metadata: meta, limits: exactLimits) { bytes in
++                bytes[0] = 1
++                withUnsafeCurrentTask { $0?.cancel() }
++            }
++        }
++        await #expect(throws: CancellationError.self) { _ = try await cancelledDuringFill.value }
++    }
++
++    @Test func ownedAndSuppliedDecodeMetadataPolicyFidelityAndDestinationLimits() async throws {
++        let descriptor = try ImageDescriptor.greyscale16(width: 2, height: 2, meaningfulBits: 2)
++        let comment = try JPEGLSMetadata.Segment(marker: 0xFE, payload: Data([0x41, 0x42]))
++        let ancillary = JPEGLSMetadata(segments: [comment]).metadata
++        let table = try JPEGLSMappingTable(id: 1, entryWidth: 2, entries: [0, 10, 50, 400])
++        let mapping = try JPEGLSMappingTables(tables: [table], componentTableIDs: [1]).metadata
++        let combinedMeta = ImageMetadata(
++            entries: ancillary.entries.merging(mapping.entries) { _, new in new },
++            requiredKeys: mapping.requiredKeys
++        )
++        let source = try Image.writeAdmittedOwned(
++            descriptor: descriptor, metadata: combinedMeta, limits: .default
++        ) { bytes in
++            for (i, sample) in [UInt16(0), 1, 2, 3].enumerated() {
++                bytes[i * 2] = UInt8(sample & 0xFF)
++                bytes[i * 2 + 1] = UInt8(sample >> 8)
++            }
++        }
++        let config = try EncoderConfiguration(mode: .nearLossless(maximumAbsoluteError: 1))
++        let encoded = try await Encoder(configuration: config).encode(source)
++
++        // 1. Owned decode with mappingOutputPrecision and .preserve computes mapped NEAR
++        // fidelity (max adjacent step for NEAR=1 in [0, 10, 50, 400] is 350) and keeps COM.
++        let mappedOptions = try CodecOptions(restartIntervalLines: 0, mappingOutputPrecision: 12)
++        let mappedDecoder = try Decoder(configuration: .init(codecOptions: mappedOptions))
++        let ownedMapped = try await mappedDecoder.decode(
++            encoded.data, options: .init(metadataPolicy: .preserve)
++        )
++        #expect(ownedMapped.report.fidelity == Fidelity.boundedError(350))
++        #expect(ownedMapped.report.pixelAllocationCount == 1)
++        #expect(ownedMapped.report.peakPixelBytes == 8)
++        #expect(ownedMapped.image.descriptor.meaningfulBits == 12)
++        #expect(ownedMapped.image.metadata.entries[JPEGLSMetadata.key] != nil)
++        #expect(ownedMapped.image.metadata.entries[JPEGLSMappingTables.key] == nil)
++
++        // 2. Owned decode with .discardAncillary removes non-required COM while retaining
++        // required mapping table metadata when samples remain unmapped indices.
++        let ownedDiscarded = try await Decoder().decode(
++            encoded.data, options: .init(metadataPolicy: .discardAncillary)
++        )
++        #expect(ownedDiscarded.report.fidelity == Fidelity.boundedError(1))
++        #expect(ownedDiscarded.image.storage.allocationID != ownedMapped.image.storage.allocationID)
++        #expect(ownedDiscarded.image.metadata.entries[JPEGLSMetadata.key] == nil)
++        #expect(ownedDiscarded.image.metadata.entries[JPEGLSMappingTables.key] != nil)
++        #expect(ownedDiscarded.image.metadata.requiredKeys.contains(JPEGLSMappingTables.key))
++
++        // 3. Supplied destination with narrower construction metadata/memory limits rejects
++        // .preserve before fill and retains its reservation for a .discardAncillary retry.
++        let mappedDescriptor = try ImageDescriptor.greyscale16(width: 2, height: 2, meaningfulBits: 12)
++        let narrowDestLimits = try ResourceLimits(
++            maximumDecodedBytes: 8, maximumMetadataBytes: 1, maximumMemoryBytes: 8
++        )
++        let supplied = try ImageDestination.allocate(descriptor: mappedDescriptor, limits: narrowDestLimits)
++        await #expect(throws: CodecError(.resourceLimitExceeded, "Metadata limit exceeded.")) {
++            _ = try await mappedDecoder.decode(
++                encoded.data, into: supplied,
++                options: .init(resourceLimits: .default, metadataPolicy: .preserve)
++            )
++        }
++        let retried = try await mappedDecoder.decode(
++            encoded.data, into: supplied,
++            options: .init(resourceLimits: .default, metadataPolicy: .discardAncillary)
++        )
++        #expect(retried.report.fidelity == Fidelity.boundedError(350))
++        #expect(retried.report.pixelAllocationCount == 0)
++        #expect(retried.report.peakPixelBytes == 0)
++        #expect(retried.image.storage.allocationID == supplied.storage.allocationID)
++        #expect(retried.image.metadata == ImageMetadata.empty)
++
++        let narrowCombinedDestLimits = try ResourceLimits(
++            maximumDecodedBytes: 8, maximumMetadataBytes: 64, maximumMemoryBytes: 8
++        )
++        let suppliedCombined = try ImageDestination.allocate(
++            descriptor: mappedDescriptor, limits: narrowCombinedDestLimits
++        )
++        await #expect(throws: CodecError(.resourceLimitExceeded, "Destination and metadata exceed the admission budget.")) {
++            _ = try await mappedDecoder.decode(
++                encoded.data, into: suppliedCombined,
++                options: .init(resourceLimits: .default, metadataPolicy: .preserve)
++            )
++        }
++        let retriedCombined = try await mappedDecoder.decode(
++            encoded.data, into: suppliedCombined,
++            options: .init(resourceLimits: .default, metadataPolicy: .discardAncillary)
++        )
++        #expect(retriedCombined.image.storage.allocationID == suppliedCombined.storage.allocationID)
++        #expect(retriedCombined.image.metadata == ImageMetadata.empty)
++    }
+ }

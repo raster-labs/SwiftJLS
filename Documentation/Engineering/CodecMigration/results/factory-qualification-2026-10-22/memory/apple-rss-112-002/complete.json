@@ -1,0 +1,112 @@
+{
+  "completed": true,
+  "part1_processes": 16,
+  "part2_processes": 96,
+  "total_processes": 112,
+  "schedule_sha256": "e17d24b12233212feaa9f99a37a842e937832734856286b5406daf8ef63ec32a",
+  "runner_sha256": "ff90d4ca26cd6c6aa372c98b00e9d22954862c9ebe74b31bdf6e8aeccdcede53",
+  "memdiag_relief_source_sha256": "6a58be2bde9fa4ccfd6e09dfbaa7b632ebcc76d222cbfedf6cf2aff350937d99",
+  "events_jsonl_sha256": "153726db8c2282be9f16d100c3c281fffc871e8effd583142f9b2da03340acfd",
+  "conditions_jsonl_sha256": "8452574e3e1a858b4efe81f60a74883780885c4e4626d3ac1445726a095023fb",
+  "summary_json_sha256": "955e185fa7cb2fd8326ed21d192157b25a98605e428c56ec4b48a99324a2b415",
+  "reconciliation": {
+    "part1_reconciled": 16,
+    "part2_reconciled": 96,
+    "events_reconciled": 112
+  },
+  "disposition_summary": {
+    "aa_control_review_required": false,
+    "aa_interval_includes_unity": true,
+    "aa_systematic_shift_exceeds_5pct": false,
+    "candidate_within_finite_criterion_vs_both_baselines": false,
+    "contrasts_disposition": {
+      "e66_vs_623": "open_interval_overlap_or_max_trigger",
+      "candidate_vs_623": "open_interval_overlap_or_max_trigger",
+      "candidate_vs_e66": "open_interval_overlap_or_max_trigger",
+      "candidate_copy_vs_candidate": "control_within_expected_unity"
+    }
+  },
+  "post_verified_identities": {
+    "62309d3": {
+      "memdiag_relief_binary_sha256": "9414c59166f82454cc95ee1ab79fa2d9dcf602e74e67dce56721230d0525ae14",
+      "benchmark_binary_sha256": "64f270f9370b9537b315e08419c50beadb026cc68e4f2812a3cd53a0a9db5257",
+      "swiftjls_file_count": 27,
+      "verified": true
+    },
+    "e66f7da": {
+      "memdiag_relief_binary_sha256": "06945c6a14cf7a8fcbf8f4f9cce48e84b3bf732fe90b5c6a9e71d6779923770c",
+      "benchmark_binary_sha256": "71601d9d0b603ba4a4fc69dcff8558e9c428c5cec4023c07d5bafec3f16f2a47",
+      "swiftjls_file_count": 38,
+      "verified": true
+    },
+    "candidate": {
+      "memdiag_relief_binary_sha256": "32f97a020550434d847f3fbbbfd9223460e7f4b4434c014ac58a6c9649a7f9cf",
+      "benchmark_binary_sha256": "b4d9a1372d11ae0da180487ce969b2854a889656087d0f1fe6578bbedf1069dd",
+      "swiftjls_file_count": 38,
+      "verified": true
+    }
+  },
+  "end_conditions": {
+    "utc": "2026-10-22T13:16:40.789148+00:00",
+    "power": {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+      "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+      "stderr": ""
+    },
+    "thermal": {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stderr": ""
+    },
+    "load": {
+      "command": [
+        "sysctl",
+        "-n",
+        "vm.loadavg"
+      ],
+      "exit_code": 0,
+      "output": "{ 5.02 5.79 5.43 }\n",
+      "stdout": "{ 5.02 5.79 5.43 }\n",
+      "stderr": ""
+    },
+    "summed_cpu_percent": 195.4,
+    "processes_above_10_percent": [
+      {
+        "cpu": 48.6,
+        "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer"
+      },
+      {
+        "cpu": 11.3,
+        "comm": "/System/Library/CoreServices/MenuBarAgent.app/Contents/MacOS/MenuBarAgent"
+      },
+      {
+        "cpu": 11.3,
+        "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU"
+      },
+      {
+        "cpu": 18.0,
+        "comm": "/Users/pushparaj/.codex/computer-use/Codex Computer Use.app/Contents/MacOS/SkyComputerUseService"
+      },
+      {
+        "cpu": 17.3,
+        "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent"
+      },
+      {
+        "cpu": 17.0,
+        "comm": "/System/Library/PrivateFrameworks/UniversalAccess.framework/Versions/A/Resources/AXVisualSupportAgent.app/Contents/MacOS/AXVisualSupportAgent"
+      }
+    ]
+  }
+}

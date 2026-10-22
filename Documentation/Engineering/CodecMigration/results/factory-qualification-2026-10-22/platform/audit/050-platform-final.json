@@ -1,0 +1,251 @@
+{
+  "status": "accepted_host_simulator_native_factory002_platform_evidence",
+  "checked_utc": "2026-10-22T14:58:18.781966+00:00",
+  "source_manifest_sha256": "7677a4d227a13567cadd3163c68123fe96ea2fe939f3e1efc0ef8e96b32de5b1",
+  "source_files_verified": 2911,
+  "native_payload_files_verified": 25738,
+  "native_payload_manifest_delta": [
+    "added repo/ManPages/swiftjls-cli.1; all prior entries and digests identical"
+  ],
+  "factory002_production_unchanged": true,
+  "prior_partial_report_sha256": "aab93ec60668671b88b7d6a770dc00a4fa73bc4b74e5e4900fbbc337e1331e93",
+  "host_cli": {
+    "payload_cases": 73,
+    "process_checks": 103,
+    "binary_sha256": "5ecc445a8e87abfb5143db138bfeb68b8c0f5a910a41c0def15f45a8aa4c2fe1",
+    "payload_sha256": "de2af7f7bb5b56eb5d42ab993502769069b1542d7db5c6da605222f522bb8220",
+    "process_report_sha256": "c502448de66d3710c1b589e8ef1fba3a83ded9944f76d177a2d2f5cc7ac4b24a"
+  },
+  "simulator_resource_profiles": [
+    {
+      "device": "iPhone 17 Pro",
+      "runtime": "26.0",
+      "runtime_build": "23A343",
+      "frames": 32,
+      "binary_sha256": "02b7213dc4b7a6db9ec72e032cb0b98123b5cc21c64a1dd725e04476f2e4e9f3"
+    },
+    {
+      "device": "iPad Pro 13-inch (M5)",
+      "runtime": "26.0",
+      "runtime_build": "23A343",
+      "frames": 32,
+      "binary_sha256": "02b7213dc4b7a6db9ec72e032cb0b98123b5cc21c64a1dd725e04476f2e4e9f3"
+    },
+    {
+      "device": "Apple TV 4K (3rd generation)",
+      "runtime": "26.0",
+      "runtime_build": "23J352",
+      "frames": 32,
+      "binary_sha256": "f42027b60822625c7b7f98957e23bcdefbd45b0bf0a8b9ae7ba03b407e682c9a"
+    },
+    {
+      "device": "Apple Vision Pro",
+      "runtime": "26.0",
+      "runtime_build": "23M336",
+      "frames": 32,
+      "binary_sha256": "730f4d34637cd871d473a1bc04670898b2256a880e821a03539f1d5dd5a9698a"
+    }
+  ],
+  "native_attempts": [
+    {
+      "directory": "native-results-attempt-1",
+      "result_sha256": "f41f5a8a1f35832a4e238e4f9c4fbd5080fb4f4a9d8f25c70bc11c22694ab4bf",
+      "tests": [
+        {
+          "mode": "release",
+          "tests": 149,
+          "console_suites": 27,
+          "xml_sha256": "9d612e21b109bdf3c3cd807ec21b58529c7c9b8535c003f1331e139bfbf50109",
+          "bundle_sha256": "5017b8445e5660885cfa2efb0238271c5ff46c2df9cb6b887ce681b09520e216"
+        },
+        {
+          "mode": "debug",
+          "tests": 149,
+          "console_suites": 27,
+          "xml_sha256": "239215ef3f0824074ea695d15cd6915806744fcd032e098360584ddb34688705",
+          "bundle_sha256": "494747054586e95278f482ae2299a1c20a9e9c8207dec123260364a1fa934ac2"
+        },
+        {
+          "mode": "asan",
+          "tests": 149,
+          "console_suites": 27,
+          "xml_sha256": "67929989239fc9e200ca51a696bd7dbad8e277a03f904aabd8505d05b0f18e87",
+          "bundle_sha256": "6e6d9e38b975cb5b578ddfa30c9826e0a4a85d9a063b097e12b2ccdb716a4dac"
+        },
+        {
+          "mode": "tsan",
+          "tests": 149,
+          "console_suites": 27,
+          "xml_sha256": "fc2715b0ce949bc9593c5ab4567227c740b3629820a44a69136f33f257fbdc1c",
+          "bundle_sha256": "4a3abaaa3c89e76e335c30d1aa0194620125368a167c5521b37d179441512913"
+        }
+      ],
+      "commands": 11,
+      "command_exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      "cli": {
+        "payload_cases": 73,
+        "process_gate_exit": 2,
+        "failure": "missing guest ManPages/swiftjls-cli.1; binary name and SHA unchanged"
+      }
+    },
+    {
+      "directory": "native-results",
+      "result_sha256": "b32da4f60bcf6b3f7101f9b0ef6be9576db95a541c2822f268342347b196ccf5",
+      "tests": [
+        {
+          "mode": "release",
+          "tests": 149,
+          "console_suites": 27,
+          "xml_sha256": "1feed82ad196d363a738dfaa9ef34b4e66118c7f4d821715ca5f3c642c999f81",
+          "bundle_sha256": "5017b8445e5660885cfa2efb0238271c5ff46c2df9cb6b887ce681b09520e216"
+        },
+        {
+          "mode": "debug",
+          "tests": 149,
+          "console_suites": 27,
+          "xml_sha256": "876932a4599dbe562a1d627eb9331dbe926f6709a1aff185bae61e89018cf554",
+          "bundle_sha256": "494747054586e95278f482ae2299a1c20a9e9c8207dec123260364a1fa934ac2"
+        },
+        {
+          "mode": "asan",
+          "tests": 149,
+          "console_suites": 27,
+          "xml_sha256": "c556cfbe407b59fa2b49535c9c3535a715961973d609334385969f47fb20668f",
+          "bundle_sha256": "6e6d9e38b975cb5b578ddfa30c9826e0a4a85d9a063b097e12b2ccdb716a4dac"
+        },
+        {
+          "mode": "tsan",
+          "tests": 149,
+          "console_suites": 27,
+          "xml_sha256": "040aeed0182147a491d8684bac7c7bf6bcaecbecc5632c9e29fe7bbf823908a0",
+          "bundle_sha256": "4a3abaaa3c89e76e335c30d1aa0194620125368a167c5521b37d179441512913"
+        }
+      ],
+      "commands": 11,
+      "command_exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "cli": {
+        "payload_cases": 73,
+        "process_checks": 103,
+        "binary_sha256": "5ecc445a8e87abfb5143db138bfeb68b8c0f5a910a41c0def15f45a8aa4c2fe1",
+        "payload_sha256": "defcbbb98c5a5939d579b95c77edf66b627b9632f0c588020bbf06c76c569f1f",
+        "process_report_sha256": "2400d5971a5b7eb90a0edaf6b1bdbd7ec560a8e3e43e9bfefa669f0124863df8"
+      }
+    }
+  ],
+  "native_guest": "macOS26.0 build25A354 arm64, hardware virtualised",
+  "native_retry_scope": "Full second guest run, not focused CLI-only retry; original first failure retained",
+  "vm_initial_final_state": "task m4-macos26 stopped in both attempts",
+  "all_input_hashes_stable": true,
+  "receipt_sha256": {
+    "native-payload/manifest.json": "f08e79ef14afde6f958d4ca9cf889fc4c70d2afbb5cab3dcf6e74a3a527e3b5b",
+    "native-payload-manifest-attempt-1.json": "e787b066e9b370920748f2dcdcc282e219fc508d6f84e221f9cc5aebd333fac0",
+    "consumer-builds.json": "09daeb55e885f5f6738d6cc4f43d5db3c8c1cd9246a08617ade9f8bbb614b794",
+    "value-qualification-commands.json": "22cba593b777bcd2ff6e21cd4ca99daf78696f718e41a4666429cde42ddd8dee",
+    "resource26-value/summary.json": "d5bfbf30bf9da5effe238a52b7c657b2c846513bb6389e7edbfc3fbf1238140e",
+    "resource26-value/commands.json": "9b7f678ad071f114029941331edca2c75a27d93e7ba96fc86e1a4158905f61e4",
+    "simulator-restore.json": "fba482c87c64a14554224b3b8150934233f0aa1b6506ae81a2ca9ca3e4c11135",
+    "native-driver.py": "e6857ff67784e0b3ae37ea77eae2b6b095b1932d5e7fbf806b96c486c85a2b3b",
+    "prepare-native.py": "332d3cd7879f9352ebbb54ed94de4c8ae1e78445a004c4156bf1fd599134b1e3",
+    "run-native-template.py": "a1befbd302c030c235d28d45f46fd8a31e16325db6ab62f2c2f4d419a3cc8bcb",
+    "native-driver-commands-attempt-1.json": "27921b9f84366538a570d318aa5bc7102f8152fb1c6c7b30f3a6a7d798c275d0",
+    "native-driver-commands.json": "78818817ff8665b197262e43712bc9cc2ba36fe49e74b4f8d8701af5b744507d",
+    "native-vm-process-attempt-1.json": "c4beccb3f5136a17ca15e764a0f48ba7b17234a29f07162cf5ae5caea197011c",
+    "native-vm-process.json": "9c0ede6b83a8e94f5c63c0ab8788a0b52641e0fefa84c8bd9892d6ec0c9fdd57",
+    "apple-build-value.log": "94233a2142fefa5c45e3d9622c0b1c0cbc94fdf1a9b9ebeb950538a1d0bd6d75",
+    "apple-runtime-value.log": "6b9021310d767c775d6b0ce5313759db4bda0dbf21d2bec19fd5cf842753c11e",
+    "apple-resource-value.log": "6b629a8a2efd305ddfda0f7fa22a66e71fb66f69e7d224f2a0afc923bbd0fb1a",
+    "native-AppleRuntimeConsumer-value.log": "8569a3a112b3da92ec406225e9b388aceba1f7814ef5d3dee67fe8a63de5394f",
+    "native-ResourceStress-value.log": "c13b18a61c4f1b2d7411abfc204d124ba209b73111a2b4593a0a4fed2bbe2b24",
+    "host-AppleRuntimeConsumer-value.log": "18c45da08bfacfcb177226ef2e7a9439203c85407171553e3b249f36e26ce9eb",
+    "host-ResourceStress-value.log": "aebe38eb5e2a93e3f59507eeb00a0c4ed3931014e19a50ad10f5392683c32524",
+    "cli-payload-value.log": "33f282d37a7a83713612795315130b3b4f7225523a6043f8620072ecd7b2d3ea",
+    "cli-process-value.log": "916920369c4a809b7783ca84a46512453d18b6c88cb5d5e20a0710f8a0e6b825",
+    "cli-payload-value.json": "de2af7f7bb5b56eb5d42ab993502769069b1542d7db5c6da605222f522bb8220",
+    "cli-process-value/report.json": "c502448de66d3710c1b589e8ef1fba3a83ded9944f76d177a2d2f5cc7ac4b24a",
+    "native-results-attempt-1/results.json": "f41f5a8a1f35832a4e238e4f9c4fbd5080fb4f4a9d8f25c70bc11c22694ab4bf",
+    "native-results-attempt-1/cli-payload.json": "48f92a69f9719fdf7ebbf50e6c66faf63608515f27c9dbee3a37bbfe0ca0080c",
+    "native-results-attempt-1/cli-process.stderr": "76fdcf8bba99369d5b4bd872951bc464e9917fa52c25e2d64c6ced51dba3dffc",
+    "native-results-attempt-1/unit.stderr": "6e27f8f20bb5bc5e614b1d90d1f3dd137ed1abae2877241fe7cb1ac42a382028",
+    "native-results-attempt-1/consumer.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results-attempt-1/unit-asan.stderr": "b24c7e87286526a55a818094e2aa68fbce838471a799c9577a5f77dcede98df7",
+    "native-results-attempt-1/architecture.stdout": "c1669e1d8edca98769c37d494b76442a1d6e5ffffd7b4da1fb63aef8ebaf6f01",
+    "native-results-attempt-1/unit-tsan.stderr": "e357a9f157ec8c91d8cb2f46fba1c302fcda4455bd7e05a8944aeeaef506a972",
+    "native-results-attempt-1/unit-tsan.xml": "fc2715b0ce949bc9593c5ab4567227c740b3629820a44a69136f33f257fbdc1c",
+    "native-results-attempt-1/unit-asan.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results-attempt-1/unit-tsan.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results-attempt-1/architecture.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results-attempt-1/consumer.stdout": "18c45da08bfacfcb177226ef2e7a9439203c85407171553e3b249f36e26ce9eb",
+    "native-results-attempt-1/unit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results-attempt-1/cli-process.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results-attempt-1/unit.xml": "9d612e21b109bdf3c3cd807ec21b58529c7c9b8535c003f1331e139bfbf50109",
+    "native-results-attempt-1/os.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results-attempt-1/resources.stdout": "aebe38eb5e2a93e3f59507eeb00a0c4ed3931014e19a50ad10f5392683c32524",
+    "native-results-attempt-1/cli-payload.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results-attempt-1/unit-debug.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results-attempt-1/unit-debug.xml": "239215ef3f0824074ea695d15cd6915806744fcd032e098360584ddb34688705",
+    "native-results-attempt-1/hardware.stdout": "7a9e00423b4aff2be3513d7e67b0fffa426bdcaf163c3a4df24388c3636af832",
+    "native-results-attempt-1/hardware.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results-attempt-1/unit-asan.xml": "67929989239fc9e200ca51a696bd7dbad8e277a03f904aabd8505d05b0f18e87",
+    "native-results-attempt-1/cli-payload.stdout": "33f282d37a7a83713612795315130b3b4f7225523a6043f8620072ecd7b2d3ea",
+    "native-results-attempt-1/unit-debug.stderr": "9535477cce7bf83930278b3d961511614b44f051387b2b19afd67d8e33401fed",
+    "native-results-attempt-1/os.stdout": "b07bc0697447cb4c03f7847f66a919a4977a4d563b639c02412744da25554a54",
+    "native-results-attempt-1/resources.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results/results.json": "b32da4f60bcf6b3f7101f9b0ef6be9576db95a541c2822f268342347b196ccf5",
+    "native-results/cli-payload.json": "defcbbb98c5a5939d579b95c77edf66b627b9632f0c588020bbf06c76c569f1f",
+    "native-results/cli-process.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results/unit.stderr": "df5f4d39e7e867f329cb64f13a8c6c7de7f876d57a32529faed850ecf2ebfb75",
+    "native-results/consumer.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results/unit-asan.stderr": "5709c2653cd3ad31005f39ff5d73cd297961f78853005470061c51dccef61c89",
+    "native-results/architecture.stdout": "c1669e1d8edca98769c37d494b76442a1d6e5ffffd7b4da1fb63aef8ebaf6f01",
+    "native-results/unit-tsan.stderr": "3aed9382f49d70d6a7a2c59e30036c7b7c6a8da02fe4f6f8406d7f81693bdda4",
+    "native-results/unit-tsan.xml": "040aeed0182147a491d8684bac7c7bf6bcaecbecc5632c9e29fe7bbf823908a0",
+    "native-results/unit-asan.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results/unit-tsan.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results/architecture.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results/consumer.stdout": "18c45da08bfacfcb177226ef2e7a9439203c85407171553e3b249f36e26ce9eb",
+    "native-results/unit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results/cli-process.stdout": "916920369c4a809b7783ca84a46512453d18b6c88cb5d5e20a0710f8a0e6b825",
+    "native-results/unit.xml": "1feed82ad196d363a738dfaa9ef34b4e66118c7f4d821715ca5f3c642c999f81",
+    "native-results/os.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results/resources.stdout": "aebe38eb5e2a93e3f59507eeb00a0c4ed3931014e19a50ad10f5392683c32524",
+    "native-results/cli-payload.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results/unit-debug.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results/unit-debug.xml": "876932a4599dbe562a1d627eb9331dbe926f6709a1aff185bae61e89018cf554",
+    "native-results/hardware.stdout": "7a9e00423b4aff2be3513d7e67b0fffa426bdcaf163c3a4df24388c3636af832",
+    "native-results/hardware.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results/unit-asan.xml": "c556cfbe407b59fa2b49535c9c3535a715961973d609334385969f47fb20668f",
+    "native-results/cli-payload.stdout": "33f282d37a7a83713612795315130b3b4f7225523a6043f8620072ecd7b2d3ea",
+    "native-results/unit-debug.stderr": "97677e9970743870e82174578c31e4ec069a2c52ec1c6e85c62d57d22aa0e1d7",
+    "native-results/os.stdout": "b07bc0697447cb4c03f7847f66a919a4977a4d563b639c02412744da25554a54",
+    "native-results/resources.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-results/cli-process/report.json": "2400d5971a5b7eb90a0edaf6b1bdbd7ec560a8e3e43e9bfefa669f0124863df8",
+    "native-results/cli-process/manual-plain.txt": "cbd13e35a7674e42e572363b4efc270b5baafe7fa585d7d9b5ba0fe15bfe7cde",
+    "native-results/cli-process/manual-rendered.txt": "6c205633f2bfb2ff1c01858e42dd904dfb292097ac72fef26518e9591264ceb3",
+    "native-results/cli-process/manual.1": "8186f0e75fbc9df631b2a4fc1ae719359a19b02edf100eafc0d2c009180078e4"
+  },
+  "scope": "Read-only independent source/binary/receipt reconciliation; no builds, tests, fresh measurements or VM operations. Performance/RSS/universal workspace/physical/M5 gates are unchanged."
+}

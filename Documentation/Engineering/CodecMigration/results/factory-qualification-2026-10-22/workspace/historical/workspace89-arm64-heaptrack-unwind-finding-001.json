@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-22T10:38:02.446573+00:00",
+  "campaign_dir": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/campaigns/workspace89-linux-001",
+  "outer_command_receipt_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/campaigns/workspace89-linux-001/outer-command-receipt.json",
+  "outer_command_receipt_sha256": "9a8eb64397399a4e9850926553fdfb6c89eabdec8bce5bb895b2fac833da6d0f",
+  "built_workspace_probe_binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/campaigns/workspace89-linux-001/WorkspaceProbe",
+  "built_workspace_probe_binary_sha256": "989a3261ea006fed1a4ecd0422d5dac771f8251de1e52ff3bf1de09cb842d305",
+  "first_case_dir": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/campaigns/workspace89-linux-001/profiles/17-1-0-encode",
+  "first_case_allocations_gz_sha256": "796985d792d17f37dc6c75383c09e9ea871f34a659ddd1f029f607992cabcdea",
+  "first_case_consumer_stdout": {
+    "bits": 12,
+    "components": 1,
+    "compressed_bytes": 399,
+    "height": 17,
+    "near": 0,
+    "operation": "encode",
+    "profile": "base",
+    "samples_verified": true,
+    "scope": "One marked public API operation; setup and post-operation sample checks excluded. Result remains live at end.",
+    "source_bytes": 578,
+    "width": 17
+  },
+  "root_cause": {
+    "summary": "Ubuntu 24.04 (noble) arm64 heaptrack (1.5.0+dfsg1-2build2) + nongnu libunwind8 (1.6.2-3build1) emits zero stack frames (trace index 0) for all allocations on aarch64",
+    "mechanism": [
+      "On Ubuntu 24.04 arm64, /usr/lib/heaptrack/libheaptrack_preload.so is compiled with -mbranch-protection=standard (paciasp/autiasp and DWARF .cfi_negate_ra_state / DW_CFA_AARCH64_negate_ra_state 0x2d).",
+      "nongnu libunwind 1.6.2 on arm64 does not support DW_CFA_AARCH64_negate_ra_state in its DWARF CFI evaluator and aborts unwinding after at most 2 internal frames.",
+      "In heaptrack_malloc (offset 0x6530..0x6574 in libheaptrack_preload.so), heaptrack computes frame_count = max(unw_backtrace(buf, 64), 2) - 2 to strip Trace::unwind and heaptrack_malloc.",
+      "Because unw_backtrace returns <= 2 when called from a PAC-enabled frame, frame_count is 0 for every allocation (+ <size> 0 <addr>), even on /bin/ls.",
+      "Consequently allocations.gz contains zero i/t stack records (all 650 allocations report 0x0 in ??), and measure-operation.py fails with ValueError: Missing unique operation markers.",
+      "GitHub Actions (.github/workflows/workspace.yml) runs on ubuntu-24.04 x86_64 where ARM64 PAC is absent and where measure-operation.py stack/size rules were calibrated."
+    ],
+    "standalone_reproduction": {
+      "without_pac_branch_protection": {
+        "unw_backtrace_frames": 4,
+        "glibc_backtrace_frames": 4
+      },
+      "with_pac_branch_protection_standard": {
+        "unw_backtrace_frames": 2,
+        "glibc_backtrace_frames": 1,
+        "heaptrack_recorded_frames_after_minus_2": 0
+      }
+    }
+  }
+}

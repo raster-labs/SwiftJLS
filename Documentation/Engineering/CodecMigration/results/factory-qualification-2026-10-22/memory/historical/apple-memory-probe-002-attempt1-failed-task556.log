@@ -1,0 +1,191 @@
+swift-driver version: 1.168.6 Building arm 62309d3 (62309d3c59b04c5896d6ea076aae5ce06f5f33e3)...
+Building for production...
+[Planning deferred tasks]
+[26 / 43]
+[27 / 44] SwiftJLS
+[39 / 97]
+[44 / 97]
+[48 / 97]
+[52 / 97]
+[55 / 97]
+[60 / 97]
+[61 / 97]
+[62 / 97]
+[63 / 97]
+[69 / 97]
+[71 / 97]
+[75 / 97]
+[76 / 97]
+[78 / 97]
+[80 / 97]
+[81 / 97] SwiftJLS
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_62309d3/Package.swift: SwiftJLS: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[89 / 99] Benchmark-product
+[93 / 101] Benchmark-product
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_62309d3/Package.swift: Benchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_62309d3/Package.swift: Benchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[95 / 101] Benchmark-product
+[97 / 101] Benchmark-product
+[97 / 101] MemDiag-product
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_62309d3/Sources/MemDiag/main.swift:348:20: warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+346 |     snaps: inout [PhaseSnapshot]
+347 | ) async throws {
+348 |     let info = try await Decoder().inspect(
+    |                    `- warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+349 |         reference,
+350 |         options: .init(resourceLimits: ctx.benchmarkLimits)
+
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_62309d3/Sources/MemDiag/main.swift:592:21: warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+590 |     case "isolated-inspect":
+591 |         for _ in 0..<warmups {
+592 |             _ = try await Decoder().inspect(reference, options: .init(resourceLimits: ctx.benchmarkLimits))
+    |                     `- warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+593 |         }
+594 |         try withExtendedLifetime((canonical, image, reference)) {
+
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_62309d3/Sources/MemDiag/main.swift:613:21: warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+611 |         }
+612 |         for _ in 0..<max(0, iterations - 2) {
+613 |             _ = try await Decoder().inspect(reference, options: .init(resourceLimits: ctx.benchmarkLimits))
+    |                     `- warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+614 |         }
+615 |         try withExtendedLifetime((canonical, image, reference)) {
+
+[#UnnecessaryEffectMarker]: <https://docs.swift.org/compiler/documentation/diagnostics/unnecessary-effect-marker>
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_62309d3/Package.swift: MemDiag-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_62309d3/Package.swift: MemDiag-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[99 / 101] MemDiag-product
+[100 / 101] MemDiag-product
+Build complete! (31.08 secs)
+Building arm e66f7da (e66f7da0d663756bae2d1495454d59b028228f7f)...
+Building for production...
+[Planning deferred tasks]
+[26 / 43]
+[27 / 44] SwiftJLS
+[39 / 97]
+[44 / 97]
+[48 / 97]
+[52 / 97]
+[55 / 97]
+[60 / 97]
+[61 / 97]
+[62 / 97]
+[63 / 97]
+[69 / 97]
+[71 / 97]
+[75 / 97]
+[76 / 97]
+[78 / 97]
+[80 / 97]
+[81 / 97] SwiftJLS
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_e66f7da/Package.swift: SwiftJLS: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[89 / 99] MemDiag-product
+[93 / 101] Benchmark-product
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_e66f7da/Package.swift: Benchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_e66f7da/Package.swift: Benchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[95 / 101] Benchmark-product
+[96 / 101] Benchmark-product
+[97 / 101] MemDiag-product
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_e66f7da/Sources/MemDiag/main.swift:348:20: warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+346 |     snaps: inout [PhaseSnapshot]
+347 | ) async throws {
+348 |     let info = try await Decoder().inspect(
+    |                    `- warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+349 |         reference,
+350 |         options: .init(resourceLimits: ctx.benchmarkLimits)
+
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_e66f7da/Sources/MemDiag/main.swift:592:21: warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+590 |     case "isolated-inspect":
+591 |         for _ in 0..<warmups {
+592 |             _ = try await Decoder().inspect(reference, options: .init(resourceLimits: ctx.benchmarkLimits))
+    |                     `- warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+593 |         }
+594 |         try withExtendedLifetime((canonical, image, reference)) {
+
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_e66f7da/Sources/MemDiag/main.swift:613:21: warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+611 |         }
+612 |         for _ in 0..<max(0, iterations - 2) {
+613 |             _ = try await Decoder().inspect(reference, options: .init(resourceLimits: ctx.benchmarkLimits))
+    |                     `- warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+614 |         }
+615 |         try withExtendedLifetime((canonical, image, reference)) {
+
+[#UnnecessaryEffectMarker]: <https://docs.swift.org/compiler/documentation/diagnostics/unnecessary-effect-marker>
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_e66f7da/Package.swift: MemDiag-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_e66f7da/Package.swift: MemDiag-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[99 / 101] MemDiag-product
+[100 / 101] MemDiag-product
+Build complete! (32.03 secs)
+Building arm candidate (WORKING_TREE)...
+Building for production...
+[Planning deferred tasks]
+[26 / 43]
+[27 / 44] SwiftJLS
+[38 / 97]
+[41 / 97]
+[47 / 97]
+[48 / 97]
+[52 / 97]
+[55 / 97]
+[60 / 97]
+[61 / 97]
+[62 / 97]
+[63 / 97]
+[69 / 97]
+[71 / 97]
+[75 / 97]
+[76 / 97]
+[78 / 97]
+[80 / 97]
+[81 / 97] SwiftJLS
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_candidate/Package.swift: SwiftJLS: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[89 / 99] Benchmark-product
+[93 / 101] Benchmark-product
+[95 / 101] Benchmark-product
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_candidate/Package.swift: Benchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_candidate/Package.swift: Benchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[97 / 101] Benchmark-product
+[97 / 101] MemDiag-product
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_candidate/Sources/MemDiag/main.swift:348:20: warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+346 |     snaps: inout [PhaseSnapshot]
+347 | ) async throws {
+348 |     let info = try await Decoder().inspect(
+    |                    `- warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+349 |         reference,
+350 |         options: .init(resourceLimits: ctx.benchmarkLimits)
+
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_candidate/Sources/MemDiag/main.swift:592:21: warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+590 |     case "isolated-inspect":
+591 |         for _ in 0..<warmups {
+592 |             _ = try await Decoder().inspect(reference, options: .init(resourceLimits: ctx.benchmarkLimits))
+    |                     `- warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+593 |         }
+594 |         try withExtendedLifetime((canonical, image, reference)) {
+
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_candidate/Sources/MemDiag/main.swift:613:21: warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+611 |         }
+612 |         for _ in 0..<max(0, iterations - 2) {
+613 |             _ = try await Decoder().inspect(reference, options: .init(resourceLimits: ctx.benchmarkLimits))
+    |                     `- warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+614 |         }
+615 |         try withExtendedLifetime((canonical, image, reference)) {
+
+[#UnnecessaryEffectMarker]: <https://docs.swift.org/compiler/documentation/diagnostics/unnecessary-effect-marker>
+[99 / 101] MemDiag-product
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_candidate/Package.swift: MemDiag-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/memdiag_arms/arm_candidate/Package.swift: MemDiag-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[100 / 101] MemDiag-product
+Build complete! (29.75 secs)
+Swift/ErrorType.swift:254: Fatal error: Error raised at top level: malloc_zone_statistics returned zero at 01_process_startup
+Traceback (most recent call last):
+  File "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/run_apple_memory_probe.py", line 346, in <module>
+    main()
+  File "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/run_apple_memory_probe.py", line 188, in main
+    mode_matrix[m][arm] = run_memdiag(arm_info[arm]["memdiag_binary_path"], m, env)
+  File "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/run_apple_memory_probe.py", line 153, in run_memdiag
+    out = subprocess.check_output(cmd, env=env, text=True).strip()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 424, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/binaries/MemDiag-62309d3-4a64e7fe02c8', 'startup-only', '512', '512', '12', 'noise', '5', '5']' died with <Signals.SIGTRAP: 5>.

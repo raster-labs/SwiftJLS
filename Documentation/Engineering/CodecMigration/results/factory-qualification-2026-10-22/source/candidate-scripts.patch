@@ -1,0 +1,289 @@
+diff --git a/Scripts/StorageEvidence/measure-operation.py b/Scripts/StorageEvidence/measure-operation.py
+index c912ab4..f7786be 100644
+--- a/Scripts/StorageEvidence/measure-operation.py
++++ b/Scripts/StorageEvidence/measure-operation.py
+@@ -22,6 +22,44 @@ def classify(frames, size=None):
+             'swift_getTupleTypeMetadata', 'swift_getExistentialTypeMetadata', 'Swift._swift_getKeyPath',
+             'Swift.InstantiateKeyPathBuffer', 'Swift.AnyKeyPath._create']):
+         return 'runtime_or_unattributed'
++    # On Linux AArch64, ELF '$x' mapping symbols in libswiftCore.so shadow
++    # the local GenericMetadataCache::getWithInit symbol in frames[:8].
++    # Match only the exact 48-byte 14-frame canonical generic-metadata
++    # initialization prefix immediately below either the synthetic-setup
++    # OwnedImageStorage.withUnsafeMutableBytes closure or the fixture-setup
++    # FoundationEssentials.ProcessInfo.activeProcessorCount / ResourceLimits.init chain.
++    canonical_metadata_prefix = [
++        'operator new(unsigned long)',
++        '$x',
++        'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)',
++        '$x',
++        '$x',
++        'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)',
++        'swift_getCanonicalPrespecializedGenericMetadata',
++        '__swift_instantiateCanonicalPrespecializedGenericMetadata',
++        '$x',
++        '$x',
++        'swift_getTypeByMangledNode',
++        'swift_getTypeByMangledName',
++        '$x',
++        '__swift_instantiateConcreteTypeFromMangledName',
++    ]
++    fixture_canonical_tail = [
++        'generic specialization <Swift.String, Any> of Swift._NativeDictionary._copyOrMoveAndResize(capacity: Swift.Int, moveElements: Swift.Bool) -> ()',
++        'generic specialization <Swift.String, Any> of Swift._NativeDictionary.setValue(_: __owned B, forKey: A, isUnique: Swift.Bool) -> ()',
++        'generic specialization <FoundationEssentials.URL> of FoundationEssentials.readBytesFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions, attributesToRead: [Swift.String], attributes: inout [Swift.String : FoundationEssentials.Data]) throws -> FoundationEssentials.ReadBytesResult',
++        'merged generic specialization <FoundationEssentials.URL> of FoundationEssentials.readDataFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions) throws -> FoundationEssentials.Data',
++        'generic specialization <FoundationEssentials.URL> of FoundationEssentials.readDataFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions) throws -> FoundationEssentials.Data',
++        'function signature specialization <Arg[2] = Dead> of static FoundationEssentials._ProcessInfo.coreCount(quota: FoundationEssentials.URL, period: FoundationEssentials.URL) -> Swift.Int?',
++        'FoundationEssentials.ProcessInfo.activeProcessorCount.getter : Swift.Int',
++        'SwiftJLS.ResourceLimits.init(watch: Swift.Bool) -> SwiftJLS.ResourceLimits',
++    ]
++    if size == 48 and len(frames) > 14 and frames[:14] == canonical_metadata_prefix:
++        norm_tail = [re.sub(r'\((\w+) in _[0-9A-Fa-f]+\)', r'\1', f) for f in frames[14:22]]
++        if norm_tail[0] == 'closure #1 (inout SwiftJLS.OwnedImageStorage.State) throws -> A in SwiftJLS.OwnedImageStorage.withUnsafeMutableBytes<A>(lease: SwiftJLS.StorageWriteLease, _: (Swift.UnsafeMutableRawBufferPointer) throws -> A) throws -> A':
++            return 'runtime_or_unattributed'
++        if norm_tail == fixture_canonical_tail:
++            return 'runtime_or_unattributed'
+     # Fixture setup first asks ResourceLimits for the processor count. The
+     # observed Foundation singleton and three cached Linux cgroup URLs are
+     # process-runtime storage. Require their named initialiser and ProcessInfo
+@@ -33,6 +71,16 @@ def classify(frames, size=None):
+         return 'runtime_or_unattributed'
+     if 'SwiftJLS.OwnedImageStorage.init' in stack and 'Swift.Array.init(repeating:' in stack:
+         return 'owned_pixel_buffer'
++    owned_factory_pixel_stack = [
++        'swift_slowAlloc',
++        'swift_allocObject',
++        'Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>',
++        'generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)',
++        'generic specialization <Swift.UInt8> of Swift.Array.init(repeating: A, count: Swift.Int) -> [A]',
++        'static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage',
++    ]
++    if frames[:6] == owned_factory_pixel_stack:
++        return 'owned_pixel_buffer'
+     if re.search(r'SwiftJLS\.JPEGLSBitstream(?:Reader|Writer(?:State)?)\.(?:__allocating_init|init|append|getData|write)', stack):
+         return 'compressed_buffer'
+     # In these reviewed encode entry closures, the UInt8 array allocation is
+@@ -287,12 +335,70 @@ def self_test():
+     assert classify(['operator new(unsigned long)',
+         'swift::Lazy<(anonymous namespace)::GenericMetadataCache>::getWithInit',
+         'SwiftJLS.OwnedImageStorage.withUnsafeMutableBytes'], 40) == 'runtime_or_unattributed'
++    canonical_metadata_stack = [
++        'operator new(unsigned long)',
++        '$x',
++        'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)',
++        '$x',
++        '$x',
++        'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)',
++        'swift_getCanonicalPrespecializedGenericMetadata',
++        '__swift_instantiateCanonicalPrespecializedGenericMetadata',
++        '$x',
++        '$x',
++        'swift_getTypeByMangledNode',
++        'swift_getTypeByMangledName',
++        '$x',
++        '__swift_instantiateConcreteTypeFromMangledName',
++        'closure #1 (inout SwiftJLS.OwnedImageStorage.(State in _E3A3FF9B1E0185F10C196E0592093825)) throws -> A in SwiftJLS.OwnedImageStorage.withUnsafeMutableBytes<A>(lease: SwiftJLS.StorageWriteLease, _: (Swift.UnsafeMutableRawBufferPointer) throws -> A) throws -> A',
++    ]
++    assert classify(canonical_metadata_stack, 48) == 'runtime_or_unattributed'
++    assert classify(canonical_metadata_stack[:-1] + [canonical_metadata_stack[-1].replace('_E3A3FF9B1E0185F10C196E0592093825', '_0123456789ABCDEF')], 48) == 'runtime_or_unattributed'
++    for size in [None, 40, 47, 49, 64, 1048576]:
++        assert classify(canonical_metadata_stack, size) == 'unattributed_codec'
++    assert classify(['malloc'] + canonical_metadata_stack[1:], 48) == 'unattributed_codec'
++    assert classify(['swift_slowAlloc'] + canonical_metadata_stack[1:], 48) == 'unattributed_codec'
++    assert classify(canonical_metadata_stack[:6] + canonical_metadata_stack[7:], 48) == 'unattributed_codec'
++    assert classify(canonical_metadata_stack[:6] + ['$x'] + canonical_metadata_stack[7:], 48) == 'unattributed_codec'
++    assert classify(canonical_metadata_stack[:7] + ['$x'] + canonical_metadata_stack[8:], 48) == 'unattributed_codec'
++    assert classify(canonical_metadata_stack[:6] + ['SwiftJLS.Other.allocate'] + canonical_metadata_stack[6:], 48) == 'unattributed_codec'
++    assert classify(canonical_metadata_stack[:13] + ['SwiftJLS.Other.allocate'] + canonical_metadata_stack[13:], 48) == 'unattributed_codec'
++    assert classify(canonical_metadata_stack[:14] + [outer.format('Scalar')], 48) == 'unattributed_codec'
++    assert classify(canonical_metadata_stack[:6] + [canonical_metadata_stack[-1]], 48) == 'unattributed_codec'
++    fixture_canonical_stack = canonical_metadata_stack[:14] + [
++        'generic specialization <Swift.String, Any> of Swift._NativeDictionary._copyOrMoveAndResize(capacity: Swift.Int, moveElements: Swift.Bool) -> ()',
++        'generic specialization <Swift.String, Any> of Swift._NativeDictionary.setValue(_: __owned B, forKey: A, isUnique: Swift.Bool) -> ()',
++        'generic specialization <FoundationEssentials.URL> of FoundationEssentials.readBytesFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions, attributesToRead: [Swift.String], attributes: inout [Swift.String : FoundationEssentials.Data]) throws -> FoundationEssentials.ReadBytesResult',
++        'merged generic specialization <FoundationEssentials.URL> of FoundationEssentials.readDataFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions) throws -> FoundationEssentials.Data',
++        'generic specialization <FoundationEssentials.URL> of FoundationEssentials.readDataFromFile<A where A: FoundationEssentials.FileSystemRepresentable, A: ~Swift.Copyable>(path: A, reportProgress: Swift.Bool, maxLength: Swift.Int?, options: FoundationEssentials.Data.ReadingOptions) throws -> FoundationEssentials.Data',
++        'function signature specialization <Arg[2] = Dead> of static FoundationEssentials._ProcessInfo.(coreCount in _5E3BF990DD92C0080D372AA0CF8A3C95)(quota: FoundationEssentials.URL, period: FoundationEssentials.URL) -> Swift.Int?',
++        'FoundationEssentials.ProcessInfo.activeProcessorCount.getter : Swift.Int',
++        'SwiftJLS.ResourceLimits.init(watch: Swift.Bool) -> SwiftJLS.ResourceLimits',
++    ]
++    assert classify(fixture_canonical_stack, 48) == 'runtime_or_unattributed'
++    for size in [None, 40, 47, 49, 64, 1048576]:
++        assert classify(fixture_canonical_stack, size) == 'unattributed_codec'
++    assert classify(['malloc'] + fixture_canonical_stack[1:], 48) == 'unattributed_codec'
++    assert classify(fixture_canonical_stack[:6] + fixture_canonical_stack[7:], 48) == 'unattributed_codec'
++    assert classify(fixture_canonical_stack[:14] + ['SwiftJLS.Other.allocate'] + fixture_canonical_stack[14:], 48) == 'unattributed_codec'
++    assert classify(fixture_canonical_stack[:-1] + [outer.format('Scalar')], 48) == 'unattributed_codec'
+     assert classify(['swift_getExistentialTypeMetadata',
+         'SwiftJLS.OwnedImageStorage.locked'], 16) == 'runtime_or_unattributed'
+     foundation_cache = prefix + ['one-time initialization function for (cfsQuotaURL in _ABC123)',
+         'FoundationEssentials.ProcessInfo.activeProcessorCount.getter', 'SwiftJLS.ResourceLimits.init']
+     assert classify(foundation_cache, 176) == 'runtime_or_unattributed'
+     assert classify(prefix + ['SwiftJLS.Other.allocate'] + foundation_cache[2:], 176) == 'unattributed_codec'
++    owned_factory_stack = prefix + [
++        'Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>',
++        'generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)',
++        'generic specialization <Swift.UInt8> of Swift.Array.init(repeating: A, count: Swift.Int) -> [A]',
++        'static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage',
++    ]
++    assert classify(owned_factory_stack, 610) == 'owned_pixel_buffer'
++    assert classify(['malloc'] + owned_factory_stack[1:], 610) == 'unattributed_codec'
++    assert classify(owned_factory_stack[:5] + ['SwiftJLS.Other.allocate'] + owned_factory_stack[5:], 610) == 'unattributed_codec'
++    assert classify([f.replace('<Swift.UInt8>', '<Swift.Int>') for f in owned_factory_stack], 610) == 'unattributed_codec'
++    assert classify(owned_factory_stack[:5] + ['closure #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in ' + owned_factory_stack[5]], 610) == 'unattributed_codec'
+     r = replay(lines)
+     assert r['phase_total_requested_heap_peak_bytes'] == 120
+     assert r['baseline_total_requested_heap_bytes'] == 100
+diff --git a/Scripts/StorageEvidence/run-workspace-profiles.py b/Scripts/StorageEvidence/run-workspace-profiles.py
+index 619b948..be29642 100644
+--- a/Scripts/StorageEvidence/run-workspace-profiles.py
++++ b/Scripts/StorageEvidence/run-workspace-profiles.py
+@@ -1,27 +1,123 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: Apache-2.0
+ """Collect the marked workspace matrix; preserve every command and profile."""
+-import argparse, json, pathlib, subprocess
+-p=argparse.ArgumentParser()
+-p.add_argument('--binary', required=True)
+-p.add_argument('--output', type=pathlib.Path, required=True)
+-p.add_argument('--revision', required=True)
+-a=p.parse_args();a.output.mkdir(parents=True, exist_ok=True)
+-cases=[]
+-for size in [17,512]:
+-    for components in [1,3]:
+-        for near in [0,3]:
+-            for operation in ['encode','owned','into','inspect']:
+-                cases.append((f'{size}-{components}-{near}-{operation}',[operation,str(size),str(size),str(components),str(near)]))
+-for profile,components,near in [('line',3,0),('line',3,3),('planar',3,0),('planar',3,3),('p16',1,0),('p16',3,3),('preset',1,3),('preset',3,0),('restart',3,3),('hp1',3,0),('hp2',3,0),('hp3',3,0)]:
+-    for operation in ['encode','owned','into','inspect']:
+-        cases.append((f'{profile}-{components}-{near}-{operation}',[operation,'257','129',str(components),str(near),profile]))
+-for name in ['subsampled-zero-n0','map-p16-c3-i0-w1-n0','extended-p12-65537x2']:
+-    for operation in ['owned','into','inspect']:
+-        cases.append((f'{name}-{operation}',[operation,'--fixture',f'Tests/SwiftJLSTests/Fixtures/{name}.jls']))
+-(a.output/'matrix.json').write_text(json.dumps(dict(revision=a.revision,cases=cases),indent=2)+'\n')
+-for name,args in cases:
+-    output=a.output/name
+-    subprocess.run(['python3','Scripts/StorageEvidence/trace-heap.py','--binary',a.binary,'--output',str(output),'--scope','One marked operation; setup retained and verification after the end marker','--',*args],check=True,stdout=subprocess.DEVNULL)
+-    subprocess.run(['python3','Scripts/StorageEvidence/measure-operation.py','--profile',str(output/'allocations.gz'),'--output',str(output/'operation.json'),'--revision',a.revision],check=True)
+-    print(name+' passed',flush=True)
++import argparse, hashlib, json, pathlib, subprocess
++
++
++def verify_operation_report(name, operation, report, expected_revision, profile_path=None):
++    if report.get('revision') != expected_revision:
++        raise AssertionError(f'{name}: revision mismatch ({report.get("revision")} != {expected_revision})')
++    if profile_path is not None:
++        expected_sha = hashlib.sha256(profile_path.read_bytes()).hexdigest()
++        if report.get('profile_sha256') != expected_sha:
++            raise AssertionError(f'{name}: profile_sha256 mismatch')
++    if report.get('codec_heap_attribution_complete') is not True:
++        raise AssertionError(f'{name}: codec_heap_attribution_complete is not true')
++    groups = report.get('groups', {})
++    unattributed = groups.get('unattributed_codec', {})
++    if unattributed.get('phase_allocation_calls', 0) != 0 or unattributed.get('baseline_live_bytes', 0) != 0:
++        raise AssertionError(f'{name}: non-zero unattributed_codec activity: {unattributed}')
++    phase_peak = report['phase_total_requested_heap_peak_bytes']
++    baseline_total = report['baseline_total_requested_heap_bytes']
++    if report['phase_total_peak_above_baseline_bytes'] != phase_peak - baseline_total:
++        raise AssertionError(f'{name}: phase_total_peak_above_baseline_bytes identity failed')
++    simultaneous = report.get('simultaneous_categories_at_phase_peak_bytes', {})
++    if phase_peak > baseline_total and sum(simultaneous.values()) != phase_peak:
++        raise AssertionError(f'{name}: simultaneous category sum {sum(simultaneous.values())} != {phase_peak}')
++    for group_name, g in groups.items():
++        if g['peak_above_baseline_bytes'] != g['peak_live_bytes'] - g['baseline_live_bytes']:
++            raise AssertionError(f'{name}: {group_name} peak_above_baseline_bytes mismatch')
++    owned_group = groups.get('owned_pixel_buffer', {})
++    owned_calls = owned_group.get('phase_allocation_calls', 0)
++    owned_peak_delta = owned_group.get('peak_above_baseline_bytes', 0)
++    expected_owned_calls = 1 if operation == 'owned' else 0
++    if owned_calls != expected_owned_calls:
++        raise AssertionError(f'{name}: expected {expected_owned_calls} owned_pixel_buffer calls for {operation}, got {owned_calls}')
++    if operation == 'owned' and owned_peak_delta <= 0:
++        raise AssertionError(f'{name}: owned operation must record positive owned_pixel_buffer peak_above_baseline_bytes')
++    if operation != 'owned' and owned_peak_delta != 0:
++        raise AssertionError(f'{name}: {operation} operation must have 0 owned_pixel_buffer peak_above_baseline_bytes, got {owned_peak_delta}')
++
++
++def self_test():
++    valid_owned = dict(
++        revision='abc123',
++        codec_heap_attribution_complete=True,
++        phase_total_requested_heap_peak_bytes=160,
++        baseline_total_requested_heap_bytes=100,
++        phase_total_peak_above_baseline_bytes=60,
++        simultaneous_categories_at_phase_peak_bytes=dict(owned_pixel_buffer=140, algorithm_state=20),
++        groups=dict(
++            owned_pixel_buffer=dict(baseline_live_bytes=100, peak_live_bytes=140, peak_above_baseline_bytes=40, end_live_bytes=140, phase_allocation_calls=1, phase_allocated_bytes=40),
++            algorithm_state=dict(baseline_live_bytes=0, peak_live_bytes=20, peak_above_baseline_bytes=20, end_live_bytes=0, phase_allocation_calls=1, phase_allocated_bytes=20),
++        ),
++    )
++    verify_operation_report('test-owned', 'owned', valid_owned, 'abc123')
++    valid_into = json.loads(json.dumps(valid_owned))
++    valid_into['groups']['owned_pixel_buffer'] = dict(baseline_live_bytes=100, peak_live_bytes=100, peak_above_baseline_bytes=0, end_live_bytes=100, phase_allocation_calls=0, phase_allocated_bytes=0)
++    valid_into['phase_total_requested_heap_peak_bytes'] = 120
++    valid_into['phase_total_peak_above_baseline_bytes'] = 20
++    valid_into['simultaneous_categories_at_phase_peak_bytes'] = dict(owned_pixel_buffer=100, algorithm_state=20)
++    verify_operation_report('test-into', 'into', valid_into, 'abc123')
++    for mutator in [
++        lambda r: r.update(codec_heap_attribution_complete=False),
++        lambda r: r['groups'].update(unattributed_codec=dict(baseline_live_bytes=0, peak_live_bytes=16, peak_above_baseline_bytes=16, end_live_bytes=0, phase_allocation_calls=1, phase_allocated_bytes=16)),
++        lambda r: r['groups'].update(unattributed_codec=dict(baseline_live_bytes=16, peak_live_bytes=16, peak_above_baseline_bytes=0, end_live_bytes=16, phase_allocation_calls=0, phase_allocated_bytes=0)),
++        lambda r: r.update(phase_total_peak_above_baseline_bytes=999),
++        lambda r: r.update(simultaneous_categories_at_phase_peak_bytes=dict(owned_pixel_buffer=100)),
++        lambda r: r['groups']['owned_pixel_buffer'].update(phase_allocation_calls=0),
++        lambda r: r['groups']['owned_pixel_buffer'].update(phase_allocation_calls=2),
++        lambda r: r.update(revision='wrong'),
++    ]:
++        bad = json.loads(json.dumps(valid_owned))
++        mutator(bad)
++        try:
++            verify_operation_report('bad-owned', 'owned', bad, 'abc123')
++        except AssertionError:
++            pass
++        else:
++            raise AssertionError('Invalid workspace operation report was accepted')
++    try:
++        verify_operation_report('bad-into', 'into', valid_owned, 'abc123')
++    except AssertionError:
++        pass
++    else:
++        raise AssertionError('Owned pixel allocation in into mode was accepted')
++    print('Workspace profile runner controls passed')
++
++
++if __name__ == '__main__':
++    p=argparse.ArgumentParser()
++    p.add_argument('--binary')
++    p.add_argument('--output', type=pathlib.Path)
++    p.add_argument('--revision')
++    p.add_argument('--self-test', action='store_true')
++    a=p.parse_args()
++    if a.self_test:
++        self_test()
++        raise SystemExit(0)
++    if not all([a.binary, a.output, a.revision]):
++        p.error('binary, output, revision required')
++    a.output.mkdir(parents=True, exist_ok=True)
++    cases=[]
++    for size in [17,512]:
++        for components in [1,3]:
++            for near in [0,3]:
++                for operation in ['encode','owned','into','inspect']:
++                    cases.append((f'{size}-{components}-{near}-{operation}',[operation,str(size),str(size),str(components),str(near)]))
++    for profile,components,near in [('line',3,0),('line',3,3),('planar',3,0),('planar',3,3),('p16',1,0),('p16',3,3),('preset',1,3),('preset',3,0),('restart',3,3),('hp1',3,0),('hp2',3,0),('hp3',3,0)]:
++        for operation in ['encode','owned','into','inspect']:
++            cases.append((f'{profile}-{components}-{near}-{operation}',[operation,'257','129',str(components),str(near),profile]))
++    for name in ['subsampled-zero-n0','map-p16-c3-i0-w1-n0','extended-p12-65537x2']:
++        for operation in ['owned','into','inspect']:
++            cases.append((f'{name}-{operation}',[operation,'--fixture',f'Tests/SwiftJLSTests/Fixtures/{name}.jls']))
++    (a.output/'matrix.json').write_text(json.dumps(dict(revision=a.revision,cases=cases),indent=2)+'\n')
++    for name,args in cases:
++        output=a.output/name
++        profile_path=output/'allocations.gz'
++        report_path=output/'operation.json'
++        subprocess.run(['python3','Scripts/StorageEvidence/trace-heap.py','--binary',a.binary,'--output',str(output),'--scope','One marked operation; setup retained and verification after the end marker','--',*args],check=True,stdout=subprocess.DEVNULL)
++        subprocess.run(['python3','Scripts/StorageEvidence/measure-operation.py','--profile',str(profile_path),'--output',str(report_path),'--revision',a.revision],check=True)
++        report=json.loads(report_path.read_text())
++        verify_operation_report(name, args[0], report, a.revision, profile_path)
++        print(name+' passed',flush=True)

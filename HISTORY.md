@@ -1,5 +1,11 @@
 # History and provenance — SwiftJLS
 
+## Fresh-owned factory qualification and diagnostic follow-up — 2026-10-22 (unreleased)
+
+- Add `Image.writeAdmittedOwned`, `OwnedImageStorage.fillAndSealAdmittedOwned`, `Image(admittedOwnedDescriptor:sealedOwnedStorage:admittedMetadata:)` and reused `JPEGLSHeader.admittedDescriptor` (`factory_002` on `041c1a3d4861f9956ca49cd994eff618e23908ec`), bypassing the private `ImageDestination` wrapper for scalar owned decode (`ScalarCodec.decode` when `supplied == nil`) while keeping `ComponentCodec.decode` and caller-supplied destinations on `ImageDestination`.
+- Validate 149 declarations in 27 suites across debug/release/ASan/TSan on the host and hardware-virtualised native `macOS 26.0` (`25A354`) guest, one focused TSan run (32 tests in 3 suites), CLI/oracle/consumer checks, five exact OS 26.0 simulator consumers, four non-Watch resource workloads, 17 Apple SDK query/compile/sign commands (installed 27.x SDKs targeting OS 26.0), Linux `CopyProbe` (`20/20`) and Linux `WorkspaceProbe` (`89/89`).
+- Record `short516-3arms-002` (37/48 joint primary-family endpoints within 1.05, including all 24 standalone `encode`/`decode` comparisons; 20 within gate + 4 unresolved vs `pinned`; 17 within gate + 6 unresolved + 1 confirmed `p12-flat` `prepare_encode` regression vs `three_change`), `larger15-guard-002` (120 processes across 15 cases × 4 blocks × 2 arms; all 60 candidate-versus-pinned ratios `<= 1.05`), `p12-flat-diag-001` (504 processes; 14/24 ratio endpoints within 1.05, 10 unresolved; zero-ICC ablation not promoted and no waiver of `045`), and `apple-rss-112-002` / `apple-vm18-001` in [Milestone4Performance.md](Documentation/Engineering/CodecMigration/Milestone4Performance.md) and [factory-qualification-2026-10-22.json](Documentation/Engineering/CodecMigration/results/factory-qualification-2026-10-22.json).
+
 ## Powered maintenance comparison — 2026-10-22 (unreleased)
 
 - Compare the common owning APIs at `62309d3` and `e66f7da` using identical release consumers, six cases and alternating process order.

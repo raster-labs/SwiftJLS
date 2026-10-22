@@ -1,0 +1,41 @@
+{
+  "seed": 20261022,
+  "resamples": 50000,
+  "rounds": 516,
+  "rounds_per_permutation_stratum": 86,
+  "arms": [
+    "pinned",
+    "three_change",
+    "candidate"
+  ],
+  "family_size_combined": 48,
+  "familywise_48_quantiles": [
+    0.0005208333333333333,
+    0.9994791666666667
+  ],
+  "family_size_historical_per_baseline": 24,
+  "historical_24_quantiles": [
+    0.0010416666666666667,
+    0.9989583333333333
+  ],
+  "marginal_quantiles": [
+    0.025,
+    0.975
+  ],
+  "quantile_method": "linear",
+  "rng": "NumPy default_rng PCG64",
+  "numpy": "2.3.5",
+  "estimand": "ratio of full-precision pooled medians across all 516*5=2580 observations per arm",
+  "strata": "Six 3-arm permutation strata of 86 rounds each (516 total). Draw 86 round IDs with replacement per stratum; use identical joint 516 round IDs across all cases, operations, and arms.",
+  "cluster": "Whole 3-arm round across all six cases, four operations, three arms, and all five observations.",
+  "resample_indices_sha256": "02abe784d7070c50fdeb208ea31ee65ca7a37ca91e2f5b0b8a611a5b75e36310",
+  "bootstrap_ratios_sha256": {
+    "candidate_vs_pinned": "388a80f2e8a57da07cbbc3f3ce267e59e6e03ad98709349ee47e5315ecf0d0f2",
+    "candidate_vs_three_change": "76b41cfdb9d3e038ebc43c8e0716739535a486733f1bfc1d415c8b9eb5ca31b5"
+  },
+  "raw_sha256": "b1f22f748e2870bdb6ed5d4827e260f6bc63de5ad76f55bcc1a43c5311b531d7",
+  "schedule_sha256": "1764cfae9d732e1083639f1920cb4ff88058161c779bc349bae9740fcdd99e87",
+  "script_sha256": "f72c4294b16ffd6e04919468980275e538102207e2d8204590f5f40faa8c7746",
+  "raw_pooled_recomputation": "All 72 arm/case/operation medians independently matched statistics.median over raw JSON observations",
+  "limitations": "Nominal familywise 95% percentile-bootstrap intervals with Bonferroni-48 (combined) and Bonferroni-24 (historical per-baseline) adjustments; finite bootstrap approximation and independent/exchangeable rounds within permutation strata assumed. Single host/session may retain temporal correlation; not a universal population guarantee."
+}

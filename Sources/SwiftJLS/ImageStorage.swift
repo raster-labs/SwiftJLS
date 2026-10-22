@@ -99,6 +99,33 @@ public final class OwnedImageStorage: WritableImageStorage, Sendable {
         }
     }
 
+    // Internal fresh-owned fill-and-seal helper for `Image.writeAdmittedOwned`.
+    // Allocates one zero-initialised byte array, runs the synchronous fill borrow,
+    // and returns an immutable `SealedImageStorage` with a fresh `allocationID`.
+    // No mutable storage or destination owner escapes, and failed fills never publish.
+    static func fillAndSealAdmittedOwned(
+        byteCount: Int,
+        limits: ResourceLimits,
+        _ body: (UnsafeMutableRawBufferPointer) throws -> Void
+    ) throws -> any ReadOnlyImageStorage {
+        try Task.checkCancellation()
+        guard byteCount > 0 else { throw CodecError(.invalidArgument, "Storage capacity must be positive.") }
+        guard byteCount <= limits.maximumDecodedBytes, byteCount <= limits.maximumMemoryBytes else {
+            throw CodecError(.resourceLimitExceeded, "Storage allocation exceeds the admission budget.")
+        }
+        let allocationID = UUID()
+        var bytes = [UInt8](repeating: 0, count: byteCount)
+        try Task.checkCancellation()
+        try bytes.withUnsafeMutableBytes { rawBytes in
+            guard rawBytes.count == byteCount else {
+                throw CodecError(.storageUnavailable, "Provider returned inconsistent capacity.")
+            }
+            try body(rawBytes)
+        }
+        try Task.checkCancellation()
+        return SealedImageStorage(bytes: bytes, allocationID: allocationID)
+    }
+
     private static func check(_ lease: StorageWriteLease, _ state: borrowing State) throws {
         guard state.phase == .writing, state.lease == lease else {
             throw CodecError(.storageUnavailable, "Write lease is stale, foreign or unavailable.")

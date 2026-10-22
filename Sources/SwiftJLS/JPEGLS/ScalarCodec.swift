@@ -43,9 +43,8 @@ enum ScalarCodec {
         let budget = CodecBudget(limits: options.resourceLimits)
         return try mapped {
             let header = try JPEGLSHeader.parse(data, budget: budget, codecOptions: codecOptions)
-            let descriptor = try header.descriptor(limits: options.resourceLimits)
             try budget.check()
-            return ImageInfo(format: "JPEG-LS", descriptor: descriptor, frameCount: 1, metadata: header.retainedMetadata(options.metadataPolicy))
+            return ImageInfo(format: "JPEG-LS", descriptor: header.admittedDescriptor, frameCount: 1, metadata: header.retainedMetadata(options.metadataPolicy))
         }
     }
     static func encode(_ image: Image, configuration: EncoderConfiguration, options: EncodeOptions) throws -> EncodedImage {
@@ -191,11 +190,21 @@ enum ScalarCodec {
             if !header.grey {
                 return try ComponentCodec.decode(data, header: header, into: supplied, options: options, budget: budget, hpInterpretation: codecOptions.hpInterpretation)
             }
-            let descriptor = try supplied?.descriptor ?? header.descriptor(limits: budget.limits)
-            let plane = try layout(descriptor, limits: budget.limits)
-            guard descriptor.width == header.width, descriptor.height == header.height,
-                  descriptor.meaningfulBits == header.outputBits, descriptor.storageBits >= header.bits else {
-                throw CodecError(.incompatibleImageLayout, "Destination geometry or precision does not match the codestream.")
+            let descriptor: ImageDescriptor
+            let plane: PlaneDescriptor
+            if let supplied {
+                descriptor = supplied.descriptor
+                plane = try layout(descriptor, limits: budget.limits)
+                guard descriptor.width == header.width, descriptor.height == header.height,
+                      descriptor.meaningfulBits == header.outputBits, descriptor.storageBits >= header.bits else {
+                    throw CodecError(.incompatibleImageLayout, "Destination geometry or precision does not match the codestream.")
+                }
+            } else {
+                descriptor = header.admittedDescriptor
+                guard (2...16).contains(descriptor.meaningfulBits) && descriptor.storageBits >= header.bits else {
+                    throw CodecError(.unsupportedFeature, "The migrated scalar profile requires unsigned greyscale without ICC metadata.")
+                }
+                plane = descriptor.planes[0]
             }
             let workspace = try checkedAdd(checkedAdd(contextBytes, tableBytes(header.parameters)), checkedAdd(checkedMultiply(data.count, 2), checkedMultiply(header.scans.count, MemoryLayout<Range<Int>>.stride * 2)))
             let pixelBytes = supplied?.storage.byteCount ?? descriptor.requiredByteCount
@@ -203,11 +212,14 @@ enum ScalarCodec {
             let samples = try checkedMultiply(header.width, header.height)
             options.progress?(try ProgressUpdate(phase: .processing, completedUnits: 0, totalUnits: samples))
             try budget.check()
-            let destination = try supplied ?? ImageDestination.allocate(descriptor: descriptor, limits: budget.limits)
             let kernel = JPEGLSScalarKernel()
             let coding = kernel.computeGolombLimitInternal(parameters: header.parameters, near: header.near, bitsPerSample: header.bits)
+            // On the already-admitted owned path, geometry/capacity cannot newly fail;
+            // computing fidelity before the private owned allocation preserves its
+            // budget/cancellation checks without a preparation-closure wrapper.
             let fidelity = try header.fidelity(budget: budget)
-            let image = try destination.write(metadata: header.retainedMetadata(options.metadataPolicy)) { bytes in
+            let metadata = header.retainedMetadata(options.metadataPolicy)
+            func fill(_ bytes: UnsafeMutableRawBufferPointer) throws {
                 for (chunk, scan) in header.scans.enumerated() {
                     let firstRow = header.restartInterval > 0 ? chunk * header.restartInterval : 0
                     let rows = header.restartInterval > 0 ? min(header.restartInterval, header.height - firstRow) : header.height
@@ -225,6 +237,8 @@ enum ScalarCodec {
                 try header.mapSamples(in: bytes, descriptor: descriptor, budget: budget)
                 try budget.check()
             }
+            let image = try supplied?.write(metadata: metadata, fill)
+                ?? Image.writeAdmittedOwned(descriptor: descriptor, metadata: metadata, limits: budget.limits, fill)
             let result = DecodedImage(image: image, report: OperationReport(backend: .scalarCPU,
                 fallbackReason: fallback(options.executionPolicy), fidelity: fidelity,
                 pixelAllocationCount: supplied == nil ? 1 : 0, peakPixelBytes: supplied == nil ? pixelBytes : 0,

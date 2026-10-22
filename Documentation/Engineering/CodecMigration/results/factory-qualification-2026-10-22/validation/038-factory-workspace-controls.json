@@ -1,0 +1,244 @@
+{
+  "at": "2026-10-22T12:07:00.800333+00:00",
+  "classifier_sha256": "6c434caf03046cc607cdeaccebcc6435f60ce0c583f8a0cca715841fbea99386",
+  "old_classifier_sha256": "ffbc1b6a13327ce2403822d3ff4647743df474d32167a226cd1e3d6f7c9b25d5",
+  "workspace_probe_sha256": "9b441058c44a7c272a08b400dcccb3d7a4d0ce7d7d75f3f7ccc3eab9493aba63",
+  "profiles": {
+    "17-1-0-owned": {
+      "profile_sha256": "a8fdabf79cbb12849a37947d63b96b459c4790654773104c48c47f94d39229f3",
+      "original_report_sha256": "40d740fb823fc2c3c03aa1310221881a717215f33854966962601749d39ad034",
+      "replayed_report_sha256": "1f30086e091e52c27049071457fee2048b8bc48e82da704caa4ae2eb52873ca9",
+      "raw_command": "X /ctrl/WorkspaceProbe owned 17 17 1 0",
+      "phase_calls": 17,
+      "phase_peak": 115231,
+      "pixel": {
+        "baseline_live_bytes": 1220,
+        "peak_live_bytes": 1830,
+        "peak_above_baseline_bytes": 610,
+        "end_live_bytes": 1830,
+        "phase_allocation_calls": 1,
+        "phase_allocated_bytes": 610
+      },
+      "changed_stacks": [
+        {
+          "trace": "783",
+          "size_counts": {
+            "610": 1
+          },
+          "frames": [
+            "swift_slowAlloc",
+            "swift_allocObject",
+            "Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>",
+            "generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)",
+            "generic specialization <Swift.UInt8> of Swift.Array.init(repeating: A, count: Swift.Int) -> [A]",
+            "static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+            "static SwiftJLS.Image.writeAdmittedOwned(descriptor: SwiftJLS.ImageDescriptor, metadata: SwiftJLS.ImageMetadata, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.Image",
+            "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage"
+          ]
+        }
+      ],
+      "unknown": {}
+    },
+    "17-3-3-owned": {
+      "profile_sha256": "11161c0a0efcfdb784c90a784dd26afad2bd3b786e4ee661def108806f3902e8",
+      "original_report_sha256": "53737cef9dad0f72fa1907c1ad4f317de904bce84c6fd83b962bc42c27d7cf2a",
+      "replayed_report_sha256": "53737cef9dad0f72fa1907c1ad4f317de904bce84c6fd83b962bc42c27d7cf2a",
+      "raw_command": "X /ctrl/WorkspaceProbe owned 17 17 3 3",
+      "phase_calls": 50,
+      "phase_peak": 122547,
+      "pixel": {
+        "baseline_live_bytes": 3532,
+        "peak_live_bytes": 5298,
+        "peak_above_baseline_bytes": 1766,
+        "end_live_bytes": 5298,
+        "phase_allocation_calls": 1,
+        "phase_allocated_bytes": 1766
+      },
+      "changed_stacks": [],
+      "unknown": {}
+    },
+    "extended-p12-65537x2-owned": {
+      "profile_sha256": "c722d8edb9933898edf4e5aec3329a5ac3683a6496d01c77f8be0248ee4bb73d",
+      "original_report_sha256": "e9cfae5454b1237321860d6babc47d017276734de2ee2d876ce78173a53e527f",
+      "replayed_report_sha256": "f208451333304053ad9c82bdccc6b4b0f576ad5eb7f69d7c4ea0a55c3629bb7a",
+      "raw_command": "X /ctrl/WorkspaceProbe owned --fixture Tests/SwiftJLSTests/Fixtures/extended-p12-65537x2.jls",
+      "phase_calls": 42,
+      "phase_peak": 997453,
+      "pixel": {
+        "baseline_live_bytes": 524360,
+        "peak_live_bytes": 786540,
+        "peak_above_baseline_bytes": 262180,
+        "end_live_bytes": 786540,
+        "phase_allocation_calls": 1,
+        "phase_allocated_bytes": 262180
+      },
+      "changed_stacks": [
+        {
+          "trace": "1029",
+          "size_counts": {
+            "262180": 1
+          },
+          "frames": [
+            "swift_slowAlloc",
+            "swift_allocObject",
+            "Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>",
+            "generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)",
+            "generic specialization <Swift.UInt8> of Swift.Array.init(repeating: A, count: Swift.Int) -> [A]",
+            "static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+            "static SwiftJLS.Image.writeAdmittedOwned(descriptor: SwiftJLS.ImageDescriptor, metadata: SwiftJLS.ImageMetadata, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.Image",
+            "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage"
+          ]
+        }
+      ],
+      "unknown": {
+        "baseline_live_bytes": 0,
+        "peak_live_bytes": 0,
+        "peak_above_baseline_bytes": 0,
+        "end_live_bytes": 0,
+        "phase_allocation_calls": 0,
+        "phase_allocated_bytes": 0
+      }
+    },
+    "map-p16-c3-i0-w1-n0-owned": {
+      "profile_sha256": "125e68f2e20a99efc27eb9b8104f56fe8fd27fca010269a01a6cccf0f328fb61",
+      "original_report_sha256": "87d88468b1cf31d3f7e3c627e0960b4c2cb7c2a4c5e313658d217814dbac6804",
+      "replayed_report_sha256": "87d88468b1cf31d3f7e3c627e0960b4c2cb7c2a4c5e313658d217814dbac6804",
+      "raw_command": "X /ctrl/WorkspaceProbe owned --fixture Tests/SwiftJLSTests/Fixtures/map-p16-c3-i0-w1-n0.jls",
+      "phase_calls": 72,
+      "phase_peak": 515469,
+      "pixel": {
+        "baseline_live_bytes": 484,
+        "peak_live_bytes": 726,
+        "peak_above_baseline_bytes": 242,
+        "end_live_bytes": 726,
+        "phase_allocation_calls": 1,
+        "phase_allocated_bytes": 242
+      },
+      "changed_stacks": [],
+      "unknown": {
+        "baseline_live_bytes": 0,
+        "peak_live_bytes": 0,
+        "peak_above_baseline_bytes": 0,
+        "end_live_bytes": 0,
+        "phase_allocation_calls": 0,
+        "phase_allocated_bytes": 0
+      }
+    },
+    "p16-1-0-owned": {
+      "profile_sha256": "2ea1555fa60f2ba3e0750d7adf45b5f836ecfea93c53417d65e355fc1970a589",
+      "original_report_sha256": "0335f085531bc5ac1abcf313f7da050126db6b1de62b8ce83b26026d09731cf4",
+      "replayed_report_sha256": "8c9c6a798b422622f683a69e6a5f46b0c501ba268439a94ac34eb7a68458b2ee",
+      "raw_command": "X /ctrl/WorkspaceProbe owned 257 129 1 0 p16",
+      "phase_calls": 17,
+      "phase_peak": 390903,
+      "pixel": {
+        "baseline_live_bytes": 132676,
+        "peak_live_bytes": 199014,
+        "peak_above_baseline_bytes": 66338,
+        "end_live_bytes": 199014,
+        "phase_allocation_calls": 1,
+        "phase_allocated_bytes": 66338
+      },
+      "changed_stacks": [
+        {
+          "trace": "790",
+          "size_counts": {
+            "66338": 1
+          },
+          "frames": [
+            "swift_slowAlloc",
+            "swift_allocObject",
+            "Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>",
+            "generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)",
+            "generic specialization <Swift.UInt8> of Swift.Array.init(repeating: A, count: Swift.Int) -> [A]",
+            "static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+            "static SwiftJLS.Image.writeAdmittedOwned(descriptor: SwiftJLS.ImageDescriptor, metadata: SwiftJLS.ImageMetadata, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.Image",
+            "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage"
+          ]
+        }
+      ],
+      "unknown": {}
+    },
+    "preset-1-3-owned": {
+      "profile_sha256": "04f0e4ee909a3ffb70487d4f0d60ab475e9a3fd0794c1be2d9090a675f970d20",
+      "original_report_sha256": "914b5d6d83060b55872a7eb78530b297e41e9c43ea4364560d25cfa39d6d19b6",
+      "replayed_report_sha256": "d4c31500872ca1270e60856f499c9d526d01337e414f8e849d41ed422b301e4d",
+      "raw_command": "X /ctrl/WorkspaceProbe owned 257 129 1 3 preset",
+      "phase_calls": 18,
+      "phase_peak": 1411636,
+      "pixel": {
+        "baseline_live_bytes": 132676,
+        "peak_live_bytes": 199014,
+        "peak_above_baseline_bytes": 66338,
+        "end_live_bytes": 199014,
+        "phase_allocation_calls": 1,
+        "phase_allocated_bytes": 66338
+      },
+      "changed_stacks": [
+        {
+          "trace": "812",
+          "size_counts": {
+            "66338": 1
+          },
+          "frames": [
+            "swift_slowAlloc",
+            "swift_allocObject",
+            "Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>",
+            "generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)",
+            "generic specialization <Swift.UInt8> of Swift.Array.init(repeating: A, count: Swift.Int) -> [A]",
+            "static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+            "static SwiftJLS.Image.writeAdmittedOwned(descriptor: SwiftJLS.ImageDescriptor, metadata: SwiftJLS.ImageMetadata, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.Image",
+            "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage"
+          ]
+        }
+      ],
+      "unknown": {}
+    },
+    "subsampled-zero-n0-owned": {
+      "profile_sha256": "0f14527d2710267eab3c519526e8342708b9d96176bc6597c93a85eadd74e86c",
+      "original_report_sha256": "22b6757865937eca457cb97f78ae2a32d431d7ba4fb776fa44a4893d34a8538b",
+      "replayed_report_sha256": "22b6757865937eca457cb97f78ae2a32d431d7ba4fb776fa44a4893d34a8538b",
+      "raw_command": "X /ctrl/WorkspaceProbe owned --fixture Tests/SwiftJLSTests/Fixtures/subsampled-zero-n0.jls",
+      "phase_calls": 31,
+      "phase_peak": 118373,
+      "pixel": {
+        "baseline_live_bytes": 2056,
+        "peak_live_bytes": 3084,
+        "peak_above_baseline_bytes": 1028,
+        "end_live_bytes": 3084,
+        "phase_allocation_calls": 1,
+        "phase_allocated_bytes": 1028
+      },
+      "changed_stacks": [],
+      "unknown": {
+        "baseline_live_bytes": 0,
+        "peak_live_bytes": 0,
+        "peak_above_baseline_bytes": 0,
+        "end_live_bytes": 0,
+        "phase_allocation_calls": 0,
+        "phase_allocated_bytes": 0
+      }
+    }
+  },
+  "negative_controls": "repository self_test plus each of the six observed factory frames independently mutated/removed",
+  "copy": {
+    "receipt_sha256": "713db71e51f0daf68b95b51f4d02e62f793d41fa0e672e14addaf9da7478115d",
+    "binary_sha256": "de8a54201d4842929e7e78d1f81c9c9d3c99b1abfd4b61209fa60408940c9c0a",
+    "raw_sha256": "5267858ea456246795cd880d6ef821eb17e5bc5efed011048d49c63d8dc7617e",
+    "rows": 20,
+    "normal_zero": 10,
+    "positive_exact_capacity": 10,
+    "max_error_all_zero": true,
+    "scope": "Linux ordinary release memcpy/memmove reads from the retained pixel owner during the actual scoped encoder borrow. Inlined copies are not intercepted; allocation mutation and source review are separate evidence.",
+    "source_pins": {
+      "Sources/SwiftJLS/Image.swift": "52db796e63292bafd1c884cbc977faae8a20da4aa217504211204e56dc63a964",
+      "Sources/SwiftJLS/ImageStorage.swift": "fea19ecd29162d804058e6a03605bb5ddab741e1012f95862921560d7cf3eb84",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift": "c57fc4569e1f1683d428a7c9e6ed96e1583219a04a15856af90737d79578abf8",
+      "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift": "92cb716f4a1e2b1f978627605695f0bbd98bd3269f51418f564b172ce04846ff",
+      "Examples/CopyProbe/Package.swift": "83b56d1d798572a4432171f206e0bb3e79711f473c72bd8cdfcaa6eb2e713e77",
+      "Examples/CopyProbe/Sources/CopyInstrumentation/probe.c": "27055a9cc5dcb37aaa353dd9dea644f13a9f7477945740b26952e10262ff1009",
+      "Examples/CopyProbe/Sources/CopyInstrumentation/include/CopyInstrumentation.h": "9b643c0313ec76952574c2afb3e3715caaeb9273d0cfd02311c2a0e7b4071a11",
+      "Examples/CopyProbe/Sources/CopyProbe/main.swift": "8b2cfabb39b0a6d1b1b1d4116302fc8cca2d63c506e95631f9daf35bc4d5be1f"
+    }
+  }
+}

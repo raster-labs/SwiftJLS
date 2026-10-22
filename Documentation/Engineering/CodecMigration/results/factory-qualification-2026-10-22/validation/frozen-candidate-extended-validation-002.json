@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "validation_id": "frozen-candidate-extended-validation-002",
+  "generated_utc": "2026-10-22T11:50:37.257333+00:00",
+  "snapshot_root": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/frozen-candidate-validation-002/SwiftJLS",
+  "reused_oracle_binaries": {
+    "charls_driver_36dd3307_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/frozen-candidate-validation-001/SwiftJLS/charls-driver",
+    "charls_driver_36dd3307_sha256": "360014ff737cd5d526d78097cee0b275b8eacb826accee72d09f9dcdb49e143b",
+    "mapping_driver_04e44bb7_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/frozen-candidate-validation-001/SwiftJLS/mapping-driver",
+    "mapping_driver_04e44bb7_sha256": "4ce9b9f4c2513c4c53f65a0b27f2bab9d1a4d565f3f3f52be063c9ec04896d3e"
+  },
+  "events_jsonl": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-extended-validation-002-events.jsonl",
+  "events_jsonl_sha256": "4dd754ca7f6e8b99cf6077b53ff73c08849537b241bead2b4f35d087c5442114",
+  "tracked_file_hashes": {
+    "Sources/SwiftJLS/Image.swift": "52db796e63292bafd1c884cbc977faae8a20da4aa217504211204e56dc63a964",
+    "Sources/SwiftJLS/ImageStorage.swift": "fea19ecd29162d804058e6a03605bb5ddab741e1012f95862921560d7cf3eb84",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift": "c57fc4569e1f1683d428a7c9e6ed96e1583219a04a15856af90737d79578abf8",
+    "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift": "92cb716f4a1e2b1f978627605695f0bbd98bd3269f51418f564b172ce04846ff",
+    "Scripts/StorageEvidence/measure-operation.py": "ffbc1b6a13327ce2403822d3ff4647743df474d32167a226cd1e3d6f7c9b25d5",
+    "Scripts/StorageEvidence/run-workspace-profiles.py": "2e7b0e9ebb84d6ca5692882b6bd4159e831d7ea28a0dfcb6ee563b94ff47b017",
+    "Tests/SwiftJLSTests/OwnedAdmissionTests.swift": "1f3135270b3d1c35a79ff70bfba8eae5417bef260e940df1082e3a0a29999e30"
+  },
+  "reports": {
+    "payload_cli": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-payload-cli-002.json",
+      "sha256": "587fc0dc3ae1408e234a88346dcd98d409b92579e18d096ad639810e0bff4929"
+    },
+    "interop_scalar": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-interop-scalar-002.json",
+      "sha256": "734785044b787c285e13e8ae087bdab2353fa8f54a795b0ce45c38f227770c4d",
+      "passed_count": 482
+    },
+    "interop_component": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-interop-component-002.json",
+      "sha256": "66461e596c1a746f8795d263981a30e5696694224862b8ff7d4127211c4122f8",
+      "passed_count": 372
+    },
+    "interop_mapping": {
+      "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-interop-mapping-002.json",
+      "sha256": "c631c6c82e70bd8977c5853a7fa3105a455607d874cb918128f01c5bc8d7bcdd",
+      "passed_count": 136
+    }
+  },
+  "steps": [
+    {
+      "step": "common_contract_sha256",
+      "returncode": 0,
+      "elapsed_seconds": 0.0136,
+      "stdout_tail": [
+        "PLATFORMS.md: OK",
+        "SUITE_POLICY.md: OK",
+        "TESTING.md: OK"
+      ]
+    },
+    {
+      "step": "build_swiftjls_cli_release",
+      "returncode": 0,
+      "elapsed_seconds": 18.0763,
+      "stdout_tail": [
+        "[70\u2009/\u200972] swiftjls-cli-product",
+        "[71\u2009/\u200972] swiftjls-cli-product",
+        "Build complete! (16.80 secs)"
+      ]
+    },
+    {
+      "step": "test_payload_cli",
+      "returncode": 0,
+      "elapsed_seconds": 1.4339,
+      "stdout_tail": [
+        "73 payload checks passed"
+      ]
+    },
+    {
+      "step": "example_independent_consumer",
+      "returncode": 0,
+      "elapsed_seconds": 16.2196,
+      "stdout_tail": [
+        "Independent consumer passed: native lossless coding preserves padded 12-bit samples and destination identity."
+      ]
+    },
+    {
+      "step": "example_cross_codec_consumer",
+      "returncode": 0,
+      "elapsed_seconds": 19.4489,
+      "stdout_tail": [
+        "    \"width\" : 37",
+        "  }",
+        "]"
+      ]
+    },
+    {
+      "step": "example_resource_stress",
+      "returncode": 0,
+      "elapsed_seconds": 17.253,
+      "stdout_tail": [
+        "    \"suppliedPixelAllocations\" : 0",
+        "  }",
+        "]"
+      ]
+    },
+    {
+      "step": "example_apple_runtime_consumer_macos",
+      "returncode": 0,
+      "elapsed_seconds": 16.3253,
+      "stdout_tail": [
+        "Independent consumer passed: native lossless coding preserves padded 12-bit samples and destination identity.",
+        "Apple runtime passed: direct storage, RGB/HP, mapping, metadata, Watch limits and cancellation.",
+        "Combined legacy mapping/HP runtime passed."
+      ]
+    },
+    {
+      "step": "interop_consumer_encode",
+      "returncode": 0,
+      "elapsed_seconds": 16.9141,
+      "stdout_tail": [
+        "Wrote 518 SwiftJLS outputs for independent decoding.",
+        "Wrote component and component-restart outputs for independent decoding.",
+        "Wrote six explicitly decoded legacy HP migrations for independent sample verification."
+      ]
+    },
+    {
+      "step": "verify_interop_scalar",
+      "returncode": 0,
+      "elapsed_seconds": 1.4773,
+      "stdout_tail": [
+        "482 independent sample checks passed"
+      ]
+    },
+    {
+      "step": "verify_interop_components",
+      "returncode": 0,
+      "elapsed_seconds": 1.233,
+      "stdout_tail": [
+        "372 independent component checks passed"
+      ]
+    },
+    {
+      "step": "verify_interop_mapping",
+      "returncode": 0,
+      "elapsed_seconds": 0.4744,
+      "stdout_tail": [
+        "136 independently verified mapping, extended and legacy migration outputs"
+      ]
+    }
+  ]
+}

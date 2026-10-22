@@ -1,0 +1,39 @@
+[
+  {
+    "command": [
+      "heaptrack",
+      "--version"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack",
+      "-o",
+      "/evidence/profiles/512-3-0-encode/allocations",
+      "/evidence/build/out/Products/Release-linux-aarch64/WorkspaceProbe",
+      "encode",
+      "512",
+      "512",
+      "3",
+      "0"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack_print",
+      "-f",
+      "/evidence/profiles/512-3-0-encode/allocations.gz",
+      "-n",
+      "1000",
+      "-s",
+      "1000",
+      "-H",
+      "/evidence/profiles/512-3-0-encode/sizes.tsv",
+      "-F",
+      "/evidence/profiles/512-3-0-encode/allocation-stacks.txt"
+    ],
+    "exit_code": 0
+  }
+]

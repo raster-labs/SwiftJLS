@@ -1,0 +1,2348 @@
+{
+  "schema": 1,
+  "seed": 20261022,
+  "snapshot_root": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002",
+  "prepare_receipt_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/prepare-receipt.json",
+  "prepare_receipt_sha256": "190286e5a99ea46812f97df4980712a6f9fbc850c85e266a0ee443499188b04d",
+  "fixture": {
+    "width": 512,
+    "height": 512,
+    "bits": 12,
+    "pattern": "noise",
+    "components": 1,
+    "near": 0,
+    "interleave": 0,
+    "expected_encoded_bytes": 410542,
+    "expected_canonical_caller_buffer_bytes": 524288
+  },
+  "warmups": 5,
+  "observations_per_process": 5,
+  "total_runtime_processes": 112,
+  "arms": {
+    "62309d3": {
+      "revision": "62309d3c59b04c5896d6ea076aae5ce06f5f33e3",
+      "base_revision": "62309d3c59b04c5896d6ea076aae5ce06f5f33e3",
+      "patch_sha256": null,
+      "patch_path": null,
+      "package_dir": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/arm_62309d3",
+      "package_swift_sha256": "b8c00c41dda983f6cee24c45f3e352ebde71c0f25b42abd379a431f1a556394b",
+      "memdiag_relief_binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-62309d3-2b459df9b053",
+      "memdiag_relief_binary_sha256": "2b459df9b0531dc5c5720de78900c267bab40fcc245ca46bdd04bc5679f3b499",
+      "memdiag_relief_source_sha256": "6a58be2bde9fa4ccfd6e09dfbaa7b632ebcc76d222cbfedf6cf2aff350937d99",
+      "benchmark_binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+      "benchmark_binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa",
+      "benchmark_source_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+      "swiftjls_file_sha256": {
+        "Sources/SwiftJLS/CodecAPI.swift": "2aecbc7572e10b24c5119cd69105414039f301ebd448b191498aec23e86cf3ee",
+        "Sources/SwiftJLS/Errors.swift": "f71dd532405f2bca468ef39b29117513c686a89c64dd908ef598d1bca4f4fe6b",
+        "Sources/SwiftJLS/Image.swift": "f69e4120f41db5a41922b9cb41d6bbedf6fd5b9768360efc987d38906fb21cf3",
+        "Sources/SwiftJLS/ImageDescriptor.swift": "ba12d371e2583578a726aabde85fc244648821984bcf630ff365ec2a33e1cd26",
+        "Sources/SwiftJLS/ImageStorage.swift": "6211f868c3ffb1a58bbd516cfe039fcee90bc51dbd58a94d52ff54fd679b1c78",
+        "Sources/SwiftJLS/JPEGLS/ComponentCodec.swift": "6d58aa9a3f77ee8b3efab5c70ca6464da68fa01f626259266735c9daaee70cb2",
+        "Sources/SwiftJLS/JPEGLS/ComponentSamples.swift": "1ce0be11dde2105dd795286985802b7c626206ce74063057a9928ae7b8e3d119",
+        "Sources/SwiftJLS/JPEGLS/HPTransform.swift": "3c1b1d61b0de3692a47a555b215f329e9e92e8e86cb7950fe0087bf9f3d6bc83",
+        "Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift": "c1224495271d1b6c0b74b8533557fd92ede7473fdc21e1affbe2389deb6e6704",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift": "3521e0b70581ff2b6cb315daf10c29514ee6eabe7abd7a7c539fb36cae7fabb9",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift": "8e9419b656ba9f2721702623f569ee0b8da403de56a96105e758655bb101f8ba",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift": "5eeb8a236cb8ca55fb60d1613a60b77999e189518a115c2e08c081129d09ebf4",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSError.swift": "73dd58926e8f15cf96ffffeaba7dc72ccf576a77e43bc10fd9f675170a3d9dc1",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift": "5b4c1388a0651b504fb67206ea88c28d02ab232ee61d66ac126cfa1f461bc5e0",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift": "a0a42030720d63690a4baed0a8599872b5e72a799fffc1e6bcc553bfd32fccb2",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift": "97f9944dd1a62fe76cc5b05c8d216fd7c71968efa1cac0a2945e5885d83781cd",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift": "c67cf575f32f721891a73d1b5895948d518dae4894a353c9bf1f634d7a0dbd13",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift": "b165f853b2118674183466de4030f8192a6a7e62e5ea4398d38d61774b7af1fa",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift": "b419c22bc5adfcaedf7b44ca33283b3b53ef02a7e9c830ab85aee570f6f91ef6",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift": "1901bc5deeea95438852c530ba1b1682af07c1fe2304438b446710298b79a0bc",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift": "30e8e774cf84acae49e188cddedc25d5a7c3b4bcfe14c9aa68a8da3f3fca17a8",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift": "e26a0753893f838f68ea42a0c10ea863ac4771e532bfc6978bd1fb764968838e",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift": "3edc9cbf9a5755e193ce0dfebcd9bc0aba0652a2a0d23fd802da8d58d63ed4d6",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift": "b98f40f6701c2d5edf9d6346c9ba142166b9ec45163ace57f75819f4fd8e0b89",
+        "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift": "5af63c538c3ce0d31f207452e37ddb18d78084a4a90c9c365d6d4380b0bd5e29",
+        "Sources/SwiftJLS/JPEGLS/ScalarSamples.swift": "2a18c8e246c9fc0dfb37fb41798683c5b3c1bbdbb738fd5c26e5dd3c065faa6f",
+        "Sources/SwiftJLS/Options.swift": "dd43c63592bf4d74c53626374fb4494b0815315f0f64bc1a2831f9c066b5d787"
+      },
+      "build_exit_code": 0
+    },
+    "e66f7da": {
+      "revision": "e66f7da0d663756bae2d1495454d59b028228f7f",
+      "base_revision": "e66f7da0d663756bae2d1495454d59b028228f7f",
+      "patch_sha256": null,
+      "patch_path": null,
+      "package_dir": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/arm_e66f7da",
+      "package_swift_sha256": "b8c00c41dda983f6cee24c45f3e352ebde71c0f25b42abd379a431f1a556394b",
+      "memdiag_relief_binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-e66f7da-fd723485d8e5",
+      "memdiag_relief_binary_sha256": "fd723485d8e5342613f3c2cef19416924502b0275d5ca37c3af5e532a792231e",
+      "memdiag_relief_source_sha256": "6a58be2bde9fa4ccfd6e09dfbaa7b632ebcc76d222cbfedf6cf2aff350937d99",
+      "benchmark_binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+      "benchmark_binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099",
+      "benchmark_source_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+      "swiftjls_file_sha256": {
+        "Sources/SwiftJLS/CodecAPI.swift": "f8cd258111d74a6bea454566feaf2c86d1120965f3dba081c620c86bd0948d21",
+        "Sources/SwiftJLS/Errors.swift": "f71dd532405f2bca468ef39b29117513c686a89c64dd908ef598d1bca4f4fe6b",
+        "Sources/SwiftJLS/Image.swift": "f69e4120f41db5a41922b9cb41d6bbedf6fd5b9768360efc987d38906fb21cf3",
+        "Sources/SwiftJLS/ImageDescriptor.swift": "ba12d371e2583578a726aabde85fc244648821984bcf630ff365ec2a33e1cd26",
+        "Sources/SwiftJLS/ImageStorage.swift": "6211f868c3ffb1a58bbd516cfe039fcee90bc51dbd58a94d52ff54fd679b1c78",
+        "Sources/SwiftJLS/JPEGLS/ComponentCodec.swift": "62737239646a1f078a535a493f0370ba3e02e05fd3ba2424eb14af81ca4e1d85",
+        "Sources/SwiftJLS/JPEGLS/ComponentSamples.swift": "1ce0be11dde2105dd795286985802b7c626206ce74063057a9928ae7b8e3d119",
+        "Sources/SwiftJLS/JPEGLS/HPTransform.swift": "3c1b1d61b0de3692a47a555b215f329e9e92e8e86cb7950fe0087bf9f3d6bc83",
+        "Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift": "c1224495271d1b6c0b74b8533557fd92ede7473fdc21e1affbe2389deb6e6704",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift": "3521e0b70581ff2b6cb315daf10c29514ee6eabe7abd7a7c539fb36cae7fabb9",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift": "8e9419b656ba9f2721702623f569ee0b8da403de56a96105e758655bb101f8ba",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift": "5eeb8a236cb8ca55fb60d1613a60b77999e189518a115c2e08c081129d09ebf4",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSError.swift": "73dd58926e8f15cf96ffffeaba7dc72ccf576a77e43bc10fd9f675170a3d9dc1",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift": "5b4c1388a0651b504fb67206ea88c28d02ab232ee61d66ac126cfa1f461bc5e0",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift": "0ea64fd62754175071e8ba63760f6e26e303cf5e97b3e704306c6d17cfd8dbdd",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift": "97f9944dd1a62fe76cc5b05c8d216fd7c71968efa1cac0a2945e5885d83781cd",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift": "c67cf575f32f721891a73d1b5895948d518dae4894a353c9bf1f634d7a0dbd13",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift": "b165f853b2118674183466de4030f8192a6a7e62e5ea4398d38d61774b7af1fa",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift": "b419c22bc5adfcaedf7b44ca33283b3b53ef02a7e9c830ab85aee570f6f91ef6",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift": "1901bc5deeea95438852c530ba1b1682af07c1fe2304438b446710298b79a0bc",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift": "30e8e774cf84acae49e188cddedc25d5a7c3b4bcfe14c9aa68a8da3f3fca17a8",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift": "e26a0753893f838f68ea42a0c10ea863ac4771e532bfc6978bd1fb764968838e",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift": "3edc9cbf9a5755e193ce0dfebcd9bc0aba0652a2a0d23fd802da8d58d63ed4d6",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift": "b98f40f6701c2d5edf9d6346c9ba142166b9ec45163ace57f75819f4fd8e0b89",
+        "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift": "0923dc6fb191c2ac888178ddf2ba8de7594a90da7c3b8447213a012d06e9559a",
+        "Sources/SwiftJLS/JPEGLS/ScalarSamples.swift": "2a18c8e246c9fc0dfb37fb41798683c5b3c1bbdbb738fd5c26e5dd3c065faa6f",
+        "Sources/SwiftJLS/Options.swift": "dd43c63592bf4d74c53626374fb4494b0815315f0f64bc1a2831f9c066b5d787",
+        "Sources/SwiftJLS/Qualified/QualifiedContext.swift": "d121db5432eb9e0e5525a1c469ff9bba93db370362ad35ed72f1cd18db003317",
+        "Sources/SwiftJLS/Qualified/QualifiedCursor.swift": "5a10d7649f0c3e3891eb455637be17b8a36103614ef9bb5afa6bd742183c579a",
+        "Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift": "c309c0131ca776e4cc04190c344c28f0da5ecd9da0198cd34ac27c3e7f8abbaf",
+        "Sources/SwiftJLS/Qualified/QualifiedKernel.swift": "e0facfd1d2814d028b285e3a653b1c2de9fe3af40dd6108d7e9084563e941911",
+        "Sources/SwiftJLS/Qualified/QualifiedMarkers.swift": "0b1a28c737b75f778ec1daad14d53426e305fca61b59d90f2d98fe5812cbc72f",
+        "Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift": "74ad31bba36b21bdbb1ad0f67a0b8eccfd442967a906ad862406749c0fb20d69",
+        "Sources/SwiftJLS/Qualified/QualifiedOutcome.swift": "b86193ff4179517f9e305ee662bd65983e6015b189daeb9bdbfef596c87f2fc1",
+        "Sources/SwiftJLS/Qualified/QualifiedParameters.swift": "7ffd5ee528680f280e037519899e25108dca584a5d3ab854d35c9c8e264298ca",
+        "Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift": "19d9bb41c18c03f0f42be564a7f9e78a57cec4ba0c45e987e6a3d01fa1ea7d87",
+        "Sources/SwiftJLS/Qualified/QualifiedParser.swift": "68f856138d0bdcb9f737da659e9cffac0f5f233d96f1dab6fc18f798951467ba",
+        "Sources/SwiftJLS/Qualified/QualifiedPrediction.swift": "4437f09db60927663443b3ee8c1022c44ae8e2de25fc69e16b34395fb6d3fe59"
+      },
+      "build_exit_code": 0
+    },
+    "candidate": {
+      "revision": "WORKING_TREE",
+      "base_revision": "041c1a3d4861f9956ca49cd994eff618e23908ec",
+      "patch_sha256": "86884eca7ef6c352d4456e81fbc18f11701cbe298e291fcc6dcf40a6b32de493",
+      "patch_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/patches/candidate-86884eca7ef6.patch",
+      "package_dir": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/arm_candidate",
+      "package_swift_sha256": "b8c00c41dda983f6cee24c45f3e352ebde71c0f25b42abd379a431f1a556394b",
+      "memdiag_relief_binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-candidate-8934d038bbbd",
+      "memdiag_relief_binary_sha256": "8934d038bbbd8f7fe0bd9e7f0217f02c3e3a676cfca083654c221dabd80d926b",
+      "memdiag_relief_source_sha256": "6a58be2bde9fa4ccfd6e09dfbaa7b632ebcc76d222cbfedf6cf2aff350937d99",
+      "benchmark_binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+      "benchmark_binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824",
+      "benchmark_source_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+      "swiftjls_file_sha256": {
+        "Sources/SwiftJLS/CodecAPI.swift": "f8cd258111d74a6bea454566feaf2c86d1120965f3dba081c620c86bd0948d21",
+        "Sources/SwiftJLS/Errors.swift": "f71dd532405f2bca468ef39b29117513c686a89c64dd908ef598d1bca4f4fe6b",
+        "Sources/SwiftJLS/Image.swift": "66e01ed08984a14534faffd996c76efa4f4073cc756da61106e235671acbda81",
+        "Sources/SwiftJLS/ImageDescriptor.swift": "ba12d371e2583578a726aabde85fc244648821984bcf630ff365ec2a33e1cd26",
+        "Sources/SwiftJLS/ImageStorage.swift": "6211f868c3ffb1a58bbd516cfe039fcee90bc51dbd58a94d52ff54fd679b1c78",
+        "Sources/SwiftJLS/JPEGLS/ComponentCodec.swift": "62737239646a1f078a535a493f0370ba3e02e05fd3ba2424eb14af81ca4e1d85",
+        "Sources/SwiftJLS/JPEGLS/ComponentSamples.swift": "1ce0be11dde2105dd795286985802b7c626206ce74063057a9928ae7b8e3d119",
+        "Sources/SwiftJLS/JPEGLS/HPTransform.swift": "3c1b1d61b0de3692a47a555b215f329e9e92e8e86cb7950fe0087bf9f3d6bc83",
+        "Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift": "c1224495271d1b6c0b74b8533557fd92ede7473fdc21e1affbe2389deb6e6704",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift": "3521e0b70581ff2b6cb315daf10c29514ee6eabe7abd7a7c539fb36cae7fabb9",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift": "8e9419b656ba9f2721702623f569ee0b8da403de56a96105e758655bb101f8ba",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift": "5eeb8a236cb8ca55fb60d1613a60b77999e189518a115c2e08c081129d09ebf4",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSError.swift": "73dd58926e8f15cf96ffffeaba7dc72ccf576a77e43bc10fd9f675170a3d9dc1",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift": "5b4c1388a0651b504fb67206ea88c28d02ab232ee61d66ac126cfa1f461bc5e0",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift": "c57fc4569e1f1683d428a7c9e6ed96e1583219a04a15856af90737d79578abf8",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift": "97f9944dd1a62fe76cc5b05c8d216fd7c71968efa1cac0a2945e5885d83781cd",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift": "c67cf575f32f721891a73d1b5895948d518dae4894a353c9bf1f634d7a0dbd13",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift": "b165f853b2118674183466de4030f8192a6a7e62e5ea4398d38d61774b7af1fa",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift": "b419c22bc5adfcaedf7b44ca33283b3b53ef02a7e9c830ab85aee570f6f91ef6",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift": "1901bc5deeea95438852c530ba1b1682af07c1fe2304438b446710298b79a0bc",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift": "30e8e774cf84acae49e188cddedc25d5a7c3b4bcfe14c9aa68a8da3f3fca17a8",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift": "e26a0753893f838f68ea42a0c10ea863ac4771e532bfc6978bd1fb764968838e",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift": "3edc9cbf9a5755e193ce0dfebcd9bc0aba0652a2a0d23fd802da8d58d63ed4d6",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift": "b98f40f6701c2d5edf9d6346c9ba142166b9ec45163ace57f75819f4fd8e0b89",
+        "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift": "7b52505d2a8d34beb8a0d2996e12f579710e47ff224cdd7d4adad3efebabb5f3",
+        "Sources/SwiftJLS/JPEGLS/ScalarSamples.swift": "2a18c8e246c9fc0dfb37fb41798683c5b3c1bbdbb738fd5c26e5dd3c065faa6f",
+        "Sources/SwiftJLS/Options.swift": "dd43c63592bf4d74c53626374fb4494b0815315f0f64bc1a2831f9c066b5d787",
+        "Sources/SwiftJLS/Qualified/QualifiedContext.swift": "d121db5432eb9e0e5525a1c469ff9bba93db370362ad35ed72f1cd18db003317",
+        "Sources/SwiftJLS/Qualified/QualifiedCursor.swift": "5a10d7649f0c3e3891eb455637be17b8a36103614ef9bb5afa6bd742183c579a",
+        "Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift": "c309c0131ca776e4cc04190c344c28f0da5ecd9da0198cd34ac27c3e7f8abbaf",
+        "Sources/SwiftJLS/Qualified/QualifiedKernel.swift": "e0facfd1d2814d028b285e3a653b1c2de9fe3af40dd6108d7e9084563e941911",
+        "Sources/SwiftJLS/Qualified/QualifiedMarkers.swift": "0b1a28c737b75f778ec1daad14d53426e305fca61b59d90f2d98fe5812cbc72f",
+        "Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift": "74ad31bba36b21bdbb1ad0f67a0b8eccfd442967a906ad862406749c0fb20d69",
+        "Sources/SwiftJLS/Qualified/QualifiedOutcome.swift": "b86193ff4179517f9e305ee662bd65983e6015b189daeb9bdbfef596c87f2fc1",
+        "Sources/SwiftJLS/Qualified/QualifiedParameters.swift": "7ffd5ee528680f280e037519899e25108dca584a5d3ab854d35c9c8e264298ca",
+        "Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift": "19d9bb41c18c03f0f42be564a7f9e78a57cec4ba0c45e987e6a3d01fa1ea7d87",
+        "Sources/SwiftJLS/Qualified/QualifiedParser.swift": "68f856138d0bdcb9f737da659e9cffac0f5f233d96f1dab6fc18f798951467ba",
+        "Sources/SwiftJLS/Qualified/QualifiedPrediction.swift": "4437f09db60927663443b3ee8c1022c44ae8e2de25fc69e16b34395fb6d3fe59"
+      },
+      "build_exit_code": 0
+    }
+  },
+  "part1_pressure_relief_counterfactual": {
+    "expected_processes": 16,
+    "expected_phases": [
+      "01_process_startup",
+      "02_after_canonical_caller_buffer_alive",
+      "03_after_initial_image_alive",
+      "04_after_reference_encode_alive",
+      "05_during_preflight_decode_alive",
+      "06_after_preflight_decode_post_release",
+      "07_after_interleaved_warmups_post_release",
+      "08_iter0_encode_output_alive",
+      "09_iter0_owned_decode_output_alive",
+      "10_iter0_prepare_fresh_image_alive",
+      "11_iter0_prepare_encode_outputs_alive",
+      "12_iter0_interleaved_post_release",
+      "13_after_all_interleaved_iterations_at_consumer_rusage_point",
+      "14_after_caller_fixtures_released",
+      "15_after_post_release_action"
+    ],
+    "pairs": [
+      {
+        "pair_index": 0,
+        "source": "62309d3",
+        "source_pair_index": 0,
+        "action_order": [
+          "relief",
+          "noop"
+        ]
+      },
+      {
+        "pair_index": 1,
+        "source": "candidate",
+        "source_pair_index": 0,
+        "action_order": [
+          "relief",
+          "noop"
+        ]
+      },
+      {
+        "pair_index": 2,
+        "source": "62309d3",
+        "source_pair_index": 1,
+        "action_order": [
+          "noop",
+          "relief"
+        ]
+      },
+      {
+        "pair_index": 3,
+        "source": "candidate",
+        "source_pair_index": 1,
+        "action_order": [
+          "noop",
+          "relief"
+        ]
+      },
+      {
+        "pair_index": 4,
+        "source": "62309d3",
+        "source_pair_index": 2,
+        "action_order": [
+          "relief",
+          "noop"
+        ]
+      },
+      {
+        "pair_index": 5,
+        "source": "candidate",
+        "source_pair_index": 2,
+        "action_order": [
+          "relief",
+          "noop"
+        ]
+      },
+      {
+        "pair_index": 6,
+        "source": "62309d3",
+        "source_pair_index": 3,
+        "action_order": [
+          "noop",
+          "relief"
+        ]
+      },
+      {
+        "pair_index": 7,
+        "source": "candidate",
+        "source_pair_index": 3,
+        "action_order": [
+          "noop",
+          "relief"
+        ]
+      }
+    ],
+    "processes": [
+      {
+        "process_index": 0,
+        "pair_index": 0,
+        "source": "62309d3",
+        "source_pair_index": 0,
+        "pair_action_order": [
+          "relief",
+          "noop"
+        ],
+        "position_in_pair": 0,
+        "action": "relief",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-62309d3-2b459df9b053",
+        "binary_sha256": "2b459df9b0531dc5c5720de78900c267bab40fcc245ca46bdd04bc5679f3b499"
+      },
+      {
+        "process_index": 1,
+        "pair_index": 0,
+        "source": "62309d3",
+        "source_pair_index": 0,
+        "pair_action_order": [
+          "relief",
+          "noop"
+        ],
+        "position_in_pair": 1,
+        "action": "noop",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-62309d3-2b459df9b053",
+        "binary_sha256": "2b459df9b0531dc5c5720de78900c267bab40fcc245ca46bdd04bc5679f3b499"
+      },
+      {
+        "process_index": 2,
+        "pair_index": 1,
+        "source": "candidate",
+        "source_pair_index": 0,
+        "pair_action_order": [
+          "relief",
+          "noop"
+        ],
+        "position_in_pair": 0,
+        "action": "relief",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-candidate-8934d038bbbd",
+        "binary_sha256": "8934d038bbbd8f7fe0bd9e7f0217f02c3e3a676cfca083654c221dabd80d926b"
+      },
+      {
+        "process_index": 3,
+        "pair_index": 1,
+        "source": "candidate",
+        "source_pair_index": 0,
+        "pair_action_order": [
+          "relief",
+          "noop"
+        ],
+        "position_in_pair": 1,
+        "action": "noop",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-candidate-8934d038bbbd",
+        "binary_sha256": "8934d038bbbd8f7fe0bd9e7f0217f02c3e3a676cfca083654c221dabd80d926b"
+      },
+      {
+        "process_index": 4,
+        "pair_index": 2,
+        "source": "62309d3",
+        "source_pair_index": 1,
+        "pair_action_order": [
+          "noop",
+          "relief"
+        ],
+        "position_in_pair": 0,
+        "action": "noop",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-62309d3-2b459df9b053",
+        "binary_sha256": "2b459df9b0531dc5c5720de78900c267bab40fcc245ca46bdd04bc5679f3b499"
+      },
+      {
+        "process_index": 5,
+        "pair_index": 2,
+        "source": "62309d3",
+        "source_pair_index": 1,
+        "pair_action_order": [
+          "noop",
+          "relief"
+        ],
+        "position_in_pair": 1,
+        "action": "relief",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-62309d3-2b459df9b053",
+        "binary_sha256": "2b459df9b0531dc5c5720de78900c267bab40fcc245ca46bdd04bc5679f3b499"
+      },
+      {
+        "process_index": 6,
+        "pair_index": 3,
+        "source": "candidate",
+        "source_pair_index": 1,
+        "pair_action_order": [
+          "noop",
+          "relief"
+        ],
+        "position_in_pair": 0,
+        "action": "noop",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-candidate-8934d038bbbd",
+        "binary_sha256": "8934d038bbbd8f7fe0bd9e7f0217f02c3e3a676cfca083654c221dabd80d926b"
+      },
+      {
+        "process_index": 7,
+        "pair_index": 3,
+        "source": "candidate",
+        "source_pair_index": 1,
+        "pair_action_order": [
+          "noop",
+          "relief"
+        ],
+        "position_in_pair": 1,
+        "action": "relief",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-candidate-8934d038bbbd",
+        "binary_sha256": "8934d038bbbd8f7fe0bd9e7f0217f02c3e3a676cfca083654c221dabd80d926b"
+      },
+      {
+        "process_index": 8,
+        "pair_index": 4,
+        "source": "62309d3",
+        "source_pair_index": 2,
+        "pair_action_order": [
+          "relief",
+          "noop"
+        ],
+        "position_in_pair": 0,
+        "action": "relief",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-62309d3-2b459df9b053",
+        "binary_sha256": "2b459df9b0531dc5c5720de78900c267bab40fcc245ca46bdd04bc5679f3b499"
+      },
+      {
+        "process_index": 9,
+        "pair_index": 4,
+        "source": "62309d3",
+        "source_pair_index": 2,
+        "pair_action_order": [
+          "relief",
+          "noop"
+        ],
+        "position_in_pair": 1,
+        "action": "noop",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-62309d3-2b459df9b053",
+        "binary_sha256": "2b459df9b0531dc5c5720de78900c267bab40fcc245ca46bdd04bc5679f3b499"
+      },
+      {
+        "process_index": 10,
+        "pair_index": 5,
+        "source": "candidate",
+        "source_pair_index": 2,
+        "pair_action_order": [
+          "relief",
+          "noop"
+        ],
+        "position_in_pair": 0,
+        "action": "relief",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-candidate-8934d038bbbd",
+        "binary_sha256": "8934d038bbbd8f7fe0bd9e7f0217f02c3e3a676cfca083654c221dabd80d926b"
+      },
+      {
+        "process_index": 11,
+        "pair_index": 5,
+        "source": "candidate",
+        "source_pair_index": 2,
+        "pair_action_order": [
+          "relief",
+          "noop"
+        ],
+        "position_in_pair": 1,
+        "action": "noop",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-candidate-8934d038bbbd",
+        "binary_sha256": "8934d038bbbd8f7fe0bd9e7f0217f02c3e3a676cfca083654c221dabd80d926b"
+      },
+      {
+        "process_index": 12,
+        "pair_index": 6,
+        "source": "62309d3",
+        "source_pair_index": 3,
+        "pair_action_order": [
+          "noop",
+          "relief"
+        ],
+        "position_in_pair": 0,
+        "action": "noop",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-62309d3-2b459df9b053",
+        "binary_sha256": "2b459df9b0531dc5c5720de78900c267bab40fcc245ca46bdd04bc5679f3b499"
+      },
+      {
+        "process_index": 13,
+        "pair_index": 6,
+        "source": "62309d3",
+        "source_pair_index": 3,
+        "pair_action_order": [
+          "noop",
+          "relief"
+        ],
+        "position_in_pair": 1,
+        "action": "relief",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-62309d3-2b459df9b053",
+        "binary_sha256": "2b459df9b0531dc5c5720de78900c267bab40fcc245ca46bdd04bc5679f3b499"
+      },
+      {
+        "process_index": 14,
+        "pair_index": 7,
+        "source": "candidate",
+        "source_pair_index": 3,
+        "pair_action_order": [
+          "noop",
+          "relief"
+        ],
+        "position_in_pair": 0,
+        "action": "noop",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-candidate-8934d038bbbd",
+        "binary_sha256": "8934d038bbbd8f7fe0bd9e7f0217f02c3e3a676cfca083654c221dabd80d926b"
+      },
+      {
+        "process_index": 15,
+        "pair_index": 7,
+        "source": "candidate",
+        "source_pair_index": 3,
+        "pair_action_order": [
+          "noop",
+          "relief"
+        ],
+        "position_in_pair": 1,
+        "action": "relief",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/MemDiagRelief-candidate-8934d038bbbd",
+        "binary_sha256": "8934d038bbbd8f7fe0bd9e7f0217f02c3e3a676cfca083654c221dabd80d926b"
+      }
+    ]
+  },
+  "part2_unchanged_consumer_confirmation": {
+    "expected_processes": 96,
+    "blocks": 24,
+    "labels": [
+      "62309d3",
+      "e66f7da",
+      "candidate",
+      "candidate-copy"
+    ],
+    "position_counts": {
+      "62309d3": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "e66f7da": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "candidate": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "candidate-copy": [
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    "comparisons": [
+      [
+        "e66_vs_623",
+        "62309d3",
+        "e66f7da"
+      ],
+      [
+        "candidate_vs_623",
+        "62309d3",
+        "candidate"
+      ],
+      [
+        "candidate_vs_e66",
+        "e66f7da",
+        "candidate"
+      ],
+      [
+        "candidate_copy_vs_candidate",
+        "candidate",
+        "candidate-copy"
+      ]
+    ],
+    "bootstrap": {
+      "resamples": 50000,
+      "seed": 20261022,
+      "family_size": 4,
+      "bonferroni_95_quantiles": [
+        0.00625,
+        0.99375
+      ],
+      "marginal_95_quantiles": [
+        0.025,
+        0.975
+      ]
+    },
+    "schedule_blocks": [
+      {
+        "block": 0,
+        "permutation_index": 23,
+        "order": [
+          "candidate-copy",
+          "candidate",
+          "e66f7da",
+          "62309d3"
+        ]
+      },
+      {
+        "block": 1,
+        "permutation_index": 12,
+        "order": [
+          "candidate",
+          "62309d3",
+          "e66f7da",
+          "candidate-copy"
+        ]
+      },
+      {
+        "block": 2,
+        "permutation_index": 13,
+        "order": [
+          "candidate",
+          "62309d3",
+          "candidate-copy",
+          "e66f7da"
+        ]
+      },
+      {
+        "block": 3,
+        "permutation_index": 10,
+        "order": [
+          "e66f7da",
+          "candidate-copy",
+          "62309d3",
+          "candidate"
+        ]
+      },
+      {
+        "block": 4,
+        "permutation_index": 15,
+        "order": [
+          "candidate",
+          "e66f7da",
+          "candidate-copy",
+          "62309d3"
+        ]
+      },
+      {
+        "block": 5,
+        "permutation_index": 6,
+        "order": [
+          "e66f7da",
+          "62309d3",
+          "candidate",
+          "candidate-copy"
+        ]
+      },
+      {
+        "block": 6,
+        "permutation_index": 19,
+        "order": [
+          "candidate-copy",
+          "62309d3",
+          "candidate",
+          "e66f7da"
+        ]
+      },
+      {
+        "block": 7,
+        "permutation_index": 4,
+        "order": [
+          "62309d3",
+          "candidate-copy",
+          "e66f7da",
+          "candidate"
+        ]
+      },
+      {
+        "block": 8,
+        "permutation_index": 20,
+        "order": [
+          "candidate-copy",
+          "e66f7da",
+          "62309d3",
+          "candidate"
+        ]
+      },
+      {
+        "block": 9,
+        "permutation_index": 3,
+        "order": [
+          "62309d3",
+          "candidate",
+          "candidate-copy",
+          "e66f7da"
+        ]
+      },
+      {
+        "block": 10,
+        "permutation_index": 14,
+        "order": [
+          "candidate",
+          "e66f7da",
+          "62309d3",
+          "candidate-copy"
+        ]
+      },
+      {
+        "block": 11,
+        "permutation_index": 2,
+        "order": [
+          "62309d3",
+          "candidate",
+          "e66f7da",
+          "candidate-copy"
+        ]
+      },
+      {
+        "block": 12,
+        "permutation_index": 8,
+        "order": [
+          "e66f7da",
+          "candidate",
+          "62309d3",
+          "candidate-copy"
+        ]
+      },
+      {
+        "block": 13,
+        "permutation_index": 22,
+        "order": [
+          "candidate-copy",
+          "candidate",
+          "62309d3",
+          "e66f7da"
+        ]
+      },
+      {
+        "block": 14,
+        "permutation_index": 0,
+        "order": [
+          "62309d3",
+          "e66f7da",
+          "candidate",
+          "candidate-copy"
+        ]
+      },
+      {
+        "block": 15,
+        "permutation_index": 16,
+        "order": [
+          "candidate",
+          "candidate-copy",
+          "62309d3",
+          "e66f7da"
+        ]
+      },
+      {
+        "block": 16,
+        "permutation_index": 17,
+        "order": [
+          "candidate",
+          "candidate-copy",
+          "e66f7da",
+          "62309d3"
+        ]
+      },
+      {
+        "block": 17,
+        "permutation_index": 7,
+        "order": [
+          "e66f7da",
+          "62309d3",
+          "candidate-copy",
+          "candidate"
+        ]
+      },
+      {
+        "block": 18,
+        "permutation_index": 1,
+        "order": [
+          "62309d3",
+          "e66f7da",
+          "candidate-copy",
+          "candidate"
+        ]
+      },
+      {
+        "block": 19,
+        "permutation_index": 5,
+        "order": [
+          "62309d3",
+          "candidate-copy",
+          "candidate",
+          "e66f7da"
+        ]
+      },
+      {
+        "block": 20,
+        "permutation_index": 9,
+        "order": [
+          "e66f7da",
+          "candidate",
+          "candidate-copy",
+          "62309d3"
+        ]
+      },
+      {
+        "block": 21,
+        "permutation_index": 18,
+        "order": [
+          "candidate-copy",
+          "62309d3",
+          "e66f7da",
+          "candidate"
+        ]
+      },
+      {
+        "block": 22,
+        "permutation_index": 11,
+        "order": [
+          "e66f7da",
+          "candidate-copy",
+          "candidate",
+          "62309d3"
+        ]
+      },
+      {
+        "block": 23,
+        "permutation_index": 21,
+        "order": [
+          "candidate-copy",
+          "e66f7da",
+          "candidate",
+          "62309d3"
+        ]
+      }
+    ],
+    "processes": [
+      {
+        "process_index": 0,
+        "block": 0,
+        "position": 0,
+        "permutation_index": 23,
+        "order": [
+          "candidate-copy",
+          "candidate",
+          "e66f7da",
+          "62309d3"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 1,
+        "block": 0,
+        "position": 1,
+        "permutation_index": 23,
+        "order": [
+          "candidate-copy",
+          "candidate",
+          "e66f7da",
+          "62309d3"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 2,
+        "block": 0,
+        "position": 2,
+        "permutation_index": 23,
+        "order": [
+          "candidate-copy",
+          "candidate",
+          "e66f7da",
+          "62309d3"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 3,
+        "block": 0,
+        "position": 3,
+        "permutation_index": 23,
+        "order": [
+          "candidate-copy",
+          "candidate",
+          "e66f7da",
+          "62309d3"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 4,
+        "block": 1,
+        "position": 0,
+        "permutation_index": 12,
+        "order": [
+          "candidate",
+          "62309d3",
+          "e66f7da",
+          "candidate-copy"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 5,
+        "block": 1,
+        "position": 1,
+        "permutation_index": 12,
+        "order": [
+          "candidate",
+          "62309d3",
+          "e66f7da",
+          "candidate-copy"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 6,
+        "block": 1,
+        "position": 2,
+        "permutation_index": 12,
+        "order": [
+          "candidate",
+          "62309d3",
+          "e66f7da",
+          "candidate-copy"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 7,
+        "block": 1,
+        "position": 3,
+        "permutation_index": 12,
+        "order": [
+          "candidate",
+          "62309d3",
+          "e66f7da",
+          "candidate-copy"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 8,
+        "block": 2,
+        "position": 0,
+        "permutation_index": 13,
+        "order": [
+          "candidate",
+          "62309d3",
+          "candidate-copy",
+          "e66f7da"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 9,
+        "block": 2,
+        "position": 1,
+        "permutation_index": 13,
+        "order": [
+          "candidate",
+          "62309d3",
+          "candidate-copy",
+          "e66f7da"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 10,
+        "block": 2,
+        "position": 2,
+        "permutation_index": 13,
+        "order": [
+          "candidate",
+          "62309d3",
+          "candidate-copy",
+          "e66f7da"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 11,
+        "block": 2,
+        "position": 3,
+        "permutation_index": 13,
+        "order": [
+          "candidate",
+          "62309d3",
+          "candidate-copy",
+          "e66f7da"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 12,
+        "block": 3,
+        "position": 0,
+        "permutation_index": 10,
+        "order": [
+          "e66f7da",
+          "candidate-copy",
+          "62309d3",
+          "candidate"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 13,
+        "block": 3,
+        "position": 1,
+        "permutation_index": 10,
+        "order": [
+          "e66f7da",
+          "candidate-copy",
+          "62309d3",
+          "candidate"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 14,
+        "block": 3,
+        "position": 2,
+        "permutation_index": 10,
+        "order": [
+          "e66f7da",
+          "candidate-copy",
+          "62309d3",
+          "candidate"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 15,
+        "block": 3,
+        "position": 3,
+        "permutation_index": 10,
+        "order": [
+          "e66f7da",
+          "candidate-copy",
+          "62309d3",
+          "candidate"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 16,
+        "block": 4,
+        "position": 0,
+        "permutation_index": 15,
+        "order": [
+          "candidate",
+          "e66f7da",
+          "candidate-copy",
+          "62309d3"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 17,
+        "block": 4,
+        "position": 1,
+        "permutation_index": 15,
+        "order": [
+          "candidate",
+          "e66f7da",
+          "candidate-copy",
+          "62309d3"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 18,
+        "block": 4,
+        "position": 2,
+        "permutation_index": 15,
+        "order": [
+          "candidate",
+          "e66f7da",
+          "candidate-copy",
+          "62309d3"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 19,
+        "block": 4,
+        "position": 3,
+        "permutation_index": 15,
+        "order": [
+          "candidate",
+          "e66f7da",
+          "candidate-copy",
+          "62309d3"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 20,
+        "block": 5,
+        "position": 0,
+        "permutation_index": 6,
+        "order": [
+          "e66f7da",
+          "62309d3",
+          "candidate",
+          "candidate-copy"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 21,
+        "block": 5,
+        "position": 1,
+        "permutation_index": 6,
+        "order": [
+          "e66f7da",
+          "62309d3",
+          "candidate",
+          "candidate-copy"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 22,
+        "block": 5,
+        "position": 2,
+        "permutation_index": 6,
+        "order": [
+          "e66f7da",
+          "62309d3",
+          "candidate",
+          "candidate-copy"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 23,
+        "block": 5,
+        "position": 3,
+        "permutation_index": 6,
+        "order": [
+          "e66f7da",
+          "62309d3",
+          "candidate",
+          "candidate-copy"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 24,
+        "block": 6,
+        "position": 0,
+        "permutation_index": 19,
+        "order": [
+          "candidate-copy",
+          "62309d3",
+          "candidate",
+          "e66f7da"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 25,
+        "block": 6,
+        "position": 1,
+        "permutation_index": 19,
+        "order": [
+          "candidate-copy",
+          "62309d3",
+          "candidate",
+          "e66f7da"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 26,
+        "block": 6,
+        "position": 2,
+        "permutation_index": 19,
+        "order": [
+          "candidate-copy",
+          "62309d3",
+          "candidate",
+          "e66f7da"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 27,
+        "block": 6,
+        "position": 3,
+        "permutation_index": 19,
+        "order": [
+          "candidate-copy",
+          "62309d3",
+          "candidate",
+          "e66f7da"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 28,
+        "block": 7,
+        "position": 0,
+        "permutation_index": 4,
+        "order": [
+          "62309d3",
+          "candidate-copy",
+          "e66f7da",
+          "candidate"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 29,
+        "block": 7,
+        "position": 1,
+        "permutation_index": 4,
+        "order": [
+          "62309d3",
+          "candidate-copy",
+          "e66f7da",
+          "candidate"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 30,
+        "block": 7,
+        "position": 2,
+        "permutation_index": 4,
+        "order": [
+          "62309d3",
+          "candidate-copy",
+          "e66f7da",
+          "candidate"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 31,
+        "block": 7,
+        "position": 3,
+        "permutation_index": 4,
+        "order": [
+          "62309d3",
+          "candidate-copy",
+          "e66f7da",
+          "candidate"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 32,
+        "block": 8,
+        "position": 0,
+        "permutation_index": 20,
+        "order": [
+          "candidate-copy",
+          "e66f7da",
+          "62309d3",
+          "candidate"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 33,
+        "block": 8,
+        "position": 1,
+        "permutation_index": 20,
+        "order": [
+          "candidate-copy",
+          "e66f7da",
+          "62309d3",
+          "candidate"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 34,
+        "block": 8,
+        "position": 2,
+        "permutation_index": 20,
+        "order": [
+          "candidate-copy",
+          "e66f7da",
+          "62309d3",
+          "candidate"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 35,
+        "block": 8,
+        "position": 3,
+        "permutation_index": 20,
+        "order": [
+          "candidate-copy",
+          "e66f7da",
+          "62309d3",
+          "candidate"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 36,
+        "block": 9,
+        "position": 0,
+        "permutation_index": 3,
+        "order": [
+          "62309d3",
+          "candidate",
+          "candidate-copy",
+          "e66f7da"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 37,
+        "block": 9,
+        "position": 1,
+        "permutation_index": 3,
+        "order": [
+          "62309d3",
+          "candidate",
+          "candidate-copy",
+          "e66f7da"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 38,
+        "block": 9,
+        "position": 2,
+        "permutation_index": 3,
+        "order": [
+          "62309d3",
+          "candidate",
+          "candidate-copy",
+          "e66f7da"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 39,
+        "block": 9,
+        "position": 3,
+        "permutation_index": 3,
+        "order": [
+          "62309d3",
+          "candidate",
+          "candidate-copy",
+          "e66f7da"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 40,
+        "block": 10,
+        "position": 0,
+        "permutation_index": 14,
+        "order": [
+          "candidate",
+          "e66f7da",
+          "62309d3",
+          "candidate-copy"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 41,
+        "block": 10,
+        "position": 1,
+        "permutation_index": 14,
+        "order": [
+          "candidate",
+          "e66f7da",
+          "62309d3",
+          "candidate-copy"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 42,
+        "block": 10,
+        "position": 2,
+        "permutation_index": 14,
+        "order": [
+          "candidate",
+          "e66f7da",
+          "62309d3",
+          "candidate-copy"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 43,
+        "block": 10,
+        "position": 3,
+        "permutation_index": 14,
+        "order": [
+          "candidate",
+          "e66f7da",
+          "62309d3",
+          "candidate-copy"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 44,
+        "block": 11,
+        "position": 0,
+        "permutation_index": 2,
+        "order": [
+          "62309d3",
+          "candidate",
+          "e66f7da",
+          "candidate-copy"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 45,
+        "block": 11,
+        "position": 1,
+        "permutation_index": 2,
+        "order": [
+          "62309d3",
+          "candidate",
+          "e66f7da",
+          "candidate-copy"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 46,
+        "block": 11,
+        "position": 2,
+        "permutation_index": 2,
+        "order": [
+          "62309d3",
+          "candidate",
+          "e66f7da",
+          "candidate-copy"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 47,
+        "block": 11,
+        "position": 3,
+        "permutation_index": 2,
+        "order": [
+          "62309d3",
+          "candidate",
+          "e66f7da",
+          "candidate-copy"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 48,
+        "block": 12,
+        "position": 0,
+        "permutation_index": 8,
+        "order": [
+          "e66f7da",
+          "candidate",
+          "62309d3",
+          "candidate-copy"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 49,
+        "block": 12,
+        "position": 1,
+        "permutation_index": 8,
+        "order": [
+          "e66f7da",
+          "candidate",
+          "62309d3",
+          "candidate-copy"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 50,
+        "block": 12,
+        "position": 2,
+        "permutation_index": 8,
+        "order": [
+          "e66f7da",
+          "candidate",
+          "62309d3",
+          "candidate-copy"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 51,
+        "block": 12,
+        "position": 3,
+        "permutation_index": 8,
+        "order": [
+          "e66f7da",
+          "candidate",
+          "62309d3",
+          "candidate-copy"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 52,
+        "block": 13,
+        "position": 0,
+        "permutation_index": 22,
+        "order": [
+          "candidate-copy",
+          "candidate",
+          "62309d3",
+          "e66f7da"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 53,
+        "block": 13,
+        "position": 1,
+        "permutation_index": 22,
+        "order": [
+          "candidate-copy",
+          "candidate",
+          "62309d3",
+          "e66f7da"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 54,
+        "block": 13,
+        "position": 2,
+        "permutation_index": 22,
+        "order": [
+          "candidate-copy",
+          "candidate",
+          "62309d3",
+          "e66f7da"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 55,
+        "block": 13,
+        "position": 3,
+        "permutation_index": 22,
+        "order": [
+          "candidate-copy",
+          "candidate",
+          "62309d3",
+          "e66f7da"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 56,
+        "block": 14,
+        "position": 0,
+        "permutation_index": 0,
+        "order": [
+          "62309d3",
+          "e66f7da",
+          "candidate",
+          "candidate-copy"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 57,
+        "block": 14,
+        "position": 1,
+        "permutation_index": 0,
+        "order": [
+          "62309d3",
+          "e66f7da",
+          "candidate",
+          "candidate-copy"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 58,
+        "block": 14,
+        "position": 2,
+        "permutation_index": 0,
+        "order": [
+          "62309d3",
+          "e66f7da",
+          "candidate",
+          "candidate-copy"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 59,
+        "block": 14,
+        "position": 3,
+        "permutation_index": 0,
+        "order": [
+          "62309d3",
+          "e66f7da",
+          "candidate",
+          "candidate-copy"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 60,
+        "block": 15,
+        "position": 0,
+        "permutation_index": 16,
+        "order": [
+          "candidate",
+          "candidate-copy",
+          "62309d3",
+          "e66f7da"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 61,
+        "block": 15,
+        "position": 1,
+        "permutation_index": 16,
+        "order": [
+          "candidate",
+          "candidate-copy",
+          "62309d3",
+          "e66f7da"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 62,
+        "block": 15,
+        "position": 2,
+        "permutation_index": 16,
+        "order": [
+          "candidate",
+          "candidate-copy",
+          "62309d3",
+          "e66f7da"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 63,
+        "block": 15,
+        "position": 3,
+        "permutation_index": 16,
+        "order": [
+          "candidate",
+          "candidate-copy",
+          "62309d3",
+          "e66f7da"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 64,
+        "block": 16,
+        "position": 0,
+        "permutation_index": 17,
+        "order": [
+          "candidate",
+          "candidate-copy",
+          "e66f7da",
+          "62309d3"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 65,
+        "block": 16,
+        "position": 1,
+        "permutation_index": 17,
+        "order": [
+          "candidate",
+          "candidate-copy",
+          "e66f7da",
+          "62309d3"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 66,
+        "block": 16,
+        "position": 2,
+        "permutation_index": 17,
+        "order": [
+          "candidate",
+          "candidate-copy",
+          "e66f7da",
+          "62309d3"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 67,
+        "block": 16,
+        "position": 3,
+        "permutation_index": 17,
+        "order": [
+          "candidate",
+          "candidate-copy",
+          "e66f7da",
+          "62309d3"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 68,
+        "block": 17,
+        "position": 0,
+        "permutation_index": 7,
+        "order": [
+          "e66f7da",
+          "62309d3",
+          "candidate-copy",
+          "candidate"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 69,
+        "block": 17,
+        "position": 1,
+        "permutation_index": 7,
+        "order": [
+          "e66f7da",
+          "62309d3",
+          "candidate-copy",
+          "candidate"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 70,
+        "block": 17,
+        "position": 2,
+        "permutation_index": 7,
+        "order": [
+          "e66f7da",
+          "62309d3",
+          "candidate-copy",
+          "candidate"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 71,
+        "block": 17,
+        "position": 3,
+        "permutation_index": 7,
+        "order": [
+          "e66f7da",
+          "62309d3",
+          "candidate-copy",
+          "candidate"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 72,
+        "block": 18,
+        "position": 0,
+        "permutation_index": 1,
+        "order": [
+          "62309d3",
+          "e66f7da",
+          "candidate-copy",
+          "candidate"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 73,
+        "block": 18,
+        "position": 1,
+        "permutation_index": 1,
+        "order": [
+          "62309d3",
+          "e66f7da",
+          "candidate-copy",
+          "candidate"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 74,
+        "block": 18,
+        "position": 2,
+        "permutation_index": 1,
+        "order": [
+          "62309d3",
+          "e66f7da",
+          "candidate-copy",
+          "candidate"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 75,
+        "block": 18,
+        "position": 3,
+        "permutation_index": 1,
+        "order": [
+          "62309d3",
+          "e66f7da",
+          "candidate-copy",
+          "candidate"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 76,
+        "block": 19,
+        "position": 0,
+        "permutation_index": 5,
+        "order": [
+          "62309d3",
+          "candidate-copy",
+          "candidate",
+          "e66f7da"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 77,
+        "block": 19,
+        "position": 1,
+        "permutation_index": 5,
+        "order": [
+          "62309d3",
+          "candidate-copy",
+          "candidate",
+          "e66f7da"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 78,
+        "block": 19,
+        "position": 2,
+        "permutation_index": 5,
+        "order": [
+          "62309d3",
+          "candidate-copy",
+          "candidate",
+          "e66f7da"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 79,
+        "block": 19,
+        "position": 3,
+        "permutation_index": 5,
+        "order": [
+          "62309d3",
+          "candidate-copy",
+          "candidate",
+          "e66f7da"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 80,
+        "block": 20,
+        "position": 0,
+        "permutation_index": 9,
+        "order": [
+          "e66f7da",
+          "candidate",
+          "candidate-copy",
+          "62309d3"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 81,
+        "block": 20,
+        "position": 1,
+        "permutation_index": 9,
+        "order": [
+          "e66f7da",
+          "candidate",
+          "candidate-copy",
+          "62309d3"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 82,
+        "block": 20,
+        "position": 2,
+        "permutation_index": 9,
+        "order": [
+          "e66f7da",
+          "candidate",
+          "candidate-copy",
+          "62309d3"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 83,
+        "block": 20,
+        "position": 3,
+        "permutation_index": 9,
+        "order": [
+          "e66f7da",
+          "candidate",
+          "candidate-copy",
+          "62309d3"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 84,
+        "block": 21,
+        "position": 0,
+        "permutation_index": 18,
+        "order": [
+          "candidate-copy",
+          "62309d3",
+          "e66f7da",
+          "candidate"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 85,
+        "block": 21,
+        "position": 1,
+        "permutation_index": 18,
+        "order": [
+          "candidate-copy",
+          "62309d3",
+          "e66f7da",
+          "candidate"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 86,
+        "block": 21,
+        "position": 2,
+        "permutation_index": 18,
+        "order": [
+          "candidate-copy",
+          "62309d3",
+          "e66f7da",
+          "candidate"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 87,
+        "block": 21,
+        "position": 3,
+        "permutation_index": 18,
+        "order": [
+          "candidate-copy",
+          "62309d3",
+          "e66f7da",
+          "candidate"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 88,
+        "block": 22,
+        "position": 0,
+        "permutation_index": 11,
+        "order": [
+          "e66f7da",
+          "candidate-copy",
+          "candidate",
+          "62309d3"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 89,
+        "block": 22,
+        "position": 1,
+        "permutation_index": 11,
+        "order": [
+          "e66f7da",
+          "candidate-copy",
+          "candidate",
+          "62309d3"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 90,
+        "block": 22,
+        "position": 2,
+        "permutation_index": 11,
+        "order": [
+          "e66f7da",
+          "candidate-copy",
+          "candidate",
+          "62309d3"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 91,
+        "block": 22,
+        "position": 3,
+        "permutation_index": 11,
+        "order": [
+          "e66f7da",
+          "candidate-copy",
+          "candidate",
+          "62309d3"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      },
+      {
+        "process_index": 92,
+        "block": 23,
+        "position": 0,
+        "permutation_index": 21,
+        "order": [
+          "candidate-copy",
+          "e66f7da",
+          "candidate",
+          "62309d3"
+        ],
+        "label": "candidate-copy",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 93,
+        "block": 23,
+        "position": 1,
+        "permutation_index": 21,
+        "order": [
+          "candidate-copy",
+          "e66f7da",
+          "candidate",
+          "62309d3"
+        ],
+        "label": "e66f7da",
+        "underlying_source": "e66f7da",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-e66f7da-192ba67010e8",
+        "binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099"
+      },
+      {
+        "process_index": 94,
+        "block": 23,
+        "position": 2,
+        "permutation_index": 21,
+        "order": [
+          "candidate-copy",
+          "e66f7da",
+          "candidate",
+          "62309d3"
+        ],
+        "label": "candidate",
+        "underlying_source": "candidate",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-candidate-62e2e89c02f9",
+        "binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824"
+      },
+      {
+        "process_index": 95,
+        "block": 23,
+        "position": 3,
+        "permutation_index": 21,
+        "order": [
+          "candidate-copy",
+          "e66f7da",
+          "candidate",
+          "62309d3"
+        ],
+        "label": "62309d3",
+        "underlying_source": "62309d3",
+        "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/apple-rss-final-002/binaries/Benchmark-62309d3-2cb7f7358712",
+        "binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa"
+      }
+    ]
+  }
+}

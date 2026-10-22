@@ -55,7 +55,7 @@ struct JPEGLSHeader {
     let metadataBytes: Int
     // Geometry and sample interpretation are immutable. Keep the layout already
     // checked for parser admission instead of rebuilding its arrays on decode.
-    private let admittedDescriptor: ImageDescriptor
+    let admittedDescriptor: ImageDescriptor
     var near: Int { records.reduce(0) { max($0, $1.near) } }
     var parameters: JPEGLSPresetParameters { records[0].parameters }
     var scans: [Range<Int>] { records[0].ranges }

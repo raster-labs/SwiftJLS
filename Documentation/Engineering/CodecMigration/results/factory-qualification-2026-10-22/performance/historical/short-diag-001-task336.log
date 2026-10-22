@@ -1,0 +1,64 @@
+Building for production...
+[2 / 6] SwiftJLS
+[4 / 7] SwiftJLS
+/Users/pushparaj/projects/SwiftJLS/Package.swift: SwiftJLS: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[9 / 12] Benchmark-product
+[10 / 13] Benchmark-product
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/consumer/Package.swift: Benchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/consumer/Package.swift: Benchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[12 / 13] Benchmark-product
+[13 / 13] Benchmark-product
+Build complete! (11.79 secs)
+PINNED sha256: b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45
+THREE_CHANGE sha256: 7f618c0cf8fe1c31bee5a36b212c0dc2943e89fd366b4228a966f63d83aa5231
+CANDIDATE sha256: 18c958efc4b2b7e880f1c4910313074a34c3c22dc06177af5fff5f4aec1955b1
+=== Candidate vs pinned-15aa7516 (16 paired rounds, 5 warmups + 5 obs/proc) ===
+p12-flat  encode        : cand= 11.750 us  ref= 12.688 us  ratio=0.9261
+p12-flat  decode        : cand= 16.333 us  ref= 15.604 us  ratio=1.0467
+p12-flat  prepare       : cand=  3.083 us  ref=  3.375 us  ratio=0.9136
+p12-flat  prepare_encode: cand= 14.563 us  ref= 14.729 us  ratio=0.9887
+p12-ramp  encode        : cand= 21.875 us  ref= 26.604 us  ratio=0.8222
+p12-ramp  decode        : cand= 28.729 us  ref= 28.042 us  ratio=1.0245
+p12-ramp  prepare       : cand=  3.104 us  ref=  3.354 us  ratio=0.9255
+p12-ramp  prepare_encode: cand= 25.187 us  ref= 27.813 us  ratio=0.9056
+p12-noise encode        : cand= 25.208 us  ref= 34.771 us  ratio=0.7250
+p12-noise decode        : cand= 36.146 us  ref= 34.938 us  ratio=1.0346
+p12-noise prepare       : cand=  3.229 us  ref=  3.333 us  ratio=0.9688
+p12-noise prepare_encode: cand= 29.583 us  ref= 35.667 us  ratio=0.8294
+p16-flat  encode        : cand= 12.667 us  ref= 12.542 us  ratio=1.0100
+p16-flat  decode        : cand= 15.729 us  ref= 15.771 us  ratio=0.9974
+p16-flat  prepare       : cand=  3.021 us  ref=  3.458 us  ratio=0.8735
+p16-flat  prepare_encode: cand= 15.187 us  ref= 15.375 us  ratio=0.9878
+p16-ramp  encode        : cand= 22.604 us  ref= 27.125 us  ratio=0.8333
+p16-ramp  decode        : cand= 30.312 us  ref= 29.396 us  ratio=1.0312
+p16-ramp  prepare       : cand=  3.188 us  ref=  3.375 us  ratio=0.9444
+p16-ramp  prepare_encode: cand= 26.375 us  ref= 28.750 us  ratio=0.9174
+p16-noise encode        : cand= 25.083 us  ref= 34.125 us  ratio=0.7350
+p16-noise decode        : cand= 37.250 us  ref= 31.500 us  ratio=1.1825
+p16-noise prepare       : cand=  3.271 us  ref=  3.333 us  ratio=0.9812
+p16-noise prepare_encode: cand= 28.563 us  ref= 34.187 us  ratio=0.8355
+=== Candidate vs three-change-7f618c0c (16 paired rounds, 5 warmups + 5 obs/proc) ===
+p12-flat  encode        : cand= 12.688 us  ref= 13.000 us  ratio=0.9760
+p12-flat  decode        : cand= 16.083 us  ref= 15.625 us  ratio=1.0293
+p12-flat  prepare       : cand=  3.208 us  ref=  3.292 us  ratio=0.9747
+p12-flat  prepare_encode: cand= 15.333 us  ref= 14.938 us  ratio=1.0265
+p12-ramp  encode        : cand= 22.938 us  ref= 22.646 us  ratio=1.0129
+p12-ramp  decode        : cand= 29.063 us  ref= 27.667 us  ratio=1.0505
+p12-ramp  prepare       : cand=  3.063 us  ref=  3.250 us  ratio=0.9423
+p12-ramp  prepare_encode: cand= 25.667 us  ref= 25.458 us  ratio=1.0082
+p12-noise encode        : cand= 24.750 us  ref= 25.792 us  ratio=0.9596
+p12-noise decode        : cand= 37.146 us  ref= 34.042 us  ratio=1.0912
+p12-noise prepare       : cand=  3.083 us  ref=  3.313 us  ratio=0.9308
+p12-noise prepare_encode: cand= 29.229 us  ref= 29.646 us  ratio=0.9859
+p16-flat  encode        : cand= 12.500 us  ref= 12.604 us  ratio=0.9917
+p16-flat  decode        : cand= 16.688 us  ref= 16.083 us  ratio=1.0376
+p16-flat  prepare       : cand=  3.167 us  ref=  3.292 us  ratio=0.9620
+p16-flat  prepare_encode: cand= 15.771 us  ref= 15.396 us  ratio=1.0244
+p16-ramp  encode        : cand= 22.896 us  ref= 23.750 us  ratio=0.9640
+p16-ramp  decode        : cand= 30.438 us  ref= 27.833 us  ratio=1.0936
+p16-ramp  prepare       : cand=  3.104 us  ref=  3.271 us  ratio=0.9490
+p16-ramp  prepare_encode: cand= 26.521 us  ref= 26.875 us  ratio=0.9868
+p16-noise encode        : cand= 25.021 us  ref= 24.292 us  ratio=1.0300
+p16-noise decode        : cand= 32.583 us  ref= 32.458 us  ratio=1.0039
+p16-noise prepare       : cand=  3.167 us  ref=  3.313 us  ratio=0.9560
+p16-noise prepare_encode: cand= 29.396 us  ref= 27.437 us  ratio=1.0714

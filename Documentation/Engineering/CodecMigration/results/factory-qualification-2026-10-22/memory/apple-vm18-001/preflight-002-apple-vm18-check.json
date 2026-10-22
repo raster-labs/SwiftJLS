@@ -1,0 +1,66 @@
+{
+  "check_only_passed": true,
+  "identities": {
+    "runner_sha256": "1e15f413ac5deac2d5a7088450654a95596c6e1141e38fe589d87d20a7315e37",
+    "schedule_sha256": "220e1bfdc4de4c09fa242b346bc4a419e77f370f31778c3dd7304fd82aec5363",
+    "memdiag_vmmap_source_sha256": "51e73d879d6b344181e6ec96f4962176a45daeac658d2e2b260922aebdf9d934",
+    "prepare_receipt_sha256": "5598bcca5f19c40ae85010917fd2dd135be79d66a44257eb3b0cc6013687b840",
+    "candidate_binary_sha256": "0465ffe5215481f9ca4654a22dbf8df2a20e80f025df60946ceb75b34467fa01",
+    "baseline_62309d3_binary_sha256": "5c8f013f7982816f8bdd7c11c39dccc063ffa64555e7892fe26bdd227e7d53ea"
+  },
+  "conditions": {
+    "utc": "2026-10-22T12:11:46.135740+00:00",
+    "power": {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+      "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+      "stderr": ""
+    },
+    "thermal": {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stderr": ""
+    },
+    "load": {
+      "command": [
+        "sysctl",
+        "-n",
+        "vm.loadavg"
+      ],
+      "exit_code": 0,
+      "output": "{ 4.68 4.39 4.45 }\n",
+      "stdout": "{ 4.68 4.39 4.45 }\n",
+      "stderr": ""
+    },
+    "summed_cpu_percent": 243.9,
+    "processes_above_10_percent": [
+      {
+        "cpu": 46.5,
+        "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer"
+      },
+      {
+        "cpu": 84.2,
+        "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent"
+      },
+      {
+        "cpu": 23.4,
+        "comm": "/Users/pushparaj/.codex/computer-use/Codex Computer Use.app/Contents/MacOS/SkyComputerUseService"
+      },
+      {
+        "cpu": 20.6,
+        "comm": "/Applications/Antigravity.app/Contents/Frameworks/Antigravity Helper (Renderer).app/Contents/MacOS/Antigravity Helper (Renderer)"
+      }
+    ]
+  }
+}
