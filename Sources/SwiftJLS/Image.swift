@@ -148,15 +148,17 @@ public final class ImageDestination: Sendable {
         self.lease = try storage.reserveWrite()
     }
     // Only `allocate` may use this initializer, after descriptor and combined
-    // memory admission and construction of an exact-capacity owned allocation.
+    // memory admission and construction of an exact-capacity owned allocation
+    // already reserved in `.writing` with `lease` before escaping.
     // Its immutable byteCount equals requiredByteCount, so the public provider
     // initializer's repeated descriptor/capacity guards cannot newly fail.
     // Keep the same reservation and the original owned-allocation cancellation.
     private init(admittedOwnedDescriptor descriptor: ImageDescriptor,
-                 storage: OwnedImageStorage, limits: ResourceLimits) throws {
+                 storage: OwnedImageStorage, lease: StorageWriteLease,
+                 limits: ResourceLimits) {
         self.descriptor = descriptor; self.storage = storage; self.limits = limits
         self.lifecycle = Mutex(Lifecycle(admittedOwnedStorage: true))
-        self.lease = try storage.reserveWrite()
+        self.lease = lease
     }
 
     deinit {
@@ -174,8 +176,8 @@ public final class ImageDestination: Sendable {
     }
 
     static func allocate(admittedDescriptor descriptor: ImageDescriptor, limits: ResourceLimits) throws -> ImageDestination {
-        let storage = try OwnedImageStorage(byteCount: descriptor.requiredByteCount, limits: limits)
-        return try Self(admittedOwnedDescriptor: descriptor, storage: storage, limits: limits)
+        let reserved = try OwnedImageStorage.allocateReserved(byteCount: descriptor.requiredByteCount, limits: limits)
+        return Self(admittedOwnedDescriptor: descriptor, storage: reserved.storage, lease: reserved.lease, limits: limits)
     }
 
     /// Advanced unsafe fill boundary. Initialise every sample before returning.

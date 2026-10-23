@@ -1,0 +1,116 @@
+{
+  "status": "accepted_scoped_evidence",
+  "utc": "2026-10-23T10:57:52.696895+00:00",
+  "reconcile_seconds": 9.1485595,
+  "source_receipt_sha256": "4a1b7554778f6f551186f8497d93f599d001d4fe1090eeba6972dcb2436adfed",
+  "input_manifest_sha256": "6678bb8fb463482db10863a0b75c0bbe9ee87d435fc9d13ec0d2b374869a1dcd",
+  "workspace_binary_sha256": "805c3545c1a96303bfb4081a64ec5dbebffacdbe3dba52a7d5b816d6d7b79597",
+  "classifier_sha256": "a1d97dca4c65b025992a5fed0a259ad2e76a412c6e202b293ccf70c80b5799d6",
+  "original_classifier_sha256": "8049e2a475dd2e34f9c5bc476df4d760553affec07e677b905f70a5602f8b452",
+  "classifier_patch_sha256": "47d8bd67e4b2d7a6939b7dfde30e60266cf332880c769d5d1d809ce8e1a14581",
+  "collection_receipt_sha256": "d5d03df571e3506afae9ee19744505c077bf5069ed60b7fd90d6c9c3b01f27d2",
+  "reconcile_script_sha256": "4f7fa41a4813bcd5e3cd75157406c9f2c0a84722467fd4765aa03d8fb2f020c7",
+  "profiles": 89,
+  "commands": 267,
+  "ops": {
+    "encode": 20,
+    "owned": 23,
+    "into": 23,
+    "inspect": 23
+  },
+  "raw_profiles_bytes": 2432788,
+  "same_raw_independent_replays": 178,
+  "all_samples_verified": true,
+  "fixture_profile_reports_equal_to_factory002": true,
+  "all_codec_attributed": true,
+  "owned_pixel_calls": 23,
+  "other66_pixel_calls": 0,
+  "phase_calls_total": 4412,
+  "phase_calls_by_category": {
+    "runtime_or_unattributed": 254,
+    "compressed_buffer": 447,
+    "metadata_and_descriptors": 1948,
+    "algorithm_state": 1662,
+    "storage_control_objects": 78,
+    "owned_pixel_buffer": 23,
+    "unattributed_codec": 0
+  },
+  "phase_requested_bytes_by_category": {
+    "runtime_or_unattributed": 15968,
+    "compressed_buffer": 12920610,
+    "metadata_and_descriptors": 1066015,
+    "algorithm_state": 14123980,
+    "storage_control_objects": 7568,
+    "owned_pixel_buffer": 6584810,
+    "unattributed_codec": 0
+  },
+  "baseline_factory002_phase_calls_total": 4432,
+  "baseline_factory002_phase_calls_by_category": {
+    "runtime_or_unattributed": 254,
+    "compressed_buffer": 447,
+    "metadata_and_descriptors": 1968,
+    "algorithm_state": 1662,
+    "storage_control_objects": 78,
+    "owned_pixel_buffer": 23,
+    "unattributed_codec": 0
+  },
+  "baseline_factory002_phase_requested_bytes_by_category": {
+    "runtime_or_unattributed": 15968,
+    "compressed_buffer": 12920610,
+    "metadata_and_descriptors": 1068575,
+    "algorithm_state": 14123980,
+    "storage_control_objects": 7568,
+    "owned_pixel_buffer": 6584810,
+    "unattributed_codec": 0
+  },
+  "phase_call_deltas_by_category": {
+    "unattributed_codec": 0,
+    "compressed_buffer": 0,
+    "runtime_or_unattributed": 0,
+    "storage_control_objects": 0,
+    "metadata_and_descriptors": -20,
+    "algorithm_state": 0,
+    "owned_pixel_buffer": 0
+  },
+  "phase_requested_byte_deltas_by_category": {
+    "unattributed_codec": 0,
+    "compressed_buffer": 0,
+    "runtime_or_unattributed": 0,
+    "storage_control_objects": 0,
+    "metadata_and_descriptors": -2560,
+    "algorithm_state": 0,
+    "owned_pixel_buffer": 0
+  },
+  "largest_phase_heap_peak": {
+    "case": "512-3-0-owned",
+    "phase_peak_bytes": 6287007,
+    "baseline_requested_heap_bytes": 3969112,
+    "peak_delta_bytes": 2317895
+  },
+  "same_raw_classifier_transfers": {
+    "phase_calls": 16,
+    "phase_bytes": 5140094
+  },
+  "controls_output": "Marked operation replay controls passed\nWorkspace profile runner controls passed\n",
+  "copy_probe": {
+    "all_samples_within_near": true,
+    "binary_sha256": "e5ad978d9ab40ef91cb070a986dd7f7de8c870e9ef47ae64c81dfed58a928847",
+    "injected_exact_source_capacity_rows": 10,
+    "limitation": "Linux ordinary release memcpy/memmove reads from the retained pixel owner during the actual scoped encoder borrow. Inlined copies are not intercepted; allocation mutation and source review are separate evidence.",
+    "normal_zero_source_copy_rows": 10,
+    "paired_case_modes": 10,
+    "raw_stdout_sha256": "5267858ea456246795cd880d6ef821eb17e5bc5efed011048d49c63d8dc7617e",
+    "receipt_sha256": "f3b4c85c8e5841b4abdd9f8f1fc1e4986ea1e68b844a9594142dbea59e0f2364",
+    "rows": 20,
+    "self_test": true
+  },
+  "universal_total_unknown": true,
+  "limitations": [
+    "Requested heap bytes omit allocator usable-size overhead, stack, VM mappings and RSS.",
+    "One marked operation per process across the fixed 89 profiles; no universal all-input or concurrent total.",
+    "Category peaks occur at different instants and must not be summed.",
+    "Runtime/unattributed remains explicit; production peakWorkspaceBytes remains nil.",
+    "CopyProbe intercepts ordinary memcpy/memmove reads; it cannot observe inlined copies.",
+    "Apple RSS, physical-device and deferred milestone5 gates are not changed."
+  ]
+}

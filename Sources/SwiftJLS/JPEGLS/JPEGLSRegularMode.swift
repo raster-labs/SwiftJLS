@@ -96,27 +96,48 @@ struct JPEGLSRegularMode: Sendable {
         self.halfRangeLow  = -(self.range / 2)
         self.wrapRange     = near == 0 ? self.range : self.range * ((near << 1) | 1)
 
-        // Build gradient quantisation lookup table for the inner range [-T3, T3].
-        // Values outside this range always map to ±4 (handled by early-exit checks).
+        // Fill the gradient quantisation intervals directly when NEAR < T1;
+        // retain the encoder's existing branch loop for the internal NEAR >= T1 case.
+        // Values outside [-T3, T3] always map to ±4 (handled by early-exit checks).
         let t3 = parameters.threshold3
         let tableSize = 2 * t3 + 1
         self.gradientTableOffset = t3
-        var table = [Int](repeating: 0, count: tableSize)
-        for i in 0..<tableSize {
-            let g = i - t3  // gradient in [−T3, T3]
-            if g < -near {
-                if g <= -parameters.threshold2 { table[i] = -3 }
-                else if g <= -parameters.threshold1 { table[i] = -2 }
-                else { table[i] = -1 }
-            } else if g <= near {
-                table[i] = 0
-            } else {
-                if g < parameters.threshold1 { table[i] = 1 }
-                else if g < parameters.threshold2 { table[i] = 2 }
-                else { table[i] = 3 }
+        let t1 = parameters.threshold1, t2 = parameters.threshold2
+        if near < t1 {
+            self.gradientTable = Array(unsafeUninitializedCapacity: tableSize) { buffer, initializedCount in
+                // Validated parameters prove 1 <= T1 <= T2 <= T3 <= 65535.
+                // With NEAR < T1, these seven adjacent half-open ranges partition
+                // 0..<tableSize exactly, including empty runs for equal thresholds.
+                // Initialise every Int once; no element is read before initialisation.
+                UnsafeMutableBufferPointer(rebasing: buffer[0..<(t3 - t2 + 1)]).initialize(repeating: -3)
+                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t2 + 1)..<(t3 - t1 + 1)]).initialize(repeating: -2)
+                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t1 + 1)..<(t3 - near)]).initialize(repeating: -1)
+                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - near)..<(t3 + near + 1)]).initialize(repeating: 0)
+                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + near + 1)..<(t3 + t1)]).initialize(repeating: 1)
+                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + t1)..<(t3 + t2)]).initialize(repeating: 2)
+                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + t2)..<tableSize]).initialize(repeating: 3)
+                initializedCount = tableSize
             }
+        } else {
+            // Preserve the existing internal constructor's near-first branch
+            // precedence for NEAR >= T1, although public admission rejects it.
+            var table = [Int](repeating: 0, count: tableSize)
+            for i in 0..<tableSize {
+                let g = i - t3  // gradient in [−T3, T3]
+                if g < -near {
+                    if g <= -t2 { table[i] = -3 }
+                    else if g <= -t1 { table[i] = -2 }
+                    else { table[i] = -1 }
+                } else if g <= near {
+                    table[i] = 0
+                } else {
+                    if g < t1 { table[i] = 1 }
+                    else if g < t2 { table[i] = 2 }
+                    else { table[i] = 3 }
+                }
+            }
+            self.gradientTable = table
         }
-        self.gradientTable = table
     }
 
     // MARK: - Gradient Computation

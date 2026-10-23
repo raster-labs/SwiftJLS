@@ -1,0 +1,30 @@
+{
+  "scope": "Read-only inspection of candidate004-source-investigation-correction-receipt.md before publication; neither draft accepted as authority",
+  "rejected_inventory_sha256": "791574c014bdb2fd1bef2fde430a40606d107c0235c2aa901e51c55e58c8a6bb",
+  "findings": [
+    {
+      "id": "C2-literal-key-names",
+      "status": "requires_publisher_correction",
+      "issue": "Correction invents JPEGMetadataKey.ancillaryMarkers/.spiffHeader/.componentMappingTables.",
+      "actual": "Self.isSupportedKey compares JPEGLSMetadata.key, JPEGLSMetadata.spiffKey and JPEGLSMappingTables.key. requiredKeys and entries.keys use allSatisfy(Self.isSupportedKey).",
+      "source": "Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift:164"
+    },
+    {
+      "id": "C4-bounds-semantics",
+      "status": "requires_publisher_correction",
+      "issue": "Correction invents a remaining-count clamp and a local named aligned.",
+      "actual": "alignedWindow() returns bitBuffer &<< (64 &- bitsInBuffer). readUnaryCount obtains window, computes zeros = min(window.leadingZeroBitCount, bitsInBuffer), then rejects zeros > maximum - count. It does not clamp zeros to remaining maximum.",
+      "sources": ["Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift:206", "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift:267"]
+    },
+    {
+      "id": "C5-diagnostic-dimensions",
+      "status": "requires_publisher_correction",
+      "issue": "Correction gives 72 rounds x4 fixtures x6 producer executions, though the product is coincidentally1728.",
+      "actual": "72 rounds x6 cases x4 arms =1728 processes, as frozen and independently verified.",
+      "evidence": "diag72-002-independent-results.json"
+    }
+  ],
+  "unchanged_source": true,
+  "repository_edited": false,
+  "limitations": "This receipt records defects in a draft at inspection time. Recheck the final published correction and documents rather than assuming the writer has fixed them. No performance rerun or full archive validation was performed."
+}

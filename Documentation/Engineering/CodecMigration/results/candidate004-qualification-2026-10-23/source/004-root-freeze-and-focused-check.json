@@ -1,0 +1,29 @@
+{
+  "verified_source_and_test_files": 69,
+  "candidate_benchmark_sha256": "bd171975e50f6b3557df7b5fda39ce431f8b4098ee163f40b2db1ca65fa142ad",
+  "command": [
+    "swift",
+    "test",
+    "--skip-build",
+    "--build-system",
+    "swiftbuild",
+    "--jobs",
+    "4",
+    "--scratch-path",
+    "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_003/focused-test-build/focused_release",
+    "--disable-xctest",
+    "--xunit-output",
+    "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/004-independent-focused.xml",
+    "-Xswiftc",
+    "-load-plugin-library",
+    "-Xswiftc",
+    "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+    "-c",
+    "release",
+    "--filter",
+    "GradientTableTests|MappingMetadataTests|OwnedAdmissionTests"
+  ],
+  "exit_code": 0,
+  "testcases": 19,
+  "failures": 0
+}

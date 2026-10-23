@@ -1,0 +1,79 @@
+{
+  "source": "Sources/SwiftJLS/ImageStorage.swift",
+  "source_sha256": "f92233461c055b57f25402829e2f3fdff4fe6748b24952b100508a57fd308fe2",
+  "lines": [
+    65,
+    72
+  ],
+  "source_text": "    private init(reservedByteCount byteCount: Int, allocationID: UUID, lease: StorageWriteLease) {\n        self.byteCount = byteCount; self.allocationID = allocationID\n        self.state = Mutex(State(\n            bytes: [UInt8](repeating: 0, count: byteCount),\n            phase: .writing,\n            lease: lease\n        ))\n    }",
+  "failed_case": "17-3-0-owned",
+  "observed_bytes": 1766,
+  "payload_bytes": 1734,
+  "array_header_bytes_in_observed_ABI": 32,
+  "actual_stack": {
+    "category": "storage_control_objects",
+    "frames": [
+      "swift_slowAlloc",
+      "swift_allocObject",
+      "Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>",
+      "generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)",
+      "generic specialization <Swift.UInt8> of Swift.Array.init(repeating: A, count: Swift.Int) -> [A]",
+      "SwiftJLS.OwnedImageStorage.(in _E3A3FF9B1E0185F10C196E0592093825).init(reservedByteCount: Swift.Int, allocationID: FoundationEssentials.UUID, lease: SwiftJLS.StorageWriteLease) -> SwiftJLS.OwnedImageStorage",
+      "SwiftJLS.OwnedImageStorage.__allocating_init(reservedByteCount: Swift.Int, allocationID: FoundationEssentials.UUID, lease: SwiftJLS.StorageWriteLease) -> SwiftJLS.OwnedImageStorage",
+      "function signature specialization <Arg[2] = Dead> of static SwiftJLS.OwnedImageStorage.allocateReserved(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits) throws -> (storage: SwiftJLS.OwnedImageStorage, lease: SwiftJLS.StorageWriteLease)",
+      "static SwiftJLS.OwnedImageStorage.allocateReserved(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits) throws -> (storage: SwiftJLS.OwnedImageStorage, lease: SwiftJLS.StorageWriteLease)",
+      "static SwiftJLS.ImageDestination.allocate(admittedDescriptor: SwiftJLS.ImageDescriptor, limits: SwiftJLS.ResourceLimits) throws -> SwiftJLS.ImageDestination",
+      "function signature specialization <Arg[2] = Dead> of static SwiftJLS.ImageDestination.allocate(descriptor: SwiftJLS.ImageDescriptor, limits: SwiftJLS.ResourceLimits) throws -> SwiftJLS.ImageDestination",
+      "static SwiftJLS.ImageDestination.allocate(descriptor: SwiftJLS.ImageDescriptor, limits: SwiftJLS.ResourceLimits) throws -> SwiftJLS.ImageDestination",
+      "static SwiftJLS.ComponentCodec.decode(_: FoundationEssentials.Data, header: SwiftJLS.JPEGLSHeader, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, budget: SwiftJLS.CodecBudget, hpInterpretation: SwiftJLS.CodecOptions.HPInterpretation) throws -> SwiftJLS.DecodedImage",
+      "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+      "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+      "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+      "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+      "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+      "swift_job_run",
+      "_dispatch_continuation_pop",
+      "_dispatch_async_redirect_invoke",
+      "_dispatch_worker_thread"
+    ],
+    "allocation_calls": 1,
+    "allocated_bytes": 1766,
+    "requested_size_counts": {
+      "1766": 1
+    }
+  },
+  "minimal_patch_sha256": "47d8bd67e4b2d7a6939b7dfde30e60266cf332880c769d5d1d809ce8e1a14581",
+  "self_test_receipt_sha256": "f3f04455e6b8745692b984471267e18dfe6eb1883a91ac93d904e4bcf79d4f9a",
+  "fresh_matrix_transferred_pixel_allocations": {
+    "phase_bytes": 5140094,
+    "phase_calls": 16
+  },
+  "removed_encode_allocation": {
+    "category": "metadata_and_descriptors",
+    "frames": [
+      "swift_slowAlloc",
+      "swift_allocObject",
+      "static Swift._SetStorage.allocate(scale: Swift.Int8, age: Swift.Int32?, seed: Swift.Int?) -> Swift._SetStorage<A>",
+      "function signature specialization <Arg[0] = Owned To Guaranteed> of generic specialization <Swift.String> of Swift.Set.init(_nonEmptyArrayLiteral: [A]) -> Swift.Set<A>",
+      "generic specialization <Swift.String> of Swift.Set.init(_nonEmptyArrayLiteral: [A]) -> Swift.Set<A>",
+      "generic specialization <Swift.String> of Swift.Set.init(arrayLiteral: A...) -> Swift.Set<A>",
+      "function signature specialization <Arg[3] = Dead> of SwiftJLS.JPEGMetadataEncoding.init(_: SwiftJLS.Image, options: SwiftJLS.EncodeOptions, additionalBytes: Swift.Int) throws -> SwiftJLS.JPEGMetadataEncoding",
+      "closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ScalarCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+      "generic specialization <SwiftJLS.EncodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+      "static SwiftJLS.ScalarCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+      "(1) suspend resume partial function for SwiftJLS.Encoder.encode(_: SwiftJLS.Image, options: SwiftJLS.EncodeOptions) async throws -> SwiftJLS.EncodedImage",
+      "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+      "swift_job_run",
+      "_dispatch_continuation_pop",
+      "_dispatch_async_redirect_invoke",
+      "_dispatch_worker_thread"
+    ],
+    "allocation_calls": 1,
+    "allocated_bytes": 128,
+    "requested_size_counts": {
+      "128": 1
+    }
+  },
+  "removed_encode_allocation_baseline_report_sha256": "fb846c1db8a1df3cb26c99a99c0a9975d93acd7f17a295435a09630a8fa71ded",
+  "new_rule_scope": "Exact immediate seven-frame allocator/UInt8-array/private-reserved-constructor chain. Other caller/allocator/element/constructor/size patterns cannot enter this rule. This is method repair, not a production/binary modification."
+}

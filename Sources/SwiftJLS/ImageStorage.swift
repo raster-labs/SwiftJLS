@@ -62,6 +62,38 @@ public final class OwnedImageStorage: WritableImageStorage, Sendable {
         self.state = Mutex(State(bytes: [UInt8](repeating: 0, count: byteCount)))
     }
 
+    private init(reservedByteCount byteCount: Int, allocationID: UUID, lease: StorageWriteLease) {
+        self.byteCount = byteCount; self.allocationID = allocationID
+        self.state = Mutex(State(
+            bytes: [UInt8](repeating: 0, count: byteCount),
+            phase: .writing,
+            lease: lease
+        ))
+    }
+
+    // Internal fresh-reserved constructor for `ImageDestination.allocate`.
+    // Preserves pre-allocation cancellation and byteCount limit checks, creates
+    // fresh allocation and lease UUIDs, and initialises the private state in
+    // `.writing` before the storage reference can escape to any caller.
+    static func allocateReserved(
+        byteCount: Int,
+        limits: ResourceLimits
+    ) throws -> (storage: OwnedImageStorage, lease: StorageWriteLease) {
+        try Task.checkCancellation()
+        guard byteCount > 0 else { throw CodecError(.invalidArgument, "Storage capacity must be positive.") }
+        guard byteCount <= limits.maximumDecodedBytes, byteCount <= limits.maximumMemoryBytes else {
+            throw CodecError(.resourceLimitExceeded, "Storage allocation exceeds the admission budget.")
+        }
+        let allocationID = UUID()
+        let lease = StorageWriteLease()
+        let storage = OwnedImageStorage(
+            reservedByteCount: byteCount,
+            allocationID: allocationID,
+            lease: lease
+        )
+        return (storage, lease)
+    }
+
     public func reserveWrite() throws -> StorageWriteLease {
         try locked { state in
             guard state.phase == .available else {

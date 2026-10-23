@@ -1,0 +1,18 @@
+{
+  "decision": "accepted_for_bounded_diagnostic",
+  "user_confirmation": "Other builds/tests paused; continue",
+  "runner_sha256": "13a1894a68c414bc1b142ad8823b0f5f6712d23371ba64caea00b355c82030db",
+  "preflight_sha256": "954ae4a4b5dc6c86712ab54fe8ba051a59bfe2ef22d84ad0f104a507f6cc6f45",
+  "limits": "Resident desktop services, booted but inactive simulators and shared Colima retained; not a completely idle host. Endpoint CPU deltas do not capture exited processes. Extra docker stats retained; new HRM database exists, so preflight multi-day-only wording is inaccurate. A/A diagnostic is descriptive and cannot waive final48 endpoint gate.",
+  "scheduled_processes": 1728,
+  "source_and_scripts_frozen": true,
+  "docker_stats_command": [
+    "/Users/pushparaj/.local/bin/docker",
+    "--context",
+    "colima",
+    "stats",
+    "--no-stream",
+    "--format",
+    "{{json .}}"
+  ]
+}

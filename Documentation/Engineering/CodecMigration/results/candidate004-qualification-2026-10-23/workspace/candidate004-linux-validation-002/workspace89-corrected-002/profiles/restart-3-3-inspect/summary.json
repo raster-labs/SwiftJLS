@@ -1,0 +1,48 @@
+{
+  "tool": "heaptrack 1.5.0",
+  "binary_sha256": "805c3545c1a96303bfb4081a64ec5dbebffacdbe3dba52a7d5b816d6d7b79597",
+  "profile": "allocations.gz",
+  "profile_sha256": "8a5d07eb55dfd66e78e9a2cdf47a2d17b53fb6472dda8ffb673889396e61fbbf",
+  "build": "Swift release with debug symbols, no sanitizers",
+  "scope": "One marked operation; setup retained and verification after the end marker",
+  "commands": [
+    {
+      "command": [
+        "heaptrack",
+        "--version"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "heaptrack",
+        "-o",
+        "/evidence/profiles/restart-3-3-inspect/allocations",
+        "/original/WorkspaceProbe",
+        "inspect",
+        "257",
+        "129",
+        "3",
+        "3",
+        "restart"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "heaptrack_print",
+        "-f",
+        "/evidence/profiles/restart-3-3-inspect/allocations.gz",
+        "-n",
+        "1000",
+        "-s",
+        "1000",
+        "-H",
+        "/evidence/profiles/restart-3-3-inspect/sizes.tsv",
+        "-F",
+        "/evidence/profiles/restart-3-3-inspect/allocation-stacks.txt"
+      ],
+      "exit_code": 0
+    }
+  ]
+}

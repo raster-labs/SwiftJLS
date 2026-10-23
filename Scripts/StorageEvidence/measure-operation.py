@@ -81,6 +81,20 @@ def classify(frames, size=None):
     ]
     if frames[:6] == owned_factory_pixel_stack:
         return 'owned_pixel_buffer'
+    # Candidate004's private reserved-storage initializer constructs exactly
+    # one UInt8 pixel array (ImageStorage.swift:65-72). The private symbol's
+    # disambiguator changes independently of its semantics. Require the exact
+    # allocator/UInt8-array/private-constructor/allocating-constructor prefix;
+    # an OwnedImageStorage caller elsewhere in a stack is insufficient.
+    reserved_pixel_constructor = (
+        r'SwiftJLS\.OwnedImageStorage\.\(in _[0-9A-Fa-f]+\)\.init\('
+        r'reservedByteCount: Swift\.Int, allocationID: FoundationEssentials\.UUID, '
+        r'lease: SwiftJLS\.StorageWriteLease\) -> SwiftJLS\.OwnedImageStorage')
+    if (size is not None and size > 32 and len(frames) >= 7
+            and frames[:5] == owned_factory_pixel_stack[:5]
+            and re.fullmatch(reserved_pixel_constructor, frames[5])
+            and frames[6] == 'SwiftJLS.OwnedImageStorage.__allocating_init(reservedByteCount: Swift.Int, allocationID: FoundationEssentials.UUID, lease: SwiftJLS.StorageWriteLease) -> SwiftJLS.OwnedImageStorage'):
+        return 'owned_pixel_buffer'
     # The directly allocated JPEGLSBitstreamReader object in ScalarCodec.decode
     # is six 64-bit words plus the 16-byte object header (64 requested bytes).
     # Classify only requested size 64 with the exact 3-frame immediate
@@ -416,6 +430,28 @@ def self_test():
     assert classify(owned_factory_stack[:5] + ['SwiftJLS.Other.allocate'] + owned_factory_stack[5:], 610) == 'unattributed_codec'
     assert classify([f.replace('<Swift.UInt8>', '<Swift.Int>') for f in owned_factory_stack], 610) == 'unattributed_codec'
     assert classify(owned_factory_stack[:5] + ['closure #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in ' + owned_factory_stack[5]], 610) == 'unattributed_codec'
+    reserved_pixel_stack = owned_factory_stack[:5] + [
+        'SwiftJLS.OwnedImageStorage.(in _E3A3FF9B1E0185F10C196E0592093825).init(reservedByteCount: Swift.Int, allocationID: FoundationEssentials.UUID, lease: SwiftJLS.StorageWriteLease) -> SwiftJLS.OwnedImageStorage',
+        'SwiftJLS.OwnedImageStorage.__allocating_init(reservedByteCount: Swift.Int, allocationID: FoundationEssentials.UUID, lease: SwiftJLS.StorageWriteLease) -> SwiftJLS.OwnedImageStorage',
+    ]
+    for requested in [33, 1766, 1572896]:
+        assert classify(reserved_pixel_stack, requested) == 'owned_pixel_buffer'
+    assert classify([f.replace('_E3A3FF9B1E0185F10C196E0592093825', '_ABC123') for f in reserved_pixel_stack], 1766) == 'owned_pixel_buffer'
+    for requested in [None, 0, 16, 32]:
+        assert classify(reserved_pixel_stack, requested) != 'owned_pixel_buffer'
+    for invalid in [
+        ['malloc'] + reserved_pixel_stack[1:],
+        [reserved_pixel_stack[0], 'malloc'] + reserved_pixel_stack[2:],
+        [f.replace('<Swift.UInt8>', '<Swift.Int>') for f in reserved_pixel_stack],
+        reserved_pixel_stack[:3] + ['SwiftJLS.Other.allocate'] + reserved_pixel_stack[3:],
+        reserved_pixel_stack[:5] + ['SwiftJLS.Other.allocate'] + reserved_pixel_stack[5:],
+        reserved_pixel_stack[:6] + ['SwiftJLS.Other.allocate'] + reserved_pixel_stack[6:],
+        [f.replace('reservedByteCount:', 'capacity:') for f in reserved_pixel_stack],
+        reserved_pixel_stack[:5] + [reserved_pixel_stack[5].replace('lease:', 'unrelated:')] + reserved_pixel_stack[6:],
+        reserved_pixel_stack[:6] + [reserved_pixel_stack[6].replace('allocationID:', 'otherID:')],
+        reserved_pixel_stack[:6],
+    ]:
+        assert classify(invalid, 1766) != 'owned_pixel_buffer'
     reader_object_stack = prefix + [
         'SwiftJLS.JPEGLSBitstreamReader.__allocating_init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader',
     ]

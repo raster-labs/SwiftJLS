@@ -1,0 +1,23 @@
+[
+  {
+    "label": "boot",
+    "command": [
+      "xcrun",
+      "simctl",
+      "boot",
+      "9021546C-CD90-4663-A01B-B4E92851C3DF"
+    ],
+    "exit_code": 0
+  },
+  {
+    "label": "state",
+    "command": [
+      "xcrun",
+      "simctl",
+      "list",
+      "devices",
+      "--json"
+    ],
+    "exit_code": 0
+  }
+]

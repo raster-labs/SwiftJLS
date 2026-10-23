@@ -1,0 +1,37 @@
+[
+  {
+    "command": [
+      "heaptrack",
+      "--version"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack",
+      "-o",
+      "/evidence/profiles/subsampled-zero-n0-into/allocations",
+      "/original/WorkspaceProbe",
+      "into",
+      "--fixture",
+      "Tests/SwiftJLSTests/Fixtures/subsampled-zero-n0.jls"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack_print",
+      "-f",
+      "/evidence/profiles/subsampled-zero-n0-into/allocations.gz",
+      "-n",
+      "1000",
+      "-s",
+      "1000",
+      "-H",
+      "/evidence/profiles/subsampled-zero-n0-into/sizes.tsv",
+      "-F",
+      "/evidence/profiles/subsampled-zero-n0-into/allocation-stacks.txt"
+    ],
+    "exit_code": 0
+  }
+]

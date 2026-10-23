@@ -1,0 +1,37 @@
+[
+  {
+    "command": [
+      "heaptrack",
+      "--version"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack",
+      "-o",
+      "/evidence/profiles/extended-p12-65537x2-inspect/allocations",
+      "/original/WorkspaceProbe",
+      "inspect",
+      "--fixture",
+      "Tests/SwiftJLSTests/Fixtures/extended-p12-65537x2.jls"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack_print",
+      "-f",
+      "/evidence/profiles/extended-p12-65537x2-inspect/allocations.gz",
+      "-n",
+      "1000",
+      "-s",
+      "1000",
+      "-H",
+      "/evidence/profiles/extended-p12-65537x2-inspect/sizes.tsv",
+      "-F",
+      "/evidence/profiles/extended-p12-65537x2-inspect/allocation-stacks.txt"
+    ],
+    "exit_code": 0
+  }
+]

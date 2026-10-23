@@ -1,0 +1,477 @@
+{
+  "redacted_public_derivative": true,
+  "local_original_sha256": "74ad184ba654283f1cf23d3bb30cbe2a14de8fba320a85949c55251a0839060d",
+  "local_original_bytes": 28794,
+  "redaction_note": "Unrelated host process/container arguments omitted for public repository safety; original raw record retained locally.",
+  "completed": false,
+  "error": "RuntimeError(\"Identified interfering compile/test/profiler/VM/simulator workload active: [{'rule': 'command_pattern:ng_test_runner', 'pattern': '(?:^|[\\\\\\\\s/])ng\\\\\\\\s+test(?:\\\\\\\\s|$)', 'pid': 73781, 'exe_name': 'zsh', 'ps_cpu_percent': 1.2, 'comm': 'zsh', 'full_command': '<redacted in public derivative: unrelated process arguments omitted; original retained locally>'}]; partial evidence retained\")",
+  "completed_processes": 216,
+  "current": {
+    "entry": {
+      "block": 11,
+      "position": 5,
+      "case": {
+        "id": "p16-noise",
+        "width": 37,
+        "height": 23,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 1851
+      },
+      "permutation_index": 0,
+      "order": [
+        "pinned",
+        "three_change",
+        "candidate"
+      ]
+    },
+    "producer": "candidate",
+    "command": [
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_003/binaries/Benchmark-candidate_003-bd171975e50f",
+      "37",
+      "23",
+      "16",
+      "noise",
+      "5",
+      "5",
+      "candidate"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"bits\":16,\"components\":1,\"copy_bytes\":null,\"decode_seconds\":[2.2499996703118086e-05,2.1458312403410673e-05,2.0708306692540646e-05,2.2124993847683072e-05,2.0333332940936089e-05],\"encode_seconds\":[1.9583327230066061e-05,1.966665149666369e-05,1.9625003915280104e-05,1.9541650544852018e-05,1.9375002011656761e-05],\"encoded_bytes\":1851,\"end_to_end\":true,\"height\":23,\"interleave\":0,\"iterations\":5,\"label\":\"candidate\",\"near\":0,\"pattern\":\"noise\",\"peak_process_rss_bytes\":7143424,\"pixel_allocations\":null,\"prepare_encode_seconds\":[2.2791646188125014e-05,2.2499996703118086e-05,2.3666652850806713e-05,2.2374995751306415e-05,2.2708321921527386e-05],\"prepare_seconds\":[2.7916394174098969e-06,2.6666675694286823e-06,4.1666498873382807e-06,2.7083151508122683e-06,2.6249908842146397e-06],\"resource_profile\":\"successor-workspace-1GiB-memory-2GiB-v1\",\"warmups\":5,\"width\":37,\"workspace_peak_bytes\":null}\n",
+    "stderr": "",
+    "started_utc": "2026-10-23T10:02:12.892412+00:00",
+    "completed_utc": "2026-10-23T10:02:12.901367+00:00",
+    "process_seconds": 0.00895062499330379
+  },
+  "utc": "2026-10-23T10:02:13.080776+00:00",
+  "conditions": {
+    "utc": "2026-10-23T10:02:13.238674+00:00",
+    "power": {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; finishing charge; 0:00 remaining present: true\n",
+      "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; finishing charge; 0:00 remaining present: true\n",
+      "stderr": ""
+    },
+    "thermal": {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stderr": ""
+    },
+    "load": {
+      "command": [
+        "sysctl",
+        "-n",
+        "vm.loadavg"
+      ],
+      "exit_code": 0,
+      "output": "{ 2.94 3.51 3.84 }\n",
+      "stdout": "{ 2.94 3.51 3.84 }\n",
+      "stderr": ""
+    },
+    "summed_cpu_percent": 250.6,
+    "processes_above_10_percent": [
+      {
+        "pid": 413,
+        "exe_name": "WindowServer",
+        "cpu": 51.6,
+        "cputime": "1247:12.34",
+        "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+        "full_command": "<redacted in public derivative: executable=/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; unrelated process arguments omitted; original retained locally>"
+      },
+      {
+        "pid": 987,
+        "exe_name": "com.apple.Virtualization.VirtualMachine",
+        "cpu": 39.4,
+        "cputime": "556:26.90",
+        "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+        "full_command": "<redacted in public derivative: executable=/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine; unrelated process arguments omitted; original retained locally>"
+      },
+      {
+        "pid": 64085,
+        "exe_name": "TimeChamp.Tracker.MacOS",
+        "cpu": 10.5,
+        "cputime": "29:36.02",
+        "comm": "/Applications/.Svcvtt.app/Contents/MacOS/TimeChamp.Tracker.MacOS",
+        "full_command": "<redacted in public derivative: executable=/Applications/.Svcvtt.app/Contents/MacOS/TimeChamp.Tracker.MacOS; unrelated process arguments omitted; original retained locally>"
+      },
+      {
+        "pid": 73487,
+        "exe_name": "python3",
+        "cpu": 18.6,
+        "cputime": "0:00.71",
+        "comm": "/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "full_command": "<redacted in public derivative: executable=/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3; unrelated process arguments omitted; original retained locally>"
+      },
+      {
+        "pid": 73783,
+        "exe_name": "npm",
+        "cpu": 13.9,
+        "cputime": "0:00.08",
+        "comm": "npm run check",
+        "full_command": "<redacted in public derivative: executable=npm run check; unrelated process arguments omitted; original retained locally>"
+      }
+    ],
+    "interfering_process_names_guarded": [
+      "swift-frontend",
+      "swift-build",
+      "swift-test",
+      "swift-package",
+      "swiftc",
+      "swiftbuild",
+      "SWBBuildService",
+      "xcbbuildService",
+      "xcodebuild",
+      "xctest",
+      "SwiftJLSTests",
+      "WorkspaceProbe",
+      "CopyProbe",
+      "MemDiagRelief",
+      "MemDiagVMMap",
+      "AppleRuntimeConsumer",
+      "AppleResourceConsumer",
+      "IndependentConsumer",
+      "CrossCodecConsumer",
+      "ResourceStress",
+      "InteropConsumer",
+      "charls_interop_driver",
+      "charls_mapping_driver",
+      "heaptrack",
+      "heaptrack_print",
+      "sample",
+      "instruments",
+      "xctrace",
+      "leaks",
+      "vmmap",
+      "tart",
+      "qemu-system-aarch64",
+      "clang",
+      "clang++",
+      "ld",
+      "dsymutil",
+      "llvm-profdata",
+      "llvm-cov",
+      "simctl",
+      "karma",
+      "vitest",
+      "jest",
+      "playwright",
+      "cypress",
+      "pytest",
+      "chromedriver"
+    ],
+    "interfering_command_patterns_guarded": [
+      "ng_test_runner",
+      "chromium_headless_worker",
+      "browser_headless_flag",
+      "js_test_runner",
+      "package_manager_test",
+      "lang_test_runner",
+      "simctl_active_command"
+    ],
+    "simulator_inventory": {
+      "process_count": 0,
+      "summed_ps_cpu_percent": 0.0,
+      "summed_window_instantaneous_cpu_percent": 0.0,
+      "quiescent_booted_simulator": true,
+      "simmetalhost_processes": [],
+      "top_runtime_root_processes": [],
+      "interfering_matches": []
+    },
+    "colima_vm_inventory": {
+      "vm_process_count": 1,
+      "vm_processes": [
+        {
+          "pid": 987,
+          "exe_name": "com.apple.Virtualization.VirtualMachine",
+          "ps_cpu_percent": 39.4,
+          "cputime": "556:26.90",
+          "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine"
+        }
+      ],
+      "limactl_colima_hostagents": [
+        {
+          "pid": 969,
+          "exe_name": "limactl",
+          "ps_cpu_percent": 0.1,
+          "cputime": "7:39.47",
+          "full_command": "<redacted in public derivative: executable=/Users/pushparaj/.local/bin/limactl; unrelated process arguments omitted; original retained locally>"
+        },
+        {
+          "pid": 974,
+          "exe_name": "limactl",
+          "ps_cpu_percent": 0.0,
+          "cputime": "0:39.81",
+          "full_command": "<redacted in public derivative: executable=/Users/pushparaj/.local/bin/limactl; unrelated process arguments omitted; original retained locally>"
+        }
+      ],
+      "running_containers": [
+        {
+          "Command": "<redacted in public derivative: container Command omitted>",
+          "CreatedAt": "2026-10-17 19:07:46 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "5ea299d54b09",
+          "Image": "raster/one-frontend:dev",
+          "Labels": "<redacted in public derivative: container Labels omitted>",
+          "LocalVolumes": "0",
+          "Mounts": "<redacted in public derivative: container Mounts omitted>",
+          "Names": "<redacted in public derivative: container Names omitted>",
+          "Networks": "<redacted in public derivative: container Networks omitted>",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux"
+          },
+          "Ports": "<redacted in public derivative: container Ports omitted>",
+          "RunningFor": "5 days ago",
+          "Size": "65.5kB (virtual 58.3MB)",
+          "State": "running",
+          "Status": "Up 2 days (healthy)"
+        },
+        {
+          "Command": "<redacted in public derivative: container Command omitted>",
+          "CreatedAt": "2026-10-17 12:13:26 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "5930bc4aec00",
+          "Image": "raster/one-erp:dev",
+          "Labels": "<redacted in public derivative: container Labels omitted>",
+          "LocalVolumes": "0",
+          "Mounts": "<redacted in public derivative: container Mounts omitted>",
+          "Names": "<redacted in public derivative: container Names omitted>",
+          "Networks": "<redacted in public derivative: container Networks omitted>",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux"
+          },
+          "Ports": "<redacted in public derivative: container Ports omitted>",
+          "RunningFor": "6 days ago",
+          "Size": "242kB (virtual 406MB)",
+          "State": "running",
+          "Status": "Up 2 days (healthy)"
+        },
+        {
+          "Command": "<redacted in public derivative: container Command omitted>",
+          "CreatedAt": "2026-10-15 10:50:15 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "cf24bc615571",
+          "Image": "raster/one-kernel:dev",
+          "Labels": "<redacted in public derivative: container Labels omitted>",
+          "LocalVolumes": "0",
+          "Mounts": "<redacted in public derivative: container Mounts omitted>",
+          "Names": "<redacted in public derivative: container Names omitted>",
+          "Networks": "<redacted in public derivative: container Networks omitted>",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux"
+          },
+          "Ports": "<redacted in public derivative: container Ports omitted>",
+          "RunningFor": "8 days ago",
+          "Size": "242kB (virtual 427MB)",
+          "State": "running",
+          "Status": "Up 2 days (healthy)"
+        },
+        {
+          "Command": "<redacted in public derivative: container Command omitted>",
+          "CreatedAt": "2026-10-15 10:50:14 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "fb2044464f91",
+          "Image": "raster/one-studio:dev",
+          "Labels": "<redacted in public derivative: container Labels omitted>",
+          "LocalVolumes": "0",
+          "Mounts": "<redacted in public derivative: container Mounts omitted>",
+          "Names": "<redacted in public derivative: container Names omitted>",
+          "Networks": "<redacted in public derivative: container Networks omitted>",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux"
+          },
+          "Ports": "<redacted in public derivative: container Ports omitted>",
+          "RunningFor": "8 days ago",
+          "Size": "143kB (virtual 396MB)",
+          "State": "running",
+          "Status": "Up 2 days (healthy)"
+        },
+        {
+          "Command": "<redacted in public derivative: container Command omitted>",
+          "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "269d55cfa5af",
+          "Image": "postgres:16-alpine",
+          "Labels": "<redacted in public derivative: container Labels omitted>",
+          "LocalVolumes": "1",
+          "Mounts": "<redacted in public derivative: container Mounts omitted>",
+          "Names": "<redacted in public derivative: container Names omitted>",
+          "Networks": "<redacted in public derivative: container Networks omitted>",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "<redacted in public derivative: container Ports omitted>",
+          "RunningFor": "8 days ago",
+          "Size": "20.5kB (virtual 297MB)",
+          "State": "running",
+          "Status": "Up 2 days (healthy)"
+        },
+        {
+          "Command": "<redacted in public derivative: container Command omitted>",
+          "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "9655b95a4e23",
+          "Image": "rabbitmq:3.13-management-alpine",
+          "Labels": "<redacted in public derivative: container Labels omitted>",
+          "LocalVolumes": "1",
+          "Mounts": "<redacted in public derivative: container Mounts omitted>",
+          "Names": "<redacted in public derivative: container Names omitted>",
+          "Networks": "<redacted in public derivative: container Networks omitted>",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "<redacted in public derivative: container Ports omitted>",
+          "RunningFor": "8 days ago",
+          "Size": "4.1kB (virtual 191MB)",
+          "State": "running",
+          "Status": "Up 2 days (healthy)"
+        },
+        {
+          "Command": "<redacted in public derivative: container Command omitted>",
+          "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "1bca90e3d2e8",
+          "Image": "redis:7-alpine",
+          "Labels": "<redacted in public derivative: container Labels omitted>",
+          "LocalVolumes": "1",
+          "Mounts": "<redacted in public derivative: container Mounts omitted>",
+          "Names": "<redacted in public derivative: container Names omitted>",
+          "Networks": "<redacted in public derivative: container Networks omitted>",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "<redacted in public derivative: container Ports omitted>",
+          "RunningFor": "8 days ago",
+          "Size": "4.1kB (virtual 41.5MB)",
+          "State": "running",
+          "Status": "Up 2 days (healthy)"
+        },
+        {
+          "Command": "<redacted in public derivative: container Command omitted>",
+          "CreatedAt": "2026-10-10 11:48:26 +0530 IST",
+          "HealthStatus": "none",
+          "ID": "8c3f3f59c647",
+          "Image": "caddy:2",
+          "Labels": "<redacted in public derivative: container Labels omitted>",
+          "LocalVolumes": "0",
+          "Mounts": "<redacted in public derivative: container Mounts omitted>",
+          "Names": "<redacted in public derivative: container Names omitted>",
+          "Networks": "<redacted in public derivative: container Networks omitted>",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "<redacted in public derivative: container Ports omitted>",
+          "RunningFor": "13 days ago",
+          "Size": "49.2kB (virtual 61.9MB)",
+          "State": "running",
+          "Status": "Up 2 days"
+        },
+        {
+          "Command": "<redacted in public derivative: container Command omitted>",
+          "CreatedAt": "2026-08-27 18:43:46 +0530 IST",
+          "HealthStatus": "none",
+          "ID": "4b02c30d17f7",
+          "Image": "mysql:8.0",
+          "Labels": "<redacted in public derivative: container Labels omitted>",
+          "LocalVolumes": "1",
+          "Mounts": "<redacted in public derivative: container Mounts omitted>",
+          "Names": "<redacted in public derivative: container Names omitted>",
+          "Networks": "<redacted in public derivative: container Networks omitted>",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "<redacted in public derivative: container Ports omitted>",
+          "RunningFor": "8 weeks ago",
+          "Size": "32.8kB (virtual 848MB)",
+          "State": "running",
+          "Status": "Up 2 days"
+        },
+        {
+          "Command": "<redacted in public derivative: container Command omitted>",
+          "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+          "HealthStatus": "none",
+          "ID": "ab25fd93708d",
+          "Image": "postgres:15-alpine",
+          "Labels": "<redacted in public derivative: container Labels omitted>",
+          "LocalVolumes": "1",
+          "Mounts": "<redacted in public derivative: container Mounts omitted>",
+          "Names": "<redacted in public derivative: container Names omitted>",
+          "Networks": "<redacted in public derivative: container Networks omitted>",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "<redacted in public derivative: container Ports omitted>",
+          "RunningFor": "2 months ago",
+          "Size": "28.7kB (virtual 295MB)",
+          "State": "running",
+          "Status": "Up 2 days"
+        },
+        {
+          "Command": "<redacted in public derivative: container Command omitted>",
+          "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+          "HealthStatus": "none",
+          "ID": "c1cfb710c4f1",
+          "Image": "redis:alpine",
+          "Labels": "<redacted in public derivative: container Labels omitted>",
+          "LocalVolumes": "0",
+          "Mounts": "<redacted in public derivative: container Mounts omitted>",
+          "Names": "<redacted in public derivative: container Names omitted>",
+          "Networks": "<redacted in public derivative: container Networks omitted>",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "<redacted in public derivative: container Ports omitted>",
+          "RunningFor": "2 months ago",
+          "Size": "12.3kB (virtual 120MB)",
+          "State": "running",
+          "Status": "Up 2 days"
+        }
+      ],
+      "quiescent_shared_colima_vm": true,
+      "quiescent_shared_vm_exception_note": "PID 987 is the resident shared Colima Virtualization.Framework VM hosting only the persistent multi-day shared dev stack; never killed per host policy.",
+      "interfering_matches": []
+    },
+    "interfering_workload_matches": [
+      {
+        "rule": "command_pattern:ng_test_runner",
+        "pattern": "(?:^|[\\s/])ng\\s+test(?:\\s|$)",
+        "pid": 73781,
+        "exe_name": "zsh",
+        "ps_cpu_percent": 0.7,
+        "comm": "zsh",
+        "full_command": "<redacted in public derivative: executable=zsh; unrelated process arguments omitted; original retained locally>"
+      }
+    ]
+  }
+}

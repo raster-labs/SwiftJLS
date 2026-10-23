@@ -391,4 +391,48 @@ struct OwnedAdmissionTests {
         #expect(retriedCombined.image.storage.allocationID == suppliedCombined.storage.allocationID)
         #expect(retriedCombined.image.metadata == ImageMetadata.empty)
     }
+
+    @Test func allocatedDestinationExposesReservedStorageAndEnforcesAllLeaseGuards() throws {
+        let descriptor = try ImageDescriptor.greyscale16(width: 2, height: 2, meaningfulBits: 12)
+        let reservedError = CodecError(.storageUnavailable, "Storage already has a writer or is sealed/invalid.")
+        let leaseError = CodecError(.storageUnavailable, "Write lease is stale, foreign or unavailable.")
+        let reentrantError = CodecError(.storageUnavailable, "A storage borrow is already active.")
+
+        // 1. Freshly allocated destination exposes storage already in `.writing`:
+        // second reservation and forged/foreign leases reject before and during fill.
+        let dest1 = try ImageDestination.allocate(descriptor: descriptor)
+        let storage1 = dest1.storage
+        let forgedLease = StorageWriteLease()
+        #expect(throws: reservedError) { _ = try storage1.reserveWrite() }
+        #expect(throws: leaseError) { try storage1.withUnsafeMutableBytes(lease: forgedLease) { _ in } }
+        #expect(throws: leaseError) { _ = try storage1.finishAndSeal(lease: forgedLease) }
+        #expect(throws: leaseError) { try storage1.abortAndInvalidate(lease: forgedLease) }
+
+        let image1 = try dest1.write { bytes in
+            #expect(bytes.count == 8)
+            #expect(bytes.allSatisfy { $0 == 0 })
+            // Reentrant operations on `storage1` inside the active borrow reject via atomic gate.
+            #expect(throws: reentrantError) { _ = try storage1.reserveWrite() }
+            #expect(throws: reentrantError) { try storage1.withUnsafeMutableBytes(lease: forgedLease) { _ in } }
+            #expect(throws: reentrantError) { _ = try storage1.finishAndSeal(lease: forgedLease) }
+            #expect(throws: reentrantError) { try storage1.abortAndInvalidate(lease: forgedLease) }
+            bytes[0] = 0x34
+            bytes[1] = 0x02
+        }
+        #expect(image1.storage.allocationID == storage1.allocationID)
+        #expect(try image1.sampleUInt16(x: 0, y: 0) == 0x0234)
+        #expect(throws: reservedError) { _ = try storage1.reserveWrite() }
+        #expect(throws: leaseError) { try storage1.withUnsafeMutableBytes(lease: forgedLease) { _ in } }
+
+        // 2. Abandoning an allocated destination invalidates its underlying storage on release.
+        let abandonedStorage: any WritableImageStorage
+        do {
+            let abandoned = try ImageDestination.allocate(descriptor: descriptor)
+            abandonedStorage = abandoned.storage
+            #expect(throws: reservedError) { _ = try abandonedStorage.reserveWrite() }
+        }
+        #expect(throws: reservedError) { _ = try abandonedStorage.reserveWrite() }
+        #expect(throws: leaseError) { try abandonedStorage.withUnsafeMutableBytes(lease: forgedLease) { _ in } }
+        #expect(abandonedStorage.allocationID != storage1.allocationID)
+    }
 }

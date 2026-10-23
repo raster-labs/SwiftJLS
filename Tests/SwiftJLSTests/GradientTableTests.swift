@@ -2,11 +2,11 @@
 import Testing
 @testable import SwiftJLS
 
-@Suite("Decoder gradient table intervals")
+@Suite("Decoder and encoder gradient table intervals")
 struct GradientTableTests {
-    // An independent branch oracle preserves the published quantizer's outer
-    // clamps and historical precedence, including internal NEAR >= T1 inputs.
-    // The candidate instead fills nine constant intervals once at construction.
+    // An independent branch oracle preserves the published decoder quantizer's
+    // outer clamps and historical precedence, including internal NEAR >= T1 inputs.
+    // The decoder fills nine constant intervals once at construction when NEAR < T1.
     private func reference(_ gradient: Int, _ p: JPEGLSPresetParameters, near: Int) -> Int {
         if gradient <= -p.threshold3 { return -4 }
         if gradient >= p.threshold3 { return 4 }
@@ -19,20 +19,46 @@ struct GradientTableTests {
         return 3
     }
 
+    // Independent branch oracle for `JPEGLSRegularMode` (encoder). When NEAR < T1,
+    // the encoder fills seven constant intervals once at construction; when
+    // NEAR >= T1, the encoder's historical near-first branch order is preserved.
+    private func encoderReference(_ gradient: Int, _ p: JPEGLSPresetParameters, near: Int) -> Int {
+        if gradient <= -p.threshold3 { return -4 }
+        if gradient >= p.threshold3 { return 4 }
+        if gradient < -near {
+            if gradient <= -p.threshold2 { return -3 }
+            if gradient <= -p.threshold1 { return -2 }
+            return -1
+        }
+        if gradient <= near { return 0 }
+        if gradient < p.threshold1 { return 1 }
+        if gradient < p.threshold2 { return 2 }
+        return 3
+    }
+
     private func firstMismatch(_ p: JPEGLSPresetParameters, near: Int,
                                gradients: ClosedRange<Int>) throws -> String? {
         let decoder = try JPEGLSRegularModeDecoder(parameters: p, near: near)
+        let encoder = try JPEGLSRegularMode(parameters: p, near: near)
         for gradient in gradients {
             let actual = decoder.quantizeGradient(gradient)
             let expected = reference(gradient, p, near: near)
             if actual != expected {
-                return "T=(\(p.threshold1),\(p.threshold2),\(p.threshold3)), NEAR=\(near), gradient=\(gradient): \(actual) != \(expected)"
+                return "decoder T=(\(p.threshold1),\(p.threshold2),\(p.threshold3)), NEAR=\(near), gradient=\(gradient): \(actual) != \(expected)"
+            }
+            let actualEnc = encoder.quantizeGradient(gradient)
+            let expectedEnc = encoderReference(gradient, p, near: near)
+            if actualEnc != expectedEnc {
+                return "encoder T=(\(p.threshold1),\(p.threshold2),\(p.threshold3)), NEAR=\(near), gradient=\(gradient): \(actualEnc) != \(expectedEnc)"
             }
         }
         // Very large gradients must use the unchanged outer clamps without
         // indexing the table or adding T3 to an extreme signed value.
         if decoder.quantizeGradient(Int.min) != -4 || decoder.quantizeGradient(Int.max) != 4 {
-            return "Extreme gradient did not use its outer clamp."
+            return "Decoder extreme gradient did not use its outer clamp."
+        }
+        if encoder.quantizeGradient(Int.min) != -4 || encoder.quantizeGradient(Int.max) != 4 {
+            return "Encoder extreme gradient did not use its outer clamp."
         }
         return nil
     }
@@ -78,6 +104,30 @@ struct GradientTableTests {
                 threshold1: t1, threshold2: t2, threshold3: t3, reset: 65535)
             let mismatch = try firstMismatch(p, near: near, gradients: -65536...65536)
             #expect(mismatch == nil, "\(mismatch ?? "")")
+        }
+        // Internal NEAR >= T1 fallback: encoder is near-first (0 for |g| <= NEAR),
+        // whereas decoder tests negative thresholds before -NEAR (-2 at -T1, 0 at +T1).
+        let fallbackParams = try JPEGLSPresetParameters(
+            maxValue: 65535, threshold1: 2, threshold2: 5, threshold3: 8, reset: 64
+        )
+        let encFallback = try JPEGLSRegularMode(parameters: fallbackParams, near: 3)
+        let decFallback = try JPEGLSRegularModeDecoder(parameters: fallbackParams, near: 3)
+        #expect(encFallback.quantizeGradient(-2) == 0 && encFallback.quantizeGradient(2) == 0)
+        #expect(decFallback.quantizeGradient(-2) == -2 && decFallback.quantizeGradient(2) == 0)
+
+        for badNear in [-1, 256] {
+            do {
+                _ = try JPEGLSRegularMode(parameters: fallbackParams, near: badNear)
+                Issue.record("Expected invalidNearParameter for encoder NEAR=\(badNear)")
+            } catch JPEGLSError.invalidNearParameter(let near) {
+                #expect(near == badNear)
+            }
+            do {
+                _ = try JPEGLSRegularModeDecoder(parameters: fallbackParams, near: badNear)
+                Issue.record("Expected invalidNearParameter for decoder NEAR=\(badNear)")
+            } catch JPEGLSError.invalidNearParameter(let near) {
+                #expect(near == badNear)
+            }
         }
     }
 }

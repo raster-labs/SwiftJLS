@@ -1,0 +1,7 @@
+debconf: delaying package configuration, since apt-utils is not installed
+Traceback (most recent call last):
+  File "/SwiftJLS/Scripts/StorageEvidence/run-workspace-profiles.py", line 122, in <module>
+    verify_operation_report(name, args[0], report, a.revision, profile_path)
+  File "/SwiftJLS/Scripts/StorageEvidence/run-workspace-profiles.py", line 35, in verify_operation_report
+    raise AssertionError(f'{name}: expected {expected_owned_calls} owned_pixel_buffer calls for {operation}, got {owned_calls}')
+AssertionError: 17-3-0-owned: expected 1 owned_pixel_buffer calls for owned, got 0

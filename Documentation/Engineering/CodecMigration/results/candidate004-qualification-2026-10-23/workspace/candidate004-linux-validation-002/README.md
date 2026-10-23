@@ -1,0 +1,1 @@
+Fresh attempt002 corrects only validation-tool package-field interpretation; attempt001 and its zero-command failure are preserved. Plan pins codec and benchmark-arm Package.swift separately. Collection and semantic checks remain unchanged.

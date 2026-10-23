@@ -1,0 +1,327 @@
+[
+  {
+    "label": "iOS compile",
+    "command": [
+      "xcrun",
+      "swiftc",
+      "-O",
+      "-swift-version",
+      "6",
+      "-strict-concurrency=complete",
+      "-target",
+      "arm64-apple-ios26.0-simulator",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk",
+      "-I",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/apple-value/iphonesimulator",
+      "-L",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/apple-value/iphonesimulator",
+      "-lSwiftJLS",
+      "-Xlinker",
+      "-rpath",
+      "-Xlinker",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/apple-value/iphonesimulator",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS/Examples/ResourceStress/Sources/ResourceStress/main.swift",
+      "-o",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/resource26-value/ResourceStress-iphonesimulator"
+    ],
+    "exit_code": 0,
+    "seconds": 0.7361005,
+    "stdout": "",
+    "stderr": "clang: warning: using sysroot for 'macOS 27.0' but targeting 'arm64-apple-ios26.0.0-simulator' [-Wincompatible-sysroot]\n"
+  },
+  {
+    "label": "iOS sign",
+    "command": [
+      "codesign",
+      "--force",
+      "--sign",
+      "-",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/resource26-value/ResourceStress-iphonesimulator"
+    ],
+    "exit_code": 0,
+    "seconds": 0.011864083999999941,
+    "stdout": "",
+    "stderr": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/resource26-value/ResourceStress-iphonesimulator: replacing existing signature\n"
+  },
+  {
+    "label": "iOS 26.0 iPhone 17 Pro bootstatus",
+    "command": [
+      "xcrun",
+      "simctl",
+      "bootstatus",
+      "9021546C-CD90-4663-A01B-B4E92851C3DF",
+      "-b"
+    ],
+    "exit_code": 0,
+    "seconds": 0.10673504199999995,
+    "stdout": "Monitoring boot status for iPhone 17 Pro (9021546C-CD90-4663-A01B-B4E92851C3DF).\nDevice already booted, nothing to do.\n\n",
+    "stderr": ""
+  },
+  {
+    "label": "iOS 26.0 iPhone 17 Pro resource workload",
+    "command": [
+      "xcrun",
+      "simctl",
+      "spawn",
+      "9021546C-CD90-4663-A01B-B4E92851C3DF",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/resource26-value/ResourceStress-iphonesimulator"
+    ],
+    "exit_code": 0,
+    "seconds": 0.9152544999999999,
+    "stdout": "[\n  {\n    \"components\" : 1,\n    \"frames\" : 8,\n    \"near\" : 0,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 524288,\n    \"suppliedPixelAllocations\" : 0\n  },\n  {\n    \"components\" : 1,\n    \"frames\" : 8,\n    \"near\" : 3,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 524288,\n    \"suppliedPixelAllocations\" : 0\n  },\n  {\n    \"components\" : 3,\n    \"frames\" : 8,\n    \"near\" : 0,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 1572864,\n    \"suppliedPixelAllocations\" : 0\n  },\n  {\n    \"components\" : 3,\n    \"frames\" : 8,\n    \"near\" : 3,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 1572864,\n    \"suppliedPixelAllocations\" : 0\n  }\n]",
+    "stderr": ""
+  },
+  {
+    "label": "iOS 26.0 iPad Pro 13-inch (M5) boot",
+    "command": [
+      "xcrun",
+      "simctl",
+      "boot",
+      "1328AD68-A18F-4068-A392-16F6A5A13795"
+    ],
+    "exit_code": 0,
+    "seconds": 0.42321329200000024,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "iOS 26.0 iPad Pro 13-inch (M5) bootstatus",
+    "command": [
+      "xcrun",
+      "simctl",
+      "bootstatus",
+      "1328AD68-A18F-4068-A392-16F6A5A13795",
+      "-b"
+    ],
+    "exit_code": 0,
+    "seconds": 9.051040208,
+    "stdout": "Monitoring boot status for iPad Pro 13-inch (M5) (1328AD68-A18F-4068-A392-16F6A5A13795).\n[2026-10-23 10:57:25 +0000] Status=2, isTerminal=NO, Elapsed=00:01.\n\tWaiting on Data Migration\n\t\tReason:(null)\n\t\tMigration Elapsed:00:00 seconds\n\n[2026-10-23 10:57:27 +0000] Status=4, isTerminal=NO, Elapsed=00:02.\n\tWaiting on System App\n\n[2026-10-23 10:57:27 +0000] Status=4, isTerminal=NO, Elapsed=00:03.\n\tWaiting on System App\n\n[2026-10-23 10:57:28 +0000] Status=4, isTerminal=NO, Elapsed=00:04.\n\tWaiting on System App\n\n[2026-10-23 10:57:29 +0000] Status=4, isTerminal=NO, Elapsed=00:05.\n\tWaiting on System App\n\n[2026-10-23 10:57:30 +0000] Status=4, isTerminal=NO, Elapsed=00:06.\n\tWaiting on System App\n\n[2026-10-23 10:57:31 +0000] Status=4, isTerminal=NO, Elapsed=00:07.\n\tWaiting on System App\n\n[2026-10-23 10:57:32 +0000] Status=4, isTerminal=NO, Elapsed=00:08.\n\tWaiting on System App\n\n[2026-10-23 10:57:33 +0000] Status=4294967295, isTerminal=YES, Elapsed=00:09.\n\tFinished\n\n",
+    "stderr": ""
+  },
+  {
+    "label": "iOS 26.0 iPad Pro 13-inch (M5) resource workload",
+    "command": [
+      "xcrun",
+      "simctl",
+      "spawn",
+      "1328AD68-A18F-4068-A392-16F6A5A13795",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/resource26-value/ResourceStress-iphonesimulator"
+    ],
+    "exit_code": 0,
+    "seconds": 1.0477072079999985,
+    "stdout": "[\n  {\n    \"components\" : 1,\n    \"frames\" : 8,\n    \"near\" : 0,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 524288,\n    \"suppliedPixelAllocations\" : 0\n  },\n  {\n    \"components\" : 1,\n    \"frames\" : 8,\n    \"near\" : 3,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 524288,\n    \"suppliedPixelAllocations\" : 0\n  },\n  {\n    \"components\" : 3,\n    \"frames\" : 8,\n    \"near\" : 0,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 1572864,\n    \"suppliedPixelAllocations\" : 0\n  },\n  {\n    \"components\" : 3,\n    \"frames\" : 8,\n    \"near\" : 3,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 1572864,\n    \"suppliedPixelAllocations\" : 0\n  }\n]",
+    "stderr": ""
+  },
+  {
+    "label": "iOS 26.0 iPad Pro 13-inch (M5) shutdown",
+    "command": [
+      "xcrun",
+      "simctl",
+      "shutdown",
+      "1328AD68-A18F-4068-A392-16F6A5A13795"
+    ],
+    "exit_code": 0,
+    "seconds": 3.1968014159999996,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "tvOS compile",
+    "command": [
+      "xcrun",
+      "swiftc",
+      "-O",
+      "-swift-version",
+      "6",
+      "-strict-concurrency=complete",
+      "-target",
+      "arm64-apple-tvos26.0-simulator",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator27.0.sdk",
+      "-I",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/apple-value/appletvsimulator",
+      "-L",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/apple-value/appletvsimulator",
+      "-lSwiftJLS",
+      "-Xlinker",
+      "-rpath",
+      "-Xlinker",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/apple-value/appletvsimulator",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS/Examples/ResourceStress/Sources/ResourceStress/main.swift",
+      "-o",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/resource26-value/ResourceStress-appletvsimulator"
+    ],
+    "exit_code": 0,
+    "seconds": 0.7469834169999992,
+    "stdout": "",
+    "stderr": "clang: warning: using sysroot for 'macOS 27.0' but targeting 'arm64-apple-tvos26.0.0-simulator' [-Wincompatible-sysroot]\n"
+  },
+  {
+    "label": "tvOS sign",
+    "command": [
+      "codesign",
+      "--force",
+      "--sign",
+      "-",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/resource26-value/ResourceStress-appletvsimulator"
+    ],
+    "exit_code": 0,
+    "seconds": 0.011073166000002743,
+    "stdout": "",
+    "stderr": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/resource26-value/ResourceStress-appletvsimulator: replacing existing signature\n"
+  },
+  {
+    "label": "tvOS 26.0 Apple TV 4K (3rd generation) boot",
+    "command": [
+      "xcrun",
+      "simctl",
+      "boot",
+      "3ED74F7E-454E-41DF-8DC8-825EDEE4DA82"
+    ],
+    "exit_code": 0,
+    "seconds": 0.4968564579999999,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "tvOS 26.0 Apple TV 4K (3rd generation) bootstatus",
+    "command": [
+      "xcrun",
+      "simctl",
+      "bootstatus",
+      "3ED74F7E-454E-41DF-8DC8-825EDEE4DA82",
+      "-b"
+    ],
+    "exit_code": 0,
+    "seconds": 12.015618750000002,
+    "stdout": "Monitoring boot status for Apple TV 4K (3rd generation) (3ED74F7E-454E-41DF-8DC8-825EDEE4DA82).\n[2026-10-23 10:57:40 +0000] Status=2, isTerminal=NO, Elapsed=00:01.\n\tWaiting on Data Migration\n\t\tReason:(null)\n\t\tMigration Elapsed:00:00 seconds\n\n[2026-10-23 10:57:40 +0000] Status=2, isTerminal=NO, Elapsed=00:01.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.MobileContainerManager.ContainerMigrator (ContainerMigrator.migrator, user-agnostic)\n\t\tMigration Elapsed:00:00 seconds\n\n[2026-10-23 10:57:41 +0000] Status=2, isTerminal=NO, Elapsed=00:02.\n\tWaiting on Data Migration\n\t\tReason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)\n\t\tMigration Elapsed:00:01 seconds\n\n[2026-10-23 10:57:42 +0000] Status=4, isTerminal=NO, Elapsed=00:03.\n\tWaiting on System App\n\n[2026-10-23 10:57:43 +0000] Status=4, isTerminal=NO, Elapsed=00:04.\n\tWaiting on System App\n\n[2026-10-23 10:57:44 +0000] Status=4, isTerminal=NO, Elapsed=00:05.\n\tWaiting on System App\n\n[2026-10-23 10:57:45 +0000] Status=4, isTerminal=NO, Elapsed=00:06.\n\tWaiting on System App\n\n[2026-10-23 10:57:46 +0000] Status=4, isTerminal=NO, Elapsed=00:07.\n\tWaiting on System App\n\n[2026-10-23 10:57:47 +0000] Status=4, isTerminal=NO, Elapsed=00:08.\n\tWaiting on System App\n\n[2026-10-23 10:57:48 +0000] Status=4, isTerminal=NO, Elapsed=00:09.\n\tWaiting on System App\n\n[2026-10-23 10:57:49 +0000] Status=4, isTerminal=NO, Elapsed=00:10.\n\tWaiting on System App\n\n[2026-10-23 10:57:50 +0000] Status=4, isTerminal=NO, Elapsed=00:11.\n\tWaiting on System App\n\n[2026-10-23 10:57:51 +0000] Status=4294967295, isTerminal=YES, Elapsed=00:12.\n\tFinished\n\n",
+    "stderr": ""
+  },
+  {
+    "label": "tvOS 26.0 Apple TV 4K (3rd generation) resource workload",
+    "command": [
+      "xcrun",
+      "simctl",
+      "spawn",
+      "3ED74F7E-454E-41DF-8DC8-825EDEE4DA82",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/resource26-value/ResourceStress-appletvsimulator"
+    ],
+    "exit_code": 0,
+    "seconds": 0.8660773749999997,
+    "stdout": "[\n  {\n    \"components\" : 1,\n    \"frames\" : 8,\n    \"near\" : 0,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 524288,\n    \"suppliedPixelAllocations\" : 0\n  },\n  {\n    \"components\" : 1,\n    \"frames\" : 8,\n    \"near\" : 3,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 524288,\n    \"suppliedPixelAllocations\" : 0\n  },\n  {\n    \"components\" : 3,\n    \"frames\" : 8,\n    \"near\" : 0,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 1572864,\n    \"suppliedPixelAllocations\" : 0\n  },\n  {\n    \"components\" : 3,\n    \"frames\" : 8,\n    \"near\" : 3,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 1572864,\n    \"suppliedPixelAllocations\" : 0\n  }\n]",
+    "stderr": ""
+  },
+  {
+    "label": "tvOS 26.0 Apple TV 4K (3rd generation) shutdown",
+    "command": [
+      "xcrun",
+      "simctl",
+      "shutdown",
+      "3ED74F7E-454E-41DF-8DC8-825EDEE4DA82"
+    ],
+    "exit_code": 0,
+    "seconds": 3.158092790999998,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "visionOS compile",
+    "command": [
+      "xcrun",
+      "swiftc",
+      "-O",
+      "-swift-version",
+      "6",
+      "-strict-concurrency=complete",
+      "-target",
+      "arm64-apple-xros26.0-simulator",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator27.0.sdk",
+      "-I",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/apple-value/xrsimulator",
+      "-L",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/apple-value/xrsimulator",
+      "-lSwiftJLS",
+      "-Xlinker",
+      "-rpath",
+      "-Xlinker",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/apple-value/xrsimulator",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS/Examples/ResourceStress/Sources/ResourceStress/main.swift",
+      "-o",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/resource26-value/ResourceStress-xrsimulator"
+    ],
+    "exit_code": 0,
+    "seconds": 0.7371334169999955,
+    "stdout": "",
+    "stderr": "clang: warning: using sysroot for 'macOS 27.0' but targeting 'arm64-apple-xros26.0.0-simulator' [-Wincompatible-sysroot]\n"
+  },
+  {
+    "label": "visionOS sign",
+    "command": [
+      "codesign",
+      "--force",
+      "--sign",
+      "-",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/resource26-value/ResourceStress-xrsimulator"
+    ],
+    "exit_code": 0,
+    "seconds": 0.0115702089999985,
+    "stdout": "",
+    "stderr": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/resource26-value/ResourceStress-xrsimulator: replacing existing signature\n"
+  },
+  {
+    "label": "visionOS 26.0 Apple Vision Pro boot",
+    "command": [
+      "xcrun",
+      "simctl",
+      "boot",
+      "9D9B3976-E27A-490B-906D-D98B412251BD"
+    ],
+    "exit_code": 0,
+    "seconds": 0.9010269590000064,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "visionOS 26.0 Apple Vision Pro bootstatus",
+    "command": [
+      "xcrun",
+      "simctl",
+      "bootstatus",
+      "9D9B3976-E27A-490B-906D-D98B412251BD",
+      "-b"
+    ],
+    "exit_code": 0,
+    "seconds": 12.202606833000004,
+    "stdout": "Monitoring boot status for Apple Vision Pro (9D9B3976-E27A-490B-906D-D98B412251BD).\n[2026-10-23 10:57:59 +0000] Status=1, isTerminal=NO, Elapsed=00:02.\n\tWaiting on BackBoard\n\n[2026-10-23 10:58:00 +0000] Status=4, isTerminal=NO, Elapsed=00:04.\n\tWaiting on System App\n\n[2026-10-23 10:58:01 +0000] Status=4, isTerminal=NO, Elapsed=00:04.\n\tWaiting on System App\n\n[2026-10-23 10:58:01 +0000] Status=4, isTerminal=NO, Elapsed=00:05.\n\tWaiting on System App\n\n[2026-10-23 10:58:02 +0000] Status=4, isTerminal=NO, Elapsed=00:06.\n\tWaiting on System App\n\n[2026-10-23 10:58:03 +0000] Status=4, isTerminal=NO, Elapsed=00:07.\n\tWaiting on System App\n\n[2026-10-23 10:58:04 +0000] Status=4, isTerminal=NO, Elapsed=00:08.\n\tWaiting on System App\n\n[2026-10-23 10:58:05 +0000] Status=4, isTerminal=NO, Elapsed=00:09.\n\tWaiting on System App\n\n[2026-10-23 10:58:06 +0000] Status=4, isTerminal=NO, Elapsed=00:10.\n\tWaiting on System App\n\n[2026-10-23 10:58:07 +0000] Status=4, isTerminal=NO, Elapsed=00:11.\n\tWaiting on System App\n\n[2026-10-23 10:58:09 +0000] Status=4294967295, isTerminal=YES, Elapsed=00:12.\n\tFinished\n\n",
+    "stderr": ""
+  },
+  {
+    "label": "visionOS 26.0 Apple Vision Pro resource workload",
+    "command": [
+      "xcrun",
+      "simctl",
+      "spawn",
+      "9D9B3976-E27A-490B-906D-D98B412251BD",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/resource26-value/ResourceStress-xrsimulator"
+    ],
+    "exit_code": 0,
+    "seconds": 2.7958882910000042,
+    "stdout": "[\n  {\n    \"components\" : 1,\n    \"frames\" : 8,\n    \"near\" : 0,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 524288,\n    \"suppliedPixelAllocations\" : 0\n  },\n  {\n    \"components\" : 1,\n    \"frames\" : 8,\n    \"near\" : 3,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 524288,\n    \"suppliedPixelAllocations\" : 0\n  },\n  {\n    \"components\" : 3,\n    \"frames\" : 8,\n    \"near\" : 0,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 1572864,\n    \"suppliedPixelAllocations\" : 0\n  },\n  {\n    \"components\" : 3,\n    \"frames\" : 8,\n    \"near\" : 3,\n    \"ownedPixelAllocations\" : 8,\n    \"reportedCopyBytes\" : 0,\n    \"sourceBytes\" : 1572864,\n    \"suppliedPixelAllocations\" : 0\n  }\n]",
+    "stderr": ""
+  },
+  {
+    "label": "visionOS 26.0 Apple Vision Pro shutdown",
+    "command": [
+      "xcrun",
+      "simctl",
+      "shutdown",
+      "9D9B3976-E27A-490B-906D-D98B412251BD"
+    ],
+    "exit_code": 0,
+    "seconds": 3.276557750000002,
+    "stdout": "",
+    "stderr": ""
+  }
+]

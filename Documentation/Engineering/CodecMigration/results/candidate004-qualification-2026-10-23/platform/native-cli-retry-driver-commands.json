@@ -1,0 +1,64 @@
+[
+  {
+    "utc": "2026-10-23T11:03:02.742109+00:00",
+    "label": "existing VM inventory",
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/tools/tart.app/Contents/MacOS/tart",
+      "list"
+    ],
+    "exit_code": 0,
+    "stdout": "Source Name                                                                                                        Disk  Size  Accessed     State  \nlocal  m4-macos26                                                                                                  50 GB 34 GB 1 minute ago stopped\nOCI    ghcr.io/cirruslabs/macos-tahoe-base@sha256:6b01ed7bb644831fc3b5fdb297c8541bf7f032633d4ac5ac9b04affa163b3772 50 GB 34 GB 1 week ago   stopped\n",
+    "stderr": ""
+  },
+  {
+    "utc": "2026-10-23T11:03:02.757936+00:00",
+    "label": "resolve IP",
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/tools/tart.app/Contents/MacOS/tart",
+      "ip",
+      "m4-macos26",
+      "--wait",
+      "30"
+    ],
+    "exit_code": 0,
+    "stdout": "192.168.64.2\n",
+    "stderr": ""
+  },
+  {
+    "utc": "2026-10-23T11:03:15.692271+00:00",
+    "label": "guest qualification",
+    "command": [
+      "expect",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/vm-ssh.exp",
+      "192.168.64.2",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/known_hosts",
+      "SWIFTJLS_NATIVE_RESULTS='/Volumes/My Shared Files/results-2026-10-23-candidate004-cli-retry' python3 '/Volumes/My Shared Files/evidence/run-native.py'"
+    ],
+    "exit_code": 0,
+    "stdout": "spawn ssh -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/known_hosts -o ConnectTimeout=15 -o PubkeyAuthentication=no admin@192.168.64.2 SWIFTJLS_NATIVE_RESULTS='/Volumes/My Shared Files/results-2026-10-23-candidate004-cli-retry' python3 '/Volumes/My Shared Files/evidence/run-native.py'\n\n(admin@192.168.64.2) Password:\nNative26.0 CLI103 passed with unchanged binary and pinned installer.\n",
+    "stderr": ""
+  },
+  {
+    "utc": "2026-10-23T11:03:15.808745+00:00",
+    "label": "stop VM after guest qualification",
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/tools/tart.app/Contents/MacOS/tart",
+      "stop",
+      "m4-macos26"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "utc": "2026-10-23T11:03:15.829986+00:00",
+    "label": "post-run stopped VM inventory",
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-2026-10-14/tools/tart.app/Contents/MacOS/tart",
+      "list"
+    ],
+    "exit_code": 0,
+    "stdout": "Source Name                                                                                                        Disk  Size  Accessed     State  \nlocal  m4-macos26                                                                                                  50 GB 34 GB in 0 seconds stopped\nOCI    ghcr.io/cirruslabs/macos-tahoe-base@sha256:6b01ed7bb644831fc3b5fdb297c8541bf7f032633d4ac5ac9b04affa163b3772 50 GB 34 GB 1 week ago   stopped\n",
+    "stderr": ""
+  }
+]

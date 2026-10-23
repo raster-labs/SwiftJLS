@@ -161,11 +161,13 @@ struct JPEGMetadataEncoding {
     let mapping: JPEGLSMappingTables?
     let spiff: Data?
     let byteCount: Int
+    private static func isSupportedKey(_ key: String) -> Bool {
+        key == JPEGLSMetadata.key || key == JPEGLSMetadata.spiffKey || key == JPEGLSMappingTables.key
+    }
     init(_ image: Image, options: EncodeOptions, additionalBytes: Int = 0) throws {
         let metadataBytes = try image.metadata.validate(limits: options.resourceLimits, additionalBytes: additionalBytes)
-        let supported: Set<String> = [JPEGLSMetadata.key, JPEGLSMetadata.spiffKey, JPEGLSMappingTables.key]
-        guard image.metadata.requiredKeys.isSubset(of: supported),
-              options.metadataPolicy == .discardAncillary || Set(image.metadata.entries.keys).isSubset(of: supported) else {
+        guard image.metadata.requiredKeys.allSatisfy(Self.isSupportedKey),
+              options.metadataPolicy == .discardAncillary || image.metadata.entries.keys.allSatisfy(Self.isSupportedKey) else {
             throw CodecError(.unsupportedFeature, "Unrepresentable image metadata cannot be preserved in JPEG-LS.")
         }
         ancillary = try JPEGLSMetadata(metadata: options.metadataPolicy == .preserve || image.metadata.requiredKeys.contains(JPEGLSMetadata.key) ? image.metadata : .empty)
