@@ -1,0 +1,9 @@
+# Candidate005 checkpoint — 24 October 2026
+
+The three uncertain short timing comparisons are resolved within the fixed measured scope. All 48 primary comparisons pass the unchanged 5% gate, and the independent 50,000-resample replay matches exactly. The incomplete first attempt is retained separately; no samples were pooled or removed.
+
+The implementation uses a one-shot atomic destination lifecycle, signed-byte gradient tables, and checked fixed-control/parser directory admission. All 157 tests pass in four host and four exact native macOS 26.0 configurations; CLI, 990 oracle checks, Apple SDK/simulator/resource checks and 89 workspace / 20 copy checks pass. The maximum-table algorithm requested-heap peak decreases 917,497 bytes. Source-level storage bounds and attribution of the measured codec heap are complete; unknown runtime/allocator/stack totals remain unknown, and production peakWorkspaceBytes remains nil.
+
+This is an explicitly partial qualification checkpoint. The Mac switched to battery after short collection; the larger-image attempt stopped before launching any measured process. Its fresh replacement and the fixed RSS 528 campaign remain unexecuted. The old RSS uncertainty is not resolved by the smaller table or the heap accounting. No threshold or evidence requirement is waived. The owner was asked to restore stable AC, and the exact deferred protocols are preserved for continuation.
+
+Shared services remained running. The test VM is stopped, test-started simulators are shut down, and the initially booted iPhone simulator was restored. Physical-device testing and Milestone 5 remain pending by owner direction. The branch will be committed and pushed for owner CI verification and eventual merge; this record does not establish full Milestone 4 or release qualification.

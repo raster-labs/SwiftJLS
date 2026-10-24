@@ -1,0 +1,41 @@
+{
+  "status": "conditional_environment_restart_method_accepted_pending_root_ownership_and_host_admission",
+  "inspection_scope": "Only interruption status/error/count/timestamp, file existence/sizes, byte hashes/newline counts, source plan and frozen-method identity; no timing values, stdout, medians, ratios or classifications inspected",
+  "interrupted_run": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/campaigns005-confirmation/runs/short1032-001",
+  "completed_processes": 468,
+  "completed_rounds": 26,
+  "preceding_root_checkpoint_processes": 450,
+  "stop_error": "RuntimeError(\"Identified interfering compile/test/profiler/VM/simulator workload active: [{'rule': 'simulator_active_cpu_load', 'pid': 52004, 'exe_name': 'xpcproxy_sim', 'ps_cpu_percent': 12.2, 'window_instantaneous_cpu_percent': 0.0, 'full_command': '[redacted unrelated process/container text]'}, {'rule': 'simulator_aggregate_cpu_load', 'summed_ps_cpu_percent': 12.9, 'summed_window_instantaneous_cpu_percent': 0.0, 'process_count': 264}]; partial evidence retained\")",
+  "stop_utc": "2026-10-24T06:41:07.490394+00:00",
+  "guard_trigger": "simulator_active_cpu_load and simulator_aggregate_cpu_load",
+  "analysis_files_absent": true,
+  "frozen_methods_match": {
+    "frozen_runner.py": true,
+    "frozen_analyse.py": true,
+    "frozen_schedule.json": true,
+    "frozen_shared_helper.py": true,
+    "campaign-freeze.json": true,
+    "identity.json": true
+  },
+  "preservation_hashes": {
+    "raw.jsonl": "932a75b66d83ed44d64846574c425c3815775b76a21131e2dac655cd91c4fcce",
+    "events.jsonl": "922baec63795b1efa2113a110b5dec4f06e1d9dcb8bd9913ca912c854a81a631",
+    "conditions.jsonl": "e63897cf8d1f9b60f44d209af6abaa6f3f663e6386a4a166a015bb4fd3b85610",
+    "interrupted.json": "a024f2c942a963ec9910c0be7e48472d65ce363dd4609b961c1f88eeea548d7c",
+    "frozen_runner.py": "ff9c6a39df23aab13a2d22b697b29f87f12cc6a71aeeadbe541d22ff0a952197",
+    "frozen_analyse.py": "af066d2b3ade7595a46d100b82db1871242de742fbb27cc711e75571ce90ee41",
+    "frozen_schedule.json": "9a33492bb539f7cfc921a9c137b56bb9e5e7c2db21cfaba84d8b46985b997ab9",
+    "campaign-freeze.json": "71487cb4d5272ef0791e04aeeada506ec94ade2fa244f3ec2791539674b0a948"
+  },
+  "conditional_next_output": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/campaigns005-confirmation/runs/short1032-002",
+  "pending_root_checks": [
+    "Verify device9021546C-CD90-4663-A01B-B4E92851C3DF belongs to this qualification task; lastUsed alone does not establish ownership",
+    "Capture current boot state; shut down only that task-owned device, keep Colima/shared services/TimeChamp unchanged; plan restoration after all timing",
+    "Confirm no timing outcomes inspected or used by decision makers; stop was determined by unchanged environmental guard",
+    "Verify unchanged source/binary/script/schedule pins and fresh two-window preflight with root raw-condition review",
+    "Authorise exactly one fresh fixed1032-round18,576-process campaign with original5+5/48family/50k/seed/5%gate; never resume/pool468 partial records",
+    "Retain001 entirely and label incomplete environmental interruption; do not automatically retry if002 stops or is unresolved"
+  ],
+  "no_protocol_or_source_edits": true,
+  "no_measurements_or_replays": true
+}

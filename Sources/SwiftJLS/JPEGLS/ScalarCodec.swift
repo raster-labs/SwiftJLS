@@ -5,10 +5,9 @@ import Foundation
 /// The common API boundary owns admission, lifetime, errors and publication.
 /// Kernels operate only on synchronous views of the retained image owners.
 enum ScalarCodec {
-    static let contextBytes = 64 * 1024 // conservative fixed context/state allowance
+    static let contextBytes = CodecWorkspace.fixedControlBytes
     static func tableBytes(_ parameters: JPEGLSPresetParameters) throws -> Int {
-        // One gradient table is live per direction; allow another during construction.
-        try checkedMultiply(checkedAdd(checkedMultiply(parameters.threshold3, 2), 1), MemoryLayout<Int>.stride * 2)
+        try CodecWorkspace.tableConstructionBytes(threshold3: parameters.threshold3)
     }
     static let capabilities = CodecCapabilities(formats: ["JPEG-LS"], compressionModes: [.lossless] + (1...255).map { .nearLossless(maximumAbsoluteError: $0) },
         sampleTypes: [.unsignedInteger], meaningfulPrecision: 2...16,

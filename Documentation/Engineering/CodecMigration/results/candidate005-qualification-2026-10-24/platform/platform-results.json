@@ -1,0 +1,154 @@
+{
+  "completed_utc": "2026-10-24T07:09:25.628330+00:00",
+  "status": "passed_after_retained_driver_admission_correction",
+  "source_id": "candidate_005",
+  "source_commit": null,
+  "base_head": "72a9184ae8879fd77364b60a8059d4ad5bc447d4",
+  "source_receipt_sha256": "87bda184d21845362608a5a0b2198a9d6840a4324c5bdf2e8f6c5d9978e299e6",
+  "source_manifest_sha256": "c6a27f16a58159bd055c320e0b90a62cc4f2cb74b0ac2242c9a3e6bb20ea8e14",
+  "library_files": 39,
+  "test_swift_files_including_fixture_generators": 32,
+  "source_named_suite_declarations": 28,
+  "apple": {
+    "sdk_builds": {
+      "iphonesimulator": {
+        "triple": "arm64-apple-ios26.0-simulator",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk",
+        "sdk_version": "27.1"
+      },
+      "appletvsimulator": {
+        "triple": "arm64-apple-tvos26.0-simulator",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator27.0.sdk",
+        "sdk_version": "27.0"
+      },
+      "xrsimulator": {
+        "triple": "arm64-apple-xros26.0-simulator",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator27.0.sdk",
+        "sdk_version": "27.0"
+      },
+      "watchsimulator": {
+        "triple": "arm64-apple-watchos26.0-simulator",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/SDKs/WatchSimulator27.0.sdk",
+        "sdk_version": "27.0"
+      },
+      "watchos": {
+        "triple": "arm64_32-apple-watchos26.0",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/WatchOS.platform/Developer/SDKs/WatchOS27.0.sdk",
+        "sdk_version": "27.0"
+      }
+    },
+    "simulator_consumers": 5,
+    "exact_runtime": "26.0",
+    "resource_platforms": 4,
+    "resource_frames_each": 32,
+    "simulator_states_restored": true
+  },
+  "native": {
+    "scope": "Swift 6.4 host-built arm64 binaries, executed in hardware-virtualised native arm64 macOS 26.0; no Intel emulation or physical-device claim.",
+    "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.0\nBuildVersion:\t\t25A354\n",
+    "architecture": "arm64",
+    "tests": {
+      "release": {
+        "declarations": 157,
+        "xunit_classnames": 29,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml_sha256": "b315fec515dd50ea9f591e512f947db307bf4b83df433762f52485dcd7535959"
+      },
+      "debug": {
+        "declarations": 157,
+        "xunit_classnames": 29,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml_sha256": "2eb8cd8a8e8bfef33f329b50495592e2a520aa160a47748e7647774aa75d5d63"
+      },
+      "asan": {
+        "declarations": 157,
+        "xunit_classnames": 29,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml_sha256": "9652379d9c455740cc9fee34c37772aba55dd5205b5e5e54da735ad795bc48ad"
+      },
+      "tsan": {
+        "declarations": 157,
+        "xunit_classnames": 29,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml_sha256": "73673b199e01084fb70aed6cd3b5ca57c2cfe5288c891d9092fcf9d11bf820a4"
+      }
+    },
+    "runtime_consumer": "passed",
+    "resource_rows": 4,
+    "resource_frames": 32,
+    "payload_cli_checks": 73,
+    "process_cli_checks": 103,
+    "cli_binary_sha256": "31a7db0ac9cfac3f8aff3cf9dba156bc58235641c269bb47d08c20829ca48cb1",
+    "vm_initial_final_state": "stopped"
+  },
+  "host_reuse": {
+    "tests": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/candidate005-001/prepare-and-validate-receipt.json",
+    "tests_sha256": "87bda184d21845362608a5a0b2198a9d6840a4324c5bdf2e8f6c5d9978e299e6",
+    "host_cli_receipts": {
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/cli-candidate005/commands.json": "ecc2aa4ec27a4e956a1a54eb4a2be0f6b1a4efa241ecbe06e4d7ebdbdba2cbd6",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/cli-candidate005/source-pins.json": "1dc25763f36b6f2a8b2c6784183a955f859d3c7e214f71c0eaa0f373404cd73a",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/cli-candidate005/payload.json": "d1f67beb12fdcae97d5128471c79c5e6202dbff3c43032cf9ea55052f01cc3d0",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/cli-candidate005/process/report.json": "66b0a8928a584baa6ac3b371718480bfe3bb15f49486ef6adec9552abb0664c7"
+    },
+    "no_host_test_or_cli_rerun": true
+  },
+  "retained_driver_failures": [
+    {
+      "receipt": "apple-attempt-1/platform-commands.json",
+      "reason": "Stale hardcoded38-source count rejected the39-file frozen inventory before any build/runtime command; corrected to pinned inventory length."
+    }
+  ],
+  "preexecution_corrections": [
+    {
+      "receipt": "driver-correction-002.json",
+      "reason": "Renamed per-file SHA loop variable to preserve157 expected test count; no native attempt failed."
+    }
+  ],
+  "artifact_sha256": {
+    "pins.json": "c878556e4d2ab44e4f3709a88f0a8b3f8d44151a72f12684c918e266a875f035",
+    "qualification-source.json": "9708d39b6346a8ca51ea55696242dae44ff30be2e225f02b4b6b297026de5d4d",
+    "platform-commands.json": "5f71272e42c838630a31f57c2cef2b86c64e630c24e64491b128cd5bdaf41e76",
+    "apple-results-summary.json": "3ad0a06c06275064be7863751083c27c25c422821d3a5a7357561b67816910e6",
+    "apple-value/build-results.json": "8aa8f5a5249a3c5ffedfdafde9c5663faeb37fbf2732d648bd9013eded01da33",
+    "apple-value/environment.json": "7cff3d9618752d90ca73d31f8507415e8e3a3f35c834f16863504341351fd507",
+    "apple-value/binary-manifest.json": "0614404d9dda0b7c29a85b824220decae2dad58a0861fc13a9557348e26ea7ea",
+    "resource26-value/commands.json": "0192a89ec621c438518a15e8d54f712cc238309b8e3aaac742bb7f0ed7b17555",
+    "resource26-value/summary.json": "516db37f47518963ade3ecd02d1f6e9ff90cf23f2c12f03ca9e8965635b7fdaa",
+    "consumer-builds.json": "34f5928d974718e7da5237f7fe384d74a084a1d7c9a159ba062eb9500d026b49",
+    "native-payload/manifest.json": "238c1afc6800a88520ca281664e19e47ad5e228bc601be4dd1d7facbe451da8f",
+    "native-payload/run-native.py": "c1f264e6e54070cadfb143298d37c6ff4ccefa00525b46e921727be5e8b22671",
+    "native-results/results.json": "a830d46096342f44b82b2e91c10d20cb14cd5d204426dbfadb069be2b1274a29",
+    "native-driver-commands.json": "69798f9d05d2e1bcae6d1ddd78f6ace9630c5b2d8111a2a81f3e82a33156ea86",
+    "simulator-restore.json": "7669d6be25b730de6f2d7e6f2b23eff9c7f4514097415e97f0a3696a8065c705",
+    "execution-release-001.json": "ed5c52778c0b28edb16eef6686b4d4e9134028c123f081bb004009f0043dc713",
+    "driver-correction-001.json": "6af63badb5262179c66bf8d3840c20467df71ed30697c222daa3769cf48b1fd0",
+    "driver-correction-002.json": "d6dc1da2a8e27a12d7c9550ac5692e63115f0cfce50ff5f4f09d1ac69cdddaaa",
+    "apple-attempt-1/platform-commands.json": "b64ee5ae921c7f706fe9b1bfe08b041783997833e2c8f9dcc949ce491723b8ab",
+    "apple-attempt-1/apple-build-value.log": "3b32cfa027e86deb89196d515c986f91b6768237f85e42e0f4b78687f350fd7b"
+  },
+  "driver_final_sha256": {
+    "apple-runtime-value.py": "9e7587d77d521946248b61f40c7e2f7905b17a273a46a25b1bc9060ae24ec530",
+    "qualification-source.py": "c5a9c09d90d5f8147134dbd5a1f32b55f24d1b49d339269e034a5666ea1bea36",
+    "run-native-template.py": "c1f264e6e54070cadfb143298d37c6ff4ccefa00525b46e921727be5e8b22671",
+    "run-apple.py": "e672859417b1b89145ce735dfcc9d6937a2f4513c4f11635f1aa21818dae0f51",
+    "summarise-platform.py": "56b3a34678383d8d4494d2baa4144859aeaa76e4ed656447e337b2c9aae8251d",
+    "apple-resource-value.py": "5da0a1e6f8b2b3b5bd3196b28b811560c4e66bb618344aaf5a235ae9c65ec089",
+    "apple-build-value.py": "f51bfd30c50e6786b087b684f5eeb8e229f06f36ee86510bb873924a90e2ac8d",
+    "native-driver.py": "eb6cba0de17ef05c41258b939e645fdacee8f5140801b72a6445a11a12a0716a",
+    "prepare-native.py": "42e4ed2c85b6e746d492c679c7b35aadcfc7bccd62047b473aa0b42781120ec4"
+  },
+  "limits": [
+    "SDK27.x targeting26.0 and actual26.0 simulator/guest execution are distinct evidence.",
+    "Native guest execution is hardware-virtualised, not physical-device qualification.",
+    "Physical devices, performance acceptance, universal total workspace and milestone5 are not established by these checks.",
+    "Shared services were not stopped; the benchmark-paused iPhone remains shut down for root to restore after all timings."
+  ]
+}

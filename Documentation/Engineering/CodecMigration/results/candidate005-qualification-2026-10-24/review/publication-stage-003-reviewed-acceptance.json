@@ -1,0 +1,34 @@
+{
+  "utc": "2026-10-24T07:25:08.381581+00:00",
+  "status": "accepted_for_frozen_partial_evidence_only",
+  "manifest_sha256": "d9918eaf30e3a8b2a92d4a49ca906fc9d0d28aa6c69a236b125cfe748217c8ed",
+  "automated_audit_receipt_sha256": "dd723b907dcc421895c6c2bc85d77735c5e19c15d2e5c0e37976866a10f1f35f",
+  "files": 2711,
+  "gzip_files": 384,
+  "all_stored_logical_hashes_match": true,
+  "container_key_checks": {
+    "Command": 11869,
+    "Labels": 11869
+  },
+  "unredacted_container_field_findings": [],
+  "reviewed_literal_match": {
+    "file": "candidate005-qualification-2026-10-24/memory/workspace/toolchain/libunwind-183-install.log",
+    "file_sha256": "2fc36811998f451a3a1a8281ef69cdbde88bedb28ca4a77f27b8bd99ffa9a762",
+    "classification": "Harmless substring within a common English system-management-role noun in standard libtool install instructions; not a standalone credential value, authentication context or access-file echo.",
+    "whole_file_checked_match_count": 1,
+    "credential_value_not_recorded": true
+  },
+  "private_authentication_files_excluded": true,
+  "unrelated_full_argv_or_imageEnv_not_found": true,
+  "remaining_findings": [],
+  "acceptance_limits": [
+    "Only manifestd9918eaf... from historical partial stage003 is accepted for hash/privacy evidence.",
+    "No publication approval, overall M4/performance completion or future full-stage acceptance.",
+    "Any later stage requires at least delta content/hash/privacy audit, including new larger/RSS and disposition records."
+  ],
+  "source_snapshot_files_exactly_match_receipt": 71,
+  "python_argv_marker_review": {
+    "only_hit": "review/independent-publication-audit.py",
+    "disposition": "The detector lists generic argv marker strings; no complete unrelated process argv is embedded."
+  }
+}

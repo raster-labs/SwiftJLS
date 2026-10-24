@@ -1,0 +1,50 @@
+diff --git a/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift b/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift
+--- a/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift
++++ b/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift
+@@ -43,7 +43,9 @@
+     /// Gradient quantisation lookup table for the inner range (−T3, T3),
+     /// indexed by `gradient + gradientTableOffset`. Initialised by constant
+     /// interval fills when NEAR < T1, otherwise by the reference branch chain.
+-    private let gradientTable: [Int]
++    // Every quantised value is in -4...4. Indices and prediction arithmetic
++    // remain Int; signed widening at lookup preserves the original result.
++    private let gradientTable: [Int8]
+     private let gradientTableOffset: Int
+ 
+     // MARK: - Initialization
+@@ -85,7 +87,7 @@
+                 // Validated parameters prove 1 <= T1 <= T2 <= T3 <= 65535.
+                 // With NEAR < T1, these adjacent half-open ranges partition
+                 // 0..<count exactly, including empty runs for equal thresholds.
+-                // Initialise every Int once; no element is read before initialisation.
++                // Initialise every Int8 once; no element is read before initialisation.
+                 UnsafeMutableBufferPointer(rebasing: buffer[0..<1]).initialize(repeating: -4)
+                 UnsafeMutableBufferPointer(rebasing: buffer[1..<(t3 - t2 + 1)]).initialize(repeating: -3)
+                 UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t2 + 1)..<(t3 - t1 + 1)]).initialize(repeating: -2)
+@@ -100,7 +102,7 @@
+         } else {
+             // Preserve the existing internal constructor's branch precedence
+             // for NEAR >= T1, although public codestream admission rejects it.
+-            var table = [Int](repeating: 0, count: 2 * t3 + 1)
++            var table = [Int8](repeating: 0, count: 2 * t3 + 1)
+             for i in 0..<table.count {
+                 table[i] = Self.quantizeGradientReference(
+                     i - t3, t1: t1, t2: t2, t3: t3, near: near
+@@ -116,7 +118,7 @@
+     /// the interval fills preserve these semantics when NEAR < T1.
+     private static func quantizeGradientReference(
+         _ gradient: Int, t1: Int, t2: Int, t3: Int, near: Int
+-    ) -> Int {
++    ) -> Int8 {
+         if gradient <= -t3 { return -4 }
+         if gradient <= -t2 { return -3 }
+         if gradient <= -t1 { return -2 }
+@@ -170,7 +172,7 @@
+         // pre-computed table (interval fills or the reference fallback).
+         if gradient <= -parameters.threshold3 { return -4 }
+         if gradient >= parameters.threshold3 { return 4 }
+-        return gradientTable[gradient + gradientTableOffset]
++        return Int(gradientTable[gradient + gradientTableOffset])
+     }
+ 
+     // MARK: - MED Prediction

@@ -1,4 +1,12 @@
-# JLSwift maintenance-fix follow-up — 22 October 2026
+# Codec maintenance and qualification follow-up
+
+## Candidate005 lifecycle, tables and parser admission — 24 October
+
+On branch base `72a9184ae8879fd77364b60a8059d4ad5bc447d4`, six production files and two test files add atomic one-write destination lifecycle bookkeeping, signed `Int8` gradient tables with widening lookup, and `CodecWorkspace` allowances shared by scalar kernels and every parser admission. Restart directories reserve once after checked budget and encoded-length admission. Storage-provider protection, cancellation, fidelity, public APIs and the conservative encode/decode numeric reservations remain intact; tiny parser budgets now fail before control allocation.
+
+The current source passes 157 host tests in 28 named suites across debug/release/ASan/TSan, 73 payload and 103 process CLI checks, 990 independent CharLS checks, 89 Linux workspace profiles and 20 copy controls. Apple SDK builds, five exact OS 26.0 simulator consumers and four 32-frame resource profiles also pass. Hardware-virtualised native macOS 26.0 passes all four 157-test configurations and its consumer/resource and CLI checks. All 48 fixed short-campaign primary comparisons pass the unchanged 5% gate, including the three candidate004 uncertainties, with exact independent bootstrap replay. [WorkspaceAccounting.md](WorkspaceAccounting.md) records the complete source bounds and scoped attribution while retaining unknown runtime/allocator/stack quantities. Independent audit also accepts all 60 larger-image timing points and the prescribed RSS criterion against both historical baselines; physical devices and Milestone 5 remain deferred. The [candidate005 manifest](results/candidate005-qualification-2026-10-24.json) is the canonical source/receipt record.
+
+## Historical maintenance-fix migration — 22 October
 
 This owner-assigned follow-up compares JLSwift `d17545284a23e93f3d884a18f1046c4e305daa35` with SwiftJLS branch base `62309d3c59b04c5896d6ea076aae5ce06f5f33e3`. It addresses the four differences found in the read-only audit of predecessor PRs 125/126 and earlier marker-fill handling. Suite policy 0.10.0, Swift tools 6.2, primary Swift 6.4 and Apple OS 26 deployment floors remain unchanged.
 

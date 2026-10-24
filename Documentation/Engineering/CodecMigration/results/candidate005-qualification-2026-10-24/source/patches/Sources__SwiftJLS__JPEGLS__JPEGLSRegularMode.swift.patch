@@ -1,0 +1,41 @@
+diff --git a/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift b/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift
+--- a/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift
++++ b/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift
+@@ -46,7 +46,9 @@
+     /// Gradient values outside this range are handled by the early-exit checks in
+     /// `quantizeGradient` and always map to ±4.  Building the table once at init
+     /// avoids repeated branch evaluation in the per-pixel hot path.
+-    private let gradientTable: [Int]
++    // Every quantised value is in -4...4. Indices and prediction arithmetic
++    // remain Int; signed widening at lookup preserves the original result.
++    private let gradientTable: [Int8]
+ 
+     /// Offset used to convert a gradient value in [−T3, T3] to a table index.
+     /// Index = gradient + gradientTableOffset.
+@@ -108,7 +110,7 @@
+                 // Validated parameters prove 1 <= T1 <= T2 <= T3 <= 65535.
+                 // With NEAR < T1, these seven adjacent half-open ranges partition
+                 // 0..<tableSize exactly, including empty runs for equal thresholds.
+-                // Initialise every Int once; no element is read before initialisation.
++                // Initialise every Int8 once; no element is read before initialisation.
+                 UnsafeMutableBufferPointer(rebasing: buffer[0..<(t3 - t2 + 1)]).initialize(repeating: -3)
+                 UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t2 + 1)..<(t3 - t1 + 1)]).initialize(repeating: -2)
+                 UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t1 + 1)..<(t3 - near)]).initialize(repeating: -1)
+@@ -121,7 +123,7 @@
+         } else {
+             // Preserve the existing internal constructor's near-first branch
+             // precedence for NEAR >= T1, although public admission rejects it.
+-            var table = [Int](repeating: 0, count: tableSize)
++            var table = [Int8](repeating: 0, count: tableSize)
+             for i in 0..<tableSize {
+                 let g = i - t3  // gradient in [−T3, T3]
+                 if g < -near {
+@@ -185,7 +187,7 @@
+         if gradient <= -parameters.threshold3 { return -4 }
+         if gradient >= parameters.threshold3 { return 4 }
+         // Inner range: use pre-computed table for zero-branch lookup.
+-        return gradientTable[gradient + gradientTableOffset]
++        return Int(gradientTable[gradient + gradientTableOffset])
+     }
+ 
+     // MARK: - MED Prediction

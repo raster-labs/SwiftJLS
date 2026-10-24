@@ -1,0 +1,33 @@
+{
+  "utc": "2026-10-24T09:38:28.548846+00:00",
+  "status": "three bounded adapter fixes pending; frozen collection untouched",
+  "scope": "Static review only while RSS collection runs; no staging, replay or measurement",
+  "reviewed_file_sha256": {
+    "package-candidate005.py": "3571eb4880222934bacf596de0f9ef21af747f0ad1fe559381930258895fc10b",
+    "replay-performance.py": "23f3dad6c6a003f013db31a991b553a5cee25814c799dd2f843c3c686198a236",
+    "publication-privacy.py": "f1b570b15e5f30d64d02d961cc116bfa0acf99a28e56f5039982d5069b71011c",
+    "integrated-plan.json": "4fbdaa823be0242e38586ac4e872e6f8c718c72f0d2e690d2bf1fcd83abe7ee0"
+  },
+  "findings": [
+    {
+      "id": "S1",
+      "file": "package-candidate005.py",
+      "issue": "Require and select final018 simulator restoration receipt for full publication;010 records an earlier restoration before a subsequent benchmark pause."
+    },
+    {
+      "id": "S2",
+      "file": "publication-privacy.py",
+      "issue": "Nonapproved original identity-shaped records retain lowercase compose_labels (including config paths) and runtime path/args; exact canonical identity exception should not implicitly expose these extra original fields."
+    },
+    {
+      "id": "S3",
+      "file": "replay-performance.py",
+      "issue": "Explicitly require accepted_freeze(kind) and bind frozen run helper/analyser copies to the selected package, matching strict staging admission and preventing scope cross-binding in portable replay."
+    }
+  ],
+  "accepted_scope": [
+    "Staging admission maps original short to71487cb4 and larger/RSS tofe685af5 through accepted mixed audit4340eb17.",
+    "Exact canonical selected identities are whitelisted only by complete dictionary equality plus optional running status; general Env/Labels remain outside that exemption.",
+    "Prior interrupted evidence and partial stage003 remain separately retained; no threshold or source change."
+  ]
+}

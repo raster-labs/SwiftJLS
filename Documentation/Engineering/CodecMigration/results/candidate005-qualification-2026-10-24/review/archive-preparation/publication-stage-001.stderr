@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/memory-publication/package-candidate005.py", line 286, in <module>
+    args=parser.parse_args();(stage if args.mode=='stage' else publish)(args)
+  File "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/memory-publication/package-candidate005.py", line 161, in stage
+    receipt,pins,disposition,active,missing=admission(args.partial_checkpoint);selected=selection(args.partial_checkpoint);pool=set()
+  File "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/memory-publication/package-candidate005.py", line 99, in admission
+    require(all(x['exit']==x['expected'] for x in payload),'CLI payload outcome')
+  File "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/memory-publication/package-candidate005.py", line 99, in <genexpr>
+    require(all(x['exit']==x['expected'] for x in payload),'CLI payload outcome')
+KeyError: 'expected'

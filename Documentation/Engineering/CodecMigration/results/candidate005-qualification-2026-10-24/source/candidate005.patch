@@ -1,0 +1,424 @@
+diff --git a/Sources/SwiftJLS/Image.swift b/Sources/SwiftJLS/Image.swift
+--- a/Sources/SwiftJLS/Image.swift
++++ b/Sources/SwiftJLS/Image.swift
+@@ -126,12 +126,13 @@
+     public let storage: any WritableImageStorage
+     private let lease: StorageWriteLease
+     private let limits: ResourceLimits
+-    private struct Lifecycle: Sendable {
+-        var started = false
+-        var finished = false
+-        var admittedOwnedStorage = false
+-    }
+-    private let lifecycle: Mutex<Lifecycle>
++    // This state only admits one write and records completed cleanup. Pixel
++    // mutation and leases remain protected by the storage provider. Transitions
++    // are monotonic: ready -> writing -> finished; a failed abort stays writing
++    // so deinit can retry. No caller can reset the state or acquire a second write.
++    private enum Lifecycle: UInt8 { case ready, writing, finished }
++    private let lifecycle = Atomic<UInt8>(Lifecycle.ready.rawValue)
++    private let admittedOwnedStorage: Bool
+ 
+     public init(descriptor: ImageDescriptor, storage: any WritableImageStorage,
+                 limits: ResourceLimits = .default) throws {
+@@ -144,7 +145,7 @@
+             throw CodecError(.incompatibleImageLayout, "Destination storage is too short.")
+         }
+         self.descriptor = descriptor; self.storage = storage; self.limits = limits
+-        self.lifecycle = Mutex(Lifecycle())
++        self.admittedOwnedStorage = false
+         self.lease = try storage.reserveWrite()
+     }
+     // Only `allocate` may use this initializer, after descriptor and combined
+@@ -157,12 +158,12 @@
+                  storage: OwnedImageStorage, lease: StorageWriteLease,
+                  limits: ResourceLimits) {
+         self.descriptor = descriptor; self.storage = storage; self.limits = limits
+-        self.lifecycle = Mutex(Lifecycle(admittedOwnedStorage: true))
++        self.admittedOwnedStorage = true
+         self.lease = lease
+     }
+ 
+     deinit {
+-        if !lifecycle.withLock({ $0.finished }) {
++        if lifecycle.load(ordering: .acquiring) != Lifecycle.finished.rawValue {
+             try? storage.abortAndInvalidate(lease: lease)
+         }
+     }
+@@ -193,11 +194,10 @@
+         guard try checkedAdd(storage.byteCount, metadataBytes) <= limits.maximumMemoryBytes else {
+             throw CodecError(.resourceLimitExceeded, "Destination and metadata exceed the admission budget.")
+         }
+-        let (accepted, admittedOwnedStorage) = lifecycle.withLock { value -> (Bool, Bool) in
+-            guard !value.started else { return (false, value.admittedOwnedStorage) }
+-            value.started = true
+-            return (true, value.admittedOwnedStorage)
+-        }
++        let accepted = lifecycle.compareExchange(
++            expected: Lifecycle.ready.rawValue, desired: Lifecycle.writing.rawValue,
++            ordering: .acquiringAndReleasing
++        ).exchanged
+         guard accepted else { throw CodecError(.storageUnavailable, "Destination was already used.") }
+         do {
+             try Task.checkCancellation()
+@@ -219,12 +219,12 @@
+             // work, and owned sealing still acquires the mutex and allocates the
+             // immutable owner. Cancellation before publication must always reject.
+             try Task.checkCancellation()
+-            lifecycle.withLock { $0.finished = true }
++            lifecycle.store(Lifecycle.finished.rawValue, ordering: .releasing)
+             return image
+         } catch {
+             do {
+                 try storage.abortAndInvalidate(lease: lease)
+-                lifecycle.withLock { $0.finished = true }
++                lifecycle.store(Lifecycle.finished.rawValue, ordering: .releasing)
+             } catch {
+                 // Release retries an abort that the provider could not finish.
+             }
+diff --git a/Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift b/Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift
+new file mode 100644
+--- /dev/null
++++ b/Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: Apache-2.0
++// Copyright 2026 Raster Images Private Limited
++
++/// Checked, operation-local admission allowances, not measured allocator/RSS peaks.
++enum CodecWorkspace {
++    // Retain the existing conservative codec allowance for context, fixed state
++    // and bounded component/control containers. Header parsing creates its own
++    // bounded control containers even without ancillary metadata or pixels.
++    // Variable metadata and restart directories are charged separately below.
++    static let fixedControlBytes = 64 * 1024
++
++    static func parserBytes(metadataBytes: Int, directoryBytes: Int) throws -> Int {
++        try checkedAdd(fixedControlBytes,
++            checkedAdd(checkedMultiply(metadataBytes, 32), directoryBytes))
++    }
++
++    static func tableConstructionBytes(threshold3: Int) throws -> Int {
++        // Preserve the previous Int-based, two-table reservation even when a
++        // kernel uses narrower table elements. This is a conservative allowance,
++        // not a claim that two tables coexist or that allocator overhead is known.
++        try checkedMultiply(checkedAdd(checkedMultiply(threshold3, 2), 1),
++            MemoryLayout<Int>.stride * 2)
++    }
++}
+diff --git a/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift b/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift
+--- a/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift
++++ b/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift
+@@ -162,7 +162,8 @@
+     }
+ 
+     static func parse(_ data: Data, budget: CodecBudget, codecOptions: CodecOptions = .init()) throws -> Self {
+-        try budget.admit(pixelBytes: 0, workspaceBytes: 0, compressedBytes: data.count)
++        try budget.admit(pixelBytes: 0, workspaceBytes: CodecWorkspace.fixedControlBytes,
++            compressedBytes: data.count)
+         return try data.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) in
+             func malformed() -> CodecError { .init(.malformedInput, "Invalid or truncated JPEG-LS header.") }
+             func unsupported(_ message: String) -> CodecError { .init(.unsupportedFeature, message) }
+@@ -206,7 +207,9 @@
+                 guard metadataBytes <= budget.limits.maximumMetadataBytes else {
+                     throw CodecError(.resourceLimitExceeded, "JPEG-LS metadata limit exceeded.")
+                 }
+-                try budget.admit(pixelBytes: 0, workspaceBytes: checkedAdd(checkedMultiply(metadataBytes, 32), directoryBytes), compressedBytes: data.count)
++                try budget.admit(pixelBytes: 0,
++                    workspaceBytes: CodecWorkspace.parserBytes(metadataBytes: metadataBytes, directoryBytes: directoryBytes),
++                    compressedBytes: data.count)
+             }
+             while cursor < bytes.count {
+                 try budget.check()
+@@ -260,7 +263,9 @@
+                         colourTransform: transform ?? .none, records: records, metadata: metadata, mapping: mapping,
+                         outputBits: resolvedOutputBits, mapsSamples: mapsSamples, metadataBytes: max(metadataBytes, retainedBytes),
+                         admittedDescriptor: descriptor)
+-                    try budget.admit(pixelBytes: descriptor.requiredByteCount, workspaceBytes: checkedAdd(checkedMultiply(header.metadataBytes, 32), directoryBytes), compressedBytes: data.count)
++                    try budget.admit(pixelBytes: descriptor.requiredByteCount,
++                        workspaceBytes: CodecWorkspace.parserBytes(metadataBytes: header.metadataBytes, directoryBytes: directoryBytes),
++                        compressedBytes: data.count)
+                     return header
+                 }
+                 guard bytes.count - cursor >= 2 else { throw malformed() }
+@@ -481,8 +486,20 @@
+                     }
+                     let expected = restartInterval > 0 ? 1 + (f.height - 1) / restartInterval : 1
+                     directoryBytes = try checkedAdd(directoryBytes, checkedMultiply(expected, MemoryLayout<Range<Int>>.stride * 2))
+-                    try budget.admit(pixelBytes: 0, workspaceBytes: checkedAdd(directoryBytes, checkedMultiply(metadataBytes, 32)), compressedBytes: data.count)
++                    try budget.admit(pixelBytes: 0,
++                        workspaceBytes: CodecWorkspace.parserBytes(metadataBytes: metadataBytes, directoryBytes: directoryBytes),
++                        compressedBytes: data.count)
++                    // Each admitted range must contain at least one entropy
++                    // byte and end at an FF-prefixed marker (at least two bytes).
++                    // A truncated stream cannot justify reserving a directory
++                    // from its declared height alone. Division avoids overflow.
++                    guard expected <= (bytes.count - end) / 3 else { throw malformed() }
+                     var ranges: [Range<Int>] = [], scanStart = end
++                    // The checked directory allowance already reserves twice
++                    // the expected range payload. Reserving once avoids the
++                    // old/new geometric-growth buffers overlapping mid-scan.
++                    // Allocator rounding remains separate from logical payload.
++                    ranges.reserveCapacity(expected)
+                     while true {
+                         var scanEnd = scanStart
+                         var nextCheckpoint = scanStart
+diff --git a/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift b/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift
+--- a/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift
++++ b/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift
+@@ -46,7 +46,9 @@
+     /// Gradient values outside this range are handled by the early-exit checks in
+     /// `quantizeGradient` and always map to ±4.  Building the table once at init
+     /// avoids repeated branch evaluation in the per-pixel hot path.
+-    private let gradientTable: [Int]
++    // Every quantised value is in -4...4. Indices and prediction arithmetic
++    // remain Int; signed widening at lookup preserves the original result.
++    private let gradientTable: [Int8]
+ 
+     /// Offset used to convert a gradient value in [−T3, T3] to a table index.
+     /// Index = gradient + gradientTableOffset.
+@@ -108,7 +110,7 @@
+                 // Validated parameters prove 1 <= T1 <= T2 <= T3 <= 65535.
+                 // With NEAR < T1, these seven adjacent half-open ranges partition
+                 // 0..<tableSize exactly, including empty runs for equal thresholds.
+-                // Initialise every Int once; no element is read before initialisation.
++                // Initialise every Int8 once; no element is read before initialisation.
+                 UnsafeMutableBufferPointer(rebasing: buffer[0..<(t3 - t2 + 1)]).initialize(repeating: -3)
+                 UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t2 + 1)..<(t3 - t1 + 1)]).initialize(repeating: -2)
+                 UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t1 + 1)..<(t3 - near)]).initialize(repeating: -1)
+@@ -121,7 +123,7 @@
+         } else {
+             // Preserve the existing internal constructor's near-first branch
+             // precedence for NEAR >= T1, although public admission rejects it.
+-            var table = [Int](repeating: 0, count: tableSize)
++            var table = [Int8](repeating: 0, count: tableSize)
+             for i in 0..<tableSize {
+                 let g = i - t3  // gradient in [−T3, T3]
+                 if g < -near {
+@@ -185,7 +187,7 @@
+         if gradient <= -parameters.threshold3 { return -4 }
+         if gradient >= parameters.threshold3 { return 4 }
+         // Inner range: use pre-computed table for zero-branch lookup.
+-        return gradientTable[gradient + gradientTableOffset]
++        return Int(gradientTable[gradient + gradientTableOffset])
+     }
+ 
+     // MARK: - MED Prediction
+diff --git a/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift b/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift
+--- a/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift
++++ b/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift
+@@ -43,7 +43,9 @@
+     /// Gradient quantisation lookup table for the inner range (−T3, T3),
+     /// indexed by `gradient + gradientTableOffset`. Initialised by constant
+     /// interval fills when NEAR < T1, otherwise by the reference branch chain.
+-    private let gradientTable: [Int]
++    // Every quantised value is in -4...4. Indices and prediction arithmetic
++    // remain Int; signed widening at lookup preserves the original result.
++    private let gradientTable: [Int8]
+     private let gradientTableOffset: Int
+ 
+     // MARK: - Initialization
+@@ -85,7 +87,7 @@
+                 // Validated parameters prove 1 <= T1 <= T2 <= T3 <= 65535.
+                 // With NEAR < T1, these adjacent half-open ranges partition
+                 // 0..<count exactly, including empty runs for equal thresholds.
+-                // Initialise every Int once; no element is read before initialisation.
++                // Initialise every Int8 once; no element is read before initialisation.
+                 UnsafeMutableBufferPointer(rebasing: buffer[0..<1]).initialize(repeating: -4)
+                 UnsafeMutableBufferPointer(rebasing: buffer[1..<(t3 - t2 + 1)]).initialize(repeating: -3)
+                 UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t2 + 1)..<(t3 - t1 + 1)]).initialize(repeating: -2)
+@@ -100,7 +102,7 @@
+         } else {
+             // Preserve the existing internal constructor's branch precedence
+             // for NEAR >= T1, although public codestream admission rejects it.
+-            var table = [Int](repeating: 0, count: 2 * t3 + 1)
++            var table = [Int8](repeating: 0, count: 2 * t3 + 1)
+             for i in 0..<table.count {
+                 table[i] = Self.quantizeGradientReference(
+                     i - t3, t1: t1, t2: t2, t3: t3, near: near
+@@ -116,7 +118,7 @@
+     /// the interval fills preserve these semantics when NEAR < T1.
+     private static func quantizeGradientReference(
+         _ gradient: Int, t1: Int, t2: Int, t3: Int, near: Int
+-    ) -> Int {
++    ) -> Int8 {
+         if gradient <= -t3 { return -4 }
+         if gradient <= -t2 { return -3 }
+         if gradient <= -t1 { return -2 }
+@@ -170,7 +172,7 @@
+         // pre-computed table (interval fills or the reference fallback).
+         if gradient <= -parameters.threshold3 { return -4 }
+         if gradient >= parameters.threshold3 { return 4 }
+-        return gradientTable[gradient + gradientTableOffset]
++        return Int(gradientTable[gradient + gradientTableOffset])
+     }
+ 
+     // MARK: - MED Prediction
+diff --git a/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift b/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift
+--- a/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift
++++ b/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift
+@@ -5,10 +5,9 @@
+ /// The common API boundary owns admission, lifetime, errors and publication.
+ /// Kernels operate only on synchronous views of the retained image owners.
+ enum ScalarCodec {
+-    static let contextBytes = 64 * 1024 // conservative fixed context/state allowance
++    static let contextBytes = CodecWorkspace.fixedControlBytes
+     static func tableBytes(_ parameters: JPEGLSPresetParameters) throws -> Int {
+-        // One gradient table is live per direction; allow another during construction.
+-        try checkedMultiply(checkedAdd(checkedMultiply(parameters.threshold3, 2), 1), MemoryLayout<Int>.stride * 2)
++        try CodecWorkspace.tableConstructionBytes(threshold3: parameters.threshold3)
+     }
+     static let capabilities = CodecCapabilities(formats: ["JPEG-LS"], compressionModes: [.lossless] + (1...255).map { .nearLossless(maximumAbsoluteError: $0) },
+         sampleTypes: [.unsignedInteger], meaningfulPrecision: 2...16,
+diff --git a/Tests/SwiftJLSTests/OwnedAdmissionTests.swift b/Tests/SwiftJLSTests/OwnedAdmissionTests.swift
+--- a/Tests/SwiftJLSTests/OwnedAdmissionTests.swift
++++ b/Tests/SwiftJLSTests/OwnedAdmissionTests.swift
+@@ -1,10 +1,45 @@
+ // SPDX-License-Identifier: Apache-2.0
+ import Foundation
++import Dispatch
++import Synchronization
+ import Testing
+ @testable import SwiftJLS
+ 
+ @Suite("Owned destination admission and required metadata")
+ struct OwnedAdmissionTests {
++    @Test func concurrentDestinationWritesPublishExactlyOnce() throws {
++        let descriptor = try ImageDescriptor.greyscale16(width: 3, height: 2)
++        for _ in 0..<32 {
++            let destination = try ImageDestination.allocate(descriptor: descriptor)
++            let callbacks = Mutex(0)
++            let published = Mutex<[Image]>([])
++            let unexpected = Mutex<[String]>([])
++            DispatchQueue.concurrentPerform(iterations: 32) { _ in
++                do {
++                    let image = try destination.write { bytes in
++                        callbacks.withLock { $0 += 1 }
++                        bytes.initializeMemory(as: UInt8.self, repeating: 0x2a)
++                    }
++                    published.withLock { $0.append(image) }
++                } catch let error as CodecError {
++                    if error != CodecError(.storageUnavailable, "Destination was already used.") {
++                        unexpected.withLock { $0.append(String(describing: error)) }
++                    }
++                } catch {
++                    unexpected.withLock { $0.append(String(describing: error)) }
++                }
++            }
++            #expect(callbacks.withLock { $0 } == 1)
++            #expect(unexpected.withLock { $0 }.isEmpty)
++            let images = published.withLock { $0 }
++            #expect(images.count == 1)
++            if let image = images.first {
++                #expect(image.storage.allocationID == destination.storage.allocationID)
++                #expect(try image.sampleUInt16(x: 2, y: 1) == 0x2a2a)
++            }
++        }
++    }
++
+     @Test func requiredMetadataMembershipAndErrorOrder() throws {
+         let missing = ImageMetadata(entries: ["present": Data([1])], requiredKeys: ["absent"])
+         let tiny = try ResourceLimits(maximumMetadataBytes: 1)
+diff --git a/Tests/SwiftJLSTests/WorkspaceAdmissionTests.swift b/Tests/SwiftJLSTests/WorkspaceAdmissionTests.swift
+new file mode 100644
+--- /dev/null
++++ b/Tests/SwiftJLSTests/WorkspaceAdmissionTests.swift
+@@ -0,0 +1,99 @@
++// SPDX-License-Identifier: Apache-2.0
++// Copyright 2026 Raster Images Private Limited
++import Foundation
++import Testing
++@testable import SwiftJLS
++
++@Suite("Parser workspace admission")
++struct WorkspaceAdmissionTests {
++    private let exhausted = CodecError(.resourceLimitExceeded,
++        "Codec operation exceeds its memory budget.")
++    private let malformed = CodecError(.malformedInput,
++        "Invalid or truncated JPEG-LS header.")
++
++    private func restarted(height: Int) async throws -> (data: Data, source: Image) {
++        let descriptor = try ImageDescriptor.greyscale16(width: 3, height: height, meaningfulBits: 12)
++        let source = try ImageDestination.allocate(descriptor: descriptor).write { bytes in
++            for row in 0..<height { for column in 0..<3 {
++                let sample = (row * 71 + column * 29) & 4095
++                let offset = row * 6 + column * 2
++                bytes[offset] = UInt8(truncatingIfNeeded: sample)
++                bytes[offset + 1] = UInt8(sample >> 8)
++            } }
++        }
++        let encoder = try Encoder(configuration: .init(codecOptions: .init(restartIntervalLines: 1)))
++        return (try await encoder.encode(source).data, source)
++    }
++
++    @Test func metadataFreeInspectionEnforcesWorkspaceAndTotalBoundaries() async throws {
++        let (data, source) = try await restarted(height: 5)
++        let decoder = try Decoder()
++        // Five final directory entries plus the operation's fixed control
++        // allowance. This stream has no ancillary/mapping/SPIFF metadata.
++        let admitted = 64 * 1024 + 5 * MemoryLayout<Range<Int>>.stride * 2
++        let header = try JPEGLSHeader.parse(data, budget: .init(limits: .default))
++        #expect(header.metadataBytes == 0)
++        #expect(header.scans.count == 5)
++        for limit in [32, admitted - 1] {
++            let options = DecodeOptions(resourceLimits: try .init(maximumWorkspaceBytes: limit))
++            #expect(throws: exhausted) { try decoder.inspect(data, options: options) }
++        }
++        for limit in [admitted, admitted + 1] {
++            let options = DecodeOptions(resourceLimits: try .init(maximumWorkspaceBytes: limit))
++            #expect(try decoder.inspect(data, options: options).descriptor == source.descriptor)
++        }
++
++        let total = data.count + source.descriptor.requiredByteCount + admitted
++        let belowTotal = DecodeOptions(resourceLimits: try .init(maximumWorkspaceBytes: admitted,
++            maximumMemoryBytes: total - 1))
++        #expect(throws: exhausted) { try decoder.inspect(data, options: belowTotal) }
++        let exactTotal = DecodeOptions(resourceLimits: try .init(maximumWorkspaceBytes: admitted,
++            maximumMemoryBytes: total))
++        #expect(try decoder.inspect(data, options: exactTotal).descriptor == source.descriptor)
++    }
++
++    @Test func metadataChargeRetainsFixedReservationBeforeAllocatingPayload() throws {
++        // COM has length4 (including its length word), charged as length+1.
++        // No frame follows: at the exact reservation parsing reaches malformed
++        // EOF, while one byte less must reject at the metadata admission itself.
++        let fragment = Data([255, 216, 255, 254, 0, 4, 65, 66])
++        let required = 64 * 1024 + 5 * 32
++        let decoder = try Decoder()
++        let below = DecodeOptions(resourceLimits: try .init(maximumWorkspaceBytes: required - 1))
++        #expect(throws: exhausted) { try decoder.inspect(fragment, options: below) }
++        let exact = DecodeOptions(resourceLimits: try .init(maximumWorkspaceBytes: required))
++        #expect(throws: malformed) { try decoder.inspect(fragment, options: exact) }
++    }
++
++    @Test func restartDirectoriesAroundCapacityBoundariesPreserveSamples() async throws {
++        let decoder = try Decoder()
++        for height in [3, 4, 5, 7, 8, 9, 15, 16, 17, 31, 32, 33] {
++            let (data, source) = try await restarted(height: height)
++            let header = try JPEGLSHeader.parse(data, budget: .init(limits: .default))
++            #expect(header.scans.count == height)
++            #expect(header.scans.allSatisfy { !$0.isEmpty })
++            let decoded = try await decoder.decode(data)
++            for row in 0..<height { for column in 0..<3 {
++                #expect(try decoded.image.sampleUInt16(x: column, y: row)
++                    == source.sampleUInt16(x: column, y: row))
++            } }
++            #expect(decoded.report.peakWorkspaceBytes == nil)
++        }
++    }
++
++    @Test func truncatedRestartDirectoryRejectsBeforeTakingDestinationLease() async throws {
++        let (original, source) = try await restarted(height: 3)
++        var truncated = original
++        let sof = try #require(truncated.range(of: Data([255, 247]))).lowerBound
++        // Claim65,535 one-row intervals while retaining only three ranges.
++        // The default directory budget admits this declared payload; available
++        // encoded bytes must reject it before reserveCapacity(expected).
++        truncated[sof + 5] = 255
++        truncated[sof + 6] = 255
++        let decoder = try Decoder()
++        #expect(throws: malformed) { try decoder.inspect(truncated) }
++        let destination = try ImageDestination.allocate(descriptor: source.descriptor)
++        await #expect(throws: malformed) { try await decoder.decode(truncated, into: destination) }
++        _ = try destination.write { $0.initializeMemory(as: UInt8.self, repeating: 0) }
++    }
++}

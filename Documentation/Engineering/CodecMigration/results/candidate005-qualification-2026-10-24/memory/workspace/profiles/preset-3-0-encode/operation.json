@@ -1,0 +1,386 @@
+{
+  "groups": {
+    "algorithm_state": {
+      "baseline_live_bytes": 48,
+      "peak_live_bytes": 143095,
+      "peak_above_baseline_bytes": 143047,
+      "end_live_bytes": 48,
+      "phase_allocation_calls": 3,
+      "phase_allocated_bytes": 143047
+    },
+    "compressed_buffer": {
+      "baseline_live_bytes": 126489,
+      "peak_live_bytes": 384578,
+      "peak_above_baseline_bytes": 258089,
+      "end_live_bytes": 252978,
+      "phase_allocation_calls": 8,
+      "phase_allocated_bytes": 385641
+    },
+    "metadata_and_descriptors": {
+      "baseline_live_bytes": 1077,
+      "peak_live_bytes": 1349,
+      "peak_above_baseline_bytes": 272,
+      "end_live_bytes": 1077,
+      "phase_allocation_calls": 4,
+      "phase_allocated_bytes": 351
+    },
+    "owned_pixel_buffer": {
+      "baseline_live_bytes": 397900,
+      "peak_live_bytes": 397900,
+      "peak_above_baseline_bytes": 0,
+      "end_live_bytes": 397900,
+      "phase_allocation_calls": 0,
+      "phase_allocated_bytes": 0
+    },
+    "runtime_or_unattributed": {
+      "baseline_live_bytes": 95161,
+      "peak_live_bytes": 95161,
+      "peak_above_baseline_bytes": 0,
+      "end_live_bytes": 95161,
+      "phase_allocation_calls": 0,
+      "phase_allocated_bytes": 0
+    },
+    "storage_control_objects": {
+      "baseline_live_bytes": 389,
+      "peak_live_bytes": 389,
+      "peak_above_baseline_bytes": 0,
+      "end_live_bytes": 389,
+      "phase_allocation_calls": 0,
+      "phase_allocated_bytes": 0
+    }
+  },
+  "phase_total_requested_heap_peak_bytes": 961719,
+  "baseline_total_requested_heap_bytes": 621064,
+  "phase_total_peak_above_baseline_bytes": 340655,
+  "simultaneous_categories_at_phase_peak_bytes": {
+    "runtime_or_unattributed": 95161,
+    "metadata_and_descriptors": 1277,
+    "storage_control_objects": 389,
+    "owned_pixel_buffer": 397900,
+    "compressed_buffer": 323897,
+    "algorithm_state": 143095
+  },
+  "process_requested_heap_peak_bytes": 961720,
+  "allocation_stacks": {
+    "576": {
+      "category": "metadata_and_descriptors",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "generic specialization <SwiftJLS.ComponentCodec.Location> of Swift._ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> Swift._ContiguousArrayBuffer<A>",
+        "generic specialization <SwiftJLS.ComponentCodec.Location> of Swift.ContiguousArray._createNewBuffer(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> ()",
+        "generic specialization <SwiftJLS.ComponentCodec.Location> of Swift.ContiguousArray.reserveCapacity(Swift.Int) -> ()",
+        "generic specialization <Swift.Range<Swift.Int>, SwiftJLS.ComponentCodec.Location, Swift.Error> of (extension in Swift):Swift.Collection.map<A, B where B1: Swift.Error>((A.Element) throws(B1) -> A1) throws(B1) -> [A1]",
+        "function signature specialization <Arg[3] = Dead> of static SwiftJLS.ComponentCodec.locations(_: SwiftJLS.ImageDescriptor, limits: SwiftJLS.ResourceLimits, discardICC: Swift.Bool) throws -> [SwiftJLS.ComponentCodec.Location]",
+        "closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "generic specialization <SwiftJLS.EncodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Encoder.encode(_: SwiftJLS.Image, options: SwiftJLS.EncodeOptions) async throws -> SwiftJLS.EncodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 200,
+      "requested_size_counts": {
+        "200": 1
+      }
+    },
+    "588": {
+      "category": "compressed_buffer",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "generic specialization <Swift.UInt8> of Swift._ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> Swift._ContiguousArrayBuffer<A>",
+        "closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "generic specialization <SwiftJLS.EncodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Encoder.encode(_: SwiftJLS.Image, options: SwiftJLS.EncodeOptions) async throws -> SwiftJLS.EncodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 4128,
+      "requested_size_counts": {
+        "4128": 1
+      }
+    },
+    "608": {
+      "category": "metadata_and_descriptors",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "generic specialization <SwiftJLS.JPEGLSFrameHeader.ComponentSpec> of Swift._ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> Swift._ContiguousArrayBuffer<A>",
+        "generic specialization <SwiftJLS.JPEGLSFrameHeader.ComponentSpec> of Swift.ContiguousArray._createNewBuffer(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> ()",
+        "closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "generic specialization <SwiftJLS.EncodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Encoder.encode(_: SwiftJLS.Image, options: SwiftJLS.EncodeOptions) async throws -> SwiftJLS.EncodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 41,
+      "requested_size_counts": {
+        "41": 1
+      }
+    },
+    "611": {
+      "category": "metadata_and_descriptors",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "generic specialization <SwiftJLS.EncodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Encoder.encode(_: SwiftJLS.Image, options: SwiftJLS.EncodeOptions) async throws -> SwiftJLS.EncodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 72,
+      "requested_size_counts": {
+        "72": 1
+      }
+    },
+    "637": {
+      "category": "algorithm_state",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "merged generic specialization <SwiftJLS.ComponentSampleReader> of Swift._ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> Swift._ContiguousArrayBuffer<A>",
+        "generic specialization <SwiftJLS.ComponentSampleReader> of Swift.ContiguousArray._createNewBuffer(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> ()",
+        "closure #3 (Swift.UnsafeRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "partial apply forwarder for closure #3 (Swift.UnsafeRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "merged Swift.Array.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1",
+        "Swift.Array.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1",
+        "SwiftJLS.(SealedImageStorage in _E3A3FF9B1E0185F10C196E0592093825).withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A) throws -> A",
+        "protocol witness for SwiftJLS.ReadOnlyImageStorage.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1 in conformance SwiftJLS.(SealedImageStorage in _E3A3FF9B1E0185F10C196E0592093825) : SwiftJLS.ReadOnlyImageStorage in SwiftJLS",
+        "closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "generic specialization <SwiftJLS.EncodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Encoder.encode(_: SwiftJLS.Image, options: SwiftJLS.EncodeOptions) async throws -> SwiftJLS.EncodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 248,
+      "requested_size_counts": {
+        "248": 1
+      }
+    },
+    "659": {
+      "category": "metadata_and_descriptors",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "generic specialization <SwiftJLS.JPEGLSScanHeader.ComponentSelector> of Swift._ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> Swift._ContiguousArrayBuffer<A>",
+        "generic specialization <SwiftJLS.JPEGLSScanHeader.ComponentSelector> of Swift.ContiguousArray._createNewBuffer(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> ()",
+        "closure #3 (Swift.UnsafeRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "partial apply forwarder for closure #3 (Swift.UnsafeRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "merged Swift.Array.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1",
+        "Swift.Array.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1",
+        "SwiftJLS.(SealedImageStorage in _E3A3FF9B1E0185F10C196E0592093825).withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A) throws -> A",
+        "protocol witness for SwiftJLS.ReadOnlyImageStorage.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1 in conformance SwiftJLS.(SealedImageStorage in _E3A3FF9B1E0185F10C196E0592093825) : SwiftJLS.ReadOnlyImageStorage in SwiftJLS",
+        "closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "generic specialization <SwiftJLS.EncodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Encoder.encode(_: SwiftJLS.Image, options: SwiftJLS.EncodeOptions) async throws -> SwiftJLS.EncodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 38,
+      "requested_size_counts": {
+        "38": 1
+      }
+    },
+    "665": {
+      "category": "algorithm_state",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>",
+        "generic specialization <Swift.Int8> of static Swift.ContiguousArray._allocateUninitialized(Swift.Int) -> (Swift.ContiguousArray<A>, Swift.UnsafeMutablePointer<A>)",
+        "generic specialization <Swift.Int8, Swift.Never> of Swift.ContiguousArray.init<A where A1: Swift.Error>(unsafeUninitializedCapacity: Swift.Int, initializingWith: (inout Swift.UnsafeMutableBufferPointer<A>, inout Swift.Int) throws(A1) -> ()) throws(A1) -> Swift.ContiguousArray<A>",
+        "generic specialization <Swift.Int8, Swift.Never> of Swift.Array.init<A where A1: Swift.Error>(unsafeUninitializedCapacity: Swift.Int, initializingWith: (inout Swift.UnsafeMutableBufferPointer<A>, inout Swift.Int) throws(A1) -> ()) throws(A1) -> [A]",
+        "function signature specialization <Arg[2] = Dead> of SwiftJLS.JPEGLSRegularMode.init(parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int) throws -> SwiftJLS.JPEGLSRegularMode",
+        "SwiftJLS.JPEGLSRegularMode.init(parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int) throws -> SwiftJLS.JPEGLSRegularMode",
+        "function signature specialization <Arg[6] = Dead, Arg[7] = Dead, Arg[9] = Dead> of function signature specialization <Arg[9] = [Closure Propagated : $s8SwiftJLS14ComponentCodecO6encode_13configuration7optionsAA12EncodedImageVAA0I0V_AA20EncoderConfigurationVAA13EncodeOptionsVtKFZAHyKXEfU_ySWKXEfU1_yyKXEfU2_, Argument Types : [SwiftJLS.CodecBudget]> of generic specialization <SwiftJLS.ComponentSampleReader, SwiftJLS.JPEGLSPrevalidatedSamples> of SwiftJLS.JPEGLSScalarKernel.(encodeInterleaved in _4AA1003238D41D213E1B1E157136C93F)<A, B where A: SwiftJLS.JPEGSampleReader, B: SwiftJLS.JPEGLSSampleValidator>(views: [A], width: Swift.Int, height: Swift.Int, mode: SwiftJLS.CodecOptions.InterleaveMode, near: Swift.Int, parameters: SwiftJLS.JPEGLSPresetParameters, bits: Swift.Int, sampleValidator: B, writer: inout SwiftJLS.JPEGLSBitstreamWriter, checkpoint: () throws -> ()) throws -> ()",
+        "closure #3 (Swift.UnsafeRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "partial apply forwarder for closure #3 (Swift.UnsafeRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "merged Swift.Array.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1",
+        "Swift.Array.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1",
+        "SwiftJLS.(SealedImageStorage in _E3A3FF9B1E0185F10C196E0592093825).withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A) throws -> A",
+        "protocol witness for SwiftJLS.ReadOnlyImageStorage.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1 in conformance SwiftJLS.(SealedImageStorage in _E3A3FF9B1E0185F10C196E0592093825) : SwiftJLS.ReadOnlyImageStorage in SwiftJLS",
+        "closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "generic specialization <SwiftJLS.EncodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Encoder.encode(_: SwiftJLS.Image, options: SwiftJLS.EncodeOptions) async throws -> SwiftJLS.EncodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 131103,
+      "requested_size_counts": {
+        "131103": 1
+      }
+    },
+    "690": {
+      "category": "algorithm_state",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "generic specialization <(), SwiftJLS.JPEGLSContextModel.(ContextRecord in _64B8CE41A605EF585F166C98FB8F5C18)> of static Swift.ManagedBuffer.create(minimumCapacity: Swift.Int, makingHeaderWith: (Swift.ManagedBuffer<A, B>) throws -> A) throws -> Swift.ManagedBuffer<A, B>",
+        "function signature specialization <Arg[2] = Dead> of SwiftJLS.JPEGLSContextModel.init(parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int) throws -> SwiftJLS.JPEGLSContextModel",
+        "SwiftJLS.JPEGLSContextModel.init(parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int) throws -> SwiftJLS.JPEGLSContextModel",
+        "function signature specialization <Arg[6] = Dead, Arg[7] = Dead, Arg[9] = Dead> of function signature specialization <Arg[9] = [Closure Propagated : $s8SwiftJLS14ComponentCodecO6encode_13configuration7optionsAA12EncodedImageVAA0I0V_AA20EncoderConfigurationVAA13EncodeOptionsVtKFZAHyKXEfU_ySWKXEfU1_yyKXEfU2_, Argument Types : [SwiftJLS.CodecBudget]> of generic specialization <SwiftJLS.ComponentSampleReader, SwiftJLS.JPEGLSPrevalidatedSamples> of SwiftJLS.JPEGLSScalarKernel.(encodeInterleaved in _4AA1003238D41D213E1B1E157136C93F)<A, B where A: SwiftJLS.JPEGSampleReader, B: SwiftJLS.JPEGLSSampleValidator>(views: [A], width: Swift.Int, height: Swift.Int, mode: SwiftJLS.CodecOptions.InterleaveMode, near: Swift.Int, parameters: SwiftJLS.JPEGLSPresetParameters, bits: Swift.Int, sampleValidator: B, writer: inout SwiftJLS.JPEGLSBitstreamWriter, checkpoint: () throws -> ()) throws -> ()",
+        "closure #3 (Swift.UnsafeRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "partial apply forwarder for closure #3 (Swift.UnsafeRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "merged Swift.Array.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1",
+        "Swift.Array.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1",
+        "SwiftJLS.(SealedImageStorage in _E3A3FF9B1E0185F10C196E0592093825).withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A) throws -> A",
+        "protocol witness for SwiftJLS.ReadOnlyImageStorage.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1 in conformance SwiftJLS.(SealedImageStorage in _E3A3FF9B1E0185F10C196E0592093825) : SwiftJLS.ReadOnlyImageStorage in SwiftJLS",
+        "closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "generic specialization <SwiftJLS.EncodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Encoder.encode(_: SwiftJLS.Image, options: SwiftJLS.EncodeOptions) async throws -> SwiftJLS.EncodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 11696,
+      "requested_size_counts": {
+        "11696": 1
+      }
+    },
+    "695": {
+      "category": "compressed_buffer",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "generic specialization <Swift.UInt8> of Swift._ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> Swift._ContiguousArrayBuffer<A>",
+        "generic specialization <Swift.UInt8> of Swift.Array._createNewBuffer(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> ()",
+        "generic specialization <Swift.UInt8> of Swift.Array._reserveCapacityAssumingUniqueBuffer(oldCount: Swift.Int) -> ()",
+        "generic specialization <Swift.UInt8> of Swift.Array.append(__owned A) -> ()",
+        "SwiftJLS.JPEGLSBitstreamWriter.(append in _435CB55CDBFE15A49F97C085ED33E89A)(Swift.UInt8) -> ()",
+        "SwiftJLS.JPEGLSBitstreamWriter.writeBits(_: Swift.UInt32, count: Swift.Int) -> ()",
+        "SwiftJLS.JPEGLSScalarKernel.(writeRegularModeBits in _C6B21D22B0E028C74936EE27509789F8)(_: SwiftJLS.EncodedPixel, to: inout SwiftJLS.JPEGLSBitstreamWriter, limit: Swift.Int, qbppBits: Swift.Int) -> ()",
+        "SwiftJLS.JPEGLSScalarKernel.encodePixel(actual: Swift.Int, a: Swift.Int, b: Swift.Int, c: Swift.Int, q1: Swift.Int, q2: Swift.Int, q3: Swift.Int, regularMode: SwiftJLS.JPEGLSRegularMode, context: inout SwiftJLS.JPEGLSContextModel, writer: inout SwiftJLS.JPEGLSBitstreamWriter, limit: Swift.Int, qbppBits: Swift.Int) -> Swift.Int",
+        "function signature specialization <Arg[6] = Dead, Arg[7] = Dead, Arg[9] = Dead> of function signature specialization <Arg[9] = [Closure Propagated : $s8SwiftJLS14ComponentCodecO6encode_13configuration7optionsAA12EncodedImageVAA0I0V_AA20EncoderConfigurationVAA13EncodeOptionsVtKFZAHyKXEfU_ySWKXEfU1_yyKXEfU2_, Argument Types : [SwiftJLS.CodecBudget]> of generic specialization <SwiftJLS.ComponentSampleReader, SwiftJLS.JPEGLSPrevalidatedSamples> of SwiftJLS.JPEGLSScalarKernel.(encodeInterleaved in _4AA1003238D41D213E1B1E157136C93F)<A, B where A: SwiftJLS.JPEGSampleReader, B: SwiftJLS.JPEGLSSampleValidator>(views: [A], width: Swift.Int, height: Swift.Int, mode: SwiftJLS.CodecOptions.InterleaveMode, near: Swift.Int, parameters: SwiftJLS.JPEGLSPresetParameters, bits: Swift.Int, sampleValidator: B, writer: inout SwiftJLS.JPEGLSBitstreamWriter, checkpoint: () throws -> ()) throws -> ()",
+        "closure #3 (Swift.UnsafeRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "partial apply forwarder for closure #3 (Swift.UnsafeRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "merged Swift.Array.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1",
+        "Swift.Array.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1",
+        "SwiftJLS.(SealedImageStorage in _E3A3FF9B1E0185F10C196E0592093825).withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A) throws -> A",
+        "protocol witness for SwiftJLS.ReadOnlyImageStorage.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1 in conformance SwiftJLS.(SealedImageStorage in _E3A3FF9B1E0185F10C196E0592093825) : SwiftJLS.ReadOnlyImageStorage in SwiftJLS",
+        "closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "generic specialization <SwiftJLS.EncodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Encoder.encode(_: SwiftJLS.Image, options: SwiftJLS.EncodeOptions) async throws -> SwiftJLS.EncodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 5,
+      "allocated_bytes": 255024,
+      "requested_size_counts": {
+        "8240": 1,
+        "16464": 1,
+        "32912": 1,
+        "65808": 1,
+        "131600": 1
+      }
+    },
+    "699": {
+      "category": "compressed_buffer",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "closure #1 (Swift.UnsafeRawBufferPointer) -> FoundationEssentials.Data._Representation in FoundationEssentials.Data.init<A where A: FoundationEssentials.ContiguousBytes, A: Swift.Sequence, A.Swift.Sequence.Element == Swift.UInt8>(A) -> FoundationEssentials.Data",
+        "generic specialization <Swift.UInt8, FoundationEssentials.Data._Representation> of Swift.Array.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1",
+        "generic specialization <FoundationEssentials.Data._Representation> of protocol witness for FoundationEssentials.ContiguousBytes.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1 in conformance [Swift.UInt8] : FoundationEssentials.ContiguousBytes in FoundationEssentials",
+        "generic specialization <[Swift.UInt8]> of FoundationEssentials.Data.init<A where A: FoundationEssentials.ContiguousBytes, A: Swift.Sequence, A.Swift.Sequence.Element == Swift.UInt8>(A) -> FoundationEssentials.Data",
+        "SwiftJLS.JPEGLSBitstreamWriter.getData() throws -> FoundationEssentials.Data",
+        "closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "generic specialization <SwiftJLS.EncodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Encoder.encode(_: SwiftJLS.Image, options: SwiftJLS.EncodeOptions) async throws -> SwiftJLS.EncodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 65,
+      "requested_size_counts": {
+        "65": 1
+      }
+    },
+    "701": {
+      "category": "compressed_buffer",
+      "frames": [
+        "FoundationEssentials.__DataStorage.init(bytes: Swift.UnsafeRawPointer?, length: Swift.Int) -> FoundationEssentials.__DataStorage",
+        "closure #1 (Swift.UnsafeRawBufferPointer) -> FoundationEssentials.Data._Representation in FoundationEssentials.Data.init<A where A: FoundationEssentials.ContiguousBytes, A: Swift.Sequence, A.Swift.Sequence.Element == Swift.UInt8>(A) -> FoundationEssentials.Data",
+        "generic specialization <Swift.UInt8, FoundationEssentials.Data._Representation> of Swift.Array.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1",
+        "generic specialization <FoundationEssentials.Data._Representation> of protocol witness for FoundationEssentials.ContiguousBytes.withUnsafeBytes<A>((Swift.UnsafeRawBufferPointer) throws -> A1) throws -> A1 in conformance [Swift.UInt8] : FoundationEssentials.ContiguousBytes in FoundationEssentials",
+        "generic specialization <[Swift.UInt8]> of FoundationEssentials.Data.init<A where A: FoundationEssentials.ContiguousBytes, A: Swift.Sequence, A.Swift.Sequence.Element == Swift.UInt8>(A) -> FoundationEssentials.Data",
+        "SwiftJLS.JPEGLSBitstreamWriter.getData() throws -> FoundationEssentials.Data",
+        "closure #1 () throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "generic specialization <SwiftJLS.EncodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ComponentCodec.encode(_: SwiftJLS.Image, configuration: SwiftJLS.EncoderConfiguration, options: SwiftJLS.EncodeOptions) throws -> SwiftJLS.EncodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Encoder.encode(_: SwiftJLS.Image, options: SwiftJLS.EncodeOptions) async throws -> SwiftJLS.EncodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 126424,
+      "requested_size_counts": {
+        "126424": 1
+      }
+    }
+  },
+  "stack_peak_bytes": null,
+  "allocator_overhead_bytes": null,
+  "codec_heap_attribution_complete": true,
+  "pure_algorithm_workspace_complete": false,
+  "limitations": [
+    "Requested heap bytes exclude allocator usable-size overhead, stack, VM mappings and RSS.",
+    "Categories are stack attribution. Unattributed codec and runtime allocations remain explicit.",
+    "Per-category peak deltas are relative to live pre-operation setup; they peak at different instants and must not be added.",
+    "Allocation-info indices aggregate identical size/stack pairs, so individual pre-existing runtime object lifetimes cannot be separated.",
+    "One operation and one synthetic profile per process; this does not establish all-profile or concurrent workspace bounds.",
+    "Production peakWorkspaceBytes remains unknown; this profile does not supply a complete runtime counter."
+  ],
+  "revision": "candidate_005:receipt:87bda184d21845362608a5a0b2198a9d6840a4324c5bdf2e8f6c5d9978e299e6",
+  "profile_sha256": "01d5374ff2617e71389fa6a6801f068555884e78101f62d791df986b672ab1d6"
+}

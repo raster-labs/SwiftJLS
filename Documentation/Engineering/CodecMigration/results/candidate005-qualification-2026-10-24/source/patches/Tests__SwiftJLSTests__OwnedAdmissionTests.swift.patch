@@ -1,0 +1,49 @@
+diff --git a/Tests/SwiftJLSTests/OwnedAdmissionTests.swift b/Tests/SwiftJLSTests/OwnedAdmissionTests.swift
+--- a/Tests/SwiftJLSTests/OwnedAdmissionTests.swift
++++ b/Tests/SwiftJLSTests/OwnedAdmissionTests.swift
+@@ -1,10 +1,45 @@
+ // SPDX-License-Identifier: Apache-2.0
+ import Foundation
++import Dispatch
++import Synchronization
+ import Testing
+ @testable import SwiftJLS
+ 
+ @Suite("Owned destination admission and required metadata")
+ struct OwnedAdmissionTests {
++    @Test func concurrentDestinationWritesPublishExactlyOnce() throws {
++        let descriptor = try ImageDescriptor.greyscale16(width: 3, height: 2)
++        for _ in 0..<32 {
++            let destination = try ImageDestination.allocate(descriptor: descriptor)
++            let callbacks = Mutex(0)
++            let published = Mutex<[Image]>([])
++            let unexpected = Mutex<[String]>([])
++            DispatchQueue.concurrentPerform(iterations: 32) { _ in
++                do {
++                    let image = try destination.write { bytes in
++                        callbacks.withLock { $0 += 1 }
++                        bytes.initializeMemory(as: UInt8.self, repeating: 0x2a)
++                    }
++                    published.withLock { $0.append(image) }
++                } catch let error as CodecError {
++                    if error != CodecError(.storageUnavailable, "Destination was already used.") {
++                        unexpected.withLock { $0.append(String(describing: error)) }
++                    }
++                } catch {
++                    unexpected.withLock { $0.append(String(describing: error)) }
++                }
++            }
++            #expect(callbacks.withLock { $0 } == 1)
++            #expect(unexpected.withLock { $0 }.isEmpty)
++            let images = published.withLock { $0 }
++            #expect(images.count == 1)
++            if let image = images.first {
++                #expect(image.storage.allocationID == destination.storage.allocationID)
++                #expect(try image.sampleUInt16(x: 2, y: 1) == 0x2a2a)
++            }
++        }
++    }
++
+     @Test func requiredMetadataMembershipAndErrorOrder() throws {
+         let missing = ImageMetadata(entries: ["present": Data([1])], requiredKeys: ["absent"])
+         let tiny = try ResourceLimits(maximumMetadataBytes: 1)

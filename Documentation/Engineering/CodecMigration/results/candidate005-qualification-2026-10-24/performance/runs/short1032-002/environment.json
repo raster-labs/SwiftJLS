@@ -1,0 +1,453 @@
+{
+  "plan_sha256": "9a33492bb539f7cfc921a9c137b56bb9e5e7c2db21cfaba84d8b46985b997ab9",
+  "runner_sha256": "ff9c6a39df23aab13a2d22b697b29f87f12cc6a71aeeadbe541d22ff0a952197",
+  "analyse_sha256": "af066d2b3ade7595a46d100b82db1871242de742fbb27cc711e75571ce90ee41",
+  "source_guards": {
+    "candidate": "candidate_005",
+    "repo_head": "72a9184ae8879fd77364b60a8059d4ad5bc447d4",
+    "receipt_sha256": "87bda184d21845362608a5a0b2198a9d6840a4324c5bdf2e8f6c5d9978e299e6",
+    "all_source_pins_sha256": "bb1f3a5591fbcc3d7585a2eb67e9226cae9068bd7d1e1b90e8896afd0837c05f",
+    "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+    "package_swift_sha256": "b8c00c41dda983f6cee24c45f3e352ebde71c0f25b42abd379a431f1a556394b",
+    "production_files": 39,
+    "test_files": 32,
+    "binary_sha256": {
+      "pinned": "b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45",
+      "three_change": "7f618c0cf8fe1c31bee5a36b212c0dc2943e89fd366b4228a966f63d83aa5231",
+      "candidate": "349a14b524218fde633cd415e9972fdcdd7062601ba8578eb71380383b81c177",
+      "62309d3": "64f270f9370b9537b315e08419c50beadb026cc68e4f2812a3cd53a0a9db5257",
+      "e66f7da": "71601d9d0b603ba4a4fc69dcff8558e9c428c5cec4023c07d5bafec3f16f2a47"
+    },
+    "host_scope": "shared services running; no claim of host idleness"
+  },
+  "conditions": {
+    "utc": "2026-10-24T06:43:20.915661+00:00",
+    "power": {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t97%; charging; 0:25 remaining present: true\n",
+      "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t97%; charging; 0:25 remaining present: true\n",
+      "stderr": ""
+    },
+    "thermal": {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stderr": ""
+    },
+    "load": {
+      "command": [
+        "sysctl",
+        "-n",
+        "vm.loadavg"
+      ],
+      "exit_code": 0,
+      "output": "{ 2.63 3.66 3.90 }\n",
+      "stdout": "{ 2.63 3.66 3.90 }\n",
+      "stderr": ""
+    },
+    "summed_cpu_percent": 154.5,
+    "processes_above_10_percent": [
+      {
+        "pid": 413,
+        "exe_name": "WindowServer",
+        "cpu": 18.3,
+        "cputime": "1485:00.16",
+        "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+        "full_command": "[redacted unrelated process/container text]"
+      },
+      {
+        "pid": 1448,
+        "exe_name": "Terminal",
+        "cpu": 11.0,
+        "cputime": "85:07.79",
+        "comm": "/System/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal",
+        "full_command": "[redacted unrelated process/container text]"
+      },
+      {
+        "pid": 44264,
+        "exe_name": "Codex (Renderer)",
+        "cpu": 16.1,
+        "cputime": "2:17.29",
+        "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+        "full_command": "[redacted unrelated process/container text]"
+      },
+      {
+        "pid": 44281,
+        "exe_name": "Codex (Renderer)",
+        "cpu": 10.0,
+        "cputime": "2:20.99",
+        "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+        "full_command": "[redacted unrelated process/container text]"
+      },
+      {
+        "pid": 52358,
+        "exe_name": "python3",
+        "cpu": 20.7,
+        "cputime": "0:00.13",
+        "comm": "/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "full_command": "[redacted unrelated process/container text]"
+      }
+    ],
+    "interfering_process_names_guarded": [
+      "swift-frontend",
+      "swift-build",
+      "swift-test",
+      "swift-package",
+      "swiftc",
+      "swiftbuild",
+      "SWBBuildService",
+      "xcbbuildService",
+      "xcodebuild",
+      "xctest",
+      "SwiftJLSTests",
+      "WorkspaceProbe",
+      "CopyProbe",
+      "MemDiagRelief",
+      "MemDiagVMMap",
+      "AppleRuntimeConsumer",
+      "AppleResourceConsumer",
+      "IndependentConsumer",
+      "CrossCodecConsumer",
+      "ResourceStress",
+      "InteropConsumer",
+      "charls_interop_driver",
+      "charls_mapping_driver",
+      "heaptrack",
+      "heaptrack_print",
+      "sample",
+      "instruments",
+      "xctrace",
+      "leaks",
+      "vmmap",
+      "tart",
+      "qemu-system-aarch64",
+      "clang",
+      "clang++",
+      "ld",
+      "dsymutil",
+      "llvm-profdata",
+      "llvm-cov",
+      "simctl",
+      "karma",
+      "vitest",
+      "jest",
+      "playwright",
+      "cypress",
+      "pytest",
+      "chromedriver"
+    ],
+    "interfering_command_patterns_guarded": [
+      "ng_test_runner",
+      "chromium_headless_worker",
+      "browser_headless_flag",
+      "js_test_runner",
+      "package_manager_test",
+      "lang_test_runner",
+      "simctl_active_command"
+    ],
+    "simulator_inventory": {
+      "process_count": 0,
+      "summed_ps_cpu_percent": 0.0,
+      "summed_window_instantaneous_cpu_percent": 0.0,
+      "quiescent_booted_simulator": true,
+      "simmetalhost_processes": [],
+      "top_runtime_root_processes": [],
+      "interfering_matches": []
+    },
+    "colima_vm_inventory": {
+      "vm_process_count": 1,
+      "vm_processes": [
+        {
+          "pid": 987,
+          "exe_name": "com.apple.Virtualization.VirtualMachine",
+          "ps_cpu_percent": 5.9,
+          "cputime": "798:11.50",
+          "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine"
+        }
+      ],
+      "limactl_colima_hostagents": [
+        {
+          "pid": 969,
+          "exe_name": "limactl",
+          "ps_cpu_percent": 0.0,
+          "cputime": "27:50.96",
+          "full_command": "[redacted unrelated process/container text]"
+        },
+        {
+          "pid": 974,
+          "exe_name": "limactl",
+          "ps_cpu_percent": 0.0,
+          "cputime": "0:47.52",
+          "full_command": "[redacted unrelated process/container text]"
+        }
+      ],
+      "running_containers": [
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-17 19:07:46 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "5ea299d54b09",
+          "Image": "raster/one-frontend:dev",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "0",
+          "Mounts": "",
+          "Names": "raster-one-frontend-1",
+          "Networks": "raster-one_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux"
+          },
+          "Ports": "0.0.0.0:4200->8080/tcp",
+          "RunningFor": "6 days ago",
+          "Size": "65.5kB (virtual 58.3MB)",
+          "State": "running",
+          "Status": "Up 3 days (healthy)"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-17 12:13:26 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "5930bc4aec00",
+          "Image": "raster/one-erp:dev",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "0",
+          "Mounts": "",
+          "Names": "raster-one-one-erp-1",
+          "Networks": "raster-one_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux"
+          },
+          "Ports": "8080/tcp, 8088/tcp, 9090/tcp, 127.0.0.1:8090->8090/tcp",
+          "RunningFor": "7 days ago",
+          "Size": "242kB (virtual 406MB)",
+          "State": "running",
+          "Status": "Up 3 days (healthy)"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-15 10:50:15 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "cf24bc615571",
+          "Image": "raster/one-kernel:dev",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "0",
+          "Mounts": "",
+          "Names": "raster-one-kernel-1",
+          "Networks": "raster-one_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux"
+          },
+          "Ports": "127.0.0.1:8080->8080/tcp, 127.0.0.1:9090->9090/tcp, 8088/tcp",
+          "RunningFor": "9 days ago",
+          "Size": "242kB (virtual 427MB)",
+          "State": "running",
+          "Status": "Up 3 days (healthy)"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-15 10:50:14 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "fb2044464f91",
+          "Image": "raster/one-studio:dev",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "0",
+          "Mounts": "",
+          "Names": "raster-one-studio-1",
+          "Networks": "raster-one_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux"
+          },
+          "Ports": "8080/tcp, 9090/tcp, 127.0.0.1:8088->8088/tcp",
+          "RunningFor": "9 days ago",
+          "Size": "143kB (virtual 396MB)",
+          "State": "running",
+          "Status": "Up 3 days (healthy)"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "269d55cfa5af",
+          "Image": "postgres:16-alpine",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "1",
+          "Mounts": "/Users/pushpar\u2026,raster-one_pgd\u2026",
+          "Names": "raster-one-postgres-1",
+          "Networks": "raster-one_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "127.0.0.1:15432->5432/tcp",
+          "RunningFor": "9 days ago",
+          "Size": "20.5kB (virtual 297MB)",
+          "State": "running",
+          "Status": "Up 3 days (healthy)"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "9655b95a4e23",
+          "Image": "rabbitmq:3.13-management-alpine",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "1",
+          "Mounts": "raster-one_rab\u2026",
+          "Names": "raster-one-rabbitmq-1",
+          "Networks": "raster-one_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "4369/tcp, 5671/tcp, 127.0.0.1:5672->5672/tcp, 15671/tcp, 15691-15692/tcp, 25672/tcp, 127.0.0.1:15672->15672/tcp",
+          "RunningFor": "9 days ago",
+          "Size": "4.1kB (virtual 191MB)",
+          "State": "running",
+          "Status": "Up 3 days (healthy)"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "1bca90e3d2e8",
+          "Image": "redis:7-alpine",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "1",
+          "Mounts": "raster-one_red\u2026",
+          "Names": "raster-one-redis-1",
+          "Networks": "raster-one_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "127.0.0.1:16379->6379/tcp",
+          "RunningFor": "9 days ago",
+          "Size": "4.1kB (virtual 41.5MB)",
+          "State": "running",
+          "Status": "Up 3 days (healthy)"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-10 11:48:26 +0530 IST",
+          "HealthStatus": "none",
+          "ID": "8c3f3f59c647",
+          "Image": "caddy:2",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "0",
+          "Mounts": "/Users/pushpar\u2026,/Users/pushpar\u2026",
+          "Names": "oosai-lan",
+          "Networks": "bridge",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "80/tcp, 443/tcp, 0.0.0.0:5443->5443/tcp, [::]:5443->5443/tcp, 2019/tcp, 443/udp, 0.0.0.0:8443->8443/tcp, [::]:8443->8443/tcp",
+          "RunningFor": "2 weeks ago",
+          "Size": "49.2kB (virtual 61.9MB)",
+          "State": "running",
+          "Status": "Up 3 days"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-08-27 18:43:46 +0530 IST",
+          "HealthStatus": "none",
+          "ID": "4b02c30d17f7",
+          "Image": "mysql:8.0",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "1",
+          "Mounts": "[redacted unrelated process/container text]_mysq\u2026",
+          "Names": "dev_mysql",
+          "Networks": "[redacted unrelated process/container text]_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp, 33060/tcp",
+          "RunningFor": "8 weeks ago",
+          "Size": "32.8kB (virtual 848MB)",
+          "State": "running",
+          "Status": "Up 3 days"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+          "HealthStatus": "none",
+          "ID": "ab25fd93708d",
+          "Image": "postgres:15-alpine",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "1",
+          "Mounts": "[redacted unrelated process/container text]_post\u2026",
+          "Names": "dev_postgres",
+          "Networks": "[redacted unrelated process/container text]_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp",
+          "RunningFor": "2 months ago",
+          "Size": "28.7kB (virtual 295MB)",
+          "State": "running",
+          "Status": "Up 3 days"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+          "HealthStatus": "none",
+          "ID": "c1cfb710c4f1",
+          "Image": "redis:alpine",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "0",
+          "Mounts": "",
+          "Names": "redis_container",
+          "Networks": "[redacted unrelated process/container text]_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp",
+          "RunningFor": "2 months ago",
+          "Size": "12.3kB (virtual 120MB)",
+          "State": "running",
+          "Status": "Up 3 days"
+        }
+      ],
+      "quiescent_shared_colima_vm": true,
+      "quiescent_shared_vm_exception_note": "PID 987 is the resident shared Colima Virtualization.Framework VM hosting only the persistent multi-day shared dev stack; never killed per host policy.",
+      "interfering_matches": []
+    },
+    "interfering_workload_matches": []
+  },
+  "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+  "swift": {
+    "command": [
+      "swift",
+      "--version"
+    ],
+    "exit_code": 0,
+    "output": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\nswift-driver version: 1.168.6 ",
+    "stdout": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n",
+    "stderr": "swift-driver version: 1.168.6 "
+  },
+  "performance_qualified": false,
+  "caller_context": "original main-actor public-API Consumer"
+}

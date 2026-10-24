@@ -1,0 +1,687 @@
+[
+  {
+    "command": [
+      "xcrun",
+      "swiftc",
+      "-O",
+      "-swift-version",
+      "6",
+      "-strict-concurrency=complete",
+      "-target",
+      "arm64-apple-ios26.0-simulator",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk",
+      "-parse-as-library",
+      "-emit-library",
+      "-emit-module",
+      "-module-name",
+      "SwiftJLS",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/CodecAPI.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Errors.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Image.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/ImageDescriptor.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/ImageStorage.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentCodec.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentSamples.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/HPTransform.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSError.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarSamples.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Options.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedContext.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedCursor.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMarkers.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedOutcome.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParameters.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParser.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedPrediction.swift",
+      "-emit-module-path",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/iphonesimulator/SwiftJLS.swiftmodule",
+      "-Xlinker",
+      "-install_name",
+      "-Xlinker",
+      "@rpath/libSwiftJLS.dylib",
+      "-o",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/iphonesimulator/libSwiftJLS.dylib"
+    ],
+    "exit_code": 0,
+    "seconds": 14.488078084000001,
+    "log": "apple-value/iphonesimulator/library.log",
+    "log_sha256": "7d08fbeb3ecd35c374e10c9d9e0a7f9ed122d9b72912c45468a5e5af7504646e",
+    "artifacts": {
+      "apple-value/iphonesimulator/libSwiftJLS.dylib": {
+        "bytes": 792496,
+        "sha256": "8ea6ca387322bb7121aea39724f722537402bef4838c038e94b134d93c0d49df"
+      },
+      "apple-value/iphonesimulator/SwiftJLS.swiftmodule": {
+        "bytes": 538184,
+        "sha256": "edd5b33a10b344791e0bbd14fbe3c606b3de3c22b371bce280e3d40c0ab61e8a"
+      }
+    }
+  },
+  {
+    "command": [
+      "codesign",
+      "--force",
+      "--sign",
+      "-",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/iphonesimulator/libSwiftJLS.dylib"
+    ],
+    "exit_code": 0,
+    "seconds": 0.012451083000000196,
+    "log": "apple-value/iphonesimulator/sign-library.log",
+    "log_sha256": "86ee2128dabf6e9c892fa35d082ce0e9d235392110a6619e0d7adbedf26af765",
+    "artifacts": {
+      "apple-value/iphonesimulator/libSwiftJLS.dylib": {
+        "bytes": 788032,
+        "sha256": "87f38ed7fb74d00f9461e2d4481c86ba6b1e603e038a82ae04840551253dc61c"
+      }
+    }
+  },
+  {
+    "command": [
+      "xcrun",
+      "swiftc",
+      "-O",
+      "-swift-version",
+      "6",
+      "-strict-concurrency=complete",
+      "-target",
+      "arm64-apple-ios26.0-simulator",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk",
+      "-I",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/iphonesimulator",
+      "-L",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/iphonesimulator",
+      "-lSwiftJLS",
+      "-Xlinker",
+      "-rpath",
+      "-Xlinker",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/iphonesimulator",
+      "/Users/pushparaj/projects/SwiftJLS/Examples/AppleRuntimeConsumer/Sources/AppleRuntimeConsumer/main.swift",
+      "-o",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/iphonesimulator/AppleRuntimeConsumer"
+    ],
+    "exit_code": 0,
+    "seconds": 0.4624944580000001,
+    "log": "apple-value/iphonesimulator/consumer.log",
+    "log_sha256": "7d08fbeb3ecd35c374e10c9d9e0a7f9ed122d9b72912c45468a5e5af7504646e",
+    "artifacts": {
+      "apple-value/iphonesimulator/AppleRuntimeConsumer": {
+        "bytes": 85496,
+        "sha256": "600ce2351c10185aecd406166cc9d87978d3083aa61d5c0a4f87b47bc05e7c65"
+      }
+    }
+  },
+  {
+    "command": [
+      "codesign",
+      "--force",
+      "--sign",
+      "-",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/iphonesimulator/AppleRuntimeConsumer"
+    ],
+    "exit_code": 0,
+    "seconds": 0.010254290999998972,
+    "log": "apple-value/iphonesimulator/sign-consumer.log",
+    "log_sha256": "bc72da7c842f1bea25ae2c69073b3599b7afeaeb03d708b5c0ad103c584c0c73",
+    "artifacts": {
+      "apple-value/iphonesimulator/AppleRuntimeConsumer": {
+        "bytes": 85168,
+        "sha256": "ce7bf8f3252857ebc9c5108f9290e09a62e4cb2512df203b0fb2e1503967aeed"
+      }
+    }
+  },
+  {
+    "command": [
+      "xcrun",
+      "swiftc",
+      "-O",
+      "-swift-version",
+      "6",
+      "-strict-concurrency=complete",
+      "-target",
+      "arm64-apple-tvos26.0-simulator",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator27.0.sdk",
+      "-parse-as-library",
+      "-emit-library",
+      "-emit-module",
+      "-module-name",
+      "SwiftJLS",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/CodecAPI.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Errors.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Image.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/ImageDescriptor.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/ImageStorage.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentCodec.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentSamples.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/HPTransform.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSError.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarSamples.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Options.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedContext.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedCursor.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMarkers.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedOutcome.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParameters.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParser.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedPrediction.swift",
+      "-emit-module-path",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/appletvsimulator/SwiftJLS.swiftmodule",
+      "-Xlinker",
+      "-install_name",
+      "-Xlinker",
+      "@rpath/libSwiftJLS.dylib",
+      "-o",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/appletvsimulator/libSwiftJLS.dylib"
+    ],
+    "exit_code": 0,
+    "seconds": 14.119817583000001,
+    "log": "apple-value/appletvsimulator/library.log",
+    "log_sha256": "14766e2388c4910e186da69b66d5ce4f30bd65df708ac582336b42fa82f32d87",
+    "artifacts": {
+      "apple-value/appletvsimulator/libSwiftJLS.dylib": {
+        "bytes": 792496,
+        "sha256": "a983adc638745df5bd7503bc4af76e668fa7486cf26a09dda86f03812023fab5"
+      },
+      "apple-value/appletvsimulator/SwiftJLS.swiftmodule": {
+        "bytes": 538184,
+        "sha256": "462046bfb732a603ea87cc9dde085f8a57aa5e5f69ea38078cf5473c2065dc19"
+      }
+    }
+  },
+  {
+    "command": [
+      "codesign",
+      "--force",
+      "--sign",
+      "-",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/appletvsimulator/libSwiftJLS.dylib"
+    ],
+    "exit_code": 0,
+    "seconds": 0.010799207999998117,
+    "log": "apple-value/appletvsimulator/sign-library.log",
+    "log_sha256": "c92c477897ab5aa2a9afc974227aed70f8155b72a187356e13f5d8bdb13e3c8d",
+    "artifacts": {
+      "apple-value/appletvsimulator/libSwiftJLS.dylib": {
+        "bytes": 788032,
+        "sha256": "965b9cbc161d99bbabe2aebbf58e737d7c08f7bda93aa9b5940cdf6bc715fad0"
+      }
+    }
+  },
+  {
+    "command": [
+      "xcrun",
+      "swiftc",
+      "-O",
+      "-swift-version",
+      "6",
+      "-strict-concurrency=complete",
+      "-target",
+      "arm64-apple-tvos26.0-simulator",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator27.0.sdk",
+      "-I",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/appletvsimulator",
+      "-L",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/appletvsimulator",
+      "-lSwiftJLS",
+      "-Xlinker",
+      "-rpath",
+      "-Xlinker",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/appletvsimulator",
+      "/Users/pushparaj/projects/SwiftJLS/Examples/AppleRuntimeConsumer/Sources/AppleRuntimeConsumer/main.swift",
+      "-o",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/appletvsimulator/AppleRuntimeConsumer"
+    ],
+    "exit_code": 0,
+    "seconds": 0.451738541000001,
+    "log": "apple-value/appletvsimulator/consumer.log",
+    "log_sha256": "14766e2388c4910e186da69b66d5ce4f30bd65df708ac582336b42fa82f32d87",
+    "artifacts": {
+      "apple-value/appletvsimulator/AppleRuntimeConsumer": {
+        "bytes": 85496,
+        "sha256": "a8b69552ffd66e3d45fb0c4880679e46e99f8d08d62e511680ac2f2835d4be5d"
+      }
+    }
+  },
+  {
+    "command": [
+      "codesign",
+      "--force",
+      "--sign",
+      "-",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/appletvsimulator/AppleRuntimeConsumer"
+    ],
+    "exit_code": 0,
+    "seconds": 0.01004091599999768,
+    "log": "apple-value/appletvsimulator/sign-consumer.log",
+    "log_sha256": "4f7d2ba7c0b6f69f6dcc3fbfc4a8b4522b64aad7b8c49bbb4f30e012b4173d15",
+    "artifacts": {
+      "apple-value/appletvsimulator/AppleRuntimeConsumer": {
+        "bytes": 85168,
+        "sha256": "74201ac4d10669c7073b5d43838ddbeac17a02d3313fd3861eaa1f8c77c17507"
+      }
+    }
+  },
+  {
+    "command": [
+      "xcrun",
+      "swiftc",
+      "-O",
+      "-swift-version",
+      "6",
+      "-strict-concurrency=complete",
+      "-target",
+      "arm64-apple-xros26.0-simulator",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator27.0.sdk",
+      "-parse-as-library",
+      "-emit-library",
+      "-emit-module",
+      "-module-name",
+      "SwiftJLS",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/CodecAPI.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Errors.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Image.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/ImageDescriptor.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/ImageStorage.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentCodec.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentSamples.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/HPTransform.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSError.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarSamples.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Options.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedContext.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedCursor.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMarkers.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedOutcome.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParameters.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParser.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedPrediction.swift",
+      "-emit-module-path",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/xrsimulator/SwiftJLS.swiftmodule",
+      "-Xlinker",
+      "-install_name",
+      "-Xlinker",
+      "@rpath/libSwiftJLS.dylib",
+      "-o",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/xrsimulator/libSwiftJLS.dylib"
+    ],
+    "exit_code": 0,
+    "seconds": 14.221667416999995,
+    "log": "apple-value/xrsimulator/library.log",
+    "log_sha256": "8f42f0b3eff33c36237a7a70fc44e1e99e8da9b85736ec0f8c61a8c13abab022",
+    "artifacts": {
+      "apple-value/xrsimulator/libSwiftJLS.dylib": {
+        "bytes": 792544,
+        "sha256": "0dfe9b2f5b5e5067104dbcbb1a6815a028435667be0e006af63915fba2bb2e9a"
+      },
+      "apple-value/xrsimulator/SwiftJLS.swiftmodule": {
+        "bytes": 538180,
+        "sha256": "3b10a2a97c7b5b1da17c48d04e2b8f2d07f52f8f8a767d8642e2874fe8c31250"
+      }
+    }
+  },
+  {
+    "command": [
+      "codesign",
+      "--force",
+      "--sign",
+      "-",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/xrsimulator/libSwiftJLS.dylib"
+    ],
+    "exit_code": 0,
+    "seconds": 0.011213333000000603,
+    "log": "apple-value/xrsimulator/sign-library.log",
+    "log_sha256": "62ded9727e8e5675b519eda6dbe6e3ef56cde051cd690ae34f06caf5be1dba76",
+    "artifacts": {
+      "apple-value/xrsimulator/libSwiftJLS.dylib": {
+        "bytes": 788080,
+        "sha256": "2a3198e83d382fb8600045b8d52c6739cdcdf949ec08389b4613a6b8b6b28199"
+      }
+    }
+  },
+  {
+    "command": [
+      "xcrun",
+      "swiftc",
+      "-O",
+      "-swift-version",
+      "6",
+      "-strict-concurrency=complete",
+      "-target",
+      "arm64-apple-xros26.0-simulator",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator27.0.sdk",
+      "-I",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/xrsimulator",
+      "-L",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/xrsimulator",
+      "-lSwiftJLS",
+      "-Xlinker",
+      "-rpath",
+      "-Xlinker",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/xrsimulator",
+      "/Users/pushparaj/projects/SwiftJLS/Examples/AppleRuntimeConsumer/Sources/AppleRuntimeConsumer/main.swift",
+      "-o",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/xrsimulator/AppleRuntimeConsumer"
+    ],
+    "exit_code": 0,
+    "seconds": 0.44971533300000033,
+    "log": "apple-value/xrsimulator/consumer.log",
+    "log_sha256": "8f42f0b3eff33c36237a7a70fc44e1e99e8da9b85736ec0f8c61a8c13abab022",
+    "artifacts": {
+      "apple-value/xrsimulator/AppleRuntimeConsumer": {
+        "bytes": 85560,
+        "sha256": "95123b0ac48ebe9ef2f36b0cdb54c652949776d8c631828fd468d6569efaa339"
+      }
+    }
+  },
+  {
+    "command": [
+      "codesign",
+      "--force",
+      "--sign",
+      "-",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/xrsimulator/AppleRuntimeConsumer"
+    ],
+    "exit_code": 0,
+    "seconds": 0.010418416000000263,
+    "log": "apple-value/xrsimulator/sign-consumer.log",
+    "log_sha256": "9bae483586860cf7ecf50ca4ea3bcbca1ec7a3e3a3f0ba67177fa3aa4e55b979",
+    "artifacts": {
+      "apple-value/xrsimulator/AppleRuntimeConsumer": {
+        "bytes": 85232,
+        "sha256": "37a6d5e568ed3c8d9b3d2062a49e8a96f7c5f8e6b63ae75c3080599c84f33210"
+      }
+    }
+  },
+  {
+    "command": [
+      "xcrun",
+      "swiftc",
+      "-O",
+      "-swift-version",
+      "6",
+      "-strict-concurrency=complete",
+      "-target",
+      "arm64-apple-watchos26.0-simulator",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/SDKs/WatchSimulator27.0.sdk",
+      "-parse-as-library",
+      "-emit-library",
+      "-emit-module",
+      "-module-name",
+      "SwiftJLS",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/CodecAPI.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Errors.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Image.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/ImageDescriptor.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/ImageStorage.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentCodec.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentSamples.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/HPTransform.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSError.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarSamples.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Options.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedContext.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedCursor.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMarkers.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedOutcome.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParameters.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParser.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedPrediction.swift",
+      "-emit-module-path",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/watchsimulator/SwiftJLS.swiftmodule",
+      "-Xlinker",
+      "-install_name",
+      "-Xlinker",
+      "@rpath/libSwiftJLS.dylib",
+      "-o",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/watchsimulator/libSwiftJLS.dylib"
+    ],
+    "exit_code": 0,
+    "seconds": 14.205307750000003,
+    "log": "apple-value/watchsimulator/library.log",
+    "log_sha256": "b899d5e88c21e4bd95841881662730a33cb294a010acc6689b8b2c9b1242401c",
+    "artifacts": {
+      "apple-value/watchsimulator/libSwiftJLS.dylib": {
+        "bytes": 792496,
+        "sha256": "395d38c5b8e99b847e97e0fcee67c263dca51018171af57bcdf3f0ae8feb5326"
+      },
+      "apple-value/watchsimulator/SwiftJLS.swiftmodule": {
+        "bytes": 538188,
+        "sha256": "b708a440582ff07ff3e33f0eb7fdb885ba313457d77d76db3e30815f1b3687e6"
+      }
+    }
+  },
+  {
+    "command": [
+      "codesign",
+      "--force",
+      "--sign",
+      "-",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/watchsimulator/libSwiftJLS.dylib"
+    ],
+    "exit_code": 0,
+    "seconds": 0.011447416999999405,
+    "log": "apple-value/watchsimulator/sign-library.log",
+    "log_sha256": "b0628c5741892a1e385194a1818f6c9e8e30a14d988b07d0ebe6d333f1531a93",
+    "artifacts": {
+      "apple-value/watchsimulator/libSwiftJLS.dylib": {
+        "bytes": 788032,
+        "sha256": "856efd88988fa84e024ff99810809fde5d501ea2f38a2a40c5e065ab92d0c511"
+      }
+    }
+  },
+  {
+    "command": [
+      "xcrun",
+      "swiftc",
+      "-O",
+      "-swift-version",
+      "6",
+      "-strict-concurrency=complete",
+      "-target",
+      "arm64-apple-watchos26.0-simulator",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/SDKs/WatchSimulator27.0.sdk",
+      "-I",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/watchsimulator",
+      "-L",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/watchsimulator",
+      "-lSwiftJLS",
+      "-Xlinker",
+      "-rpath",
+      "-Xlinker",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/watchsimulator",
+      "/Users/pushparaj/projects/SwiftJLS/Examples/AppleRuntimeConsumer/Sources/AppleRuntimeConsumer/main.swift",
+      "-o",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/watchsimulator/AppleRuntimeConsumer"
+    ],
+    "exit_code": 0,
+    "seconds": 0.45214429199999984,
+    "log": "apple-value/watchsimulator/consumer.log",
+    "log_sha256": "b899d5e88c21e4bd95841881662730a33cb294a010acc6689b8b2c9b1242401c",
+    "artifacts": {
+      "apple-value/watchsimulator/AppleRuntimeConsumer": {
+        "bytes": 85496,
+        "sha256": "6710ea21d5d7b60a2c2e26b70953b824959d74185ce04f717506d4088aeb070d"
+      }
+    }
+  },
+  {
+    "command": [
+      "codesign",
+      "--force",
+      "--sign",
+      "-",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/watchsimulator/AppleRuntimeConsumer"
+    ],
+    "exit_code": 0,
+    "seconds": 0.010598292000004506,
+    "log": "apple-value/watchsimulator/sign-consumer.log",
+    "log_sha256": "d1241f2b1f924a2f623fc3afb0682dab6e46e6659e294f1bf4effbc27e8eff77",
+    "artifacts": {
+      "apple-value/watchsimulator/AppleRuntimeConsumer": {
+        "bytes": 85168,
+        "sha256": "abac98b0b7102308b53c6958ced387609efd5b3eba82b59c9b9482f0d971e09e"
+      }
+    }
+  },
+  {
+    "command": [
+      "xcrun",
+      "swiftc",
+      "-O",
+      "-swift-version",
+      "6",
+      "-strict-concurrency=complete",
+      "-parse-as-library",
+      "-emit-module",
+      "-module-name",
+      "SwiftJLS",
+      "-target",
+      "arm64_32-apple-watchos26.0",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/WatchOS.platform/Developer/SDKs/WatchOS27.0.sdk",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/CodecAPI.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Errors.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Image.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/ImageDescriptor.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/ImageStorage.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentCodec.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentSamples.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/HPTransform.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSError.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarSamples.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Options.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedContext.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedCursor.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedKernel.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMarkers.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedOutcome.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParameters.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParser.swift",
+      "/Users/pushparaj/projects/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedPrediction.swift",
+      "-emit-module-path",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-value/SwiftJLS-watch32.swiftmodule"
+    ],
+    "exit_code": 0,
+    "seconds": 8.524723166999998,
+    "log": "apple-value/watch32.log",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts": {
+      "apple-value/SwiftJLS-watch32.swiftmodule": {
+        "bytes": 538384,
+        "sha256": "55f3b322e1fb6c0d64af666eba6ebeba501587ad9a1b05a82ba2d15952ab0e13"
+      }
+    }
+  }
+]

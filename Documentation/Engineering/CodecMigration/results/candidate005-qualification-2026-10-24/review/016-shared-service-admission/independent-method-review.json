@@ -1,0 +1,42 @@
+{
+  "utc": "2026-10-24T09:12:57.818921+00:00",
+  "status": "accepted identity-specific admission amendment and mixed-package final-audit method",
+  "old_helper_sha256": "41d857d93c6442ad31c446a2ee82ce86bcd3730bf5f3989f5a1e721108e1b5ea",
+  "new_helper_sha256": "795edad8df92ec573e89de0019318e75b395a5f3d40bef27e95918227053978d",
+  "new_freeze_sha256": "fe685af50f458b7d4646817cd1b25247186eee40983bf5c65cebce4f62eae41d",
+  "identity_receipt_sha256": "cec33e8ef20e8ef139bee8001c1a057f389696f0d47efdc31aa809863195aaef",
+  "selected_identity_sha256": "ffa048d6388f92e0e1270554c8dd4e17fc41339762d8a2aece1ffe6ba85eb410",
+  "controls_sha256": "bd26dcec64adab077baa2dfee8ef44b564c760c506e1ca8dc3f6777a511af954",
+  "unchanged_scope_files": {
+    "identity.json": "066efdc7f8478b34f4f409595a058b564925fc55f2e4da21515b06cd40cd4431",
+    "campaign_identity.py": "951d6c84debf84e37b7df0b9e9cfd86713d81caf4ffd518e50086cef527cf87e",
+    "larger-guard-plan.json": "e53e2e11ff679398dbb5de160e72c08a53ca5809fb2117e42777510158048bef",
+    "rss528_analyse.py": "b93144c5ee3b4f7a3673e04bbb7670313fe07f21b11a6bcc82782bafbe5d9539",
+    "schedules/rss528-4arms-005.json": "c5fda4b42f75d9942d50eac17e20a6ce8f1c3d4ffa4b468b9fecb35df9b2c207"
+  },
+  "larger_schedule_difference": "Only larger_guard_plan_path changed to new package; all orders/processes/cases/limits remain exactly equal.",
+  "findings": [],
+  "proof": [
+    "Only dev_php82/dev_php71/dev_apache receive the new exception; exact inspected full ID, image IDs/names, configured runtime path/arguments, compose role and created/started timestamps must match pinned identity.",
+    "Inspects ps ID rather than mutable name; verifies actual full-ID prefix/name/image against ps row. Failed/missing/multiple/malformed inspection cannot authorise the service.",
+    "ACTIVE_CONTAINER_PATTERN overrides even exact identity; all existing named process, VM, simulator, thermal and AC guards remain unchanged.",
+    "Identity file is included in frozen package guards and copied into each new run. Original short package/helper remains unchanged, with no short runner in new package.",
+    "All18 mocked inspect positive/error controls and mutation/unknown/active-token controls pass; no live process or measurement was launched by this review.",
+    "Plan, analyzer, source and baseline/candidate binaries stay unchanged."
+  ],
+  "limits": [
+    "Persistent shared services are allowed to remain running; this does not assert quiet/idle host or bound application request workload.",
+    "The old shared-name allowlist policy is preserved; stronger identity pinning applies only to the three added services.",
+    "Fresh root AC/thermal/workload admission and explicit execution release are still required.",
+    "Completed short data must be audited under its original package/helper, never relabelled under this amendment."
+  ],
+  "completed_utc": "2026-10-24T09:16:27.967862+00:00",
+  "mixed_audit_wrapper_sha256": "4340eb1765cf4789c67d85a40457b679009e47bbb9daf1469bcc328aeeaac9fd",
+  "mixed_audit_controls_sha256": "20899919b219bea9c777607cb587803d66030ae1179f17e9067a678dc6cf8319",
+  "audit_only_findings_resolved": [
+    "Selected identity equality now covers conditions.jsonl and all condition/start/end snapshots from environment and complete, including larger final end_conditions.",
+    "Self-test output is one valid JSON object; superseded concatenated bytes preserved as JSONL."
+  ],
+  "mixed_scope_proof": "Original71487cb4 freeze/helper is explicitly selected only for completed short; newfe685af5 is selected for larger/RSS. Base audit65ec9ed0 is hash-verified and unchanged. Short replay reuse verifies prior input/analyzer/report/replay hashes and exact summary/metadata equivalence; new selected identities are independently compared in every retained condition.",
+  "no_real_campaign_replay_performed_by_review": true
+}

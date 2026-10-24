@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "status": "Mixed-package adapters prepared; no packaging/replay until all timing, independent full audit, final disposition and restoration complete.",
+  "archive_name": "candidate005-qualification-2026-10-24",
+  "external_stage": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/publication-stage/candidate005-qualification-2026-10-24",
+  "repository_directory": "/Users/pushparaj/projects/SwiftJLS/Documentation/Engineering/CodecMigration/results/candidate005-qualification-2026-10-24",
+  "repository_manifest": "/Users/pushparaj/projects/SwiftJLS/Documentation/Engineering/CodecMigration/results/candidate005-qualification-2026-10-24.json",
+  "source_receipt": "candidate005-001/prepare-and-validate-receipt.json",
+  "source_receipt_sha256": "87bda184d21845362608a5a0b2198a9d6840a4324c5bdf2e8f6c5d9978e299e6",
+  "all_source_pins": "candidate005-001/all-source-pins.json",
+  "base_head": "72a9184ae8879fd77364b60a8059d4ad5bc447d4",
+  "expected_source_files": 39,
+  "expected_test_files": 32,
+  "expected_changed_files": [
+    "Sources/SwiftJLS/Image.swift",
+    "Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift",
+    "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift",
+    "Tests/SwiftJLSTests/OwnedAdmissionTests.swift",
+    "Tests/SwiftJLSTests/WorkspaceAdmissionTests.swift"
+  ],
+  "expected_host": {
+    "modes": [
+      "debug",
+      "release",
+      "asan",
+      "tsan"
+    ],
+    "tests": 157,
+    "named_suites": 28,
+    "xml_classnames": 29
+  },
+  "performance": {
+    "prior_unexecuted_package": "campaigns005",
+    "final_package": "campaigns005-confirmation",
+    "interrupted": "campaigns005-confirmation/runs/short1032-001",
+    "interrupted_processes": 468,
+    "final": {
+      "short": "campaigns005-confirmation/runs/short1032-002",
+      "larger": "campaigns005-final-services/runs/larger15-003",
+      "rss": "campaigns005-final-services/runs/rss528-001"
+    },
+    "expected_processes": {
+      "short": 18576,
+      "larger": 120,
+      "rss": 2112
+    },
+    "independent_audit": "final-performance-audit-001/audit.json",
+    "startup_only_attempts": {
+      "larger15-001": {
+        "status": "AC admission failure before measurement; no raw/events/summary",
+        "receipt": "campaigns005-confirmation/runs/larger15-001/root-launch-failure.json",
+        "interruption": "campaigns005-confirmation/runs/larger15-001/interrupted.json",
+        "independent_policy": "009-larger-ac-interruption-policy.json",
+        "required_replacement_admission": "010-larger-replacement-admission.json",
+        "final_replacement": "larger15-002 (also stopped at initial admission; preserved as separate failure)"
+      },
+      "larger15-002": {
+        "status": "Initial active-container workload admission failure before any benchmark process; AC90 percent present; no raw/events/summary",
+        "interruption": "campaigns005-confirmation/runs/larger15-002/interrupted.json",
+        "independent_policy": "012-larger-workload-interruption-policy.json",
+        "required_fresh_preflight": "preflight-006.json",
+        "required_replacement_admission": "013-root-larger003-admission.json",
+        "root_admission_status": "Not issued until selected-service package reviewed, fresh preflight006 and root admission",
+        "final_replacement": "larger15-003"
+      }
+    },
+    "package_scope_status": "Exact mixed packages: original short002 unchanged; identity-admission amended larger003/RSS001; no shared method reinterpretation.",
+    "package_by_kind": {
+      "short": {
+        "directory": "campaigns005-confirmation",
+        "freeze_sha256": "71487cb4d5272ef0791e04aeeada506ec94ade2fa244f3ec2791539674b0a948",
+        "status": "Frozen package; completed outcomes are checked only after all timing ends",
+        "archive_prefix": "performance",
+        "run_directory": "runs/short1032-002"
+      },
+      "larger": {
+        "directory": "campaigns005-final-services",
+        "freeze_sha256": "fe685af50f458b7d4646817cd1b25247186eee40983bf5c65cebce4f62eae41d",
+        "run_directory": "runs/larger15-003",
+        "status": "Frozen package; completed outcomes are checked only after all timing ends",
+        "archive_prefix": "performance/final-services"
+      },
+      "rss": {
+        "directory": "campaigns005-final-services",
+        "freeze_sha256": "fe685af50f458b7d4646817cd1b25247186eee40983bf5c65cebce4f62eae41d",
+        "run_directory": "runs/rss528-001",
+        "status": "Frozen package; completed outcomes are checked only after all timing ends",
+        "archive_prefix": "performance/final-services"
+      }
+    },
+    "independent_audit_helper": "final-candidate005-audit-mixed-packages.py",
+    "independent_audit_helper_sha256": "4340eb1765cf4789c67d85a40457b679009e47bbb9daf1469bcc328aeeaac9fd",
+    "base_audit_sha256": "65ec9ed0caf840b146712888b34489f550b364fea3f99bf86e5395156f0a6702"
+  },
+  "authored_disposition": "final-candidate005-disposition.json",
+  "authored_disposition_prose": "final-candidate005-disposition.md",
+  "memory": "linux-workspace-candidate005",
+  "cli": "cli-candidate005",
+  "interop": "interop-candidate005",
+  "platform": "platform-candidate005",
+  "mandatory_root_records": [
+    "003-candidate005-confirmation-plan.md",
+    "004-campaign005-preparation-receipt.json",
+    "004-campaign005-preparation-receipt.md",
+    "004-campaign005-synthetic-review.json",
+    "005-confirmation1032-amendment.md",
+    "005-confirmation1032-controls.json",
+    "006-root-campaign-admission.json",
+    "006-short1032-interruption-policy.json",
+    "006-short1032-interruption-policy.md",
+    "008-root-short-replacement-admission.json",
+    "009-root-source-acceptance.json",
+    "preflight-001.json",
+    "preflight-002.json",
+    "preflight-003.json",
+    "candidate005-final-source-review.json",
+    "candidate005-final-source-review.md",
+    "009-larger-ac-interruption-policy.json",
+    "009-larger-ac-interruption-policy.md",
+    "010-larger-replacement-admission.json",
+    "preflight-004.json",
+    "012-larger-workload-interruption-policy.json",
+    "012-larger-workload-interruption-policy.md",
+    "preflight-005.json",
+    "coordination-attempts.json",
+    "preflight-006.json",
+    "013-root-larger003-admission.json",
+    "017-root-rss-admission.json",
+    "preflight-007.json"
+  ],
+  "mandatory_directories": [
+    "007-simulator-pause",
+    "campaign-preparation/synthetic-controls",
+    "controls005-short1032-fullschema-synthetic",
+    "016-shared-service-admission",
+    "015-final-benchmark-window"
+  ],
+  "privacy": {
+    "raw_timing_records": "unchanged bytes, deterministic lossless gzip",
+    "conditions": "redacted public derivative only; preserve every numeric scalar and list position; retain original/decompressed/stored SHA256",
+    "drop_fields": "unrelated full process argv, container Command/Labels/Env and credentials; preserve executable identities and scientific numeric fields",
+    "credentials": "private access material never selected; suspicious remaining credential-shaped content fails packaging",
+    "originals": "remain local unchanged",
+    "selected_service_identity": "Only exact reviewed canonical identity dictionaries from frozen persistent-service-identities.json (optionally status:running) are exempt from unrelated argv redaction. Env/general Labels/other argv stay removed."
+  },
+  "historical_archives": "git diff against base excludes only the new archive paths; existing manifests/payloads must be byte-identical",
+  "reproduction": [
+    "python3 tools/replay-performance.py --archive .",
+    "python3 tools/replay-performance.py --archive . --bootstrap (NumPy required)",
+    "python3 memory/replay-workspace.py --archive memory"
+  ],
+  "source_commit": null,
+  "milestone4_complete": null,
+  "automatic_acceptance": false,
+  "memory_component": {
+    "directory": "memory-publication-run-001",
+    "manifest_sha256": "03047d4d059c842144dea4cb1d508eab8a35db5e7d2a084f57f89db2878e0dd3",
+    "replay_receipt": "memory-publication-run-001-replay-receipt.json",
+    "replay_receipt_sha256": "d220e73a4f5831418561a7f598367c6cd76e562484b88442a2c3d0ffcda73621"
+  },
+  "unpublished_preparation": {
+    "manifest": "publication-stage-003/candidate005-qualification-2026-10-24.json",
+    "manifest_sha256": "d9918eaf30e3a8b2a92d4a49ca906fc9d0d28aa6c69a236b125cfe748217c8ed",
+    "status_receipt": "publication-stage-003-status.json",
+    "disposition_copies": [
+      "partial-checkpoint-draft-candidate005-disposition.json",
+      "partial-checkpoint-draft-candidate005-disposition.md"
+    ],
+    "scope": "Preserve compact manifest/status/disposition history, not the 47MB duplicate payload. No publication or complete milestone claim.",
+    "independent_partial_audit": "publication-stage-003-reviewed-acceptance.json",
+    "independent_partial_audit_sha256": "c31b858611a196e909dd5150055f823d8c83f22e33ded123504cc7c75c583c89",
+    "audit_scope": "Accepted historical partial contents only; final full archive additions/changes need independent audit."
+  },
+  "adapter_pending_changes": [],
+  "final_simulator_restoration": {
+    "required_in_full_mode": true,
+    "receipt": "018-final-simulator-restoration/command.json",
+    "original_state": "015-final-benchmark-window/before.json",
+    "status": "Planned; not yet executed. Full publication requires successful restoration and after-state receipt."
+  }
+}

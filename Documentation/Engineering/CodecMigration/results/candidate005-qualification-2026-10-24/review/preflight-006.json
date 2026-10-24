@@ -1,0 +1,2877 @@
+{
+  "started_utc": "2026-10-24T09:13:28.489725+00:00",
+  "source_guards": {
+    "candidate": "candidate_005",
+    "repo_head": "72a9184ae8879fd77364b60a8059d4ad5bc447d4",
+    "receipt_sha256": "87bda184d21845362608a5a0b2198a9d6840a4324c5bdf2e8f6c5d9978e299e6",
+    "all_source_pins_sha256": "bb1f3a5591fbcc3d7585a2eb67e9226cae9068bd7d1e1b90e8896afd0837c05f",
+    "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+    "package_swift_sha256": "b8c00c41dda983f6cee24c45f3e352ebde71c0f25b42abd379a431f1a556394b",
+    "production_files": 39,
+    "test_files": 32,
+    "binary_sha256": {
+      "pinned": "b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45",
+      "three_change": "7f618c0cf8fe1c31bee5a36b212c0dc2943e89fd366b4228a966f63d83aa5231",
+      "candidate": "349a14b524218fde633cd415e9972fdcdd7062601ba8578eb71380383b81c177",
+      "62309d3": "64f270f9370b9537b315e08419c50beadb026cc68e4f2812a3cd53a0a9db5257",
+      "e66f7da": "71601d9d0b603ba4a4fc69dcff8558e9c428c5cec4023c07d5bafec3f16f2a47"
+    },
+    "host_scope": "shared services running; no claim of host idleness"
+  },
+  "host_guard_self_test": {
+    "host_guard_self_test_passed": true,
+    "persistent_service_identity_controls": {
+      "passed": true,
+      "services": [
+        "dev_php82",
+        "dev_php71",
+        "dev_apache"
+      ],
+      "controls": "exact positive; ten identity mutations; three ps-row mutations; missing inspection; active test command"
+    },
+    "tested_controls": [
+      "attempt1_rejected_ng_test_and_chrome_headless_pid_54525",
+      "vscode_copilot_runtime_headless_negative_control",
+      "simmetalhost_and_runtime_root_quiescent_vs_active",
+      "colima_active_swift_heaptrack_container_vs_quiescent_shared_stack"
+    ]
+  },
+  "host_scope": "Shared services running; no idleness claim. CPU windows are survivor-process CPU deltas and miss processes that exit between observations. Root reviews conditions before authorising collection.",
+  "windows": [
+    {
+      "window_index": 0,
+      "started_utc": "2026-10-24T09:13:28.491042+00:00",
+      "completed_utc": "2026-10-24T09:13:38.800605+00:00",
+      "wall_seconds": 10.3096,
+      "window_total_cpu_seconds": 17.24,
+      "window_summed_instantaneous_cpu_percent": 167.22,
+      "window_processes_above_5_percent": [
+        {
+          "pid": 413,
+          "exe_name": "WindowServer",
+          "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 3.42,
+          "window_instantaneous_cpu_percent": 33.17,
+          "end_ps_cpu_percent": 18.8
+        },
+        {
+          "pid": 41784,
+          "exe_name": "com.apple.WebKit.WebContent",
+          "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.84,
+          "window_instantaneous_cpu_percent": 17.85,
+          "end_ps_cpu_percent": 16.7
+        },
+        {
+          "pid": 987,
+          "exe_name": "com.apple.Virtualization.VirtualMachine",
+          "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.5,
+          "window_instantaneous_cpu_percent": 14.55,
+          "end_ps_cpu_percent": 37.8
+        },
+        {
+          "pid": 41417,
+          "exe_name": "com.apple.WebKit.GPU",
+          "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.45,
+          "window_instantaneous_cpu_percent": 14.06,
+          "end_ps_cpu_percent": 14.4
+        },
+        {
+          "pid": 44264,
+          "exe_name": "Codex (Renderer)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.12,
+          "window_instantaneous_cpu_percent": 10.86,
+          "end_ps_cpu_percent": 3.6
+        },
+        {
+          "pid": 40135,
+          "exe_name": "TimeChamp.Tracker.MacOS",
+          "comm": "/Applications/.Svcvtt.app/Contents/MacOS/TimeChamp.Tracker.MacOS",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.82,
+          "window_instantaneous_cpu_percent": 7.95,
+          "end_ps_cpu_percent": 3.9
+        },
+        {
+          "pid": 41406,
+          "exe_name": "Safari",
+          "comm": "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/MacOS/Safari",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.76,
+          "window_instantaneous_cpu_percent": 7.37,
+          "end_ps_cpu_percent": 6.8
+        },
+        {
+          "pid": 44247,
+          "exe_name": "Codex (Service)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Service).app/Contents/MacOS/Codex (Service)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.73,
+          "window_instantaneous_cpu_percent": 7.08,
+          "end_ps_cpu_percent": 3.5
+        }
+      ],
+      "top_15_window_cpu_processes": [
+        {
+          "pid": 413,
+          "exe_name": "WindowServer",
+          "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 3.42,
+          "window_instantaneous_cpu_percent": 33.17,
+          "end_ps_cpu_percent": 18.8
+        },
+        {
+          "pid": 41784,
+          "exe_name": "com.apple.WebKit.WebContent",
+          "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.84,
+          "window_instantaneous_cpu_percent": 17.85,
+          "end_ps_cpu_percent": 16.7
+        },
+        {
+          "pid": 987,
+          "exe_name": "com.apple.Virtualization.VirtualMachine",
+          "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.5,
+          "window_instantaneous_cpu_percent": 14.55,
+          "end_ps_cpu_percent": 37.8
+        },
+        {
+          "pid": 41417,
+          "exe_name": "com.apple.WebKit.GPU",
+          "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.45,
+          "window_instantaneous_cpu_percent": 14.06,
+          "end_ps_cpu_percent": 14.4
+        },
+        {
+          "pid": 44264,
+          "exe_name": "Codex (Renderer)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.12,
+          "window_instantaneous_cpu_percent": 10.86,
+          "end_ps_cpu_percent": 3.6
+        },
+        {
+          "pid": 40135,
+          "exe_name": "TimeChamp.Tracker.MacOS",
+          "comm": "/Applications/.Svcvtt.app/Contents/MacOS/TimeChamp.Tracker.MacOS",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.82,
+          "window_instantaneous_cpu_percent": 7.95,
+          "end_ps_cpu_percent": 3.9
+        },
+        {
+          "pid": 41406,
+          "exe_name": "Safari",
+          "comm": "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/MacOS/Safari",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.76,
+          "window_instantaneous_cpu_percent": 7.37,
+          "end_ps_cpu_percent": 6.8
+        },
+        {
+          "pid": 44247,
+          "exe_name": "Codex (Service)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Service).app/Contents/MacOS/Codex (Service)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.73,
+          "window_instantaneous_cpu_percent": 7.08,
+          "end_ps_cpu_percent": 3.5
+        },
+        {
+          "pid": 650,
+          "exe_name": "MenuBarAgent",
+          "comm": "/System/Library/CoreServices/MenuBarAgent.app/Contents/MacOS/MenuBarAgent",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.5,
+          "window_instantaneous_cpu_percent": 4.85,
+          "end_ps_cpu_percent": 0.1
+        },
+        {
+          "pid": 414,
+          "exe_name": "tccd",
+          "comm": "/System/Library/PrivateFrameworks/TCC.framework/Support/tccd",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.35,
+          "window_instantaneous_cpu_percent": 3.39,
+          "end_ps_cpu_percent": 0.9
+        },
+        {
+          "pid": 996,
+          "exe_name": "sysmond",
+          "comm": "/usr/libexec/sysmond",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.32,
+          "window_instantaneous_cpu_percent": 3.1,
+          "end_ps_cpu_percent": 0.8
+        },
+        {
+          "pid": 16251,
+          "exe_name": "Antigravity Helper (Renderer)",
+          "comm": "/Applications/Antigravity.app/Contents/Frameworks/Antigravity Helper (Renderer).app/Contents/MacOS/Antigravity Helper (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.31,
+          "window_instantaneous_cpu_percent": 3.01,
+          "end_ps_cpu_percent": 2.6
+        },
+        {
+          "pid": 654,
+          "exe_name": "ControlCenter",
+          "comm": "/System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.3,
+          "window_instantaneous_cpu_percent": 2.91,
+          "end_ps_cpu_percent": 0.9
+        },
+        {
+          "pid": 1506,
+          "exe_name": "Code Helper",
+          "comm": "/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.29,
+          "window_instantaneous_cpu_percent": 2.81,
+          "end_ps_cpu_percent": 1.7
+        },
+        {
+          "pid": 384,
+          "exe_name": "launchservicesd",
+          "comm": "/System/Library/CoreServices/launchservicesd",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.28,
+          "window_instantaneous_cpu_percent": 2.72,
+          "end_ps_cpu_percent": 0.9
+        }
+      ],
+      "window_simulator_inventory": {
+        "process_count": 0,
+        "summed_ps_cpu_percent": 0.0,
+        "summed_window_instantaneous_cpu_percent": 0.0,
+        "quiescent_booted_simulator": true,
+        "simmetalhost_processes": [],
+        "top_runtime_root_processes": [],
+        "interfering_matches": []
+      },
+      "start_conditions": {
+        "utc": "2026-10-24T09:13:28.691995+00:00",
+        "power": {
+          "command": [
+            "pmset",
+            "-g",
+            "batt"
+          ],
+          "exit_code": 0,
+          "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+          "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+          "stderr": ""
+        },
+        "thermal": {
+          "command": [
+            "pmset",
+            "-g",
+            "therm"
+          ],
+          "exit_code": 0,
+          "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stderr": ""
+        },
+        "load": {
+          "command": [
+            "sysctl",
+            "-n",
+            "vm.loadavg"
+          ],
+          "exit_code": 0,
+          "output": "{ 2.93 3.05 3.09 }\n",
+          "stdout": "{ 2.93 3.05 3.09 }\n",
+          "stderr": ""
+        },
+        "summed_cpu_percent": 204.2,
+        "processes_above_10_percent": [
+          {
+            "pid": 413,
+            "exe_name": "WindowServer",
+            "cpu": 37.0,
+            "cputime": "1549:36.11",
+            "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 987,
+            "exe_name": "com.apple.Virtualization.VirtualMachine",
+            "cpu": 11.1,
+            "cputime": "882:13.36",
+            "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40135,
+            "exe_name": "TimeChamp.Tracker.MacOS",
+            "cpu": 21.5,
+            "cputime": "23:07.52",
+            "comm": "/Applications/.Svcvtt.app/Contents/MacOS/TimeChamp.Tracker.MacOS",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 41417,
+            "exe_name": "com.apple.WebKit.GPU",
+            "cpu": 10.7,
+            "cputime": "10:29.38",
+            "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 41784,
+            "exe_name": "com.apple.WebKit.WebContent",
+            "cpu": 16.5,
+            "cputime": "8:38.04",
+            "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 44247,
+            "exe_name": "Codex (Service)",
+            "cpu": 10.9,
+            "cputime": "6:48.74",
+            "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Service).app/Contents/MacOS/Codex (Service)",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 80322,
+            "exe_name": "python3",
+            "cpu": 18.6,
+            "cputime": "0:00.12",
+            "comm": "/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "full_command": "[redacted unrelated process/container text]"
+          }
+        ],
+        "interfering_process_names_guarded": [
+          "swift-frontend",
+          "swift-build",
+          "swift-test",
+          "swift-package",
+          "swiftc",
+          "swiftbuild",
+          "SWBBuildService",
+          "xcbbuildService",
+          "xcodebuild",
+          "xctest",
+          "SwiftJLSTests",
+          "WorkspaceProbe",
+          "CopyProbe",
+          "MemDiagRelief",
+          "MemDiagVMMap",
+          "AppleRuntimeConsumer",
+          "AppleResourceConsumer",
+          "IndependentConsumer",
+          "CrossCodecConsumer",
+          "ResourceStress",
+          "InteropConsumer",
+          "charls_interop_driver",
+          "charls_mapping_driver",
+          "heaptrack",
+          "heaptrack_print",
+          "sample",
+          "instruments",
+          "xctrace",
+          "leaks",
+          "vmmap",
+          "tart",
+          "qemu-system-aarch64",
+          "clang",
+          "clang++",
+          "ld",
+          "dsymutil",
+          "llvm-profdata",
+          "llvm-cov",
+          "simctl",
+          "karma",
+          "vitest",
+          "jest",
+          "playwright",
+          "cypress",
+          "pytest",
+          "chromedriver"
+        ],
+        "interfering_command_patterns_guarded": [
+          "ng_test_runner",
+          "chromium_headless_worker",
+          "browser_headless_flag",
+          "js_test_runner",
+          "package_manager_test",
+          "lang_test_runner",
+          "simctl_active_command"
+        ],
+        "simulator_inventory": {
+          "process_count": 0,
+          "summed_ps_cpu_percent": 0.0,
+          "summed_window_instantaneous_cpu_percent": 0.0,
+          "quiescent_booted_simulator": true,
+          "simmetalhost_processes": [],
+          "top_runtime_root_processes": [],
+          "interfering_matches": []
+        },
+        "colima_vm_inventory": {
+          "vm_process_count": 1,
+          "vm_processes": [
+            {
+              "pid": 987,
+              "exe_name": "com.apple.Virtualization.VirtualMachine",
+              "ps_cpu_percent": 11.1,
+              "cputime": "882:13.36",
+              "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine"
+            }
+          ],
+          "limactl_colima_hostagents": [
+            {
+              "pid": 969,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.0,
+              "cputime": "35:53.06",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 974,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.0,
+              "cputime": "0:49.42",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "running_containers": [
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-24 13:19:49 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "b5f84b840b66",
+              "Image": "dev-stack-php82",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026",
+              "Names": "dev_php82",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "9000/tcp",
+              "RunningFor": "About an hour ago",
+              "Size": "32.8kB (virtual 1.06GB)",
+              "State": "running",
+              "Status": "Up About an hour",
+              "persistent_service_identity": {
+                "name": "dev_php82",
+                "id": "b5f84b840b665b56ee91b7ce2aa316f9ab8666b40be1910583f15b7ffd879de9",
+                "image": "dev-stack-php82",
+                "image_id": "sha256:c4eb5f5fddadbc859622efaa564c768b144309054f4932d9c721c5f040c05b63",
+                "path": "docker-php-entrypoint",
+                "args": [
+                  "php-fpm"
+                ],
+                "created": "2026-10-24T07:49:49.020634172Z",
+                "started_at": "2026-10-24T07:49:49.118855481Z",
+                "status": "running",
+                "compose_project": "dev-stack",
+                "compose_service": "php82"
+              }
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-24 13:19:49 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "ee3e4d34b586",
+              "Image": "dev-stack-php71",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026",
+              "Names": "dev_php71",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "9000/tcp",
+              "RunningFor": "About an hour ago",
+              "Size": "32.8kB (virtual 572MB)",
+              "State": "running",
+              "Status": "Up About an hour",
+              "persistent_service_identity": {
+                "name": "dev_php71",
+                "id": "ee3e4d34b586915d820f30ea94e4f8638f104dcb5983a5a653dc499caa1acdb3",
+                "image": "dev-stack-php71",
+                "image_id": "sha256:41607116cdf2bfeb5845e3495b2322308b798a8d733fe0fc20a5df0ddd60b77e",
+                "path": "docker-php-entrypoint",
+                "args": [
+                  "php-fpm"
+                ],
+                "created": "2026-10-24T07:49:49.019851366Z",
+                "started_at": "2026-10-24T07:49:49.118339221Z",
+                "status": "running",
+                "compose_project": "dev-stack",
+                "compose_service": "php71"
+              }
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 19:07:46 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5ea299d54b09",
+              "Image": "raster/one-frontend:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-frontend-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "0.0.0.0:4200->8080/tcp",
+              "RunningFor": "6 days ago",
+              "Size": "65.5kB (virtual 58.3MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 12:13:26 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5930bc4aec00",
+              "Image": "raster/one-erp:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-one-erp-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 8088/tcp, 9090/tcp, 127.0.0.1:8090->8090/tcp",
+              "RunningFor": "7 days ago",
+              "Size": "242kB (virtual 406MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:15 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "cf24bc615571",
+              "Image": "raster/one-kernel:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-kernel-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "127.0.0.1:8080->8080/tcp, 127.0.0.1:9090->9090/tcp, 8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "242kB (virtual 427MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:14 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "fb2044464f91",
+              "Image": "raster/one-studio:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-studio-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 9090/tcp, 127.0.0.1:8088->8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "143kB (virtual 396MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "269d55cfa5af",
+              "Image": "postgres:16-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "/Users/pushpar\u2026,raster-one_pgd\u2026",
+              "Names": "raster-one-postgres-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:15432->5432/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "20.5kB (virtual 297MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "9655b95a4e23",
+              "Image": "rabbitmq:3.13-management-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_rab\u2026",
+              "Names": "raster-one-rabbitmq-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "4369/tcp, 5671/tcp, 127.0.0.1:5672->5672/tcp, 15671/tcp, 15691-15692/tcp, 25672/tcp, 127.0.0.1:15672->15672/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 191MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "1bca90e3d2e8",
+              "Image": "redis:7-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_red\u2026",
+              "Names": "raster-one-redis-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:16379->6379/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 41.5MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-10 11:48:26 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "8c3f3f59c647",
+              "Image": "caddy:2",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026,/Users/pushpar\u2026",
+              "Names": "oosai-lan",
+              "Networks": "bridge",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "80/tcp, 443/tcp, 0.0.0.0:5443->5443/tcp, [::]:5443->5443/tcp, 2019/tcp, 443/udp, 0.0.0.0:8443->8443/tcp, [::]:8443->8443/tcp",
+              "RunningFor": "2 weeks ago",
+              "Size": "49.2kB (virtual 61.9MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-09-24 11:59:27 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "df163c51fd69",
+              "Image": "httpd:2.4-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026,/Users/pushpar\u2026,/Users/pushpar\u2026",
+              "Names": "dev_apache",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:8081->80/tcp, [::]:8081->80/tcp",
+              "RunningFor": "4 weeks ago",
+              "Size": "57.3kB (virtual 84.4MB)",
+              "State": "running",
+              "Status": "Up About an hour",
+              "persistent_service_identity": {
+                "name": "dev_apache",
+                "id": "df163c51fd6930f21f3cd626767dec26cec574abfa40ad0e7a5ded534a436666",
+                "image": "httpd:2.4-alpine",
+                "image_id": "sha256:1b766f17b84026429b7cb243317b142921b24432336e798bc881c43f45ed9567",
+                "path": "httpd-foreground",
+                "args": [],
+                "created": "2026-09-24T06:29:27.99952599Z",
+                "started_at": "2026-10-24T07:49:49.239784489Z",
+                "status": "running",
+                "compose_project": "dev-stack",
+                "compose_service": "web"
+              }
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-27 18:43:46 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "4b02c30d17f7",
+              "Image": "mysql:8.0",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_mysq\u2026",
+              "Names": "dev_mysql",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp, 33060/tcp",
+              "RunningFor": "8 weeks ago",
+              "Size": "32.8kB (virtual 848MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "ab25fd93708d",
+              "Image": "postgres:15-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_post\u2026",
+              "Names": "dev_postgres",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "28.7kB (virtual 295MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "c1cfb710c4f1",
+              "Image": "redis:alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "redis_container",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "12.3kB (virtual 120MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            }
+          ],
+          "persistent_service_inspection": {
+            "started_utc": "2026-10-24T09:13:28.656538+00:00",
+            "completed_utc": "2026-10-24T09:13:28.691759+00:00",
+            "inspection_seconds": 0.03521674999501556,
+            "services": [
+              {
+                "name": "dev_php82",
+                "ps_id": "b5f84b840b66",
+                "identity": {
+                  "name": "dev_php82",
+                  "id": "b5f84b840b665b56ee91b7ce2aa316f9ab8666b40be1910583f15b7ffd879de9",
+                  "image": "dev-stack-php82",
+                  "image_id": "sha256:c4eb5f5fddadbc859622efaa564c768b144309054f4932d9c721c5f040c05b63",
+                  "path": "docker-php-entrypoint",
+                  "args": [
+                    "php-fpm"
+                  ],
+                  "created": "2026-10-24T07:49:49.020634172Z",
+                  "started_at": "2026-10-24T07:49:49.118855481Z",
+                  "status": "running",
+                  "compose_project": "dev-stack",
+                  "compose_service": "php82"
+                },
+                "identity_matches": true,
+                "reason": "exact identity admitted; no CPU-idleness claim"
+              },
+              {
+                "name": "dev_php71",
+                "ps_id": "ee3e4d34b586",
+                "identity": {
+                  "name": "dev_php71",
+                  "id": "ee3e4d34b586915d820f30ea94e4f8638f104dcb5983a5a653dc499caa1acdb3",
+                  "image": "dev-stack-php71",
+                  "image_id": "sha256:41607116cdf2bfeb5845e3495b2322308b798a8d733fe0fc20a5df0ddd60b77e",
+                  "path": "docker-php-entrypoint",
+                  "args": [
+                    "php-fpm"
+                  ],
+                  "created": "2026-10-24T07:49:49.019851366Z",
+                  "started_at": "2026-10-24T07:49:49.118339221Z",
+                  "status": "running",
+                  "compose_project": "dev-stack",
+                  "compose_service": "php71"
+                },
+                "identity_matches": true,
+                "reason": "exact identity admitted; no CPU-idleness claim"
+              },
+              {
+                "name": "dev_apache",
+                "ps_id": "df163c51fd69",
+                "identity": {
+                  "name": "dev_apache",
+                  "id": "df163c51fd6930f21f3cd626767dec26cec574abfa40ad0e7a5ded534a436666",
+                  "image": "httpd:2.4-alpine",
+                  "image_id": "sha256:1b766f17b84026429b7cb243317b142921b24432336e798bc881c43f45ed9567",
+                  "path": "httpd-foreground",
+                  "args": [],
+                  "created": "2026-09-24T06:29:27.99952599Z",
+                  "started_at": "2026-10-24T07:49:49.239784489Z",
+                  "status": "running",
+                  "compose_project": "dev-stack",
+                  "compose_service": "web"
+                },
+                "identity_matches": true,
+                "reason": "exact identity admitted; no CPU-idleness claim"
+              }
+            ],
+            "scope": "Selected identity checks outside timed Consumer; no environment/private config paths captured"
+          },
+          "quiescent_shared_colima_vm": true,
+          "quiescent_shared_vm_exception_note": "Resident shared Colima services admitted by the existing policy or exact selected identities; services remain running per user policy. This label records guard admission, not host or VM idleness.",
+          "interfering_matches": []
+        },
+        "interfering_workload_matches": []
+      },
+      "end_conditions": {
+        "utc": "2026-10-24T09:13:39.016742+00:00",
+        "power": {
+          "command": [
+            "pmset",
+            "-g",
+            "batt"
+          ],
+          "exit_code": 0,
+          "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+          "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+          "stderr": ""
+        },
+        "thermal": {
+          "command": [
+            "pmset",
+            "-g",
+            "therm"
+          ],
+          "exit_code": 0,
+          "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stderr": ""
+        },
+        "load": {
+          "command": [
+            "sysctl",
+            "-n",
+            "vm.loadavg"
+          ],
+          "exit_code": 0,
+          "output": "{ 2.71 3.00 3.07 }\n",
+          "stdout": "{ 2.71 3.00 3.07 }\n",
+          "stderr": ""
+        },
+        "summed_cpu_percent": 114.0,
+        "processes_above_10_percent": [
+          {
+            "pid": 413,
+            "exe_name": "WindowServer",
+            "cpu": 21.6,
+            "cputime": "1549:39.53",
+            "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 41417,
+            "exe_name": "com.apple.WebKit.GPU",
+            "cpu": 16.0,
+            "cputime": "10:30.82",
+            "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 41784,
+            "exe_name": "com.apple.WebKit.WebContent",
+            "cpu": 17.4,
+            "cputime": "8:39.87",
+            "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+            "full_command": "[redacted unrelated process/container text]"
+          }
+        ],
+        "interfering_process_names_guarded": [
+          "swift-frontend",
+          "swift-build",
+          "swift-test",
+          "swift-package",
+          "swiftc",
+          "swiftbuild",
+          "SWBBuildService",
+          "xcbbuildService",
+          "xcodebuild",
+          "xctest",
+          "SwiftJLSTests",
+          "WorkspaceProbe",
+          "CopyProbe",
+          "MemDiagRelief",
+          "MemDiagVMMap",
+          "AppleRuntimeConsumer",
+          "AppleResourceConsumer",
+          "IndependentConsumer",
+          "CrossCodecConsumer",
+          "ResourceStress",
+          "InteropConsumer",
+          "charls_interop_driver",
+          "charls_mapping_driver",
+          "heaptrack",
+          "heaptrack_print",
+          "sample",
+          "instruments",
+          "xctrace",
+          "leaks",
+          "vmmap",
+          "tart",
+          "qemu-system-aarch64",
+          "clang",
+          "clang++",
+          "ld",
+          "dsymutil",
+          "llvm-profdata",
+          "llvm-cov",
+          "simctl",
+          "karma",
+          "vitest",
+          "jest",
+          "playwright",
+          "cypress",
+          "pytest",
+          "chromedriver"
+        ],
+        "interfering_command_patterns_guarded": [
+          "ng_test_runner",
+          "chromium_headless_worker",
+          "browser_headless_flag",
+          "js_test_runner",
+          "package_manager_test",
+          "lang_test_runner",
+          "simctl_active_command"
+        ],
+        "simulator_inventory": {
+          "process_count": 0,
+          "summed_ps_cpu_percent": 0.0,
+          "summed_window_instantaneous_cpu_percent": 0.0,
+          "quiescent_booted_simulator": true,
+          "simmetalhost_processes": [],
+          "top_runtime_root_processes": [],
+          "interfering_matches": []
+        },
+        "colima_vm_inventory": {
+          "vm_process_count": 1,
+          "vm_processes": [
+            {
+              "pid": 987,
+              "exe_name": "com.apple.Virtualization.VirtualMachine",
+              "ps_cpu_percent": 7.6,
+              "cputime": "882:14.84",
+              "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine"
+            }
+          ],
+          "limactl_colima_hostagents": [
+            {
+              "pid": 969,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.0,
+              "cputime": "35:53.07",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 974,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.0,
+              "cputime": "0:49.43",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "running_containers": [
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-24 13:19:49 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "b5f84b840b66",
+              "Image": "dev-stack-php82",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026",
+              "Names": "dev_php82",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "9000/tcp",
+              "RunningFor": "About an hour ago",
+              "Size": "32.8kB (virtual 1.06GB)",
+              "State": "running",
+              "Status": "Up About an hour",
+              "persistent_service_identity": {
+                "name": "dev_php82",
+                "id": "b5f84b840b665b56ee91b7ce2aa316f9ab8666b40be1910583f15b7ffd879de9",
+                "image": "dev-stack-php82",
+                "image_id": "sha256:c4eb5f5fddadbc859622efaa564c768b144309054f4932d9c721c5f040c05b63",
+                "path": "docker-php-entrypoint",
+                "args": [
+                  "php-fpm"
+                ],
+                "created": "2026-10-24T07:49:49.020634172Z",
+                "started_at": "2026-10-24T07:49:49.118855481Z",
+                "status": "running",
+                "compose_project": "dev-stack",
+                "compose_service": "php82"
+              }
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-24 13:19:49 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "ee3e4d34b586",
+              "Image": "dev-stack-php71",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026",
+              "Names": "dev_php71",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "9000/tcp",
+              "RunningFor": "About an hour ago",
+              "Size": "32.8kB (virtual 572MB)",
+              "State": "running",
+              "Status": "Up About an hour",
+              "persistent_service_identity": {
+                "name": "dev_php71",
+                "id": "ee3e4d34b586915d820f30ea94e4f8638f104dcb5983a5a653dc499caa1acdb3",
+                "image": "dev-stack-php71",
+                "image_id": "sha256:41607116cdf2bfeb5845e3495b2322308b798a8d733fe0fc20a5df0ddd60b77e",
+                "path": "docker-php-entrypoint",
+                "args": [
+                  "php-fpm"
+                ],
+                "created": "2026-10-24T07:49:49.019851366Z",
+                "started_at": "2026-10-24T07:49:49.118339221Z",
+                "status": "running",
+                "compose_project": "dev-stack",
+                "compose_service": "php71"
+              }
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 19:07:46 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5ea299d54b09",
+              "Image": "raster/one-frontend:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-frontend-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "0.0.0.0:4200->8080/tcp",
+              "RunningFor": "6 days ago",
+              "Size": "65.5kB (virtual 58.3MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 12:13:26 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5930bc4aec00",
+              "Image": "raster/one-erp:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-one-erp-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 8088/tcp, 9090/tcp, 127.0.0.1:8090->8090/tcp",
+              "RunningFor": "7 days ago",
+              "Size": "242kB (virtual 406MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:15 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "cf24bc615571",
+              "Image": "raster/one-kernel:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-kernel-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "127.0.0.1:8080->8080/tcp, 127.0.0.1:9090->9090/tcp, 8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "242kB (virtual 427MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:14 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "fb2044464f91",
+              "Image": "raster/one-studio:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-studio-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 9090/tcp, 127.0.0.1:8088->8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "143kB (virtual 396MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "269d55cfa5af",
+              "Image": "postgres:16-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "/Users/pushpar\u2026,raster-one_pgd\u2026",
+              "Names": "raster-one-postgres-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:15432->5432/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "20.5kB (virtual 297MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "9655b95a4e23",
+              "Image": "rabbitmq:3.13-management-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_rab\u2026",
+              "Names": "raster-one-rabbitmq-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "4369/tcp, 5671/tcp, 127.0.0.1:5672->5672/tcp, 15671/tcp, 15691-15692/tcp, 25672/tcp, 127.0.0.1:15672->15672/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 191MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "1bca90e3d2e8",
+              "Image": "redis:7-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_red\u2026",
+              "Names": "raster-one-redis-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:16379->6379/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 41.5MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-10 11:48:26 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "8c3f3f59c647",
+              "Image": "caddy:2",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026,/Users/pushpar\u2026",
+              "Names": "oosai-lan",
+              "Networks": "bridge",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "80/tcp, 443/tcp, 0.0.0.0:5443->5443/tcp, [::]:5443->5443/tcp, 2019/tcp, 443/udp, 0.0.0.0:8443->8443/tcp, [::]:8443->8443/tcp",
+              "RunningFor": "2 weeks ago",
+              "Size": "49.2kB (virtual 61.9MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-09-24 11:59:27 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "df163c51fd69",
+              "Image": "httpd:2.4-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026,/Users/pushpar\u2026,/Users/pushpar\u2026",
+              "Names": "dev_apache",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:8081->80/tcp, [::]:8081->80/tcp",
+              "RunningFor": "4 weeks ago",
+              "Size": "57.3kB (virtual 84.4MB)",
+              "State": "running",
+              "Status": "Up About an hour",
+              "persistent_service_identity": {
+                "name": "dev_apache",
+                "id": "df163c51fd6930f21f3cd626767dec26cec574abfa40ad0e7a5ded534a436666",
+                "image": "httpd:2.4-alpine",
+                "image_id": "sha256:1b766f17b84026429b7cb243317b142921b24432336e798bc881c43f45ed9567",
+                "path": "httpd-foreground",
+                "args": [],
+                "created": "2026-09-24T06:29:27.99952599Z",
+                "started_at": "2026-10-24T07:49:49.239784489Z",
+                "status": "running",
+                "compose_project": "dev-stack",
+                "compose_service": "web"
+              }
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-27 18:43:46 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "4b02c30d17f7",
+              "Image": "mysql:8.0",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_mysq\u2026",
+              "Names": "dev_mysql",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp, 33060/tcp",
+              "RunningFor": "8 weeks ago",
+              "Size": "32.8kB (virtual 848MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "ab25fd93708d",
+              "Image": "postgres:15-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_post\u2026",
+              "Names": "dev_postgres",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "28.7kB (virtual 295MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "c1cfb710c4f1",
+              "Image": "redis:alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "redis_container",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "12.3kB (virtual 120MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            }
+          ],
+          "persistent_service_inspection": {
+            "started_utc": "2026-10-24T09:13:38.982181+00:00",
+            "completed_utc": "2026-10-24T09:13:39.016519+00:00",
+            "inspection_seconds": 0.03430400000070222,
+            "services": [
+              {
+                "name": "dev_php82",
+                "ps_id": "b5f84b840b66",
+                "identity": {
+                  "name": "dev_php82",
+                  "id": "b5f84b840b665b56ee91b7ce2aa316f9ab8666b40be1910583f15b7ffd879de9",
+                  "image": "dev-stack-php82",
+                  "image_id": "sha256:c4eb5f5fddadbc859622efaa564c768b144309054f4932d9c721c5f040c05b63",
+                  "path": "docker-php-entrypoint",
+                  "args": [
+                    "php-fpm"
+                  ],
+                  "created": "2026-10-24T07:49:49.020634172Z",
+                  "started_at": "2026-10-24T07:49:49.118855481Z",
+                  "status": "running",
+                  "compose_project": "dev-stack",
+                  "compose_service": "php82"
+                },
+                "identity_matches": true,
+                "reason": "exact identity admitted; no CPU-idleness claim"
+              },
+              {
+                "name": "dev_php71",
+                "ps_id": "ee3e4d34b586",
+                "identity": {
+                  "name": "dev_php71",
+                  "id": "ee3e4d34b586915d820f30ea94e4f8638f104dcb5983a5a653dc499caa1acdb3",
+                  "image": "dev-stack-php71",
+                  "image_id": "sha256:41607116cdf2bfeb5845e3495b2322308b798a8d733fe0fc20a5df0ddd60b77e",
+                  "path": "docker-php-entrypoint",
+                  "args": [
+                    "php-fpm"
+                  ],
+                  "created": "2026-10-24T07:49:49.019851366Z",
+                  "started_at": "2026-10-24T07:49:49.118339221Z",
+                  "status": "running",
+                  "compose_project": "dev-stack",
+                  "compose_service": "php71"
+                },
+                "identity_matches": true,
+                "reason": "exact identity admitted; no CPU-idleness claim"
+              },
+              {
+                "name": "dev_apache",
+                "ps_id": "df163c51fd69",
+                "identity": {
+                  "name": "dev_apache",
+                  "id": "df163c51fd6930f21f3cd626767dec26cec574abfa40ad0e7a5ded534a436666",
+                  "image": "httpd:2.4-alpine",
+                  "image_id": "sha256:1b766f17b84026429b7cb243317b142921b24432336e798bc881c43f45ed9567",
+                  "path": "httpd-foreground",
+                  "args": [],
+                  "created": "2026-09-24T06:29:27.99952599Z",
+                  "started_at": "2026-10-24T07:49:49.239784489Z",
+                  "status": "running",
+                  "compose_project": "dev-stack",
+                  "compose_service": "web"
+                },
+                "identity_matches": true,
+                "reason": "exact identity admitted; no CPU-idleness claim"
+              }
+            ],
+            "scope": "Selected identity checks outside timed Consumer; no environment/private config paths captured"
+          },
+          "quiescent_shared_colima_vm": true,
+          "quiescent_shared_vm_exception_note": "Resident shared Colima services admitted by the existing policy or exact selected identities; services remain running per user policy. This label records guard admission, not host or VM idleness.",
+          "interfering_matches": []
+        },
+        "interfering_workload_matches": []
+      },
+      "interfering_workload_matches": []
+    },
+    {
+      "window_index": 1,
+      "started_utc": "2026-10-24T09:13:39.112893+00:00",
+      "completed_utc": "2026-10-24T09:13:49.417355+00:00",
+      "wall_seconds": 10.3044,
+      "window_total_cpu_seconds": 17.15,
+      "window_summed_instantaneous_cpu_percent": 166.43,
+      "window_processes_above_5_percent": [
+        {
+          "pid": 413,
+          "exe_name": "WindowServer",
+          "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 3.31,
+          "window_instantaneous_cpu_percent": 32.12,
+          "end_ps_cpu_percent": 18.5
+        },
+        {
+          "pid": 987,
+          "exe_name": "com.apple.Virtualization.VirtualMachine",
+          "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 2.42,
+          "window_instantaneous_cpu_percent": 23.49,
+          "end_ps_cpu_percent": 50.5
+        },
+        {
+          "pid": 41784,
+          "exe_name": "com.apple.WebKit.WebContent",
+          "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.81,
+          "window_instantaneous_cpu_percent": 17.57,
+          "end_ps_cpu_percent": 17.5
+        },
+        {
+          "pid": 41417,
+          "exe_name": "com.apple.WebKit.GPU",
+          "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.43,
+          "window_instantaneous_cpu_percent": 13.88,
+          "end_ps_cpu_percent": 11.6
+        },
+        {
+          "pid": 40135,
+          "exe_name": "TimeChamp.Tracker.MacOS",
+          "comm": "/Applications/.Svcvtt.app/Contents/MacOS/TimeChamp.Tracker.MacOS",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.86,
+          "window_instantaneous_cpu_percent": 8.35,
+          "end_ps_cpu_percent": 3.6
+        },
+        {
+          "pid": 41406,
+          "exe_name": "Safari",
+          "comm": "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/MacOS/Safari",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.73,
+          "window_instantaneous_cpu_percent": 7.08,
+          "end_ps_cpu_percent": 6.3
+        },
+        {
+          "pid": 44247,
+          "exe_name": "Codex (Service)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Service).app/Contents/MacOS/Codex (Service)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.67,
+          "window_instantaneous_cpu_percent": 6.5,
+          "end_ps_cpu_percent": 10.1
+        },
+        {
+          "pid": 44264,
+          "exe_name": "Codex (Renderer)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.6,
+          "window_instantaneous_cpu_percent": 5.82,
+          "end_ps_cpu_percent": 6.5
+        }
+      ],
+      "top_15_window_cpu_processes": [
+        {
+          "pid": 413,
+          "exe_name": "WindowServer",
+          "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 3.31,
+          "window_instantaneous_cpu_percent": 32.12,
+          "end_ps_cpu_percent": 18.5
+        },
+        {
+          "pid": 987,
+          "exe_name": "com.apple.Virtualization.VirtualMachine",
+          "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 2.42,
+          "window_instantaneous_cpu_percent": 23.49,
+          "end_ps_cpu_percent": 50.5
+        },
+        {
+          "pid": 41784,
+          "exe_name": "com.apple.WebKit.WebContent",
+          "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.81,
+          "window_instantaneous_cpu_percent": 17.57,
+          "end_ps_cpu_percent": 17.5
+        },
+        {
+          "pid": 41417,
+          "exe_name": "com.apple.WebKit.GPU",
+          "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.43,
+          "window_instantaneous_cpu_percent": 13.88,
+          "end_ps_cpu_percent": 11.6
+        },
+        {
+          "pid": 40135,
+          "exe_name": "TimeChamp.Tracker.MacOS",
+          "comm": "/Applications/.Svcvtt.app/Contents/MacOS/TimeChamp.Tracker.MacOS",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.86,
+          "window_instantaneous_cpu_percent": 8.35,
+          "end_ps_cpu_percent": 3.6
+        },
+        {
+          "pid": 41406,
+          "exe_name": "Safari",
+          "comm": "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/MacOS/Safari",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.73,
+          "window_instantaneous_cpu_percent": 7.08,
+          "end_ps_cpu_percent": 6.3
+        },
+        {
+          "pid": 44247,
+          "exe_name": "Codex (Service)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Service).app/Contents/MacOS/Codex (Service)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.67,
+          "window_instantaneous_cpu_percent": 6.5,
+          "end_ps_cpu_percent": 10.1
+        },
+        {
+          "pid": 44264,
+          "exe_name": "Codex (Renderer)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.6,
+          "window_instantaneous_cpu_percent": 5.82,
+          "end_ps_cpu_percent": 6.5
+        },
+        {
+          "pid": 650,
+          "exe_name": "MenuBarAgent",
+          "comm": "/System/Library/CoreServices/MenuBarAgent.app/Contents/MacOS/MenuBarAgent",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.49,
+          "window_instantaneous_cpu_percent": 4.76,
+          "end_ps_cpu_percent": 0.0
+        },
+        {
+          "pid": 414,
+          "exe_name": "tccd",
+          "comm": "/System/Library/PrivateFrameworks/TCC.framework/Support/tccd",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.36,
+          "window_instantaneous_cpu_percent": 3.49,
+          "end_ps_cpu_percent": 0.9
+        },
+        {
+          "pid": 654,
+          "exe_name": "ControlCenter",
+          "comm": "/System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.3,
+          "window_instantaneous_cpu_percent": 2.91,
+          "end_ps_cpu_percent": 0.8
+        },
+        {
+          "pid": 16251,
+          "exe_name": "Antigravity Helper (Renderer)",
+          "comm": "/Applications/Antigravity.app/Contents/Frameworks/Antigravity Helper (Renderer).app/Contents/MacOS/Antigravity Helper (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.3,
+          "window_instantaneous_cpu_percent": 2.91,
+          "end_ps_cpu_percent": 2.8
+        },
+        {
+          "pid": 1506,
+          "exe_name": "Code Helper",
+          "comm": "/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.29,
+          "window_instantaneous_cpu_percent": 2.81,
+          "end_ps_cpu_percent": 0.8
+        },
+        {
+          "pid": 384,
+          "exe_name": "launchservicesd",
+          "comm": "/System/Library/CoreServices/launchservicesd",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.28,
+          "window_instantaneous_cpu_percent": 2.72,
+          "end_ps_cpu_percent": 1.0
+        },
+        {
+          "pid": 80142,
+          "exe_name": "vpxenc",
+          "comm": "/Applications/.Svcvtt.app/Contents/MonoBundle/vpxenc",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.25,
+          "window_instantaneous_cpu_percent": 2.43,
+          "end_ps_cpu_percent": 0.9
+        }
+      ],
+      "window_simulator_inventory": {
+        "process_count": 0,
+        "summed_ps_cpu_percent": 0.0,
+        "summed_window_instantaneous_cpu_percent": 0.0,
+        "quiescent_booted_simulator": true,
+        "simmetalhost_processes": [],
+        "top_runtime_root_processes": [],
+        "interfering_matches": []
+      },
+      "start_conditions": {
+        "utc": "2026-10-24T09:13:39.309248+00:00",
+        "power": {
+          "command": [
+            "pmset",
+            "-g",
+            "batt"
+          ],
+          "exit_code": 0,
+          "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+          "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+          "stderr": ""
+        },
+        "thermal": {
+          "command": [
+            "pmset",
+            "-g",
+            "therm"
+          ],
+          "exit_code": 0,
+          "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stderr": ""
+        },
+        "load": {
+          "command": [
+            "sysctl",
+            "-n",
+            "vm.loadavg"
+          ],
+          "exit_code": 0,
+          "output": "{ 2.71 3.00 3.07 }\n",
+          "stdout": "{ 2.71 3.00 3.07 }\n",
+          "stderr": ""
+        },
+        "summed_cpu_percent": 165.1,
+        "processes_above_10_percent": [
+          {
+            "pid": 413,
+            "exe_name": "WindowServer",
+            "cpu": 18.7,
+            "cputime": "1549:39.59",
+            "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 987,
+            "exe_name": "com.apple.Virtualization.VirtualMachine",
+            "cpu": 81.9,
+            "cputime": "882:15.14",
+            "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 41417,
+            "exe_name": "com.apple.WebKit.GPU",
+            "cpu": 13.2,
+            "cputime": "10:30.86",
+            "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 41784,
+            "exe_name": "com.apple.WebKit.WebContent",
+            "cpu": 17.3,
+            "cputime": "8:39.92",
+            "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+            "full_command": "[redacted unrelated process/container text]"
+          }
+        ],
+        "interfering_process_names_guarded": [
+          "swift-frontend",
+          "swift-build",
+          "swift-test",
+          "swift-package",
+          "swiftc",
+          "swiftbuild",
+          "SWBBuildService",
+          "xcbbuildService",
+          "xcodebuild",
+          "xctest",
+          "SwiftJLSTests",
+          "WorkspaceProbe",
+          "CopyProbe",
+          "MemDiagRelief",
+          "MemDiagVMMap",
+          "AppleRuntimeConsumer",
+          "AppleResourceConsumer",
+          "IndependentConsumer",
+          "CrossCodecConsumer",
+          "ResourceStress",
+          "InteropConsumer",
+          "charls_interop_driver",
+          "charls_mapping_driver",
+          "heaptrack",
+          "heaptrack_print",
+          "sample",
+          "instruments",
+          "xctrace",
+          "leaks",
+          "vmmap",
+          "tart",
+          "qemu-system-aarch64",
+          "clang",
+          "clang++",
+          "ld",
+          "dsymutil",
+          "llvm-profdata",
+          "llvm-cov",
+          "simctl",
+          "karma",
+          "vitest",
+          "jest",
+          "playwright",
+          "cypress",
+          "pytest",
+          "chromedriver"
+        ],
+        "interfering_command_patterns_guarded": [
+          "ng_test_runner",
+          "chromium_headless_worker",
+          "browser_headless_flag",
+          "js_test_runner",
+          "package_manager_test",
+          "lang_test_runner",
+          "simctl_active_command"
+        ],
+        "simulator_inventory": {
+          "process_count": 0,
+          "summed_ps_cpu_percent": 0.0,
+          "summed_window_instantaneous_cpu_percent": 0.0,
+          "quiescent_booted_simulator": true,
+          "simmetalhost_processes": [],
+          "top_runtime_root_processes": [],
+          "interfering_matches": []
+        },
+        "colima_vm_inventory": {
+          "vm_process_count": 1,
+          "vm_processes": [
+            {
+              "pid": 987,
+              "exe_name": "com.apple.Virtualization.VirtualMachine",
+              "ps_cpu_percent": 81.9,
+              "cputime": "882:15.14",
+              "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine"
+            }
+          ],
+          "limactl_colima_hostagents": [
+            {
+              "pid": 969,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.4,
+              "cputime": "35:53.07",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 974,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.0,
+              "cputime": "0:49.43",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "running_containers": [
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-24 13:19:49 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "b5f84b840b66",
+              "Image": "dev-stack-php82",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026",
+              "Names": "dev_php82",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "9000/tcp",
+              "RunningFor": "About an hour ago",
+              "Size": "32.8kB (virtual 1.06GB)",
+              "State": "running",
+              "Status": "Up About an hour",
+              "persistent_service_identity": {
+                "name": "dev_php82",
+                "id": "b5f84b840b665b56ee91b7ce2aa316f9ab8666b40be1910583f15b7ffd879de9",
+                "image": "dev-stack-php82",
+                "image_id": "sha256:c4eb5f5fddadbc859622efaa564c768b144309054f4932d9c721c5f040c05b63",
+                "path": "docker-php-entrypoint",
+                "args": [
+                  "php-fpm"
+                ],
+                "created": "2026-10-24T07:49:49.020634172Z",
+                "started_at": "2026-10-24T07:49:49.118855481Z",
+                "status": "running",
+                "compose_project": "dev-stack",
+                "compose_service": "php82"
+              }
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-24 13:19:49 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "ee3e4d34b586",
+              "Image": "dev-stack-php71",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026",
+              "Names": "dev_php71",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "9000/tcp",
+              "RunningFor": "About an hour ago",
+              "Size": "32.8kB (virtual 572MB)",
+              "State": "running",
+              "Status": "Up About an hour",
+              "persistent_service_identity": {
+                "name": "dev_php71",
+                "id": "ee3e4d34b586915d820f30ea94e4f8638f104dcb5983a5a653dc499caa1acdb3",
+                "image": "dev-stack-php71",
+                "image_id": "sha256:41607116cdf2bfeb5845e3495b2322308b798a8d733fe0fc20a5df0ddd60b77e",
+                "path": "docker-php-entrypoint",
+                "args": [
+                  "php-fpm"
+                ],
+                "created": "2026-10-24T07:49:49.019851366Z",
+                "started_at": "2026-10-24T07:49:49.118339221Z",
+                "status": "running",
+                "compose_project": "dev-stack",
+                "compose_service": "php71"
+              }
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 19:07:46 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5ea299d54b09",
+              "Image": "raster/one-frontend:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-frontend-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "0.0.0.0:4200->8080/tcp",
+              "RunningFor": "6 days ago",
+              "Size": "65.5kB (virtual 58.3MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 12:13:26 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5930bc4aec00",
+              "Image": "raster/one-erp:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-one-erp-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 8088/tcp, 9090/tcp, 127.0.0.1:8090->8090/tcp",
+              "RunningFor": "7 days ago",
+              "Size": "242kB (virtual 406MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:15 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "cf24bc615571",
+              "Image": "raster/one-kernel:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-kernel-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "127.0.0.1:8080->8080/tcp, 127.0.0.1:9090->9090/tcp, 8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "242kB (virtual 427MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:14 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "fb2044464f91",
+              "Image": "raster/one-studio:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-studio-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 9090/tcp, 127.0.0.1:8088->8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "143kB (virtual 396MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "269d55cfa5af",
+              "Image": "postgres:16-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "/Users/pushpar\u2026,raster-one_pgd\u2026",
+              "Names": "raster-one-postgres-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:15432->5432/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "20.5kB (virtual 297MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "9655b95a4e23",
+              "Image": "rabbitmq:3.13-management-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_rab\u2026",
+              "Names": "raster-one-rabbitmq-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "4369/tcp, 5671/tcp, 127.0.0.1:5672->5672/tcp, 15671/tcp, 15691-15692/tcp, 25672/tcp, 127.0.0.1:15672->15672/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 191MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "1bca90e3d2e8",
+              "Image": "redis:7-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_red\u2026",
+              "Names": "raster-one-redis-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:16379->6379/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 41.5MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-10 11:48:26 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "8c3f3f59c647",
+              "Image": "caddy:2",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026,/Users/pushpar\u2026",
+              "Names": "oosai-lan",
+              "Networks": "bridge",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "80/tcp, 443/tcp, 0.0.0.0:5443->5443/tcp, [::]:5443->5443/tcp, 2019/tcp, 443/udp, 0.0.0.0:8443->8443/tcp, [::]:8443->8443/tcp",
+              "RunningFor": "2 weeks ago",
+              "Size": "49.2kB (virtual 61.9MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-09-24 11:59:27 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "df163c51fd69",
+              "Image": "httpd:2.4-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026,/Users/pushpar\u2026,/Users/pushpar\u2026",
+              "Names": "dev_apache",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:8081->80/tcp, [::]:8081->80/tcp",
+              "RunningFor": "4 weeks ago",
+              "Size": "57.3kB (virtual 84.4MB)",
+              "State": "running",
+              "Status": "Up About an hour",
+              "persistent_service_identity": {
+                "name": "dev_apache",
+                "id": "df163c51fd6930f21f3cd626767dec26cec574abfa40ad0e7a5ded534a436666",
+                "image": "httpd:2.4-alpine",
+                "image_id": "sha256:1b766f17b84026429b7cb243317b142921b24432336e798bc881c43f45ed9567",
+                "path": "httpd-foreground",
+                "args": [],
+                "created": "2026-09-24T06:29:27.99952599Z",
+                "started_at": "2026-10-24T07:49:49.239784489Z",
+                "status": "running",
+                "compose_project": "dev-stack",
+                "compose_service": "web"
+              }
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-27 18:43:46 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "4b02c30d17f7",
+              "Image": "mysql:8.0",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_mysq\u2026",
+              "Names": "dev_mysql",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp, 33060/tcp",
+              "RunningFor": "8 weeks ago",
+              "Size": "32.8kB (virtual 848MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "ab25fd93708d",
+              "Image": "postgres:15-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_post\u2026",
+              "Names": "dev_postgres",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "28.7kB (virtual 295MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "c1cfb710c4f1",
+              "Image": "redis:alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "redis_container",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "12.3kB (virtual 120MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            }
+          ],
+          "persistent_service_inspection": {
+            "started_utc": "2026-10-24T09:13:39.273553+00:00",
+            "completed_utc": "2026-10-24T09:13:39.309028+00:00",
+            "inspection_seconds": 0.03545208301511593,
+            "services": [
+              {
+                "name": "dev_php82",
+                "ps_id": "b5f84b840b66",
+                "identity": {
+                  "name": "dev_php82",
+                  "id": "b5f84b840b665b56ee91b7ce2aa316f9ab8666b40be1910583f15b7ffd879de9",
+                  "image": "dev-stack-php82",
+                  "image_id": "sha256:c4eb5f5fddadbc859622efaa564c768b144309054f4932d9c721c5f040c05b63",
+                  "path": "docker-php-entrypoint",
+                  "args": [
+                    "php-fpm"
+                  ],
+                  "created": "2026-10-24T07:49:49.020634172Z",
+                  "started_at": "2026-10-24T07:49:49.118855481Z",
+                  "status": "running",
+                  "compose_project": "dev-stack",
+                  "compose_service": "php82"
+                },
+                "identity_matches": true,
+                "reason": "exact identity admitted; no CPU-idleness claim"
+              },
+              {
+                "name": "dev_php71",
+                "ps_id": "ee3e4d34b586",
+                "identity": {
+                  "name": "dev_php71",
+                  "id": "ee3e4d34b586915d820f30ea94e4f8638f104dcb5983a5a653dc499caa1acdb3",
+                  "image": "dev-stack-php71",
+                  "image_id": "sha256:41607116cdf2bfeb5845e3495b2322308b798a8d733fe0fc20a5df0ddd60b77e",
+                  "path": "docker-php-entrypoint",
+                  "args": [
+                    "php-fpm"
+                  ],
+                  "created": "2026-10-24T07:49:49.019851366Z",
+                  "started_at": "2026-10-24T07:49:49.118339221Z",
+                  "status": "running",
+                  "compose_project": "dev-stack",
+                  "compose_service": "php71"
+                },
+                "identity_matches": true,
+                "reason": "exact identity admitted; no CPU-idleness claim"
+              },
+              {
+                "name": "dev_apache",
+                "ps_id": "df163c51fd69",
+                "identity": {
+                  "name": "dev_apache",
+                  "id": "df163c51fd6930f21f3cd626767dec26cec574abfa40ad0e7a5ded534a436666",
+                  "image": "httpd:2.4-alpine",
+                  "image_id": "sha256:1b766f17b84026429b7cb243317b142921b24432336e798bc881c43f45ed9567",
+                  "path": "httpd-foreground",
+                  "args": [],
+                  "created": "2026-09-24T06:29:27.99952599Z",
+                  "started_at": "2026-10-24T07:49:49.239784489Z",
+                  "status": "running",
+                  "compose_project": "dev-stack",
+                  "compose_service": "web"
+                },
+                "identity_matches": true,
+                "reason": "exact identity admitted; no CPU-idleness claim"
+              }
+            ],
+            "scope": "Selected identity checks outside timed Consumer; no environment/private config paths captured"
+          },
+          "quiescent_shared_colima_vm": true,
+          "quiescent_shared_vm_exception_note": "Resident shared Colima services admitted by the existing policy or exact selected identities; services remain running per user policy. This label records guard admission, not host or VM idleness.",
+          "interfering_matches": []
+        },
+        "interfering_workload_matches": []
+      },
+      "end_conditions": {
+        "utc": "2026-10-24T09:13:49.630458+00:00",
+        "power": {
+          "command": [
+            "pmset",
+            "-g",
+            "batt"
+          ],
+          "exit_code": 0,
+          "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+          "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+          "stderr": ""
+        },
+        "thermal": {
+          "command": [
+            "pmset",
+            "-g",
+            "therm"
+          ],
+          "exit_code": 0,
+          "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stderr": ""
+        },
+        "load": {
+          "command": [
+            "sysctl",
+            "-n",
+            "vm.loadavg"
+          ],
+          "exit_code": 0,
+          "output": "{ 2.45 2.93 3.05 }\n",
+          "stdout": "{ 2.45 2.93 3.05 }\n",
+          "stderr": ""
+        },
+        "summed_cpu_percent": 121.7,
+        "processes_above_10_percent": [
+          {
+            "pid": 413,
+            "exe_name": "WindowServer",
+            "cpu": 20.7,
+            "cputime": "1549:42.93",
+            "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 41417,
+            "exe_name": "com.apple.WebKit.GPU",
+            "cpu": 14.0,
+            "cputime": "10:32.29",
+            "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 41784,
+            "exe_name": "com.apple.WebKit.WebContent",
+            "cpu": 17.5,
+            "cputime": "8:41.72",
+            "comm": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 44247,
+            "exe_name": "Codex (Service)",
+            "cpu": 11.7,
+            "cputime": "6:50.14",
+            "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Service).app/Contents/MacOS/Codex (Service)",
+            "full_command": "[redacted unrelated process/container text]"
+          }
+        ],
+        "interfering_process_names_guarded": [
+          "swift-frontend",
+          "swift-build",
+          "swift-test",
+          "swift-package",
+          "swiftc",
+          "swiftbuild",
+          "SWBBuildService",
+          "xcbbuildService",
+          "xcodebuild",
+          "xctest",
+          "SwiftJLSTests",
+          "WorkspaceProbe",
+          "CopyProbe",
+          "MemDiagRelief",
+          "MemDiagVMMap",
+          "AppleRuntimeConsumer",
+          "AppleResourceConsumer",
+          "IndependentConsumer",
+          "CrossCodecConsumer",
+          "ResourceStress",
+          "InteropConsumer",
+          "charls_interop_driver",
+          "charls_mapping_driver",
+          "heaptrack",
+          "heaptrack_print",
+          "sample",
+          "instruments",
+          "xctrace",
+          "leaks",
+          "vmmap",
+          "tart",
+          "qemu-system-aarch64",
+          "clang",
+          "clang++",
+          "ld",
+          "dsymutil",
+          "llvm-profdata",
+          "llvm-cov",
+          "simctl",
+          "karma",
+          "vitest",
+          "jest",
+          "playwright",
+          "cypress",
+          "pytest",
+          "chromedriver"
+        ],
+        "interfering_command_patterns_guarded": [
+          "ng_test_runner",
+          "chromium_headless_worker",
+          "browser_headless_flag",
+          "js_test_runner",
+          "package_manager_test",
+          "lang_test_runner",
+          "simctl_active_command"
+        ],
+        "simulator_inventory": {
+          "process_count": 0,
+          "summed_ps_cpu_percent": 0.0,
+          "summed_window_instantaneous_cpu_percent": 0.0,
+          "quiescent_booted_simulator": true,
+          "simmetalhost_processes": [],
+          "top_runtime_root_processes": [],
+          "interfering_matches": []
+        },
+        "colima_vm_inventory": {
+          "vm_process_count": 1,
+          "vm_processes": [
+            {
+              "pid": 987,
+              "exe_name": "com.apple.Virtualization.VirtualMachine",
+              "ps_cpu_percent": 8.3,
+              "cputime": "882:17.58",
+              "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine"
+            }
+          ],
+          "limactl_colima_hostagents": [
+            {
+              "pid": 969,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.0,
+              "cputime": "35:53.07",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 974,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.0,
+              "cputime": "0:49.43",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "running_containers": [
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-24 13:19:49 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "b5f84b840b66",
+              "Image": "dev-stack-php82",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026",
+              "Names": "dev_php82",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "9000/tcp",
+              "RunningFor": "About an hour ago",
+              "Size": "32.8kB (virtual 1.06GB)",
+              "State": "running",
+              "Status": "Up About an hour",
+              "persistent_service_identity": {
+                "name": "dev_php82",
+                "id": "b5f84b840b665b56ee91b7ce2aa316f9ab8666b40be1910583f15b7ffd879de9",
+                "image": "dev-stack-php82",
+                "image_id": "sha256:c4eb5f5fddadbc859622efaa564c768b144309054f4932d9c721c5f040c05b63",
+                "path": "docker-php-entrypoint",
+                "args": [
+                  "php-fpm"
+                ],
+                "created": "2026-10-24T07:49:49.020634172Z",
+                "started_at": "2026-10-24T07:49:49.118855481Z",
+                "status": "running",
+                "compose_project": "dev-stack",
+                "compose_service": "php82"
+              }
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-24 13:19:49 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "ee3e4d34b586",
+              "Image": "dev-stack-php71",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026",
+              "Names": "dev_php71",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "9000/tcp",
+              "RunningFor": "About an hour ago",
+              "Size": "32.8kB (virtual 572MB)",
+              "State": "running",
+              "Status": "Up About an hour",
+              "persistent_service_identity": {
+                "name": "dev_php71",
+                "id": "ee3e4d34b586915d820f30ea94e4f8638f104dcb5983a5a653dc499caa1acdb3",
+                "image": "dev-stack-php71",
+                "image_id": "sha256:41607116cdf2bfeb5845e3495b2322308b798a8d733fe0fc20a5df0ddd60b77e",
+                "path": "docker-php-entrypoint",
+                "args": [
+                  "php-fpm"
+                ],
+                "created": "2026-10-24T07:49:49.019851366Z",
+                "started_at": "2026-10-24T07:49:49.118339221Z",
+                "status": "running",
+                "compose_project": "dev-stack",
+                "compose_service": "php71"
+              }
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 19:07:46 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5ea299d54b09",
+              "Image": "raster/one-frontend:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-frontend-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "0.0.0.0:4200->8080/tcp",
+              "RunningFor": "6 days ago",
+              "Size": "65.5kB (virtual 58.3MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 12:13:26 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5930bc4aec00",
+              "Image": "raster/one-erp:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-one-erp-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 8088/tcp, 9090/tcp, 127.0.0.1:8090->8090/tcp",
+              "RunningFor": "7 days ago",
+              "Size": "242kB (virtual 406MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:15 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "cf24bc615571",
+              "Image": "raster/one-kernel:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-kernel-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "127.0.0.1:8080->8080/tcp, 127.0.0.1:9090->9090/tcp, 8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "242kB (virtual 427MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:14 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "fb2044464f91",
+              "Image": "raster/one-studio:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-studio-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 9090/tcp, 127.0.0.1:8088->8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "143kB (virtual 396MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "269d55cfa5af",
+              "Image": "postgres:16-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "/Users/pushpar\u2026,raster-one_pgd\u2026",
+              "Names": "raster-one-postgres-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:15432->5432/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "20.5kB (virtual 297MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "9655b95a4e23",
+              "Image": "rabbitmq:3.13-management-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_rab\u2026",
+              "Names": "raster-one-rabbitmq-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "4369/tcp, 5671/tcp, 127.0.0.1:5672->5672/tcp, 15671/tcp, 15691-15692/tcp, 25672/tcp, 127.0.0.1:15672->15672/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 191MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "1bca90e3d2e8",
+              "Image": "redis:7-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_red\u2026",
+              "Names": "raster-one-redis-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:16379->6379/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 41.5MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-10 11:48:26 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "8c3f3f59c647",
+              "Image": "caddy:2",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026,/Users/pushpar\u2026",
+              "Names": "oosai-lan",
+              "Networks": "bridge",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "80/tcp, 443/tcp, 0.0.0.0:5443->5443/tcp, [::]:5443->5443/tcp, 2019/tcp, 443/udp, 0.0.0.0:8443->8443/tcp, [::]:8443->8443/tcp",
+              "RunningFor": "2 weeks ago",
+              "Size": "49.2kB (virtual 61.9MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-09-24 11:59:27 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "df163c51fd69",
+              "Image": "httpd:2.4-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026,/Users/pushpar\u2026,/Users/pushpar\u2026",
+              "Names": "dev_apache",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:8081->80/tcp, [::]:8081->80/tcp",
+              "RunningFor": "4 weeks ago",
+              "Size": "57.3kB (virtual 84.4MB)",
+              "State": "running",
+              "Status": "Up About an hour",
+              "persistent_service_identity": {
+                "name": "dev_apache",
+                "id": "df163c51fd6930f21f3cd626767dec26cec574abfa40ad0e7a5ded534a436666",
+                "image": "httpd:2.4-alpine",
+                "image_id": "sha256:1b766f17b84026429b7cb243317b142921b24432336e798bc881c43f45ed9567",
+                "path": "httpd-foreground",
+                "args": [],
+                "created": "2026-09-24T06:29:27.99952599Z",
+                "started_at": "2026-10-24T07:49:49.239784489Z",
+                "status": "running",
+                "compose_project": "dev-stack",
+                "compose_service": "web"
+              }
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-27 18:43:46 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "4b02c30d17f7",
+              "Image": "mysql:8.0",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_mysq\u2026",
+              "Names": "dev_mysql",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp, 33060/tcp",
+              "RunningFor": "8 weeks ago",
+              "Size": "32.8kB (virtual 848MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "ab25fd93708d",
+              "Image": "postgres:15-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_post\u2026",
+              "Names": "dev_postgres",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "28.7kB (virtual 295MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "c1cfb710c4f1",
+              "Image": "redis:alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "redis_container",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "12.3kB (virtual 120MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            }
+          ],
+          "persistent_service_inspection": {
+            "started_utc": "2026-10-24T09:13:49.598604+00:00",
+            "completed_utc": "2026-10-24T09:13:49.630230+00:00",
+            "inspection_seconds": 0.0316107909893617,
+            "services": [
+              {
+                "name": "dev_php82",
+                "ps_id": "b5f84b840b66",
+                "identity": {
+                  "name": "dev_php82",
+                  "id": "b5f84b840b665b56ee91b7ce2aa316f9ab8666b40be1910583f15b7ffd879de9",
+                  "image": "dev-stack-php82",
+                  "image_id": "sha256:c4eb5f5fddadbc859622efaa564c768b144309054f4932d9c721c5f040c05b63",
+                  "path": "docker-php-entrypoint",
+                  "args": [
+                    "php-fpm"
+                  ],
+                  "created": "2026-10-24T07:49:49.020634172Z",
+                  "started_at": "2026-10-24T07:49:49.118855481Z",
+                  "status": "running",
+                  "compose_project": "dev-stack",
+                  "compose_service": "php82"
+                },
+                "identity_matches": true,
+                "reason": "exact identity admitted; no CPU-idleness claim"
+              },
+              {
+                "name": "dev_php71",
+                "ps_id": "ee3e4d34b586",
+                "identity": {
+                  "name": "dev_php71",
+                  "id": "ee3e4d34b586915d820f30ea94e4f8638f104dcb5983a5a653dc499caa1acdb3",
+                  "image": "dev-stack-php71",
+                  "image_id": "sha256:41607116cdf2bfeb5845e3495b2322308b798a8d733fe0fc20a5df0ddd60b77e",
+                  "path": "docker-php-entrypoint",
+                  "args": [
+                    "php-fpm"
+                  ],
+                  "created": "2026-10-24T07:49:49.019851366Z",
+                  "started_at": "2026-10-24T07:49:49.118339221Z",
+                  "status": "running",
+                  "compose_project": "dev-stack",
+                  "compose_service": "php71"
+                },
+                "identity_matches": true,
+                "reason": "exact identity admitted; no CPU-idleness claim"
+              },
+              {
+                "name": "dev_apache",
+                "ps_id": "df163c51fd69",
+                "identity": {
+                  "name": "dev_apache",
+                  "id": "df163c51fd6930f21f3cd626767dec26cec574abfa40ad0e7a5ded534a436666",
+                  "image": "httpd:2.4-alpine",
+                  "image_id": "sha256:1b766f17b84026429b7cb243317b142921b24432336e798bc881c43f45ed9567",
+                  "path": "httpd-foreground",
+                  "args": [],
+                  "created": "2026-09-24T06:29:27.99952599Z",
+                  "started_at": "2026-10-24T07:49:49.239784489Z",
+                  "status": "running",
+                  "compose_project": "dev-stack",
+                  "compose_service": "web"
+                },
+                "identity_matches": true,
+                "reason": "exact identity admitted; no CPU-idleness claim"
+              }
+            ],
+            "scope": "Selected identity checks outside timed Consumer; no environment/private config paths captured"
+          },
+          "quiescent_shared_colima_vm": true,
+          "quiescent_shared_vm_exception_note": "Resident shared Colima services admitted by the existing policy or exact selected identities; services remain running per user policy. This label records guard admission, not host or VM idleness.",
+          "interfering_matches": []
+        },
+        "interfering_workload_matches": []
+      },
+      "interfering_workload_matches": []
+    }
+  ],
+  "campaign_freeze_sha256": "fe685af50f458b7d4646817cd1b25247186eee40983bf5c65cebce4f62eae41d",
+  "status": "automated_preflight_passed",
+  "root_acceptance": "pending_independent_review",
+  "end_source_guards": {
+    "candidate": "candidate_005",
+    "repo_head": "72a9184ae8879fd77364b60a8059d4ad5bc447d4",
+    "receipt_sha256": "87bda184d21845362608a5a0b2198a9d6840a4324c5bdf2e8f6c5d9978e299e6",
+    "all_source_pins_sha256": "bb1f3a5591fbcc3d7585a2eb67e9226cae9068bd7d1e1b90e8896afd0837c05f",
+    "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+    "package_swift_sha256": "b8c00c41dda983f6cee24c45f3e352ebde71c0f25b42abd379a431f1a556394b",
+    "production_files": 39,
+    "test_files": 32,
+    "binary_sha256": {
+      "pinned": "b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45",
+      "three_change": "7f618c0cf8fe1c31bee5a36b212c0dc2943e89fd366b4228a966f63d83aa5231",
+      "candidate": "349a14b524218fde633cd415e9972fdcdd7062601ba8578eb71380383b81c177",
+      "62309d3": "64f270f9370b9537b315e08419c50beadb026cc68e4f2812a3cd53a0a9db5257",
+      "e66f7da": "71601d9d0b603ba4a4fc69dcff8558e9c428c5cec4023c07d5bafec3f16f2a47"
+    },
+    "host_scope": "shared services running; no claim of host idleness"
+  }
+}

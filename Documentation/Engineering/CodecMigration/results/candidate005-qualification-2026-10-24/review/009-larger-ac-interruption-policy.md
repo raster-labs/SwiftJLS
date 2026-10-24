@@ -1,0 +1,9 @@
+# Larger15 AC admission interruption
+
+A fresh fixed `larger15-002` is conditionally justified after AC power is confirmed and root reviews a fresh preflight. The first attempt retained **zero processes**: `current:null`, no raw/events/summary/complete artifacts. Its initial AC admission failed at frozen runner line356, before the first process launch at line407. The retained condition reports Battery Power. This is a premeasurement environment-admission failure, independent of all timing outcomes.
+
+Preserve `larger15-001` unchanged, including its root-launch-failure receipt. Authorise one fresh directory only after the current source/binary/script/schedule pins and host admission pass. Keep the same15 cases, four paired blocks,120 processes,60 operation points, original5+5, fidelity and encoded-size rules. Keep shared services running. No sample-count change, replacement based on outcomes, automatic retry or threshold waiver is authorised by this disposition.
+
+`short1032-002/complete.json` reports `completed:true`,18576 processes and `performance_qualified:false`. The last field is hardcoded as a literal at frozen short-runner lines309 and505; the larger runner likewise writes false at line512. It is never computed from confidence intervals or endpoint classifications. Preserve these frozen receipts verbatim. Independent final scope acceptance must cite the actual48 endpoint results and audit, then larger/RSS results; the false field does not itself signify a measured regression, nor can it be rewritten into automatic Milestone4 completion.
+
+The adjacent JSON binds all failed larger001 files and records the prospective larger002 path. This check read only count/guard metadata and source, with no short timing/summary inspection or heavy replay. Fresh power/preflight authority remains pending.

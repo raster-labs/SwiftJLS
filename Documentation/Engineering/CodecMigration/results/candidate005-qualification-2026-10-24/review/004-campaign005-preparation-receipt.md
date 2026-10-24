@@ -1,0 +1,16 @@
+# Candidate005 campaign preparation receipt
+
+Prepared, identity-verified and synthetically checked; **no actual benchmark or live host preflight ran**. Candidate source/build receipt is `87bda184d21845362608a5a0b2198a9d6840a4324c5bdf2e8f6c5d9978e299e6`; final Benchmark is `349a14b524218fde633cd415e9972fdcdd7062601ba8578eb71380383b81c177`. Root source receipt declares 39 library files and 32 test files. `campaigns005/campaign-freeze.json` is `2d5d59d6a35c6c1e212b6bc5119b0bb4e9a2ff3fcc48ffb334ba88a04b653309`. Exact script/schedule pins and commands are recorded in the adjacent JSON and plan003.
+
+The original short analyser and host helper are byte-identical. Short516 and larger15 schedules/methods match accepted004 after only producer/provenance-path metadata changes. Original encoded-size expectations are unchanged. Generic source guards now consume the actual005 receipt, complete repository source pins, exact library/test file sets, immutable arm snapshot and original Consumer/package. Actual available SwiftPM build descriptions are pinned; the previous Xcode task-store schema is not invented. The copied diagnostic helper contains its original historical diagnostic entry point, which must not be executed; only its unmodified host functions are used.
+
+All three runner self-tests pass. A complete synthetic528-block RSS data set verifies schema,132 occurrences per position,264 per relative order, four temporal quarters and the finite disposition. The RSS gate function is byte-identical to the original002 method; bootstrap uses the same complete joint block draws,50k/seed20261022, with chunked temporary arrays only. A pre-collection JSON tuple/list comparison defect was corrected and preserved in `controls005-preparation-correction.json`; schedule bytes, sample sizes and statistical rules did not change. No measured outcomes were available during that correction.
+
+Launch after root review and current host admission, using `/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3`:
+
+1. `campaigns005/preflight.py --output <fresh absolute preflight.json>`; inspect both windows/full process evidence and record root acceptance.
+2. `campaigns005/short516_runner.py --output /Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/campaigns005/runs/short516-001`
+3. `campaigns005/larger15_runner.py --output /Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/campaigns005/runs/larger15-001`
+4. `campaigns005/rss528_runner.py --output /Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/campaigns005/runs/rss528-001`
+
+The fresh preflight receipt is bound by root's external launch receipt; it is deliberately not an automatic launch authority. Acquire a fresh preflight when the coordinated window or host state changes. Each command is sequential; analyse/audit replay only after timing ends. Shared services stay running. Automated guard admission does not prove CPU/VM idleness, eliminate timer quantisation, or guarantee adequate precision. Original48 timing endpoints and separate4 RSS contrasts remain finite campaigns with fixed5% gates; neither supersedes universal workspace accounting or pending physical-device qualification. A fully collected unresolved result remains unresolved without an optional same-source extension.

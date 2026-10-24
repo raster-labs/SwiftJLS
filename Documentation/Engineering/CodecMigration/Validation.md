@@ -1,12 +1,27 @@
-# Predecessor migration validation — updated 23 October 2026
+# Predecessor migration validation — updated 24 October 2026
 
-The [22–23 October maintenance-fix, factory and setup-overhead qualification records](RecentFixes.md) document the caller-workspace profile, marker fill, ICC discard, inspection progress rejection, the scalar-owned decode factory (`factory_002`: `Image.writeAdmittedOwned` and `OwnedImageStorage.fillAndSealAdmittedOwned`, `Sources/SwiftJLS` patch `b46c380d1a7a8e9f5a0a1a4ed5a36390e0e99ec21ad18c9d15d5fef538cafc7b` on branch base `041c1a3d4861f9956ca49cd994eff618e23908ec`), and the 23 October setup-overhead and unary-decode follow-up (`candidate_004`: [sources-candidate004.patch](results/candidate004-qualification-2026-10-23/source/sources-candidate004.patch) `afdbf8e7dea40d2b9000bbaf42e4d04d9c7bf0ba9f2d125a30c50c2e4fab259c`, `Sources/SwiftJLS` patch [sources-swiftjls.patch](results/candidate004-qualification-2026-10-23/source/sources-swiftjls.patch) `ad231ebce113fb86265d3a6a2b425f35be7049c99598cd3f78f3ce91294aeded` on branch base `4f6661a4ccec277d02e42b9228c7b574dfbf15cd` in [PR 17](https://github.com/raster-labs/SwiftJLS/pull/17)). Earlier source-pinned performance/platform results remain historical; physical-device tests and Milestone 5 remain pending, and three short performance endpoints, the 22 October Apple RSS source contrasts and universal workspace totals remain open.
+Current qualification is for `candidate_005` on branch base `72a9184ae8879fd77364b60a8059d4ad5bc447d4`, identified by the [candidate005 manifest](results/candidate005-qualification-2026-10-24.json). Six production files and two test files add atomic destination lifecycle, signed-byte gradient tables and bounded parser/control admission. The dated records below are historical and are not evidence for unexecuted current-source gates.
 
-The native codec, mapping tables and metadata are implemented in the owning SwiftJLS API. [PR 14](https://github.com/raster-labs/SwiftJLS/pull/14) merged on 12 October as `f481f6031279b8ca5c51f559df33cc66a9e4e06b`, and [PR 16](https://github.com/raster-labs/SwiftJLS/pull/16) merged on 21 October as `0791e54a5950bb8082af2218bce3800e03c777b9`. [The completion audit](Completion.md) records the current milestone status. Current-source host, native macOS 26.0, exact OS 26.0 simulator and Linux `CopyProbe`/`WorkspaceProbe` validation pass at `candidate_004`; the 23 October 3-arm short campaign (`candidate004-short516-001`, `45/48` within `1.05`, `3` unresolved, `0` confirmed regressions), 15-case larger guard (`candidate004-larger15-001`, `60/60` `<= 1.05`), preserved `candidate_003` history (`short516-002` `47/48` and `diag72-002` `1,728` processes), and preserved 22 October `factory_002` campaigns (`short516-3arms-002`, `larger15-guard-002`, `p12-flat-diag-001`, `apple-rss-112-002`, `apple-vm18-001`) are recorded with their open dispositions; all physical-device tests and Milestone 5 remain pending by owner direction. The owner verifies CI and merges the pushed branch in GitHub. Release, tagging, predecessor archival and consumer cutover remain outside this task.
+The native codec, mapping tables and metadata remain implemented in the owning SwiftJLS API. [Completion.md](Completion.md) separates implemented, tested and pending milestones. The owner verifies CI and merges the pushed branch. Physical-device testing and Milestone 5 remain deferred; release/tagging, predecessor archival and consumer cutover are outside this task.
 
-The [powered maintenance comparison](RecentFixes.md#powered-maintenance-comparison--22-october) records six cases and a fixed flagged-case repeat at `e66f7da`, followed by the [fresh-owned factory and Apple memory follow-up](RecentFixes.md#fresh-owned-factory-and-apple-memory-follow-up--22-october) at `factory_002` and the [setup-overhead and unary-decode follow-up](RecentFixes.md#setup-overhead-and-unary-decode-follow-up--23-october) at `candidate_004`.
+## Candidate005 qualification — 24 October
 
-## Setup-overhead and unary-decode follow-up qualification — 23 October
+| Check | Current-source result |
+| --- | --- |
+| Host Swift 6.4, macOS arm64 | 157 tests in 28 named suites pass separately in debug, release, AddressSanitizer and ThreadSanitizer. |
+| CLI | 73 payload and 103 process/manual checks pass. |
+| Independent interoperability | 990 CharLS checks pass with the established profile exclusions retained. |
+| Ordinary-release Linux workspace/copy | 89 profiles, all 267 profile commands and sample checks pass with the unchanged corrected classifier; 20 copy controls pass. |
+| Short performance | All 48 primary comparisons pass after 1,032 fixed joint rounds / 18,576 processes; exact 50,000-draw independent replay matches. |
+| Larger-image guard | Independent audit reconciles all 120 processes, 60 pooled operation ratios at or below 1.05, and all 15 encoded-size pairs with historical expectations. |
+| Full-process RSS | All 528 four-arm blocks / 2,112 processes reconcile; exact 50,000-draw replay matches. Candidate005 meets the finite interval/observed-maxima criterion against both historical baselines; the identical-binary control requires no review. |
+| Apple platform refresh | SDK builds, five exact OS 26.0 simulator consumers and four 32-frame resource profiles pass. These are not physical-device evidence. |
+| Exact native macOS 26.0 | Hardware-virtualised arm64 macOS 26.0 (25A354): 157 tests in each of debug/release/ASan/TSan, 28 named suites / 29 XML classnames, with no failures or skips. Consumer/resource workloads and 73 payload/103 process CLI checks also pass. |
+| Physical devices / Milestone 5 | Pending / deferred by owner direction. |
+
+[Milestone4Performance.md](Milestone4Performance.md) records the fixed protocol, environment interruptions and shared-host limits. [WorkspaceAccounting.md](WorkspaceAccounting.md) separates source bounds, requested heap, RSS and unknown runtime/stack quantities.
+
+## Historical setup-overhead and unary-decode qualification — 23 October
 
 Candidate `candidate_004` ([sources-candidate004.patch](results/candidate004-qualification-2026-10-23/source/sources-candidate004.patch) `afdbf8e7dea40d2b9000bbaf42e4d04d9c7bf0ba9f2d125a30c50c2e4fab259c`, `Sources/SwiftJLS` patch [sources-swiftjls.patch](results/candidate004-qualification-2026-10-23/source/sources-swiftjls.patch) `ad231ebce113fb86265d3a6a2b425f35be7049c99598cd3f78f3ce91294aeded`, prepare receipt [candidate004-prepare-and-validate-receipt.json](results/candidate004-qualification-2026-10-23/source/candidate004-prepare-and-validate-receipt.json) `4a1b7554778f6f551186f8497d93f599d001d4fe1090eeba6972dcb2436adfed`, and 2,983-file qualification source manifest `e1411cd7f682d3585b6fff8138872b9efa75d480a68f7e895cd8eb11ceeea5a3` in [source-identity.json](results/candidate004-qualification-2026-10-23/source/source-identity.json) on branch base `4f6661a4ccec277d02e42b9228c7b574dfbf15cd`) extends `factory_002` across 5 of 38 production files (`Sources/SwiftJLS/Image.swift`, `Sources/SwiftJLS/ImageStorage.swift`, `Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift`, `Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift` and `Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift`), 4 of 31 test `.swift` files (`BitstreamWriterTests.swift`, `GradientTableTests.swift`, `MappingMetadataTests.swift` and `OwnedAdmissionTests.swift`), and `Scripts/StorageEvidence/measure-operation.py`:
 
@@ -141,7 +156,7 @@ The preceding mapping/metadata campaign [38049186415](https://github.com/raster-
 
 Earlier scalar, component and standard/legacy HP campaigns passed at their recorded revisions. The HP completion is archived in `results/fuzz-hp-hour.json`. Superseded mapping runs 38047378074, 38048361249 and 38052586361 were cancelled; none counts as a duration pass.
 
-## Allocation, copies and workspace
+## Historical allocation, copies and workspace
 
 The Linux ordinary-release copy probe intercepts `memcpy`/`memmove` reads from the pixel owner's numeric range only during the actual scoped encoder borrow. Ten normal profile/interleave cases observe zero source-copy bytes; each matching deliberate-copy case observes the whole source capacity (210, 442 or 1,326 bytes). The self-test must observe a real copy before zero results are accepted. Inlined copies are outside this interceptor, so the independent allocator mutation and source review remain essential.
 
@@ -151,7 +166,7 @@ The checked native-word conversions additionally reject dimensions or archive co
 
 The metadata admission allowance is 32 times retained metadata bytes, covering archives, table copies and container overhead conservatively. It is an admission ceiling, not measured peak workspace. Full per-operation peak pixel/workspace accounting, concurrent stress at target-device limits and arbitrary inlined copy-byte accounting remain unqualified. Report fields that are unknown remain unknown.
 
-## Performance and outstanding release gates
+## Historical performance and release-gate record
 
 An updated ordinary-release comparison at `da5bd84` runs the pinned predecessor and successor public APIs on 24 scalar cases: odd non-square, 512², 2048² and 4096×3073, 12/16 bits, flat/ramp/deterministic noise. Each case has four alternating process blocks, five warm-ups per block and twenty timings per direction. Every sample is checked outside timing; raw timings and environment are retained. The complete run is archived in `results/parity-final-benchmark/`. No local build/sanitizer/tracing job overlapped; a brief CLI regression and documentation/artifact work did. Developer-workstation runs remain advisory: power/thermal and unrelated host load are not controlled. No sanitizer, tracing or coverage run is used as throughput evidence.
 

@@ -1,0 +1,107 @@
+[
+  {
+    "label": "apple-build-value",
+    "command": [
+      "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-build-value.py"
+    ],
+    "cwd": "/Users/pushparaj/projects/SwiftJLS",
+    "started_epoch": 1792825223.466573,
+    "exit_code": 0,
+    "completed_epoch": 1792825291.438997,
+    "log_sha256": "94233a2142fefa5c45e3d9622c0b1c0cbc94fdf1a9b9ebeb950538a1d0bd6d75"
+  },
+  {
+    "label": "apple-runtime-value",
+    "command": [
+      "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-runtime-value.py"
+    ],
+    "cwd": "/Users/pushparaj/projects/SwiftJLS",
+    "started_epoch": 1792825291.515349,
+    "exit_code": 0,
+    "completed_epoch": 1792825358.841929,
+    "log_sha256": "6b9021310d767c775d6b0ce5313759db4bda0dbf21d2bec19fd5cf842753c11e"
+  },
+  {
+    "label": "apple-resource-value",
+    "command": [
+      "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/apple-resource-value.py"
+    ],
+    "cwd": "/Users/pushparaj/projects/SwiftJLS",
+    "started_epoch": 1792825358.9284868,
+    "exit_code": 0,
+    "completed_epoch": 1792825418.059585,
+    "log_sha256": "6b629a8a2efd305ddfda0f7fa22a66e71fb66f69e7d224f2a0afc923bbd0fb1a"
+  },
+  {
+    "label": "native-AppleRuntimeConsumer-build",
+    "command": [
+      "/usr/bin/xcrun",
+      "swift",
+      "build",
+      "--build-system",
+      "swiftbuild",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "/Users/pushparaj/projects/SwiftJLS/Examples/AppleRuntimeConsumer",
+      "--scratch-path",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/native-consumer-build/AppleRuntimeConsumer"
+    ],
+    "cwd": "/Users/pushparaj/projects/SwiftJLS",
+    "started_epoch": 1792825418.139323,
+    "exit_code": 0,
+    "completed_epoch": 1792825447.8043342,
+    "log_sha256": "bee6acf4bcacad78f470109d38cc547481bcc2b6aa5b2a5bdc8f35d43f8063e0"
+  },
+  {
+    "label": "host-AppleRuntimeConsumer",
+    "command": [
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/native-consumer-build/AppleRuntimeConsumer/out/Products/Release/AppleRuntimeConsumer",
+      "/Users/pushparaj/projects/SwiftJLS/Tests/SwiftJLSTests/Fixtures"
+    ],
+    "cwd": "/Users/pushparaj/projects/SwiftJLS",
+    "started_epoch": 1792825448.3760488,
+    "exit_code": 0,
+    "completed_epoch": 1792825448.750713,
+    "log_sha256": "18c45da08bfacfcb177226ef2e7a9439203c85407171553e3b249f36e26ce9eb"
+  },
+  {
+    "label": "native-ResourceStress-build",
+    "command": [
+      "/usr/bin/xcrun",
+      "swift",
+      "build",
+      "--build-system",
+      "swiftbuild",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "/Users/pushparaj/projects/SwiftJLS/Examples/ResourceStress",
+      "--scratch-path",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/native-consumer-build/ResourceStress"
+    ],
+    "cwd": "/Users/pushparaj/projects/SwiftJLS",
+    "started_epoch": 1792825448.8582249,
+    "exit_code": 0,
+    "completed_epoch": 1792825477.8435788,
+    "log_sha256": "36a4613579836c5aa5af8cf1398d4c42294087888338d4c5271064f58ba6beb1"
+  },
+  {
+    "label": "host-ResourceStress",
+    "command": [
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/platform-candidate005/native-consumer-build/ResourceStress/out/Products/Release/ResourceStress"
+    ],
+    "cwd": "/Users/pushparaj/projects/SwiftJLS",
+    "started_epoch": 1792825478.565173,
+    "exit_code": 0,
+    "completed_epoch": 1792825479.51399,
+    "log_sha256": "aebe38eb5e2a93e3f59507eeb00a0c4ed3931014e19a50ad10f5392683c32524"
+  }
+]
