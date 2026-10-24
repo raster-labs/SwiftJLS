@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "review_status": "approved_for_validation",
+  "source_commit": "e6a6436c692f5af226bffceb70b7ee65c774edf3",
+  "measured_candidate_build": "work/m4-owned-admission-diagnostic/build-identity.json",
+  "measured_candidate_binary": "work/m4-owned-admission-diagnostic/consumer/.build/release/Benchmark",
+  "historical_manifest": "Documentation/Engineering/CodecMigration/results/milestone4-final-2026-10-21.json",
+  "historical_manifest_sha256": "85b7d8c2e564591b2c1ac2e4a78f38fbee4ddc7d1d59486302e453908339596a",
+  "measurement_plan": "work/m4-final-2026-10-21-performance/larger-guard-plan.json",
+  "measurements": [
+    {
+      "identity_schema": "owned-admission-v1",
+      "frozen_plan": "work/m4-owned-admission-measurements/plan.json",
+      "frozen_plan_sha256": "d4884a3179de0ca91815e808df4ac836f5ac7883ad3fa3e4d64daaa8cbee78e5",
+      "name": "tiny-short-confirmation128",
+      "kind": "tiny-confirmation128",
+      "root": "work/m4-owned-admission-measurements/results/pinned-short128",
+      "schedule": "work/m4-owned-admission-measurements/schedules/short-pinned.json",
+      "runner": "work/m4-owned-admission-measurements/run128.py",
+      "analysis_python": "/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+    },
+    {
+      "identity_schema": "owned-admission-v1",
+      "frozen_plan": "work/m4-owned-admission-measurements/plan.json",
+      "frozen_plan_sha256": "d4884a3179de0ca91815e808df4ac836f5ac7883ad3fa3e4d64daaa8cbee78e5",
+      "name": "tiny-deep",
+      "kind": "tiny-deep",
+      "root": "work/m4-owned-admission-measurements/results/pinned-deep16",
+      "schedule": "work/m4-owned-admission-measurements/schedules/long-pinned.json",
+      "runner": "work/m4-owned-admission-measurements/run16.py"
+    },
+    {
+      "name": "larger",
+      "kind": "larger",
+      "root": "work/m4-final-2026-10-21-performance/larger-guards",
+      "schedule": "work/m4-final-2026-10-21-performance/larger-guard-schedule.json",
+      "runner": "work/m4-final-2026-10-21-performance/run-larger-guards.py",
+      "larger_guard_plan": "work/m4-final-2026-10-21-performance/larger-guard-plan.json"
+    }
+  ],
+  "reviewed_performance_disposition": "work/m4-final-2026-10-21-performance/reviewed-performance-disposition.json",
+  "diagnostic_sources": {
+    "same_producer_controls": "work/m4-short-path-self-controls",
+    "executor_counterfactual": "work/m4-short-executor-diagnostic"
+  },
+  "diagnostic_basis_build": "work/m4-short-path-diagnostic/build-identity.json",
+  "preceding_candidate_measurements": [
+    {
+      "name": "preceding-three-change-tiny-short",
+      "kind": "tiny-short",
+      "root": "work/m4-short-path-diagnostic/timings/short-pinned",
+      "schedule": "work/m4-short-path-diagnostic/schedules/short-pinned.json",
+      "runner": "work/m4-short-path-diagnostic/run-comparisons.py"
+    },
+    {
+      "name": "preceding-three-change-tiny-deep",
+      "kind": "tiny-deep",
+      "root": "work/m4-short-path-diagnostic/timings/long-pinned",
+      "schedule": "work/m4-short-path-diagnostic/schedules/long-pinned.json",
+      "runner": "work/m4-short-path-diagnostic/run-comparisons.py"
+    },
+    {
+      "name": "preceding-three-change-tiny-short-confirmation128",
+      "kind": "tiny-confirmation128",
+      "root": "work/m4-short-path-confirmation/results",
+      "schedule": "work/m4-short-path-confirmation/schedules/short-pinned.json",
+      "runner": "work/m4-short-path-confirmation/run.py",
+      "frozen_plan": "work/m4-short-path-confirmation/plan.json",
+      "frozen_plan_sha256": "c76217f8407176c29fb49961c04e9fd8ef14f0e3409730b4a9b8f01a9c100759"
+    }
+  ],
+  "workspace_directory": "work/m4-final-2026-10-21-performance/workspace-accounting-evidence",
+  "mutation_directory": "work/m4-final-2026-10-21-performance/mutation",
+  "status": "Root-approved validation plan for e6a6436. Host/native120x4, qualification10, workspace89, larger15/120process and three3600-second mutation receipts complete. Prepare4 raw recomputation and focused workspace archive check passed. Authored six findings retain5 unresolved decode findings and1 explained header-only size finding. Full archive check/publication remain pending; no performance acceptance or milestone completion asserted.",
+  "incremental_diagnostic": {
+    "identity_schema": "owned-admission-v1",
+    "frozen_plan": "work/m4-owned-admission-measurements/plan.json",
+    "frozen_plan_sha256": "d4884a3179de0ca91815e808df4ac836f5ac7883ad3fa3e4d64daaa8cbee78e5",
+    "name": "incremental-owned-admission-short16",
+    "kind": "diagnostic-short",
+    "root": "work/m4-owned-admission-measurements/results/direct-short16",
+    "schedule": "work/m4-owned-admission-measurements/schedules/short-threechange.json",
+    "runner": "work/m4-owned-admission-measurements/run16.py"
+  },
+  "root_review": {
+    "utc": "2026-10-21T15:36:30.125880+00:00",
+    "scope": "Source/Consumer/binary guards, raw/schedule identities, strict workspace and mutation ledgers, exact finding coverage, immutable historical archive and exclusive output publication reviewed. Source_review independently checked source and scoped adapters. Validation may run only after the active timing window ends.",
+    "performance_accepted": false
+  }
+}

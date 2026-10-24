@@ -1,0 +1,9 @@
+# Larger002 workload admission interruption
+
+A fresh fixed `larger15-003` is conditionally methodologically justified after external tests are coordinated or finish and root reviews a fresh preflight. Larger002 failed before any benchmark process: completed count0, currentnull, no raw/events/summary/complete artifacts. At07:22:29UTC, the unchanged initial guard found seven transient Colima-container workloads, including HRM and testcontainers. Recorded power was AC90% charging; the blocker changed from the earlier AC failure to active external testing.
+
+Frozen runner, helper, schedule, original larger-plan, identity and package-freeze bytes match the admitted package. No timing outcomes exist for this attempt. Preserve both larger001 (zero-process AC failure) and larger002 (zero-process workload failure) without overwriting or pooling. This is a documented environmental admission replacement under plan003, not a retry selected by favourable performance results.
+
+Before root authorises larger003, coordinate the external heavy-test window and collect fresh preflight005 plus current source/binary identity guards. Messaging the separate HRM Codex chat requires the requested explicit user authority; authorisation for a different Antigravity conversation is not inferred. Colima/shared services/monitoring stay running, and no container or unrelated job is killed by this disposition. Keep exactly15 cases, four paired blocks,120 processes,60 operation points,5+5 and every existing fidelity/size/performance rule. There is no automatic retry or relaxation if the new attempt is interrupted or a completed result is unresolved.
+
+Inspection was metadata-only and performed no measurements, replays or frozen-method edits. The adjacent JSON pins the full retained failure and prospective003 path. Draft documentation should receive the final result/current blocker when root finalises publication; no draft was edited here.

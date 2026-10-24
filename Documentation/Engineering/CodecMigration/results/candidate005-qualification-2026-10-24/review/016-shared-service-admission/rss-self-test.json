@@ -1,0 +1,55 @@
+{
+  "source_guards": {
+    "candidate": "candidate_005",
+    "repo_head": "72a9184ae8879fd77364b60a8059d4ad5bc447d4",
+    "receipt_sha256": "87bda184d21845362608a5a0b2198a9d6840a4324c5bdf2e8f6c5d9978e299e6",
+    "all_source_pins_sha256": "bb1f3a5591fbcc3d7585a2eb67e9226cae9068bd7d1e1b90e8896afd0837c05f",
+    "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+    "package_swift_sha256": "b8c00c41dda983f6cee24c45f3e352ebde71c0f25b42abd379a431f1a556394b",
+    "production_files": 39,
+    "test_files": 32,
+    "binary_sha256": {
+      "pinned": "b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45",
+      "three_change": "7f618c0cf8fe1c31bee5a36b212c0dc2943e89fd366b4228a966f63d83aa5231",
+      "candidate": "349a14b524218fde633cd415e9972fdcdd7062601ba8578eb71380383b81c177",
+      "62309d3": "64f270f9370b9537b315e08419c50beadb026cc68e4f2812a3cd53a0a9db5257",
+      "e66f7da": "71601d9d0b603ba4a4fc69dcff8558e9c428c5cec4023c07d5bafec3f16f2a47"
+    },
+    "host_scope": "shared services running; no claim of host idleness"
+  },
+  "host_guard_synthetic": {
+    "host_guard_self_test_passed": true,
+    "persistent_service_identity_controls": {
+      "passed": true,
+      "services": [
+        "dev_php82",
+        "dev_php71",
+        "dev_apache"
+      ],
+      "controls": "exact positive; ten identity mutations; three ps-row mutations; missing inspection; active test command"
+    },
+    "tested_controls": [
+      "attempt1_rejected_ng_test_and_chrome_headless_pid_54525",
+      "vscode_copilot_runtime_headless_negative_control",
+      "simmetalhost_and_runtime_root_quiescent_vs_active",
+      "colima_active_swift_heaptrack_container_vs_quiescent_shared_stack"
+    ]
+  },
+  "analysis_synthetic": {
+    "passed": true,
+    "checks": [
+      "seed reproducibility (SEED=20261022)",
+      "joint 528-block resampling across all 4 labels",
+      "candidate-copy kept strictly separate from candidate (never pooled)",
+      "known proportional signals for all 4 predeclared contrasts",
+      "independent scalar bootstrap median verification",
+      "Bonferroni-4 quantiles (0.00625, 0.99375)",
+      "predeclared gate uses upper interval bound and overall maxima ratio only (not max block ratio)",
+      "A/A interval excluding unity or >5% shift triggers control_review_required and blocks pass",
+      "explicit confirmed_measured_regression vs within_finite_criterion vs open states"
+    ],
+    "numpy": "2.3.5",
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "draw_probe_sha256": "c1577b782ca0487ef6c9b67cc1daecb04f4274cdc082f8210da5f17952f958c2"
+  }
+}

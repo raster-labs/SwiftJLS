@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "started_utc": "2026-10-22T10:50:27.815316+00:00",
+  "completed_utc": "2026-10-22T10:50:47.267958+00:00",
+  "elapsed_seconds": 19.4522,
+  "command": [
+    "/Users/pushparaj/.local/bin/docker",
+    "--context",
+    "colima",
+    "run",
+    "--rm",
+    "--cpus=4",
+    "--mount",
+    "type=bind,source=/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/workspace89-linux-003/SwiftJLS,target=/SwiftJLS,readonly",
+    "--mount",
+    "type=bind,source=/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/oracles/libunwind-1.8.3,target=/tarballs,readonly",
+    "--mount",
+    "type=bind,source=/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/campaigns/workspace89-linux-002,target=/evidence",
+    "--workdir",
+    "/SwiftJLS",
+    "--env",
+    "WORKSPACE_REVISION_ID=working-tree:cbddaa36987829b242b24f16c6db1cfcd8dad97cf89c658990c4028ca2e16144",
+    "sha256:31d14d727f4451f25e29bac9c42563a098c39ac66415e8bad970f48038e38aca",
+    "/bin/bash",
+    "-c",
+    "\nset -euo pipefail\napt-get update\nDEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends heaptrack python3\nswift --version\nuname -m\ndpkg-query -W heaptrack python3 libunwind8\necho \"be30d910e67f58d82e753231f1357f326a1a088acf126b21ff77e60aab19b90b  /tarballs/libunwind-1.8.3.tar.gz\" | sha256sum -c -\nmkdir -p /tmp/libunwind-build /evidence/libunwind-183-prefix\ntar -xzf /tarballs/libunwind-1.8.3.tar.gz -C /tmp/libunwind-build\ncd /tmp/libunwind-build/libunwind-1.8.3\n./configure --prefix=/evidence/libunwind-183-prefix --disable-tests --disable-documentation >/evidence/libunwind-183-configure.log 2>&1\nmake -j4 >/evidence/libunwind-183-make.log 2>&1\nmake install >/evidence/libunwind-183-install.log 2>&1\nsha256sum /evidence/libunwind-183-prefix/lib/libunwind.so.8.2.0 /evidence/libunwind-183-prefix/lib/libunwind-aarch64.so.8.2.0\nLD_LIBRARY_PATH=/evidence/libunwind-183-prefix/lib ldd /usr/lib/heaptrack/libheaptrack_preload.so | tee /evidence/libunwind-183-ldd.txt\ncd /SwiftJLS\nswift build -c release -Xswiftc -g --jobs 4   --package-path Examples/WorkspaceProbe --scratch-path /evidence/build\nprobe_bin_dir=$(swift build -c release --show-bin-path   --package-path Examples/WorkspaceProbe --scratch-path /evidence/build)\ncp \"$probe_bin_dir/WorkspaceProbe\" /evidence/WorkspaceProbe\nsha256sum \"$probe_bin_dir/WorkspaceProbe\" /evidence/WorkspaceProbe\npython3 Scripts/StorageEvidence/measure-operation.py --self-test\npython3 Scripts/StorageEvidence/run-workspace-profiles.py --self-test\nLD_LIBRARY_PATH=/evidence/libunwind-183-prefix/lib timeout 2400s python3 Scripts/StorageEvidence/run-workspace-profiles.py   --binary \"$probe_bin_dir/WorkspaceProbe\"   --output /evidence/profiles --revision \"$WORKSPACE_REVISION_ID\"\n"
+  ],
+  "docker_image": "sha256:31d14d727f4451f25e29bac9c42563a098c39ac66415e8bad970f48038e38aca",
+  "snapshot_identity": {
+    "snapshot_root": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/workspace89-linux-003/SwiftJLS",
+    "manifest_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/workspace89-linux-003/source-manifest.json",
+    "manifest_sha256": "cbddaa36987829b242b24f16c6db1cfcd8dad97cf89c658990c4028ca2e16144",
+    "workspace_revision_id": "working-tree:cbddaa36987829b242b24f16c6db1cfcd8dad97cf89c658990c4028ca2e16144",
+    "base_revision": "041c1a3d4861f9956ca49cd994eff618e23908ec",
+    "candidate_sources_patch_sha256": "86884eca7ef6c352d4456e81fbc18f11701cbe298e291fcc6dcf40a6b32de493",
+    "candidate_scripts_patch_sha256": "ba5738847547ff14183b4189eb09a706615cb8f7d8f2d841b8767e26c3d95331",
+    "file_count": 2890,
+    "reconciliation": {
+      "verified_against_base_revision": "041c1a3d4861f9956ca49cd994eff618e23908ec",
+      "verified_against_validation_snapshot": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/frozen-candidate-validation-001/SwiftJLS",
+      "total_files_verified": 2890,
+      "unchanged_files_bound_to_validation_snapshot": 2889,
+      "audited_024_classifier_update": {
+        "path": "Scripts/StorageEvidence/measure-operation.py",
+        "validation_snapshot_sha256": "996280213e506bfe8acf54acb6cfc67ac276eaec90128edadf9ef1b15d76acd1",
+        "current_sha256": "196fedb688537e461a7b3c5be33185f3c6c430f084affc34333e62ba26b5e95a",
+        "audit_reference": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261022/024-profile-control-review.md"
+      },
+      "pinned_libunwind_183_tarball": {
+        "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/oracles/libunwind-1.8.3/libunwind-1.8.3.tar.gz",
+        "sha256": "be30d910e67f58d82e753231f1357f326a1a088acf126b21ff77e60aab19b90b"
+      },
+      "modified_candidate_files_verified": [
+        "Scripts/StorageEvidence/measure-operation.py",
+        "Scripts/StorageEvidence/run-workspace-profiles.py",
+        "Sources/SwiftJLS/Image.swift",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+        "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift"
+      ]
+    },
+    "linked_copy_probe_receipt": {
+      "receipt_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-linux-copy-probe-001.json",
+      "receipt_sha256": "743b431053b91e16b3cf09c991c97e360bdabda1b9f64f30531de9bd7cc8d055",
+      "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/linux-copy-probe-001/CopyProbe",
+      "binary_sha256": "eea41921bf352e8291c87f03514e716cd4fb2b28bc3ae986a5cbd60e566aa8db",
+      "audit_reference": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261022/018-copy-review.md",
+      "total_rows": 20,
+      "normal_zero_copy_rows": 10,
+      "injected_positive_control_rows": 10,
+      "verified": true
+    }
+  },
+  "pre_verified_tree": {
+    "manifest_sha256": "cbddaa36987829b242b24f16c6db1cfcd8dad97cf89c658990c4028ca2e16144",
+    "workspace_revision_id": "working-tree:cbddaa36987829b242b24f16c6db1cfcd8dad97cf89c658990c4028ca2e16144",
+    "file_count": 2890,
+    "reconciliation": {
+      "verified_against_base_revision": "041c1a3d4861f9956ca49cd994eff618e23908ec",
+      "verified_against_validation_snapshot": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/frozen-candidate-validation-001/SwiftJLS",
+      "total_files_verified": 2890,
+      "unchanged_files_bound_to_validation_snapshot": 2889,
+      "audited_024_classifier_update": {
+        "path": "Scripts/StorageEvidence/measure-operation.py",
+        "validation_snapshot_sha256": "996280213e506bfe8acf54acb6cfc67ac276eaec90128edadf9ef1b15d76acd1",
+        "current_sha256": "196fedb688537e461a7b3c5be33185f3c6c430f084affc34333e62ba26b5e95a",
+        "audit_reference": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261022/024-profile-control-review.md"
+      },
+      "pinned_libunwind_183_tarball": {
+        "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/oracles/libunwind-1.8.3/libunwind-1.8.3.tar.gz",
+        "sha256": "be30d910e67f58d82e753231f1357f326a1a088acf126b21ff77e60aab19b90b"
+      },
+      "modified_candidate_files_verified": [
+        "Scripts/StorageEvidence/measure-operation.py",
+        "Scripts/StorageEvidence/run-workspace-profiles.py",
+        "Sources/SwiftJLS/Image.swift",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+        "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift"
+      ]
+    },
+    "linked_copy_probe_receipt": {
+      "receipt_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-linux-copy-probe-001.json",
+      "receipt_sha256": "743b431053b91e16b3cf09c991c97e360bdabda1b9f64f30531de9bd7cc8d055",
+      "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/linux-copy-probe-001/CopyProbe",
+      "binary_sha256": "eea41921bf352e8291c87f03514e716cd4fb2b28bc3ae986a5cbd60e566aa8db",
+      "audit_reference": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261022/018-copy-review.md",
+      "total_rows": 20,
+      "normal_zero_copy_rows": 10,
+      "injected_positive_control_rows": 10,
+      "verified": true
+    },
+    "verified": true
+  },
+  "runner_sha256": "fc0dd412a9ddf2e5e80bea2ebbcdca75e3c7444cd4e8a19618392129eb838815",
+  "returncode": 1,
+  "stdout": "Get:1 http://ports.ubuntu.com/ubuntu-ports noble InRelease [256 kB]\nGet:2 http://ports.ubuntu.com/ubuntu-ports noble-updates InRelease [126 kB]\nGet:3 http://ports.ubuntu.com/ubuntu-ports noble-backports InRelease [126 kB]\nGet:4 http://ports.ubuntu.com/ubuntu-ports noble-security InRelease [126 kB]\nGet:5 http://ports.ubuntu.com/ubuntu-ports noble/main arm64 Packages [1776 kB]\nGet:6 http://ports.ubuntu.com/ubuntu-ports noble/multiverse arm64 Packages [274 kB]\nGet:7 http://ports.ubuntu.com/ubuntu-ports noble/universe arm64 Packages [19.0 MB]\nGet:8 http://ports.ubuntu.com/ubuntu-ports noble/restricted arm64 Packages [113 kB]\nGet:9 http://ports.ubuntu.com/ubuntu-ports noble-updates/restricted arm64 Packages [3251 kB]\nGet:10 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 Packages [1790 kB]\nGet:11 http://ports.ubuntu.com/ubuntu-ports noble-updates/multiverse arm64 Packages [104 kB]\nGet:12 http://ports.ubuntu.com/ubuntu-ports noble-updates/universe arm64 Packages [2216 kB]\nGet:13 http://ports.ubuntu.com/ubuntu-ports noble-backports/universe arm64 Packages [36.3 kB]\nGet:14 http://ports.ubuntu.com/ubuntu-ports noble-backports/main arm64 Packages [49.0 kB]\nGet:15 http://ports.ubuntu.com/ubuntu-ports noble-backports/multiverse arm64 Packages [669 B]\nGet:16 http://ports.ubuntu.com/ubuntu-ports noble-security/universe arm64 Packages [1638 kB]\nGet:17 http://ports.ubuntu.com/ubuntu-ports noble-security/main arm64 Packages [1476 kB]\nGet:18 http://ports.ubuntu.com/ubuntu-ports noble-security/multiverse arm64 Packages [99.1 kB]\nGet:19 http://ports.ubuntu.com/ubuntu-ports noble-security/restricted arm64 Packages [3129 kB]\nFetched 35.6 MB in 10s (3671 kB/s)\nReading package lists...\nReading package lists...\nBuilding dependency tree...\nReading state information...\nThe following additional packages will be installed:\n  libboost-filesystem1.83.0 libboost-iostreams1.83.0\n  libboost-program-options1.83.0 libdw1t64 libelf1t64 libheaptrack\n  libpython3-stdlib libunwind8 python3-minimal python3.12 python3.12-minimal\nSuggested packages:\n  python3-doc python3-tk python3-venv python3.12-venv python3.12-doc\n  binfmt-support\nThe following NEW packages will be installed:\n  heaptrack libboost-filesystem1.83.0 libboost-iostreams1.83.0\n  libboost-program-options1.83.0 libdw1t64 libelf1t64 libheaptrack\n  libpython3-stdlib libunwind8 python3 python3-minimal python3.12\n  python3.12-minimal\n0 upgraded, 13 newly installed, 0 to remove and 20 not upgraded.\nNeed to get 4379 kB of archives.\nAfter this operation, 18.1 MB of additional disk space will be used.\nGet:1 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 python3.12-minimal arm64 3.12.3-1ubuntu0.17 [2253 kB]\nGet:2 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 python3-minimal arm64 3.12.3-0ubuntu2.1 [27.4 kB]\nGet:3 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 python3.12 arm64 3.12.3-1ubuntu0.17 [651 kB]\nGet:4 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libpython3-stdlib arm64 3.12.3-0ubuntu2.1 [10.1 kB]\nGet:5 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 python3 arm64 3.12.3-0ubuntu2.1 [23.0 kB]\nGet:6 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libelf1t64 arm64 0.190-1.1ubuntu0.1 [58.4 kB]\nGet:7 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libboost-filesystem1.83.0 arm64 1.83.0-2.1ubuntu3.2 [281 kB]\nGet:8 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libboost-iostreams1.83.0 arm64 1.83.0-2.1ubuntu3.2 [258 kB]\nGet:9 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libboost-program-options1.83.0 arm64 1.83.0-2.1ubuntu3.2 [317 kB]\nGet:10 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libdw1t64 arm64 0.190-1.1ubuntu0.1 [258 kB]\nGet:11 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libunwind8 arm64 1.6.2-3build1.1 [53.6 kB]\nGet:12 http://ports.ubuntu.com/ubuntu-ports noble/universe arm64 libheaptrack arm64 1.5.0+dfsg1-2ubuntu3 [75.1 kB]\nGet:13 http://ports.ubuntu.com/ubuntu-ports noble/universe arm64 heaptrack arm64 1.5.0+dfsg1-2ubuntu3 [113 kB]\nFetched 4379 kB in 4s (993 kB/s)\nSelecting previously unselected package python3.12-minimal.\n(Reading database ... \n(Reading database ... 5%\n(Reading database ... 10%\n(Reading database ... 15%\n(Reading database ... 20%\n(Reading database ... 25%\n(Reading database ... 30%\n(Reading database ... 35%\n(Reading database ... 40%\n(Reading database ... 45%\n(Reading database ... 50%\n(Reading database ... 55%\n(Reading database ... 60%\n(Reading database ... 65%\n(Reading database ... 70%\n(Reading database ... 75%\n(Reading database ... 80%\n(Reading database ... 85%\n(Reading database ... 90%\n(Reading database ... 95%\n(Reading database ... 100%\n(Reading database ... 16766 files and directories currently installed.)\nPreparing to unpack .../python3.12-minimal_3.12.3-1ubuntu0.17_arm64.deb ...\nUnpacking python3.12-minimal (3.12.3-1ubuntu0.17) ...\nSetting up python3.12-minimal (3.12.3-1ubuntu0.17) ...\nSelecting previously unselected package python3-minimal.\n(Reading database ... \n(Reading database ... 5%\n(Reading database ... 10%\n(Reading database ... 15%\n(Reading database ... 20%\n(Reading database ... 25%\n(Reading database ... 30%\n(Reading database ... 35%\n(Reading database ... 40%\n(Reading database ... 45%\n(Reading database ... 50%\n(Reading database ... 55%\n(Reading database ... 60%\n(Reading database ... 65%\n(Reading database ... 70%\n(Reading database ... 75%\n(Reading database ... 80%\n(Reading database ... 85%\n(Reading database ... 90%\n(Reading database ... 95%\n(Reading database ... 100%\n(Reading database ... 16777 files and directories currently installed.)\nPreparing to unpack .../python3-minimal_3.12.3-0ubuntu2.1_arm64.deb ...\nUnpacking python3-minimal (3.12.3-0ubuntu2.1) ...\nSelecting previously unselected package python3.12.\nPreparing to unpack .../python3.12_3.12.3-1ubuntu0.17_arm64.deb ...\nUnpacking python3.12 (3.12.3-1ubuntu0.17) ...\nSelecting previously unselected package libpython3-stdlib:arm64.\nPreparing to unpack .../libpython3-stdlib_3.12.3-0ubuntu2.1_arm64.deb ...\nUnpacking libpython3-stdlib:arm64 (3.12.3-0ubuntu2.1) ...\nSetting up python3-minimal (3.12.3-0ubuntu2.1) ...\nSelecting previously unselected package python3.\n(Reading database ... \n(Reading database ... 5%\n(Reading database ... 10%\n(Reading database ... 15%\n(Reading database ... 20%\n(Reading database ... 25%\n(Reading database ... 30%\n(Reading database ... 35%\n(Reading database ... 40%\n(Reading database ... 45%\n(Reading database ... 50%\n(Reading database ... 55%\n(Reading database ... 60%\n(Reading database ... 65%\n(Reading database ... 70%\n(Reading database ... 75%\n(Reading database ... 80%\n(Reading database ... 85%\n(Reading database ... 90%\n(Reading database ... 95%\n(Reading database ... 100%\n(Reading database ... 16824 files and directories currently installed.)\nPreparing to unpack .../0-python3_3.12.3-0ubuntu2.1_arm64.deb ...\nUnpacking python3 (3.12.3-0ubuntu2.1) ...\nSelecting previously unselected package libelf1t64:arm64.\nPreparing to unpack .../1-libelf1t64_0.190-1.1ubuntu0.1_arm64.deb ...\nUnpacking libelf1t64:arm64 (0.190-1.1ubuntu0.1) ...\nSelecting previously unselected package libboost-filesystem1.83.0:arm64.\nPreparing to unpack .../2-libboost-filesystem1.83.0_1.83.0-2.1ubuntu3.2_arm64.deb ...\nUnpacking libboost-filesystem1.83.0:arm64 (1.83.0-2.1ubuntu3.2) ...\nSelecting previously unselected package libboost-iostreams1.83.0:arm64.\nPreparing to unpack .../3-libboost-iostreams1.83.0_1.83.0-2.1ubuntu3.2_arm64.deb ...\nUnpacking libboost-iostreams1.83.0:arm64 (1.83.0-2.1ubuntu3.2) ...\nSelecting previously unselected package libboost-program-options1.83.0:arm64.\nPreparing to unpack .../4-libboost-program-options1.83.0_1.83.0-2.1ubuntu3.2_arm64.deb ...\nUnpacking libboost-program-options1.83.0:arm64 (1.83.0-2.1ubuntu3.2) ...\nSelecting previously unselected package libdw1t64:arm64.\nPreparing to unpack .../5-libdw1t64_0.190-1.1ubuntu0.1_arm64.deb ...\nUnpacking libdw1t64:arm64 (0.190-1.1ubuntu0.1) ...\nSelecting previously unselected package libunwind8:arm64.\nPreparing to unpack .../6-libunwind8_1.6.2-3build1.1_arm64.deb ...\nUnpacking libunwind8:arm64 (1.6.2-3build1.1) ...\nSelecting previously unselected package libheaptrack.\nPreparing to unpack .../7-libheaptrack_1.5.0+dfsg1-2ubuntu3_arm64.deb ...\nUnpacking libheaptrack (1.5.0+dfsg1-2ubuntu3) ...\nSelecting previously unselected package heaptrack.\nPreparing to unpack .../8-heaptrack_1.5.0+dfsg1-2ubuntu3_arm64.deb ...\nUnpacking heaptrack (1.5.0+dfsg1-2ubuntu3) ...\nSetting up libboost-program-options1.83.0:arm64 (1.83.0-2.1ubuntu3.2) ...\nSetting up python3.12 (3.12.3-1ubuntu0.17) ...\nSetting up libboost-filesystem1.83.0:arm64 (1.83.0-2.1ubuntu3.2) ...\nSetting up libunwind8:arm64 (1.6.2-3build1.1) ...\nSetting up libelf1t64:arm64 (0.190-1.1ubuntu0.1) ...\nSetting up libdw1t64:arm64 (0.190-1.1ubuntu0.1) ...\nSetting up libboost-iostreams1.83.0:arm64 (1.83.0-2.1ubuntu3.2) ...\nSetting up libheaptrack (1.5.0+dfsg1-2ubuntu3) ...\nSetting up heaptrack (1.5.0+dfsg1-2ubuntu3) ...\nSetting up libpython3-stdlib:arm64 (3.12.3-0ubuntu2.1) ...\nSetting up python3 (3.12.3-0ubuntu2.1) ...\nProcessing triggers for libc-bin (2.39-0ubuntu8.9) ...\nSwift version 6.4 (swift-6.4-RELEASE)\nTarget: aarch64-unknown-linux-gnu\naarch64\nheaptrack\t1.5.0+dfsg1-2ubuntu3\nlibunwind8:arm64\t1.6.2-3build1.1\npython3\t3.12.3-0ubuntu2.1\n/tarballs/libunwind-1.8.3.tar.gz: OK\n",
+  "stderr": "debconf: delaying package configuration, since apt-utils is not installed\n",
+  "built_binary_sha256": null
+}

@@ -1,0 +1,154 @@
+_$s13UUIDMicroCore24consumeReferenceIdentityySuAA0dE0CnFTf4g_n:
+00000001000029bc	ret
+_$sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n:
+00000001000029c0	stp	x26, x25, [sp, #-0x50]!
+00000001000029c4	stp	x24, x23, [sp, #0x10]
+00000001000029c8	stp	x22, x21, [sp, #0x20]
+00000001000029cc	stp	x20, x19, [sp, #0x30]
+00000001000029d0	stp	x29, x30, [sp, #0x40]
+00000001000029d4	add	x29, sp, #0x40
+00000001000029d8	ldr	x19, [x0, #0x10]
+00000001000029dc	cbz	x19, 0x100002a88
+00000001000029e0	mov	x21, x0
+00000001000029e4	adrp	x0, 6 ; 0x100008000
+00000001000029e8	add	x0, x0, #0xd0
+00000001000029ec	adrp	x1, 1 ; 0x100003000
+00000001000029f0	add	x1, x1, #0xe8
+00000001000029f4	bl	___swift_instantiateConcreteTypeFromMangledNameV2
+00000001000029f8	mov	x20, x0
+00000001000029fc	mov	x0, x19
+0000000100002a00	bl	0x100002e38 ; symbol stub for: _$ss18_DictionaryStorageC8allocate8capacityAByxq_GSi_tFZ
+0000000100002a04	mov	x20, x0
+0000000100002a08	add	x24, x0, #0x40
+0000000100002a0c	bl	0x100002fe8 ; symbol stub for: _swift_retain
+0000000100002a10	add	x21, x21, #0x30
+0000000100002a14	mov	w25, #0x1
+0000000100002a18	ldp	x23, x22, [x21, #-0x10]
+0000000100002a1c	mov	x0, x23
+0000000100002a20	mov	x1, x22
+0000000100002a24	bl	_$ss22__RawDictionaryStorageC4findys10_HashTableV6BucketV6bucket_Sb5foundtxSHRzlFSS_Tg5
+0000000100002a28	tbnz	w1, #0x0, 0x100002abc
+0000000100002a2c	lsr	x8, x0, #3
+0000000100002a30	and	x8, x8, #0x1ffffffffffffff8
+0000000100002a34	lsl	x9, x25, x0
+0000000100002a38	ldr	x10, [x24, x8]
+0000000100002a3c	orr	x9, x10, x9
+_$s13UUIDMicroCore21makeReferenceIdentityAA0dE0CyF:
+0000000100002c04	stp	x29, x30, [sp, #-0x10]!
+0000000100002c08	mov	x29, sp
+0000000100002c0c	bl	_$s13UUIDMicroCore17ReferenceIdentityCMa
+0000000100002c10	mov	w1, #0x10
+0000000100002c14	mov	w2, #0x7
+0000000100002c18	ldp	x29, x30, [sp], #0x10
+0000000100002c1c	b	0x100002f40 ; symbol stub for: _swift_allocObject
+_$s13UUIDMicroCore17ReferenceIdentityCMa:
+0000000100002c20	stp	x29, x30, [sp, #-0x10]!
+0000000100002c24	mov	x29, sp
+0000000100002c28	adrp	x0, 6 ; 0x100008000
+0000000100002c2c	add	x0, x0, #0x120
+0000000100002c30	bl	0x100002f04 ; symbol stub for: _objc_opt_self
+0000000100002c34	mov	x1, #0x0
+0000000100002c38	ldp	x29, x30, [sp], #0x10
+0000000100002c3c	ret
+_$s13UUIDMicroCore24consumeReferenceIdentityySuAA0dE0CnF:
+0000000100002c40	stp	x20, x19, [sp, #-0x20]!
+0000000100002c44	stp	x29, x30, [sp, #0x10]
+0000000100002c48	add	x29, sp, #0x10
+0000000100002c4c	mov	x19, x0
+0000000100002c50	bl	_$s13UUIDMicroCore24consumeReferenceIdentityySuAA0dE0CnFTf4g_n
+0000000100002c54	mov	x20, x0
+0000000100002c58	mov	x0, x19
+0000000100002c5c	bl	0x100002fdc ; symbol stub for: _swift_release
+0000000100002c60	mov	x0, x20
+0000000100002c64	ldp	x29, x30, [sp, #0x10]
+0000000100002c68	ldp	x20, x19, [sp], #0x20
+0000000100002c6c	ret
+_$s13UUIDMicroCore18makeFoundationUUID0D00E0VyF:
+0000000100002c70	b	0x100002d60 ; symbol stub for: _$s10Foundation4UUIDVACycfC
+_$s13UUIDMicroCore11consumeUUIDySu10Foundation0D0VnF:
+0000000100002c74	stp	x22, x21, [sp, #-0x30]!
+0000000100002c78	stp	x20, x19, [sp, #0x10]
+_$s13UUIDMicroCore24consumeReferenceIdentityySuAA0dE0CnF:
+0000000100002c40	stp	x20, x19, [sp, #-0x20]!
+0000000100002c44	stp	x29, x30, [sp, #0x10]
+0000000100002c48	add	x29, sp, #0x10
+0000000100002c4c	mov	x19, x0
+0000000100002c50	bl	_$s13UUIDMicroCore24consumeReferenceIdentityySuAA0dE0CnFTf4g_n
+0000000100002c54	mov	x20, x0
+0000000100002c58	mov	x0, x19
+0000000100002c5c	bl	0x100002fdc ; symbol stub for: _swift_release
+0000000100002c60	mov	x0, x20
+0000000100002c64	ldp	x29, x30, [sp, #0x10]
+0000000100002c68	ldp	x20, x19, [sp], #0x20
+0000000100002c6c	ret
+_$s13UUIDMicroCore18makeFoundationUUID0D00E0VyF:
+0000000100002c70	b	0x100002d60 ; symbol stub for: _$s10Foundation4UUIDVACycfC
+_$s13UUIDMicroCore11consumeUUIDySu10Foundation0D0VnF:
+0000000100002c74	stp	x22, x21, [sp, #-0x30]!
+0000000100002c78	stp	x20, x19, [sp, #0x10]
+0000000100002c7c	stp	x29, x30, [sp, #0x20]
+0000000100002c80	add	x29, sp, #0x20
+0000000100002c84	mov	x20, x0
+0000000100002c88	bl	0x100002d48 ; symbol stub for: _$s10Foundation4UUIDV4uuids5UInt8V_A15Ftvg
+0000000100002c8c	mov	x19, x0
+0000000100002c90	mov	x21, x1
+0000000100002c94	mov	x0, #0x0
+0000000100002c98	bl	0x100002d6c ; symbol stub for: _$s10Foundation4UUIDVMa
+0000000100002c9c	mov	x1, x0
+0000000100002ca0	ldur	x8, [x0, #-0x8]
+0000000100002ca4	ldr	x8, [x8, #0x8]
+0000000100002ca8	mov	x0, x20
+0000000100002cac	blr	x8
+0000000100002cb0	and	x8, x19, #0xff
+0000000100002cb4	lsr	x9, x21, #56
+0000000100002cb8	orr	x0, x8, x9, lsl #8
+0000000100002cbc	ldp	x29, x30, [sp, #0x20]
+_$s13UUIDMicroCore18makeFoundationUUID0D00E0VyF:
+0000000100002c70	b	0x100002d60 ; symbol stub for: _$s10Foundation4UUIDVACycfC
+_$s13UUIDMicroCore11consumeUUIDySu10Foundation0D0VnF:
+0000000100002c74	stp	x22, x21, [sp, #-0x30]!
+0000000100002c78	stp	x20, x19, [sp, #0x10]
+0000000100002c7c	stp	x29, x30, [sp, #0x20]
+0000000100002c80	add	x29, sp, #0x20
+0000000100002c84	mov	x20, x0
+0000000100002c88	bl	0x100002d48 ; symbol stub for: _$s10Foundation4UUIDV4uuids5UInt8V_A15Ftvg
+0000000100002c8c	mov	x19, x0
+0000000100002c90	mov	x21, x1
+0000000100002c94	mov	x0, #0x0
+0000000100002c98	bl	0x100002d6c ; symbol stub for: _$s10Foundation4UUIDVMa
+0000000100002c9c	mov	x1, x0
+0000000100002ca0	ldur	x8, [x0, #-0x8]
+0000000100002ca4	ldr	x8, [x8, #0x8]
+0000000100002ca8	mov	x0, x20
+0000000100002cac	blr	x8
+0000000100002cb0	and	x8, x19, #0xff
+0000000100002cb4	lsr	x9, x21, #56
+0000000100002cb8	orr	x0, x8, x9, lsl #8
+0000000100002cbc	ldp	x29, x30, [sp, #0x20]
+0000000100002cc0	ldp	x20, x19, [sp, #0x10]
+0000000100002cc4	ldp	x22, x21, [sp], #0x30
+0000000100002cc8	ret
+_$s13UUIDMicroCore14makeRandomUUID10Foundation0E0VyF:
+0000000100002ccc	stp	x29, x30, [sp, #-0x10]!
+0000000100002cd0	mov	x29, sp
+0000000100002cd4	adrp	x1, 2 ; 0x100004000
+0000000100002cd8	ldr	x1, [x1, #0x268] ; literal pool symbol address: _$ss27SystemRandomNumberGeneratorVN
+0000000100002cdc	adrp	x2, 2 ; 0x100004000
+0000000100002ce0	ldr	x2, [x2, #0x270] ; literal pool symbol address: _$ss27SystemRandomNumberGeneratorVSGsWP
+0000000100002ce4	bl	0x100002d54 ; symbol stub for: _$s10Foundation4UUIDV6random5usingACxz_tSGRzlFZ
+0000000100002ce8	ldp	x29, x30, [sp], #0x10
+0000000100002cec	ret
+_$s13UUIDMicroCore14makeRandomUUID10Foundation0E0VyF:
+0000000100002ccc	stp	x29, x30, [sp, #-0x10]!
+0000000100002cd0	mov	x29, sp
+0000000100002cd4	adrp	x1, 2 ; 0x100004000
+0000000100002cd8	ldr	x1, [x1, #0x268] ; literal pool symbol address: _$ss27SystemRandomNumberGeneratorVN
+0000000100002cdc	adrp	x2, 2 ; 0x100004000
+0000000100002ce0	ldr	x2, [x2, #0x270] ; literal pool symbol address: _$ss27SystemRandomNumberGeneratorVSGsWP
+0000000100002ce4	bl	0x100002d54 ; symbol stub for: _$s10Foundation4UUIDV6random5usingACxz_tSGRzlFZ
+0000000100002ce8	ldp	x29, x30, [sp], #0x10
+0000000100002cec	ret
+_$s13UUIDMicroCore24consumeReferenceIdentityySuAA0dE0CnFTf4g_n:
+0000000100002cf0	ret
+_$s13UUIDMicroCore24consumeReferenceIdentityySuAA0dE0CnFTf4g_n:
+0000000100002cf0	ret

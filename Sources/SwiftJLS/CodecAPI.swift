@@ -195,8 +195,13 @@ public struct Decoder: Sendable {
         self.configuration = configuration
     }
 
+    /// Synchronous inspection does not accept progress callbacks, whose
+    /// execution contract requires the generic executor used by async decode.
     public func inspect(_ data: Data, options: DecodeOptions = .init()) throws -> ImageInfo {
         try validateInput(data, options)
+        guard options.progress == nil else {
+            throw CodecError(.unsupportedFeature, "Synchronous inspection does not support progress callbacks.")
+        }
         return try ScalarCodec.inspect(data, options: options, codecOptions: configuration.codecOptions)
     }
     @concurrent public func decode(_ data: Data, options: DecodeOptions = .init()) async throws -> DecodedImage {

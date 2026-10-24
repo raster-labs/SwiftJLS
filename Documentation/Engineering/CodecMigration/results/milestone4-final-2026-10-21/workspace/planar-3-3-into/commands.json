@@ -1,0 +1,40 @@
+[
+  {
+    "command": [
+      "heaptrack",
+      "--version"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack",
+      "-o",
+      "/tmp/workspace-evidence/planar-3-3-into/allocations",
+      "/__w/SwiftJLS/SwiftJLS/Examples/WorkspaceProbe/.build/out/Products/Release-linux-x86_64/WorkspaceProbe",
+      "into",
+      "257",
+      "129",
+      "3",
+      "3",
+      "planar"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack_print",
+      "-f",
+      "/tmp/workspace-evidence/planar-3-3-into/allocations.gz",
+      "-n",
+      "1000",
+      "-s",
+      "1000",
+      "-H",
+      "/tmp/workspace-evidence/planar-3-3-into/sizes.tsv",
+      "-F",
+      "/tmp/workspace-evidence/planar-3-3-into/allocation-stacks.txt"
+    ],
+    "exit_code": 0
+  }
+]

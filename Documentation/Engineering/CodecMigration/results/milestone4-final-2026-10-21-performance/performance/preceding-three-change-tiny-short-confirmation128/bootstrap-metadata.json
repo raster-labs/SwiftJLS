@@ -1,0 +1,26 @@
+{
+  "seed": 20261021,
+  "resamples": 50000,
+  "family_size": 24,
+  "familywise_quantiles": [
+    0.0010416666666666667,
+    0.9989583333333333
+  ],
+  "marginal_quantiles": [
+    0.025,
+    0.975
+  ],
+  "quantile_method": "linear",
+  "rng": "NumPy default_rng PCG64",
+  "numpy": "2.3.5",
+  "estimand": "ratio of pooled medians across all 128*5 observations per producer",
+  "strata": "Even rounds reference first for all cases; odd rounds candidate first for all cases. Draw64 round IDs with replacement per stratum; use same joint128 round IDs for all cases, operations and producers.",
+  "cluster": "Whole paired round across all six cases, four operations, two producers and all five observations.",
+  "resample_indices_sha256": "4d4cc3a068a46e0000817362223ead06888eeeccb440d8bf8e6e3945cf097021",
+  "bootstrap_ratios_sha256": "129091f7a33cc6b6880d8e39c8407a9e131c4b6595d6bb0fe0920c687fda73ac",
+  "raw_sha256": "d3639499f2980690503b0eb3c21db074c2ab20a465b07153c17be4adbbeddc16",
+  "schedule_sha256": "f638825d9dabb6be0795efffc43043a645741006eceeb14750a4d907634be3fc",
+  "script_sha256": "62d00e3776e7cad0199c68fd87e2e955ab5eb7a70c866c6196f5fe685d17d186",
+  "raw_pooled_recomputation": "All48 medians independently matched statistics.median over raw JSON observations",
+  "limitations": "Nominal familywise95% percentile-bootstrap intervals with Bonferroni24 adjustment; finite bootstrap approximation and independent/exchangeable rounds within order strata assumed. A single host/session may retain temporal correlation; not a universal population or platform guarantee. No metric replacement, count extension, drops or automatic reruns."
+}

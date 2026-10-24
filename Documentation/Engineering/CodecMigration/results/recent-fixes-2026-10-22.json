@@ -1,0 +1,1930 @@
+{
+  "base_revision": "62309d3c59b04c5896d6ea076aae5ce06f5f33e3",
+  "predecessor_revision": "d17545284a23e93f3d884a18f1046c4e305daa35",
+  "source_identity": "recent-fixes-2026-10-22/final-source-identity.json",
+  "source_scope": "Final production source and tests identified by file SHA256. Initial mutation snapshot predates trailing-whitespace cleanup and profile documentation clarification only; no subsequent production behaviour changes. Final144-test suites, allocation probe and SDK builds use final production source.",
+  "host_tests": [
+    {
+      "label": "debug",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/debug",
+        "--disable-xctest",
+        "--xunit-output",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/final/debug.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+      ],
+      "exit_code": 0,
+      "seconds": 9.437240749999999,
+      "developer_dir": "/Library/Developer/CommandLineTools",
+      "declarations": 144,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "label": "release",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/release",
+        "--disable-xctest",
+        "--xunit-output",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/final/release.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+        "-c",
+        "release"
+      ],
+      "exit_code": 0,
+      "seconds": 28.371086042,
+      "developer_dir": "/Library/Developer/CommandLineTools",
+      "declarations": 144,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "label": "asan",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/asan",
+        "--disable-xctest",
+        "--xunit-output",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/final/asan.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+        "--sanitize",
+        "address"
+      ],
+      "exit_code": 0,
+      "seconds": 31.845907833,
+      "developer_dir": "/Library/Developer/CommandLineTools",
+      "declarations": 144,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "label": "tsan",
+      "command": [
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "4",
+        "--scratch-path",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/tsan",
+        "--disable-xctest",
+        "--xunit-output",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/final/tsan.xml",
+        "-Xswiftc",
+        "-load-plugin-library",
+        "-Xswiftc",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+        "--sanitize",
+        "thread"
+      ],
+      "exit_code": 0,
+      "seconds": 25.256656457999995,
+      "developer_dir": "/Library/Developer/CommandLineTools",
+      "declarations": 144,
+      "failures": 0,
+      "skipped": 0
+    }
+  ],
+  "linux_tests": {
+    "declarations": 144,
+    "failures": 0,
+    "skipped": 0,
+    "command": "swift test --jobs 4 --scratch-path /scratch/tests --disable-xctest --xunit-output /scratch/tests-final.xml",
+    "environment": "swift:6.4-noble, Ubuntu24.04.5 Linux aarch64 Docker VM"
+  },
+  "cli": {
+    "payload_checks": 73,
+    "process_checks": 103,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  "consumer": "release independent consumer exit0; command and log retained",
+  "allocation": {
+    "binary": "/scratch/probe-build-correct-identity/out/Products/Release-linux-aarch64/QualifiedAllocationProbe",
+    "binary_sha256": "a1b6e6d7422490381293642dbf4fe2019847f7bc11111514a5ababc7ca97c579",
+    "platform": "Linux-6.8.0-117-generic-aarch64-with-glibc2.39",
+    "libc": [
+      "glibc",
+      "2.39"
+    ],
+    "adaptation_manifest": "/scratch/probe-results-final/adapted-inputs/adaptations.json",
+    "results": [
+      {
+        "mode": "cold-inspect",
+        "command": [
+          "/scratch/probe-build-correct-identity/out/Products/Release-linux-aarch64/QualifiedAllocationProbe",
+          "--cold-inspect",
+          "/SwiftJLS/Tests/SwiftJLSTests/Fixtures",
+          "/scratch/probe-results-final/adapted-inputs/adaptations.json"
+        ],
+        "timeout_seconds": 120,
+        "exit_code": 0,
+        "elapsed_seconds": 0.00849245599238202,
+        "operations": 1,
+        "positive_controls_passed": true,
+        "complete": true,
+        "failed_operations": 0,
+        "cold_identity_valid": true,
+        "passed": true
+      },
+      {
+        "mode": "cold-decode",
+        "command": [
+          "/scratch/probe-build-correct-identity/out/Products/Release-linux-aarch64/QualifiedAllocationProbe",
+          "--cold-decode",
+          "/SwiftJLS/Tests/SwiftJLSTests/Fixtures",
+          "/scratch/probe-results-final/adapted-inputs/adaptations.json"
+        ],
+        "timeout_seconds": 120,
+        "exit_code": 0,
+        "elapsed_seconds": 0.008162635000189766,
+        "operations": 1,
+        "positive_controls_passed": true,
+        "complete": true,
+        "failed_operations": 0,
+        "cold_identity_valid": true,
+        "passed": true
+      },
+      {
+        "mode": "matrix",
+        "command": [
+          "/scratch/probe-build-correct-identity/out/Products/Release-linux-aarch64/QualifiedAllocationProbe",
+          "--matrix",
+          "/SwiftJLS/Tests/SwiftJLSTests/Fixtures",
+          "/scratch/probe-results-final/adapted-inputs/adaptations.json"
+        ],
+        "timeout_seconds": 120,
+        "exit_code": 0,
+        "elapsed_seconds": 0.27869304800697137,
+        "operations": 860,
+        "positive_controls_passed": true,
+        "complete": true,
+        "failed_operations": 0,
+        "cold_identity_valid": true,
+        "passed": true
+      }
+    ]
+  },
+  "mutation": {
+    "campaigns": [
+      {
+        "accepted": 88523,
+        "complete": true,
+        "decodeCalls": 0,
+        "entry": "inspect",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 264276,
+        "rejected": 175753,
+        "seconds": 60.00010761900921,
+        "seedCount": 981,
+        "exit": 0,
+        "stderr_empty": true
+      },
+      {
+        "accepted": 37112,
+        "complete": true,
+        "decodeCalls": 74950,
+        "entry": "into",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 223674,
+        "rejected": 186562,
+        "seconds": 60.00016626299475,
+        "seedCount": 981,
+        "exit": 0,
+        "stderr_empty": true
+      },
+      {
+        "accepted": 35727,
+        "complete": true,
+        "decodeCalls": 215406,
+        "entry": "owned",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 215406,
+        "rejected": 179679,
+        "seconds": 60.00023988599423,
+        "seedCount": 981,
+        "exit": 0,
+        "stderr_empty": true
+      },
+      {
+        "accepted": 20456,
+        "complete": true,
+        "decodeCalls": 265295,
+        "entry": "qualified",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 265295,
+        "rejected": 244839,
+        "seconds": 60.00017849600408,
+        "seedCount": 981,
+        "exit": 0,
+        "stderr_empty": true
+      },
+      {
+        "accepted": 48060,
+        "complete": true,
+        "decodeCalls": 0,
+        "entry": "qualified-inspect",
+        "generatorSeed": "0x4a4c5301",
+        "iterations": 265334,
+        "rejected": 217274,
+        "seconds": 60.000232951992075,
+        "seedCount": 981,
+        "exit": 0,
+        "stderr_empty": true
+      }
+    ],
+    "total_iterations": 1233985,
+    "release_duration_gate": false,
+    "reason": "60seconds per entry; CI remains3600seconds and owner verified"
+  },
+  "sdk": [
+    {
+      "command": [
+        "xcrun",
+        "swiftc",
+        "-O",
+        "-swift-version",
+        "6",
+        "-strict-concurrency=complete",
+        "-target",
+        "arm64-apple-ios26.0-simulator",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk",
+        "-parse-as-library",
+        "-emit-library",
+        "-emit-module",
+        "-module-name",
+        "SwiftJLS",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/CodecAPI.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Errors.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Image.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/ImageDescriptor.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/ImageStorage.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentCodec.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentSamples.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/HPTransform.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSError.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarSamples.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Options.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedContext.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedCursor.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMarkers.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedOutcome.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParameters.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParser.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedPrediction.swift",
+        "-emit-module-path",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/iphonesimulator/SwiftJLS.swiftmodule",
+        "-Xlinker",
+        "-install_name",
+        "-Xlinker",
+        "@rpath/libSwiftJLS.dylib",
+        "-o",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/iphonesimulator/libSwiftJLS.dylib"
+      ],
+      "exit_code": 0,
+      "seconds": 14.970118708000001,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/iphonesimulator/library.log"
+    },
+    {
+      "command": [
+        "codesign",
+        "--force",
+        "--sign",
+        "-",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/iphonesimulator/libSwiftJLS.dylib"
+      ],
+      "exit_code": 0,
+      "seconds": 0.011497916999999802,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/iphonesimulator/sign-library.log"
+    },
+    {
+      "command": [
+        "xcrun",
+        "swiftc",
+        "-O",
+        "-swift-version",
+        "6",
+        "-strict-concurrency=complete",
+        "-target",
+        "arm64-apple-ios26.0-simulator",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk",
+        "-I",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/iphonesimulator",
+        "-L",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/iphonesimulator",
+        "-lSwiftJLS",
+        "-Xlinker",
+        "-rpath",
+        "-Xlinker",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/iphonesimulator",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Examples/AppleRuntimeConsumer/Sources/AppleRuntimeConsumer/main.swift",
+        "-o",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/iphonesimulator/AppleRuntimeConsumer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.49492116599999925,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/iphonesimulator/consumer.log"
+    },
+    {
+      "command": [
+        "codesign",
+        "--force",
+        "--sign",
+        "-",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/iphonesimulator/AppleRuntimeConsumer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.011362124999999779,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/iphonesimulator/sign-consumer.log"
+    },
+    {
+      "command": [
+        "xcrun",
+        "swiftc",
+        "-O",
+        "-swift-version",
+        "6",
+        "-strict-concurrency=complete",
+        "-target",
+        "arm64-apple-tvos26.0-simulator",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator27.0.sdk",
+        "-parse-as-library",
+        "-emit-library",
+        "-emit-module",
+        "-module-name",
+        "SwiftJLS",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/CodecAPI.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Errors.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Image.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/ImageDescriptor.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/ImageStorage.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentCodec.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentSamples.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/HPTransform.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSError.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarSamples.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Options.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedContext.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedCursor.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMarkers.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedOutcome.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParameters.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParser.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedPrediction.swift",
+        "-emit-module-path",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/appletvsimulator/SwiftJLS.swiftmodule",
+        "-Xlinker",
+        "-install_name",
+        "-Xlinker",
+        "@rpath/libSwiftJLS.dylib",
+        "-o",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/appletvsimulator/libSwiftJLS.dylib"
+      ],
+      "exit_code": 0,
+      "seconds": 14.951248167,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/appletvsimulator/library.log"
+    },
+    {
+      "command": [
+        "codesign",
+        "--force",
+        "--sign",
+        "-",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/appletvsimulator/libSwiftJLS.dylib"
+      ],
+      "exit_code": 0,
+      "seconds": 0.01152716700000056,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/appletvsimulator/sign-library.log"
+    },
+    {
+      "command": [
+        "xcrun",
+        "swiftc",
+        "-O",
+        "-swift-version",
+        "6",
+        "-strict-concurrency=complete",
+        "-target",
+        "arm64-apple-tvos26.0-simulator",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator27.0.sdk",
+        "-I",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/appletvsimulator",
+        "-L",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/appletvsimulator",
+        "-lSwiftJLS",
+        "-Xlinker",
+        "-rpath",
+        "-Xlinker",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/appletvsimulator",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Examples/AppleRuntimeConsumer/Sources/AppleRuntimeConsumer/main.swift",
+        "-o",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/appletvsimulator/AppleRuntimeConsumer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.49989683299999754,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/appletvsimulator/consumer.log"
+    },
+    {
+      "command": [
+        "codesign",
+        "--force",
+        "--sign",
+        "-",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/appletvsimulator/AppleRuntimeConsumer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.011669707999999446,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/appletvsimulator/sign-consumer.log"
+    },
+    {
+      "command": [
+        "xcrun",
+        "swiftc",
+        "-O",
+        "-swift-version",
+        "6",
+        "-strict-concurrency=complete",
+        "-target",
+        "arm64-apple-xros26.0-simulator",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator27.0.sdk",
+        "-parse-as-library",
+        "-emit-library",
+        "-emit-module",
+        "-module-name",
+        "SwiftJLS",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/CodecAPI.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Errors.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Image.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/ImageDescriptor.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/ImageStorage.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentCodec.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentSamples.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/HPTransform.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSError.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarSamples.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Options.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedContext.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedCursor.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMarkers.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedOutcome.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParameters.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParser.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedPrediction.swift",
+        "-emit-module-path",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/xrsimulator/SwiftJLS.swiftmodule",
+        "-Xlinker",
+        "-install_name",
+        "-Xlinker",
+        "@rpath/libSwiftJLS.dylib",
+        "-o",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/xrsimulator/libSwiftJLS.dylib"
+      ],
+      "exit_code": 0,
+      "seconds": 14.973344000000004,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/xrsimulator/library.log"
+    },
+    {
+      "command": [
+        "codesign",
+        "--force",
+        "--sign",
+        "-",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/xrsimulator/libSwiftJLS.dylib"
+      ],
+      "exit_code": 0,
+      "seconds": 0.011240875000005701,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/xrsimulator/sign-library.log"
+    },
+    {
+      "command": [
+        "xcrun",
+        "swiftc",
+        "-O",
+        "-swift-version",
+        "6",
+        "-strict-concurrency=complete",
+        "-target",
+        "arm64-apple-xros26.0-simulator",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator27.0.sdk",
+        "-I",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/xrsimulator",
+        "-L",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/xrsimulator",
+        "-lSwiftJLS",
+        "-Xlinker",
+        "-rpath",
+        "-Xlinker",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/xrsimulator",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Examples/AppleRuntimeConsumer/Sources/AppleRuntimeConsumer/main.swift",
+        "-o",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/xrsimulator/AppleRuntimeConsumer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.4932200000000009,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/xrsimulator/consumer.log"
+    },
+    {
+      "command": [
+        "codesign",
+        "--force",
+        "--sign",
+        "-",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/xrsimulator/AppleRuntimeConsumer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.011311333999998396,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/xrsimulator/sign-consumer.log"
+    },
+    {
+      "command": [
+        "xcrun",
+        "swiftc",
+        "-O",
+        "-swift-version",
+        "6",
+        "-strict-concurrency=complete",
+        "-target",
+        "arm64-apple-watchos26.0-simulator",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/SDKs/WatchSimulator27.0.sdk",
+        "-parse-as-library",
+        "-emit-library",
+        "-emit-module",
+        "-module-name",
+        "SwiftJLS",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/CodecAPI.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Errors.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Image.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/ImageDescriptor.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/ImageStorage.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentCodec.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentSamples.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/HPTransform.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSError.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarSamples.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Options.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedContext.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedCursor.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMarkers.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedOutcome.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParameters.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParser.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedPrediction.swift",
+        "-emit-module-path",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/watchsimulator/SwiftJLS.swiftmodule",
+        "-Xlinker",
+        "-install_name",
+        "-Xlinker",
+        "@rpath/libSwiftJLS.dylib",
+        "-o",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/watchsimulator/libSwiftJLS.dylib"
+      ],
+      "exit_code": 0,
+      "seconds": 14.928779458000001,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/watchsimulator/library.log"
+    },
+    {
+      "command": [
+        "codesign",
+        "--force",
+        "--sign",
+        "-",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/watchsimulator/libSwiftJLS.dylib"
+      ],
+      "exit_code": 0,
+      "seconds": 0.011484584000001519,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/watchsimulator/sign-library.log"
+    },
+    {
+      "command": [
+        "xcrun",
+        "swiftc",
+        "-O",
+        "-swift-version",
+        "6",
+        "-strict-concurrency=complete",
+        "-target",
+        "arm64-apple-watchos26.0-simulator",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/SDKs/WatchSimulator27.0.sdk",
+        "-I",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/watchsimulator",
+        "-L",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/watchsimulator",
+        "-lSwiftJLS",
+        "-Xlinker",
+        "-rpath",
+        "-Xlinker",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/watchsimulator",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Examples/AppleRuntimeConsumer/Sources/AppleRuntimeConsumer/main.swift",
+        "-o",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/watchsimulator/AppleRuntimeConsumer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.4900929580000053,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/watchsimulator/consumer.log"
+    },
+    {
+      "command": [
+        "codesign",
+        "--force",
+        "--sign",
+        "-",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/watchsimulator/AppleRuntimeConsumer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.011350624999998615,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/watchsimulator/sign-consumer.log"
+    },
+    {
+      "command": [
+        "xcrun",
+        "swiftc",
+        "-O",
+        "-swift-version",
+        "6",
+        "-strict-concurrency=complete",
+        "-parse-as-library",
+        "-emit-module",
+        "-module-name",
+        "SwiftJLS",
+        "-target",
+        "arm64_32-apple-watchos26.0",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/WatchOS.platform/Developer/SDKs/WatchOS27.0.sdk",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/CodecAPI.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Errors.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Image.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/ImageDescriptor.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/ImageStorage.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentCodec.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ComponentSamples.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/HPTransform.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSError.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarCodec.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/JPEGLS/ScalarSamples.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Options.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedContext.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedCursor.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedKernel.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMarkers.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedOutcome.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParameters.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedParser.swift",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Sources/SwiftJLS/Qualified/QualifiedPrediction.swift",
+        "-emit-module-path",
+        "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/apple-final/SwiftJLS-watch32.swiftmodule"
+      ],
+      "exit_code": 0,
+      "seconds": 8.882890500000002,
+      "log": "work/recent-fixes-final-2026-10-22/apple-final/watch32.log"
+    }
+  ],
+  "performance": {
+    "controlled_comparison_executed": false,
+    "power": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=23330915)\t95%; discharging; 3:09 remaining present: true\n",
+    "reason": "Host switched to battery; controlled timing deferred. Existing M4 performance findings remain open."
+  },
+  "setup_failures": [
+    "Initial Docker mount /repo changed local package identity: probe build rejected; corrected mount /SwiftJLS.",
+    "Base Swift Docker image lacked python3: supervisor/probe launch exit127; installed Python in ephemeral validation containers.",
+    "Original unadapted858-operation matrix and later860-operation confirmation each failed10 standard high-NEAR cases, with zero observed allocations and intact canaries. Exact-d175 diagnostic and explicit standard-preset regressions establish the compatibility difference. Both failed datasets retained."
+  ],
+  "limitations": [
+    "Physical-device testing pending; no current-source OS26 runtime qualification claimed from SDK compilation.",
+    "Swift6.2/otherhost CI and one-hour mutation verification belong to owner.",
+    "Allocator evidence covers exported entry points on current Linux thread; hidden allocator paths/direct mappings/other threads/stack/caller setup excluded.",
+    "Milestone5 deferred; no release/merge/fullMilestone4 completion."
+  ],
+  "artifacts": [
+    {
+      "path": "recent-fixes-2026-10-22/validate.py",
+      "sha256": "e68a95d51c1a24548382c2bf52ae915dd119b60da8500d53c4b991ba03001823",
+      "uncompressed_sha256": "e68a95d51c1a24548382c2bf52ae915dd119b60da8500d53c4b991ba03001823",
+      "bytes": 2169
+    },
+    {
+      "path": "recent-fixes-2026-10-22/final-tests.py",
+      "sha256": "77f8fefaa6f0a2c6f6d9179ef2ccfce2dc1e8c27b9552bc49a7593098e7e41ed",
+      "uncompressed_sha256": "77f8fefaa6f0a2c6f6d9179ef2ccfce2dc1e8c27b9552bc49a7593098e7e41ed",
+      "bytes": 1641
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-build-final.py",
+      "sha256": "4620adb8a2b2e0b08e29dcacc04b8e15dba179415988ad96a867858f7301e089",
+      "uncompressed_sha256": "4620adb8a2b2e0b08e29dcacc04b8e15dba179415988ad96a867858f7301e089",
+      "bytes": 2291
+    },
+    {
+      "path": "recent-fixes-2026-10-22/commands.json",
+      "sha256": "98e0e5adef77b646b716cde5657741724b85550bd663cb705631598b93568987",
+      "uncompressed_sha256": "98e0e5adef77b646b716cde5657741724b85550bd663cb705631598b93568987",
+      "bytes": 5106
+    },
+    {
+      "path": "recent-fixes-2026-10-22/source-identity.json",
+      "sha256": "bd7f9249e8ebe04c1ebc778e89d6b83c87e843155f7d7194dd22ba13150efcf4",
+      "uncompressed_sha256": "bd7f9249e8ebe04c1ebc778e89d6b83c87e843155f7d7194dd22ba13150efcf4",
+      "bytes": 5159
+    },
+    {
+      "path": "recent-fixes-2026-10-22/contract-identity.json",
+      "sha256": "ab7e88f021ed1c2064c11c05f74ae683b6dc2d593f7d5bd2ab1dc04927086a71",
+      "uncompressed_sha256": "ab7e88f021ed1c2064c11c05f74ae683b6dc2d593f7d5bd2ab1dc04927086a71",
+      "bytes": 1080
+    },
+    {
+      "path": "recent-fixes-2026-10-22/consumer.log.gz",
+      "sha256": "5ac0d8c620c6bcb653eb6c039bf499c2ed6d842e29ce0576b7a34c947b430cf7",
+      "uncompressed_sha256": "8c55d0abef3f3999d1512d3dfe2aa7540e001a9a2150e009d03e4d70600fdb62",
+      "bytes": 110
+    },
+    {
+      "path": "recent-fixes-2026-10-22/final/commands.json",
+      "sha256": "afed7215fc97c20448bb62d285f9e2aaaa1afd72368928e25cfc7cf9c48a2374",
+      "uncompressed_sha256": "afed7215fc97c20448bb62d285f9e2aaaa1afd72368928e25cfc7cf9c48a2374",
+      "bytes": 3320
+    },
+    {
+      "path": "recent-fixes-2026-10-22/final/cli-payload.json",
+      "sha256": "1ed66aaf3cfe924baa547688743bbc55e52fde32806edc67198d71ef00a60f07",
+      "uncompressed_sha256": "1ed66aaf3cfe924baa547688743bbc55e52fde32806edc67198d71ef00a60f07",
+      "bytes": 9923
+    },
+    {
+      "path": "recent-fixes-2026-10-22/final/cli-process/report.json",
+      "sha256": "ae3aaab6da366045e28f22fc120889a3507b105cf91f7054e9218d5d1ac32598",
+      "uncompressed_sha256": "ae3aaab6da366045e28f22fc120889a3507b105cf91f7054e9218d5d1ac32598",
+      "bytes": 83933
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/toolchain.txt",
+      "sha256": "59c7d4d28fe266454e0a253c9370b7749a7fa266cb901ec71e3dfd47aeef0974",
+      "uncompressed_sha256": "59c7d4d28fe266454e0a253c9370b7749a7fa266cb901ec71e3dfd47aeef0974",
+      "bytes": 72
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/tests-final.xml",
+      "sha256": "92957064e827c8dc0d8f1d8fbb02e0fb041bf3c985558a0d29d2cc3e16cab84f",
+      "uncompressed_sha256": "92957064e827c8dc0d8f1d8fbb02e0fb041bf3c985558a0d29d2cc3e16cab84f",
+      "bytes": 19546
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/tests-final.log.gz",
+      "sha256": "a4ea266dd6d73bc1ebb2ec7ae4b2f2f6a146916fbe53085092a1cacff1c10990",
+      "uncompressed_sha256": "ec9212e742d08cdedc9256667e688ad57f7efef8bff226761160ca44d6064588",
+      "bytes": 5637
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-build-final-adapted.log.gz",
+      "sha256": "b301aec34c4097af47a7a50930f10f7aeb3b78870056dd22f9c1db272029f341",
+      "uncompressed_sha256": "e683e33aa8a770a1f29e0eaeeb8dac40fb339011be3d51b86015a2eab9ae180a",
+      "bytes": 73
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-build.log.gz",
+      "sha256": "eb7f19e468fcab679b96e9a9b2d96c1fc0c1b4ad2163b5926efa24c02eee501d",
+      "uncompressed_sha256": "0ea31242b982b243fdd7560a0913294085d4d28c15e672617291f0d7000bfc31",
+      "bytes": 137
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-build-final.log.gz",
+      "sha256": "278f7730f641373595d261d47fbcb316937c4d4855f8a57be3719dedd4c63fe5",
+      "uncompressed_sha256": "14185605312eff8d9faffd1827c70d3a300a784275e6416b0ac49110c351cd28",
+      "bytes": 117
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-build-candidate2.log.gz",
+      "sha256": "ca0aa2057afbf8dcc3bbc82cc45edcfafd90b54587ca2001a654e3e875fd96ef",
+      "uncompressed_sha256": "f606c24f8fb40b65a5b6c5162916c0ef908027f7863a8bef1fff8319d3d577b0",
+      "bytes": 136
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/build-results.json",
+      "sha256": "8d979b69c61cc405e6f533ac46130fe12de5e6e8fb0b4a1e6195ba89909143b3",
+      "uncompressed_sha256": "8d979b69c61cc405e6f533ac46130fe12de5e6e8fb0b4a1e6195ba89909143b3",
+      "bytes": 35457
+    },
+    {
+      "path": "recent-fixes-2026-10-22/final/debug.xml",
+      "sha256": "dec73184171baba62f69f22b7dae10011e2f4fa4e7321cb992b895b532aa3927",
+      "uncompressed_sha256": "dec73184171baba62f69f22b7dae10011e2f4fa4e7321cb992b895b532aa3927",
+      "bytes": 19520
+    },
+    {
+      "path": "recent-fixes-2026-10-22/final/debug.log.gz",
+      "sha256": "57d94bb798b0efa00cad1cdb0cb3a704befe35d524b1d49de4bc64da1630672e",
+      "uncompressed_sha256": "0d1fe8618e646fa990eb63786dee9c3150de1837da14ffb8050a7211d0f2b163",
+      "bytes": 5804
+    },
+    {
+      "path": "recent-fixes-2026-10-22/final/release.xml",
+      "sha256": "4cc70e90c9d15ee2842ca0cd3c130600f708f24b5a9afd61753257fe2706ce7b",
+      "uncompressed_sha256": "4cc70e90c9d15ee2842ca0cd3c130600f708f24b5a9afd61753257fe2706ce7b",
+      "bytes": 19538
+    },
+    {
+      "path": "recent-fixes-2026-10-22/final/release.log.gz",
+      "sha256": "7a4ee06aaf6ee9ff768d2680b4f3a713528f07b1366d2a6f324aca66cf10ea00",
+      "uncompressed_sha256": "5032a1257c059225ebae2ca14462c6c02b5faeebf9dc86bed94ca1803f4597d0",
+      "bytes": 5752
+    },
+    {
+      "path": "recent-fixes-2026-10-22/final/asan.xml",
+      "sha256": "960706c06ae229a810a477874f3f152760646e536dda1803f75d8342a3d825d1",
+      "uncompressed_sha256": "960706c06ae229a810a477874f3f152760646e536dda1803f75d8342a3d825d1",
+      "bytes": 19564
+    },
+    {
+      "path": "recent-fixes-2026-10-22/final/asan.log.gz",
+      "sha256": "d2695d3774d1eff6eb1a4b658891e73a134b8ce6d2da31fc7263ca8b66946ec2",
+      "uncompressed_sha256": "87057cc627457194d517e8a5e9b795caf88518464b1a760a9906943cfcb653ef",
+      "bytes": 6081
+    },
+    {
+      "path": "recent-fixes-2026-10-22/final/tsan.xml",
+      "sha256": "57a785b711feda587171274ead26f14deb0c88c4c5f7efc969f49cae395a468d",
+      "uncompressed_sha256": "57a785b711feda587171274ead26f14deb0c88c4c5f7efc969f49cae395a468d",
+      "bytes": 19529
+    },
+    {
+      "path": "recent-fixes-2026-10-22/final/tsan.log.gz",
+      "sha256": "7bc83b6e652ba84b29db1a4d1f3fcad4efd54c6c1bba95679f68d5921d112c6c",
+      "uncompressed_sha256": "b59608f30e923b7dd8aff79b5922969fcaac7bf26f3d50c6be3e395c3a3ab811",
+      "bytes": 5971
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results/cold-decode.jsonl.gz",
+      "sha256": "837e2bd2dd6d2b0bf545e9a09838a1176c90407c0e42708836976b523aa65659",
+      "uncompressed_sha256": "29e96f90e05ee696218128a3aa336b0370ef9e12bad1722f96cce213a8e5d088",
+      "bytes": 583
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results/cold-decode.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results/cold-inspect.jsonl.gz",
+      "sha256": "85030a4d5337e7f424b1167b3db94bac2a2fac670b324ffc20dea868f32a5944",
+      "uncompressed_sha256": "3695c8a1360f57cb676813b7e116e0f9afd6a2b9be197678750df1cacf02c9b3",
+      "bytes": 586
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results/cold-inspect.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results/matrix.jsonl.gz",
+      "sha256": "c166f5c05f3b8f3176621c644c4194403582657a1eae87db5327daf4ffff3206",
+      "uncompressed_sha256": "9e0a0b04b46ef8cb4ba5334b655c032793efd00e843fbe5babcc505a76ca7b93",
+      "bytes": 8296
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results/matrix.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results/results.json",
+      "sha256": "e519b9b66d84a3db7f5dee178c7954afff6af82da953eb2384478c20d8903875",
+      "uncompressed_sha256": "e519b9b66d84a3db7f5dee178c7954afff6af82da953eb2384478c20d8903875",
+      "bytes": 1896
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-candidate2/cold-decode.jsonl.gz",
+      "sha256": "837e2bd2dd6d2b0bf545e9a09838a1176c90407c0e42708836976b523aa65659",
+      "uncompressed_sha256": "29e96f90e05ee696218128a3aa336b0370ef9e12bad1722f96cce213a8e5d088",
+      "bytes": 583
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-candidate2/cold-decode.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-candidate2/cold-inspect.jsonl.gz",
+      "sha256": "85030a4d5337e7f424b1167b3db94bac2a2fac670b324ffc20dea868f32a5944",
+      "uncompressed_sha256": "3695c8a1360f57cb676813b7e116e0f9afd6a2b9be197678750df1cacf02c9b3",
+      "bytes": 586
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-candidate2/cold-inspect.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-candidate2/matrix.jsonl.gz",
+      "sha256": "9cd04857853af0bf143783034ab3427dda76dbda65e411e025c6dab583f9fa53",
+      "uncompressed_sha256": "441c74df8a778eb5b2bc6215bb6c22ddcffb7d8f90e031aa911ad4f8798826ef",
+      "bytes": 8312
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-candidate2/matrix.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-candidate2/results.json",
+      "sha256": "c34537b08eec57c3850d510e8abae2a8f07627fa267a689f19e0c830b19df9de",
+      "uncompressed_sha256": "c34537b08eec57c3850d510e8abae2a8f07627fa267a689f19e0c830b19df9de",
+      "bytes": 1926
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/adaptations.json",
+      "sha256": "978e6f14f4a6130937ff700e8f3edcbd2ef2978fda0f6c684f1f0518bec98d9d",
+      "uncompressed_sha256": "978e6f14f4a6130937ff700e8f3edcbd2ef2978fda0f6c684f1f0518bec98d9d",
+      "bytes": 29281
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n127-p8-17x13-noise.expected.u16le",
+      "sha256": "bd0472db769bacf6d9ef449512e831e6bf8284fc3c2dae94a03c1f38716b7540",
+      "uncompressed_sha256": "bd0472db769bacf6d9ef449512e831e6bf8284fc3c2dae94a03c1f38716b7540",
+      "bytes": 442
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n127-p8-17x13-noise.explicit.jls",
+      "sha256": "a95b05381389dbb8149ede610cd3ac4640fa523d2da8343ed3580147c0ac2d5f",
+      "uncompressed_sha256": "a95b05381389dbb8149ede610cd3ac4640fa523d2da8343ed3580147c0ac2d5f",
+      "bytes": 85
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n127-p8-17x13-noise.original.jls",
+      "sha256": "fdb20c29a9b4fb06f064379fa34f7e489c5225e02d2f7bcb624f44731156c626",
+      "uncompressed_sha256": "fdb20c29a9b4fb06f064379fa34f7e489c5225e02d2f7bcb624f44731156c626",
+      "bytes": 70
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n127-p8-1x19-noise.expected.u16le",
+      "sha256": "6e4fc9d9af81d1c2d9ab24a41fc4070398b8cbd353ad3cf20cca43d5b1faa432",
+      "uncompressed_sha256": "6e4fc9d9af81d1c2d9ab24a41fc4070398b8cbd353ad3cf20cca43d5b1faa432",
+      "bytes": 38
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n127-p8-1x19-noise.explicit.jls",
+      "sha256": "16e29c4e9f379d2e19e1ae624899b2f96f61098bdf1dee7464c9a423664f2685",
+      "uncompressed_sha256": "16e29c4e9f379d2e19e1ae624899b2f96f61098bdf1dee7464c9a423664f2685",
+      "bytes": 46
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n127-p8-1x19-noise.original.jls",
+      "sha256": "41df65a9b4f35e90b53119cd4eae0fe16d3f7093fd365dec523d7a6edccfa94c",
+      "uncompressed_sha256": "41df65a9b4f35e90b53119cd4eae0fe16d3f7093fd365dec523d7a6edccfa94c",
+      "bytes": 31
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n127-p8-33x9-max.expected.u16le",
+      "sha256": "1a9f4944fa29a1c40387414c9847fc03b2a5c193c2f4ba66a03f13e9d57a6502",
+      "uncompressed_sha256": "1a9f4944fa29a1c40387414c9847fc03b2a5c193c2f4ba66a03f13e9d57a6502",
+      "bytes": 594
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n127-p8-33x9-max.explicit.jls",
+      "sha256": "8c091aa9e2e3ee346da019d71e6789bdb7e42036e9fe7285e7c9ea0c50b410e7",
+      "uncompressed_sha256": "8c091aa9e2e3ee346da019d71e6789bdb7e42036e9fe7285e7c9ea0c50b410e7",
+      "bytes": 51
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n127-p8-33x9-max.original.jls",
+      "sha256": "968ba321835f568ad77d0cc7a5fd13fd44a11c7fbd480938def7e66cb6d80fb4",
+      "uncompressed_sha256": "968ba321835f568ad77d0cc7a5fd13fd44a11c7fbd480938def7e66cb6d80fb4",
+      "bytes": 36
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n127-p8-33x9-zero.expected.u16le",
+      "sha256": "b78603bc8db41fbd56206b39491ee7a2055fb42d54252de9ff068e3807beaced",
+      "uncompressed_sha256": "b78603bc8db41fbd56206b39491ee7a2055fb42d54252de9ff068e3807beaced",
+      "bytes": 594
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n127-p8-33x9-zero.explicit.jls",
+      "sha256": "6bfa9436f7e23ef589931207e43859d1ffb488c71f2dfbf0d796b13bfc52e129",
+      "uncompressed_sha256": "6bfa9436f7e23ef589931207e43859d1ffb488c71f2dfbf0d796b13bfc52e129",
+      "bytes": 46
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n127-p8-33x9-zero.original.jls",
+      "sha256": "14209bd2d895e3101a9572c5ac3226263a8bb302f430c13dc4d7cdc3940b567c",
+      "uncompressed_sha256": "14209bd2d895e3101a9572c5ac3226263a8bb302f430c13dc4d7cdc3940b567c",
+      "bytes": 31
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p10-17x13-noise.expected.u16le",
+      "sha256": "8e8c72e9b0d66b988d718233a831afd6688fe573422d086b353167aa9164f49e",
+      "uncompressed_sha256": "8e8c72e9b0d66b988d718233a831afd6688fe573422d086b353167aa9164f49e",
+      "bytes": 442
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p10-17x13-noise.explicit.jls",
+      "sha256": "8eb4f628f2b1296977305a5d7eebf6f3a420c2af2d5bab7c9b935cd3db8f5401",
+      "uncompressed_sha256": "8eb4f628f2b1296977305a5d7eebf6f3a420c2af2d5bab7c9b935cd3db8f5401",
+      "bytes": 107
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p10-17x13-noise.original.jls",
+      "sha256": "9253c817ad167c513f4fe1f522847f86e29d7ba5aeb80cf9e34f8dae5e4bc3a4",
+      "uncompressed_sha256": "9253c817ad167c513f4fe1f522847f86e29d7ba5aeb80cf9e34f8dae5e4bc3a4",
+      "bytes": 92
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p10-1x19-noise.expected.u16le",
+      "sha256": "7c96d757331ad8d656847a359ab3f94cd38c6fc67f6314333fcab4a4d6ac6996",
+      "uncompressed_sha256": "7c96d757331ad8d656847a359ab3f94cd38c6fc67f6314333fcab4a4d6ac6996",
+      "bytes": 38
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p10-1x19-noise.explicit.jls",
+      "sha256": "21d42fd58b8802a485842223a1cd2e7a1a865b2ad906dd1050c5644aa08cf402",
+      "uncompressed_sha256": "21d42fd58b8802a485842223a1cd2e7a1a865b2ad906dd1050c5644aa08cf402",
+      "bytes": 47
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p10-1x19-noise.original.jls",
+      "sha256": "40654c9964bbdb71424c6a0b3889fdf535bca378aab0bbc8d959584792df6bd3",
+      "uncompressed_sha256": "40654c9964bbdb71424c6a0b3889fdf535bca378aab0bbc8d959584792df6bd3",
+      "bytes": 32
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p10-33x9-max.expected.u16le",
+      "sha256": "6e469a02d6fd3e7739b297fd101600c8a524f3e0de630698694b0686b3b2a018",
+      "uncompressed_sha256": "6e469a02d6fd3e7739b297fd101600c8a524f3e0de630698694b0686b3b2a018",
+      "bytes": 594
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p10-33x9-max.explicit.jls",
+      "sha256": "6218fa7437c0f0a38954559c4f64954d1aa027385f32982264540182ef984df5",
+      "uncompressed_sha256": "6218fa7437c0f0a38954559c4f64954d1aa027385f32982264540182ef984df5",
+      "bytes": 51
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p10-33x9-max.original.jls",
+      "sha256": "ab04496b5cb89d16b2b58596c65490aab3cbb1849d23825093f294ec23081368",
+      "uncompressed_sha256": "ab04496b5cb89d16b2b58596c65490aab3cbb1849d23825093f294ec23081368",
+      "bytes": 36
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p10-33x9-zero.expected.u16le",
+      "sha256": "b78603bc8db41fbd56206b39491ee7a2055fb42d54252de9ff068e3807beaced",
+      "uncompressed_sha256": "b78603bc8db41fbd56206b39491ee7a2055fb42d54252de9ff068e3807beaced",
+      "bytes": 594
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p10-33x9-zero.explicit.jls",
+      "sha256": "cfbf6e2003a57cf92a8b3713a4be3895babfcd1b113d95e00f9c2ee0b275356a",
+      "uncompressed_sha256": "cfbf6e2003a57cf92a8b3713a4be3895babfcd1b113d95e00f9c2ee0b275356a",
+      "bytes": 46
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p10-33x9-zero.original.jls",
+      "sha256": "33a762b9350945aa476ce905ab83489e238a4996400f87fc1c3e711bb279572b",
+      "uncompressed_sha256": "33a762b9350945aa476ce905ab83489e238a4996400f87fc1c3e711bb279572b",
+      "bytes": 31
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p9-17x13-noise.expected.u16le",
+      "sha256": "a628554a18b16f5d1f4c89c794640c4f0ec4d6f76abed852f0ff1be126764f7e",
+      "uncompressed_sha256": "a628554a18b16f5d1f4c89c794640c4f0ec4d6f76abed852f0ff1be126764f7e",
+      "bytes": 442
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p9-17x13-noise.explicit.jls",
+      "sha256": "f4d43340893ab947ddbe978901f600d0b74a8f048d02defb0492c13a67a0357a",
+      "uncompressed_sha256": "f4d43340893ab947ddbe978901f600d0b74a8f048d02defb0492c13a67a0357a",
+      "bytes": 85
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p9-17x13-noise.original.jls",
+      "sha256": "4705e9c4ede45618f6abacf0274c48a8fc3b27522240ba031f33a939bd59e2dc",
+      "uncompressed_sha256": "4705e9c4ede45618f6abacf0274c48a8fc3b27522240ba031f33a939bd59e2dc",
+      "bytes": 70
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p9-1x19-noise.expected.u16le",
+      "sha256": "7860f3e6846108dc429f351df0bc98f886f10d8c70af1693f3200d7153ebfad8",
+      "uncompressed_sha256": "7860f3e6846108dc429f351df0bc98f886f10d8c70af1693f3200d7153ebfad8",
+      "bytes": 38
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p9-1x19-noise.explicit.jls",
+      "sha256": "489526489b3c61a62666c6766dcfdba4052e948c8ba9c1d3f86ab351be209093",
+      "uncompressed_sha256": "489526489b3c61a62666c6766dcfdba4052e948c8ba9c1d3f86ab351be209093",
+      "bytes": 46
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p9-1x19-noise.original.jls",
+      "sha256": "8ad6240ab73d2554f5bfd4d9eb247f6d9e99e1f1b82f067329a3e30695ddb316",
+      "uncompressed_sha256": "8ad6240ab73d2554f5bfd4d9eb247f6d9e99e1f1b82f067329a3e30695ddb316",
+      "bytes": 31
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p9-33x9-max.expected.u16le",
+      "sha256": "84b43d59b03784168873e992e0e047d9243d4b2e0e318f41f642216b3651adbd",
+      "uncompressed_sha256": "84b43d59b03784168873e992e0e047d9243d4b2e0e318f41f642216b3651adbd",
+      "bytes": 594
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p9-33x9-max.explicit.jls",
+      "sha256": "018708fdc266269570d9bd09a91250b0d93740ab3804d58f869f594cd32e4a27",
+      "uncompressed_sha256": "018708fdc266269570d9bd09a91250b0d93740ab3804d58f869f594cd32e4a27",
+      "bytes": 51
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p9-33x9-max.original.jls",
+      "sha256": "53637aa3c1b9b7c94b8e9dc640aeee3536cc661b6e9d9a503efde75b88acd98b",
+      "uncompressed_sha256": "53637aa3c1b9b7c94b8e9dc640aeee3536cc661b6e9d9a503efde75b88acd98b",
+      "bytes": 36
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p9-33x9-zero.expected.u16le",
+      "sha256": "b78603bc8db41fbd56206b39491ee7a2055fb42d54252de9ff068e3807beaced",
+      "uncompressed_sha256": "b78603bc8db41fbd56206b39491ee7a2055fb42d54252de9ff068e3807beaced",
+      "bytes": 594
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p9-33x9-zero.explicit.jls",
+      "sha256": "41f4cb95cf83d5edbc8bc62a993b26e9cdd05c01c9971e4ef7d45ce17be0e59c",
+      "uncompressed_sha256": "41f4cb95cf83d5edbc8bc62a993b26e9cdd05c01c9971e4ef7d45ce17be0e59c",
+      "bytes": 46
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/n255-p9-33x9-zero.original.jls",
+      "sha256": "4152531e0dcd5509b4b6ac832ad65217d41d048703f7276db9562a02ba2ff2a5",
+      "uncompressed_sha256": "4152531e0dcd5509b4b6ac832ad65217d41d048703f7276db9562a02ba2ff2a5",
+      "bytes": 31
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r1-n127-p8-17x13-noise.expected.u16le",
+      "sha256": "4a673df22567c9d6b2479857dd3185bd989bb476ccddd900bdce7e3f77686811",
+      "uncompressed_sha256": "4a673df22567c9d6b2479857dd3185bd989bb476ccddd900bdce7e3f77686811",
+      "bytes": 442
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r1-n127-p8-17x13-noise.explicit.jls",
+      "sha256": "4ba6a4b62d27b281eb9629a20022e04af277207c01c40a7bef4537d79bacabf0",
+      "uncompressed_sha256": "4ba6a4b62d27b281eb9629a20022e04af277207c01c40a7bef4537d79bacabf0",
+      "bytes": 124
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r1-n127-p8-17x13-noise.original.jls",
+      "sha256": "71df6cea90f321e12c83f8dd21414dafe8749248a68c7c1a824556e5be195f36",
+      "uncompressed_sha256": "71df6cea90f321e12c83f8dd21414dafe8749248a68c7c1a824556e5be195f36",
+      "bytes": 109
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r1-n127-p8-1x19-noise.expected.u16le",
+      "sha256": "648cd7fe872c091af5a5032e6b2b3095911a25adb71a960ebc79affe3e7d81c5",
+      "uncompressed_sha256": "648cd7fe872c091af5a5032e6b2b3095911a25adb71a960ebc79affe3e7d81c5",
+      "bytes": 38
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r1-n127-p8-1x19-noise.explicit.jls",
+      "sha256": "bed866f0b1fe74b05628a20809838edf2eba8015623c3a9ce2a3eb791d944dec",
+      "uncompressed_sha256": "bed866f0b1fe74b05628a20809838edf2eba8015623c3a9ce2a3eb791d944dec",
+      "bytes": 103
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r1-n127-p8-1x19-noise.original.jls",
+      "sha256": "edcd96cd04bd792a888af196b13555c6168763e4d9a952b61f513be16f5db0db",
+      "uncompressed_sha256": "edcd96cd04bd792a888af196b13555c6168763e4d9a952b61f513be16f5db0db",
+      "bytes": 88
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r1-n127-p8-33x9-max.expected.u16le",
+      "sha256": "1a9f4944fa29a1c40387414c9847fc03b2a5c193c2f4ba66a03f13e9d57a6502",
+      "uncompressed_sha256": "1a9f4944fa29a1c40387414c9847fc03b2a5c193c2f4ba66a03f13e9d57a6502",
+      "bytes": 594
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r1-n127-p8-33x9-max.explicit.jls",
+      "sha256": "6d87fd9f96f32b709fe2fcc833d2d2e5abe7a88515ee93d12a99fed56cda60bd",
+      "uncompressed_sha256": "6d87fd9f96f32b709fe2fcc833d2d2e5abe7a88515ee93d12a99fed56cda60bd",
+      "bytes": 109
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r1-n127-p8-33x9-max.original.jls",
+      "sha256": "fa0a4f6de773a1c2146c92003bbf0dc2e3c079e4f80dca07bbe74b572c88013a",
+      "uncompressed_sha256": "fa0a4f6de773a1c2146c92003bbf0dc2e3c079e4f80dca07bbe74b572c88013a",
+      "bytes": 94
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r1-n127-p8-33x9-zero.expected.u16le",
+      "sha256": "b78603bc8db41fbd56206b39491ee7a2055fb42d54252de9ff068e3807beaced",
+      "uncompressed_sha256": "b78603bc8db41fbd56206b39491ee7a2055fb42d54252de9ff068e3807beaced",
+      "bytes": 594
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r1-n127-p8-33x9-zero.explicit.jls",
+      "sha256": "00e8a697f33de8fbdde7e57e72265fa368b097ea1c113558d4f9b8eca931925a",
+      "uncompressed_sha256": "00e8a697f33de8fbdde7e57e72265fa368b097ea1c113558d4f9b8eca931925a",
+      "bytes": 82
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r1-n127-p8-33x9-zero.original.jls",
+      "sha256": "dc1de2cf77b5ee81c4dd5367beb99bf20b1fc13e40d21391b4193dae2d1fc3ab",
+      "uncompressed_sha256": "dc1de2cf77b5ee81c4dd5367beb99bf20b1fc13e40d21391b4193dae2d1fc3ab",
+      "bytes": 67
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r13-n127-p8-17x13-noise.expected.u16le",
+      "sha256": "bd0472db769bacf6d9ef449512e831e6bf8284fc3c2dae94a03c1f38716b7540",
+      "uncompressed_sha256": "bd0472db769bacf6d9ef449512e831e6bf8284fc3c2dae94a03c1f38716b7540",
+      "bytes": 442
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r13-n127-p8-17x13-noise.explicit.jls",
+      "sha256": "bc4993bef03c578d26b83cfe6d75c2f30f92fd7ec389be2f449f0d77b3024fd8",
+      "uncompressed_sha256": "bc4993bef03c578d26b83cfe6d75c2f30f92fd7ec389be2f449f0d77b3024fd8",
+      "bytes": 91
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r13-n127-p8-17x13-noise.original.jls",
+      "sha256": "c78680533ffc1b52c4d316c9712ca1ae25a4f3db8599996f134f546157347752",
+      "uncompressed_sha256": "c78680533ffc1b52c4d316c9712ca1ae25a4f3db8599996f134f546157347752",
+      "bytes": 76
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r13-n127-p8-1x19-noise.expected.u16le",
+      "sha256": "ea817c4fcf917f64c38dded65220cec57ba3f576d00a89ec7076fff3d536c6c3",
+      "uncompressed_sha256": "ea817c4fcf917f64c38dded65220cec57ba3f576d00a89ec7076fff3d536c6c3",
+      "bytes": 38
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r13-n127-p8-1x19-noise.explicit.jls",
+      "sha256": "c6991f2db203ce50469d0ed6056bb752a71549e4f285c399f0dbe33688e66d0b",
+      "uncompressed_sha256": "c6991f2db203ce50469d0ed6056bb752a71549e4f285c399f0dbe33688e66d0b",
+      "bytes": 55
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r13-n127-p8-1x19-noise.original.jls",
+      "sha256": "673c83f2913cb6f2cdad639e97cb7b70b7bb43b2f66cbef70e7a9f26b7147dae",
+      "uncompressed_sha256": "673c83f2913cb6f2cdad639e97cb7b70b7bb43b2f66cbef70e7a9f26b7147dae",
+      "bytes": 40
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r13-n127-p8-33x9-max.expected.u16le",
+      "sha256": "1a9f4944fa29a1c40387414c9847fc03b2a5c193c2f4ba66a03f13e9d57a6502",
+      "uncompressed_sha256": "1a9f4944fa29a1c40387414c9847fc03b2a5c193c2f4ba66a03f13e9d57a6502",
+      "bytes": 594
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r13-n127-p8-33x9-max.explicit.jls",
+      "sha256": "384048aeb14acf95765b2a9ed8b377cbd9fe944f4fe9dbd9b4c5ba76398242f2",
+      "uncompressed_sha256": "384048aeb14acf95765b2a9ed8b377cbd9fe944f4fe9dbd9b4c5ba76398242f2",
+      "bytes": 57
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r13-n127-p8-33x9-max.original.jls",
+      "sha256": "600b73f87941f429677283ae6bf6a2d823ee6c05ab87fc9d6788230cbad1de19",
+      "uncompressed_sha256": "600b73f87941f429677283ae6bf6a2d823ee6c05ab87fc9d6788230cbad1de19",
+      "bytes": 42
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r13-n127-p8-33x9-zero.expected.u16le",
+      "sha256": "b78603bc8db41fbd56206b39491ee7a2055fb42d54252de9ff068e3807beaced",
+      "uncompressed_sha256": "b78603bc8db41fbd56206b39491ee7a2055fb42d54252de9ff068e3807beaced",
+      "bytes": 594
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r13-n127-p8-33x9-zero.explicit.jls",
+      "sha256": "031bc5254a5781fff7e5a46830322b7f570e31e1ee28d24d7116589c48b6b7e1",
+      "uncompressed_sha256": "031bc5254a5781fff7e5a46830322b7f570e31e1ee28d24d7116589c48b6b7e1",
+      "bytes": 52
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r13-n127-p8-33x9-zero.original.jls",
+      "sha256": "e0dbee574d77076085a32c2b80f8d45f3e8cf275e577f1c4ad209f55e8c1dbe5",
+      "uncompressed_sha256": "e0dbee574d77076085a32c2b80f8d45f3e8cf275e577f1c4ad209f55e8c1dbe5",
+      "bytes": 37
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r3-n127-p8-17x13-noise.expected.u16le",
+      "sha256": "e69995efb1ba3e4d9cf112498fc16d58e5d4dba342c6f6a4ac3adbb16502ac62",
+      "uncompressed_sha256": "e69995efb1ba3e4d9cf112498fc16d58e5d4dba342c6f6a4ac3adbb16502ac62",
+      "bytes": 442
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r3-n127-p8-17x13-noise.explicit.jls",
+      "sha256": "802872bc5ab26eddfd0f02cd43e4570bff4960758461815dc2abda42c679b9b8",
+      "uncompressed_sha256": "802872bc5ab26eddfd0f02cd43e4570bff4960758461815dc2abda42c679b9b8",
+      "bytes": 104
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r3-n127-p8-17x13-noise.original.jls",
+      "sha256": "80898c5b48eb1a7682532c8e10475d90d717b96cf8dfe7015e5883c3b6f5db1e",
+      "uncompressed_sha256": "80898c5b48eb1a7682532c8e10475d90d717b96cf8dfe7015e5883c3b6f5db1e",
+      "bytes": 89
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r3-n127-p8-1x19-noise.expected.u16le",
+      "sha256": "6967ed7fe0be69d74b8f81cf529ea4808ff73dcc9dd372162f64a7b64d4ee77b",
+      "uncompressed_sha256": "6967ed7fe0be69d74b8f81cf529ea4808ff73dcc9dd372162f64a7b64d4ee77b",
+      "bytes": 38
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r3-n127-p8-1x19-noise.explicit.jls",
+      "sha256": "0490bf89d05b6b1f6728e6c87de45eb2e97d8570caa870ae799e911715aa033c",
+      "uncompressed_sha256": "0490bf89d05b6b1f6728e6c87de45eb2e97d8570caa870ae799e911715aa033c",
+      "bytes": 67
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r3-n127-p8-1x19-noise.original.jls",
+      "sha256": "cb1e02135029239ad95c8fd1fa4325ebf39d713041c957b25fc99413af7688f8",
+      "uncompressed_sha256": "cb1e02135029239ad95c8fd1fa4325ebf39d713041c957b25fc99413af7688f8",
+      "bytes": 52
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r3-n127-p8-33x9-max.expected.u16le",
+      "sha256": "1a9f4944fa29a1c40387414c9847fc03b2a5c193c2f4ba66a03f13e9d57a6502",
+      "uncompressed_sha256": "1a9f4944fa29a1c40387414c9847fc03b2a5c193c2f4ba66a03f13e9d57a6502",
+      "bytes": 594
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r3-n127-p8-33x9-max.explicit.jls",
+      "sha256": "d9a0146213410a89f19be62d39dd5b6a0e4d6f3052871138b435a4aeedbefd54",
+      "uncompressed_sha256": "d9a0146213410a89f19be62d39dd5b6a0e4d6f3052871138b435a4aeedbefd54",
+      "bytes": 76
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r3-n127-p8-33x9-max.original.jls",
+      "sha256": "23c48bef57f866badb4af22981fb93f1d0011d89144e68184d2d1c3ee7d82fc4",
+      "uncompressed_sha256": "23c48bef57f866badb4af22981fb93f1d0011d89144e68184d2d1c3ee7d82fc4",
+      "bytes": 61
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r3-n127-p8-33x9-zero.expected.u16le",
+      "sha256": "b78603bc8db41fbd56206b39491ee7a2055fb42d54252de9ff068e3807beaced",
+      "uncompressed_sha256": "b78603bc8db41fbd56206b39491ee7a2055fb42d54252de9ff068e3807beaced",
+      "bytes": 594
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r3-n127-p8-33x9-zero.explicit.jls",
+      "sha256": "abe7bc3bc1c1814681d51f317b7aac4a705a41ceabf3402e4e119df288bf052f",
+      "uncompressed_sha256": "abe7bc3bc1c1814681d51f317b7aac4a705a41ceabf3402e4e119df288bf052f",
+      "bytes": 61
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r3-n127-p8-33x9-zero.original.jls",
+      "sha256": "892de6f099d0cf016d0e5a9d985b5c3fee2b8f52f6de402622374aa6c1ec8e52",
+      "uncompressed_sha256": "892de6f099d0cf016d0e5a9d985b5c3fee2b8f52f6de402622374aa6c1ec8e52",
+      "bytes": 46
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r65535-n127-p8-17x13-noise.expected.u16le",
+      "sha256": "bd0472db769bacf6d9ef449512e831e6bf8284fc3c2dae94a03c1f38716b7540",
+      "uncompressed_sha256": "bd0472db769bacf6d9ef449512e831e6bf8284fc3c2dae94a03c1f38716b7540",
+      "bytes": 442
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r65535-n127-p8-17x13-noise.explicit.jls",
+      "sha256": "81f1e83420052418261bf26cdb85eb76ef8a95ae4fcaad48d8aadcf23d3fc487",
+      "uncompressed_sha256": "81f1e83420052418261bf26cdb85eb76ef8a95ae4fcaad48d8aadcf23d3fc487",
+      "bytes": 91
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r65535-n127-p8-17x13-noise.original.jls",
+      "sha256": "b505da01808737411aa00ad04f96b2bf90dd4b822729372c24770386b06c6006",
+      "uncompressed_sha256": "b505da01808737411aa00ad04f96b2bf90dd4b822729372c24770386b06c6006",
+      "bytes": 76
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r65535-n127-p8-1x19-noise.expected.u16le",
+      "sha256": "6e4fc9d9af81d1c2d9ab24a41fc4070398b8cbd353ad3cf20cca43d5b1faa432",
+      "uncompressed_sha256": "6e4fc9d9af81d1c2d9ab24a41fc4070398b8cbd353ad3cf20cca43d5b1faa432",
+      "bytes": 38
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r65535-n127-p8-1x19-noise.explicit.jls",
+      "sha256": "f911beb75526c80edc675c17e2cef57999a5da28d70adacf12913da36d61dc4d",
+      "uncompressed_sha256": "f911beb75526c80edc675c17e2cef57999a5da28d70adacf12913da36d61dc4d",
+      "bytes": 52
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r65535-n127-p8-1x19-noise.original.jls",
+      "sha256": "5835ddc645d838b716b5a60d4f62ef0eec94ce5047219a3583ede84aa3b9fd01",
+      "uncompressed_sha256": "5835ddc645d838b716b5a60d4f62ef0eec94ce5047219a3583ede84aa3b9fd01",
+      "bytes": 37
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r65535-n127-p8-33x9-max.expected.u16le",
+      "sha256": "1a9f4944fa29a1c40387414c9847fc03b2a5c193c2f4ba66a03f13e9d57a6502",
+      "uncompressed_sha256": "1a9f4944fa29a1c40387414c9847fc03b2a5c193c2f4ba66a03f13e9d57a6502",
+      "bytes": 594
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r65535-n127-p8-33x9-max.explicit.jls",
+      "sha256": "5551dcee584dd2dcd1d2d4238a98b89f523ed3c0e078b6330a1aa9383b04a0bd",
+      "uncompressed_sha256": "5551dcee584dd2dcd1d2d4238a98b89f523ed3c0e078b6330a1aa9383b04a0bd",
+      "bytes": 57
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r65535-n127-p8-33x9-max.original.jls",
+      "sha256": "d8df0069175f14fa128832228bf4a2cd3ebb8cc1a6befa497ed73f78b3c9f10d",
+      "uncompressed_sha256": "d8df0069175f14fa128832228bf4a2cd3ebb8cc1a6befa497ed73f78b3c9f10d",
+      "bytes": 42
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r65535-n127-p8-33x9-zero.expected.u16le",
+      "sha256": "b78603bc8db41fbd56206b39491ee7a2055fb42d54252de9ff068e3807beaced",
+      "uncompressed_sha256": "b78603bc8db41fbd56206b39491ee7a2055fb42d54252de9ff068e3807beaced",
+      "bytes": 594
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r65535-n127-p8-33x9-zero.explicit.jls",
+      "sha256": "72e010991dc864fba6bc96f5042fc87ad43242aa48431231ec6301d84f2cc0de",
+      "uncompressed_sha256": "72e010991dc864fba6bc96f5042fc87ad43242aa48431231ec6301d84f2cc0de",
+      "bytes": 52
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/adapted-inputs/r65535-n127-p8-33x9-zero.original.jls",
+      "sha256": "e52c13eac64f1be9947be0fd0d81fc0e60cb10e9dc28dbc113bdeb78e7662947",
+      "uncompressed_sha256": "e52c13eac64f1be9947be0fd0d81fc0e60cb10e9dc28dbc113bdeb78e7662947",
+      "bytes": 37
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/cold-decode.jsonl.gz",
+      "sha256": "837e2bd2dd6d2b0bf545e9a09838a1176c90407c0e42708836976b523aa65659",
+      "uncompressed_sha256": "29e96f90e05ee696218128a3aa336b0370ef9e12bad1722f96cce213a8e5d088",
+      "bytes": 583
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/cold-decode.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/cold-inspect.jsonl.gz",
+      "sha256": "85030a4d5337e7f424b1167b3db94bac2a2fac670b324ffc20dea868f32a5944",
+      "uncompressed_sha256": "3695c8a1360f57cb676813b7e116e0f9afd6a2b9be197678750df1cacf02c9b3",
+      "bytes": 586
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/cold-inspect.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/matrix.jsonl.gz",
+      "sha256": "496aae8207503a368bf89753b97ac5ea6160a0559933742bea0cbcacbe98725e",
+      "uncompressed_sha256": "bbe614f429f8035cdf8942615865d2833bf8a8a3baa3fa655f758311edff2726",
+      "bytes": 12925
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/matrix.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/probe-results-final/results.json",
+      "sha256": "16d228f3ccda5ec3519f6c0c2d3fbb6f91340e9507a25221f24eb3645929af00",
+      "uncompressed_sha256": "16d228f3ccda5ec3519f6c0c2d3fbb6f91340e9507a25221f24eb3645929af00",
+      "bytes": 2199
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-inspect/campaign-result.json",
+      "sha256": "c10026ab01f0a27536fbfa48c18b99d7f9dbf626dac4cecaaf31977efa65d635",
+      "uncompressed_sha256": "c10026ab01f0a27536fbfa48c18b99d7f9dbf626dac4cecaaf31977efa65d635",
+      "bytes": 351
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-inspect/campaign-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 20
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-inspect/campaign.jsonl.gz",
+      "sha256": "a77958d404afc2a280a9b26cd35d3ca946c90c6e08867d46735f146fb1624c44",
+      "uncompressed_sha256": "1a90fbb0608a7325dfc5f36b61a52f3a8d4408765bd34168ad969b7dbf3c1d5b",
+      "bytes": 448
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-inspect/last-input.jls",
+      "sha256": "9d11b017067f09e4bc583b568737bed3d092b92d1d0461fe1fd8ad4dd74deef0",
+      "uncompressed_sha256": "9d11b017067f09e4bc583b568737bed3d092b92d1d0461fe1fd8ad4dd74deef0",
+      "bytes": 445
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-into/campaign-result.json",
+      "sha256": "d7301b600a6f1db7b1c049bec48e2499cba66ec3b036618e0873847b1f3217ac",
+      "uncompressed_sha256": "d7301b600a6f1db7b1c049bec48e2499cba66ec3b036618e0873847b1f3217ac",
+      "bytes": 349
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-into/campaign-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 20
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-into/campaign.jsonl.gz",
+      "sha256": "63af8bc79572fa020be324a4da5296aad7ad6e253648a1ef1fabaff282bc4f00",
+      "uncompressed_sha256": "7007c5e5be43a648391e1ca1ba253d9f1c11dc5242a4e69df759960f58a97050",
+      "bytes": 490
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-into/last-input.jls",
+      "sha256": "a8100ae6aa1940d0b663bb31cd466142ebbdbd5187131b92d93818987832eb89",
+      "uncompressed_sha256": "a8100ae6aa1940d0b663bb31cd466142ebbdbd5187131b92d93818987832eb89",
+      "bytes": 1
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-owned/campaign-result.json",
+      "sha256": "7bd373c71c20aeb9b87b2455618a0ab9e340c7a77ec7acdf9dde2032166c4e7b",
+      "uncompressed_sha256": "7bd373c71c20aeb9b87b2455618a0ab9e340c7a77ec7acdf9dde2032166c4e7b",
+      "bytes": 350
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-owned/campaign-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 20
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-owned/campaign.jsonl.gz",
+      "sha256": "6630d8278367ae2afc74fb53ee9cfc43f4d8c0f8381a5a8e98f151b08c80d693",
+      "uncompressed_sha256": "d701400c0d83dc9bde359d07da9225d4b4b8537998496f3ba7cb805f893b08bc",
+      "bytes": 476
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-owned/last-input.jls",
+      "sha256": "5962c3c243a29d848ed4dfc70746e2e0aceeb48c704ee68b516df1e496ecc214",
+      "uncompressed_sha256": "5962c3c243a29d848ed4dfc70746e2e0aceeb48c704ee68b516df1e496ecc214",
+      "bytes": 37
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-qualified/campaign-result.json",
+      "sha256": "e6dfb7e01af7aa5a3c4dbde97e27410fc18a3a711ee941ee3941f1b0a1b4de1b",
+      "uncompressed_sha256": "e6dfb7e01af7aa5a3c4dbde97e27410fc18a3a711ee941ee3941f1b0a1b4de1b",
+      "bytes": 355
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-qualified/campaign-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 20
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-qualified/campaign.jsonl.gz",
+      "sha256": "198b50ba2b522b1a518896e40cafceaf224af88b3549e2122788ee80a8f01fbf",
+      "uncompressed_sha256": "42f3f2b18ac721156c22a571a3c296699fb54ca871cbdea79b773863136838f6",
+      "bytes": 482
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-qualified/last-input.jls",
+      "sha256": "e8d568d8519b64eb27021c4a034b52a446975391219cea2892b4ca97953f21f1",
+      "uncompressed_sha256": "e8d568d8519b64eb27021c4a034b52a446975391219cea2892b4ca97953f21f1",
+      "bytes": 1095
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-qualified-inspect/campaign-result.json",
+      "sha256": "317aef335352380137d539b3dbe20f638bf6ace1fe61e0dd8d67329d1f71b2ce",
+      "uncompressed_sha256": "317aef335352380137d539b3dbe20f638bf6ace1fe61e0dd8d67329d1f71b2ce",
+      "bytes": 362
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-qualified-inspect/campaign-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 20
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-qualified-inspect/campaign.jsonl.gz",
+      "sha256": "63aa2fd8f462993cad167784244c3a5d33d5bbe35602184d70ffb955ecf367b3",
+      "uncompressed_sha256": "b1517d74bf14f40832717798a9c4afe439a7c09878b9b13d8f8d43eb885cdb91",
+      "bytes": 458
+    },
+    {
+      "path": "recent-fixes-2026-10-22/linux/mutation-qualified-inspect/last-input.jls",
+      "sha256": "8165faa1a888f320ada0a75fe3781e930e00232967d21a62f37db1a155f85179",
+      "uncompressed_sha256": "8165faa1a888f320ada0a75fe3781e930e00232967d21a62f37db1a155f85179",
+      "bytes": 131332
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/appletvsimulator/consumer.log.gz",
+      "sha256": "2d61e1fe9661fec25ca120c99ec8ff665c83bf4a6ed0e4bc17b7dacecedb0423",
+      "uncompressed_sha256": "14766e2388c4910e186da69b66d5ce4f30bd65df708ac582336b42fa82f32d87",
+      "bytes": 127
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/appletvsimulator/library.log.gz",
+      "sha256": "2d61e1fe9661fec25ca120c99ec8ff665c83bf4a6ed0e4bc17b7dacecedb0423",
+      "uncompressed_sha256": "14766e2388c4910e186da69b66d5ce4f30bd65df708ac582336b42fa82f32d87",
+      "bytes": 127
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/appletvsimulator/sign-consumer.log.gz",
+      "sha256": "816248757d06ad5afb11a7a0971902078a3284476013dfb13887ad3f6d4a7d92",
+      "uncompressed_sha256": "4d5fdbca0083d4789e67b8134a7704037dd2d7f3752ff114920460bf42da4d46",
+      "bytes": 158
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/appletvsimulator/sign-library.log.gz",
+      "sha256": "221b8c631b0c709b324b937c138f936c56459d85996188536d2a7f26782b85ab",
+      "uncompressed_sha256": "d3a02dd67d269d6ca1c4e963b463a8860a4aac4466204d428f64289813ce222e",
+      "bytes": 153
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/iphonesimulator/consumer.log.gz",
+      "sha256": "5273ef021432dd2a96f379fcfef7719c1d1af24e8c67cfb3853e5eb51e7436d2",
+      "uncompressed_sha256": "7d08fbeb3ecd35c374e10c9d9e0a7f9ed122d9b72912c45468a5e5af7504646e",
+      "bytes": 126
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/iphonesimulator/library.log.gz",
+      "sha256": "5273ef021432dd2a96f379fcfef7719c1d1af24e8c67cfb3853e5eb51e7436d2",
+      "uncompressed_sha256": "7d08fbeb3ecd35c374e10c9d9e0a7f9ed122d9b72912c45468a5e5af7504646e",
+      "bytes": 126
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/iphonesimulator/sign-consumer.log.gz",
+      "sha256": "7d67d1fd510f97cc9054055bdf80b7c39ba3626403e549ec313d2f9e3eabd4d5",
+      "uncompressed_sha256": "db6aaccc79127e9f12b8fb0fa4613ca76e24ef3e97224cf475482ad767a7f97e",
+      "bytes": 157
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/iphonesimulator/sign-library.log.gz",
+      "sha256": "9db086182e6a02c2cb11295ac106c170288a6ec660e655d868ef520b4fe96abd",
+      "uncompressed_sha256": "c80304bad6cf1394622ad7acd062246da72c8dc952b77eaf55522112db4bd612",
+      "bytes": 154
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/watch32.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 20
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/watchsimulator/consumer.log.gz",
+      "sha256": "20445f9722bcfa57cdd6cb837eea496feac894a7cccf887112df0bc0c6d65168",
+      "uncompressed_sha256": "b899d5e88c21e4bd95841881662730a33cb294a010acc6689b8b2c9b1242401c",
+      "bytes": 129
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/watchsimulator/library.log.gz",
+      "sha256": "20445f9722bcfa57cdd6cb837eea496feac894a7cccf887112df0bc0c6d65168",
+      "uncompressed_sha256": "b899d5e88c21e4bd95841881662730a33cb294a010acc6689b8b2c9b1242401c",
+      "bytes": 129
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/watchsimulator/sign-consumer.log.gz",
+      "sha256": "8ef4d250ab66f9fa815a362fc8d5fe869de729309728c8d42f180b7875e7deef",
+      "uncompressed_sha256": "c6f65507f08067eee371ebe4793b5b597742e58c598d919a4d7c4210bb59d409",
+      "bytes": 157
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/watchsimulator/sign-library.log.gz",
+      "sha256": "020002a2f0e06da5e6ab422b91a805c24567190d7de857f81b0d485ec39625f1",
+      "uncompressed_sha256": "45062a2915e14d3289f0c44017862954efbf964fa8446a3a940e9e95cd449e8f",
+      "bytes": 154
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/xrsimulator/consumer.log.gz",
+      "sha256": "30cff3995063feebd016677fe5fb8e846a537897d5150b54315f124e7c5ee360",
+      "uncompressed_sha256": "8f42f0b3eff33c36237a7a70fc44e1e99e8da9b85736ec0f8c61a8c13abab022",
+      "bytes": 127
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/xrsimulator/library.log.gz",
+      "sha256": "30cff3995063feebd016677fe5fb8e846a537897d5150b54315f124e7c5ee360",
+      "uncompressed_sha256": "8f42f0b3eff33c36237a7a70fc44e1e99e8da9b85736ec0f8c61a8c13abab022",
+      "bytes": 127
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/xrsimulator/sign-consumer.log.gz",
+      "sha256": "1841a6d59db2e559e22fe3214559d94a1893ea4eb4b3c2988717cc29a5f35986",
+      "uncompressed_sha256": "b033eed63512e20b7ddb9d7ef4afe2def967d175ad285efeaa3f1d02f739f550",
+      "bytes": 157
+    },
+    {
+      "path": "recent-fixes-2026-10-22/apple-final/xrsimulator/sign-library.log.gz",
+      "sha256": "39831b98b87ccbcdb8ff64ffb2e3e25af54a0f26b5d71dbc69892bea6df6fe10",
+      "uncompressed_sha256": "c10fb67b49eccf0dfb46b88a7d56e4d2495b9b3fcd84c9c7a0a383d461a36ef2",
+      "bytes": 152
+    },
+    {
+      "path": "recent-fixes-2026-10-22/runner-negative-control/deliberately-inconsistent-probe.py",
+      "sha256": "dc9fa1a7853a61bea4db02a020ddae7af94ec1eba702040e2737eae405f66262",
+      "uncompressed_sha256": "dc9fa1a7853a61bea4db02a020ddae7af94ec1eba702040e2737eae405f66262",
+      "bytes": 905
+    },
+    {
+      "path": "recent-fixes-2026-10-22/runner-negative-control/results/cold-decode.jsonl.gz",
+      "sha256": "697b21786f0113144755bde9b6197ab778f31f70cf377c7efaa49ac659fe24b2",
+      "uncompressed_sha256": "8e5aab90abee4e8b9a08081a6111bf37664210a158b7c9d415eda084f4d21f4a",
+      "bytes": 316
+    },
+    {
+      "path": "recent-fixes-2026-10-22/runner-negative-control/results/cold-decode.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "recent-fixes-2026-10-22/runner-negative-control/results/cold-inspect.jsonl.gz",
+      "sha256": "fee029baacbe475e502e6d0f193167ee683ae9245efbdabfaf28ca99e4b3da4e",
+      "uncompressed_sha256": "25ff647a0227b7394b14963b11c88954b0d7819c15260274a202feb517b52603",
+      "bytes": 317
+    },
+    {
+      "path": "recent-fixes-2026-10-22/runner-negative-control/results/cold-inspect.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "recent-fixes-2026-10-22/runner-negative-control/results/matrix.jsonl.gz",
+      "sha256": "d652e9b4ed24e699a660f73a502cf30d5c59b77cfa411c1c02ee62215bd0d58b",
+      "uncompressed_sha256": "8104c673305eb81a63bc12497e782d65a2de97c7f5adbc7f326849c5a963621a",
+      "bytes": 338
+    },
+    {
+      "path": "recent-fixes-2026-10-22/runner-negative-control/results/matrix.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "recent-fixes-2026-10-22/runner-negative-control/results/results.json",
+      "sha256": "b10047566342612ac422aa1fb4962ccc5da6b335e339a4f036b5bd7b8e9fcd21",
+      "uncompressed_sha256": "b10047566342612ac422aa1fb4962ccc5da6b335e339a4f036b5bd7b8e9fcd21",
+      "bytes": 1940
+    },
+    {
+      "path": "recent-fixes-2026-10-22/runner-negative-control/runner.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "recent-fixes-2026-10-22/runner-negative-control/runner.stdout",
+      "sha256": "74636e017263a3a18b9237daff5eb2cffb3a73c9742f83f3fb8e70f9318ab0a4",
+      "uncompressed_sha256": "74636e017263a3a18b9237daff5eb2cffb3a73c9742f83f3fb8e70f9318ab0a4",
+      "bytes": 1338
+    },
+    {
+      "path": "recent-fixes-2026-10-22/final-source-identity.json",
+      "sha256": "5c31d397415b034ffc7fc4b1affb31b18678955c2bb2fb28702f1065134afba3",
+      "uncompressed_sha256": "5c31d397415b034ffc7fc4b1affb31b18678955c2bb2fb28702f1065134afba3",
+      "bytes": 379620
+    }
+  ],
+  "allocation_build": {
+    "command": "swift build -c release --jobs 4 --package-path Examples/QualifiedAllocationProbe --scratch-path /scratch/probe-build-correct-identity",
+    "environment": "swift:6.4-noble, ordinary release, Linux glibc aarch64; no sanitizers in allocation observer"
+  },
+  "sdk_environment": {
+    "DEVELOPER_DIR": "/Applications/Xcode.app/Contents/Developer",
+    "floor": "26.0",
+    "execution": "compile/link/sign only"
+  },
+  "cli_final_commands": [
+    "python3 Scripts/test-payload-cli.py --binary work/recent-fixes-final-2026-10-22/release/release/swiftjls-cli --output work/recent-fixes-final-2026-10-22/final/cli-payload.json",
+    "python3 Scripts/test-cli.py --binary work/recent-fixes-final-2026-10-22/release/release/swiftjls-cli --output work/recent-fixes-final-2026-10-22/final/cli-process"
+  ]
+}

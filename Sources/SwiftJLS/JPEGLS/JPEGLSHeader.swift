@@ -55,7 +55,7 @@ struct JPEGLSHeader {
     let metadataBytes: Int
     // Geometry and sample interpretation are immutable. Keep the layout already
     // checked for parser admission instead of rebuilding its arrays on decode.
-    private let admittedDescriptor: ImageDescriptor
+    let admittedDescriptor: ImageDescriptor
     var near: Int { records.reduce(0) { max($0, $1.near) } }
     var parameters: JPEGLSPresetParameters { records[0].parameters }
     var scans: [Range<Int>] { records[0].ranges }
@@ -162,22 +162,37 @@ struct JPEGLSHeader {
     }
 
     static func parse(_ data: Data, budget: CodecBudget, codecOptions: CodecOptions = .init()) throws -> Self {
-        try budget.admit(pixelBytes: 0, workspaceBytes: 0, compressedBytes: data.count)
+        try budget.admit(pixelBytes: 0, workspaceBytes: CodecWorkspace.fixedControlBytes,
+            compressedBytes: data.count)
         return try data.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) in
             func malformed() -> CodecError { .init(.malformedInput, "Invalid or truncated JPEG-LS header.") }
             func unsupported(_ message: String) -> CodecError { .init(.unsupportedFeature, message) }
             func word(_ offset: Int) -> Int { Int(bytes[offset]) << 8 | Int(bytes[offset + 1]) }
             func longWord(_ offset: Int) -> UInt32 { UInt32(word(offset)) << 16 | UInt32(word(offset + 2)) }
-            guard bytes.count >= 2, bytes[0] == 255, bytes[1] == 216 else {
+            guard bytes.count >= 2, bytes[0] == 255 else {
                 throw CodecError(.unsupportedFormat, "Input is not a JPEG-LS codestream.")
             }
-            var cursor = 2
+            // Marker fill is permitted before SOI too. Keep offsets relative
+            // to the complete supplied stream so DICOM padding parity includes
+            // this fill, while Data slice indices remain irrelevant.
+            var cursor = 1
+            while bytes[cursor] == 255 {
+                cursor += 1
+                if cursor & 4095 == 0 { try budget.check() }
+                guard cursor < bytes.count else { throw malformed() }
+            }
+            guard bytes[cursor] == 216 else {
+                throw CodecError(.unsupportedFormat, "Input is not a JPEG-LS codestream.")
+            }
+            cursor += 1
             var frame: (width: Int, height: Int, bits: Int, ids: [UInt8], sampling: [UInt8])?
             var preset: [Int]?
             var extendedSize: (width: Int, height: Int)?
             var restartInterval = 0
             var records: [Scan] = []
-            var covered = Set<Int>()
+            // Frame admission limits component indices to 0...3. The mask
+            // records the same completed scans without allocating a tiny Set.
+            var covered: UInt8 = 0
             var spiff: (width: Int, height: Int, bits: Int, components: Int, rgb: Bool, grey: Bool)?
             var needsDirectoryEnd = false
             var spiffData = Data()
@@ -192,7 +207,9 @@ struct JPEGLSHeader {
                 guard metadataBytes <= budget.limits.maximumMetadataBytes else {
                     throw CodecError(.resourceLimitExceeded, "JPEG-LS metadata limit exceeded.")
                 }
-                try budget.admit(pixelBytes: 0, workspaceBytes: checkedAdd(checkedMultiply(metadataBytes, 32), directoryBytes), compressedBytes: data.count)
+                try budget.admit(pixelBytes: 0,
+                    workspaceBytes: CodecWorkspace.parserBytes(metadataBytes: metadataBytes, directoryBytes: directoryBytes),
+                    compressedBytes: data.count)
             }
             while cursor < bytes.count {
                 try budget.check()
@@ -204,7 +221,7 @@ struct JPEGLSHeader {
                 if marker == 0xd9 {
                     // DICOM may even-pad an odd-length codestream with one zero byte.
                     let hasDICOMPadding = cursor % 2 == 1 && bytes.count - cursor == 1 && bytes[cursor] == 0
-                    guard let f = frame, !records.isEmpty, covered.count == f.ids.count,
+                    guard let f = frame, !records.isEmpty, covered.nonzeroBitCount == f.ids.count,
                           (cursor == bytes.count || hasDICOMPadding), !needsDirectoryEnd else { throw malformed() }
                     let mapping = try tables.isEmpty ? nil : JPEGLSMappingTables(tables: Array(tables.values), componentTableIDs: selectors)
                     let outputBits = codecOptions.mappingOutputPrecision ?? f.bits
@@ -246,7 +263,9 @@ struct JPEGLSHeader {
                         colourTransform: transform ?? .none, records: records, metadata: metadata, mapping: mapping,
                         outputBits: resolvedOutputBits, mapsSamples: mapsSamples, metadataBytes: max(metadataBytes, retainedBytes),
                         admittedDescriptor: descriptor)
-                    try budget.admit(pixelBytes: descriptor.requiredByteCount, workspaceBytes: checkedAdd(checkedMultiply(header.metadataBytes, 32), directoryBytes), compressedBytes: data.count)
+                    try budget.admit(pixelBytes: descriptor.requiredByteCount,
+                        workspaceBytes: CodecWorkspace.parserBytes(metadataBytes: header.metadataBytes, directoryBytes: directoryBytes),
+                        compressedBytes: data.count)
                     return header
                 }
                 guard bytes.count - cursor >= 2 else { throw malformed() }
@@ -409,7 +428,7 @@ struct JPEGLSHeader {
                     var indices: [Int] = []
                     for i in 0..<count {
                         guard let component = f.ids.firstIndex(of: bytes[payload + 1 + 2 * i]),
-                              !covered.contains(component), !indices.contains(component) else { throw malformed() }
+                              (covered & (UInt8(1) << component)) == 0, !indices.contains(component) else { throw malformed() }
                         selectors[component] = bytes[payload + 2 + 2 * i]
                         indices.append(component)
                     }
@@ -421,7 +440,7 @@ struct JPEGLSHeader {
                     guard (interleave == .none && count == 1) || (interleave != .none && count > 1) else { throw malformed() }
                     // No restart boundary occurs at or beyond the frame height.
                     let hasActiveRestarts = restartInterval > 0 && restartInterval < f.height
-                    if Set(f.sampling).count > 1 {
+                    if let first = f.sampling.first, f.sampling.contains(where: { $0 != first }) {
                         guard interleave == .line, count == f.ids.count, !hasActiveRestarts,
                               transform == nil || transform == CodecOptions.ColourTransform.none else {
                             throw unsupported("Subsampled decoding requires one line-interleaved scan without HP or restarts.")
@@ -467,8 +486,20 @@ struct JPEGLSHeader {
                     }
                     let expected = restartInterval > 0 ? 1 + (f.height - 1) / restartInterval : 1
                     directoryBytes = try checkedAdd(directoryBytes, checkedMultiply(expected, MemoryLayout<Range<Int>>.stride * 2))
-                    try budget.admit(pixelBytes: 0, workspaceBytes: checkedAdd(directoryBytes, checkedMultiply(metadataBytes, 32)), compressedBytes: data.count)
+                    try budget.admit(pixelBytes: 0,
+                        workspaceBytes: CodecWorkspace.parserBytes(metadataBytes: metadataBytes, directoryBytes: directoryBytes),
+                        compressedBytes: data.count)
+                    // Each admitted range must contain at least one entropy
+                    // byte and end at an FF-prefixed marker (at least two bytes).
+                    // A truncated stream cannot justify reserving a directory
+                    // from its declared height alone. Division avoids overflow.
+                    guard expected <= (bytes.count - end) / 3 else { throw malformed() }
                     var ranges: [Range<Int>] = [], scanStart = end
+                    // The checked directory allowance already reserves twice
+                    // the expected range payload. Reserving once avoids the
+                    // old/new geometric-growth buffers overlapping mid-scan.
+                    // Allocator rounding remains separate from logical payload.
+                    ranges.reserveCapacity(expected)
                     while true {
                         var scanEnd = scanStart
                         var nextCheckpoint = scanStart
@@ -507,7 +538,9 @@ struct JPEGLSHeader {
                     }
                     records.append(Scan(components: indices, near: near, interleave: interleave,
                         parameters: params, ranges: ranges, restartInterval: restartInterval))
-                    covered.formUnion(indices)
+                    // `indices` contains only validated frame positions, so
+                    // each shift is in 0...3; update only after accepting a scan.
+                    for component in indices { covered |= UInt8(1) << component }
                     continue
                 case 0xe0...0xe7, 0xe9...0xef, 0xfe:
                     try charge(length + 1)

@@ -1,0 +1,15 @@
+{
+  "recorded_utc": "2026-10-21T15:43:21.180563+00:00",
+  "status": "Adapter schema correction; retry awaits root",
+  "first_failure_log": "archive-publish-prepare.log",
+  "first_failure_log_sha256": "3aa7a6ad66d94c64ae2cf9ba9ade0fc0a3b86edc6b54fbfb04246ba31f5dc1dc",
+  "failure": "Executor counterfactual provenance mismatch",
+  "cause": "Frozen executor build diagnostic_only is an explicit forbidden-for-production scope string; adapter incorrectly required Boolean true. Recorded measurement source_guards diagnostic_only is Boolean true. All three parent hashes matched.",
+  "correction": "Require the exact frozen scope string and both build/source promoted:false; preserve Boolean true requirement for measurement guards. Parent build/patch/binary, signature-only inverse, all source hashes, fixture/compiler, Consumer/package/binary and preflight checks remain unchanged.",
+  "changed_file": "archive-diagnostics.py",
+  "measurement_files_changed": false,
+  "measurement_reruns": 0,
+  "evidence_rewritten": false,
+  "first_failure_log_preserved": true,
+  "archive_published": false
+}

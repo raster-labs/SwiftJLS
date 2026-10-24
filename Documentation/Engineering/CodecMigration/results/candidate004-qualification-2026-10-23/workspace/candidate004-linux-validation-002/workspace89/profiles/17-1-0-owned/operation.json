@@ -1,0 +1,615 @@
+{
+  "groups": {
+    "algorithm_state": {
+      "baseline_live_bytes": 48,
+      "peak_live_bytes": 16264,
+      "peak_above_baseline_bytes": 16216,
+      "end_live_bytes": 48,
+      "phase_allocation_calls": 3,
+      "phase_allocated_bytes": 16216
+    },
+    "compressed_buffer": {
+      "baseline_live_bytes": 464,
+      "peak_live_bytes": 868,
+      "peak_above_baseline_bytes": 404,
+      "end_live_bytes": 464,
+      "phase_allocation_calls": 1,
+      "phase_allocated_bytes": 404
+    },
+    "metadata_and_descriptors": {
+      "baseline_live_bytes": 457,
+      "peak_live_bytes": 868,
+      "peak_above_baseline_bytes": 411,
+      "end_live_bytes": 569,
+      "phase_allocation_calls": 7,
+      "phase_allocated_bytes": 411
+    },
+    "owned_pixel_buffer": {
+      "baseline_live_bytes": 0,
+      "peak_live_bytes": 610,
+      "peak_above_baseline_bytes": 610,
+      "end_live_bytes": 610,
+      "phase_allocation_calls": 1,
+      "phase_allocated_bytes": 610
+    },
+    "runtime_or_unattributed": {
+      "baseline_live_bytes": 94969,
+      "peak_live_bytes": 95113,
+      "peak_above_baseline_bytes": 144,
+      "end_live_bytes": 95033,
+      "phase_allocation_calls": 4,
+      "phase_allocated_bytes": 224
+    },
+    "storage_control_objects": {
+      "baseline_live_bytes": 1618,
+      "peak_live_bytes": 1658,
+      "peak_above_baseline_bytes": 40,
+      "end_live_bytes": 1658,
+      "phase_allocation_calls": 1,
+      "phase_allocated_bytes": 40
+    }
+  },
+  "phase_total_requested_heap_peak_bytes": 115228,
+  "baseline_total_requested_heap_bytes": 97556,
+  "phase_total_peak_above_baseline_bytes": 17672,
+  "simultaneous_categories_at_phase_peak_bytes": {
+    "runtime_or_unattributed": 95033,
+    "metadata_and_descriptors": 835,
+    "storage_control_objects": 1618,
+    "compressed_buffer": 868,
+    "algorithm_state": 16264,
+    "owned_pixel_buffer": 610
+  },
+  "process_requested_heap_peak_bytes": 140689,
+  "allocation_stacks": {
+    "717": {
+      "category": "metadata_and_descriptors",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "generic specialization <Swift.UInt8> of Swift._ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> Swift._ContiguousArrayBuffer<A>",
+        "generic specialization <Swift.UInt8> of Swift.Array._makeUniqueAndReserveCapacityIfNotUnique() -> ()",
+        "generic specialization <Swift.UInt8> of Swift.Array.append(__owned A) -> ()",
+        "closure #1 (Swift.UnsafeRawBufferPointer) throws -> SwiftJLS.JPEGLSHeader in static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "generic specialization <Swift.Error, SwiftJLS.JPEGLSHeader> of FoundationEssentials.Data.withUnsafeBytes<A, B where A: Swift.Error, B: ~Swift.Copyable>((Swift.UnsafeRawBufferPointer) throws(A) -> B) throws(A) -> B",
+        "static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 33,
+      "requested_size_counts": {
+        "33": 1
+      }
+    },
+    "722": {
+      "category": "metadata_and_descriptors",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "generic specialization <Swift.UInt8> of Swift._ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> Swift._ContiguousArrayBuffer<A>",
+        "generic specialization <Swift.UInt8> of Swift.Array._makeUniqueAndReserveCapacityIfNotUnique() -> ()",
+        "generic specialization <Swift.UInt8> of Swift.Array.append(__owned A) -> ()",
+        "closure #1 (Swift.UnsafeRawBufferPointer) throws -> SwiftJLS.JPEGLSHeader in static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "generic specialization <Swift.Error, SwiftJLS.JPEGLSHeader> of FoundationEssentials.Data.withUnsafeBytes<A, B where A: Swift.Error, B: ~Swift.Copyable>((Swift.UnsafeRawBufferPointer) throws(A) -> B) throws(A) -> B",
+        "static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 33,
+      "requested_size_counts": {
+        "33": 1
+      }
+    },
+    "727": {
+      "category": "metadata_and_descriptors",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>",
+        "generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)",
+        "generic specialization <Swift.UInt8> of Swift.Array.init(repeating: A, count: Swift.Int) -> [A]",
+        "closure #1 (Swift.UnsafeRawBufferPointer) throws -> SwiftJLS.JPEGLSHeader in static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "generic specialization <Swift.Error, SwiftJLS.JPEGLSHeader> of FoundationEssentials.Data.withUnsafeBytes<A, B where A: Swift.Error, B: ~Swift.Copyable>((Swift.UnsafeRawBufferPointer) throws(A) -> B) throws(A) -> B",
+        "static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 33,
+      "requested_size_counts": {
+        "33": 1
+      }
+    },
+    "732": {
+      "category": "metadata_and_descriptors",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "generic specialization <Swift.Int> of Swift._ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> Swift._ContiguousArrayBuffer<A>",
+        "generic specialization <Swift.Int> of Swift.Array._makeUniqueAndReserveCapacityIfNotUnique() -> ()",
+        "generic specialization <Swift.Int> of Swift.Array.append(__owned A) -> ()",
+        "closure #1 (Swift.UnsafeRawBufferPointer) throws -> SwiftJLS.JPEGLSHeader in static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "generic specialization <Swift.Error, SwiftJLS.JPEGLSHeader> of FoundationEssentials.Data.withUnsafeBytes<A, B where A: Swift.Error, B: ~Swift.Copyable>((Swift.UnsafeRawBufferPointer) throws(A) -> B) throws(A) -> B",
+        "static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 40,
+      "requested_size_counts": {
+        "40": 1
+      }
+    },
+    "737": {
+      "category": "metadata_and_descriptors",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "generic specialization <Swift.Range<Swift.Int>> of Swift._ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> Swift._ContiguousArrayBuffer<A>",
+        "generic specialization <Swift.Range<Swift.Int>> of Swift.Array._makeUniqueAndReserveCapacityIfNotUnique() -> ()",
+        "generic specialization <Swift.Range<Swift.Int>> of Swift.Array.append(__owned A) -> ()",
+        "closure #1 (Swift.UnsafeRawBufferPointer) throws -> SwiftJLS.JPEGLSHeader in static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "generic specialization <Swift.Error, SwiftJLS.JPEGLSHeader> of FoundationEssentials.Data.withUnsafeBytes<A, B where A: Swift.Error, B: ~Swift.Copyable>((Swift.UnsafeRawBufferPointer) throws(A) -> B) throws(A) -> B",
+        "static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 48,
+      "requested_size_counts": {
+        "48": 1
+      }
+    },
+    "742": {
+      "category": "metadata_and_descriptors",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "generic specialization <SwiftJLS.JPEGLSHeader.Scan> of Swift._ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> Swift._ContiguousArrayBuffer<A>",
+        "generic specialization <SwiftJLS.JPEGLSHeader.Scan> of Swift.Array._makeUniqueAndReserveCapacityIfNotUnique() -> ()",
+        "generic specialization <SwiftJLS.JPEGLSHeader.Scan> of Swift.Array.append(__owned A) -> ()",
+        "closure #1 (Swift.UnsafeRawBufferPointer) throws -> SwiftJLS.JPEGLSHeader in static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "generic specialization <Swift.Error, SwiftJLS.JPEGLSHeader> of FoundationEssentials.Data.withUnsafeBytes<A, B where A: Swift.Error, B: ~Swift.Copyable>((Swift.UnsafeRawBufferPointer) throws(A) -> B) throws(A) -> B",
+        "static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 112,
+      "requested_size_counts": {
+        "112": 1
+      }
+    },
+    "746": {
+      "category": "metadata_and_descriptors",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "generic specialization <SwiftJLS.PlaneDescriptor> of Swift._allocateUninitializedArray<A>(Builtin.Word) -> ([A], Builtin.RawPointer)",
+        "static SwiftJLS.ImageDescriptor.greyscale16(width: Swift.Int, height: Swift.Int, meaningfulBits: Swift.Int, rowBytes: Swift.Int?, offset: Swift.Int, limits: SwiftJLS.ResourceLimits) throws -> SwiftJLS.ImageDescriptor",
+        "function signature specialization <Arg[8] = Dead> of static SwiftJLS.JPEGLSHeader.(makeDescriptor in _F1B392F9CDBD28A790F3DC4231680B21)(width: Swift.Int, height: Swift.Int, outputBits: Swift.Int, componentIDs: [Swift.UInt8], sampling: [Swift.UInt8], rgb: Swift.Bool, grey: Swift.Bool, limits: SwiftJLS.ResourceLimits) throws -> SwiftJLS.ImageDescriptor",
+        "closure #1 (Swift.UnsafeRawBufferPointer) throws -> SwiftJLS.JPEGLSHeader in static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "generic specialization <Swift.Error, SwiftJLS.JPEGLSHeader> of FoundationEssentials.Data.withUnsafeBytes<A, B where A: Swift.Error, B: ~Swift.Copyable>((Swift.UnsafeRawBufferPointer) throws(A) -> B) throws(A) -> B",
+        "static SwiftJLS.JPEGLSHeader.parse(_: FoundationEssentials.Data, budget: SwiftJLS.CodecBudget, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.JPEGLSHeader",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 112,
+      "requested_size_counts": {
+        "112": 1
+      }
+    },
+    "750": {
+      "category": "owned_pixel_buffer",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>",
+        "generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)",
+        "generic specialization <Swift.UInt8> of Swift.Array.init(repeating: A, count: Swift.Int) -> [A]",
+        "static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "static SwiftJLS.Image.writeAdmittedOwned(descriptor: SwiftJLS.ImageDescriptor, metadata: SwiftJLS.ImageMetadata, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.Image",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 610,
+      "requested_size_counts": {
+        "610": 1
+      }
+    },
+    "753": {
+      "category": "algorithm_state",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "SwiftJLS.JPEGLSBitstreamReader.__allocating_init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader",
+        "fill #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "closure #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "generic specialization <Swift.UInt8, ()> of closure #1 (inout Swift.UnsafeMutableBufferPointer<A>) throws -> A1 in Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "generic not re-abstracted specialization <Swift.UInt8, ()> of closure #1 (inout Swift.UnsafeMutableBufferPointer<A>) throws -> A1 in Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "generic specialization <Swift.UInt8, ()> of generic partial specialization <serialized, Signature = @escaping @convention(thin) @convention(method) <A><A1, B1 where B1 == Swift.Error> (@guaranteed @callee_guaranteed @substituted <A, B, C where A: ~Swift.Copyable, A: ~Swift.Escapable, B: ~Swift.Copyable, B: ~Swift.Escapable, C: ~Swift.Copyable, C: ~Swift.Escapable> (@inout Swift.UnsafeMutableBufferPointer<A>) -> (@out C, @error @out B) for <ASwift.ErrorA1>, @inout [A]) -> (@out A1, @error @owned Swift.Error)> of Swift.Array.withUnsafeMutableBufferPointer<A, B where B1: Swift.Error>((inout Swift.UnsafeMutableBufferPointer<A>) throws(B1) -> A1) throws(B1) -> A1",
+        "generic specialization <Swift.UInt8, ()> of Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "static SwiftJLS.Image.writeAdmittedOwned(descriptor: SwiftJLS.ImageDescriptor, metadata: SwiftJLS.ImageMetadata, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.Image",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 64,
+      "requested_size_counts": {
+        "64": 1
+      }
+    },
+    "757": {
+      "category": "compressed_buffer",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "generic specialization <serialized, FoundationEssentials.Data> of Swift._copyCollectionToContiguousArray<A where A: Swift.Collection>(A) -> Swift.ContiguousArray<A.Element>",
+        "protocol witness for Swift.Sequence._copyToContiguousArray() -> Swift.ContiguousArray<A.Element> in conformance FoundationEssentials.Data : Swift.Sequence in FoundationEssentials",
+        "generic specialization <Swift.UInt8, FoundationEssentials.Data> of Swift.Array.init<A where A == A1.Element, A1: Swift.Sequence>(A1) -> [A]",
+        "SwiftJLS.JPEGLSBitstreamReader.init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader",
+        "SwiftJLS.JPEGLSBitstreamReader.__allocating_init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader",
+        "fill #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "closure #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "generic specialization <Swift.UInt8, ()> of closure #1 (inout Swift.UnsafeMutableBufferPointer<A>) throws -> A1 in Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "generic not re-abstracted specialization <Swift.UInt8, ()> of closure #1 (inout Swift.UnsafeMutableBufferPointer<A>) throws -> A1 in Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "generic specialization <Swift.UInt8, ()> of generic partial specialization <serialized, Signature = @escaping @convention(thin) @convention(method) <A><A1, B1 where B1 == Swift.Error> (@guaranteed @callee_guaranteed @substituted <A, B, C where A: ~Swift.Copyable, A: ~Swift.Escapable, B: ~Swift.Copyable, B: ~Swift.Escapable, C: ~Swift.Copyable, C: ~Swift.Escapable> (@inout Swift.UnsafeMutableBufferPointer<A>) -> (@out C, @error @out B) for <ASwift.ErrorA1>, @inout [A]) -> (@out A1, @error @owned Swift.Error)> of Swift.Array.withUnsafeMutableBufferPointer<A, B where B1: Swift.Error>((inout Swift.UnsafeMutableBufferPointer<A>) throws(B1) -> A1) throws(B1) -> A1",
+        "generic specialization <Swift.UInt8, ()> of Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "static SwiftJLS.Image.writeAdmittedOwned(descriptor: SwiftJLS.ImageDescriptor, metadata: SwiftJLS.ImageMetadata, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.Image",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 404,
+      "requested_size_counts": {
+        "404": 1
+      }
+    },
+    "769": {
+      "category": "runtime_or_unattributed",
+      "frames": [
+        "operator new(unsigned long)",
+        "$x",
+        "swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)",
+        "swift_getTupleTypeMetadata",
+        "$x",
+        "$x",
+        "swift_getTypeByMangledNode",
+        "swift_getTypeByMangledName",
+        "$x",
+        "__swift_instantiateConcreteTypeFromMangledName",
+        "merged outlined destroy of Swift.TaskPriority?",
+        "generic specialization <serialized, FoundationEssentials.Data> of Swift._copyCollectionToContiguousArray<A where A: Swift.Collection>(A) -> Swift.ContiguousArray<A.Element>",
+        "protocol witness for Swift.Sequence._copyToContiguousArray() -> Swift.ContiguousArray<A.Element> in conformance FoundationEssentials.Data : Swift.Sequence in FoundationEssentials",
+        "generic specialization <Swift.UInt8, FoundationEssentials.Data> of Swift.Array.init<A where A == A1.Element, A1: Swift.Sequence>(A1) -> [A]",
+        "SwiftJLS.JPEGLSBitstreamReader.init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader",
+        "SwiftJLS.JPEGLSBitstreamReader.__allocating_init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader",
+        "fill #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "closure #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "generic specialization <Swift.UInt8, ()> of closure #1 (inout Swift.UnsafeMutableBufferPointer<A>) throws -> A1 in Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "generic not re-abstracted specialization <Swift.UInt8, ()> of closure #1 (inout Swift.UnsafeMutableBufferPointer<A>) throws -> A1 in Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "generic specialization <Swift.UInt8, ()> of generic partial specialization <serialized, Signature = @escaping @convention(thin) @convention(method) <A><A1, B1 where B1 == Swift.Error> (@guaranteed @callee_guaranteed @substituted <A, B, C where A: ~Swift.Copyable, A: ~Swift.Escapable, B: ~Swift.Copyable, B: ~Swift.Escapable, C: ~Swift.Copyable, C: ~Swift.Escapable> (@inout Swift.UnsafeMutableBufferPointer<A>) -> (@out C, @error @out B) for <ASwift.ErrorA1>, @inout [A]) -> (@out A1, @error @owned Swift.Error)> of Swift.Array.withUnsafeMutableBufferPointer<A, B where B1: Swift.Error>((inout Swift.UnsafeMutableBufferPointer<A>) throws(B1) -> A1) throws(B1) -> A1",
+        "generic specialization <Swift.UInt8, ()> of Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "static SwiftJLS.Image.writeAdmittedOwned(descriptor: SwiftJLS.ImageDescriptor, metadata: SwiftJLS.ImageMetadata, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.Image",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 48,
+      "requested_size_counts": {
+        "48": 1
+      }
+    },
+    "771": {
+      "category": "runtime_or_unattributed",
+      "frames": [
+        "$x",
+        "swift_getTupleTypeMetadata",
+        "$x",
+        "$x",
+        "swift_getTypeByMangledNode",
+        "swift_getTypeByMangledName",
+        "$x",
+        "__swift_instantiateConcreteTypeFromMangledName",
+        "merged outlined destroy of Swift.TaskPriority?",
+        "generic specialization <serialized, FoundationEssentials.Data> of Swift._copyCollectionToContiguousArray<A where A: Swift.Collection>(A) -> Swift.ContiguousArray<A.Element>",
+        "protocol witness for Swift.Sequence._copyToContiguousArray() -> Swift.ContiguousArray<A.Element> in conformance FoundationEssentials.Data : Swift.Sequence in FoundationEssentials",
+        "generic specialization <Swift.UInt8, FoundationEssentials.Data> of Swift.Array.init<A where A == A1.Element, A1: Swift.Sequence>(A1) -> [A]",
+        "SwiftJLS.JPEGLSBitstreamReader.init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader",
+        "SwiftJLS.JPEGLSBitstreamReader.__allocating_init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader",
+        "fill #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "closure #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "generic specialization <Swift.UInt8, ()> of closure #1 (inout Swift.UnsafeMutableBufferPointer<A>) throws -> A1 in Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "generic not re-abstracted specialization <Swift.UInt8, ()> of closure #1 (inout Swift.UnsafeMutableBufferPointer<A>) throws -> A1 in Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "generic specialization <Swift.UInt8, ()> of generic partial specialization <serialized, Signature = @escaping @convention(thin) @convention(method) <A><A1, B1 where B1 == Swift.Error> (@guaranteed @callee_guaranteed @substituted <A, B, C where A: ~Swift.Copyable, A: ~Swift.Escapable, B: ~Swift.Copyable, B: ~Swift.Escapable, C: ~Swift.Copyable, C: ~Swift.Escapable> (@inout Swift.UnsafeMutableBufferPointer<A>) -> (@out C, @error @out B) for <ASwift.ErrorA1>, @inout [A]) -> (@out A1, @error @owned Swift.Error)> of Swift.Array.withUnsafeMutableBufferPointer<A, B where B1: Swift.Error>((inout Swift.UnsafeMutableBufferPointer<A>) throws(B1) -> A1) throws(B1) -> A1",
+        "generic specialization <Swift.UInt8, ()> of Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "static SwiftJLS.Image.writeAdmittedOwned(descriptor: SwiftJLS.ImageDescriptor, metadata: SwiftJLS.ImageMetadata, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.Image",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 16,
+      "requested_size_counts": {
+        "16": 1
+      }
+    },
+    "773": {
+      "category": "runtime_or_unattributed",
+      "frames": [
+        "swift_slowAlloc",
+        "$x",
+        "swift_getTupleTypeMetadata",
+        "$x",
+        "$x",
+        "swift_getTypeByMangledNode",
+        "swift_getTypeByMangledName",
+        "$x",
+        "__swift_instantiateConcreteTypeFromMangledName",
+        "merged outlined destroy of Swift.TaskPriority?",
+        "generic specialization <serialized, FoundationEssentials.Data> of Swift._copyCollectionToContiguousArray<A where A: Swift.Collection>(A) -> Swift.ContiguousArray<A.Element>",
+        "protocol witness for Swift.Sequence._copyToContiguousArray() -> Swift.ContiguousArray<A.Element> in conformance FoundationEssentials.Data : Swift.Sequence in FoundationEssentials",
+        "generic specialization <Swift.UInt8, FoundationEssentials.Data> of Swift.Array.init<A where A == A1.Element, A1: Swift.Sequence>(A1) -> [A]",
+        "SwiftJLS.JPEGLSBitstreamReader.init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader",
+        "SwiftJLS.JPEGLSBitstreamReader.__allocating_init(data: FoundationEssentials.Data) -> SwiftJLS.JPEGLSBitstreamReader",
+        "fill #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "closure #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "generic specialization <Swift.UInt8, ()> of closure #1 (inout Swift.UnsafeMutableBufferPointer<A>) throws -> A1 in Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "generic not re-abstracted specialization <Swift.UInt8, ()> of closure #1 (inout Swift.UnsafeMutableBufferPointer<A>) throws -> A1 in Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "generic specialization <Swift.UInt8, ()> of generic partial specialization <serialized, Signature = @escaping @convention(thin) @convention(method) <A><A1, B1 where B1 == Swift.Error> (@guaranteed @callee_guaranteed @substituted <A, B, C where A: ~Swift.Copyable, A: ~Swift.Escapable, B: ~Swift.Copyable, B: ~Swift.Escapable, C: ~Swift.Copyable, C: ~Swift.Escapable> (@inout Swift.UnsafeMutableBufferPointer<A>) -> (@out C, @error @out B) for <ASwift.ErrorA1>, @inout [A]) -> (@out A1, @error @owned Swift.Error)> of Swift.Array.withUnsafeMutableBufferPointer<A, B where B1: Swift.Error>((inout Swift.UnsafeMutableBufferPointer<A>) throws(B1) -> A1) throws(B1) -> A1",
+        "generic specialization <Swift.UInt8, ()> of Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "static SwiftJLS.Image.writeAdmittedOwned(descriptor: SwiftJLS.ImageDescriptor, metadata: SwiftJLS.ImageMetadata, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.Image",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 80,
+      "requested_size_counts": {
+        "80": 1
+      }
+    },
+    "781": {
+      "category": "algorithm_state",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>",
+        "generic specialization <Swift.Int> of static Swift.ContiguousArray._allocateUninitialized(Swift.Int) -> (Swift.ContiguousArray<A>, Swift.UnsafeMutablePointer<A>)",
+        "generic specialization <Swift.Int, Swift.Never> of Swift.ContiguousArray.init<A where A1: Swift.Error>(unsafeUninitializedCapacity: Swift.Int, initializingWith: (inout Swift.UnsafeMutableBufferPointer<A>, inout Swift.Int) throws(A1) -> ()) throws(A1) -> Swift.ContiguousArray<A>",
+        "generic specialization <Swift.Int, Swift.Never> of Swift.Array.init<A where A1: Swift.Error>(unsafeUninitializedCapacity: Swift.Int, initializingWith: (inout Swift.UnsafeMutableBufferPointer<A>, inout Swift.Int) throws(A1) -> ()) throws(A1) -> [A]",
+        "function signature specialization <Arg[2] = Dead> of SwiftJLS.JPEGLSRegularModeDecoder.init(parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int) throws -> SwiftJLS.JPEGLSRegularModeDecoder",
+        "SwiftJLS.JPEGLSRegularModeDecoder.init(parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int) throws -> SwiftJLS.JPEGLSRegularModeDecoder",
+        "function signature specialization <Arg[10] = Dead> of generic specialization <SwiftJLS.NativeUInt16Writer> of SwiftJLS.JPEGLSScalarKernel.decodeFlatRegion<A where A: SwiftJLS.JPEGSampleWriter>(into: A, rowStride: Swift.Int, reader: SwiftJLS.JPEGLSBitstreamReader, rows: Swift.Int, width: Swift.Int, parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int, limit: Swift.Int, qbppBits: Swift.Int, checkpoint: () throws -> ()) throws -> ()",
+        "merged function signature specialization <Arg[9] = Dead> of function signature specialization <Arg[9] = [Closure Propagated : $s8SwiftJLS11ScalarCodecO6decode_4into7options12codecOptionsAA12DecodedImageV20FoundationEssentials4DataV_AA0K11DestinationCSgAA06DecodeI0VAA0dI0VtKFZAIyKXEfU_4fillL_yySwKFyyKXEfU_, Argument Types : [SwiftJLS.CodecBudget]> of generic specialization <SwiftJLS.ScalarSampleWriter> of SwiftJLS.JPEGLSScalarKernel.decodeFlatRegion<A where A: SwiftJLS.JPEGSampleWriter>(into: A, rowStride: Swift.Int, reader: SwiftJLS.JPEGLSBitstreamReader, rows: Swift.Int, width: Swift.Int, parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int, limit: Swift.Int, qbppBits: Swift.Int, checkpoint: () throws -> ()) throws -> ()",
+        "function signature specialization <Arg[9] = Dead> of function signature specialization <Arg[9] = [Closure Propagated : $s8SwiftJLS11ScalarCodecO6decode_4into7options12codecOptionsAA12DecodedImageV20FoundationEssentials4DataV_AA0K11DestinationCSgAA06DecodeI0VAA0dI0VtKFZAIyKXEfU_4fillL_yySwKFyyKXEfU_, Argument Types : [SwiftJLS.CodecBudget]> of generic specialization <SwiftJLS.ScalarSampleWriter> of SwiftJLS.JPEGLSScalarKernel.decodeFlatRegion<A where A: SwiftJLS.JPEGSampleWriter>(into: A, rowStride: Swift.Int, reader: SwiftJLS.JPEGLSBitstreamReader, rows: Swift.Int, width: Swift.Int, parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int, limit: Swift.Int, qbppBits: Swift.Int, checkpoint: () throws -> ()) throws -> ()",
+        "function signature specialization <Arg[9] = [Closure Propagated : $s8SwiftJLS11ScalarCodecO6decode_4into7options12codecOptionsAA12DecodedImageV20FoundationEssentials4DataV_AA0K11DestinationCSgAA06DecodeI0VAA0dI0VtKFZAIyKXEfU_4fillL_yySwKFyyKXEfU_, Argument Types : [SwiftJLS.CodecBudget]> of generic specialization <SwiftJLS.ScalarSampleWriter> of SwiftJLS.JPEGLSScalarKernel.decodeFlatRegion<A where A: SwiftJLS.JPEGSampleWriter>(into: A, rowStride: Swift.Int, reader: SwiftJLS.JPEGLSBitstreamReader, rows: Swift.Int, width: Swift.Int, parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int, limit: Swift.Int, qbppBits: Swift.Int, checkpoint: () throws -> ()) throws -> ()",
+        "fill #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "closure #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "generic specialization <Swift.UInt8, ()> of closure #1 (inout Swift.UnsafeMutableBufferPointer<A>) throws -> A1 in Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "generic not re-abstracted specialization <Swift.UInt8, ()> of closure #1 (inout Swift.UnsafeMutableBufferPointer<A>) throws -> A1 in Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "generic specialization <Swift.UInt8, ()> of generic partial specialization <serialized, Signature = @escaping @convention(thin) @convention(method) <A><A1, B1 where B1 == Swift.Error> (@guaranteed @callee_guaranteed @substituted <A, B, C where A: ~Swift.Copyable, A: ~Swift.Escapable, B: ~Swift.Copyable, B: ~Swift.Escapable, C: ~Swift.Copyable, C: ~Swift.Escapable> (@inout Swift.UnsafeMutableBufferPointer<A>) -> (@out C, @error @out B) for <ASwift.ErrorA1>, @inout [A]) -> (@out A1, @error @owned Swift.Error)> of Swift.Array.withUnsafeMutableBufferPointer<A, B where B1: Swift.Error>((inout Swift.UnsafeMutableBufferPointer<A>) throws(B1) -> A1) throws(B1) -> A1",
+        "generic specialization <Swift.UInt8, ()> of Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "static SwiftJLS.Image.writeAdmittedOwned(descriptor: SwiftJLS.ImageDescriptor, metadata: SwiftJLS.ImageMetadata, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.Image",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 4456,
+      "requested_size_counts": {
+        "4456": 1
+      }
+    },
+    "785": {
+      "category": "algorithm_state",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "generic specialization <(), SwiftJLS.JPEGLSContextModel.(ContextRecord in _64B8CE41A605EF585F166C98FB8F5C18)> of static Swift.ManagedBuffer.create(minimumCapacity: Swift.Int, makingHeaderWith: (Swift.ManagedBuffer<A, B>) throws -> A) throws -> Swift.ManagedBuffer<A, B>",
+        "function signature specialization <Arg[2] = Dead> of SwiftJLS.JPEGLSContextModel.init(parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int) throws -> SwiftJLS.JPEGLSContextModel",
+        "SwiftJLS.JPEGLSContextModel.init(parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int) throws -> SwiftJLS.JPEGLSContextModel",
+        "function signature specialization <Arg[10] = Dead> of generic specialization <SwiftJLS.NativeUInt16Writer> of SwiftJLS.JPEGLSScalarKernel.decodeFlatRegion<A where A: SwiftJLS.JPEGSampleWriter>(into: A, rowStride: Swift.Int, reader: SwiftJLS.JPEGLSBitstreamReader, rows: Swift.Int, width: Swift.Int, parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int, limit: Swift.Int, qbppBits: Swift.Int, checkpoint: () throws -> ()) throws -> ()",
+        "merged function signature specialization <Arg[9] = Dead> of function signature specialization <Arg[9] = [Closure Propagated : $s8SwiftJLS11ScalarCodecO6decode_4into7options12codecOptionsAA12DecodedImageV20FoundationEssentials4DataV_AA0K11DestinationCSgAA06DecodeI0VAA0dI0VtKFZAIyKXEfU_4fillL_yySwKFyyKXEfU_, Argument Types : [SwiftJLS.CodecBudget]> of generic specialization <SwiftJLS.ScalarSampleWriter> of SwiftJLS.JPEGLSScalarKernel.decodeFlatRegion<A where A: SwiftJLS.JPEGSampleWriter>(into: A, rowStride: Swift.Int, reader: SwiftJLS.JPEGLSBitstreamReader, rows: Swift.Int, width: Swift.Int, parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int, limit: Swift.Int, qbppBits: Swift.Int, checkpoint: () throws -> ()) throws -> ()",
+        "function signature specialization <Arg[9] = Dead> of function signature specialization <Arg[9] = [Closure Propagated : $s8SwiftJLS11ScalarCodecO6decode_4into7options12codecOptionsAA12DecodedImageV20FoundationEssentials4DataV_AA0K11DestinationCSgAA06DecodeI0VAA0dI0VtKFZAIyKXEfU_4fillL_yySwKFyyKXEfU_, Argument Types : [SwiftJLS.CodecBudget]> of generic specialization <SwiftJLS.ScalarSampleWriter> of SwiftJLS.JPEGLSScalarKernel.decodeFlatRegion<A where A: SwiftJLS.JPEGSampleWriter>(into: A, rowStride: Swift.Int, reader: SwiftJLS.JPEGLSBitstreamReader, rows: Swift.Int, width: Swift.Int, parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int, limit: Swift.Int, qbppBits: Swift.Int, checkpoint: () throws -> ()) throws -> ()",
+        "function signature specialization <Arg[9] = [Closure Propagated : $s8SwiftJLS11ScalarCodecO6decode_4into7options12codecOptionsAA12DecodedImageV20FoundationEssentials4DataV_AA0K11DestinationCSgAA06DecodeI0VAA0dI0VtKFZAIyKXEfU_4fillL_yySwKFyyKXEfU_, Argument Types : [SwiftJLS.CodecBudget]> of generic specialization <SwiftJLS.ScalarSampleWriter> of SwiftJLS.JPEGLSScalarKernel.decodeFlatRegion<A where A: SwiftJLS.JPEGSampleWriter>(into: A, rowStride: Swift.Int, reader: SwiftJLS.JPEGLSBitstreamReader, rows: Swift.Int, width: Swift.Int, parameters: SwiftJLS.JPEGLSPresetParameters, near: Swift.Int, limit: Swift.Int, qbppBits: Swift.Int, checkpoint: () throws -> ()) throws -> ()",
+        "fill #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "closure #1 (Swift.UnsafeMutableRawBufferPointer) throws -> () in static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "generic specialization <Swift.UInt8, ()> of closure #1 (inout Swift.UnsafeMutableBufferPointer<A>) throws -> A1 in Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "generic not re-abstracted specialization <Swift.UInt8, ()> of closure #1 (inout Swift.UnsafeMutableBufferPointer<A>) throws -> A1 in Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "generic specialization <Swift.UInt8, ()> of generic partial specialization <serialized, Signature = @escaping @convention(thin) @convention(method) <A><A1, B1 where B1 == Swift.Error> (@guaranteed @callee_guaranteed @substituted <A, B, C where A: ~Swift.Copyable, A: ~Swift.Escapable, B: ~Swift.Copyable, B: ~Swift.Escapable, C: ~Swift.Copyable, C: ~Swift.Escapable> (@inout Swift.UnsafeMutableBufferPointer<A>) -> (@out C, @error @out B) for <ASwift.ErrorA1>, @inout [A]) -> (@out A1, @error @owned Swift.Error)> of Swift.Array.withUnsafeMutableBufferPointer<A, B where B1: Swift.Error>((inout Swift.UnsafeMutableBufferPointer<A>) throws(B1) -> A1) throws(B1) -> A1",
+        "generic specialization <Swift.UInt8, ()> of Swift.Array.withUnsafeMutableBytes<A>((Swift.UnsafeMutableRawBufferPointer) throws -> A1) throws -> A1",
+        "static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "static SwiftJLS.Image.writeAdmittedOwned(descriptor: SwiftJLS.ImageDescriptor, metadata: SwiftJLS.ImageMetadata, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.Image",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 11696,
+      "requested_size_counts": {
+        "11696": 1
+      }
+    },
+    "788": {
+      "category": "storage_control_objects",
+      "frames": [
+        "swift_slowAlloc",
+        "swift_allocObject",
+        "SwiftJLS.(SealedImageStorage in _E3A3FF9B1E0185F10C196E0592093825).__allocating_init(bytes: [Swift.UInt8], allocationID: FoundationEssentials.UUID) -> SwiftJLS.(SealedImageStorage in _E3A3FF9B1E0185F10C196E0592093825)",
+        "static SwiftJLS.OwnedImageStorage.fillAndSealAdmittedOwned(byteCount: Swift.Int, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.ReadOnlyImageStorage",
+        "static SwiftJLS.Image.writeAdmittedOwned(descriptor: SwiftJLS.ImageDescriptor, metadata: SwiftJLS.ImageMetadata, limits: SwiftJLS.ResourceLimits, _: (Swift.UnsafeMutableRawBufferPointer) throws -> ()) throws -> SwiftJLS.Image",
+        "closure #1 () throws -> SwiftJLS.DecodedImage in static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "generic specialization <SwiftJLS.DecodedImage> of static SwiftJLS.ScalarCodec.mapped<A>(() throws -> A) throws -> A",
+        "static SwiftJLS.ScalarCodec.decode(_: FoundationEssentials.Data, into: SwiftJLS.ImageDestination?, options: SwiftJLS.DecodeOptions, codecOptions: SwiftJLS.CodecOptions) throws -> SwiftJLS.DecodedImage",
+        "(1) suspend resume partial function for SwiftJLS.Decoder.decode(_: FoundationEssentials.Data, options: SwiftJLS.DecodeOptions) async throws -> SwiftJLS.DecodedImage",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 40,
+      "requested_size_counts": {
+        "40": 1
+      }
+    },
+    "804": {
+      "category": "runtime_or_unattributed",
+      "frames": [
+        "swift_slowAlloc",
+        "swift::VariadicMetadataCacheEntryBase<swift::GenericCacheEntry>::VariadicMetadataCacheEntryBase(swift::MetadataCacheKey const&, swift::MetadataWaitQueue::Worker&, swift::PrivateMetadataState, swift::TargetMetadata<swift::InProcess>*)",
+        "void swift::ConcurrentReadableHashMap<swift::HashMapElementWrapper<swift::GenericCacheEntry>, swift::Mutex>::getOrInsertExternallyLocked<swift::MetadataCacheKey, swift::StableAddressConcurrentReadableHashMap<swift::GenericCacheEntry, swift::TaggedMetadataAllocator<(unsigned short)14>, swift::Mutex>::getOrInsert<swift::MetadataCacheKey, swift::MetadataWaitQueue::Worker&, swift::MetadataRequest&, swift::TargetTypeContextDescriptor<swift::InProcess> const*&, void const* const*&>(swift::MetadataCacheKey, swift::MetadataWaitQueue::Worker&, swift::MetadataRequest&, swift::TargetTypeContextDescriptor<swift::InProcess> const*&, void const* const*&)::{lambda(swift::HashMapElementWrapper<swift::GenericCacheEntry>*, bool)#1}>(swift::MetadataCacheKey, swift::StableAddressConcurrentReadableHashMap<swift::GenericCacheEntry, swift::TaggedMetadataAllocator<(unsigned short)14>, swift::Mutex>::getOrInsert<swift::MetadataCacheKey, swift::MetadataWaitQueue::Worker&, swift::MetadataRequest&, swift::TargetTypeContextDescriptor<swift::InProcess> const*&, void const* const*&>(swift::MetadataCacheKey, swift::MetadataWaitQueue::Worker&, swift::MetadataRequest&, swift::TargetTypeContextDescriptor<swift::InProcess> const*&, void const* const*&)::{lambda(swift::HashMapElementWrapper<swift::GenericCacheEntry>*, bool)#1} const&)",
+        "void swift::ConcurrentReadableHashMap<swift::HashMapElementWrapper<swift::GenericCacheEntry>, swift::Mutex>::getOrInsert<swift::MetadataCacheKey, swift::StableAddressConcurrentReadableHashMap<swift::GenericCacheEntry, swift::TaggedMetadataAllocator<(unsigned short)14>, swift::Mutex>::getOrInsert<swift::MetadataCacheKey, swift::MetadataWaitQueue::Worker&, swift::MetadataRequest&, swift::TargetTypeContextDescriptor<swift::InProcess> const*&, void const* const*&>(swift::MetadataCacheKey, swift::MetadataWaitQueue::Worker&, swift::MetadataRequest&, swift::TargetTypeContextDescriptor<swift::InProcess> const*&, void const* const*&)::{lambda(swift::HashMapElementWrapper<swift::GenericCacheEntry>*, bool)#1}>(swift::MetadataCacheKey, swift::StableAddressConcurrentReadableHashMap<swift::GenericCacheEntry, swift::TaggedMetadataAllocator<(unsigned short)14>, swift::Mutex>::getOrInsert<swift::MetadataCacheKey, swift::MetadataWaitQueue::Worker&, swift::MetadataRequest&, swift::TargetTypeContextDescriptor<swift::InProcess> const*&, void const* const*&>(swift::MetadataCacheKey, swift::MetadataWaitQueue::Worker&, swift::MetadataRequest&, swift::TargetTypeContextDescriptor<swift::InProcess> const*&, void const* const*&)::{lambda(swift::HashMapElementWrapper<swift::GenericCacheEntry>*, bool)#1} const&)",
+        "std::pair<swift::GenericCacheEntry*, bool> swift::StableAddressConcurrentReadableHashMap<swift::GenericCacheEntry, swift::TaggedMetadataAllocator<(unsigned short)14>, swift::Mutex>::getOrInsert<swift::MetadataCacheKey, swift::MetadataWaitQueue::Worker&, swift::MetadataRequest&, swift::TargetTypeContextDescriptor<swift::InProcess> const*&, void const* const*&>(swift::MetadataCacheKey, swift::MetadataWaitQueue::Worker&, swift::MetadataRequest&, swift::TargetTypeContextDescriptor<swift::InProcess> const*&, void const* const*&)",
+        "std::pair<swift::GenericCacheEntry*, swift::MetadataResponse> swift::LockingConcurrentMap<swift::GenericCacheEntry, swift::LockingConcurrentMapStorage<swift::GenericCacheEntry, (unsigned short)14> >::getOrInsert<swift::MetadataCacheKey, swift::MetadataRequest&, swift::TargetTypeContextDescriptor<swift::InProcess> const*&, void const* const*&>(swift::MetadataCacheKey, swift::MetadataRequest&, swift::TargetTypeContextDescriptor<swift::InProcess> const*&, void const* const*&)",
+        "$x",
+        "__swift_instantiateCanonicalPrespecializedGenericMetadata",
+        "$x",
+        "$x",
+        "swift_getTypeByMangledNode",
+        "swift_getTypeByMangledName",
+        "$x",
+        "__swift_instantiateConcreteTypeFromMangledName",
+        "merged outlined destroy of Swift.TaskPriority?",
+        "(8) suspend resume partial function for WorkspaceProbe.runProbe() async throws -> ()",
+        "swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef)",
+        "swift_job_run",
+        "_dispatch_continuation_pop",
+        "_dispatch_async_redirect_invoke",
+        "_dispatch_worker_thread"
+      ],
+      "allocation_calls": 1,
+      "allocated_bytes": 80,
+      "requested_size_counts": {
+        "80": 1
+      }
+    }
+  },
+  "stack_peak_bytes": null,
+  "allocator_overhead_bytes": null,
+  "codec_heap_attribution_complete": true,
+  "pure_algorithm_workspace_complete": false,
+  "limitations": [
+    "Requested heap bytes exclude allocator usable-size overhead, stack, VM mappings and RSS.",
+    "Categories are stack attribution. Unattributed codec and runtime allocations remain explicit.",
+    "Per-category peak deltas are relative to live pre-operation setup; they peak at different instants and must not be added.",
+    "Allocation-info indices aggregate identical size/stack pairs, so individual pre-existing runtime object lifetimes cannot be separated.",
+    "One operation and one synthetic profile per process; this does not establish all-profile or concurrent workspace bounds.",
+    "Production peakWorkspaceBytes remains unknown; this profile does not supply a complete runtime counter."
+  ],
+  "revision": "candidate_004:receipt:4a1b7554778f6f551186f8497d93f599d001d4fe1090eeba6972dcb2436adfed",
+  "profile_sha256": "c03ec3a4605ddc5e4d03473e80128cb38d48e0d44dc0f12ed6dd67560cd32de2"
+}

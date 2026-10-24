@@ -1,0 +1,93 @@
+Making install in src
+make[1]: Entering directory '/tmp/libunwind-build/libunwind-1.8.3/src'
+make  install-am
+make[2]: Entering directory '/tmp/libunwind-build/libunwind-1.8.3/src'
+make[3]: Entering directory '/tmp/libunwind-build/libunwind-1.8.3/src'
+ /usr/bin/mkdir -p '/evidence/libunwind-183-prefix/lib'
+ /bin/bash ../libtool   --mode=install /usr/bin/install -c   libunwind.la libunwind-aarch64.la libunwind-coredump.la libunwind-ptrace.la libunwind-setjmp.la '/evidence/libunwind-183-prefix/lib'
+libtool: install: /usr/bin/install -c .libs/libunwind.so.8.2.0 /evidence/libunwind-183-prefix/lib/libunwind.so.8.2.0
+libtool: install: (cd /evidence/libunwind-183-prefix/lib && { ln -s -f libunwind.so.8.2.0 libunwind.so.8 || { rm -f libunwind.so.8 && ln -s libunwind.so.8.2.0 libunwind.so.8; }; })
+libtool: install: (cd /evidence/libunwind-183-prefix/lib && { ln -s -f libunwind.so.8.2.0 libunwind.so || { rm -f libunwind.so && ln -s libunwind.so.8.2.0 libunwind.so; }; })
+libtool: install: /usr/bin/install -c .libs/libunwind.lai /evidence/libunwind-183-prefix/lib/libunwind.la
+libtool: warning: relinking 'libunwind-aarch64.la'
+libtool: install: (cd /tmp/libunwind-build/libunwind-1.8.3/src; /bin/bash "/tmp/libunwind-build/libunwind-1.8.3/libtool"  --silent --tag CC --mode=relink gcc -g -O2 -fexceptions -Wall -Wsign-compare -D__EXTENSIONS__ -XCClinker -nostartfiles -version-info 10:0:2 -o libunwind-aarch64.la -rpath /evidence/libunwind-183-prefix/lib os-linux.lo dl-iterate-phdr.lo mi/init.lo mi/flush_cache.lo mi/mempool.lo mi/strerror.lo aarch64/is_fpreg.lo aarch64/regname.lo mi/Gaddress_validator.lo mi/Gdestroy_addr_space.lo mi/Gdyn-extract.lo mi/Gdyn-remote.lo mi/Gfind_dynamic_proc_info.lo mi/Gget_accessors.lo mi/Gget_fpreg.lo mi/Gget_proc_info_by_ip.lo mi/Gget_proc_name.lo mi/Gget_reg.lo mi/Gis_plt_entry.lo mi/Gput_dynamic_unwind_info.lo mi/Gset_cache_size.lo mi/Gset_caching_policy.lo mi/Gset_fpreg.lo mi/Gset_iterate_phdr_function.lo mi/Gset_reg.lo mi/Gget_elf_filename.lo aarch64/Gos-linux.lo aarch64/Gapply_reg_state.lo aarch64/Gcreate_addr_space.lo aarch64/Gget_proc_info.lo aarch64/Gget_save_loc.lo aarch64/Gglobal.lo aarch64/Ginit.lo aarch64/Ginit_local.lo aarch64/Ginit_remote.lo aarch64/Gis_signal_frame.lo aarch64/Gregs.lo aarch64/Greg_states_iterate.lo aarch64/Gresume.lo aarch64/Gstash_frame.lo aarch64/Gstep.lo aarch64/Gtrace.lo aarch64/Gstrip_ptrauth_insn_mask.lo libunwind-dwarf-generic.la libunwind-elf64.la libunwind.la )
+libtool: install: /usr/bin/install -c .libs/libunwind-aarch64.so.8.2.0T /evidence/libunwind-183-prefix/lib/libunwind-aarch64.so.8.2.0
+libtool: install: (cd /evidence/libunwind-183-prefix/lib && { ln -s -f libunwind-aarch64.so.8.2.0 libunwind-aarch64.so.8 || { rm -f libunwind-aarch64.so.8 && ln -s libunwind-aarch64.so.8.2.0 libunwind-aarch64.so.8; }; })
+libtool: install: (cd /evidence/libunwind-183-prefix/lib && { ln -s -f libunwind-aarch64.so.8.2.0 libunwind-aarch64.so || { rm -f libunwind-aarch64.so && ln -s libunwind-aarch64.so.8.2.0 libunwind-aarch64.so; }; })
+libtool: install: /usr/bin/install -c .libs/libunwind-aarch64.lai /evidence/libunwind-183-prefix/lib/libunwind-aarch64.la
+libtool: warning: relinking 'libunwind-coredump.la'
+libtool: install: (cd /tmp/libunwind-build/libunwind-1.8.3/src; /bin/bash "/tmp/libunwind-build/libunwind-1.8.3/libtool"  --silent --tag CC --mode=relink gcc -g -O2 -fexceptions -Wall -Wsign-compare -D__EXTENSIONS__ -XCClinker -nostartfiles -version-info 0:0:0 -o libunwind-coredump.la -rpath /evidence/libunwind-183-prefix/lib coredump/_UCD_access_mem.lo coredump/_UCD_accessors.lo coredump/_UCD_corefile_elf.lo coredump/_UCD_create.lo coredump/_UCD_destroy.lo coredump/_UCD_elf_map_image.lo coredump/ucd_file_table.lo coredump/_UCD_find_proc_info.lo coredump/_UCD_get_proc_name.lo coredump/_UCD_get_elf_filename.lo mi/init.lo coredump/_UPT_elf.lo coredump/_UPT_access_fpreg.lo coredump/_UPT_get_dyn_info_list_addr.lo coredump/_UPT_put_unwind_info.lo coredump/_UPT_resume.lo coredump/_UCD_access_reg_linux.lo coredump/_UCD_get_threadinfo_prstatus.lo coredump/_UCD_get_mapinfo_linux.lo libunwind-aarch64.la -lz )
+libtool: install: /usr/bin/install -c .libs/libunwind-coredump.so.0.0.0T /evidence/libunwind-183-prefix/lib/libunwind-coredump.so.0.0.0
+libtool: install: (cd /evidence/libunwind-183-prefix/lib && { ln -s -f libunwind-coredump.so.0.0.0 libunwind-coredump.so.0 || { rm -f libunwind-coredump.so.0 && ln -s libunwind-coredump.so.0.0.0 libunwind-coredump.so.0; }; })
+libtool: install: (cd /evidence/libunwind-183-prefix/lib && { ln -s -f libunwind-coredump.so.0.0.0 libunwind-coredump.so || { rm -f libunwind-coredump.so && ln -s libunwind-coredump.so.0.0.0 libunwind-coredump.so; }; })
+libtool: install: /usr/bin/install -c .libs/libunwind-coredump.lai /evidence/libunwind-183-prefix/lib/libunwind-coredump.la
+libtool: warning: relinking 'libunwind-ptrace.la'
+libtool: install: (cd /tmp/libunwind-build/libunwind-1.8.3/src; /bin/bash "/tmp/libunwind-build/libunwind-1.8.3/libtool"  --silent --tag CC --mode=relink gcc -g -O2 -fexceptions -Wall -Wsign-compare -D__EXTENSIONS__ -o libunwind-ptrace.la -rpath /evidence/libunwind-183-prefix/lib mi/init.lo ptrace/_UPT_access_fpreg.lo ptrace/_UPT_access_mem.lo ptrace/_UPT_accessors.lo ptrace/_UPT_access_reg.lo ptrace/_UPT_create.lo ptrace/_UPT_destroy.lo ptrace/_UPT_elf.lo ptrace/_UPT_find_proc_info.lo ptrace/_UPT_get_dyn_info_list_addr.lo ptrace/_UPT_get_proc_name.lo ptrace/_UPT_get_elf_filename.lo ptrace/_UPT_put_unwind_info.lo ptrace/_UPT_reg_offset.lo ptrace/_UPT_resume.lo ptrace/_UPT_ptrauth_insn_mask.lo libunwind-aarch64.la -lz )
+libtool: install: /usr/bin/install -c .libs/libunwind-ptrace.so.0.0.0T /evidence/libunwind-183-prefix/lib/libunwind-ptrace.so.0.0.0
+libtool: install: (cd /evidence/libunwind-183-prefix/lib && { ln -s -f libunwind-ptrace.so.0.0.0 libunwind-ptrace.so.0 || { rm -f libunwind-ptrace.so.0 && ln -s libunwind-ptrace.so.0.0.0 libunwind-ptrace.so.0; }; })
+libtool: install: (cd /evidence/libunwind-183-prefix/lib && { ln -s -f libunwind-ptrace.so.0.0.0 libunwind-ptrace.so || { rm -f libunwind-ptrace.so && ln -s libunwind-ptrace.so.0.0.0 libunwind-ptrace.so; }; })
+libtool: install: /usr/bin/install -c .libs/libunwind-ptrace.lai /evidence/libunwind-183-prefix/lib/libunwind-ptrace.la
+libtool: warning: relinking 'libunwind-setjmp.la'
+libtool: install: (cd /tmp/libunwind-build/libunwind-1.8.3/src; /bin/bash "/tmp/libunwind-build/libunwind-1.8.3/libtool"  --silent --tag CC --mode=relink gcc -g -O2 -fexceptions -Wall -Wsign-compare -D__EXTENSIONS__ -XCClinker -nostartfiles -version-info 0:0:0 -o libunwind-setjmp.la -rpath /evidence/libunwind-183-prefix/lib mi/init.lo setjmp/longjmp.lo setjmp/siglongjmp.lo aarch64/longjmp.lo aarch64/siglongjmp.lo libunwind-elf64.la libunwind-aarch64.la libunwind.la )
+libtool: install: /usr/bin/install -c .libs/libunwind-setjmp.so.0.0.0T /evidence/libunwind-183-prefix/lib/libunwind-setjmp.so.0.0.0
+libtool: install: (cd /evidence/libunwind-183-prefix/lib && { ln -s -f libunwind-setjmp.so.0.0.0 libunwind-setjmp.so.0 || { rm -f libunwind-setjmp.so.0 && ln -s libunwind-setjmp.so.0.0.0 libunwind-setjmp.so.0; }; })
+libtool: install: (cd /evidence/libunwind-183-prefix/lib && { ln -s -f libunwind-setjmp.so.0.0.0 libunwind-setjmp.so || { rm -f libunwind-setjmp.so && ln -s libunwind-setjmp.so.0.0.0 libunwind-setjmp.so; }; })
+libtool: install: /usr/bin/install -c .libs/libunwind-setjmp.lai /evidence/libunwind-183-prefix/lib/libunwind-setjmp.la
+libtool: install: /usr/bin/install -c .libs/libunwind.a /evidence/libunwind-183-prefix/lib/libunwind.a
+libtool: install: chmod 644 /evidence/libunwind-183-prefix/lib/libunwind.a
+libtool: install: ranlib /evidence/libunwind-183-prefix/lib/libunwind.a
+libtool: install: /usr/bin/install -c .libs/libunwind-aarch64.a /evidence/libunwind-183-prefix/lib/libunwind-aarch64.a
+libtool: install: chmod 644 /evidence/libunwind-183-prefix/lib/libunwind-aarch64.a
+libtool: install: ranlib /evidence/libunwind-183-prefix/lib/libunwind-aarch64.a
+libtool: install: /usr/bin/install -c .libs/libunwind-coredump.a /evidence/libunwind-183-prefix/lib/libunwind-coredump.a
+libtool: install: chmod 644 /evidence/libunwind-183-prefix/lib/libunwind-coredump.a
+libtool: install: ranlib /evidence/libunwind-183-prefix/lib/libunwind-coredump.a
+libtool: install: /usr/bin/install -c .libs/libunwind-ptrace.a /evidence/libunwind-183-prefix/lib/libunwind-ptrace.a
+libtool: install: chmod 644 /evidence/libunwind-183-prefix/lib/libunwind-ptrace.a
+libtool: install: ranlib /evidence/libunwind-183-prefix/lib/libunwind-ptrace.a
+libtool: install: /usr/bin/install -c .libs/libunwind-setjmp.a /evidence/libunwind-183-prefix/lib/libunwind-setjmp.a
+libtool: install: chmod 644 /evidence/libunwind-183-prefix/lib/libunwind-setjmp.a
+libtool: install: ranlib /evidence/libunwind-183-prefix/lib/libunwind-setjmp.a
+libtool: finish: PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sbin" ldconfig -n /evidence/libunwind-183-prefix/lib
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /evidence/libunwind-183-prefix/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+make  install-exec-hook
+make[4]: Entering directory '/tmp/libunwind-build/libunwind-1.8.3/src'
+if test -f /evidence/libunwind-183-prefix/lib/libunwind-aarch64.a; then \
+	cd /evidence/libunwind-183-prefix/lib && ln -s -f libunwind-aarch64.a libunwind-generic.a; \
+fi
+if test -f /evidence/libunwind-183-prefix/lib/libunwind-aarch64.so; then \
+	cd /evidence/libunwind-183-prefix/lib && ln -s -f libunwind-aarch64.so \
+	libunwind-generic.so; \
+fi
+make[4]: Leaving directory '/tmp/libunwind-build/libunwind-1.8.3/src'
+ /usr/bin/mkdir -p '/evidence/libunwind-183-prefix/lib/pkgconfig'
+ /usr/bin/install -c -m 644 libunwind-generic.pc unwind/libunwind.pc coredump/libunwind-coredump.pc ptrace/libunwind-ptrace.pc setjmp/libunwind-setjmp.pc '/evidence/libunwind-183-prefix/lib/pkgconfig'
+make[3]: Leaving directory '/tmp/libunwind-build/libunwind-1.8.3/src'
+make[2]: Leaving directory '/tmp/libunwind-build/libunwind-1.8.3/src'
+make[1]: Leaving directory '/tmp/libunwind-build/libunwind-1.8.3/src'
+make[1]: Entering directory '/tmp/libunwind-build/libunwind-1.8.3'
+make[2]: Entering directory '/tmp/libunwind-build/libunwind-1.8.3'
+make[2]: Nothing to be done for 'install-exec-am'.
+ /usr/bin/mkdir -p '/evidence/libunwind-183-prefix/include'
+ /usr/bin/install -c -m 644 include/libunwind-dynamic.h include/libunwind-ptrace.h include/libunwind-coredump.h include/libunwind-aarch64.h include/libunwind.h include/unwind.h '/evidence/libunwind-183-prefix/include'
+ /usr/bin/mkdir -p '/evidence/libunwind-183-prefix/include'
+ /usr/bin/install -c -m 644 include/libunwind-common.h '/evidence/libunwind-183-prefix/include'
+make[2]: Leaving directory '/tmp/libunwind-build/libunwind-1.8.3'
+make[1]: Leaving directory '/tmp/libunwind-build/libunwind-1.8.3'

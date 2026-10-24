@@ -1,0 +1,129 @@
+[
+  {
+    "command": [
+      "python3",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/platform_validation_002/apple-build-value.py"
+    ],
+    "label": "apple-build-value",
+    "exit_code": 0,
+    "seconds": 77.45394549999999,
+    "log": "apple-build-value.log",
+    "log_sha256": "94233a2142fefa5c45e3d9622c0b1c0cbc94fdf1a9b9ebeb950538a1d0bd6d75"
+  },
+  {
+    "command": [
+      "python3",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/platform_validation_002/apple-runtime-value.py",
+      "26.0"
+    ],
+    "label": "apple-runtime-value",
+    "exit_code": 0,
+    "seconds": 54.96460166599999,
+    "log": "apple-runtime-value.log",
+    "log_sha256": "6b9021310d767c775d6b0ce5313759db4bda0dbf21d2bec19fd5cf842753c11e"
+  },
+  {
+    "command": [
+      "python3",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/platform_validation_002/apple-resource-value.py"
+    ],
+    "label": "apple-resource-value",
+    "exit_code": 0,
+    "seconds": 53.565503750000005,
+    "log": "apple-resource-value.log",
+    "log_sha256": "6b629a8a2efd305ddfda0f7fa22a66e71fb66f69e7d224f2a0afc923bbd0fb1a"
+  },
+  {
+    "command": [
+      "swift",
+      "build",
+      "--build-system",
+      "swiftbuild",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "Examples/AppleRuntimeConsumer",
+      "--scratch-path",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/platform_validation_002/build/AppleRuntimeConsumer"
+    ],
+    "label": "native-AppleRuntimeConsumer-value",
+    "exit_code": 0,
+    "seconds": 32.094340625,
+    "log": "native-AppleRuntimeConsumer-value.log",
+    "log_sha256": "8569a3a112b3da92ec406225e9b388aceba1f7814ef5d3dee67fe8a63de5394f"
+  },
+  {
+    "command": [
+      "swift",
+      "build",
+      "--build-system",
+      "swiftbuild",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "Examples/ResourceStress",
+      "--scratch-path",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/platform_validation_002/build/ResourceStress"
+    ],
+    "label": "native-ResourceStress-value",
+    "exit_code": 0,
+    "seconds": 31.164732041999997,
+    "log": "native-ResourceStress-value.log",
+    "log_sha256": "c13b18a61c4f1b2d7411abfc204d124ba209b73111a2b4593a0a4fed2bbe2b24"
+  },
+  {
+    "command": [
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/platform_validation_002/build/AppleRuntimeConsumer/out/Products/Release/AppleRuntimeConsumer",
+      "/Users/pushparaj/projects/SwiftJLS/Tests/SwiftJLSTests/Fixtures"
+    ],
+    "label": "host-AppleRuntimeConsumer-value",
+    "exit_code": 0,
+    "seconds": 0.35673591700000884,
+    "log": "host-AppleRuntimeConsumer-value.log",
+    "log_sha256": "18c45da08bfacfcb177226ef2e7a9439203c85407171553e3b249f36e26ce9eb"
+  },
+  {
+    "command": [
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/platform_validation_002/build/ResourceStress/out/Products/Release/ResourceStress"
+    ],
+    "label": "host-ResourceStress-value",
+    "exit_code": 0,
+    "seconds": 0.7518421660000172,
+    "log": "host-ResourceStress-value.log",
+    "log_sha256": "aebe38eb5e2a93e3f59507eeb00a0c4ed3931014e19a50ad10f5392683c32524"
+  },
+  {
+    "command": [
+      "python3",
+      "Scripts/test-payload-cli.py",
+      "--binary",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/platform_validation_002/test-build/release/out/Products/Release/swiftjls-cli",
+      "--output",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/platform_validation_002/cli-payload-value.json"
+    ],
+    "label": "cli-payload-value",
+    "exit_code": 0,
+    "seconds": 1.3858786669999859,
+    "log": "cli-payload-value.log",
+    "log_sha256": "33f282d37a7a83713612795315130b3b4f7225523a6043f8620072ecd7b2d3ea"
+  },
+  {
+    "command": [
+      "python3",
+      "Scripts/test-cli.py",
+      "--binary",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/platform_validation_002/test-build/release/out/Products/Release/swiftjls-cli",
+      "--output",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/platform_validation_002/cli-process-value"
+    ],
+    "label": "cli-process-value",
+    "exit_code": 0,
+    "seconds": 1.83941629200001,
+    "log": "cli-process-value.log",
+    "log_sha256": "916920369c4a809b7783ca84a46512453d18b6c88cb5d5e20a0710f8a0e6b825"
+  }
+]

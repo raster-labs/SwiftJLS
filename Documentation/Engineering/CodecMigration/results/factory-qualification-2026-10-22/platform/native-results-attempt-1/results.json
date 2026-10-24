@@ -1,0 +1,188 @@
+{
+  "source_id": "factory_002",
+  "base_head": "041c1a3d4861f9956ca49cd994eff618e23908ec",
+  "source": null,
+  "sources_patch_sha256": "b46c380d1a7a8e9f5a0a1a4ed5a36390e0e99ec21ad18c9d15d5fef538cafc7b",
+  "source_manifest_sha256": "7677a4d227a13567cadd3163c68123fe96ea2fe939f3e1efc0ef8e96b32de5b1",
+  "guest_verified_bundle_executable_sha256": {
+    "release": "5017b8445e5660885cfa2efb0238271c5ff46c2df9cb6b887ce681b09520e216",
+    "debug": "494747054586e95278f482ae2299a1c20a9e9c8207dec123260364a1fa934ac2",
+    "asan": "6e6d9e38b975cb5b578ddfa30c9826e0a4a85d9a063b097e12b2ccdb716a4dac",
+    "tsan": "4a3abaaa3c89e76e335c30d1aa0194620125368a167c5521b37d179441512913"
+  },
+  "guest_verified_cli_binary_sha256": "5ecc445a8e87abfb5143db138bfeb68b8c0f5a910a41c0def15f45a8aa4c2fe1",
+  "guest_verified_consumer_binary_sha256": {
+    "AppleRuntimeConsumer": "0a0b6ae698d228e62e86420f3c5e9e708afcc1e9fbc9a340e18d0f8a95cc6e54",
+    "ResourceStress": "cb1207234d223e4ada926e6348b3ed1a836772227e81100882ddeb34cc42e54b"
+  },
+  "commands": [
+    {
+      "label": "os",
+      "command": [
+        "sw_vers"
+      ],
+      "exit_code": 0,
+      "seconds": 0.034219457999999994
+    },
+    {
+      "label": "architecture",
+      "command": [
+        "uname",
+        "-m"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00442324999999999
+    },
+    {
+      "label": "hardware",
+      "command": [
+        "sysctl",
+        "hw.model",
+        "hw.memsize",
+        "hw.ncpu"
+      ],
+      "exit_code": 0,
+      "seconds": 0.005426458999999995
+    },
+    {
+      "label": "unit",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results-2026-10-22-factory002/unit.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 8.75588
+    },
+    {
+      "label": "unit-debug",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/debug/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results-2026-10-22-factory002/unit-debug.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 7.903037667000001
+    },
+    {
+      "label": "unit-asan",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/asan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results-2026-10-22-factory002/unit-asan.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 17.547819667
+    },
+    {
+      "label": "unit-tsan",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/tsan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results-2026-10-22-factory002/unit-tsan.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 21.864851541999997
+    },
+    {
+      "label": "consumer",
+      "command": [
+        "/Volumes/My Shared Files/evidence/AppleRuntimeConsumer",
+        "/Volumes/My Shared Files/evidence/repo/Tests/SwiftJLSTests/Fixtures"
+      ],
+      "exit_code": 0,
+      "seconds": 0.012378417000000752
+    },
+    {
+      "label": "resources",
+      "command": [
+        "/Volumes/My Shared Files/evidence/ResourceStress"
+      ],
+      "exit_code": 0,
+      "seconds": 0.3898304169999989
+    },
+    {
+      "label": "cli-payload",
+      "command": [
+        "python3",
+        "/Volumes/My Shared Files/evidence/repo/Scripts/test-payload-cli.py",
+        "--binary",
+        "/Volumes/My Shared Files/evidence/swiftjls-cli",
+        "--output",
+        "/Volumes/My Shared Files/results-2026-10-22-factory002/cli-payload.json"
+      ],
+      "exit_code": 0,
+      "seconds": 1.1563409170000014
+    },
+    {
+      "label": "cli-process",
+      "command": [
+        "python3",
+        "/Volumes/My Shared Files/evidence/repo/Scripts/test-cli.py",
+        "--binary",
+        "/Volumes/My Shared Files/evidence/swiftjls-cli",
+        "--output",
+        "/Volumes/My Shared Files/results-2026-10-22-factory002/cli-process"
+      ],
+      "exit_code": 2,
+      "seconds": 0.041213249999998425
+    }
+  ],
+  "scope": "Swift 6.4 host-built arm64 binaries, executed in hardware-virtualised native arm64 macOS 26.0; no Intel emulation or physical-device claim.",
+  "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.0\nBuildVersion:\t\t25A354\n",
+  "architecture": "arm64",
+  "exact_26_0_native_arm64": true,
+  "tests": {
+    "classname_suites": 28,
+    "declarations": 149,
+    "failures": 0,
+    "skipped": 0,
+    "xml_sha256": "9d612e21b109bdf3c3cd807ec21b58529c7c9b8535c003f1331e139bfbf50109"
+  },
+  "extra_tests": {
+    "debug": {
+      "classname_suites": 28,
+      "declarations": 149,
+      "failures": 0,
+      "skipped": 0,
+      "xml_sha256": "239215ef3f0824074ea695d15cd6915806744fcd032e098360584ddb34688705"
+    },
+    "asan": {
+      "classname_suites": 28,
+      "declarations": 149,
+      "failures": 0,
+      "skipped": 0,
+      "xml_sha256": "67929989239fc9e200ca51a696bd7dbad8e277a03f904aabd8505d05b0f18e87"
+    },
+    "tsan": {
+      "classname_suites": 28,
+      "declarations": 149,
+      "failures": 0,
+      "skipped": 0,
+      "xml_sha256": "fc2715b0ce949bc9593c5ab4567227c740b3629820a44a69136f33f257fbdc1c"
+    }
+  },
+  "resource_stress_summary": {
+    "row_count": 4,
+    "total_frames": 32,
+    "owned_equal_frames": true,
+    "zero_supplied": true,
+    "zero_copy_bytes": true
+  }
+}

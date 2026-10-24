@@ -1,0 +1,430 @@
+diff --git a/Sources/SwiftJLS/Image.swift b/Sources/SwiftJLS/Image.swift
+index 4e1afe4..523042d 100644
+--- a/Sources/SwiftJLS/Image.swift
++++ b/Sources/SwiftJLS/Image.swift
+@@ -148,15 +148,17 @@ public final class ImageDestination: Sendable {
+         self.lease = try storage.reserveWrite()
+     }
+     // Only `allocate` may use this initializer, after descriptor and combined
+-    // memory admission and construction of an exact-capacity owned allocation.
++    // memory admission and construction of an exact-capacity owned allocation
++    // already reserved in `.writing` with `lease` before escaping.
+     // Its immutable byteCount equals requiredByteCount, so the public provider
+     // initializer's repeated descriptor/capacity guards cannot newly fail.
+     // Keep the same reservation and the original owned-allocation cancellation.
+     private init(admittedOwnedDescriptor descriptor: ImageDescriptor,
+-                 storage: OwnedImageStorage, limits: ResourceLimits) throws {
++                 storage: OwnedImageStorage, lease: StorageWriteLease,
++                 limits: ResourceLimits) {
+         self.descriptor = descriptor; self.storage = storage; self.limits = limits
+         self.lifecycle = Mutex(Lifecycle(admittedOwnedStorage: true))
+-        self.lease = try storage.reserveWrite()
++        self.lease = lease
+     }
+ 
+     deinit {
+@@ -174,8 +176,8 @@ public final class ImageDestination: Sendable {
+     }
+ 
+     static func allocate(admittedDescriptor descriptor: ImageDescriptor, limits: ResourceLimits) throws -> ImageDestination {
+-        let storage = try OwnedImageStorage(byteCount: descriptor.requiredByteCount, limits: limits)
+-        return try Self(admittedOwnedDescriptor: descriptor, storage: storage, limits: limits)
++        let reserved = try OwnedImageStorage.allocateReserved(byteCount: descriptor.requiredByteCount, limits: limits)
++        return Self(admittedOwnedDescriptor: descriptor, storage: reserved.storage, lease: reserved.lease, limits: limits)
+     }
+ 
+     /// Advanced unsafe fill boundary. Initialise every sample before returning.
+diff --git a/Sources/SwiftJLS/ImageStorage.swift b/Sources/SwiftJLS/ImageStorage.swift
+index 6ea7c27..5bac352 100644
+--- a/Sources/SwiftJLS/ImageStorage.swift
++++ b/Sources/SwiftJLS/ImageStorage.swift
+@@ -62,6 +62,38 @@ public final class OwnedImageStorage: WritableImageStorage, Sendable {
+         self.state = Mutex(State(bytes: [UInt8](repeating: 0, count: byteCount)))
+     }
+ 
++    private init(reservedByteCount byteCount: Int, allocationID: UUID, lease: StorageWriteLease) {
++        self.byteCount = byteCount; self.allocationID = allocationID
++        self.state = Mutex(State(
++            bytes: [UInt8](repeating: 0, count: byteCount),
++            phase: .writing,
++            lease: lease
++        ))
++    }
++
++    // Internal fresh-reserved constructor for `ImageDestination.allocate`.
++    // Preserves pre-allocation cancellation and byteCount limit checks, creates
++    // fresh allocation and lease UUIDs, and initialises the private state in
++    // `.writing` before the storage reference can escape to any caller.
++    static func allocateReserved(
++        byteCount: Int,
++        limits: ResourceLimits
++    ) throws -> (storage: OwnedImageStorage, lease: StorageWriteLease) {
++        try Task.checkCancellation()
++        guard byteCount > 0 else { throw CodecError(.invalidArgument, "Storage capacity must be positive.") }
++        guard byteCount <= limits.maximumDecodedBytes, byteCount <= limits.maximumMemoryBytes else {
++            throw CodecError(.resourceLimitExceeded, "Storage allocation exceeds the admission budget.")
++        }
++        let allocationID = UUID()
++        let lease = StorageWriteLease()
++        let storage = OwnedImageStorage(
++            reservedByteCount: byteCount,
++            allocationID: allocationID,
++            lease: lease
++        )
++        return (storage, lease)
++    }
++
+     public func reserveWrite() throws -> StorageWriteLease {
+         try locked { state in
+             guard state.phase == .available else {
+diff --git a/Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift b/Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift
+index bac76f7..b7b78ee 100644
+--- a/Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift
++++ b/Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift
+@@ -161,11 +161,13 @@ struct JPEGMetadataEncoding {
+     let mapping: JPEGLSMappingTables?
+     let spiff: Data?
+     let byteCount: Int
++    private static func isSupportedKey(_ key: String) -> Bool {
++        key == JPEGLSMetadata.key || key == JPEGLSMetadata.spiffKey || key == JPEGLSMappingTables.key
++    }
+     init(_ image: Image, options: EncodeOptions, additionalBytes: Int = 0) throws {
+         let metadataBytes = try image.metadata.validate(limits: options.resourceLimits, additionalBytes: additionalBytes)
+-        let supported: Set<String> = [JPEGLSMetadata.key, JPEGLSMetadata.spiffKey, JPEGLSMappingTables.key]
+-        guard image.metadata.requiredKeys.isSubset(of: supported),
+-              options.metadataPolicy == .discardAncillary || Set(image.metadata.entries.keys).isSubset(of: supported) else {
++        guard image.metadata.requiredKeys.allSatisfy(Self.isSupportedKey),
++              options.metadataPolicy == .discardAncillary || image.metadata.entries.keys.allSatisfy(Self.isSupportedKey) else {
+             throw CodecError(.unsupportedFeature, "Unrepresentable image metadata cannot be preserved in JPEG-LS.")
+         }
+         ancillary = try JPEGLSMetadata(metadata: options.metadataPolicy == .preserve || image.metadata.requiredKeys.contains(JPEGLSMetadata.key) ? image.metadata : .empty)
+diff --git a/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift b/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift
+index 420bfe3..ceb7033 100644
+--- a/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift
++++ b/Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift
+@@ -96,27 +96,48 @@ struct JPEGLSRegularMode: Sendable {
+         self.halfRangeLow  = -(self.range / 2)
+         self.wrapRange     = near == 0 ? self.range : self.range * ((near << 1) | 1)
+ 
+-        // Build gradient quantisation lookup table for the inner range [-T3, T3].
+-        // Values outside this range always map to ±4 (handled by early-exit checks).
++        // Fill the gradient quantisation intervals directly when NEAR < T1;
++        // retain the encoder's existing branch loop for the internal NEAR >= T1 case.
++        // Values outside [-T3, T3] always map to ±4 (handled by early-exit checks).
+         let t3 = parameters.threshold3
+         let tableSize = 2 * t3 + 1
+         self.gradientTableOffset = t3
+-        var table = [Int](repeating: 0, count: tableSize)
+-        for i in 0..<tableSize {
+-            let g = i - t3  // gradient in [−T3, T3]
+-            if g < -near {
+-                if g <= -parameters.threshold2 { table[i] = -3 }
+-                else if g <= -parameters.threshold1 { table[i] = -2 }
+-                else { table[i] = -1 }
+-            } else if g <= near {
+-                table[i] = 0
+-            } else {
+-                if g < parameters.threshold1 { table[i] = 1 }
+-                else if g < parameters.threshold2 { table[i] = 2 }
+-                else { table[i] = 3 }
++        let t1 = parameters.threshold1, t2 = parameters.threshold2
++        if near < t1 {
++            self.gradientTable = Array(unsafeUninitializedCapacity: tableSize) { buffer, initializedCount in
++                // Validated parameters prove 1 <= T1 <= T2 <= T3 <= 65535.
++                // With NEAR < T1, these seven adjacent half-open ranges partition
++                // 0..<tableSize exactly, including empty runs for equal thresholds.
++                // Initialise every Int once; no element is read before initialisation.
++                UnsafeMutableBufferPointer(rebasing: buffer[0..<(t3 - t2 + 1)]).initialize(repeating: -3)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t2 + 1)..<(t3 - t1 + 1)]).initialize(repeating: -2)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t1 + 1)..<(t3 - near)]).initialize(repeating: -1)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - near)..<(t3 + near + 1)]).initialize(repeating: 0)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + near + 1)..<(t3 + t1)]).initialize(repeating: 1)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + t1)..<(t3 + t2)]).initialize(repeating: 2)
++                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + t2)..<tableSize]).initialize(repeating: 3)
++                initializedCount = tableSize
+             }
++        } else {
++            // Preserve the existing internal constructor's near-first branch
++            // precedence for NEAR >= T1, although public admission rejects it.
++            var table = [Int](repeating: 0, count: tableSize)
++            for i in 0..<tableSize {
++                let g = i - t3  // gradient in [−T3, T3]
++                if g < -near {
++                    if g <= -t2 { table[i] = -3 }
++                    else if g <= -t1 { table[i] = -2 }
++                    else { table[i] = -1 }
++                } else if g <= near {
++                    table[i] = 0
++                } else {
++                    if g < t1 { table[i] = 1 }
++                    else if g < t2 { table[i] = 2 }
++                    else { table[i] = 3 }
++                }
++            }
++            self.gradientTable = table
+         }
+-        self.gradientTable = table
+     }
+ 
+     // MARK: - Gradient Computation
+diff --git a/Tests/SwiftJLSTests/GradientTableTests.swift b/Tests/SwiftJLSTests/GradientTableTests.swift
+index 1653db3..c07947c 100644
+--- a/Tests/SwiftJLSTests/GradientTableTests.swift
++++ b/Tests/SwiftJLSTests/GradientTableTests.swift
+@@ -2,11 +2,11 @@
+ import Testing
+ @testable import SwiftJLS
+ 
+-@Suite("Decoder gradient table intervals")
++@Suite("Decoder and encoder gradient table intervals")
+ struct GradientTableTests {
+-    // An independent branch oracle preserves the published quantizer's outer
+-    // clamps and historical precedence, including internal NEAR >= T1 inputs.
+-    // The candidate instead fills nine constant intervals once at construction.
++    // An independent branch oracle preserves the published decoder quantizer's
++    // outer clamps and historical precedence, including internal NEAR >= T1 inputs.
++    // The decoder fills nine constant intervals once at construction when NEAR < T1.
+     private func reference(_ gradient: Int, _ p: JPEGLSPresetParameters, near: Int) -> Int {
+         if gradient <= -p.threshold3 { return -4 }
+         if gradient >= p.threshold3 { return 4 }
+@@ -19,20 +19,46 @@ struct GradientTableTests {
+         return 3
+     }
+ 
++    // Independent branch oracle for `JPEGLSRegularMode` (encoder). When NEAR < T1,
++    // the encoder fills seven constant intervals once at construction; when
++    // NEAR >= T1, the encoder's historical near-first branch order is preserved.
++    private func encoderReference(_ gradient: Int, _ p: JPEGLSPresetParameters, near: Int) -> Int {
++        if gradient <= -p.threshold3 { return -4 }
++        if gradient >= p.threshold3 { return 4 }
++        if gradient < -near {
++            if gradient <= -p.threshold2 { return -3 }
++            if gradient <= -p.threshold1 { return -2 }
++            return -1
++        }
++        if gradient <= near { return 0 }
++        if gradient < p.threshold1 { return 1 }
++        if gradient < p.threshold2 { return 2 }
++        return 3
++    }
++
+     private func firstMismatch(_ p: JPEGLSPresetParameters, near: Int,
+                                gradients: ClosedRange<Int>) throws -> String? {
+         let decoder = try JPEGLSRegularModeDecoder(parameters: p, near: near)
++        let encoder = try JPEGLSRegularMode(parameters: p, near: near)
+         for gradient in gradients {
+             let actual = decoder.quantizeGradient(gradient)
+             let expected = reference(gradient, p, near: near)
+             if actual != expected {
+-                return "T=(\(p.threshold1),\(p.threshold2),\(p.threshold3)), NEAR=\(near), gradient=\(gradient): \(actual) != \(expected)"
++                return "decoder T=(\(p.threshold1),\(p.threshold2),\(p.threshold3)), NEAR=\(near), gradient=\(gradient): \(actual) != \(expected)"
++            }
++            let actualEnc = encoder.quantizeGradient(gradient)
++            let expectedEnc = encoderReference(gradient, p, near: near)
++            if actualEnc != expectedEnc {
++                return "encoder T=(\(p.threshold1),\(p.threshold2),\(p.threshold3)), NEAR=\(near), gradient=\(gradient): \(actualEnc) != \(expectedEnc)"
+             }
+         }
+         // Very large gradients must use the unchanged outer clamps without
+         // indexing the table or adding T3 to an extreme signed value.
+         if decoder.quantizeGradient(Int.min) != -4 || decoder.quantizeGradient(Int.max) != 4 {
+-            return "Extreme gradient did not use its outer clamp."
++            return "Decoder extreme gradient did not use its outer clamp."
++        }
++        if encoder.quantizeGradient(Int.min) != -4 || encoder.quantizeGradient(Int.max) != 4 {
++            return "Encoder extreme gradient did not use its outer clamp."
+         }
+         return nil
+     }
+@@ -79,5 +105,29 @@ struct GradientTableTests {
+             let mismatch = try firstMismatch(p, near: near, gradients: -65536...65536)
+             #expect(mismatch == nil, "\(mismatch ?? "")")
+         }
++        // Internal NEAR >= T1 fallback: encoder is near-first (0 for |g| <= NEAR),
++        // whereas decoder tests negative thresholds before -NEAR (-2 at -T1, 0 at +T1).
++        let fallbackParams = try JPEGLSPresetParameters(
++            maxValue: 65535, threshold1: 2, threshold2: 5, threshold3: 8, reset: 64
++        )
++        let encFallback = try JPEGLSRegularMode(parameters: fallbackParams, near: 3)
++        let decFallback = try JPEGLSRegularModeDecoder(parameters: fallbackParams, near: 3)
++        #expect(encFallback.quantizeGradient(-2) == 0 && encFallback.quantizeGradient(2) == 0)
++        #expect(decFallback.quantizeGradient(-2) == -2 && decFallback.quantizeGradient(2) == 0)
++
++        for badNear in [-1, 256] {
++            do {
++                _ = try JPEGLSRegularMode(parameters: fallbackParams, near: badNear)
++                Issue.record("Expected invalidNearParameter for encoder NEAR=\(badNear)")
++            } catch JPEGLSError.invalidNearParameter(let near) {
++                #expect(near == badNear)
++            }
++            do {
++                _ = try JPEGLSRegularModeDecoder(parameters: fallbackParams, near: badNear)
++                Issue.record("Expected invalidNearParameter for decoder NEAR=\(badNear)")
++            } catch JPEGLSError.invalidNearParameter(let near) {
++                #expect(near == badNear)
++            }
++        }
+     }
+ }
+diff --git a/Tests/SwiftJLSTests/MappingMetadataTests.swift b/Tests/SwiftJLSTests/MappingMetadataTests.swift
+index 8b3864d..92bf605 100644
+--- a/Tests/SwiftJLSTests/MappingMetadataTests.swift
++++ b/Tests/SwiftJLSTests/MappingMetadataTests.swift
+@@ -158,4 +158,104 @@ struct MappingMetadataTests {
+         #expect(throws: CodecError.self) { try Decoder().inspect(extended) }
+     }
+ 
++    @Test func encodeMetadataMembershipPrecedenceAndValidation() async throws {
++        let descriptor = try ImageDescriptor.greyscale16(width: 2, height: 2, meaningfulBits: 8)
++        let base = try ImageDestination.allocate(descriptor: descriptor).writeUInt16 { x, y in UInt16(x + 2 * y) }
++        let baselineEncoded = try await Encoder().encode(base)
++        let unsupportedError = CodecError(.unsupportedFeature, "Unrepresentable image metadata cannot be preserved in JPEG-LS.")
++        let missingRequiredError = CodecError(.invalidArgument, "Required metadata has no value.")
++        let limitError = CodecError(.resourceLimitExceeded, "Metadata limit exceeded.")
++
++        // 1. Optional unknown key: rejected under .preserve, permitted and stripped under .discardAncillary
++        // (including empty Data values).
++        for payload in [Data(), Data([0x01, 0x02])] {
++            let optUnknown = try Image(
++                descriptor: descriptor, storage: base.storage,
++                metadata: .init(entries: ["custom.optional": payload])
++            )
++            await #expect(throws: unsupportedError) {
++                _ = try await Encoder().encode(optUnknown, options: .init(metadataPolicy: .preserve))
++            }
++            let discarded = try await Encoder().encode(optUnknown, options: .init(metadataPolicy: .discardAncillary))
++            #expect(discarded.data == baselineEncoded.data)
++            #expect(discarded.report.fidelity == .exactSamples)
++        }
++
++        // 2. Required unknown key: rejected under both .preserve and .discardAncillary.
++        for payload in [Data(), Data([0xAA])] {
++            let reqUnknown = try Image(
++                descriptor: descriptor, storage: base.storage,
++                metadata: .init(entries: ["custom.required": payload], requiredKeys: ["custom.required"])
++            )
++            for policy: MetadataPolicy in [.preserve, .discardAncillary] {
++                await #expect(throws: unsupportedError) {
++                    _ = try await Encoder().encode(reqUnknown, options: .init(metadataPolicy: policy))
++                }
++            }
++        }
++
++        // 3. Precedence: metadata.validate (missing required value, then metadata byte limit)
++        // runs before supported-key membership checks.
++        let missingReqUnknown = Image(
++            admittedOwnedDescriptor: descriptor, sealedOwnedStorage: base.storage,
++            admittedMetadata: .init(entries: ["custom.optional": Data([1])], requiredKeys: ["custom.missing"])
++        )
++        for policy: MetadataPolicy in [.preserve, .discardAncillary] {
++            await #expect(throws: missingRequiredError) {
++                _ = try await Encoder().encode(
++                    missingReqUnknown,
++                    options: .init(resourceLimits: .init(maximumMetadataBytes: 1), metadataPolicy: policy)
++                )
++            }
++        }
++        let overLimitUnknown = try Image(
++            descriptor: descriptor, storage: base.storage,
++            metadata: .init(entries: ["custom.unknown": Data([1, 2, 3])], requiredKeys: ["custom.unknown"])
++        )
++        for policy: MetadataPolicy in [.preserve, .discardAncillary] {
++            await #expect(throws: limitError) {
++                _ = try await Encoder().encode(
++                    overLimitUnknown,
++                    options: .init(resourceLimits: .init(maximumMetadataBytes: 4), metadataPolicy: policy)
++                )
++            }
++        }
++
++        // 4. Supported-key membership precedes known-payload parsing, while malformed
++        // supported metadata is still parsed and rejected when keys are supported.
++        let unknownReqAndBadKnown = try Image(
++            descriptor: descriptor, storage: base.storage,
++            metadata: .init(
++                entries: ["custom.req": Data([1]), JPEGLSMetadata.spiffKey: Data([0xFF, 0xE8])],
++                requiredKeys: ["custom.req", JPEGLSMetadata.spiffKey]
++            )
++        )
++        for policy: MetadataPolicy in [.preserve, .discardAncillary] {
++            await #expect(throws: unsupportedError) {
++                _ = try await Encoder().encode(unknownReqAndBadKnown, options: .init(metadataPolicy: policy))
++            }
++        }
++        let badAncillary = try Image(
++            descriptor: descriptor, storage: base.storage,
++            metadata: .init(entries: [JPEGLSMetadata.key: Data([0xFE, 0x00])])
++        )
++        await #expect(throws: CodecError(.invalidArgument, "Truncated metadata segment.")) {
++            _ = try await Encoder().encode(badAncillary, options: .init(metadataPolicy: .preserve))
++        }
++        let badSPIFF = try Image(
++            descriptor: descriptor, storage: base.storage,
++            metadata: .init(entries: [JPEGLSMetadata.spiffKey: Data([0xFF, 0xE8])], requiredKeys: [JPEGLSMetadata.spiffKey])
++        )
++        await #expect(throws: CodecError(.invalidArgument, "SPIFF metadata disagrees with the image or is malformed.")) {
++            _ = try await Encoder().encode(badSPIFF, options: .init(metadataPolicy: .discardAncillary))
++        }
++        let badMapping = try Image(
++            descriptor: descriptor, storage: base.storage,
++            metadata: .init(entries: [JPEGLSMappingTables.key: Data([0x01])], requiredKeys: [JPEGLSMappingTables.key])
++        )
++        await #expect(throws: CodecError(.invalidArgument, "Invalid mapping table archive.")) {
++            _ = try await Encoder().encode(badMapping, options: .init(metadataPolicy: .discardAncillary))
++        }
++    }
++
+ }
+diff --git a/Tests/SwiftJLSTests/OwnedAdmissionTests.swift b/Tests/SwiftJLSTests/OwnedAdmissionTests.swift
+index d544e6e..1130d71 100644
+--- a/Tests/SwiftJLSTests/OwnedAdmissionTests.swift
++++ b/Tests/SwiftJLSTests/OwnedAdmissionTests.swift
+@@ -391,4 +391,48 @@ struct OwnedAdmissionTests {
+         #expect(retriedCombined.image.storage.allocationID == suppliedCombined.storage.allocationID)
+         #expect(retriedCombined.image.metadata == ImageMetadata.empty)
+     }
++
++    @Test func allocatedDestinationExposesReservedStorageAndEnforcesAllLeaseGuards() throws {
++        let descriptor = try ImageDescriptor.greyscale16(width: 2, height: 2, meaningfulBits: 12)
++        let reservedError = CodecError(.storageUnavailable, "Storage already has a writer or is sealed/invalid.")
++        let leaseError = CodecError(.storageUnavailable, "Write lease is stale, foreign or unavailable.")
++        let reentrantError = CodecError(.storageUnavailable, "A storage borrow is already active.")
++
++        // 1. Freshly allocated destination exposes storage already in `.writing`:
++        // second reservation and forged/foreign leases reject before and during fill.
++        let dest1 = try ImageDestination.allocate(descriptor: descriptor)
++        let storage1 = dest1.storage
++        let forgedLease = StorageWriteLease()
++        #expect(throws: reservedError) { _ = try storage1.reserveWrite() }
++        #expect(throws: leaseError) { try storage1.withUnsafeMutableBytes(lease: forgedLease) { _ in } }
++        #expect(throws: leaseError) { _ = try storage1.finishAndSeal(lease: forgedLease) }
++        #expect(throws: leaseError) { try storage1.abortAndInvalidate(lease: forgedLease) }
++
++        let image1 = try dest1.write { bytes in
++            #expect(bytes.count == 8)
++            #expect(bytes.allSatisfy { $0 == 0 })
++            // Reentrant operations on `storage1` inside the active borrow reject via atomic gate.
++            #expect(throws: reentrantError) { _ = try storage1.reserveWrite() }
++            #expect(throws: reentrantError) { try storage1.withUnsafeMutableBytes(lease: forgedLease) { _ in } }
++            #expect(throws: reentrantError) { _ = try storage1.finishAndSeal(lease: forgedLease) }
++            #expect(throws: reentrantError) { try storage1.abortAndInvalidate(lease: forgedLease) }
++            bytes[0] = 0x34
++            bytes[1] = 0x02
++        }
++        #expect(image1.storage.allocationID == storage1.allocationID)
++        #expect(try image1.sampleUInt16(x: 0, y: 0) == 0x0234)
++        #expect(throws: reservedError) { _ = try storage1.reserveWrite() }
++        #expect(throws: leaseError) { try storage1.withUnsafeMutableBytes(lease: forgedLease) { _ in } }
++
++        // 2. Abandoning an allocated destination invalidates its underlying storage on release.
++        let abandonedStorage: any WritableImageStorage
++        do {
++            let abandoned = try ImageDestination.allocate(descriptor: descriptor)
++            abandonedStorage = abandoned.storage
++            #expect(throws: reservedError) { _ = try abandonedStorage.reserveWrite() }
++        }
++        #expect(throws: reservedError) { _ = try abandonedStorage.reserveWrite() }
++        #expect(throws: leaseError) { try abandonedStorage.withUnsafeMutableBytes(lease: forgedLease) { _ in } }
++        #expect(abandonedStorage.allocationID != storage1.allocationID)
++    }
+ }

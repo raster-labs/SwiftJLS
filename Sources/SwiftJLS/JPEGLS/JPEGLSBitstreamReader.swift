@@ -201,11 +201,10 @@ final class JPEGLSBitstreamReader {
     }
 
     /// The valid bits left-aligned at the top of a 64-bit word.
-    /// Only call with `bitsInBuffer > 0`.
+    /// Only call with `bitsInBuffer > 0`; `refill()` bounds `bitsInBuffer` to `1...63`.
     @inline(__always)
     private func alignedWindow() -> UInt64 {
-        let mask: UInt64 = (1 << UInt64(bitsInBuffer)) &- 1
-        return (bitBuffer & mask) << UInt64(64 - bitsInBuffer)
+        bitBuffer &<< (64 &- bitsInBuffer)
     }
 
     /// Read bits from the bitstream

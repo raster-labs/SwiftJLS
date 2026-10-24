@@ -1,0 +1,32 @@
+{
+  "command": [
+    "swift",
+    "test",
+    "--build-system",
+    "swiftbuild",
+    "--jobs",
+    "4",
+    "--package-path",
+    "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-short-path-diagnostic/codec",
+    "--scratch-path",
+    "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-short-path-diagnostic/asan-build",
+    "--sanitize",
+    "address",
+    "--filter",
+    "GradientTableTests",
+    "-Xswiftc",
+    "-load-plugin-library",
+    "-Xswiftc",
+    "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+    "--xunit-output",
+    "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-short-path-diagnostic/gradient-asan.xml"
+  ],
+  "cwd": "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS",
+  "exit_code": 0,
+  "seconds": 24.036988042000004,
+  "utc": "2026-10-21T14:20:28.140365+00:00",
+  "developer_dir": "/Library/Developer/CommandLineTools",
+  "asan_options": "detect_leaks=0",
+  "test_count": 3,
+  "xml_sha256": "ce57e3fc515b69f76ed864fe4e43a3a083e852e717aef8987279b857f9ff4f23"
+}

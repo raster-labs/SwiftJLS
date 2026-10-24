@@ -1,0 +1,1141 @@
+mutation (owned)	Set up job	﻿2026-10-21T15:15:17.1033951Z Current runner version: '2.338.0'
+mutation (owned)	Set up job	2026-10-21T15:15:17.1059941Z ##[group]Runner Image Provisioner
+mutation (owned)	Set up job	2026-10-21T15:15:17.1060841Z Hosted Compute Agent
+mutation (owned)	Set up job	2026-10-21T15:15:17.1061508Z Version: 20261012.601
+mutation (owned)	Set up job	2026-10-21T15:15:17.1062205Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+mutation (owned)	Set up job	2026-10-21T15:15:17.1062953Z Build Date: 2026-10-12T17:48:21Z
+mutation (owned)	Set up job	2026-10-21T15:15:17.1063717Z Worker ID: {07a43f76-cea4-4d10-99a8-0a0aef0f8ffe}
+mutation (owned)	Set up job	2026-10-21T15:15:17.1064426Z Region: centralus
+mutation (owned)	Set up job	2026-10-21T15:15:17.1065062Z Cloud: Azure
+mutation (owned)	Set up job	2026-10-21T15:15:17.1065678Z ##[endgroup]
+mutation (owned)	Set up job	2026-10-21T15:15:17.1067161Z ##[group]Operating System
+mutation (owned)	Set up job	2026-10-21T15:15:17.1067898Z Ubuntu
+mutation (owned)	Set up job	2026-10-21T15:15:17.1068427Z 24.04.5
+mutation (owned)	Set up job	2026-10-21T15:15:17.1068942Z LTS
+mutation (owned)	Set up job	2026-10-21T15:15:17.1069774Z ##[endgroup]
+mutation (owned)	Set up job	2026-10-21T15:15:17.1070403Z ##[group]Runner Image
+mutation (owned)	Set up job	2026-10-21T15:15:17.1071071Z Image: ubuntu-24.04
+mutation (owned)	Set up job	2026-10-21T15:15:17.1071696Z Version: 20261012.334.1
+mutation (owned)	Set up job	2026-10-21T15:15:17.1072781Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+mutation (owned)	Set up job	2026-10-21T15:15:17.1074676Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+mutation (owned)	Set up job	2026-10-21T15:15:17.1075721Z ##[endgroup]
+mutation (owned)	Set up job	2026-10-21T15:15:17.1076807Z ##[group]GITHUB_TOKEN Permissions
+mutation (owned)	Set up job	2026-10-21T15:15:17.1078770Z Contents: read
+mutation (owned)	Set up job	2026-10-21T15:15:17.1079894Z Metadata: read
+mutation (owned)	Set up job	2026-10-21T15:15:17.1080506Z ##[endgroup]
+mutation (owned)	Set up job	2026-10-21T15:15:17.1082650Z Secret source: Actions
+mutation (owned)	Set up job	2026-10-21T15:15:17.1083674Z Cache mode: write
+mutation (owned)	Set up job	2026-10-21T15:15:17.1084874Z Prepare workflow directory
+mutation (owned)	Set up job	2026-10-21T15:15:17.1553650Z Prepare all required actions
+mutation (owned)	Set up job	2026-10-21T15:15:17.1601529Z Getting action download info
+mutation (owned)	Set up job	2026-10-21T15:15:17.4491453Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+mutation (owned)	Set up job	2026-10-21T15:15:17.5373724Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+mutation (owned)	Set up job	2026-10-21T15:15:17.7580100Z Complete job name: mutation (owned)
+mutation (owned)	Initialize containers	﻿2026-10-21T15:15:17.8179872Z ##[group]Checking docker version
+mutation (owned)	Initialize containers	2026-10-21T15:15:17.8194062Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+mutation (owned)	Initialize containers	2026-10-21T15:15:17.9052770Z '1.48'
+mutation (owned)	Initialize containers	2026-10-21T15:15:17.9071109Z Docker daemon API version: '1.48'
+mutation (owned)	Initialize containers	2026-10-21T15:15:17.9072160Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+mutation (owned)	Initialize containers	2026-10-21T15:15:17.9250120Z '1.48'
+mutation (owned)	Initialize containers	2026-10-21T15:15:17.9263803Z Docker client API version: '1.48'
+mutation (owned)	Initialize containers	2026-10-21T15:15:17.9269492Z ##[endgroup]
+mutation (owned)	Initialize containers	2026-10-21T15:15:17.9272550Z ##[group]Clean up resources from previous jobs
+mutation (owned)	Initialize containers	2026-10-21T15:15:17.9278502Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=30afc1"
+mutation (owned)	Initialize containers	2026-10-21T15:15:17.9434100Z ##[command]/usr/bin/docker network prune --force --filter "label=30afc1"
+mutation (owned)	Initialize containers	2026-10-21T15:15:17.9564952Z ##[endgroup]
+mutation (owned)	Initialize containers	2026-10-21T15:15:17.9565540Z ##[group]Create local container network
+mutation (owned)	Initialize containers	2026-10-21T15:15:17.9575933Z ##[command]/usr/bin/docker network create --label 30afc1 github_network_3ad43a98e37a440f874c24e8c83dce13
+mutation (owned)	Initialize containers	2026-10-21T15:15:18.0081024Z 614c0373456d3e491df1aca1ae2af6a38bee0f21fb0848d68332b1289f7b1186
+mutation (owned)	Initialize containers	2026-10-21T15:15:18.0100488Z ##[endgroup]
+mutation (owned)	Initialize containers	2026-10-21T15:15:18.0124111Z ##[group]Starting job container
+mutation (owned)	Initialize containers	2026-10-21T15:15:18.0146938Z ##[command]/usr/bin/docker pull swift:6.4-noble
+mutation (owned)	Initialize containers	2026-10-21T15:15:18.6307500Z 6.4-noble: Pulling from library/swift
+mutation (owned)	Initialize containers	2026-10-21T15:15:18.8023471Z f2b4ef06ff01: Pulling fs layer
+mutation (owned)	Initialize containers	2026-10-21T15:15:18.8025195Z e789ef60896a: Pulling fs layer
+mutation (owned)	Initialize containers	2026-10-21T15:15:18.8026314Z b3c23bbefcef: Pulling fs layer
+mutation (owned)	Initialize containers	2026-10-21T15:15:18.8027695Z 6d11467507a7: Pulling fs layer
+mutation (owned)	Initialize containers	2026-10-21T15:15:18.8028586Z 6d11467507a7: Waiting
+mutation (owned)	Initialize containers	2026-10-21T15:15:19.1735184Z f2b4ef06ff01: Verifying Checksum
+mutation (owned)	Initialize containers	2026-10-21T15:15:19.1737879Z f2b4ef06ff01: Download complete
+mutation (owned)	Initialize containers	2026-10-21T15:15:19.3043561Z 6d11467507a7: Verifying Checksum
+mutation (owned)	Initialize containers	2026-10-21T15:15:19.3045595Z 6d11467507a7: Download complete
+mutation (owned)	Initialize containers	2026-10-21T15:15:19.5954817Z e789ef60896a: Verifying Checksum
+mutation (owned)	Initialize containers	2026-10-21T15:15:19.5957475Z e789ef60896a: Download complete
+mutation (owned)	Initialize containers	2026-10-21T15:15:20.5901527Z f2b4ef06ff01: Pull complete
+mutation (owned)	Initialize containers	2026-10-21T15:15:22.7532824Z b3c23bbefcef: Verifying Checksum
+mutation (owned)	Initialize containers	2026-10-21T15:15:22.7534191Z b3c23bbefcef: Download complete
+mutation (owned)	Initialize containers	2026-10-21T15:15:27.5985425Z e789ef60896a: Pull complete
+mutation (owned)	Initialize containers	2026-10-21T15:15:43.4833127Z b3c23bbefcef: Pull complete
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.6860000Z 6d11467507a7: Pull complete
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.6903909Z Digest: sha256:19cbe56bdaec1918f7cf5fdeba42b9bd55bdd8a6149c9990d0e0e3a89a127d63
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.6919609Z Status: Downloaded newer image for swift:6.4-noble
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.6927692Z docker.io/library/swift:6.4-noble
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.7010045Z ##[command]/usr/bin/docker create --name b9e9b65bafe04021af4deb26c8474b04_swift64noble_341583 --label 30afc1 --workdir /__w/SwiftJLS/SwiftJLS --network github_network_3ad43a98e37a440f874c24e8c83dce13  -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/actions-runner/cached/2.338.0/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" swift:6.4-noble "-f" "/dev/null"
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.7275300Z 002f40aeb077ca054c945d0980c2e1565c2b478a0923bc3230783e111033c914
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.7300605Z ##[command]/usr/bin/docker start 002f40aeb077ca054c945d0980c2e1565c2b478a0923bc3230783e111033c914
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9128088Z 002f40aeb077ca054c945d0980c2e1565c2b478a0923bc3230783e111033c914
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9149584Z ##[command]/usr/bin/docker ps --all --filter id=002f40aeb077ca054c945d0980c2e1565c2b478a0923bc3230783e111033c914 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9270777Z 002f40aeb077ca054c945d0980c2e1565c2b478a0923bc3230783e111033c914 Up Less than a second
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9288170Z ##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" 002f40aeb077ca054c945d0980c2e1565c2b478a0923bc3230783e111033c914
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9416291Z HOME=/github/home
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9417356Z GITHUB_ACTIONS=true
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9418270Z CI=true
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9421259Z PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9422366Z SWIFT_SIGNING_KEY=52BB7E3DE28A71BE22EC05FFEF80A866B47A981F
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9423416Z SWIFT_PLATFORM=ubuntu24.04
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9424162Z SWIFT_BRANCH=swift-6.4.1-release
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9424536Z SWIFT_VERSION=swift-6.4.1-RELEASE
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9425116Z SWIFT_WEBROOT=https://download.swift.org
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9438911Z ##[endgroup]
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9447813Z ##[group]Waiting for all services to be ready
+mutation (owned)	Initialize containers	2026-10-21T15:15:46.9449863Z ##[endgroup]
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	﻿2026-10-21T15:15:46.9765930Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9766656Z with:
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9766897Z   persist-credentials: false
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9767187Z   repository: raster-labs/SwiftJLS
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9769937Z   token: ***
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9770180Z   ssh-strict: true
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9770397Z   ssh-user: git
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9770618Z   clean: true
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9770835Z   sparse-checkout-cone-mode: true
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9771092Z   fetch-depth: 1
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9771305Z   fetch-tags: false
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9771509Z   show-progress: true
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9771714Z   lfs: false
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9771901Z   submodules: false
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9772104Z   set-safe-directory: true
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9772350Z   allow-unsafe-pr-checkout: false
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9772913Z ##[endgroup]
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:46.9835651Z ##[command]/usr/bin/docker exec  002f40aeb077ca054c945d0980c2e1565c2b478a0923bc3230783e111033c914 sh -c "cat /etc/*release | grep ^ID"
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1796069Z Syncing repository: raster-labs/SwiftJLS
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1887939Z ##[group]Getting Git version info
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1899445Z Working directory is '/__w/SwiftJLS/SwiftJLS'
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1900539Z [command]/usr/bin/git version
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1900994Z git version 2.43.0
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1902514Z ##[endgroup]
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1907480Z Temporarily overriding HOME='/__w/_temp/f33e8537-0f2c-4931-8760-1d714f45106a' before making global git config changes
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1908718Z Adding repository directory to the temporary git global config as a safe directory
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1910047Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1911475Z Deleting the contents of '/__w/SwiftJLS/SwiftJLS'
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1912443Z ##[group]Initializing the repository
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1913038Z [command]/usr/bin/git init /__w/SwiftJLS/SwiftJLS
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1930052Z hint: Using 'master' as the name for the initial branch. This default branch name
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1931601Z hint: is subject to change. To configure the initial branch name to use in all
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1933117Z hint: of your new repositories, which will suppress this warning, call:
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1934028Z hint: 
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1934809Z hint: 	git config --global init.defaultBranch <name>
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1935490Z hint: 
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1936322Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1937624Z hint: 'development'. The just-created branch can be renamed via this command:
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1938408Z hint: 
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1938828Z hint: 	git branch -m <name>
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1939945Z Initialized empty Git repository in /__w/SwiftJLS/SwiftJLS/.git/
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.1955531Z [command]/usr/bin/git remote add origin https://github.com/raster-labs/SwiftJLS
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2000869Z ##[endgroup]
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2001438Z ##[group]Disabling automatic garbage collection
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2001868Z [command]/usr/bin/git config --local gc.auto 0
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2027134Z ##[endgroup]
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2027758Z ##[group]Setting up auth
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2035514Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2066502Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2317431Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2351413Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2603899Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2652821Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2889449Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2931463Z ##[endgroup]
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2932225Z ##[group]Fetching the repository
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.2943078Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e6a6436c692f5af226bffceb70b7ee65c774edf3:refs/remotes/origin/codex/milestone-4-qualification
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.6815070Z From https://github.com/raster-labs/SwiftJLS
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.6816305Z  * [new ref]         e6a6436c692f5af226bffceb70b7ee65c774edf3 -> origin/codex/milestone-4-qualification
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.6841803Z ##[endgroup]
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.6842445Z ##[group]Determining the checkout info
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.6842901Z ##[endgroup]
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.6850618Z [command]/usr/bin/git sparse-checkout disable
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.6892880Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.6924415Z ##[group]Checking out the ref
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.6931282Z [command]/usr/bin/git checkout --progress --force -B codex/milestone-4-qualification refs/remotes/origin/codex/milestone-4-qualification
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.0778022Z Switched to a new branch 'codex/milestone-4-qualification'
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.0779455Z branch 'codex/milestone-4-qualification' set up to track 'origin/codex/milestone-4-qualification'.
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.0801227Z ##[endgroup]
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.0846512Z [command]/usr/bin/git log -1 --format=%H
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.0874420Z e6a6436c692f5af226bffceb70b7ee65c774edf3
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.0886423Z ##[group]Removing auth
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.0892682Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.0928788Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.1176331Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.1209939Z http.https://github.com/.extraheader
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.1220526Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.1255419Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.1497709Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.1550346Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (owned)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.1770876Z ##[endgroup]
+mutation (owned)	Run swift --version	﻿2026-10-21T15:15:49.1998610Z ##[group]Run swift --version
+mutation (owned)	Run swift --version	2026-10-21T15:15:49.1998959Z ^[[36;1mswift --version^[[0m
+mutation (owned)	Run swift --version	2026-10-21T15:15:49.2002503Z shell: sh -e {0}
+mutation (owned)	Run swift --version	2026-10-21T15:15:49.2002755Z ##[endgroup]
+mutation (owned)	Run swift --version	2026-10-21T15:15:49.3237556Z Swift version 6.4.1 (swift-6.4.1-RELEASE)
+mutation (owned)	Run swift --version	2026-10-21T15:15:49.3238121Z Target: x86_64-unknown-linux-gnu
+mutation (owned)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	﻿2026-10-21T15:15:49.3330912Z ##[group]Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address
+mutation (owned)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:15:49.3331642Z ^[[36;1mswift build --package-path Examples/FuzzConsumer -c release --sanitize address^[[0m
+mutation (owned)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:15:49.3332173Z shell: sh -e {0}
+mutation (owned)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:15:49.3332379Z ##[endgroup]
+mutation (owned)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:15:50.7791650Z Building for production...
+mutation (owned)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:15:50.7792518Z [Pre-planning 1 / 67]
+mutation (owned)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:14.8615565Z [24 / 33] SwiftJLS
+mutation (owned)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:16.8139567Z [32 / 35] FuzzConsumer-product
+mutation (owned)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:17.0246574Z [35 / 35] FuzzConsumer-product
+mutation (owned)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:17.0425897Z Build complete! (26.70 secs)
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	﻿2026-10-21T15:16:17.0620962Z ##[group]Run apt-get update && apt-get install -y --no-install-recommends python3
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:17.0621571Z ^[[36;1mapt-get update && apt-get install -y --no-install-recommends python3^[[0m
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:17.0622079Z shell: sh -e {0}
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:17.0622286Z ##[endgroup]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:17.3525244Z Get:1 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:17.4808333Z Get:2 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:17.8731312Z Get:3 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [55.6 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.0204161Z Get:4 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1549 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.1433088Z Get:5 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.3058877Z Get:6 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.4687115Z Get:7 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.5120267Z Get:8 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.6106579Z Get:9 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2122 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.8698911Z Get:10 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1411 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.9628922Z Get:11 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.9876470Z Get:12 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.6883524Z Get:13 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2170 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.7066787Z Get:14 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2231 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.7640412Z Get:15 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1732 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.7811604Z Get:16 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [61.7 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.7825566Z Get:17 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [36.0 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.7826504Z Get:18 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.0 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.7827165Z Get:19 http://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [669 B]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:20.5062250Z Fetched 33.6 MB in 3s (9996 kB/s)
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:21.2172545Z Reading package lists...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:21.9728798Z Reading package lists...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.1331995Z Building dependency tree...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.1332982Z Reading state information...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.2743055Z The following additional packages will be installed:
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.2746142Z   libpython3-stdlib python3-minimal python3.12 python3.12-minimal
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.2751769Z Suggested packages:
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.2752514Z   python3-doc python3-tk python3-venv python3.12-venv python3.12-doc
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.2753156Z   binfmt-support
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.3111373Z The following NEW packages will be installed:
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.3115137Z   libpython3-stdlib python3 python3-minimal python3.12 python3.12-minimal
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.4188199Z 0 upgraded, 5 newly installed, 0 to remove and 6 not upgraded.
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.4188885Z Need to get 3046 kB of archives.
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.4189636Z After this operation, 9100 kB of additional disk space will be used.
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.4190608Z Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12-minimal amd64 3.12.3-1ubuntu0.17 [2335 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.9219015Z Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3-minimal amd64 3.12.3-0ubuntu2.1 [27.4 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.9224311Z Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12 amd64 3.12.3-1ubuntu0.17 [651 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.9352013Z Get:4 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpython3-stdlib amd64 3.12.3-0ubuntu2.1 [10.1 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.9354413Z Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3 amd64 3.12.3-0ubuntu2.1 [23.0 kB]
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.0613898Z debconf: delaying package configuration, since apt-utils is not installed
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.0870261Z Fetched 3046 kB in 1s (4938 kB/s)
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1005164Z Selecting previously unselected package python3.12-minimal.
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1038586Z (Reading database ... 
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1039011Z (Reading database ... 5%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1044548Z (Reading database ... 10%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1045046Z (Reading database ... 15%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1045513Z (Reading database ... 20%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1045957Z (Reading database ... 25%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1046418Z (Reading database ... 30%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1046904Z (Reading database ... 35%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1047333Z (Reading database ... 40%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1047619Z (Reading database ... 45%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1047900Z (Reading database ... 50%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1048176Z (Reading database ... 55%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1048481Z (Reading database ... 60%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1048766Z (Reading database ... 65%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1056679Z (Reading database ... 70%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1062873Z (Reading database ... 75%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1078753Z (Reading database ... 80%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1085983Z (Reading database ... 85%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1094874Z (Reading database ... 90%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1109455Z (Reading database ... 95%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1109871Z (Reading database ... 100%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1110421Z (Reading database ... 16750 files and directories currently installed.)
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1115907Z Preparing to unpack .../python3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1149749Z Unpacking python3.12-minimal (3.12.3-1ubuntu0.17) ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.1646976Z Setting up python3.12-minimal (3.12.3-1ubuntu0.17) ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8757500Z Selecting previously unselected package python3-minimal.
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8777771Z (Reading database ... 
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8778488Z (Reading database ... 5%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8779049Z (Reading database ... 10%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8780037Z (Reading database ... 15%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8780303Z (Reading database ... 20%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8780562Z (Reading database ... 25%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8780798Z (Reading database ... 30%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8781025Z (Reading database ... 35%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8781249Z (Reading database ... 40%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8781473Z (Reading database ... 45%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8781699Z (Reading database ... 50%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8781924Z (Reading database ... 55%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8782150Z (Reading database ... 60%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8782387Z (Reading database ... 65%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8795823Z (Reading database ... 70%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8801909Z (Reading database ... 75%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8817215Z (Reading database ... 80%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8824667Z (Reading database ... 85%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8833840Z (Reading database ... 90%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8848003Z (Reading database ... 95%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8848445Z (Reading database ... 100%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8849230Z (Reading database ... 16761 files and directories currently installed.)
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8855784Z Preparing to unpack .../python3-minimal_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8864096Z Unpacking python3-minimal (3.12.3-0ubuntu2.1) ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.9011334Z Selecting previously unselected package python3.12.
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.9024857Z Preparing to unpack .../python3.12_3.12.3-1ubuntu0.17_amd64.deb ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.9032111Z Unpacking python3.12 (3.12.3-1ubuntu0.17) ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.9185004Z Selecting previously unselected package libpython3-stdlib:amd64.
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.9198494Z Preparing to unpack .../libpython3-stdlib_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.9208524Z Unpacking libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.9399267Z Setting up python3-minimal (3.12.3-0ubuntu2.1) ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0476658Z Selecting previously unselected package python3.
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0497213Z (Reading database ... 
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0498246Z (Reading database ... 5%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0498705Z (Reading database ... 10%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0499411Z (Reading database ... 15%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0499880Z (Reading database ... 20%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0500594Z (Reading database ... 25%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0500850Z (Reading database ... 30%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0501101Z (Reading database ... 35%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0501349Z (Reading database ... 40%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0501596Z (Reading database ... 45%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0501836Z (Reading database ... 50%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0502082Z (Reading database ... 55%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0502322Z (Reading database ... 60%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0502570Z (Reading database ... 65%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0508203Z (Reading database ... 70%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0514337Z (Reading database ... 75%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0529677Z (Reading database ... 80%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0535949Z (Reading database ... 85%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0546351Z (Reading database ... 90%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0558259Z (Reading database ... 95%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0558799Z (Reading database ... 100%
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0559360Z (Reading database ... 16808 files and directories currently installed.)
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0564455Z Preparing to unpack .../python3_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0594669Z Unpacking python3 (3.12.3-0ubuntu2.1) ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.0784871Z Setting up python3.12 (3.12.3-1ubuntu0.17) ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.8646299Z Setting up libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.8665353Z Setting up python3 (3.12.3-0ubuntu2.1) ...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.8716484Z running python rtupdate hooks for python3.12...
+mutation (owned)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.8717138Z running python post-rtupdate hooks for python3.12...
+mutation (owned)	Run bounded campaign	﻿2026-10-21T15:16:24.9693072Z ##[group]Run python3 Scripts/run-mutation-campaign.py --entry "$ENTRY" --seconds "$DURATION"
+mutation (owned)	Run bounded campaign	2026-10-21T15:16:24.9693829Z ^[[36;1mpython3 Scripts/run-mutation-campaign.py --entry "$ENTRY" --seconds "$DURATION"^[[0m
+mutation (owned)	Run bounded campaign	2026-10-21T15:16:24.9694366Z shell: sh -e {0}
+mutation (owned)	Run bounded campaign	2026-10-21T15:16:24.9694569Z env:
+mutation (owned)	Run bounded campaign	2026-10-21T15:16:24.9694742Z   DURATION: 3600
+mutation (owned)	Run bounded campaign	2026-10-21T15:16:24.9694929Z   ENTRY: owned
+mutation (owned)	Run bounded campaign	2026-10-21T15:16:24.9695115Z ##[endgroup]
+mutation (owned)	Run bounded campaign	2026-10-21T16:16:25.1771644Z {"command": ["Examples/FuzzConsumer/.build/release/FuzzConsumer", "Tests/SwiftJLSTests/Fixtures", "owned", "3600", "last-input.jls"], "exit_code": 0, "failure": null, "wall_seconds": 3600.1219195989997, "peak_process_rss_bytes": 472600576, "build": "release with AddressSanitizer; RSS includes sanitizer overhead"}
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	﻿2026-10-21T16:16:25.1960377Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.1960811Z with:
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.1961023Z   name: mutation-owned
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.1961389Z   path: campaign.jsonl
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	last-input.jls
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	campaign-stderr.log
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	campaign-result.json
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.1961800Z   if-no-files-found: warn
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.1962026Z   compression-level: 6
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.1962232Z   overwrite: false
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.1962438Z   include-hidden-files: false
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.1962669Z ##[endgroup]
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.1966404Z ##[command]/usr/bin/docker exec  002f40aeb077ca054c945d0980c2e1565c2b478a0923bc3230783e111033c914 sh -c "cat /etc/*release | grep ^ID"
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.4660479Z (node:667) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.4661907Z (Use `node --trace-deprecation ...` to show where the warning was created)
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.4850442Z Multiple search paths detected. Calculating the least common ancestor of all paths
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.4852790Z The least common ancestor is /__w/SwiftJLS/SwiftJLS. This will be the root directory of the artifact
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.4853823Z With the provided path, there will be 4 files uploaded
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.4879617Z Artifact name is valid!
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.4880122Z Root directory input is valid!
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.8408233Z Beginning upload of artifact content to blob storage
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:25.8673676Z (node:667) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.0267881Z Uploaded bytes 19285
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.0686834Z Finished uploading artifact content to blob storage!
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.0688706Z SHA256 digest of uploaded artifact zip is 6c629fdaea9f5aad1f6fd6819ebfbf1ba336f11545efa2b005b6a801dc6be7c7
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.0691139Z Finalizing artifact upload
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.3580018Z Artifact mutation-owned.zip successfully finalized. Artifact ID 12359737643
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.3581921Z Artifact mutation-owned has been successfully uploaded! Final size is 19285 bytes. Artifact ID is 12359737643
+mutation (owned)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.3590316Z Artifact download URL: https://github.com/raster-labs/SwiftJLS/actions/runs/39623942298/artifacts/12359737643
+mutation (owned)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	﻿2026-10-21T16:16:26.3808084Z Post job cleanup.
+mutation (owned)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:26.3815402Z ##[command]/usr/bin/docker exec  002f40aeb077ca054c945d0980c2e1565c2b478a0923bc3230783e111033c914 sh -c "cat /etc/*release | grep ^ID"
+mutation (owned)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:26.5591947Z [command]/usr/bin/git version
+mutation (owned)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:26.5628803Z git version 2.43.0
+mutation (owned)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:26.5699158Z Temporarily overriding HOME='/__w/_temp/e21b3666-abc6-4e5a-8c44-aa48c17ec768' before making global git config changes
+mutation (owned)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:26.5700760Z Adding repository directory to the temporary git global config as a safe directory
+mutation (owned)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:26.5703758Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+mutation (owned)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:26.5727846Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (owned)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:26.5778537Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (owned)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:26.6112768Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (owned)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:26.6163804Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (owned)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:26.6439825Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (owned)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:26.6485939Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (owned)	Stop containers	﻿2026-10-21T16:16:26.6881302Z Stop and remove container: b9e9b65bafe04021af4deb26c8474b04_swift64noble_341583
+mutation (owned)	Stop containers	2026-10-21T16:16:26.6886249Z ##[command]/usr/bin/docker rm --force 002f40aeb077ca054c945d0980c2e1565c2b478a0923bc3230783e111033c914
+mutation (owned)	Stop containers	2026-10-21T16:16:26.8514725Z 002f40aeb077ca054c945d0980c2e1565c2b478a0923bc3230783e111033c914
+mutation (owned)	Stop containers	2026-10-21T16:16:26.8544026Z Remove container network: github_network_3ad43a98e37a440f874c24e8c83dce13
+mutation (owned)	Stop containers	2026-10-21T16:16:26.8549117Z ##[command]/usr/bin/docker network rm github_network_3ad43a98e37a440f874c24e8c83dce13
+mutation (owned)	Stop containers	2026-10-21T16:16:26.9654182Z github_network_3ad43a98e37a440f874c24e8c83dce13
+mutation (owned)	Complete job	﻿2026-10-21T16:16:26.9747090Z Cleaning up orphan processes
+mutation (owned)	Complete job	2026-10-21T16:16:27.0145083Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+mutation (inspect)	Set up job	﻿2026-10-21T15:15:17.3887245Z Current runner version: '2.338.0'
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3914154Z ##[group]Runner Image Provisioner
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3915056Z Hosted Compute Agent
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3916163Z Version: 20261012.601
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3916900Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3917635Z Build Date: 2026-10-12T17:48:21Z
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3918471Z Worker ID: {c28832ad-f060-4f6a-ad09-9c03b62faf28}
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3919204Z Region: westus2
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3919847Z Cloud: Azure
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3920391Z ##[endgroup]
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3921893Z ##[group]Operating System
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3922737Z Ubuntu
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3923285Z 24.04.5
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3923834Z LTS
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3924371Z ##[endgroup]
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3924925Z ##[group]Runner Image
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3925621Z Image: ubuntu-24.04
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3926549Z Version: 20261012.334.1
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3927774Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3929572Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3930641Z ##[endgroup]
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3931797Z ##[group]GITHUB_TOKEN Permissions
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3934039Z Contents: read
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3934709Z Metadata: read
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3935348Z ##[endgroup]
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3937758Z Secret source: Actions
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3939130Z Cache mode: write
+mutation (inspect)	Set up job	2026-10-21T15:15:17.3940160Z Prepare workflow directory
+mutation (inspect)	Set up job	2026-10-21T15:15:17.4363813Z Prepare all required actions
+mutation (inspect)	Set up job	2026-10-21T15:15:17.4419193Z Getting action download info
+mutation (inspect)	Set up job	2026-10-21T15:15:17.8514217Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+mutation (inspect)	Set up job	2026-10-21T15:15:17.9662362Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+mutation (inspect)	Set up job	2026-10-21T15:15:18.1848301Z Complete job name: mutation (inspect)
+mutation (inspect)	Initialize containers	﻿2026-10-21T15:15:18.2529412Z ##[group]Checking docker version
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.2542870Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.3442891Z '1.48'
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.3465384Z Docker daemon API version: '1.48'
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.3466633Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.3717893Z '1.48'
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.3731380Z Docker client API version: '1.48'
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.3736151Z ##[endgroup]
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.3739146Z ##[group]Clean up resources from previous jobs
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.3744313Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=06317b"
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.5099621Z ##[command]/usr/bin/docker network prune --force --filter "label=06317b"
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.5238963Z ##[endgroup]
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.5239551Z ##[group]Create local container network
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.5249635Z ##[command]/usr/bin/docker network create --label 06317b github_network_a466db1b05604448b4dcfda6e66f6772
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.5747195Z 62b61786e29857e8868cfd8601330a3dcfdffa6aebda9682285cf1c77d0050a4
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.5767251Z ##[endgroup]
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.5792533Z ##[group]Starting job container
+mutation (inspect)	Initialize containers	2026-10-21T15:15:18.5816313Z ##[command]/usr/bin/docker pull swift:6.4-noble
+mutation (inspect)	Initialize containers	2026-10-21T15:15:19.5270507Z 6.4-noble: Pulling from library/swift
+mutation (inspect)	Initialize containers	2026-10-21T15:15:19.7849225Z f2b4ef06ff01: Pulling fs layer
+mutation (inspect)	Initialize containers	2026-10-21T15:15:19.7850752Z e789ef60896a: Pulling fs layer
+mutation (inspect)	Initialize containers	2026-10-21T15:15:19.7852170Z b3c23bbefcef: Pulling fs layer
+mutation (inspect)	Initialize containers	2026-10-21T15:15:19.7852764Z 6d11467507a7: Pulling fs layer
+mutation (inspect)	Initialize containers	2026-10-21T15:15:19.7853217Z 6d11467507a7: Waiting
+mutation (inspect)	Initialize containers	2026-10-21T15:15:20.2078501Z f2b4ef06ff01: Verifying Checksum
+mutation (inspect)	Initialize containers	2026-10-21T15:15:20.2082164Z f2b4ef06ff01: Download complete
+mutation (inspect)	Initialize containers	2026-10-21T15:15:20.4359461Z 6d11467507a7: Verifying Checksum
+mutation (inspect)	Initialize containers	2026-10-21T15:15:20.4360323Z 6d11467507a7: Download complete
+mutation (inspect)	Initialize containers	2026-10-21T15:15:20.5588509Z e789ef60896a: Verifying Checksum
+mutation (inspect)	Initialize containers	2026-10-21T15:15:20.5589607Z e789ef60896a: Download complete
+mutation (inspect)	Initialize containers	2026-10-21T15:15:21.5764897Z f2b4ef06ff01: Pull complete
+mutation (inspect)	Initialize containers	2026-10-21T15:15:24.6192226Z b3c23bbefcef: Verifying Checksum
+mutation (inspect)	Initialize containers	2026-10-21T15:15:24.6193507Z b3c23bbefcef: Download complete
+mutation (inspect)	Initialize containers	2026-10-21T15:15:28.6143002Z e789ef60896a: Pull complete
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.5520734Z b3c23bbefcef: Pull complete
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.5610073Z 6d11467507a7: Pull complete
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.5654940Z Digest: sha256:19cbe56bdaec1918f7cf5fdeba42b9bd55bdd8a6149c9990d0e0e3a89a127d63
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.5665514Z Status: Downloaded newer image for swift:6.4-noble
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.5673542Z docker.io/library/swift:6.4-noble
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.5763981Z ##[command]/usr/bin/docker create --name ef270ced1caf48e7bd755f345c888b15_swift64noble_b84f42 --label 06317b --workdir /__w/SwiftJLS/SwiftJLS --network github_network_a466db1b05604448b4dcfda6e66f6772  -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/actions-runner/cached/2.338.0/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" swift:6.4-noble "-f" "/dev/null"
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.6021201Z afc5d95ed89ad192a5a0304734801c2a457fb5d1f6b86b7ea23115b4eae43a2c
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.6046648Z ##[command]/usr/bin/docker start afc5d95ed89ad192a5a0304734801c2a457fb5d1f6b86b7ea23115b4eae43a2c
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.7843973Z afc5d95ed89ad192a5a0304734801c2a457fb5d1f6b86b7ea23115b4eae43a2c
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.7863119Z ##[command]/usr/bin/docker ps --all --filter id=afc5d95ed89ad192a5a0304734801c2a457fb5d1f6b86b7ea23115b4eae43a2c --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.7996430Z afc5d95ed89ad192a5a0304734801c2a457fb5d1f6b86b7ea23115b4eae43a2c Up Less than a second
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.8017102Z ##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" afc5d95ed89ad192a5a0304734801c2a457fb5d1f6b86b7ea23115b4eae43a2c
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.8148124Z HOME=/github/home
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.8148517Z GITHUB_ACTIONS=true
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.8148824Z CI=true
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.8149190Z PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.8149636Z SWIFT_SIGNING_KEY=52BB7E3DE28A71BE22EC05FFEF80A866B47A981F
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.8150018Z SWIFT_PLATFORM=ubuntu24.04
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.8150280Z SWIFT_BRANCH=swift-6.4.1-release
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.8150546Z SWIFT_VERSION=swift-6.4.1-RELEASE
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.8151034Z SWIFT_WEBROOT=https://download.swift.org
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.8172747Z ##[endgroup]
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.8182309Z ##[group]Waiting for all services to be ready
+mutation (inspect)	Initialize containers	2026-10-21T15:15:47.8184143Z ##[endgroup]
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	﻿2026-10-21T15:15:47.8519222Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8519994Z with:
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8520234Z   persist-credentials: false
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8520533Z   repository: raster-labs/SwiftJLS
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8523350Z   token: ***
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8523570Z   ssh-strict: true
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8523788Z   ssh-user: git
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8523984Z   clean: true
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8524207Z   sparse-checkout-cone-mode: true
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8524469Z   fetch-depth: 1
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8524672Z   fetch-tags: false
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8524882Z   show-progress: true
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8525091Z   lfs: false
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8525279Z   submodules: false
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8525494Z   set-safe-directory: true
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8526044Z   allow-unsafe-pr-checkout: false
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8526590Z ##[endgroup]
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:47.8592749Z ##[command]/usr/bin/docker exec  afc5d95ed89ad192a5a0304734801c2a457fb5d1f6b86b7ea23115b4eae43a2c sh -c "cat /etc/*release | grep ^ID"
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0717338Z Syncing repository: raster-labs/SwiftJLS
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0719566Z ##[group]Getting Git version info
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0720598Z Working directory is '/__w/SwiftJLS/SwiftJLS'
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0721702Z [command]/usr/bin/git version
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0722307Z git version 2.43.0
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0723731Z ##[endgroup]
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0729497Z Temporarily overriding HOME='/__w/_temp/fe521a0d-1f4c-461e-ad6c-da20958b92ed' before making global git config changes
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0730751Z Adding repository directory to the temporary git global config as a safe directory
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0731721Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0733454Z Deleting the contents of '/__w/SwiftJLS/SwiftJLS'
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0747040Z ##[group]Initializing the repository
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0749899Z [command]/usr/bin/git init /__w/SwiftJLS/SwiftJLS
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0799801Z hint: Using 'master' as the name for the initial branch. This default branch name
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0800485Z hint: is subject to change. To configure the initial branch name to use in all
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0801028Z hint: of your new repositories, which will suppress this warning, call:
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0801413Z hint: 
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0801723Z hint: 	git config --global init.defaultBranch <name>
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0802054Z hint: 
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0802363Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0802871Z hint: 'development'. The just-created branch can be renamed via this command:
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0803272Z hint: 
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0803483Z hint: 	git branch -m <name>
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0811482Z Initialized empty Git repository in /__w/SwiftJLS/SwiftJLS/.git/
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0829571Z [command]/usr/bin/git remote add origin https://github.com/raster-labs/SwiftJLS
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0871370Z ##[endgroup]
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0872551Z ##[group]Disabling automatic garbage collection
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0875048Z [command]/usr/bin/git config --local gc.auto 0
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0917838Z ##[endgroup]
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0918944Z ##[group]Setting up auth
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0919730Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.0954766Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.1209393Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.1246670Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.1509037Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.1553105Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.1799249Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.1845208Z ##[endgroup]
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.1846021Z ##[group]Fetching the repository
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:48.1856330Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e6a6436c692f5af226bffceb70b7ee65c774edf3:refs/remotes/origin/codex/milestone-4-qualification
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.2927711Z From https://github.com/raster-labs/SwiftJLS
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.2928659Z  * [new ref]         e6a6436c692f5af226bffceb70b7ee65c774edf3 -> origin/codex/milestone-4-qualification
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.2949548Z ##[endgroup]
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.2950453Z ##[group]Determining the checkout info
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.2952790Z ##[endgroup]
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.2959429Z [command]/usr/bin/git sparse-checkout disable
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.3005293Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.3039714Z ##[group]Checking out the ref
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.3067350Z [command]/usr/bin/git checkout --progress --force -B codex/milestone-4-qualification refs/remotes/origin/codex/milestone-4-qualification
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.6926957Z Switched to a new branch 'codex/milestone-4-qualification'
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.6928124Z branch 'codex/milestone-4-qualification' set up to track 'origin/codex/milestone-4-qualification'.
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.6947500Z ##[endgroup]
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.7006212Z [command]/usr/bin/git log -1 --format=%H
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.7028627Z e6a6436c692f5af226bffceb70b7ee65c774edf3
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.7043376Z ##[group]Removing auth
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.7045895Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.7098793Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.7346782Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.7379622Z http.https://github.com/.extraheader
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.7387465Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.7428170Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.7673232Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.7710904Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (inspect)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:49.7962963Z ##[endgroup]
+mutation (inspect)	Run swift --version	﻿2026-10-21T15:15:49.8190760Z ##[group]Run swift --version
+mutation (inspect)	Run swift --version	2026-10-21T15:15:49.8191124Z ^[[36;1mswift --version^[[0m
+mutation (inspect)	Run swift --version	2026-10-21T15:15:49.8194713Z shell: sh -e {0}
+mutation (inspect)	Run swift --version	2026-10-21T15:15:49.8194978Z ##[endgroup]
+mutation (inspect)	Run swift --version	2026-10-21T15:15:49.9466599Z Swift version 6.4.1 (swift-6.4.1-RELEASE)
+mutation (inspect)	Run swift --version	2026-10-21T15:15:49.9467141Z Target: x86_64-unknown-linux-gnu
+mutation (inspect)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	﻿2026-10-21T15:15:49.9562501Z ##[group]Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address
+mutation (inspect)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:15:49.9563234Z ^[[36;1mswift build --package-path Examples/FuzzConsumer -c release --sanitize address^[[0m
+mutation (inspect)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:15:49.9563784Z shell: sh -e {0}
+mutation (inspect)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:15:49.9563999Z ##[endgroup]
+mutation (inspect)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:15:51.4895896Z Building for production...
+mutation (inspect)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:15:51.4897009Z [Pre-planning 1 / 67]
+mutation (inspect)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:15:51.5897159Z [4 / 31] SwiftJLS-product
+mutation (inspect)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:15.3876153Z [24 / 33] SwiftJLS
+mutation (inspect)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:17.3268901Z [32 / 35] FuzzConsumer-product
+mutation (inspect)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:17.5256273Z [35 / 35] FuzzConsumer-product
+mutation (inspect)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:17.5418751Z Build complete! (26.51 secs)
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	﻿2026-10-21T15:16:17.5606211Z ##[group]Run apt-get update && apt-get install -y --no-install-recommends python3
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:17.5606850Z ^[[36;1mapt-get update && apt-get install -y --no-install-recommends python3^[[0m
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:17.5607361Z shell: sh -e {0}
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:17.5607568Z ##[endgroup]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:17.7772549Z Get:1 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.0589069Z Get:2 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.1696936Z Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.2677420Z Get:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.5205339Z Get:5 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.5513605Z Get:6 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.7291653Z Get:7 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2122 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.8158163Z Get:8 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.8302769Z Get:9 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.2477186Z Get:10 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2231 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.2585130Z Get:11 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1732 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.2896914Z Get:12 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2170 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.3023338Z Get:13 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [61.7 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.3030040Z Get:14 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.0 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.3034571Z Get:15 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [36.0 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.3038948Z Get:16 http://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [669 B]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.7822157Z Get:17 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1411 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.9588280Z Get:18 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [55.6 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.9616180Z Get:19 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1549 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:20.2776232Z Fetched 33.6 MB in 3s (12.8 MB/s)
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:21.0098644Z Reading package lists...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:21.7649701Z Reading package lists...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:21.9304192Z Building dependency tree...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:21.9304976Z Reading state information...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.0784208Z The following additional packages will be installed:
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.0787497Z   libpython3-stdlib python3-minimal python3.12 python3.12-minimal
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.0793083Z Suggested packages:
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.0793659Z   python3-doc python3-tk python3-venv python3.12-venv python3.12-doc
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.0794304Z   binfmt-support
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.1141736Z The following NEW packages will be installed:
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.1146793Z   libpython3-stdlib python3 python3-minimal python3.12 python3.12-minimal
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.5544542Z 0 upgraded, 5 newly installed, 0 to remove and 6 not upgraded.
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.5545087Z Need to get 3046 kB of archives.
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.5545478Z After this operation, 9100 kB of additional disk space will be used.
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.5546467Z Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12-minimal amd64 3.12.3-1ubuntu0.17 [2335 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.1240131Z Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3-minimal amd64 3.12.3-0ubuntu2.1 [27.4 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.1249772Z Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12 amd64 3.12.3-1ubuntu0.17 [651 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.1680287Z Get:4 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpython3-stdlib amd64 3.12.3-0ubuntu2.1 [10.1 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.1685473Z Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3 amd64 3.12.3-0ubuntu2.1 [23.0 kB]
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.2687839Z debconf: delaying package configuration, since apt-utils is not installed
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.2932793Z Fetched 3046 kB in 2s (1488 kB/s)
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3059784Z Selecting previously unselected package python3.12-minimal.
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3094225Z (Reading database ... 
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3094691Z (Reading database ... 5%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3095295Z (Reading database ... 10%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3095731Z (Reading database ... 15%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3096323Z (Reading database ... 20%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3096758Z (Reading database ... 25%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3097171Z (Reading database ... 30%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3097585Z (Reading database ... 35%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3097997Z (Reading database ... 40%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3098412Z (Reading database ... 45%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3098836Z (Reading database ... 50%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3099259Z (Reading database ... 55%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3099701Z (Reading database ... 60%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3100141Z (Reading database ... 65%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3120465Z (Reading database ... 70%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3127034Z (Reading database ... 75%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3145090Z (Reading database ... 80%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3152393Z (Reading database ... 85%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3162270Z (Reading database ... 90%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3178298Z (Reading database ... 95%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3178749Z (Reading database ... 100%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3179363Z (Reading database ... 16750 files and directories currently installed.)
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3187594Z Preparing to unpack .../python3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3219575Z Unpacking python3.12-minimal (3.12.3-1ubuntu0.17) ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.3674607Z Setting up python3.12-minimal (3.12.3-1ubuntu0.17) ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0739795Z Selecting previously unselected package python3-minimal.
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0760360Z (Reading database ... 
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0761302Z (Reading database ... 5%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0761762Z (Reading database ... 10%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0762163Z (Reading database ... 15%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0762564Z (Reading database ... 20%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0762938Z (Reading database ... 25%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0763196Z (Reading database ... 30%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0763437Z (Reading database ... 35%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0763669Z (Reading database ... 40%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0763897Z (Reading database ... 45%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0764138Z (Reading database ... 50%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0764376Z (Reading database ... 55%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0764602Z (Reading database ... 60%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0764835Z (Reading database ... 65%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0771696Z (Reading database ... 70%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0777777Z (Reading database ... 75%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0792593Z (Reading database ... 80%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0799566Z (Reading database ... 85%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0808579Z (Reading database ... 90%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0822301Z (Reading database ... 95%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0822834Z (Reading database ... 100%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0823508Z (Reading database ... 16761 files and directories currently installed.)
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0831857Z Preparing to unpack .../python3-minimal_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0838936Z Unpacking python3-minimal (3.12.3-0ubuntu2.1) ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0983474Z Selecting previously unselected package python3.12.
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0997992Z Preparing to unpack .../python3.12_3.12.3-1ubuntu0.17_amd64.deb ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.1004802Z Unpacking python3.12 (3.12.3-1ubuntu0.17) ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.1146823Z Selecting previously unselected package libpython3-stdlib:amd64.
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.1160545Z Preparing to unpack .../libpython3-stdlib_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.1167419Z Unpacking libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.1311607Z Setting up python3-minimal (3.12.3-0ubuntu2.1) ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2371621Z Selecting previously unselected package python3.
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2392840Z (Reading database ... 
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2393690Z (Reading database ... 5%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2393965Z (Reading database ... 10%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2394329Z (Reading database ... 15%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2394621Z (Reading database ... 20%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2395399Z (Reading database ... 25%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2396367Z (Reading database ... 30%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2396791Z (Reading database ... 35%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2397144Z (Reading database ... 40%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2397487Z (Reading database ... 45%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2397831Z (Reading database ... 50%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2398184Z (Reading database ... 55%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2398523Z (Reading database ... 60%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2398877Z (Reading database ... 65%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2402197Z (Reading database ... 70%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2408343Z (Reading database ... 75%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2422946Z (Reading database ... 80%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2430513Z (Reading database ... 85%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2440455Z (Reading database ... 90%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2452274Z (Reading database ... 95%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2452619Z (Reading database ... 100%
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2453459Z (Reading database ... 16808 files and directories currently installed.)
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2458038Z Preparing to unpack .../python3_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2486445Z Unpacking python3 (3.12.3-0ubuntu2.1) ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.2679165Z Setting up python3.12 (3.12.3-1ubuntu0.17) ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:26.0492283Z Setting up libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:26.0509371Z Setting up python3 (3.12.3-0ubuntu2.1) ...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:26.0564290Z running python rtupdate hooks for python3.12...
+mutation (inspect)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:26.0565083Z running python post-rtupdate hooks for python3.12...
+mutation (inspect)	Run bounded campaign	﻿2026-10-21T15:16:26.1553473Z ##[group]Run python3 Scripts/run-mutation-campaign.py --entry "$ENTRY" --seconds "$DURATION"
+mutation (inspect)	Run bounded campaign	2026-10-21T15:16:26.1554283Z ^[[36;1mpython3 Scripts/run-mutation-campaign.py --entry "$ENTRY" --seconds "$DURATION"^[[0m
+mutation (inspect)	Run bounded campaign	2026-10-21T15:16:26.1554825Z shell: sh -e {0}
+mutation (inspect)	Run bounded campaign	2026-10-21T15:16:26.1555038Z env:
+mutation (inspect)	Run bounded campaign	2026-10-21T15:16:26.1555228Z   DURATION: 3600
+mutation (inspect)	Run bounded campaign	2026-10-21T15:16:26.1555447Z   ENTRY: inspect
+mutation (inspect)	Run bounded campaign	2026-10-21T15:16:26.1555935Z ##[endgroup]
+mutation (inspect)	Run bounded campaign	2026-10-21T16:16:26.3721997Z {"command": ["Examples/FuzzConsumer/.build/release/FuzzConsumer", "Tests/SwiftJLSTests/Fixtures", "inspect", "3600", "last-input.jls"], "exit_code": 0, "failure": null, "wall_seconds": 3600.131496161, "peak_process_rss_bytes": 440086528, "build": "release with AddressSanitizer; RSS includes sanitizer overhead"}
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	﻿2026-10-21T16:16:26.3908308Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.3908746Z with:
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.3908977Z   name: mutation-inspect
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.3909370Z   path: campaign.jsonl
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	last-input.jls
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	campaign-stderr.log
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	campaign-result.json
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.3909796Z   if-no-files-found: warn
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.3910033Z   compression-level: 6
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.3910249Z   overwrite: false
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.3910465Z   include-hidden-files: false
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.3910706Z ##[endgroup]
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.3914470Z ##[command]/usr/bin/docker exec  afc5d95ed89ad192a5a0304734801c2a457fb5d1f6b86b7ea23115b4eae43a2c sh -c "cat /etc/*release | grep ^ID"
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.6532956Z (node:660) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.6534653Z (Use `node --trace-deprecation ...` to show where the warning was created)
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.6727008Z Multiple search paths detected. Calculating the least common ancestor of all paths
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.6729264Z The least common ancestor is /__w/SwiftJLS/SwiftJLS. This will be the root directory of the artifact
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.6730205Z With the provided path, there will be 4 files uploaded
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.6731007Z Artifact name is valid!
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.6731406Z Root directory input is valid!
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.0588162Z Beginning upload of artifact content to blob storage
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.0894806Z (node:660) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.5750529Z Uploaded bytes 148476
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.6535033Z Finished uploading artifact content to blob storage!
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.6536482Z SHA256 digest of uploaded artifact zip is d0e512243d38230e6f4b59b7eb163d8b78c465b1e676398309426dbaa165f06c
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.6537751Z Finalizing artifact upload
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.9230154Z Artifact mutation-inspect.zip successfully finalized. Artifact ID 12359778730
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.9238836Z Artifact mutation-inspect has been successfully uploaded! Final size is 148476 bytes. Artifact ID is 12359778730
+mutation (inspect)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.9240027Z Artifact download URL: https://github.com/raster-labs/SwiftJLS/actions/runs/39623942298/artifacts/12359778730
+mutation (inspect)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	﻿2026-10-21T16:16:27.9461444Z Post job cleanup.
+mutation (inspect)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:27.9469179Z ##[command]/usr/bin/docker exec  afc5d95ed89ad192a5a0304734801c2a457fb5d1f6b86b7ea23115b4eae43a2c sh -c "cat /etc/*release | grep ^ID"
+mutation (inspect)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:28.1253993Z [command]/usr/bin/git version
+mutation (inspect)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:28.1298335Z git version 2.43.0
+mutation (inspect)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:28.1344737Z Temporarily overriding HOME='/__w/_temp/51a2f58e-b2ef-4222-aecf-b9f9eeeb77ca' before making global git config changes
+mutation (inspect)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:28.1346517Z Adding repository directory to the temporary git global config as a safe directory
+mutation (inspect)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:28.1353032Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+mutation (inspect)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:28.1390798Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (inspect)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:28.1447594Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (inspect)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:28.1748569Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (inspect)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:28.1788965Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (inspect)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:28.2048999Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (inspect)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:28.2081514Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (inspect)	Stop containers	﻿2026-10-21T16:16:28.2517568Z Stop and remove container: ef270ced1caf48e7bd755f345c888b15_swift64noble_b84f42
+mutation (inspect)	Stop containers	2026-10-21T16:16:28.2522919Z ##[command]/usr/bin/docker rm --force afc5d95ed89ad192a5a0304734801c2a457fb5d1f6b86b7ea23115b4eae43a2c
+mutation (inspect)	Stop containers	2026-10-21T16:16:28.4140749Z afc5d95ed89ad192a5a0304734801c2a457fb5d1f6b86b7ea23115b4eae43a2c
+mutation (inspect)	Stop containers	2026-10-21T16:16:28.4170779Z Remove container network: github_network_a466db1b05604448b4dcfda6e66f6772
+mutation (inspect)	Stop containers	2026-10-21T16:16:28.4175424Z ##[command]/usr/bin/docker network rm github_network_a466db1b05604448b4dcfda6e66f6772
+mutation (inspect)	Stop containers	2026-10-21T16:16:28.5180184Z github_network_a466db1b05604448b4dcfda6e66f6772
+mutation (inspect)	Complete job	﻿2026-10-21T16:16:28.5256538Z Cleaning up orphan processes
+mutation (inspect)	Complete job	2026-10-21T16:16:28.5635364Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+mutation (into)	Set up job	﻿2026-10-21T15:15:21.2229539Z Current runner version: '2.338.0'
+mutation (into)	Set up job	2026-10-21T15:15:21.2249257Z ##[group]Runner Image Provisioner
+mutation (into)	Set up job	2026-10-21T15:15:21.2249835Z Hosted Compute Agent
+mutation (into)	Set up job	2026-10-21T15:15:21.2250297Z Version: 20261012.601
+mutation (into)	Set up job	2026-10-21T15:15:21.2250684Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+mutation (into)	Set up job	2026-10-21T15:15:21.2251329Z Build Date: 2026-10-12T17:48:21Z
+mutation (into)	Set up job	2026-10-21T15:15:21.2251877Z Worker ID: {19d45938-7acd-4032-97da-a1eeb7bd33f0}
+mutation (into)	Set up job	2026-10-21T15:15:21.2252331Z Region: centralus
+mutation (into)	Set up job	2026-10-21T15:15:21.2252746Z Cloud: Azure
+mutation (into)	Set up job	2026-10-21T15:15:21.2253086Z ##[endgroup]
+mutation (into)	Set up job	2026-10-21T15:15:21.2253944Z ##[group]Operating System
+mutation (into)	Set up job	2026-10-21T15:15:21.2254374Z Ubuntu
+mutation (into)	Set up job	2026-10-21T15:15:21.2254698Z 24.04.5
+mutation (into)	Set up job	2026-10-21T15:15:21.2255072Z LTS
+mutation (into)	Set up job	2026-10-21T15:15:21.2255401Z ##[endgroup]
+mutation (into)	Set up job	2026-10-21T15:15:21.2255734Z ##[group]Runner Image
+mutation (into)	Set up job	2026-10-21T15:15:21.2256150Z Image: ubuntu-24.04
+mutation (into)	Set up job	2026-10-21T15:15:21.2256529Z Version: 20261012.334.1
+mutation (into)	Set up job	2026-10-21T15:15:21.2257221Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+mutation (into)	Set up job	2026-10-21T15:15:21.2258264Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+mutation (into)	Set up job	2026-10-21T15:15:21.2258897Z ##[endgroup]
+mutation (into)	Set up job	2026-10-21T15:15:21.2259942Z ##[group]GITHUB_TOKEN Permissions
+mutation (into)	Set up job	2026-10-21T15:15:21.2261446Z Contents: read
+mutation (into)	Set up job	2026-10-21T15:15:21.2261847Z Metadata: read
+mutation (into)	Set up job	2026-10-21T15:15:21.2262209Z ##[endgroup]
+mutation (into)	Set up job	2026-10-21T15:15:21.2263624Z Secret source: Actions
+mutation (into)	Set up job	2026-10-21T15:15:21.2264284Z Cache mode: write
+mutation (into)	Set up job	2026-10-21T15:15:21.2264715Z Prepare workflow directory
+mutation (into)	Set up job	2026-10-21T15:15:21.2533981Z Prepare all required actions
+mutation (into)	Set up job	2026-10-21T15:15:21.2575982Z Getting action download info
+mutation (into)	Set up job	2026-10-21T15:15:21.5949809Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+mutation (into)	Set up job	2026-10-21T15:15:21.6823686Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+mutation (into)	Set up job	2026-10-21T15:15:21.8862252Z Complete job name: mutation (into)
+mutation (into)	Initialize containers	﻿2026-10-21T15:15:21.9201017Z ##[group]Checking docker version
+mutation (into)	Initialize containers	2026-10-21T15:15:21.9209985Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+mutation (into)	Initialize containers	2026-10-21T15:15:21.9850836Z '1.48'
+mutation (into)	Initialize containers	2026-10-21T15:15:21.9864867Z Docker daemon API version: '1.48'
+mutation (into)	Initialize containers	2026-10-21T15:15:21.9865362Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+mutation (into)	Initialize containers	2026-10-21T15:15:22.0010302Z '1.48'
+mutation (into)	Initialize containers	2026-10-21T15:15:22.0022462Z Docker client API version: '1.48'
+mutation (into)	Initialize containers	2026-10-21T15:15:22.0029836Z ##[endgroup]
+mutation (into)	Initialize containers	2026-10-21T15:15:22.0032129Z ##[group]Clean up resources from previous jobs
+mutation (into)	Initialize containers	2026-10-21T15:15:22.0037246Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=e4f13a"
+mutation (into)	Initialize containers	2026-10-21T15:15:22.0170114Z ##[command]/usr/bin/docker network prune --force --filter "label=e4f13a"
+mutation (into)	Initialize containers	2026-10-21T15:15:22.0282940Z ##[endgroup]
+mutation (into)	Initialize containers	2026-10-21T15:15:22.0283315Z ##[group]Create local container network
+mutation (into)	Initialize containers	2026-10-21T15:15:22.0290349Z ##[command]/usr/bin/docker network create --label e4f13a github_network_f9659a8bb7344d5eaa1943092d50af83
+mutation (into)	Initialize containers	2026-10-21T15:15:22.0679771Z 4cc8f30d18e74cfd05de12b6d18fea5c05f3318691a579a9af92d86e145067fc
+mutation (into)	Initialize containers	2026-10-21T15:15:22.0693394Z ##[endgroup]
+mutation (into)	Initialize containers	2026-10-21T15:15:22.0711918Z ##[group]Starting job container
+mutation (into)	Initialize containers	2026-10-21T15:15:22.0727099Z ##[command]/usr/bin/docker pull swift:6.4-noble
+mutation (into)	Initialize containers	2026-10-21T15:15:22.7039340Z 6.4-noble: Pulling from library/swift
+mutation (into)	Initialize containers	2026-10-21T15:15:22.8552740Z f2b4ef06ff01: Pulling fs layer
+mutation (into)	Initialize containers	2026-10-21T15:15:22.8554340Z e789ef60896a: Pulling fs layer
+mutation (into)	Initialize containers	2026-10-21T15:15:22.8555791Z b3c23bbefcef: Pulling fs layer
+mutation (into)	Initialize containers	2026-10-21T15:15:22.8556569Z 6d11467507a7: Pulling fs layer
+mutation (into)	Initialize containers	2026-10-21T15:15:22.8556942Z 6d11467507a7: Waiting
+mutation (into)	Initialize containers	2026-10-21T15:15:23.2270658Z f2b4ef06ff01: Verifying Checksum
+mutation (into)	Initialize containers	2026-10-21T15:15:23.2274042Z f2b4ef06ff01: Download complete
+mutation (into)	Initialize containers	2026-10-21T15:15:23.3889540Z 6d11467507a7: Verifying Checksum
+mutation (into)	Initialize containers	2026-10-21T15:15:23.3891856Z 6d11467507a7: Download complete
+mutation (into)	Initialize containers	2026-10-21T15:15:23.4901939Z e789ef60896a: Verifying Checksum
+mutation (into)	Initialize containers	2026-10-21T15:15:23.4902539Z e789ef60896a: Download complete
+mutation (into)	Initialize containers	2026-10-21T15:15:24.1348071Z f2b4ef06ff01: Pull complete
+mutation (into)	Initialize containers	2026-10-21T15:15:26.2343887Z b3c23bbefcef: Verifying Checksum
+mutation (into)	Initialize containers	2026-10-21T15:15:26.2344579Z b3c23bbefcef: Download complete
+mutation (into)	Initialize containers	2026-10-21T15:15:34.7442638Z e789ef60896a: Pull complete
+mutation (into)	Initialize containers	2026-10-21T15:15:57.6969910Z b3c23bbefcef: Pull complete
+mutation (into)	Initialize containers	2026-10-21T15:15:57.7040647Z 6d11467507a7: Pull complete
+mutation (into)	Initialize containers	2026-10-21T15:15:57.7076974Z Digest: sha256:19cbe56bdaec1918f7cf5fdeba42b9bd55bdd8a6149c9990d0e0e3a89a127d63
+mutation (into)	Initialize containers	2026-10-21T15:15:57.7087511Z Status: Downloaded newer image for swift:6.4-noble
+mutation (into)	Initialize containers	2026-10-21T15:15:57.7095172Z docker.io/library/swift:6.4-noble
+mutation (into)	Initialize containers	2026-10-21T15:15:57.7150888Z ##[command]/usr/bin/docker create --name 1dd52ca8171746f5b53f1e78aba95ad7_swift64noble_8b198d --label e4f13a --workdir /__w/SwiftJLS/SwiftJLS --network github_network_f9659a8bb7344d5eaa1943092d50af83  -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/actions-runner/cached/2.338.0/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" swift:6.4-noble "-f" "/dev/null"
+mutation (into)	Initialize containers	2026-10-21T15:15:57.7370509Z e5d78480a51dde0ca81d51da41ee804d645be87bb13435ddc471fbb8512331a8
+mutation (into)	Initialize containers	2026-10-21T15:15:57.7388466Z ##[command]/usr/bin/docker start e5d78480a51dde0ca81d51da41ee804d645be87bb13435ddc471fbb8512331a8
+mutation (into)	Initialize containers	2026-10-21T15:15:57.8844739Z e5d78480a51dde0ca81d51da41ee804d645be87bb13435ddc471fbb8512331a8
+mutation (into)	Initialize containers	2026-10-21T15:15:57.8862558Z ##[command]/usr/bin/docker ps --all --filter id=e5d78480a51dde0ca81d51da41ee804d645be87bb13435ddc471fbb8512331a8 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+mutation (into)	Initialize containers	2026-10-21T15:15:57.8947991Z e5d78480a51dde0ca81d51da41ee804d645be87bb13435ddc471fbb8512331a8 Up Less than a second
+mutation (into)	Initialize containers	2026-10-21T15:15:57.8964513Z ##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" e5d78480a51dde0ca81d51da41ee804d645be87bb13435ddc471fbb8512331a8
+mutation (into)	Initialize containers	2026-10-21T15:15:57.9049097Z HOME=/github/home
+mutation (into)	Initialize containers	2026-10-21T15:15:57.9049390Z GITHUB_ACTIONS=true
+mutation (into)	Initialize containers	2026-10-21T15:15:57.9049635Z CI=true
+mutation (into)	Initialize containers	2026-10-21T15:15:57.9049939Z PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+mutation (into)	Initialize containers	2026-10-21T15:15:57.9050492Z SWIFT_SIGNING_KEY=52BB7E3DE28A71BE22EC05FFEF80A866B47A981F
+mutation (into)	Initialize containers	2026-10-21T15:15:57.9050767Z SWIFT_PLATFORM=ubuntu24.04
+mutation (into)	Initialize containers	2026-10-21T15:15:57.9050960Z SWIFT_BRANCH=swift-6.4.1-release
+mutation (into)	Initialize containers	2026-10-21T15:15:57.9051311Z SWIFT_VERSION=swift-6.4.1-RELEASE
+mutation (into)	Initialize containers	2026-10-21T15:15:57.9051667Z SWIFT_WEBROOT=https://download.swift.org
+mutation (into)	Initialize containers	2026-10-21T15:15:57.9066582Z ##[endgroup]
+mutation (into)	Initialize containers	2026-10-21T15:15:57.9073341Z ##[group]Waiting for all services to be ready
+mutation (into)	Initialize containers	2026-10-21T15:15:57.9074520Z ##[endgroup]
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	﻿2026-10-21T15:15:57.9271353Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9271801Z with:
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9271962Z   persist-credentials: false
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9272175Z   repository: raster-labs/SwiftJLS
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9273802Z   token: ***
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9273949Z   ssh-strict: true
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9274096Z   ssh-user: git
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9274242Z   clean: true
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9274401Z   sparse-checkout-cone-mode: true
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9274577Z   fetch-depth: 1
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9274724Z   fetch-tags: false
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9274875Z   show-progress: true
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9275028Z   lfs: false
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9275164Z   submodules: false
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9275317Z   set-safe-directory: true
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9275551Z   allow-unsafe-pr-checkout: false
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9275801Z ##[endgroup]
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:57.9315688Z ##[command]/usr/bin/docker exec  e5d78480a51dde0ca81d51da41ee804d645be87bb13435ddc471fbb8512331a8 sh -c "cat /etc/*release | grep ^ID"
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0628882Z Syncing repository: raster-labs/SwiftJLS
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0630092Z ##[group]Getting Git version info
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0630812Z Working directory is '/__w/SwiftJLS/SwiftJLS'
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0631492Z [command]/usr/bin/git version
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0699810Z git version 2.43.0
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0701294Z ##[endgroup]
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0706669Z Temporarily overriding HOME='/__w/_temp/9dbc7bf7-66cf-4241-bcf4-40565e318efd' before making global git config changes
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0707269Z Adding repository directory to the temporary git global config as a safe directory
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0707624Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0724606Z Deleting the contents of '/__w/SwiftJLS/SwiftJLS'
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0725164Z ##[group]Initializing the repository
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0725486Z [command]/usr/bin/git init /__w/SwiftJLS/SwiftJLS
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0725863Z hint: Using 'master' as the name for the initial branch. This default branch name
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0726318Z hint: is subject to change. To configure the initial branch name to use in all
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0726737Z hint: of your new repositories, which will suppress this warning, call:
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0727210Z hint: 
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0727644Z hint: 	git config --global init.defaultBranch <name>
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0728100Z hint: 
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0728450Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0728945Z hint: 'development'. The just-created branch can be renamed via this command:
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0729459Z hint: 
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0729773Z hint: 	git branch -m <name>
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0730202Z Initialized empty Git repository in /__w/SwiftJLS/SwiftJLS/.git/
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0736441Z [command]/usr/bin/git remote add origin https://github.com/raster-labs/SwiftJLS
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0767273Z ##[endgroup]
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0767689Z ##[group]Disabling automatic garbage collection
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0769603Z [command]/usr/bin/git config --local gc.auto 0
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0796485Z ##[endgroup]
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0796855Z ##[group]Setting up auth
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0801286Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.0825148Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.1027396Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.1061734Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.1245462Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.1274962Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.1449325Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.1483111Z ##[endgroup]
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.1483568Z ##[group]Fetching the repository
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:15:58.1489705Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e6a6436c692f5af226bffceb70b7ee65c774edf3:refs/remotes/origin/codex/milestone-4-qualification
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.3254545Z From https://github.com/raster-labs/SwiftJLS
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.3255094Z  * [new ref]         e6a6436c692f5af226bffceb70b7ee65c774edf3 -> origin/codex/milestone-4-qualification
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.3270340Z ##[endgroup]
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.3270702Z ##[group]Determining the checkout info
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.3273047Z ##[endgroup]
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.3278078Z [command]/usr/bin/git sparse-checkout disable
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.3313098Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.3338547Z ##[group]Checking out the ref
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.3342065Z [command]/usr/bin/git checkout --progress --force -B codex/milestone-4-qualification refs/remotes/origin/codex/milestone-4-qualification
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6181775Z Switched to a new branch 'codex/milestone-4-qualification'
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6182359Z branch 'codex/milestone-4-qualification' set up to track 'origin/codex/milestone-4-qualification'.
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6203970Z ##[endgroup]
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6242393Z [command]/usr/bin/git log -1 --format=%H
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6264677Z e6a6436c692f5af226bffceb70b7ee65c774edf3
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6272596Z ##[group]Removing auth
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6276051Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6321995Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6487621Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6509793Z http.https://github.com/.extraheader
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6514594Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6558671Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6723099Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6755333Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (into)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T15:16:00.6936973Z ##[endgroup]
+mutation (into)	Run swift --version	﻿2026-10-21T15:16:00.7111806Z ##[group]Run swift --version
+mutation (into)	Run swift --version	2026-10-21T15:16:00.7112024Z ^[[36;1mswift --version^[[0m
+mutation (into)	Run swift --version	2026-10-21T15:16:00.7114368Z shell: sh -e {0}
+mutation (into)	Run swift --version	2026-10-21T15:16:00.7114505Z ##[endgroup]
+mutation (into)	Run swift --version	2026-10-21T15:16:00.8113003Z Swift version 6.4.1 (swift-6.4.1-RELEASE)
+mutation (into)	Run swift --version	2026-10-21T15:16:00.8113475Z Target: x86_64-unknown-linux-gnu
+mutation (into)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	﻿2026-10-21T15:16:00.8183512Z ##[group]Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address
+mutation (into)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:00.8183927Z ^[[36;1mswift build --package-path Examples/FuzzConsumer -c release --sanitize address^[[0m
+mutation (into)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:00.8184241Z shell: sh -e {0}
+mutation (into)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:00.8184361Z ##[endgroup]
+mutation (into)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:01.8993028Z Building for production...
+mutation (into)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:01.8993415Z [Planning deferred tasks]
+mutation (into)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:17.5407212Z [24 / 33] SwiftJLS
+mutation (into)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:18.7113775Z [32 / 35] FuzzConsumer-product
+mutation (into)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:18.8662900Z [35 / 35] FuzzConsumer-product
+mutation (into)	Run swift build --package-path Examples/FuzzConsumer -c release --sanitize address	2026-10-21T15:16:18.8784532Z Build complete! (17.33 secs)
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	﻿2026-10-21T15:16:18.8955257Z ##[group]Run apt-get update && apt-get install -y --no-install-recommends python3
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.8955596Z ^[[36;1mapt-get update && apt-get install -y --no-install-recommends python3^[[0m
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.8955909Z shell: sh -e {0}
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:18.8956031Z ##[endgroup]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.1765229Z Get:1 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.2311622Z Get:2 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.6798525Z Get:3 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [55.6 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.8223308Z Get:4 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1411 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:19.9602640Z Get:5 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:20.1396787Z Get:6 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:20.3198513Z Get:7 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:20.3995151Z Get:8 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2122 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:20.4804330Z Get:9 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:20.6698931Z Get:10 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1549 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:20.8965012Z Get:11 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:21.7143817Z Get:12 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:21.7146845Z Get:13 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1732 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:21.7204830Z Get:14 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2231 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:21.7719248Z Get:15 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [61.7 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:21.7722375Z Get:16 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2170 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:21.7968571Z Get:17 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.0 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:21.7976561Z Get:18 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [36.0 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.3170461Z Get:19 http://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [669 B]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.3171078Z Fetched 33.6 MB in 3s (10.0 MB/s)
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:22.8259342Z Reading package lists...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.3387889Z Reading package lists...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.4902658Z Building dependency tree...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.4903003Z Reading state information...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.6098887Z The following additional packages will be installed:
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.6102909Z   libpython3-stdlib python3-minimal python3.12 python3.12-minimal
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.6108606Z Suggested packages:
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.6407544Z   python3-doc python3-tk python3-venv python3.12-venv python3.12-doc
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.6407826Z   binfmt-support
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.6407995Z The following NEW packages will be installed:
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.6411634Z   libpython3-stdlib python3 python3-minimal python3.12 python3.12-minimal
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8543993Z 0 upgraded, 5 newly installed, 0 to remove and 6 not upgraded.
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8544455Z Need to get 3046 kB of archives.
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8544750Z After this operation, 9100 kB of additional disk space will be used.
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:23.8545331Z Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12-minimal amd64 3.12.3-1ubuntu0.17 [2335 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.9574463Z Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3-minimal amd64 3.12.3-0ubuntu2.1 [27.4 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.9578274Z Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12 amd64 3.12.3-1ubuntu0.17 [651 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.9879599Z Get:4 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpython3-stdlib amd64 3.12.3-0ubuntu2.1 [10.1 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:24.9880031Z Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3 amd64 3.12.3-0ubuntu2.1 [23.0 kB]
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0598845Z debconf: delaying package configuration, since apt-utils is not installed
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0825957Z Fetched 3046 kB in 1s (2272 kB/s)
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0946309Z Selecting previously unselected package python3.12-minimal.
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0973312Z (Reading database ... 
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0973666Z (Reading database ... 5%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0974013Z (Reading database ... 10%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0974220Z (Reading database ... 15%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0974422Z (Reading database ... 20%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0974621Z (Reading database ... 25%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0974824Z (Reading database ... 30%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0975026Z (Reading database ... 35%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0975219Z (Reading database ... 40%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0975420Z (Reading database ... 45%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0975616Z (Reading database ... 50%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0975817Z (Reading database ... 55%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0976055Z (Reading database ... 60%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0976247Z (Reading database ... 65%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0986055Z (Reading database ... 70%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.0999482Z (Reading database ... 75%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.1009680Z (Reading database ... 80%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.1018133Z (Reading database ... 85%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.1025157Z (Reading database ... 90%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.1036475Z (Reading database ... 95%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.1036693Z (Reading database ... 100%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.1037036Z (Reading database ... 16750 files and directories currently installed.)
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.1041666Z Preparing to unpack .../python3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.1068350Z Unpacking python3.12-minimal (3.12.3-1ubuntu0.17) ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.1413750Z Setting up python3.12-minimal (3.12.3-1ubuntu0.17) ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6002683Z Selecting previously unselected package python3-minimal.
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6017845Z (Reading database ... 
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6018087Z (Reading database ... 5%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6018282Z (Reading database ... 10%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6018481Z (Reading database ... 15%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6018666Z (Reading database ... 20%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6018864Z (Reading database ... 25%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6019043Z (Reading database ... 30%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6019222Z (Reading database ... 35%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6019400Z (Reading database ... 40%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6019577Z (Reading database ... 45%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6019754Z (Reading database ... 50%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6019931Z (Reading database ... 55%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6020110Z (Reading database ... 60%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6020289Z (Reading database ... 65%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6025570Z (Reading database ... 70%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6033865Z (Reading database ... 75%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6042098Z (Reading database ... 80%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6049010Z (Reading database ... 85%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6055325Z (Reading database ... 90%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6065272Z (Reading database ... 95%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6065574Z (Reading database ... 100%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6065853Z (Reading database ... 16761 files and directories currently installed.)
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6071599Z Preparing to unpack .../python3-minimal_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6078164Z Unpacking python3-minimal (3.12.3-0ubuntu2.1) ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6201895Z Selecting previously unselected package python3.12.
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6212157Z Preparing to unpack .../python3.12_3.12.3-1ubuntu0.17_amd64.deb ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6223535Z Unpacking python3.12 (3.12.3-1ubuntu0.17) ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6334589Z Selecting previously unselected package libpython3-stdlib:amd64.
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6346280Z Preparing to unpack .../libpython3-stdlib_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6351757Z Unpacking libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.6486766Z Setting up python3-minimal (3.12.3-0ubuntu2.1) ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7250637Z Selecting previously unselected package python3.
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7266022Z (Reading database ... 
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7266235Z (Reading database ... 5%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7267544Z (Reading database ... 10%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7267803Z (Reading database ... 15%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7268057Z (Reading database ... 20%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7268275Z (Reading database ... 25%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7268515Z (Reading database ... 30%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7268705Z (Reading database ... 35%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7268935Z (Reading database ... 40%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7269249Z (Reading database ... 45%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7269531Z (Reading database ... 50%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7269710Z (Reading database ... 55%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7269890Z (Reading database ... 60%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7270071Z (Reading database ... 65%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7271691Z (Reading database ... 70%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7278176Z (Reading database ... 75%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7285684Z (Reading database ... 80%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7292586Z (Reading database ... 85%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7299440Z (Reading database ... 90%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7307581Z (Reading database ... 95%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7307869Z (Reading database ... 100%
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7308148Z (Reading database ... 16808 files and directories currently installed.)
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7312411Z Preparing to unpack .../python3_3.12.3-0ubuntu2.1_amd64.deb ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7344116Z Unpacking python3 (3.12.3-0ubuntu2.1) ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:25.7485360Z Setting up python3.12 (3.12.3-1ubuntu0.17) ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:26.2501432Z Setting up libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:26.2519415Z Setting up python3 (3.12.3-0ubuntu2.1) ...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:26.2564719Z running python rtupdate hooks for python3.12...
+mutation (into)	Run apt-get update && apt-get install -y --no-install-recommends python3	2026-10-21T15:16:26.2565073Z running python post-rtupdate hooks for python3.12...
+mutation (into)	Run bounded campaign	﻿2026-10-21T15:16:26.3275860Z ##[group]Run python3 Scripts/run-mutation-campaign.py --entry "$ENTRY" --seconds "$DURATION"
+mutation (into)	Run bounded campaign	2026-10-21T15:16:26.3276236Z ^[[36;1mpython3 Scripts/run-mutation-campaign.py --entry "$ENTRY" --seconds "$DURATION"^[[0m
+mutation (into)	Run bounded campaign	2026-10-21T15:16:26.3276534Z shell: sh -e {0}
+mutation (into)	Run bounded campaign	2026-10-21T15:16:26.3276644Z env:
+mutation (into)	Run bounded campaign	2026-10-21T15:16:26.3276746Z   DURATION: 3600
+mutation (into)	Run bounded campaign	2026-10-21T15:16:26.3276852Z   ENTRY: into
+mutation (into)	Run bounded campaign	2026-10-21T15:16:26.3276955Z ##[endgroup]
+mutation (into)	Run bounded campaign	2026-10-21T16:16:26.4876356Z {"command": ["Examples/FuzzConsumer/.build/release/FuzzConsumer", "Tests/SwiftJLSTests/Fixtures", "into", "3600", "last-input.jls"], "exit_code": 0, "failure": null, "wall_seconds": 3600.102935501, "peak_process_rss_bytes": 492838912, "build": "release with AddressSanitizer; RSS includes sanitizer overhead"}
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	﻿2026-10-21T16:16:26.5062857Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.5063121Z with:
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.5063250Z   name: mutation-into
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.5063459Z   path: campaign.jsonl
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	last-input.jls
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	campaign-stderr.log
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	campaign-result.json
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.5063696Z   if-no-files-found: warn
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.5063827Z   compression-level: 6
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.5063949Z   overwrite: false
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.5064071Z   include-hidden-files: false
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.5064214Z ##[endgroup]
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.5066856Z ##[command]/usr/bin/docker exec  e5d78480a51dde0ca81d51da41ee804d645be87bb13435ddc471fbb8512331a8 sh -c "cat /etc/*release | grep ^ID"
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.6980734Z (node:665) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.6981365Z (Use `node --trace-deprecation ...` to show where the warning was created)
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.7074318Z Multiple search paths detected. Calculating the least common ancestor of all paths
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.7075478Z The least common ancestor is /__w/SwiftJLS/SwiftJLS. This will be the root directory of the artifact
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.7081850Z With the provided path, there will be 4 files uploaded
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.7086466Z Artifact name is valid!
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:26.7088098Z Root directory input is valid!
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.0002869Z Beginning upload of artifact content to blob storage
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.0192669Z (node:665) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.2170245Z Uploaded bytes 20356
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.2636674Z Finished uploading artifact content to blob storage!
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.2637405Z SHA256 digest of uploaded artifact zip is 01f0b17bb6c01d78b4d31f32b58741efd640a9bfd94468e72a7494ecc2df489d
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.2638020Z Finalizing artifact upload
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.5302731Z Artifact mutation-into.zip successfully finalized. Artifact ID 12360521501
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.5303390Z Artifact mutation-into has been successfully uploaded! Final size is 20356 bytes. Artifact ID is 12360521501
+mutation (into)	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-10-21T16:16:27.5307927Z Artifact download URL: https://github.com/raster-labs/SwiftJLS/actions/runs/39623942298/artifacts/12360521501
+mutation (into)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	﻿2026-10-21T16:16:27.5489476Z Post job cleanup.
+mutation (into)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:27.5494165Z ##[command]/usr/bin/docker exec  e5d78480a51dde0ca81d51da41ee804d645be87bb13435ddc471fbb8512331a8 sh -c "cat /etc/*release | grep ^ID"
+mutation (into)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:27.6813837Z [command]/usr/bin/git version
+mutation (into)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:27.6848704Z git version 2.43.0
+mutation (into)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:27.6879073Z Temporarily overriding HOME='/__w/_temp/28496530-2990-4f4a-a60c-bca940b4da1a' before making global git config changes
+mutation (into)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:27.6879815Z Adding repository directory to the temporary git global config as a safe directory
+mutation (into)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:27.6883158Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+mutation (into)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:27.6919048Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+mutation (into)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:27.6954582Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+mutation (into)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:27.7172785Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+mutation (into)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:27.7223857Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+mutation (into)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:27.7440809Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+mutation (into)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-10-21T16:16:27.7500930Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+mutation (into)	Stop containers	﻿2026-10-21T16:16:27.7876450Z Stop and remove container: 1dd52ca8171746f5b53f1e78aba95ad7_swift64noble_8b198d
+mutation (into)	Stop containers	2026-10-21T16:16:27.7880888Z ##[command]/usr/bin/docker rm --force e5d78480a51dde0ca81d51da41ee804d645be87bb13435ddc471fbb8512331a8
+mutation (into)	Stop containers	2026-10-21T16:16:27.9802653Z e5d78480a51dde0ca81d51da41ee804d645be87bb13435ddc471fbb8512331a8
+mutation (into)	Stop containers	2026-10-21T16:16:27.9830341Z Remove container network: github_network_f9659a8bb7344d5eaa1943092d50af83
+mutation (into)	Stop containers	2026-10-21T16:16:27.9833751Z ##[command]/usr/bin/docker network rm github_network_f9659a8bb7344d5eaa1943092d50af83
+mutation (into)	Stop containers	2026-10-21T16:16:28.0745616Z github_network_f9659a8bb7344d5eaa1943092d50af83
+mutation (into)	Complete job	﻿2026-10-21T16:16:28.0810655Z Cleaning up orphan processes
+mutation (into)	Complete job	2026-10-21T16:16:28.1057780Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

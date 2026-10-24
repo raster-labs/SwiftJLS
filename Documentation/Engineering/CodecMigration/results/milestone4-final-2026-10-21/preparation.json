@@ -1,0 +1,58 @@
+{
+  "status": "source only; no build or timing performed",
+  "full_campaign": {
+    "scalar_cases": 24,
+    "colour_cases": 39,
+    "blocks": 4,
+    "warmups": 5,
+    "observations_per_block_per_producer": 5
+  },
+  "tiny_repeat": {
+    "cases": 6,
+    "width": 37,
+    "height": 23,
+    "patterns": [
+      "flat",
+      "ramp",
+      "noise"
+    ],
+    "bits": [
+      12,
+      16
+    ],
+    "blocks": 4,
+    "warmups": 20000,
+    "observations_per_block_per_producer": 1000
+  },
+  "files": {
+    "archive-final.py": "7a2e26f1898cf54160e2675e7b797b3bf562754274581a8bad5d54109e5eb539",
+    "run-powered.py": "52e118831a1185143ba53840a0239007d9592aba5ec408333706bdd46f19218d",
+    "analyse-powered.py": "dc730f59bda9b6abdd484b6f2ea24aee26e81756d8c2e9b78e4d7f1adf0f4e15",
+    "apple-runtime-value.py": "0e1b2812dca2b64354a7bc94c6b7e8462c95084a3ff884a3c8de34e8f47aeb7a",
+    "compare-small-deep-warm.py": "1e50cb60e5e3b0696a98647e2fc15434eff27e3828486ba3ed7acc8e5e69b782",
+    "qualification-source.py": "748deac2650a509d1a5a6329d50771d5f704879ec69e5c7044a03a6bc1ab1506",
+    "collect-mutation.py": "5f68c44b7375b94c04c43547c27cbd31fa2fd7e1c4756d9e8499ade1f398edf3",
+    "performance-disposition.py": "3472c013a81cc7fe060bbeff8038ea2e4de8483c6d474b44b4297fe62fb5c3d3",
+    "run-native-template.py": "e14e513a97c3ca9cc071dd1172a0d513fde8c0eb1d3d659eb9eefa324d9614c5",
+    "run-tests.py": "2a661e7cbdb5237489db4a56606617ca8b4785af8b806a2059271cb20a8914b2",
+    "compare-full.py": "c0abc6aae0c4aa63be1ccdebc6ee8690a5fe2d7537f77bb988be8534f7092acb",
+    "ARCHIVE-PLAN.md": "7739e3e962a84fd97a640bcb72426dcef743d3e99c8b7a6325e9054222b6d141",
+    "write-benchmark-build.py": "e3f9a86a71ba91c6e6b56bd3a9bc705daeace5cfc4b119efa9d557eb9242a922",
+    "apple-resource-value.py": "e217312434e28fe1d1333126acb7a0dc73f034774ff2819f03e5b9cd81e00853",
+    "apple-build-value.py": "1b7bd79741b3282265d75097de95ea88a56696025bf5050fd11c5ba18e0211cf",
+    "native-driver.py": "0d38526c9ff2eee2d18e9b20c4551f1ffad28cbd078ce96f0a12136651685d82",
+    "qualify.py": "38e2d386fd4548115900b7552c0ef38655a000aaab0b715aa4bb8fe749b99575",
+    "prepare-native.py": "b6d7af574dfda7c0b14301904adc9844f49ca3368424ac9c0df1614fff5cfc6b",
+    "replay-workspace.py": "1112571697c25a8c02cef51a62596db2a9bfcfee5632146b76549d77ce6277cb"
+  },
+  "preserved_baseline": "Original separate-process Consumer.swift and producer order; historical results remain unchanged.",
+  "limitation": "Fresh same-process context results below threshold do not identify an async mechanism or waive historical original-process outliers. Final full63 and six tiny repeated cases are required for the promoted source.",
+  "python_ast": "passed; runner not executed",
+  "guard_classification_controls": {
+    "ac": "passed",
+    "battery": "passed",
+    "unknown": "passed",
+    "error": "passed"
+  },
+  "note": "Preparation manifest inventories scripts only; actual validation/build results are owned by their independent provenance records."
+}

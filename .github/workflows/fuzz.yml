@@ -2,6 +2,8 @@ name: Bounded decoder mutation campaign
 on:
   push:
     paths:
+      - 'Sources/**'
+      - 'Tests/SwiftJLSTests/Fixtures/**'
       - 'Examples/FuzzConsumer/**'
       - 'Scripts/run-mutation-campaign.py'
       - '.github/workflows/fuzz.yml'
@@ -21,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        entry: [owned, into, inspect]
+        entry: [owned, into, inspect, qualified, qualified-inspect]
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:

@@ -1,0 +1,39 @@
+[
+  {
+    "command": [
+      "heaptrack",
+      "--version"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack",
+      "-o",
+      "/evidence/profiles/512-1-3-into/allocations",
+      "/original/WorkspaceProbe",
+      "into",
+      "512",
+      "512",
+      "1",
+      "3"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack_print",
+      "-f",
+      "/evidence/profiles/512-1-3-into/allocations.gz",
+      "-n",
+      "1000",
+      "-s",
+      "1000",
+      "-H",
+      "/evidence/profiles/512-1-3-into/sizes.tsv",
+      "-F",
+      "/evidence/profiles/512-1-3-into/allocation-stacks.txt"
+    ],
+    "exit_code": 0
+  }
+]

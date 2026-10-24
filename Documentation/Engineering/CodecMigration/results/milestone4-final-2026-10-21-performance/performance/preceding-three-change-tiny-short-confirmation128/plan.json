@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "created_utc": "2026-10-21T14:50:16.533446+00:00",
+  "runner_sha256": "70ba976c0cad2a8012f2d78887b52ebd1dfaf1b9cac3c696c0fb6b77b43fd0df",
+  "analysis_sha256": "62d00e3776e7cad0199c68fd87e2e955ab5eb7a70c866c6196f5fe685d17d186",
+  "schedule_sha256": "f638825d9dabb6be0795efffc43043a645741006eceeb14750a4d907634be3fc",
+  "analysis_self_test_sha256": "f62077f3b005f47b2d7a20dabec04be1880498cf3ef7e8ff13d1e0d9a90b6a9b",
+  "candidate_build_identity_sha256": "9619fc13ae139d502273e1ac4275f8cdd066c1c6e1c242d5fc2fbf0f0b79f6aa",
+  "source": "bee49a2 plus reviewed singleton/parser/segmented-decoder-gradient candidate",
+  "expected_processes": 1536,
+  "paired_rounds": 128,
+  "cases": 6,
+  "metrics": 24,
+  "warmups": 5,
+  "observations": 5,
+  "seed": 20261021,
+  "bootstrap_resamples": 50000,
+  "bootstrap": "Joint resampling of complete paired rounds across six cases and24metrics,64 draws with replacement from each producer-first stratum; retain five observations per process.",
+  "estimand": "Candidate/reference ratio of pooled medians across640 observations per producer",
+  "familywise_quantiles": [
+    0.0010416666666666667,
+    0.9989583333333333
+  ],
+  "marginal_quantiles": [
+    0.025,
+    0.975
+  ],
+  "interpretation": {
+    "within_measured_gate": "upper familywise bound <=1.05",
+    "confirmed_regression": "lower familywise bound >1.05",
+    "unresolved": "interval overlaps1.05"
+  },
+  "count_extension": false,
+  "metric_replacement": false,
+  "reruns": false,
+  "numpy": "2.3.5",
+  "analysis_python": "/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "status": "Frozen before measurements"
+}

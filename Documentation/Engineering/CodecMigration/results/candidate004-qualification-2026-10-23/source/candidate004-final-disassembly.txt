@@ -1,0 +1,123 @@
+
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/binaries/Benchmark-candidate_004-1db8b6a3fd92:	file format mach-o arm64
+
+Disassembly of section __TEXT,__text:
+
+000000010002cd58 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF>:
+10002cd58: f81e0ff3    	str	x19, [sp, #-0x20]!
+10002cd5c: a9017bfd    	stp	x29, x30, [sp, #0x10]
+10002cd60: 910043fd    	add	x29, sp, #0x10
+10002cd64: d2800008    	mov	x8, #0x0                ; =0
+10002cd68: f9400a89    	ldr	x9, [x20, #0x10]
+10002cd6c: f940168b    	ldr	x11, [x20, #0x28]
+10002cd70: 9100812a    	add	x10, x9, #0x20
+10002cd74: b500046b    	cbnz	x11, 0x10002ce00 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0xa8>
+10002cd78: f9401e8b    	ldr	x11, [x20, #0x38]
+10002cd7c: f9400e8e    	ldr	x14, [x20, #0x18]
+10002cd80: b500004b    	cbnz	x11, 0x10002cd88 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x30>
+10002cd84: f9001a8e    	str	x14, [x20, #0x30]
+10002cd88: d280000b    	mov	x11, #0x0               ; =0
+10002cd8c: f940092c    	ldr	x12, [x9, #0x10]
+10002cd90: 1400000a    	b	0x10002cdb8 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x60>
+10002cd94: f9000e8d    	str	x13, [x20, #0x18]
+10002cd98: f940128e    	ldr	x14, [x20, #0x20]
+10002cd9c: aa0e21ee    	orr	x14, x15, x14, lsl #8
+10002cda0: 5280010f    	mov	w15, #0x8               ; =8
+10002cda4: 8b0f016b    	add	x11, x11, x15
+10002cda8: a9022e8e    	stp	x14, x11, [x20, #0x20]
+10002cdac: aa0d03ee    	mov	x14, x13
+10002cdb0: f100c57f    	cmp	x11, #0x31
+10002cdb4: 54000262    	b.hs	0x10002ce00 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0xa8>
+10002cdb8: eb0c01df    	cmp	x14, x12
+10002cdbc: 5400020a    	b.ge	0x10002cdfc <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0xa4>
+10002cdc0: b7f80a8e    	tbnz	x14, #0x3f, 0x10002cf10 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1b8>
+10002cdc4: 386e694f    	ldrb	w15, [x10, x14]
+10002cdc8: 910005cd    	add	x13, x14, #0x1
+10002cdcc: f103fdff    	cmp	x15, #0xff
+10002cdd0: fa4c01a0    	ccmp	x13, x12, #0x0, eq
+10002cdd4: 54fffe0a    	b.ge	0x10002cd94 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x3c>
+10002cdd8: 38ad6950    	ldrsb	x16, [x10, x13]
+10002cddc: b7fffdd0    	tbnz	x16, #0x3f, 0x10002cd94 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x3c>
+10002cde0: 910009cd    	add	x13, x14, #0x2
+10002cde4: f9000e8d    	str	x13, [x20, #0x18]
+10002cde8: f940128e    	ldr	x14, [x20, #0x20]
+10002cdec: aa0e3e0e    	orr	x14, x16, x14, lsl #15
+10002cdf0: b2791dce    	orr	x14, x14, #0x7f80
+10002cdf4: 528001ef    	mov	w15, #0xf               ; =15
+10002cdf8: 17ffffeb    	b	0x10002cda4 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x4c>
+10002cdfc: b400072b    	cbz	x11, 0x10002cee0 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x188>
+10002ce00: f940128c    	ldr	x12, [x20, #0x20]
+10002ce04: 4b0b03ed    	neg	w13, w11
+10002ce08: 9acd218c    	lsl	x12, x12, x13
+10002ce0c: dac0118d    	clz	x13, x12
+10002ce10: eb0d017f    	cmp	x11, x13
+10002ce14: 9a8db16c    	csel	x12, x11, x13, lt
+10002ce18: eb08000e    	subs	x14, x0, x8
+10002ce1c: 540007c6    	b.vs	0x10002cf14 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1bc>
+10002ce20: eb0c01df    	cmp	x14, x12
+10002ce24: 540001ab    	b.lt	0x10002ce58 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x100>
+10002ce28: eb0b01bf    	cmp	x13, x11
+10002ce2c: 5400040b    	b.lt	0x10002ceac <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x154>
+10002ce30: ab0b0108    	adds	x8, x8, x11
+10002ce34: 54000726    	b.vs	0x10002cf18 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1c0>
+10002ce38: f9401e8c    	ldr	x12, [x20, #0x38]
+10002ce3c: ab0b018c    	adds	x12, x12, x11
+10002ce40: 540006e6    	b.vs	0x10002cf1c <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1c4>
+10002ce44: d280000b    	mov	x11, #0x0               ; =0
+10002ce48: f9001e8c    	str	x12, [x20, #0x38]
+10002ce4c: f900169f    	str	xzr, [x20, #0x28]
+10002ce50: b5fffd8b    	cbnz	x11, 0x10002ce00 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0xa8>
+10002ce54: 17ffffc9    	b	0x10002cd78 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x20>
+10002ce58: d0000208    	adrp	x8, 0x10006e000 <_swift_willThrow+0x10006e000>
+10002ce5c: 91208108    	add	x8, x8, #0x820
+10002ce60: d1008108    	sub	x8, x8, #0x20
+10002ce64: b2410113    	orr	x19, x8, #0x8000000000000000
+10002ce68: 97ff7815    	bl	0x10000aebc <_$s8SwiftJLS10CodecErrorVACs0D0AAWl>
+10002ce6c: aa0003e1    	mov	x1, x0
+10002ce70: 90000280    	adrp	x0, 0x10007c000 <__swift_FORCE_LOAD_$_swift_Builtin_float_$_Benchmark>
+10002ce74: 91336000    	add	x0, x0, #0xcd8
+10002ce78: d2800002    	mov	x2, #0x0                ; =0
+10002ce7c: 52800003    	mov	w3, #0x0                ; =0
+10002ce80: 9400f8d1    	bl	0x10006b1c4 <_swift_willThrow+0x10006b1c4>
+10002ce84: 52800028    	mov	w8, #0x1                ; =1
+10002ce88: 39000028    	strb	w8, [x1]
+10002ce8c: d28004e8    	mov	x8, #0x27               ; =39
+10002ce90: f2fa0008    	movk	x8, #0xd000, lsl #48
+10002ce94: a900cc28    	stp	x8, x19, [x1, #0x8]
+10002ce98: aa0003f3    	mov	x19, x0
+10002ce9c: aa0003f5    	mov	x21, x0
+10002cea0: 9400f959    	bl	0x10006b404 <_swift_willThrow+0x10006b404>
+10002cea4: aa1303f5    	mov	x21, x19
+10002cea8: 1400000b    	b	0x10002ced4 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x17c>
+10002ceac: 91000589    	add	x9, x12, #0x1
+10002ceb0: eb09016a    	subs	x10, x11, x9
+10002ceb4: 54000366    	b.vs	0x10002cf20 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1c8>
+10002ceb8: f900168a    	str	x10, [x20, #0x28]
+10002cebc: f9401e8a    	ldr	x10, [x20, #0x38]
+10002cec0: ab090149    	adds	x9, x10, x9
+10002cec4: 54000306    	b.vs	0x10002cf24 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1cc>
+10002cec8: f9001e89    	str	x9, [x20, #0x38]
+10002cecc: ab0c0100    	adds	x0, x8, x12
+10002ced0: 540002c6    	b.vs	0x10002cf28 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1d0>
+10002ced4: a9417bfd    	ldp	x29, x30, [sp, #0x10]
+10002ced8: f84207f3    	ldr	x19, [sp], #0x20
+10002cedc: d65f03c0    	ret
+10002cee0: 97ffcb9c    	bl	0x10001fd50 <_$s8SwiftJLS11JPEGLSErrorOACs5ErrorAAWl>
+10002cee4: aa0003e1    	mov	x1, x0
+10002cee8: b0000280    	adrp	x0, 0x10007d000 <_$s8SwiftJLS5ImageVWV+0x50>
+10002ceec: 91382000    	add	x0, x0, #0xe08
+10002cef0: d2800002    	mov	x2, #0x0                ; =0
+10002cef4: 52800003    	mov	w3, #0x0                ; =0
+10002cef8: 9400f8b3    	bl	0x10006b1c4 <_swift_willThrow+0x10006b1c4>
+10002cefc: a900fc3f    	stp	xzr, xzr, [x1, #0x8]
+10002cf00: f900003f    	str	xzr, [x1]
+10002cf04: 52800328    	mov	w8, #0x19               ; =25
+10002cf08: 39006028    	strb	w8, [x1, #0x18]
+10002cf0c: 17ffffe3    	b	0x10002ce98 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x140>
+10002cf10: d4200020    	brk	#0x1
+10002cf14: d4200020    	brk	#0x1
+10002cf18: d4200020    	brk	#0x1
+10002cf1c: d4200020    	brk	#0x1
+10002cf20: d4200020    	brk	#0x1
+10002cf24: d4200020    	brk	#0x1
+10002cf28: d4200020    	brk	#0x1

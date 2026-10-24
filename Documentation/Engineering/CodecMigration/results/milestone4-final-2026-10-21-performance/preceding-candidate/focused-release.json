@@ -1,0 +1,30 @@
+{
+  "command": [
+    "swift",
+    "test",
+    "--build-system",
+    "swiftbuild",
+    "-c",
+    "release",
+    "--jobs",
+    "4",
+    "--package-path",
+    "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-short-path-diagnostic/codec",
+    "--filter",
+    "GradientTableTests|DescriptorTests|ParserContainerTests",
+    "-Xswiftc",
+    "-load-plugin-library",
+    "-Xswiftc",
+    "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+    "--xunit-output",
+    "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-short-path-diagnostic/focused-release.xml"
+  ],
+  "cwd": "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS",
+  "exit_code": 0,
+  "seconds": 34.747528958,
+  "utc": "2026-10-21T14:20:04.102318+00:00",
+  "developer_dir": "/Library/Developer/CommandLineTools",
+  "asan_options": "detect_leaks=0",
+  "test_count": 17,
+  "xml_sha256": "9fb9b8d12686e1ef9643a9caa96f7dabd567568eb497473026399be592c6b76a"
+}

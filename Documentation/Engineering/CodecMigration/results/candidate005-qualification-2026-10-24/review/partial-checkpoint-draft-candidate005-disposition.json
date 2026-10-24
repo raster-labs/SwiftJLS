@@ -1,0 +1,92 @@
+{
+  "utc": "2026-10-24T07:12:05.008846+00:00",
+  "publication_mode": "partial_checkpoint",
+  "milestone4_complete": false,
+  "source_receipt_sha256": "87bda184d21845362608a5a0b2198a9d6840a4324c5bdf2e8f6c5d9978e299e6",
+  "short_audit_sha256": "5ace78ac016c8d0ab2dfaf786dea8a3484aa07e07a4b511765ed3f344ccdd67e",
+  "performance_audit_sha256": null,
+  "memory_completion_sha256": "e54983bcf4126af9b16e51528202b6cea7be5037a2106e7b1ade72bc8f4dfcba",
+  "platform_results_sha256": "61a1f1e12a781a4339204e7d832a5240a0f0e53e7c1e5b71c2d3c597c28baa3c",
+  "source_acceptance_sha256": "d9211b83c7b4e7fd41716736d5bbd888d56348c53cce631181d8559388e252e2",
+  "pending_measurements": [
+    "larger",
+    "rss"
+  ],
+  "missing_measurement_reason": "Mac switched to Battery Power after completed short collection; larger15-001 failed before process launch. Stable AC requested; not available at checkpoint. No new RSS measurements collected, no gate waived.",
+  "power_observation": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=23330915)\t94%; discharging; 6:28 remaining present: true\n",
+  "short_status": {
+    "passed": 48,
+    "uncertain": 0,
+    "confirmed_regressions": 0,
+    "processes": 18576,
+    "prior_uncertain_comparisons": [
+      {
+        "contrast": "candidate_vs_pinned",
+        "case": "p12-ramp",
+        "operation": "prepare",
+        "ratio": 0.9402946174456063,
+        "family48_interval": [
+          0.911773769414085,
+          0.9552235693956485
+        ],
+        "status": "within_measured_gate"
+      },
+      {
+        "contrast": "candidate_vs_pinned",
+        "case": "p12-noise",
+        "operation": "prepare",
+        "ratio": 0.9420351473922902,
+        "family48_interval": [
+          0.9275294832211368,
+          0.9565212989957887
+        ],
+        "status": "within_measured_gate"
+      },
+      {
+        "contrast": "candidate_vs_three_change",
+        "case": "p12-noise",
+        "operation": "decode",
+        "ratio": 0.9372759318231889,
+        "family48_interval": [
+          0.9087718445349913,
+          0.966664941474749
+        ],
+        "status": "within_measured_gate"
+      }
+    ]
+  },
+  "memory_status": "Bounded source-level algorithm storage and scoped requested-heap accounting accepted; parser fixed-control and restart directory preallocation admission enforced.",
+  "memory_measurement_scope": {
+    "profiles": 89,
+    "commands": 267,
+    "copy_checks": 20,
+    "unattributed_codec_allocation_calls": 0,
+    "owned_pixel_allocations": 23,
+    "other66_pixel_allocations": 0,
+    "max_table_algorithm_heap_reduction_bytes": 917497,
+    "peakWorkspaceBytes": null,
+    "pure_algorithm_workspace_complete": false,
+    "unmeasured": "Universal runtime, allocator usable-size, compiler stack and concurrent process totals"
+  },
+  "validation": {
+    "host_test_modes": 4,
+    "tests_per_mode": 157,
+    "named_suites": 28,
+    "xml_classname_groups": 29,
+    "native_macos": "26.0 25A354 arm64 hardware-virtualised",
+    "native_test_modes": 4,
+    "cli_payload_checks": 73,
+    "cli_process_checks": 103,
+    "charls_checks": 990,
+    "exact26_simulator_consumers": 5,
+    "resource_profiles": 4,
+    "frames_per_resource_profile": 32,
+    "watch_arm64_32_build": true
+  },
+  "physical_device_validation_status": "pending_by_owner_direction",
+  "milestone5_status": "deferred_by_owner_direction",
+  "shared_services": "Kept running throughout; no host-idleness claim.",
+  "simulator_restoration_receipt": "010-simulator-restoration/command.json",
+  "github_workflow": "Commit and push branch; owner verifies CI and merges. No CI acceptance or merge claimed.",
+  "future_work": "Fresh AC/thermal/source admission and temporary pause of restored qualification simulator, then original fixed larger15 and RSS528 protocols. Preserve all attempts and independently audit before updating performance status."
+}

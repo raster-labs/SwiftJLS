@@ -1,0 +1,2834 @@
+{
+  "started_utc": "2026-10-24T06:29:51.937293+00:00",
+  "source_guards": {
+    "candidate": "candidate_005",
+    "repo_head": "72a9184ae8879fd77364b60a8059d4ad5bc447d4",
+    "receipt_sha256": "87bda184d21845362608a5a0b2198a9d6840a4324c5bdf2e8f6c5d9978e299e6",
+    "all_source_pins_sha256": "bb1f3a5591fbcc3d7585a2eb67e9226cae9068bd7d1e1b90e8896afd0837c05f",
+    "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+    "package_swift_sha256": "b8c00c41dda983f6cee24c45f3e352ebde71c0f25b42abd379a431f1a556394b",
+    "production_files": 39,
+    "test_files": 32,
+    "binary_sha256": {
+      "pinned": "b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45",
+      "three_change": "7f618c0cf8fe1c31bee5a36b212c0dc2943e89fd366b4228a966f63d83aa5231",
+      "candidate": "349a14b524218fde633cd415e9972fdcdd7062601ba8578eb71380383b81c177",
+      "62309d3": "64f270f9370b9537b315e08419c50beadb026cc68e4f2812a3cd53a0a9db5257",
+      "e66f7da": "71601d9d0b603ba4a4fc69dcff8558e9c428c5cec4023c07d5bafec3f16f2a47"
+    },
+    "host_scope": "shared services running; no claim of host idleness"
+  },
+  "host_guard_self_test": {
+    "host_guard_self_test_passed": true,
+    "tested_controls": [
+      "attempt1_rejected_ng_test_and_chrome_headless_pid_54525",
+      "vscode_copilot_runtime_headless_negative_control",
+      "simmetalhost_and_runtime_root_quiescent_vs_active",
+      "colima_active_swift_heaptrack_container_vs_quiescent_shared_stack"
+    ]
+  },
+  "host_scope": "Shared services running; no idleness claim. CPU windows are survivor-process CPU deltas and miss processes that exit between observations. Root reviews conditions before authorising collection.",
+  "windows": [
+    {
+      "window_index": 0,
+      "started_utc": "2026-10-24T06:29:51.937770+00:00",
+      "completed_utc": "2026-10-24T06:30:02.293338+00:00",
+      "wall_seconds": 10.3556,
+      "window_total_cpu_seconds": 19.68,
+      "window_summed_instantaneous_cpu_percent": 190.04,
+      "window_processes_above_5_percent": [
+        {
+          "pid": 413,
+          "exe_name": "WindowServer",
+          "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 4.77,
+          "window_instantaneous_cpu_percent": 46.06,
+          "end_ps_cpu_percent": 52.1
+        },
+        {
+          "pid": 40135,
+          "exe_name": "TimeChamp.Tracker.MacOS",
+          "comm": "/Applications/.Svcvtt.app/Contents/MacOS/TimeChamp.Tracker.MacOS",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.69,
+          "window_instantaneous_cpu_percent": 16.32,
+          "end_ps_cpu_percent": 5.4
+        },
+        {
+          "pid": 3727,
+          "exe_name": "Telegram",
+          "comm": "/Applications/Telegram.app/Contents/MacOS/Telegram",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.27,
+          "window_instantaneous_cpu_percent": 12.26,
+          "end_ps_cpu_percent": 14.3
+        },
+        {
+          "pid": 987,
+          "exe_name": "com.apple.Virtualization.VirtualMachine",
+          "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.08,
+          "window_instantaneous_cpu_percent": 10.43,
+          "end_ps_cpu_percent": 32.2
+        },
+        {
+          "pid": 44247,
+          "exe_name": "Codex (Service)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Service).app/Contents/MacOS/Codex (Service)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.96,
+          "window_instantaneous_cpu_percent": 9.27,
+          "end_ps_cpu_percent": 6.7
+        },
+        {
+          "pid": 44281,
+          "exe_name": "Codex (Renderer)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.83,
+          "window_instantaneous_cpu_percent": 8.02,
+          "end_ps_cpu_percent": 6.9
+        },
+        {
+          "pid": 44264,
+          "exe_name": "Codex (Renderer)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.54,
+          "window_instantaneous_cpu_percent": 5.21,
+          "end_ps_cpu_percent": 4.6
+        }
+      ],
+      "top_15_window_cpu_processes": [
+        {
+          "pid": 413,
+          "exe_name": "WindowServer",
+          "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 4.77,
+          "window_instantaneous_cpu_percent": 46.06,
+          "end_ps_cpu_percent": 52.1
+        },
+        {
+          "pid": 40135,
+          "exe_name": "TimeChamp.Tracker.MacOS",
+          "comm": "/Applications/.Svcvtt.app/Contents/MacOS/TimeChamp.Tracker.MacOS",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.69,
+          "window_instantaneous_cpu_percent": 16.32,
+          "end_ps_cpu_percent": 5.4
+        },
+        {
+          "pid": 3727,
+          "exe_name": "Telegram",
+          "comm": "/Applications/Telegram.app/Contents/MacOS/Telegram",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.27,
+          "window_instantaneous_cpu_percent": 12.26,
+          "end_ps_cpu_percent": 14.3
+        },
+        {
+          "pid": 987,
+          "exe_name": "com.apple.Virtualization.VirtualMachine",
+          "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.08,
+          "window_instantaneous_cpu_percent": 10.43,
+          "end_ps_cpu_percent": 32.2
+        },
+        {
+          "pid": 44247,
+          "exe_name": "Codex (Service)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Service).app/Contents/MacOS/Codex (Service)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.96,
+          "window_instantaneous_cpu_percent": 9.27,
+          "end_ps_cpu_percent": 6.7
+        },
+        {
+          "pid": 44281,
+          "exe_name": "Codex (Renderer)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.83,
+          "window_instantaneous_cpu_percent": 8.02,
+          "end_ps_cpu_percent": 6.9
+        },
+        {
+          "pid": 44264,
+          "exe_name": "Codex (Renderer)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.54,
+          "window_instantaneous_cpu_percent": 5.21,
+          "end_ps_cpu_percent": 4.6
+        },
+        {
+          "pid": 650,
+          "exe_name": "MenuBarAgent",
+          "comm": "/System/Library/CoreServices/MenuBarAgent.app/Contents/MacOS/MenuBarAgent",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.51,
+          "window_instantaneous_cpu_percent": 4.92,
+          "end_ps_cpu_percent": 0.0
+        },
+        {
+          "pid": 654,
+          "exe_name": "ControlCenter",
+          "comm": "/System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.44,
+          "window_instantaneous_cpu_percent": 4.25,
+          "end_ps_cpu_percent": 1.0
+        },
+        {
+          "pid": 414,
+          "exe_name": "tccd",
+          "comm": "/System/Library/PrivateFrameworks/TCC.framework/Support/tccd",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.4,
+          "window_instantaneous_cpu_percent": 3.86,
+          "end_ps_cpu_percent": 0.9
+        },
+        {
+          "pid": 384,
+          "exe_name": "launchservicesd",
+          "comm": "/System/Library/CoreServices/launchservicesd",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.32,
+          "window_instantaneous_cpu_percent": 3.09,
+          "end_ps_cpu_percent": 0.9
+        },
+        {
+          "pid": 16251,
+          "exe_name": "Antigravity Helper (Renderer)",
+          "comm": "/Applications/Antigravity.app/Contents/Frameworks/Antigravity Helper (Renderer).app/Contents/MacOS/Antigravity Helper (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.31,
+          "window_instantaneous_cpu_percent": 2.99,
+          "end_ps_cpu_percent": 2.7
+        },
+        {
+          "pid": 29633,
+          "exe_name": "Amphetamine",
+          "comm": "/Applications/Amphetamine.app/Contents/MacOS/Amphetamine",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.28,
+          "window_instantaneous_cpu_percent": 2.7,
+          "end_ps_cpu_percent": 4.5
+        },
+        {
+          "pid": 1506,
+          "exe_name": "Code Helper",
+          "comm": "/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.26,
+          "window_instantaneous_cpu_percent": 2.51,
+          "end_ps_cpu_percent": 0.9
+        },
+        {
+          "pid": 409,
+          "exe_name": "corebrightnessd",
+          "comm": "/usr/libexec/corebrightnessd",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.24,
+          "window_instantaneous_cpu_percent": 2.32,
+          "end_ps_cpu_percent": 0.1
+        }
+      ],
+      "window_simulator_inventory": {
+        "process_count": 263,
+        "summed_ps_cpu_percent": 0.5,
+        "summed_window_instantaneous_cpu_percent": 2.25,
+        "quiescent_booted_simulator": true,
+        "simmetalhost_processes": [
+          {
+            "pid": 40916,
+            "exe_name": "SimMetalHost",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:13.18",
+            "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40917,
+            "exe_name": "SimMetalHost",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.19,
+            "cputime": "0:17.90",
+            "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40918,
+            "exe_name": "SimMetalHost",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:00.72",
+            "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+            "full_command": "[redacted unrelated process/container text]"
+          }
+        ],
+        "top_runtime_root_processes": [
+          {
+            "pid": 40922,
+            "exe_name": "SpringBoard",
+            "ps_cpu_percent": 0.5,
+            "window_instantaneous_cpu_percent": 1.26,
+            "cputime": "4:17.43",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/SpringBoard.app/SpringBoard",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40923,
+            "exe_name": "logd",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.1,
+            "cputime": "0:18.02",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/logd",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40947,
+            "exe_name": "locationd",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.1,
+            "cputime": "0:35.19",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/locationd",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40973,
+            "exe_name": "diagnosticd",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.1,
+            "cputime": "1:12.56",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/diagnosticd",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40974,
+            "exe_name": "cfprefsd",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.1,
+            "cputime": "0:05.38",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/sbin/cfprefsd",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40986,
+            "exe_name": "geod",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.1,
+            "cputime": "0:14.94",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/GeoServices.framework/geod",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 41036,
+            "exe_name": "fontservicesd",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.1,
+            "cputime": "0:00.34",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/FontServices.framework/Support/fontservicesd",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 23055,
+            "exe_name": "businessservicesd",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:00.25",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/BusinessChatService.framework/businessservicesd",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40060,
+            "exe_name": "schooltimed",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:00.35",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/SchoolTime.framework/Support/schooltimed",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40066,
+            "exe_name": "companionmessagesd",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:00.54",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/ChatKit.framework/companionmessagesd",
+            "full_command": "[redacted unrelated process/container text]"
+          }
+        ],
+        "interfering_matches": []
+      },
+      "start_conditions": {
+        "utc": "2026-10-24T06:29:52.167716+00:00",
+        "power": {
+          "command": [
+            "pmset",
+            "-g",
+            "batt"
+          ],
+          "exit_code": 0,
+          "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t94%; charging; 0:31 remaining present: true\n",
+          "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t94%; charging; 0:31 remaining present: true\n",
+          "stderr": ""
+        },
+        "thermal": {
+          "command": [
+            "pmset",
+            "-g",
+            "therm"
+          ],
+          "exit_code": 0,
+          "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stderr": ""
+        },
+        "load": {
+          "command": [
+            "sysctl",
+            "-n",
+            "vm.loadavg"
+          ],
+          "exit_code": 0,
+          "output": "{ 4.54 4.60 4.45 }\n",
+          "stdout": "{ 4.54 4.60 4.45 }\n",
+          "stderr": ""
+        },
+        "summed_cpu_percent": 175.3,
+        "processes_above_10_percent": [
+          {
+            "pid": 409,
+            "exe_name": "corebrightnessd",
+            "cpu": 10.2,
+            "cputime": "5:40.69",
+            "comm": "/usr/libexec/corebrightnessd",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 413,
+            "exe_name": "WindowServer",
+            "cpu": 45.9,
+            "cputime": "1480:18.38",
+            "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 650,
+            "exe_name": "MenuBarAgent",
+            "cpu": 11.2,
+            "cputime": "82:08.99",
+            "comm": "/System/Library/CoreServices/MenuBarAgent.app/Contents/MacOS/MenuBarAgent",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 44247,
+            "exe_name": "Codex (Service)",
+            "cpu": 13.0,
+            "cputime": "1:54.61",
+            "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Service).app/Contents/MacOS/Codex (Service)",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 44264,
+            "exe_name": "Codex (Renderer)",
+            "cpu": 17.5,
+            "cputime": "1:23.43",
+            "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 44281,
+            "exe_name": "Codex (Renderer)",
+            "cpu": 15.9,
+            "cputime": "1:19.46",
+            "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+            "full_command": "[redacted unrelated process/container text]"
+          }
+        ],
+        "interfering_process_names_guarded": [
+          "swift-frontend",
+          "swift-build",
+          "swift-test",
+          "swift-package",
+          "swiftc",
+          "swiftbuild",
+          "SWBBuildService",
+          "xcbbuildService",
+          "xcodebuild",
+          "xctest",
+          "SwiftJLSTests",
+          "WorkspaceProbe",
+          "CopyProbe",
+          "MemDiagRelief",
+          "MemDiagVMMap",
+          "AppleRuntimeConsumer",
+          "AppleResourceConsumer",
+          "IndependentConsumer",
+          "CrossCodecConsumer",
+          "ResourceStress",
+          "InteropConsumer",
+          "charls_interop_driver",
+          "charls_mapping_driver",
+          "heaptrack",
+          "heaptrack_print",
+          "sample",
+          "instruments",
+          "xctrace",
+          "leaks",
+          "vmmap",
+          "tart",
+          "qemu-system-aarch64",
+          "clang",
+          "clang++",
+          "ld",
+          "dsymutil",
+          "llvm-profdata",
+          "llvm-cov",
+          "simctl",
+          "karma",
+          "vitest",
+          "jest",
+          "playwright",
+          "cypress",
+          "pytest",
+          "chromedriver"
+        ],
+        "interfering_command_patterns_guarded": [
+          "ng_test_runner",
+          "chromium_headless_worker",
+          "browser_headless_flag",
+          "js_test_runner",
+          "package_manager_test",
+          "lang_test_runner",
+          "simctl_active_command"
+        ],
+        "simulator_inventory": {
+          "process_count": 263,
+          "summed_ps_cpu_percent": 0.7,
+          "summed_window_instantaneous_cpu_percent": 0.0,
+          "quiescent_booted_simulator": true,
+          "simmetalhost_processes": [
+            {
+              "pid": 40916,
+              "exe_name": "SimMetalHost",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:13.18",
+              "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40917,
+              "exe_name": "SimMetalHost",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:17.88",
+              "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40918,
+              "exe_name": "SimMetalHost",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.72",
+              "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "top_runtime_root_processes": [
+            {
+              "pid": 40922,
+              "exe_name": "SpringBoard",
+              "ps_cpu_percent": 0.7,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "4:17.30",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/SpringBoard.app/SpringBoard",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 23055,
+              "exe_name": "businessservicesd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.25",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/BusinessChatService.framework/businessservicesd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40060,
+              "exe_name": "schooltimed",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.35",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/SchoolTime.framework/Support/schooltimed",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40066,
+              "exe_name": "companionmessagesd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.54",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/ChatKit.framework/companionmessagesd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40067,
+              "exe_name": "AuthenticationServicesAgent",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.57",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Cryptexes/App/usr/libexec/AuthenticationServicesAgent",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40068,
+              "exe_name": "com.apple.quicklook.ThumbnailsAgent",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.35",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/QuickLookThumbnailing.framework/Support/com.apple.quicklook.ThumbnailsAgent",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40069,
+              "exe_name": "mlruntimed",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.31",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/mlruntimed",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40070,
+              "exe_name": "remindd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:01.38",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/remindd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40071,
+              "exe_name": "privacyaccountingd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.37",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/PrivacyAccounting.framework/Versions/A/Resources/privacyaccountingd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40072,
+              "exe_name": "sensorkitd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.38",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/sensorkitd",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "interfering_matches": []
+        },
+        "colima_vm_inventory": {
+          "vm_process_count": 1,
+          "vm_processes": [
+            {
+              "pid": 987,
+              "exe_name": "com.apple.Virtualization.VirtualMachine",
+              "ps_cpu_percent": 5.4,
+              "cputime": "794:22.01",
+              "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine"
+            }
+          ],
+          "limactl_colima_hostagents": [
+            {
+              "pid": 969,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.0,
+              "cputime": "27:47.92",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 974,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.0,
+              "cputime": "0:47.33",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "running_containers": [
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 19:07:46 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5ea299d54b09",
+              "Image": "raster/one-frontend:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-frontend-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "0.0.0.0:4200->8080/tcp",
+              "RunningFor": "6 days ago",
+              "Size": "65.5kB (virtual 58.3MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 12:13:26 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5930bc4aec00",
+              "Image": "raster/one-erp:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-one-erp-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 8088/tcp, 9090/tcp, 127.0.0.1:8090->8090/tcp",
+              "RunningFor": "7 days ago",
+              "Size": "242kB (virtual 406MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:15 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "cf24bc615571",
+              "Image": "raster/one-kernel:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-kernel-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "127.0.0.1:8080->8080/tcp, 127.0.0.1:9090->9090/tcp, 8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "242kB (virtual 427MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:14 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "fb2044464f91",
+              "Image": "raster/one-studio:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-studio-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 9090/tcp, 127.0.0.1:8088->8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "143kB (virtual 396MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "269d55cfa5af",
+              "Image": "postgres:16-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "/Users/pushpar\u2026,raster-one_pgd\u2026",
+              "Names": "raster-one-postgres-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:15432->5432/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "20.5kB (virtual 297MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "9655b95a4e23",
+              "Image": "rabbitmq:3.13-management-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_rab\u2026",
+              "Names": "raster-one-rabbitmq-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "4369/tcp, 5671/tcp, 127.0.0.1:5672->5672/tcp, 15671/tcp, 15691-15692/tcp, 25672/tcp, 127.0.0.1:15672->15672/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 191MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "1bca90e3d2e8",
+              "Image": "redis:7-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_red\u2026",
+              "Names": "raster-one-redis-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:16379->6379/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 41.5MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-10 11:48:26 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "8c3f3f59c647",
+              "Image": "caddy:2",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026,/Users/pushpar\u2026",
+              "Names": "oosai-lan",
+              "Networks": "bridge",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "80/tcp, 443/tcp, 0.0.0.0:5443->5443/tcp, [::]:5443->5443/tcp, 2019/tcp, 443/udp, 0.0.0.0:8443->8443/tcp, [::]:8443->8443/tcp",
+              "RunningFor": "2 weeks ago",
+              "Size": "49.2kB (virtual 61.9MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-27 18:43:46 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "4b02c30d17f7",
+              "Image": "mysql:8.0",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_mysq\u2026",
+              "Names": "dev_mysql",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp, 33060/tcp",
+              "RunningFor": "8 weeks ago",
+              "Size": "32.8kB (virtual 848MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "ab25fd93708d",
+              "Image": "postgres:15-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_post\u2026",
+              "Names": "dev_postgres",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "28.7kB (virtual 295MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "c1cfb710c4f1",
+              "Image": "redis:alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "redis_container",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "12.3kB (virtual 120MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            }
+          ],
+          "quiescent_shared_colima_vm": true,
+          "quiescent_shared_vm_exception_note": "PID 987 is the resident shared Colima Virtualization.Framework VM hosting only the persistent multi-day shared dev stack; never killed per host policy.",
+          "interfering_matches": []
+        },
+        "interfering_workload_matches": []
+      },
+      "end_conditions": {
+        "utc": "2026-10-24T06:30:02.497500+00:00",
+        "power": {
+          "command": [
+            "pmset",
+            "-g",
+            "batt"
+          ],
+          "exit_code": 0,
+          "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t94%; charging; 0:31 remaining present: true\n",
+          "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t94%; charging; 0:31 remaining present: true\n",
+          "stderr": ""
+        },
+        "thermal": {
+          "command": [
+            "pmset",
+            "-g",
+            "therm"
+          ],
+          "exit_code": 0,
+          "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stderr": ""
+        },
+        "load": {
+          "command": [
+            "sysctl",
+            "-n",
+            "vm.loadavg"
+          ],
+          "exit_code": 0,
+          "output": "{ 4.54 4.59 4.45 }\n",
+          "stdout": "{ 4.54 4.59 4.45 }\n",
+          "stderr": ""
+        },
+        "summed_cpu_percent": 187.6,
+        "processes_above_10_percent": [
+          {
+            "pid": 413,
+            "exe_name": "WindowServer",
+            "cpu": 46.8,
+            "cputime": "1480:23.17",
+            "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 703,
+            "exe_name": "NotificationCenter",
+            "cpu": 27.8,
+            "cputime": "2:02.69",
+            "comm": "/System/Library/CoreServices/NotificationCenter.app/Contents/MacOS/NotificationCenter",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 987,
+            "exe_name": "com.apple.Virtualization.VirtualMachine",
+            "cpu": 22.6,
+            "cputime": "794:23.14",
+            "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 3727,
+            "exe_name": "Telegram",
+            "cpu": 20.7,
+            "cputime": "17:47.22",
+            "comm": "/Applications/Telegram.app/Contents/MacOS/Telegram",
+            "full_command": "[redacted unrelated process/container text]"
+          }
+        ],
+        "interfering_process_names_guarded": [
+          "swift-frontend",
+          "swift-build",
+          "swift-test",
+          "swift-package",
+          "swiftc",
+          "swiftbuild",
+          "SWBBuildService",
+          "xcbbuildService",
+          "xcodebuild",
+          "xctest",
+          "SwiftJLSTests",
+          "WorkspaceProbe",
+          "CopyProbe",
+          "MemDiagRelief",
+          "MemDiagVMMap",
+          "AppleRuntimeConsumer",
+          "AppleResourceConsumer",
+          "IndependentConsumer",
+          "CrossCodecConsumer",
+          "ResourceStress",
+          "InteropConsumer",
+          "charls_interop_driver",
+          "charls_mapping_driver",
+          "heaptrack",
+          "heaptrack_print",
+          "sample",
+          "instruments",
+          "xctrace",
+          "leaks",
+          "vmmap",
+          "tart",
+          "qemu-system-aarch64",
+          "clang",
+          "clang++",
+          "ld",
+          "dsymutil",
+          "llvm-profdata",
+          "llvm-cov",
+          "simctl",
+          "karma",
+          "vitest",
+          "jest",
+          "playwright",
+          "cypress",
+          "pytest",
+          "chromedriver"
+        ],
+        "interfering_command_patterns_guarded": [
+          "ng_test_runner",
+          "chromium_headless_worker",
+          "browser_headless_flag",
+          "js_test_runner",
+          "package_manager_test",
+          "lang_test_runner",
+          "simctl_active_command"
+        ],
+        "simulator_inventory": {
+          "process_count": 263,
+          "summed_ps_cpu_percent": 0.6,
+          "summed_window_instantaneous_cpu_percent": 0.0,
+          "quiescent_booted_simulator": true,
+          "simmetalhost_processes": [
+            {
+              "pid": 40916,
+              "exe_name": "SimMetalHost",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:13.18",
+              "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40917,
+              "exe_name": "SimMetalHost",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:17.90",
+              "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40918,
+              "exe_name": "SimMetalHost",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.72",
+              "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "top_runtime_root_processes": [
+            {
+              "pid": 40922,
+              "exe_name": "SpringBoard",
+              "ps_cpu_percent": 0.6,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "4:17.43",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/SpringBoard.app/SpringBoard",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 23055,
+              "exe_name": "businessservicesd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.25",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/BusinessChatService.framework/businessservicesd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40060,
+              "exe_name": "schooltimed",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.35",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/SchoolTime.framework/Support/schooltimed",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40066,
+              "exe_name": "companionmessagesd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.54",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/ChatKit.framework/companionmessagesd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40067,
+              "exe_name": "AuthenticationServicesAgent",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.57",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Cryptexes/App/usr/libexec/AuthenticationServicesAgent",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40068,
+              "exe_name": "com.apple.quicklook.ThumbnailsAgent",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.35",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/QuickLookThumbnailing.framework/Support/com.apple.quicklook.ThumbnailsAgent",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40069,
+              "exe_name": "mlruntimed",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.31",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/mlruntimed",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40070,
+              "exe_name": "remindd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:01.38",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/remindd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40071,
+              "exe_name": "privacyaccountingd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.37",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/PrivacyAccounting.framework/Versions/A/Resources/privacyaccountingd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40072,
+              "exe_name": "sensorkitd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.38",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/sensorkitd",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "interfering_matches": []
+        },
+        "colima_vm_inventory": {
+          "vm_process_count": 1,
+          "vm_processes": [
+            {
+              "pid": 987,
+              "exe_name": "com.apple.Virtualization.VirtualMachine",
+              "ps_cpu_percent": 22.6,
+              "cputime": "794:23.14",
+              "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine"
+            }
+          ],
+          "limactl_colima_hostagents": [
+            {
+              "pid": 969,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.0,
+              "cputime": "27:47.92",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 974,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.0,
+              "cputime": "0:47.34",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "running_containers": [
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 19:07:46 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5ea299d54b09",
+              "Image": "raster/one-frontend:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-frontend-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "0.0.0.0:4200->8080/tcp",
+              "RunningFor": "6 days ago",
+              "Size": "65.5kB (virtual 58.3MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 12:13:26 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5930bc4aec00",
+              "Image": "raster/one-erp:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-one-erp-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 8088/tcp, 9090/tcp, 127.0.0.1:8090->8090/tcp",
+              "RunningFor": "7 days ago",
+              "Size": "242kB (virtual 406MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:15 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "cf24bc615571",
+              "Image": "raster/one-kernel:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-kernel-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "127.0.0.1:8080->8080/tcp, 127.0.0.1:9090->9090/tcp, 8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "242kB (virtual 427MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:14 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "fb2044464f91",
+              "Image": "raster/one-studio:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-studio-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 9090/tcp, 127.0.0.1:8088->8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "143kB (virtual 396MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "269d55cfa5af",
+              "Image": "postgres:16-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "/Users/pushpar\u2026,raster-one_pgd\u2026",
+              "Names": "raster-one-postgres-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:15432->5432/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "20.5kB (virtual 297MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "9655b95a4e23",
+              "Image": "rabbitmq:3.13-management-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_rab\u2026",
+              "Names": "raster-one-rabbitmq-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "4369/tcp, 5671/tcp, 127.0.0.1:5672->5672/tcp, 15671/tcp, 15691-15692/tcp, 25672/tcp, 127.0.0.1:15672->15672/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 191MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "1bca90e3d2e8",
+              "Image": "redis:7-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_red\u2026",
+              "Names": "raster-one-redis-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:16379->6379/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 41.5MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-10 11:48:26 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "8c3f3f59c647",
+              "Image": "caddy:2",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026,/Users/pushpar\u2026",
+              "Names": "oosai-lan",
+              "Networks": "bridge",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "80/tcp, 443/tcp, 0.0.0.0:5443->5443/tcp, [::]:5443->5443/tcp, 2019/tcp, 443/udp, 0.0.0.0:8443->8443/tcp, [::]:8443->8443/tcp",
+              "RunningFor": "2 weeks ago",
+              "Size": "49.2kB (virtual 61.9MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-27 18:43:46 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "4b02c30d17f7",
+              "Image": "mysql:8.0",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_mysq\u2026",
+              "Names": "dev_mysql",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp, 33060/tcp",
+              "RunningFor": "8 weeks ago",
+              "Size": "32.8kB (virtual 848MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "ab25fd93708d",
+              "Image": "postgres:15-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_post\u2026",
+              "Names": "dev_postgres",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "28.7kB (virtual 295MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "c1cfb710c4f1",
+              "Image": "redis:alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "redis_container",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "12.3kB (virtual 120MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            }
+          ],
+          "quiescent_shared_colima_vm": true,
+          "quiescent_shared_vm_exception_note": "PID 987 is the resident shared Colima Virtualization.Framework VM hosting only the persistent multi-day shared dev stack; never killed per host policy.",
+          "interfering_matches": []
+        },
+        "interfering_workload_matches": []
+      },
+      "interfering_workload_matches": []
+    },
+    {
+      "window_index": 1,
+      "started_utc": "2026-10-24T06:30:02.616649+00:00",
+      "completed_utc": "2026-10-24T06:30:12.907004+00:00",
+      "wall_seconds": 10.2903,
+      "window_total_cpu_seconds": 16.89,
+      "window_summed_instantaneous_cpu_percent": 164.14,
+      "window_processes_above_5_percent": [
+        {
+          "pid": 413,
+          "exe_name": "WindowServer",
+          "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 3.64,
+          "window_instantaneous_cpu_percent": 35.37,
+          "end_ps_cpu_percent": 12.3
+        },
+        {
+          "pid": 987,
+          "exe_name": "com.apple.Virtualization.VirtualMachine",
+          "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 2.1,
+          "window_instantaneous_cpu_percent": 20.41,
+          "end_ps_cpu_percent": 56.5
+        },
+        {
+          "pid": 40135,
+          "exe_name": "TimeChamp.Tracker.MacOS",
+          "comm": "/Applications/.Svcvtt.app/Contents/MacOS/TimeChamp.Tracker.MacOS",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.15,
+          "window_instantaneous_cpu_percent": 11.18,
+          "end_ps_cpu_percent": 2.1
+        },
+        {
+          "pid": 44247,
+          "exe_name": "Codex (Service)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Service).app/Contents/MacOS/Codex (Service)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.03,
+          "window_instantaneous_cpu_percent": 10.01,
+          "end_ps_cpu_percent": 6.4
+        },
+        {
+          "pid": 44281,
+          "exe_name": "Codex (Renderer)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.69,
+          "window_instantaneous_cpu_percent": 6.71,
+          "end_ps_cpu_percent": 4.5
+        }
+      ],
+      "top_15_window_cpu_processes": [
+        {
+          "pid": 413,
+          "exe_name": "WindowServer",
+          "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 3.64,
+          "window_instantaneous_cpu_percent": 35.37,
+          "end_ps_cpu_percent": 12.3
+        },
+        {
+          "pid": 987,
+          "exe_name": "com.apple.Virtualization.VirtualMachine",
+          "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 2.1,
+          "window_instantaneous_cpu_percent": 20.41,
+          "end_ps_cpu_percent": 56.5
+        },
+        {
+          "pid": 40135,
+          "exe_name": "TimeChamp.Tracker.MacOS",
+          "comm": "/Applications/.Svcvtt.app/Contents/MacOS/TimeChamp.Tracker.MacOS",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.15,
+          "window_instantaneous_cpu_percent": 11.18,
+          "end_ps_cpu_percent": 2.1
+        },
+        {
+          "pid": 44247,
+          "exe_name": "Codex (Service)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Service).app/Contents/MacOS/Codex (Service)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 1.03,
+          "window_instantaneous_cpu_percent": 10.01,
+          "end_ps_cpu_percent": 6.4
+        },
+        {
+          "pid": 44281,
+          "exe_name": "Codex (Renderer)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.69,
+          "window_instantaneous_cpu_percent": 6.71,
+          "end_ps_cpu_percent": 4.5
+        },
+        {
+          "pid": 44264,
+          "exe_name": "Codex (Renderer)",
+          "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.49,
+          "window_instantaneous_cpu_percent": 4.76,
+          "end_ps_cpu_percent": 2.7
+        },
+        {
+          "pid": 3727,
+          "exe_name": "Telegram",
+          "comm": "/Applications/Telegram.app/Contents/MacOS/Telegram",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.42,
+          "window_instantaneous_cpu_percent": 4.08,
+          "end_ps_cpu_percent": 0.1
+        },
+        {
+          "pid": 414,
+          "exe_name": "tccd",
+          "comm": "/System/Library/PrivateFrameworks/TCC.framework/Support/tccd",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.4,
+          "window_instantaneous_cpu_percent": 3.89,
+          "end_ps_cpu_percent": 1.9
+        },
+        {
+          "pid": 650,
+          "exe_name": "MenuBarAgent",
+          "comm": "/System/Library/CoreServices/MenuBarAgent.app/Contents/MacOS/MenuBarAgent",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.38,
+          "window_instantaneous_cpu_percent": 3.69,
+          "end_ps_cpu_percent": 0.0
+        },
+        {
+          "pid": 16251,
+          "exe_name": "Antigravity Helper (Renderer)",
+          "comm": "/Applications/Antigravity.app/Contents/Frameworks/Antigravity Helper (Renderer).app/Contents/MacOS/Antigravity Helper (Renderer)",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.36,
+          "window_instantaneous_cpu_percent": 3.5,
+          "end_ps_cpu_percent": 3.3
+        },
+        {
+          "pid": 384,
+          "exe_name": "launchservicesd",
+          "comm": "/System/Library/CoreServices/launchservicesd",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.31,
+          "window_instantaneous_cpu_percent": 3.01,
+          "end_ps_cpu_percent": 0.3
+        },
+        {
+          "pid": 654,
+          "exe_name": "ControlCenter",
+          "comm": "/System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.31,
+          "window_instantaneous_cpu_percent": 3.01,
+          "end_ps_cpu_percent": 0.5
+        },
+        {
+          "pid": 1506,
+          "exe_name": "Code Helper",
+          "comm": "/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.27,
+          "window_instantaneous_cpu_percent": 2.62,
+          "end_ps_cpu_percent": 2.4
+        },
+        {
+          "pid": 580,
+          "exe_name": "com.apple.AppleUserHIDDrivers",
+          "comm": "/System/Library/DriverExtensions/com.apple.AppleUserHIDDrivers.dext/com.apple.AppleUserHIDDrivers",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.26,
+          "window_instantaneous_cpu_percent": 2.53,
+          "end_ps_cpu_percent": 1.3
+        },
+        {
+          "pid": 730,
+          "exe_name": "replayd",
+          "comm": "/usr/libexec/replayd",
+          "full_command": "[redacted unrelated process/container text]",
+          "window_cpu_seconds": 0.23,
+          "window_instantaneous_cpu_percent": 2.24,
+          "end_ps_cpu_percent": 0.2
+        }
+      ],
+      "window_simulator_inventory": {
+        "process_count": 263,
+        "summed_ps_cpu_percent": 0.4,
+        "summed_window_instantaneous_cpu_percent": 0.87,
+        "quiescent_booted_simulator": true,
+        "simmetalhost_processes": [
+          {
+            "pid": 40916,
+            "exe_name": "SimMetalHost",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:13.18",
+            "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40917,
+            "exe_name": "SimMetalHost",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:17.90",
+            "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40918,
+            "exe_name": "SimMetalHost",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:00.72",
+            "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+            "full_command": "[redacted unrelated process/container text]"
+          }
+        ],
+        "top_runtime_root_processes": [
+          {
+            "pid": 40922,
+            "exe_name": "SpringBoard",
+            "ps_cpu_percent": 0.4,
+            "window_instantaneous_cpu_percent": 0.58,
+            "cputime": "4:17.49",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/SpringBoard.app/SpringBoard",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40973,
+            "exe_name": "diagnosticd",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.1,
+            "cputime": "1:12.57",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/diagnosticd",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 23055,
+            "exe_name": "businessservicesd",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:00.25",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/BusinessChatService.framework/businessservicesd",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40060,
+            "exe_name": "schooltimed",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:00.35",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/SchoolTime.framework/Support/schooltimed",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40066,
+            "exe_name": "companionmessagesd",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:00.54",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/ChatKit.framework/companionmessagesd",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40067,
+            "exe_name": "AuthenticationServicesAgent",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:00.57",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Cryptexes/App/usr/libexec/AuthenticationServicesAgent",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40068,
+            "exe_name": "com.apple.quicklook.ThumbnailsAgent",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:00.35",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/QuickLookThumbnailing.framework/Support/com.apple.quicklook.ThumbnailsAgent",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40069,
+            "exe_name": "mlruntimed",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:00.31",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/mlruntimed",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40070,
+            "exe_name": "remindd",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:01.38",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/remindd",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 40071,
+            "exe_name": "privacyaccountingd",
+            "ps_cpu_percent": 0.0,
+            "window_instantaneous_cpu_percent": 0.0,
+            "cputime": "0:00.37",
+            "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/PrivacyAccounting.framework/Versions/A/Resources/privacyaccountingd",
+            "full_command": "[redacted unrelated process/container text]"
+          }
+        ],
+        "interfering_matches": []
+      },
+      "start_conditions": {
+        "utc": "2026-10-24T06:30:02.773553+00:00",
+        "power": {
+          "command": [
+            "pmset",
+            "-g",
+            "batt"
+          ],
+          "exit_code": 0,
+          "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t94%; charging; 0:31 remaining present: true\n",
+          "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t94%; charging; 0:31 remaining present: true\n",
+          "stderr": ""
+        },
+        "thermal": {
+          "command": [
+            "pmset",
+            "-g",
+            "therm"
+          ],
+          "exit_code": 0,
+          "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stderr": ""
+        },
+        "load": {
+          "command": [
+            "sysctl",
+            "-n",
+            "vm.loadavg"
+          ],
+          "exit_code": 0,
+          "output": "{ 4.54 4.59 4.45 }\n",
+          "stdout": "{ 4.54 4.59 4.45 }\n",
+          "stderr": ""
+        },
+        "summed_cpu_percent": 248.9,
+        "processes_above_10_percent": [
+          {
+            "pid": 413,
+            "exe_name": "WindowServer",
+            "cpu": 49.7,
+            "cputime": "1480:23.32",
+            "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 703,
+            "exe_name": "NotificationCenter",
+            "cpu": 26.6,
+            "cputime": "2:02.78",
+            "comm": "/System/Library/CoreServices/NotificationCenter.app/Contents/MacOS/NotificationCenter",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 987,
+            "exe_name": "com.apple.Virtualization.VirtualMachine",
+            "cpu": 59.9,
+            "cputime": "794:23.43",
+            "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 3727,
+            "exe_name": "Telegram",
+            "cpu": 13.2,
+            "cputime": "17:47.25",
+            "comm": "/Applications/Telegram.app/Contents/MacOS/Telegram",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 44281,
+            "exe_name": "Codex (Renderer)",
+            "cpu": 40.7,
+            "cputime": "1:20.31",
+            "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+            "full_command": "[redacted unrelated process/container text]"
+          }
+        ],
+        "interfering_process_names_guarded": [
+          "swift-frontend",
+          "swift-build",
+          "swift-test",
+          "swift-package",
+          "swiftc",
+          "swiftbuild",
+          "SWBBuildService",
+          "xcbbuildService",
+          "xcodebuild",
+          "xctest",
+          "SwiftJLSTests",
+          "WorkspaceProbe",
+          "CopyProbe",
+          "MemDiagRelief",
+          "MemDiagVMMap",
+          "AppleRuntimeConsumer",
+          "AppleResourceConsumer",
+          "IndependentConsumer",
+          "CrossCodecConsumer",
+          "ResourceStress",
+          "InteropConsumer",
+          "charls_interop_driver",
+          "charls_mapping_driver",
+          "heaptrack",
+          "heaptrack_print",
+          "sample",
+          "instruments",
+          "xctrace",
+          "leaks",
+          "vmmap",
+          "tart",
+          "qemu-system-aarch64",
+          "clang",
+          "clang++",
+          "ld",
+          "dsymutil",
+          "llvm-profdata",
+          "llvm-cov",
+          "simctl",
+          "karma",
+          "vitest",
+          "jest",
+          "playwright",
+          "cypress",
+          "pytest",
+          "chromedriver"
+        ],
+        "interfering_command_patterns_guarded": [
+          "ng_test_runner",
+          "chromium_headless_worker",
+          "browser_headless_flag",
+          "js_test_runner",
+          "package_manager_test",
+          "lang_test_runner",
+          "simctl_active_command"
+        ],
+        "simulator_inventory": {
+          "process_count": 263,
+          "summed_ps_cpu_percent": 0.4,
+          "summed_window_instantaneous_cpu_percent": 0.0,
+          "quiescent_booted_simulator": true,
+          "simmetalhost_processes": [
+            {
+              "pid": 40916,
+              "exe_name": "SimMetalHost",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:13.18",
+              "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40917,
+              "exe_name": "SimMetalHost",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:17.90",
+              "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40918,
+              "exe_name": "SimMetalHost",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.72",
+              "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "top_runtime_root_processes": [
+            {
+              "pid": 40922,
+              "exe_name": "SpringBoard",
+              "ps_cpu_percent": 0.4,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "4:17.43",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/SpringBoard.app/SpringBoard",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 23055,
+              "exe_name": "businessservicesd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.25",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/BusinessChatService.framework/businessservicesd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40060,
+              "exe_name": "schooltimed",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.35",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/SchoolTime.framework/Support/schooltimed",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40066,
+              "exe_name": "companionmessagesd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.54",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/ChatKit.framework/companionmessagesd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40067,
+              "exe_name": "AuthenticationServicesAgent",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.57",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Cryptexes/App/usr/libexec/AuthenticationServicesAgent",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40068,
+              "exe_name": "com.apple.quicklook.ThumbnailsAgent",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.35",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/QuickLookThumbnailing.framework/Support/com.apple.quicklook.ThumbnailsAgent",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40069,
+              "exe_name": "mlruntimed",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.31",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/mlruntimed",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40070,
+              "exe_name": "remindd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:01.38",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/remindd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40071,
+              "exe_name": "privacyaccountingd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.37",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/PrivacyAccounting.framework/Versions/A/Resources/privacyaccountingd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40072,
+              "exe_name": "sensorkitd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.38",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/sensorkitd",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "interfering_matches": []
+        },
+        "colima_vm_inventory": {
+          "vm_process_count": 1,
+          "vm_processes": [
+            {
+              "pid": 987,
+              "exe_name": "com.apple.Virtualization.VirtualMachine",
+              "ps_cpu_percent": 59.9,
+              "cputime": "794:23.43",
+              "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine"
+            }
+          ],
+          "limactl_colima_hostagents": [
+            {
+              "pid": 969,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.2,
+              "cputime": "27:47.92",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 974,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.0,
+              "cputime": "0:47.34",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "running_containers": [
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 19:07:46 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5ea299d54b09",
+              "Image": "raster/one-frontend:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-frontend-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "0.0.0.0:4200->8080/tcp",
+              "RunningFor": "6 days ago",
+              "Size": "65.5kB (virtual 58.3MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 12:13:26 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5930bc4aec00",
+              "Image": "raster/one-erp:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-one-erp-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 8088/tcp, 9090/tcp, 127.0.0.1:8090->8090/tcp",
+              "RunningFor": "7 days ago",
+              "Size": "274kB (virtual 406MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:15 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "cf24bc615571",
+              "Image": "raster/one-kernel:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-kernel-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "127.0.0.1:8080->8080/tcp, 127.0.0.1:9090->9090/tcp, 8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "242kB (virtual 427MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:14 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "fb2044464f91",
+              "Image": "raster/one-studio:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-studio-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 9090/tcp, 127.0.0.1:8088->8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "143kB (virtual 396MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "269d55cfa5af",
+              "Image": "postgres:16-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "/Users/pushpar\u2026,raster-one_pgd\u2026",
+              "Names": "raster-one-postgres-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:15432->5432/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "20.5kB (virtual 297MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "9655b95a4e23",
+              "Image": "rabbitmq:3.13-management-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_rab\u2026",
+              "Names": "raster-one-rabbitmq-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "4369/tcp, 5671/tcp, 127.0.0.1:5672->5672/tcp, 15671/tcp, 15691-15692/tcp, 25672/tcp, 127.0.0.1:15672->15672/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 191MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "1bca90e3d2e8",
+              "Image": "redis:7-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_red\u2026",
+              "Names": "raster-one-redis-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:16379->6379/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 41.5MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-10 11:48:26 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "8c3f3f59c647",
+              "Image": "caddy:2",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026,/Users/pushpar\u2026",
+              "Names": "oosai-lan",
+              "Networks": "bridge",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "80/tcp, 443/tcp, 0.0.0.0:5443->5443/tcp, [::]:5443->5443/tcp, 2019/tcp, 443/udp, 0.0.0.0:8443->8443/tcp, [::]:8443->8443/tcp",
+              "RunningFor": "2 weeks ago",
+              "Size": "49.2kB (virtual 61.9MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-27 18:43:46 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "4b02c30d17f7",
+              "Image": "mysql:8.0",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_mysq\u2026",
+              "Names": "dev_mysql",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp, 33060/tcp",
+              "RunningFor": "8 weeks ago",
+              "Size": "32.8kB (virtual 848MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "ab25fd93708d",
+              "Image": "postgres:15-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_post\u2026",
+              "Names": "dev_postgres",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "28.7kB (virtual 295MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "c1cfb710c4f1",
+              "Image": "redis:alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "redis_container",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "12.3kB (virtual 120MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            }
+          ],
+          "quiescent_shared_colima_vm": true,
+          "quiescent_shared_vm_exception_note": "PID 987 is the resident shared Colima Virtualization.Framework VM hosting only the persistent multi-day shared dev stack; never killed per host policy.",
+          "interfering_matches": []
+        },
+        "interfering_workload_matches": []
+      },
+      "end_conditions": {
+        "utc": "2026-10-24T06:30:13.115982+00:00",
+        "power": {
+          "command": [
+            "pmset",
+            "-g",
+            "batt"
+          ],
+          "exit_code": 0,
+          "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t94%; charging; 0:31 remaining present: true\n",
+          "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t94%; charging; 0:31 remaining present: true\n",
+          "stderr": ""
+        },
+        "thermal": {
+          "command": [
+            "pmset",
+            "-g",
+            "therm"
+          ],
+          "exit_code": 0,
+          "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "stderr": ""
+        },
+        "load": {
+          "command": [
+            "sysctl",
+            "-n",
+            "vm.loadavg"
+          ],
+          "exit_code": 0,
+          "output": "{ 4.16 4.51 4.42 }\n",
+          "stdout": "{ 4.16 4.51 4.42 }\n",
+          "stderr": ""
+        },
+        "summed_cpu_percent": 82.2,
+        "processes_above_10_percent": [
+          {
+            "pid": 413,
+            "exe_name": "WindowServer",
+            "cpu": 19.5,
+            "cputime": "1480:27.04",
+            "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+            "full_command": "[redacted unrelated process/container text]"
+          },
+          {
+            "pid": 44247,
+            "exe_name": "Codex (Service)",
+            "cpu": 11.3,
+            "cputime": "1:56.61",
+            "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Service).app/Contents/MacOS/Codex (Service)",
+            "full_command": "[redacted unrelated process/container text]"
+          }
+        ],
+        "interfering_process_names_guarded": [
+          "swift-frontend",
+          "swift-build",
+          "swift-test",
+          "swift-package",
+          "swiftc",
+          "swiftbuild",
+          "SWBBuildService",
+          "xcbbuildService",
+          "xcodebuild",
+          "xctest",
+          "SwiftJLSTests",
+          "WorkspaceProbe",
+          "CopyProbe",
+          "MemDiagRelief",
+          "MemDiagVMMap",
+          "AppleRuntimeConsumer",
+          "AppleResourceConsumer",
+          "IndependentConsumer",
+          "CrossCodecConsumer",
+          "ResourceStress",
+          "InteropConsumer",
+          "charls_interop_driver",
+          "charls_mapping_driver",
+          "heaptrack",
+          "heaptrack_print",
+          "sample",
+          "instruments",
+          "xctrace",
+          "leaks",
+          "vmmap",
+          "tart",
+          "qemu-system-aarch64",
+          "clang",
+          "clang++",
+          "ld",
+          "dsymutil",
+          "llvm-profdata",
+          "llvm-cov",
+          "simctl",
+          "karma",
+          "vitest",
+          "jest",
+          "playwright",
+          "cypress",
+          "pytest",
+          "chromedriver"
+        ],
+        "interfering_command_patterns_guarded": [
+          "ng_test_runner",
+          "chromium_headless_worker",
+          "browser_headless_flag",
+          "js_test_runner",
+          "package_manager_test",
+          "lang_test_runner",
+          "simctl_active_command"
+        ],
+        "simulator_inventory": {
+          "process_count": 263,
+          "summed_ps_cpu_percent": 0.6,
+          "summed_window_instantaneous_cpu_percent": 0.0,
+          "quiescent_booted_simulator": true,
+          "simmetalhost_processes": [
+            {
+              "pid": 40916,
+              "exe_name": "SimMetalHost",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:13.18",
+              "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40917,
+              "exe_name": "SimMetalHost",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:17.90",
+              "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40918,
+              "exe_name": "SimMetalHost",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.72",
+              "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "top_runtime_root_processes": [
+            {
+              "pid": 40922,
+              "exe_name": "SpringBoard",
+              "ps_cpu_percent": 0.6,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "4:17.49",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/SpringBoard.app/SpringBoard",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 23055,
+              "exe_name": "businessservicesd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.25",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/BusinessChatService.framework/businessservicesd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40060,
+              "exe_name": "schooltimed",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.35",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/SchoolTime.framework/Support/schooltimed",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40066,
+              "exe_name": "companionmessagesd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.54",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/ChatKit.framework/companionmessagesd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40067,
+              "exe_name": "AuthenticationServicesAgent",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.57",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Cryptexes/App/usr/libexec/AuthenticationServicesAgent",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40068,
+              "exe_name": "com.apple.quicklook.ThumbnailsAgent",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.35",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/QuickLookThumbnailing.framework/Support/com.apple.quicklook.ThumbnailsAgent",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40069,
+              "exe_name": "mlruntimed",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.31",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/mlruntimed",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40070,
+              "exe_name": "remindd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:01.38",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/remindd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40071,
+              "exe_name": "privacyaccountingd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.37",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/PrivacyAccounting.framework/Versions/A/Resources/privacyaccountingd",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 40072,
+              "exe_name": "sensorkitd",
+              "ps_cpu_percent": 0.0,
+              "window_instantaneous_cpu_percent": 0.0,
+              "cputime": "0:00.38",
+              "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/sensorkitd",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "interfering_matches": []
+        },
+        "colima_vm_inventory": {
+          "vm_process_count": 1,
+          "vm_processes": [
+            {
+              "pid": 987,
+              "exe_name": "com.apple.Virtualization.VirtualMachine",
+              "ps_cpu_percent": 5.1,
+              "cputime": "794:25.65",
+              "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine"
+            }
+          ],
+          "limactl_colima_hostagents": [
+            {
+              "pid": 969,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.0,
+              "cputime": "27:47.93",
+              "full_command": "[redacted unrelated process/container text]"
+            },
+            {
+              "pid": 974,
+              "exe_name": "limactl",
+              "ps_cpu_percent": 0.0,
+              "cputime": "0:47.34",
+              "full_command": "[redacted unrelated process/container text]"
+            }
+          ],
+          "running_containers": [
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 19:07:46 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5ea299d54b09",
+              "Image": "raster/one-frontend:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-frontend-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "0.0.0.0:4200->8080/tcp",
+              "RunningFor": "6 days ago",
+              "Size": "65.5kB (virtual 58.3MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-17 12:13:26 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "5930bc4aec00",
+              "Image": "raster/one-erp:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-one-erp-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 8088/tcp, 9090/tcp, 127.0.0.1:8090->8090/tcp",
+              "RunningFor": "7 days ago",
+              "Size": "242kB (virtual 406MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:15 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "cf24bc615571",
+              "Image": "raster/one-kernel:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-kernel-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "127.0.0.1:8080->8080/tcp, 127.0.0.1:9090->9090/tcp, 8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "242kB (virtual 427MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:14 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "fb2044464f91",
+              "Image": "raster/one-studio:dev",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "raster-one-studio-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux"
+              },
+              "Ports": "8080/tcp, 9090/tcp, 127.0.0.1:8088->8088/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "143kB (virtual 396MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "269d55cfa5af",
+              "Image": "postgres:16-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_pgd\u2026,/Users/pushpar\u2026",
+              "Names": "raster-one-postgres-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:15432->5432/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "20.5kB (virtual 297MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "9655b95a4e23",
+              "Image": "rabbitmq:3.13-management-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_rab\u2026",
+              "Names": "raster-one-rabbitmq-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "4369/tcp, 5671/tcp, 127.0.0.1:5672->5672/tcp, 15671/tcp, 15691-15692/tcp, 25672/tcp, 127.0.0.1:15672->15672/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 191MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+              "HealthStatus": "healthy",
+              "ID": "1bca90e3d2e8",
+              "Image": "redis:7-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "raster-one_red\u2026",
+              "Names": "raster-one-redis-1",
+              "Networks": "raster-one_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "127.0.0.1:16379->6379/tcp",
+              "RunningFor": "9 days ago",
+              "Size": "4.1kB (virtual 41.5MB)",
+              "State": "running",
+              "Status": "Up 3 days (healthy)"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-10-10 11:48:26 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "8c3f3f59c647",
+              "Image": "caddy:2",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "/Users/pushpar\u2026,/Users/pushpar\u2026",
+              "Names": "oosai-lan",
+              "Networks": "bridge",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "80/tcp, 443/tcp, 0.0.0.0:5443->5443/tcp, [::]:5443->5443/tcp, 2019/tcp, 443/udp, 0.0.0.0:8443->8443/tcp, [::]:8443->8443/tcp",
+              "RunningFor": "2 weeks ago",
+              "Size": "49.2kB (virtual 61.9MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-27 18:43:46 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "4b02c30d17f7",
+              "Image": "mysql:8.0",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_mysq\u2026",
+              "Names": "dev_mysql",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp, 33060/tcp",
+              "RunningFor": "8 weeks ago",
+              "Size": "32.8kB (virtual 848MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "ab25fd93708d",
+              "Image": "postgres:15-alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "1",
+              "Mounts": "[redacted unrelated process/container text]_post\u2026",
+              "Names": "dev_postgres",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "28.7kB (virtual 295MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            },
+            {
+              "Command": "[redacted unrelated process/container text]",
+              "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+              "HealthStatus": "none",
+              "ID": "c1cfb710c4f1",
+              "Image": "redis:alpine",
+              "Labels": "[redacted unrelated process/container text]",
+              "LocalVolumes": "0",
+              "Mounts": "",
+              "Names": "redis_container",
+              "Networks": "[redacted unrelated process/container text]_default",
+              "Platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              },
+              "Ports": "0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp",
+              "RunningFor": "2 months ago",
+              "Size": "12.3kB (virtual 120MB)",
+              "State": "running",
+              "Status": "Up 3 days"
+            }
+          ],
+          "quiescent_shared_colima_vm": true,
+          "quiescent_shared_vm_exception_note": "PID 987 is the resident shared Colima Virtualization.Framework VM hosting only the persistent multi-day shared dev stack; never killed per host policy.",
+          "interfering_matches": []
+        },
+        "interfering_workload_matches": []
+      },
+      "interfering_workload_matches": []
+    }
+  ],
+  "campaign_freeze_sha256": "2d5d59d6a35c6c1e212b6bc5119b0bb4e9a2ff3fcc48ffb334ba88a04b653309",
+  "status": "automated_preflight_passed",
+  "root_acceptance": "pending_independent_review",
+  "end_source_guards": {
+    "candidate": "candidate_005",
+    "repo_head": "72a9184ae8879fd77364b60a8059d4ad5bc447d4",
+    "receipt_sha256": "87bda184d21845362608a5a0b2198a9d6840a4324c5bdf2e8f6c5d9978e299e6",
+    "all_source_pins_sha256": "bb1f3a5591fbcc3d7585a2eb67e9226cae9068bd7d1e1b90e8896afd0837c05f",
+    "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+    "package_swift_sha256": "b8c00c41dda983f6cee24c45f3e352ebde71c0f25b42abd379a431f1a556394b",
+    "production_files": 39,
+    "test_files": 32,
+    "binary_sha256": {
+      "pinned": "b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45",
+      "three_change": "7f618c0cf8fe1c31bee5a36b212c0dc2943e89fd366b4228a966f63d83aa5231",
+      "candidate": "349a14b524218fde633cd415e9972fdcdd7062601ba8578eb71380383b81c177",
+      "62309d3": "64f270f9370b9537b315e08419c50beadb026cc68e4f2812a3cd53a0a9db5257",
+      "e66f7da": "71601d9d0b603ba4a4fc69dcff8558e9c428c5cec4023c07d5bafec3f16f2a47"
+    },
+    "host_scope": "shared services running; no claim of host idleness"
+  }
+}

@@ -1,0 +1,1829 @@
+{
+  "utc": "2026-10-22T11:24:24.663546+00:00",
+  "artifact_sha256": {
+    "complete.json": "e977453124036bf7a11721458203d0fbc6fba70843c09ced9a9247624940b1a8",
+    "summary.json": "645e683ef7af1a3b2c087f307546d81865286ca4e05b0a97951a06e30f5e65b1",
+    "environment.json": "0c1f451d1058243ed1131e44ab83159ea07b34cfe22ac9dd471c4c5744f3ba24",
+    "events.jsonl": "48b8791286974f85d7002a9174edfe25bd57e4fac6b8de0093fd989878025a17",
+    "conditions.jsonl": "b2d887a65ec850e488914caa31912c34ffc7f29e2cd49508df693abb7142f891",
+    "frozen_schedule.json": "053c3328a9175004cd907472aea89c2e6bede7f1fe35b90cc473834224263ff1",
+    "frozen_runner.py": "fd15ff869b57dcdea6f9cf8f9a96dbcfd02f7ba0ae8e7d93bb80aa4406b7a68f",
+    "frozen_MemDiagRelief.swift": "6a58be2bde9fa4ccfd6e09dfbaa7b632ebcc76d222cbfedf6cf2aff350937d99"
+  },
+  "checks_count": 381,
+  "failures": [],
+  "events": 112,
+  "runtime_stderr_empty": true,
+  "sources": {
+    "62309d3": {
+      "revision": "62309d3c59b04c5896d6ea076aae5ce06f5f33e3",
+      "base_revision": "62309d3c59b04c5896d6ea076aae5ce06f5f33e3",
+      "file_count": 27,
+      "benchmark_binary_sha256": "2cb7f73587121dbf3f568b4bd990b748ba772070b52ca3ebd426f22cdc5fc3fa",
+      "relief_binary_sha256": "2b459df9b0531dc5c5720de78900c267bab40fcc245ca46bdd04bc5679f3b499"
+    },
+    "e66f7da": {
+      "revision": "e66f7da0d663756bae2d1495454d59b028228f7f",
+      "base_revision": "e66f7da0d663756bae2d1495454d59b028228f7f",
+      "file_count": 38,
+      "benchmark_binary_sha256": "192ba67010e8c50dede0ceb470887722414a262c06f35e2eba3d151b935f2099",
+      "relief_binary_sha256": "fd723485d8e5342613f3c2cef19416924502b0275d5ca37c3af5e532a792231e"
+    },
+    "candidate": {
+      "revision": "WORKING_TREE",
+      "base_revision": "041c1a3d4861f9956ca49cd994eff618e23908ec",
+      "file_count": 38,
+      "benchmark_binary_sha256": "62e2e89c02f9b93ecad5ee6a0811dcb5c8a7c6c5d9ff52d7f084b161b22cd824",
+      "relief_binary_sha256": "8934d038bbbd8f7fe0bd9e7f0217f02c3e3a676cfca083654c221dabd80d926b"
+    }
+  },
+  "contrasts": {
+    "e66_vs_623": {
+      "median_ratio": 1.0582314881380301,
+      "familywise_interval": [
+        0.870063694267516,
+        1.1964809384164223
+      ],
+      "marginal_interval": [
+        0.8831504196255648,
+        1.1824175824175824
+      ],
+      "maximum_ratio": 1.002375296912114,
+      "median_bytes": [
+        11395072.0,
+        12058624.0
+      ],
+      "maximum_bytes": [
+        13795328.0,
+        13828096.0
+      ],
+      "order_groups": {
+        "62309d3_before_e66f7da": {
+          "blocks": 12,
+          "median_ratio": 1.0201294033069734,
+          "median_block_ratio": 1.000733137829912
+        },
+        "e66f7da_before_62309d3": {
+          "blocks": 12,
+          "median_ratio": 1.0388349514563107,
+          "median_block_ratio": 1.0022015666111161
+        }
+      },
+      "temporal_groups": [
+        {
+          "first_block": 0,
+          "last_block": 5,
+          "median_ratio": 0.9733939000648929,
+          "median_block_ratio": 1.0001218908861467
+        },
+        {
+          "first_block": 6,
+          "last_block": 11,
+          "median_ratio": 0.9472954230235784,
+          "median_block_ratio": 0.9501526393075199
+        },
+        {
+          "first_block": 12,
+          "last_block": 17,
+          "median_ratio": 1.0201294033069734,
+          "median_block_ratio": 1.0395894428152492
+        },
+        {
+          "first_block": 18,
+          "last_block": 23,
+          "median_ratio": 1.1972140762463344,
+          "median_block_ratio": 1.0989736070381233
+        }
+      ]
+    },
+    "candidate_vs_623": {
+      "median_ratio": 0.9805895039539899,
+      "familywise_interval": [
+        0.867515923566879,
+        1.1422287390029326
+      ],
+      "marginal_interval": [
+        0.8792769528728211,
+        1.1157509157509158
+      ],
+      "maximum_ratio": 0.998812351543943,
+      "median_bytes": [
+        11395072.0,
+        11173888.0
+      ],
+      "maximum_bytes": [
+        13795328.0,
+        13778944.0
+      ],
+      "order_groups": {
+        "62309d3_before_candidate": {
+          "blocks": 12,
+          "median_ratio": 0.981294964028777,
+          "median_block_ratio": 0.9986541170720488
+        },
+        "candidate_before_62309d3": {
+          "blocks": 12,
+          "median_ratio": 0.9875259875259875,
+          "median_block_ratio": 0.9986730379420594
+        }
+      },
+      "temporal_groups": [
+        {
+          "first_block": 0,
+          "last_block": 5,
+          "median_ratio": 0.917585983127839,
+          "median_block_ratio": 0.9461867276773591
+        },
+        {
+          "first_block": 6,
+          "last_block": 11,
+          "median_ratio": 0.9445214979195562,
+          "median_block_ratio": 0.9465578870082696
+        },
+        {
+          "first_block": 12,
+          "last_block": 17,
+          "median_ratio": 1.1200575125808772,
+          "median_block_ratio": 1.0608108108108107
+        },
+        {
+          "first_block": 18,
+          "last_block": 23,
+          "median_ratio": 0.998533724340176,
+          "median_block_ratio": 0.998533724340176
+        }
+      ]
+    },
+    "candidate_vs_e66": {
+      "median_ratio": 0.9266304347826086,
+      "familywise_interval": [
+        0.8339460784313726,
+        1.1405563689604685
+      ],
+      "marginal_interval": [
+        0.8345588235294118,
+        1.089311859443631
+      ],
+      "maximum_ratio": 0.9964454976303317,
+      "median_bytes": [
+        12058624.0,
+        11173888.0
+      ],
+      "maximum_bytes": [
+        13828096.0,
+        13778944.0
+      ],
+      "order_groups": {
+        "e66f7da_before_candidate": {
+          "blocks": 12,
+          "median_ratio": 0.8391866913123844,
+          "median_block_ratio": 0.9143511540780295
+        },
+        "candidate_before_e66f7da": {
+          "blocks": 12,
+          "median_ratio": 1.0446559297218154,
+          "median_block_ratio": 0.999266862170088
+        }
+      },
+      "temporal_groups": [
+        {
+          "first_block": 0,
+          "last_block": 5,
+          "median_ratio": 0.9426666666666667,
+          "median_block_ratio": 0.9378343172306753
+        },
+        {
+          "first_block": 6,
+          "last_block": 11,
+          "median_ratio": 0.9970717423133236,
+          "median_block_ratio": 0.9978027333267498
+        },
+        {
+          "first_block": 12,
+          "last_block": 17,
+          "median_ratio": 1.097956307258633,
+          "median_block_ratio": 1.081433040123279
+        },
+        {
+          "first_block": 18,
+          "last_block": 23,
+          "median_ratio": 0.8340477648499693,
+          "median_block_ratio": 0.8340480776153791
+        }
+      ]
+    },
+    "candidate_copy_vs_candidate": {
+      "median_ratio": 1.0564516129032258,
+      "familywise_interval": [
+        0.8783419813286655,
+        1.1681350954478709
+      ],
+      "marginal_interval": [
+        0.9146505376344086,
+        1.1292217327459617
+      ],
+      "maximum_ratio": 0.9988109393579072,
+      "median_bytes": [
+        11173888.0,
+        11804672.0
+      ],
+      "maximum_bytes": [
+        13778944.0,
+        13762560.0
+      ],
+      "order_groups": {
+        "candidate_before_candidate-copy": {
+          "blocks": 12,
+          "median_ratio": 1.0280701754385966,
+          "median_block_ratio": 1.0007363770250368
+        },
+        "candidate-copy_before_candidate": {
+          "blocks": 12,
+          "median_ratio": 1.0381231671554252,
+          "median_block_ratio": 0.9992657856093979
+        }
+      },
+      "temporal_groups": [
+        {
+          "first_block": 0,
+          "last_block": 5,
+          "median_ratio": 0.9618104667609618,
+          "median_block_ratio": 1.0
+        },
+        {
+          "first_block": 6,
+          "last_block": 11,
+          "median_ratio": 1.1116005873715125,
+          "median_block_ratio": 1.0019296944474712
+        },
+        {
+          "first_block": 12,
+          "last_block": 17,
+          "median_ratio": 0.9319640564826701,
+          "median_block_ratio": 0.9698797853670778
+        },
+        {
+          "first_block": 18,
+          "last_block": 23,
+          "median_ratio": 1.1138032305433188,
+          "median_block_ratio": 1.1129930669193007
+        }
+      ]
+    }
+  },
+  "aa_control_review_required": true,
+  "candidate_within_finite_criterion": false,
+  "diagnostic": {
+    "62309d3": {
+      "1": {
+        "current_resident_bytes": {
+          "values": [
+            6242304,
+            6242304,
+            6242304,
+            6242304,
+            6242304,
+            6225920,
+            6242304,
+            6242304
+          ],
+          "median": 6242304.0,
+          "range": [
+            6225920,
+            6242304
+          ]
+        },
+        "current_phys_footprint_bytes": {
+          "values": [
+            1982896,
+            1982896,
+            1982896,
+            1982896,
+            1982896,
+            1966512,
+            1982896,
+            1982896
+          ],
+          "median": 1982896.0,
+          "range": [
+            1966512,
+            1982896
+          ]
+        },
+        "malloc_current_size_in_use_bytes": {
+          "values": [
+            84688,
+            84688,
+            84688,
+            84688,
+            84688,
+            84688,
+            84688,
+            84688
+          ],
+          "median": 84688.0,
+          "range": [
+            84688,
+            84688
+          ]
+        },
+        "malloc_reserved_size_allocated_bytes": {
+          "values": [
+            16777216,
+            16777216,
+            16777216,
+            16777216,
+            16777216,
+            16777216,
+            16777216,
+            16777216
+          ],
+          "median": 16777216.0,
+          "range": [
+            16777216,
+            16777216
+          ]
+        },
+        "malloc_blocks_in_use": {
+          "values": [
+            894,
+            894,
+            894,
+            894,
+            894,
+            894,
+            894,
+            894
+          ],
+          "median": 894.0,
+          "range": [
+            894,
+            894
+          ]
+        },
+        "current_thread_count": {
+          "values": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "median": 1.0,
+          "range": [
+            1,
+            1
+          ]
+        },
+        "peak_ru_maxrss_bytes": {
+          "values": [
+            6242304,
+            6242304,
+            6242304,
+            6242304,
+            6242304,
+            6225920,
+            6242304,
+            6242304
+          ],
+          "median": 6242304.0,
+          "range": [
+            6225920,
+            6242304
+          ]
+        }
+      },
+      "7": {
+        "current_resident_bytes": {
+          "values": [
+            12091392,
+            10665984,
+            10649600,
+            12861440,
+            10665984,
+            12828672,
+            10665984,
+            10665984
+          ],
+          "median": 10665984.0,
+          "range": [
+            10649600,
+            12861440
+          ]
+        },
+        "current_phys_footprint_bytes": {
+          "values": [
+            7487968,
+            6062560,
+            6046176,
+            8258016,
+            6062560,
+            8225248,
+            6062560,
+            6062560
+          ],
+          "median": 6062560.0,
+          "range": [
+            6046176,
+            8258016
+          ]
+        },
+        "malloc_current_size_in_use_bytes": {
+          "values": [
+            1612448,
+            1612448,
+            1612448,
+            1612448,
+            1612448,
+            1612448,
+            1612448,
+            1612448
+          ],
+          "median": 1612448.0,
+          "range": [
+            1612448,
+            1612448
+          ]
+        },
+        "malloc_reserved_size_allocated_bytes": {
+          "values": [
+            33554432,
+            25165824,
+            25165824,
+            41943040,
+            25165824,
+            37748736,
+            25165824,
+            25165824
+          ],
+          "median": 25165824.0,
+          "range": [
+            25165824,
+            41943040
+          ]
+        },
+        "malloc_blocks_in_use": {
+          "values": [
+            1020,
+            1020,
+            1020,
+            1020,
+            1020,
+            1020,
+            1020,
+            1020
+          ],
+          "median": 1020.0,
+          "range": [
+            1020,
+            1020
+          ]
+        },
+        "current_thread_count": {
+          "values": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "median": 2.0,
+          "range": [
+            2,
+            2
+          ]
+        },
+        "peak_ru_maxrss_bytes": {
+          "values": [
+            12091392,
+            10665984,
+            10649600,
+            12861440,
+            10665984,
+            12828672,
+            10665984,
+            10665984
+          ],
+          "median": 10665984.0,
+          "range": [
+            10649600,
+            12861440
+          ]
+        }
+      },
+      "13": {
+        "current_resident_bytes": {
+          "values": [
+            12550144,
+            11124736,
+            11124736,
+            13352960,
+            11124736,
+            13303808,
+            11124736,
+            11124736
+          ],
+          "median": 11124736.0,
+          "range": [
+            11124736,
+            13352960
+          ]
+        },
+        "current_phys_footprint_bytes": {
+          "values": [
+            7946720,
+            6521312,
+            6521312,
+            8749536,
+            6521312,
+            8700384,
+            6521312,
+            6521312
+          ],
+          "median": 6521312.0,
+          "range": [
+            6521312,
+            8749536
+          ]
+        },
+        "malloc_current_size_in_use_bytes": {
+          "values": [
+            1612464,
+            1612464,
+            1612464,
+            1612464,
+            1612464,
+            1612464,
+            1612464,
+            1612464
+          ],
+          "median": 1612464.0,
+          "range": [
+            1612464,
+            1612464
+          ]
+        },
+        "malloc_reserved_size_allocated_bytes": {
+          "values": [
+            33554432,
+            25165824,
+            25165824,
+            41943040,
+            25165824,
+            41943040,
+            25165824,
+            25165824
+          ],
+          "median": 25165824.0,
+          "range": [
+            25165824,
+            41943040
+          ]
+        },
+        "malloc_blocks_in_use": {
+          "values": [
+            1018,
+            1018,
+            1018,
+            1018,
+            1018,
+            1018,
+            1018,
+            1018
+          ],
+          "median": 1018.0,
+          "range": [
+            1018,
+            1018
+          ]
+        },
+        "current_thread_count": {
+          "values": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "median": 2.0,
+          "range": [
+            2,
+            2
+          ]
+        },
+        "peak_ru_maxrss_bytes": {
+          "values": [
+            12550144,
+            11124736,
+            11124736,
+            13352960,
+            11124736,
+            13303808,
+            11124736,
+            11124736
+          ],
+          "median": 11124736.0,
+          "range": [
+            11124736,
+            13352960
+          ]
+        }
+      },
+      "14": {
+        "current_resident_bytes": {
+          "values": [
+            12550144,
+            11124736,
+            11124736,
+            13352960,
+            11124736,
+            13303808,
+            11124736,
+            11124736
+          ],
+          "median": 11124736.0,
+          "range": [
+            11124736,
+            13352960
+          ]
+        },
+        "current_phys_footprint_bytes": {
+          "values": [
+            7946720,
+            6521312,
+            6521312,
+            8749536,
+            6521312,
+            8700384,
+            6521312,
+            6521312
+          ],
+          "median": 6521312.0,
+          "range": [
+            6521312,
+            8749536
+          ]
+        },
+        "malloc_current_size_in_use_bytes": {
+          "values": [
+            104848,
+            104848,
+            104848,
+            104848,
+            104848,
+            104848,
+            104848,
+            104848
+          ],
+          "median": 104848.0,
+          "range": [
+            104848,
+            104848
+          ]
+        },
+        "malloc_reserved_size_allocated_bytes": {
+          "values": [
+            33554432,
+            25165824,
+            25165824,
+            41943040,
+            25165824,
+            41943040,
+            25165824,
+            25165824
+          ],
+          "median": 25165824.0,
+          "range": [
+            25165824,
+            41943040
+          ]
+        },
+        "malloc_blocks_in_use": {
+          "values": [
+            1011,
+            1011,
+            1011,
+            1011,
+            1011,
+            1011,
+            1011,
+            1011
+          ],
+          "median": 1011.0,
+          "range": [
+            1011,
+            1011
+          ]
+        },
+        "current_thread_count": {
+          "values": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "median": 2.0,
+          "range": [
+            2,
+            2
+          ]
+        },
+        "peak_ru_maxrss_bytes": {
+          "values": [
+            12550144,
+            11124736,
+            11124736,
+            13352960,
+            11124736,
+            13303808,
+            11124736,
+            11124736
+          ],
+          "median": 11124736.0,
+          "range": [
+            11124736,
+            13352960
+          ]
+        }
+      },
+      "15": {
+        "current_resident_bytes": {
+          "values": [
+            12550144,
+            11124736,
+            11124736,
+            13352960,
+            11124736,
+            13303808,
+            11124736,
+            11124736
+          ],
+          "median": 11124736.0,
+          "range": [
+            11124736,
+            13352960
+          ]
+        },
+        "current_phys_footprint_bytes": {
+          "values": [
+            7946720,
+            6521312,
+            6521312,
+            8749536,
+            6521312,
+            8700384,
+            6521312,
+            6521312
+          ],
+          "median": 6521312.0,
+          "range": [
+            6521312,
+            8749536
+          ]
+        },
+        "malloc_current_size_in_use_bytes": {
+          "values": [
+            104848,
+            104848,
+            104848,
+            104848,
+            104848,
+            104848,
+            104848,
+            104848
+          ],
+          "median": 104848.0,
+          "range": [
+            104848,
+            104848
+          ]
+        },
+        "malloc_reserved_size_allocated_bytes": {
+          "values": [
+            33554432,
+            25165824,
+            25165824,
+            41943040,
+            25165824,
+            41943040,
+            25165824,
+            25165824
+          ],
+          "median": 25165824.0,
+          "range": [
+            25165824,
+            41943040
+          ]
+        },
+        "malloc_blocks_in_use": {
+          "values": [
+            1011,
+            1011,
+            1011,
+            1011,
+            1011,
+            1011,
+            1011,
+            1011
+          ],
+          "median": 1011.0,
+          "range": [
+            1011,
+            1011
+          ]
+        },
+        "current_thread_count": {
+          "values": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "median": 2.0,
+          "range": [
+            2,
+            2
+          ]
+        },
+        "peak_ru_maxrss_bytes": {
+          "values": [
+            12550144,
+            11124736,
+            11124736,
+            13352960,
+            11124736,
+            13303808,
+            11124736,
+            11124736
+          ],
+          "median": 11124736.0,
+          "range": [
+            11124736,
+            13352960
+          ]
+        }
+      },
+      "actions": {
+        "relief": {
+          "returned_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "deltas_15_minus_14": {
+            "current_resident_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "current_phys_footprint_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "malloc_current_size_in_use_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "malloc_reserved_size_allocated_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "malloc_blocks_in_use": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "current_thread_count": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "peak_ru_maxrss_bytes": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "noop": {
+          "returned_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "deltas_15_minus_14": {
+            "current_resident_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "current_phys_footprint_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "malloc_current_size_in_use_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "malloc_reserved_size_allocated_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "malloc_blocks_in_use": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "current_thread_count": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "peak_ru_maxrss_bytes": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "candidate": {
+      "1": {
+        "current_resident_bytes": {
+          "values": [
+            6275072,
+            6275072,
+            6275072,
+            6275072,
+            6275072,
+            6275072,
+            6275072,
+            6258688
+          ],
+          "median": 6275072.0,
+          "range": [
+            6258688,
+            6275072
+          ]
+        },
+        "current_phys_footprint_bytes": {
+          "values": [
+            1999280,
+            1999280,
+            1999280,
+            1999280,
+            1999280,
+            1999280,
+            1999280,
+            1982896
+          ],
+          "median": 1999280.0,
+          "range": [
+            1982896,
+            1999280
+          ]
+        },
+        "malloc_current_size_in_use_bytes": {
+          "values": [
+            84688,
+            84688,
+            84688,
+            84688,
+            84688,
+            84688,
+            84688,
+            84688
+          ],
+          "median": 84688.0,
+          "range": [
+            84688,
+            84688
+          ]
+        },
+        "malloc_reserved_size_allocated_bytes": {
+          "values": [
+            16777216,
+            16777216,
+            16777216,
+            16777216,
+            16777216,
+            16777216,
+            16777216,
+            16777216
+          ],
+          "median": 16777216.0,
+          "range": [
+            16777216,
+            16777216
+          ]
+        },
+        "malloc_blocks_in_use": {
+          "values": [
+            894,
+            894,
+            894,
+            894,
+            894,
+            894,
+            894,
+            894
+          ],
+          "median": 894.0,
+          "range": [
+            894,
+            894
+          ]
+        },
+        "current_thread_count": {
+          "values": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "median": 1.0,
+          "range": [
+            1,
+            1
+          ]
+        },
+        "peak_ru_maxrss_bytes": {
+          "values": [
+            6275072,
+            6275072,
+            6275072,
+            6275072,
+            6275072,
+            6275072,
+            6275072,
+            6258688
+          ],
+          "median": 6275072.0,
+          "range": [
+            6258688,
+            6275072
+          ]
+        }
+      },
+      "7": {
+        "current_resident_bytes": {
+          "values": [
+            10698752,
+            10682368,
+            12107776,
+            12255232,
+            10665984,
+            10698752,
+            10747904,
+            10682368
+          ],
+          "median": 10698752.0,
+          "range": [
+            10665984,
+            12255232
+          ]
+        },
+        "current_phys_footprint_bytes": {
+          "values": [
+            6062560,
+            6046176,
+            7471584,
+            7619040,
+            6029792,
+            6062560,
+            6111712,
+            6046176
+          ],
+          "median": 6062560.0,
+          "range": [
+            6029792,
+            7619040
+          ]
+        },
+        "malloc_current_size_in_use_bytes": {
+          "values": [
+            1612448,
+            1612448,
+            1612448,
+            1612448,
+            1612448,
+            1612448,
+            1612448,
+            1612448
+          ],
+          "median": 1612448.0,
+          "range": [
+            1612448,
+            1612448
+          ]
+        },
+        "malloc_reserved_size_allocated_bytes": {
+          "values": [
+            25165824,
+            25165824,
+            37748736,
+            33554432,
+            25165824,
+            25165824,
+            29360128,
+            25165824
+          ],
+          "median": 25165824.0,
+          "range": [
+            25165824,
+            37748736
+          ]
+        },
+        "malloc_blocks_in_use": {
+          "values": [
+            1020,
+            1020,
+            1020,
+            1020,
+            1020,
+            1020,
+            1020,
+            1020
+          ],
+          "median": 1020.0,
+          "range": [
+            1020,
+            1020
+          ]
+        },
+        "current_thread_count": {
+          "values": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "median": 2.0,
+          "range": [
+            2,
+            2
+          ]
+        },
+        "peak_ru_maxrss_bytes": {
+          "values": [
+            10698752,
+            10682368,
+            12107776,
+            12255232,
+            10665984,
+            10698752,
+            10747904,
+            10682368
+          ],
+          "median": 10698752.0,
+          "range": [
+            10665984,
+            12255232
+          ]
+        }
+      },
+      "13": {
+        "current_resident_bytes": {
+          "values": [
+            11141120,
+            11124736,
+            12582912,
+            12730368,
+            11141120,
+            11157504,
+            12615680,
+            11124736
+          ],
+          "median": 11149312.0,
+          "range": [
+            11124736,
+            12730368
+          ]
+        },
+        "current_phys_footprint_bytes": {
+          "values": [
+            6504928,
+            6488544,
+            7946720,
+            8094176,
+            6504928,
+            6521312,
+            7979488,
+            6488544
+          ],
+          "median": 6513120.0,
+          "range": [
+            6488544,
+            8094176
+          ]
+        },
+        "malloc_current_size_in_use_bytes": {
+          "values": [
+            1612464,
+            1612464,
+            1612464,
+            1612464,
+            1612464,
+            1612464,
+            1612464,
+            1612464
+          ],
+          "median": 1612464.0,
+          "range": [
+            1612464,
+            1612464
+          ]
+        },
+        "malloc_reserved_size_allocated_bytes": {
+          "values": [
+            25165824,
+            25165824,
+            37748736,
+            33554432,
+            25165824,
+            25165824,
+            37748736,
+            25165824
+          ],
+          "median": 25165824.0,
+          "range": [
+            25165824,
+            37748736
+          ]
+        },
+        "malloc_blocks_in_use": {
+          "values": [
+            1018,
+            1018,
+            1018,
+            1018,
+            1018,
+            1018,
+            1018,
+            1018
+          ],
+          "median": 1018.0,
+          "range": [
+            1018,
+            1018
+          ]
+        },
+        "current_thread_count": {
+          "values": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "median": 2.0,
+          "range": [
+            2,
+            2
+          ]
+        },
+        "peak_ru_maxrss_bytes": {
+          "values": [
+            11141120,
+            11124736,
+            12582912,
+            12730368,
+            11141120,
+            11157504,
+            12615680,
+            11124736
+          ],
+          "median": 11149312.0,
+          "range": [
+            11124736,
+            12730368
+          ]
+        }
+      },
+      "14": {
+        "current_resident_bytes": {
+          "values": [
+            11141120,
+            11124736,
+            12582912,
+            12730368,
+            11141120,
+            11157504,
+            12615680,
+            11124736
+          ],
+          "median": 11149312.0,
+          "range": [
+            11124736,
+            12730368
+          ]
+        },
+        "current_phys_footprint_bytes": {
+          "values": [
+            6504928,
+            6488544,
+            7946720,
+            8094176,
+            6504928,
+            6521312,
+            7979488,
+            6488544
+          ],
+          "median": 6513120.0,
+          "range": [
+            6488544,
+            8094176
+          ]
+        },
+        "malloc_current_size_in_use_bytes": {
+          "values": [
+            104848,
+            104848,
+            104848,
+            104848,
+            104848,
+            104848,
+            104848,
+            104848
+          ],
+          "median": 104848.0,
+          "range": [
+            104848,
+            104848
+          ]
+        },
+        "malloc_reserved_size_allocated_bytes": {
+          "values": [
+            25165824,
+            25165824,
+            37748736,
+            33554432,
+            25165824,
+            25165824,
+            37748736,
+            25165824
+          ],
+          "median": 25165824.0,
+          "range": [
+            25165824,
+            37748736
+          ]
+        },
+        "malloc_blocks_in_use": {
+          "values": [
+            1011,
+            1011,
+            1011,
+            1011,
+            1011,
+            1011,
+            1011,
+            1011
+          ],
+          "median": 1011.0,
+          "range": [
+            1011,
+            1011
+          ]
+        },
+        "current_thread_count": {
+          "values": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "median": 2.0,
+          "range": [
+            2,
+            2
+          ]
+        },
+        "peak_ru_maxrss_bytes": {
+          "values": [
+            11141120,
+            11124736,
+            12582912,
+            12730368,
+            11141120,
+            11157504,
+            12615680,
+            11124736
+          ],
+          "median": 11149312.0,
+          "range": [
+            11124736,
+            12730368
+          ]
+        }
+      },
+      "15": {
+        "current_resident_bytes": {
+          "values": [
+            11141120,
+            11124736,
+            12582912,
+            12730368,
+            11141120,
+            11157504,
+            12615680,
+            11124736
+          ],
+          "median": 11149312.0,
+          "range": [
+            11124736,
+            12730368
+          ]
+        },
+        "current_phys_footprint_bytes": {
+          "values": [
+            6504928,
+            6488544,
+            7946720,
+            8094176,
+            6504928,
+            6521312,
+            7979488,
+            6488544
+          ],
+          "median": 6513120.0,
+          "range": [
+            6488544,
+            8094176
+          ]
+        },
+        "malloc_current_size_in_use_bytes": {
+          "values": [
+            104848,
+            104848,
+            104848,
+            104848,
+            104848,
+            104848,
+            104848,
+            104848
+          ],
+          "median": 104848.0,
+          "range": [
+            104848,
+            104848
+          ]
+        },
+        "malloc_reserved_size_allocated_bytes": {
+          "values": [
+            25165824,
+            25165824,
+            37748736,
+            33554432,
+            25165824,
+            25165824,
+            37748736,
+            25165824
+          ],
+          "median": 25165824.0,
+          "range": [
+            25165824,
+            37748736
+          ]
+        },
+        "malloc_blocks_in_use": {
+          "values": [
+            1011,
+            1011,
+            1011,
+            1011,
+            1011,
+            1011,
+            1011,
+            1011
+          ],
+          "median": 1011.0,
+          "range": [
+            1011,
+            1011
+          ]
+        },
+        "current_thread_count": {
+          "values": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "median": 2.0,
+          "range": [
+            2,
+            2
+          ]
+        },
+        "peak_ru_maxrss_bytes": {
+          "values": [
+            11141120,
+            11124736,
+            12582912,
+            12730368,
+            11141120,
+            11157504,
+            12615680,
+            11124736
+          ],
+          "median": 11149312.0,
+          "range": [
+            11124736,
+            12730368
+          ]
+        }
+      },
+      "actions": {
+        "relief": {
+          "returned_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "deltas_15_minus_14": {
+            "current_resident_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "current_phys_footprint_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "malloc_current_size_in_use_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "malloc_reserved_size_allocated_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "malloc_blocks_in_use": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "current_thread_count": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "peak_ru_maxrss_bytes": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "noop": {
+          "returned_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "deltas_15_minus_14": {
+            "current_resident_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "current_phys_footprint_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "malloc_current_size_in_use_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "malloc_reserved_size_allocated_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "malloc_blocks_in_use": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "current_thread_count": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "peak_ru_maxrss_bytes": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    }
+  },
+  "zero_malloc_highwater_count": 240,
+  "phase_snapshot_count": 240,
+  "conditions": {
+    "count": 29,
+    "start": "2026-10-22T11:17:34.955099+00:00",
+    "end": "2026-10-22T11:18:03.997979+00:00",
+    "sum_cpu_range": [
+      160.1,
+      324.9
+    ],
+    "loads": [
+      "{ 4.42 5.08 5.10 }",
+      "{ 4.42 5.08 5.10 }",
+      "{ 4.23 5.03 5.08 }",
+      "{ 4.23 5.03 5.08 }",
+      "{ 4.29 5.03 5.08 }",
+      "{ 4.29 5.03 5.08 }",
+      "{ 4.29 5.03 5.08 }",
+      "{ 4.29 5.03 5.08 }",
+      "{ 4.29 5.03 5.08 }",
+      "{ 4.10 4.98 5.06 }",
+      "{ 4.10 4.98 5.06 }",
+      "{ 4.10 4.98 5.06 }",
+      "{ 4.10 4.98 5.06 }",
+      "{ 4.10 4.98 5.06 }",
+      "{ 4.10 4.96 5.05 }",
+      "{ 4.10 4.96 5.05 }",
+      "{ 4.10 4.96 5.05 }",
+      "{ 4.10 4.96 5.05 }",
+      "{ 4.10 4.96 5.05 }",
+      "{ 4.01 4.93 5.04 }",
+      "{ 4.01 4.93 5.04 }",
+      "{ 4.01 4.93 5.04 }",
+      "{ 4.01 4.93 5.04 }",
+      "{ 4.01 4.93 5.04 }",
+      "{ 4.17 4.95 5.05 }",
+      "{ 4.17 4.95 5.05 }",
+      "{ 4.17 4.95 5.05 }",
+      "{ 4.17 4.95 5.05 }",
+      "{ 4.17 4.95 5.05 }"
+    ],
+    "processes_above_10": {
+      "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer": {
+        "observations": 29,
+        "range": [
+          54.3,
+          70.2
+        ]
+      },
+      "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU": {
+        "observations": 16,
+        "range": [
+          10.0,
+          11.7
+        ]
+      },
+      "/Applications/.Svcvtt.app/Contents/MacOS/TimeChamp.Tracker.MacOS": {
+        "observations": 11,
+        "range": [
+          10.2,
+          20.8
+        ]
+      },
+      "/Users/pushparaj/.codex/computer-use/Codex Computer Use.app/Contents/MacOS/SkyComputerUseService": {
+        "observations": 29,
+        "range": [
+          18.2,
+          22.2
+        ]
+      },
+      "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent": {
+        "observations": 31,
+        "range": [
+          17.2,
+          108.0
+        ]
+      },
+      "/Applications/Antigravity.app/Contents/Frameworks/Antigravity Helper (Renderer).app/Contents/MacOS/Antigravity Helper (Renderer)": {
+        "observations": 20,
+        "range": [
+          10.3,
+          44.9
+        ]
+      },
+      "/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3": {
+        "observations": 2,
+        "range": [
+          18.0,
+          19.3
+        ]
+      },
+      "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine": {
+        "observations": 8,
+        "range": [
+          12.4,
+          96.4
+        ]
+      },
+      "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/155.0.8059.80/Helpers/Codex (Service).app/Contents/MacOS/Codex (Service)": {
+        "observations": 3,
+        "range": [
+          10.1,
+          10.9
+        ]
+      },
+      "/System/Library/CoreServices/launchservicesd": {
+        "observations": 1,
+        "range": [
+          10.6,
+          10.6
+        ]
+      }
+    }
+  },
+  "descriptive_summary_reconciliation_errors": [],
+  "equal_live_malloc_each_phase_all_16": true,
+  "all_16_phase13_to14_rss_unchanged": true,
+  "phase13_rss_minus_footprint_by_source": {
+    "62309d3": [
+      4603424
+    ],
+    "candidate": [
+      4636192
+    ]
+  }
+}

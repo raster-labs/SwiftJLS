@@ -1,0 +1,86 @@
+{
+  "bits": 16,
+  "pattern": "ramp",
+  "purpose": "Untimed correctness preflight only; emitted single-observation durations are not performance evidence.",
+  "command": [
+    "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/final-same-process/.build/release/Benchmark",
+    "37",
+    "23",
+    "16",
+    "ramp",
+    "0",
+    "1",
+    "correctness-only-p16-ramp"
+  ],
+  "before": {
+    "label": "p16-ramp/before",
+    "utc": "2026-10-21T11:05:27Z",
+    "power": {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+      "stderr": ""
+    },
+    "thermal": {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stderr": ""
+    },
+    "load": {
+      "command": [
+        "sysctl",
+        "-n",
+        "vm.loadavg"
+      ],
+      "exit_code": 0,
+      "stdout": "{ 3.61 3.78 5.31 }\n",
+      "stderr": ""
+    }
+  },
+  "after": {
+    "label": "p16-ramp/after",
+    "utc": "2026-10-21T11:05:27Z",
+    "power": {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+      "stderr": ""
+    },
+    "thermal": {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stderr": ""
+    },
+    "load": {
+      "command": [
+        "sysctl",
+        "-n",
+        "vm.loadavg"
+      ],
+      "exit_code": 0,
+      "stdout": "{ 3.61 3.78 5.31 }\n",
+      "stderr": ""
+    }
+  },
+  "exit_code": 0,
+  "stdout": "{\"bits\":16,\"combined_process_peak_rss_bytes\":7454720,\"components\":1,\"end_to_end\":true,\"first_producer\":\"predecessor\",\"height\":23,\"interleave\":0,\"iterations\":1,\"label\":\"correctness-only-p16-ramp\",\"near\":0,\"order\":\"Alternates first producer per observation, same order for warmups.\",\"pattern\":\"ramp\",\"predecessor\":{\"decode_seconds\":[3.7416666600620374e-05],\"encode_seconds\":[3.9416667277691886e-05],\"encoded_bytes\":367,\"prepare_encode_seconds\":[3.712499892571941e-05],\"prepare_seconds\":[4.0833328966982663e-06]},\"resource_profile\":\"successor-workspace-1GiB-memory-2GiB-v1\",\"rss_scope\":\"Combined process only; does not provide per-producer workspace\\/RSS.\",\"successor\":{\"decode_seconds\":[4.279166751075536e-05],\"encode_seconds\":[3.3749998692655936e-05],\"encoded_bytes\":367,\"prepare_encode_seconds\":[3.7416666600620374e-05],\"prepare_seconds\":[6.4999985625036061e-06]},\"warmups\":0,\"width\":37}\n",
+  "stderr": ""
+}

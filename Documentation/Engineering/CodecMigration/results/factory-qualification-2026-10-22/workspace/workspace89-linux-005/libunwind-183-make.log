@@ -1,0 +1,162 @@
+Making all in src
+make[1]: Entering directory '/tmp/libunwind-build/libunwind-1.8.3/src'
+make  all-am
+make[2]: Entering directory '/tmp/libunwind-build/libunwind-1.8.3/src'
+  CC       dl-iterate-phdr.lo
+  CC       os-linux.lo
+  CC       mi/backtrace.lo
+  CC       mi/dyn-cancel.lo
+  CC       mi/dyn-info-list.lo
+  CC       mi/dyn-register.lo
+  CC       mi/Laddress_validator.lo
+  CC       mi/Ldestroy_addr_space.lo
+  CC       mi/Ldyn-extract.lo
+  CC       mi/Lfind_dynamic_proc_info.lo
+  CC       mi/Lget_accessors.lo
+  CC       mi/Lget_fpreg.lo
+  CC       mi/Lset_fpreg.lo
+  CC       mi/Lget_proc_info_by_ip.lo
+  CC       mi/Lget_proc_name.lo
+  CC       mi/Lget_reg.lo
+  CC       mi/Lis_plt_entry.lo
+  CC       mi/Lput_dynamic_unwind_info.lo
+  CC       mi/Lset_cache_size.lo
+  CC       mi/Lset_caching_policy.lo
+  CC       mi/Lset_iterate_phdr_function.lo
+  CC       mi/Lset_reg.lo
+  CC       mi/Lget_elf_filename.lo
+  CC       aarch64/Los-linux.lo
+  CPPAS    aarch64/getcontext.lo
+  CC       aarch64/Lapply_reg_state.lo
+  CC       aarch64/Lcreate_addr_space.lo
+  CC       aarch64/Lget_proc_info.lo
+  CC       aarch64/Lget_save_loc.lo
+  CC       aarch64/Lglobal.lo
+  CC       aarch64/Linit.lo
+  CC       aarch64/Linit_local.lo
+  CC       aarch64/Linit_remote.lo
+  CC       aarch64/Lis_signal_frame.lo
+  CC       aarch64/Lregs.lo
+  CC       aarch64/Lreg_states_iterate.lo
+  CC       aarch64/Lresume.lo
+  CC       aarch64/Lstash_frame.lo
+  CC       aarch64/Lstep.lo
+  CC       aarch64/Ltrace.lo
+  CC       aarch64/Lstrip_ptrauth_insn_mask.lo
+  CC       elf64.lo
+  CC       mi/Gaddress_validator.lo
+  CC       mi/Gdestroy_addr_space.lo
+  CC       mi/Gdyn-extract.lo
+  CC       mi/Gdyn-remote.lo
+  CC       mi/Gfind_dynamic_proc_info.lo
+  CC       mi/Gget_accessors.lo
+  CC       mi/Gget_fpreg.lo
+  CC       mi/Gget_proc_info_by_ip.lo
+  CC       mi/Gget_proc_name.lo
+  CC       mi/Gget_reg.lo
+  CC       mi/Gis_plt_entry.lo
+  CC       mi/Gput_dynamic_unwind_info.lo
+  CC       mi/Gset_cache_size.lo
+  CC       mi/Gset_caching_policy.lo
+  CC       mi/Gset_fpreg.lo
+  CC       mi/Gset_iterate_phdr_function.lo
+  CC       mi/Gset_reg.lo
+  CC       mi/Gget_elf_filename.lo
+  CC       aarch64/Gos-linux.lo
+  CC       aarch64/Gapply_reg_state.lo
+  CC       aarch64/Gcreate_addr_space.lo
+  CC       aarch64/Gget_proc_info.lo
+  CC       aarch64/Gget_save_loc.lo
+  CC       aarch64/Gglobal.lo
+  CC       aarch64/Ginit.lo
+  CC       aarch64/Ginit_local.lo
+  CC       aarch64/Ginit_remote.lo
+  CC       aarch64/Gis_signal_frame.lo
+  CC       aarch64/Gregs.lo
+  CC       aarch64/Greg_states_iterate.lo
+  CC       aarch64/Gresume.lo
+  CC       aarch64/Gstash_frame.lo
+  CC       aarch64/Gstep.lo
+  CC       aarch64/Gtrace.lo
+  CC       aarch64/Gstrip_ptrauth_insn_mask.lo
+  CC       dwarf/Gexpr.lo
+  CC       dwarf/Gfde.lo
+  CC       dwarf/Gfind_proc_info-lsb.lo
+  CC       dwarf/Gfind_unwind_table.lo
+  CC       dwarf/Gget_proc_info_in_range.lo
+  CC       dwarf/Gparser.lo
+  CC       dwarf/Gpe.lo
+  CPPAS    aarch64/longjmp.lo
+  CPPAS    aarch64/siglongjmp.lo
+  CC       mi/init.lo
+  CC       mi/flush_cache.lo
+  CC       mi/mempool.lo
+  CC       mi/strerror.lo
+  CC       aarch64/is_fpreg.lo
+  CC       aarch64/regname.lo
+  CC       dwarf/Lexpr.lo
+  CC       dwarf/Lfde.lo
+  CC       dwarf/Lfind_proc_info-lsb.lo
+  CC       dwarf/Lfind_unwind_table.lo
+  CC       dwarf/Lget_proc_info_in_range.lo
+  CC       dwarf/Lparser.lo
+  CC       dwarf/Lpe.lo
+  CC       dwarf/global.lo
+  CCLD     libunwind-elf64.la
+  CC       coredump/_UCD_access_mem.lo
+  CC       coredump/_UCD_accessors.lo
+  CC       coredump/_UCD_corefile_elf.lo
+  CC       coredump/_UCD_create.lo
+  CC       coredump/_UCD_destroy.lo
+  CC       coredump/_UCD_elf_map_image.lo
+  CC       coredump/ucd_file_table.lo
+  CC       coredump/_UCD_find_proc_info.lo
+  CC       coredump/_UCD_get_proc_name.lo
+  CC       coredump/_UCD_get_elf_filename.lo
+  CC       coredump/_UPT_elf.lo
+  CC       coredump/_UPT_access_fpreg.lo
+  CC       coredump/_UPT_get_dyn_info_list_addr.lo
+  CC       coredump/_UPT_put_unwind_info.lo
+coredump/_UPT_get_dyn_info_list_addr.c: In function 'get_list_addr':
+coredump/_UPT_get_dyn_info_list_addr.c:87:3: warning: #warning Implement get_list_addr(), please. [-Wcpp]
+   87 | # warning Implement get_list_addr(), please.
+      |   ^~~~~~~
+  CC       coredump/_UPT_resume.lo
+  CC       coredump/_UCD_access_reg_linux.lo
+  CC       coredump/_UCD_get_threadinfo_prstatus.lo
+  CC       coredump/_UCD_get_mapinfo_linux.lo
+  CC       ptrace/_UPT_access_fpreg.lo
+  CC       ptrace/_UPT_access_mem.lo
+  CC       ptrace/_UPT_accessors.lo
+  CC       ptrace/_UPT_access_reg.lo
+  CC       ptrace/_UPT_create.lo
+  CC       ptrace/_UPT_destroy.lo
+  CC       ptrace/_UPT_elf.lo
+  CC       ptrace/_UPT_find_proc_info.lo
+  CC       ptrace/_UPT_get_dyn_info_list_addr.lo
+  CC       ptrace/_UPT_get_proc_name.lo
+ptrace/_UPT_get_dyn_info_list_addr.c: In function 'get_list_addr':
+ptrace/_UPT_get_dyn_info_list_addr.c:85:3: warning: #warning Implement get_list_addr(), please. [-Wcpp]
+   85 | # warning Implement get_list_addr(), please.
+      |   ^~~~~~~
+  CC       ptrace/_UPT_get_elf_filename.lo
+  CC       ptrace/_UPT_put_unwind_info.lo
+  CC       ptrace/_UPT_reg_offset.lo
+  CC       ptrace/_UPT_resume.lo
+  CC       ptrace/_UPT_ptrauth_insn_mask.lo
+  CC       setjmp/longjmp.lo
+  CC       setjmp/siglongjmp.lo
+  CCLD     libunwind-dwarf-common.la
+  CCLD     libunwind-dwarf-generic.la
+  CCLD     libunwind-dwarf-local.la
+  CCLD     libunwind.la
+  CCLD     libunwind-aarch64.la
+  CCLD     libunwind-coredump.la
+  CCLD     libunwind-ptrace.la
+  CCLD     libunwind-setjmp.la
+copying selected object files to avoid basename conflicts...
+make[2]: Leaving directory '/tmp/libunwind-build/libunwind-1.8.3/src'
+make[1]: Leaving directory '/tmp/libunwind-build/libunwind-1.8.3/src'
+make[1]: Entering directory '/tmp/libunwind-build/libunwind-1.8.3'
+make[1]: Nothing to be done for 'all-am'.
+make[1]: Leaving directory '/tmp/libunwind-build/libunwind-1.8.3'

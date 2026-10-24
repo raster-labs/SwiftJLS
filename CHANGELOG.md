@@ -1,5 +1,40 @@
 # Change log
 
+## Milestone 4 fresh-owned factory qualification — 2026-10-22 (unreleased)
+
+- Add `Image.writeAdmittedOwned`, `OwnedImageStorage.fillAndSealAdmittedOwned`, `Image(admittedOwnedDescriptor:sealedOwnedStorage:admittedMetadata:)` and reused `JPEGLSHeader.admittedDescriptor` (`factory_002`), bypassing the private `ImageDestination` wrapper when `ScalarCodec.decode` has no supplied destination while preserving `ImageDestination.allocate`/`write` for `ComponentCodec.decode` and caller-supplied storage.
+- Validate 149 declarations in 27 suites in debug/release/ASan/TSan on both the host and hardware-virtualised native `macOS 26.0` (`25A354`) guest, one focused TSan run (32 tests in 3 suites), 73 payload and 103 process CLI checks (retaining the first guest manual-omission failure and full retry pass), 990 CharLS interoperability checks, five exact OS 26.0 simulator consumers, four non-Watch resource workloads, 17 Apple SDK query/compile/sign commands (installed 27.x SDKs targeting OS 26.0) and Linux `CopyProbe` (`20/20`).
+- Attribute all 89 Linux `aarch64` workspace profiles at `factory_002` (`workspace89-linux-005` and corrected replay `workspace89-linux-005-replay-043`), confirming that each of the seven scalar-owned decode profiles removes two `storage_control_objects` allocations (`358 B`) and adds one 64-byte `JPEGLSBitstreamReader` allocation (net `-1` codec allocation / `-294 B` each), while `extended-p12-65537x2-into` adds 24 runtime allocations (`928 B`), changing total phase calls `4,415 -> 4,432`, and transferring the seven 64-byte scalar readers (`448 B`) from `compressed_buffer` to `algorithm_state`; retain `peakWorkspaceBytes = nil` and `pure_algorithm_workspace_complete = false`.
+- Archive the 9,288-process 3-arm short campaign (`short516-3arms-002`: 37/48 joint primary-family endpoints `<= 1.05`, including all 24 standalone `encode`/`decode` comparisons; 20 within gate + 4 unresolved vs `pinned`; 17 within gate + 6 unresolved + 1 confirmed `p12-flat` `prepare_encode` regression vs `three_change`), 120-process 2-arm larger guard (`larger15-guard-002`: 15 cases × 4 blocks × 2 arms; all 60 candidate-versus-pinned ratios `<= 1.05`), 504-process 6-arm `p12-flat` diagnostic (`p12-flat-diag-001`: 14/24 ratio endpoints `<= 1.05`, 10 unresolved, zero-ICC ablation not promoted), and Apple RSS/VM campaigns (`apple-rss-112-002`, `apple-vm18-001`) in [factory-qualification-2026-10-22.json](Documentation/Engineering/CodecMigration/results/factory-qualification-2026-10-22.json). Physical-device testing and Milestone 5 remain pending.
+
+## Powered maintenance comparison — 2026-10-22 (unreleased)
+
+- Compare the common owning APIs at `62309d3` and `e66f7da` using identical release consumers, six cases and alternating process order.
+- Retain the initial preparation/RSS flags and one fixed repeat with identical-binary controls. The pooled preparation slowdown does not recur; whole-process RSS remains inconclusive.
+- Archive all 96 process records and 194 AC/no-warning observations. Background activity, earlier performance findings, physical-device testing and Milestone 5 remain explicit limitations. See [the maintenance record](Documentation/Engineering/CodecMigration/RecentFixes.md#powered-maintenance-comparison--22-october).
+
+## Predecessor maintenance-fix migration — 2026-10-22 (unreleased)
+
+- Add the explicit `QualifiedMonochromeDecoder` caller-workspace profile with synchronous nonthrowing outcomes, checked budgets, deadline/cancellation and complete-stream admission.
+- Accept leading marker fill, permit explicit ICC discard without altering pixels, and reject progress callbacks on synchronous inspection.
+- Add independent fixtures, malformed-input and lifetime regressions, a development allocation probe with positive controls, and qualified-entry mutation coverage.
+- Keep exact validation and allocation scope in [the maintenance-fix record](Documentation/Engineering/CodecMigration/RecentFixes.md). Earlier performance findings, physical-device admission and Milestone 5 remain open; the owner verifies CI and merges.
+
+## Milestone 4 bounded setup performance — 2026-10-21 (unreleased)
+
+- Reduce singleton descriptor mapping, bounded header scan tracking, decoder gradient-table initialisation and owned-destination admission overhead; preserve validation precedence, limits, leases, cancellation and public APIs.
+- Validate 120 declarations in 24 suites in debug/release/ASan/TSan on the host and native arm64 macOS 26.0; repeat CLI, exact OS 26.0 simulator, resource and SDK checks.
+- Complete source-pinned owned/into/inspect ASan mutation campaigns for at least one hour each, with 981 seeds and 24,076,372 total iterations; verify artifact digests and counter reconciliation.
+- Attribute all 89 operation profiles at `e6a6436`; reduce metadata allocation traffic with unchanged algorithm-state peaks. Universal heap/stack/allocator totals remain unknown.
+- Preserve fixed short/deep measurements, source identities and unresolved decode findings in [the performance record](Documentation/Engineering/CodecMigration/Milestone4Performance.md). No regression waiver or full Milestone 4 completion is claimed. Physical-device testing stays pending; Milestone 5 stays deferred.
+
+## Milestone 4 sample-interleaved decode qualification — 2026-10-21 (unreleased)
+
+- Select borrowed native UInt16 writers once for compatible sample-interleaved destinations; retain the general layout fallback, unaligned access support and cancellation boundaries.
+- Add native/fallback layout and cancellation regressions. All 110 declarations in 21 suites pass in debug/release/ASan/TSan on the host and native arm64 macOS 26.0 guest; repeat CLI, exact OS 26.0 simulator, resource and SDK checks.
+- Refresh the 89-operation workspace matrix and strict allocation attribution, including bounded descriptor-array growth with no sample allocation or copy. Universal workspace totals remain unknown.
+- Retain source-scoped controlled measurements and their investigation in [the current performance record](Documentation/Engineering/CodecMigration/Milestone4Performance.md). Physical-device testing remains pending; Milestone 5 is deferred and the owner verifies CI and merges.
+
 ## Milestone 4 hot-path and workspace follow-up — 2026-10-14 (unreleased)
 
 - Improve bounded component run detection/fill, remove unnecessary lossless predictor rows and pass the bounded bit writer by mutable value through synchronous kernels.

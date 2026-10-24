@@ -1,0 +1,18 @@
+{
+  "recorded_at": "2026-10-23T16:26:19.917394+05:30",
+  "authority": "Codex root independent audit",
+  "decision": "accept narrow external reserved-owner pixel classifier rule pending full89 collection; AG retains repository publication ownership",
+  "patch_sha256": "47d8bd67e4b2d7a6939b7dfde30e60266cf332880c769d5d1d809ce8e1a14581",
+  "classifier_sha256": "a1d97dca4c65b025992a5fed0a259ad2e76a412c6e202b293ccf70c80b5799d6",
+  "source_basis": "ImageStorage.swift private reservedByteCount constructor has exactly one UInt8 repeating allocation; rule requires exact seven-frame allocator/array/constructor prefix and requested size greater than32",
+  "independent_command": [
+    "python3",
+    "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/candidate004-linux-validation-002/external-classifier/measure-operation.py",
+    "--self-test"
+  ],
+  "independent_exit_code": 0,
+  "independent_output": "Marked operation replay controls passed",
+  "negative_controls": "wrong allocator, element type, inserted frames, constructor fields, absent constructor, absent/header-only size reject pixel attribution",
+  "publication_hold": "wait for workspace agent final input guards before AG applies identical audited patch",
+  "codec_binary_changed": false
+}

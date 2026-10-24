@@ -11,7 +11,7 @@ public struct ImageMetadata: Sendable, Equatable {
     }
     @discardableResult
     func validate(limits: ResourceLimits, additionalBytes: Int = 0) throws -> Int {
-        guard requiredKeys.isSubset(of: Set(entries.keys)) else {
+        guard requiredKeys.allSatisfy({ entries[$0] != nil }) else {
             throw CodecError(.invalidArgument, "Required metadata has no value.")
         }
         var count = additionalBytes
@@ -54,6 +54,50 @@ public struct Image: Sendable {
         self.descriptor = descriptor; self.storage = storage; self.metadata = metadata
     }
 
+    // Used only by `ImageDestination.write` and `Image.writeAdmittedOwned`
+    // after sealing an exact-capacity owned allocation whose `descriptor`,
+    // `metadata` and combined memory budget were already admitted against
+    // the destination's or operation's immutable limits.
+    init(admittedOwnedDescriptor descriptor: ImageDescriptor,
+         sealedOwnedStorage storage: any ReadOnlyImageStorage,
+         admittedMetadata metadata: ImageMetadata) {
+        self.descriptor = descriptor; self.storage = storage; self.metadata = metadata
+    }
+
+    // Internal fresh-owned fill-and-publish factory for `ScalarCodec.decode`
+    // when `supplied == nil`. `descriptor` must already be admitted under `limits`.
+    // Validates capacity, metadata, ICC and combined memory before allocation/fill,
+    // and preserves pre-allocation, pre-fill, post-fill and post-seal cancellation.
+    static func writeAdmittedOwned(
+        descriptor: ImageDescriptor,
+        metadata: ImageMetadata = .empty,
+        limits: ResourceLimits,
+        _ body: (UnsafeMutableRawBufferPointer) throws -> Void
+    ) throws -> Image {
+        let byteCount = descriptor.requiredByteCount
+        guard byteCount > 0 else { throw CodecError(.invalidArgument, "Storage capacity must be positive.") }
+        guard byteCount <= limits.maximumDecodedBytes,
+              try checkedAdd(byteCount, descriptor.iccProfile?.count ?? 0) <= limits.maximumMemoryBytes else {
+            throw CodecError(.resourceLimitExceeded, "Storage allocation exceeds the admission budget.")
+        }
+        let metadataBytes = try metadata.validate(limits: limits, additionalBytes: descriptor.iccProfile?.count ?? 0)
+        guard try checkedAdd(byteCount, metadataBytes) <= limits.maximumMemoryBytes else {
+            throw CodecError(.resourceLimitExceeded, "Destination and metadata exceed the admission budget.")
+        }
+        let sealed = try OwnedImageStorage.fillAndSealAdmittedOwned(
+            byteCount: byteCount,
+            limits: limits,
+            body
+        )
+        let image = Image(
+            admittedOwnedDescriptor: descriptor,
+            sealedOwnedStorage: sealed,
+            admittedMetadata: metadata
+        )
+        try Task.checkCancellation()
+        return image
+    }
+
     /// A safe sample accessor for the required greyscale profile; never reads padding.
     public func sampleUInt16(x: Int, y: Int) throws -> UInt16 {
         try validateGreyscale16(descriptor)
@@ -82,11 +126,13 @@ public final class ImageDestination: Sendable {
     public let storage: any WritableImageStorage
     private let lease: StorageWriteLease
     private let limits: ResourceLimits
-    private struct Lifecycle: Sendable {
-        var started = false
-        var finished = false
-    }
-    private let lifecycle = Mutex(Lifecycle())
+    // This state only admits one write and records completed cleanup. Pixel
+    // mutation and leases remain protected by the storage provider. Transitions
+    // are monotonic: ready -> writing -> finished; a failed abort stays writing
+    // so deinit can retry. No caller can reset the state or acquire a second write.
+    private enum Lifecycle: UInt8 { case ready, writing, finished }
+    private let lifecycle = Atomic<UInt8>(Lifecycle.ready.rawValue)
+    private let admittedOwnedStorage: Bool
 
     public init(descriptor: ImageDescriptor, storage: any WritableImageStorage,
                 limits: ResourceLimits = .default) throws {
@@ -99,10 +145,25 @@ public final class ImageDestination: Sendable {
             throw CodecError(.incompatibleImageLayout, "Destination storage is too short.")
         }
         self.descriptor = descriptor; self.storage = storage; self.limits = limits
+        self.admittedOwnedStorage = false
         self.lease = try storage.reserveWrite()
     }
+    // Only `allocate` may use this initializer, after descriptor and combined
+    // memory admission and construction of an exact-capacity owned allocation
+    // already reserved in `.writing` with `lease` before escaping.
+    // Its immutable byteCount equals requiredByteCount, so the public provider
+    // initializer's repeated descriptor/capacity guards cannot newly fail.
+    // Keep the same reservation and the original owned-allocation cancellation.
+    private init(admittedOwnedDescriptor descriptor: ImageDescriptor,
+                 storage: OwnedImageStorage, lease: StorageWriteLease,
+                 limits: ResourceLimits) {
+        self.descriptor = descriptor; self.storage = storage; self.limits = limits
+        self.admittedOwnedStorage = true
+        self.lease = lease
+    }
+
     deinit {
-        if !lifecycle.withLock({ $0.finished }) {
+        if lifecycle.load(ordering: .acquiring) != Lifecycle.finished.rawValue {
             try? storage.abortAndInvalidate(lease: lease)
         }
     }
@@ -112,8 +173,12 @@ public final class ImageDestination: Sendable {
         guard try checkedAdd(descriptor.requiredByteCount, descriptor.iccProfile?.count ?? 0) <= limits.maximumMemoryBytes else {
             throw CodecError(.resourceLimitExceeded, "Destination exceeds the admission budget.")
         }
-        let storage = try OwnedImageStorage(byteCount: descriptor.requiredByteCount, limits: limits)
-        return try Self(descriptor: descriptor, storage: storage, limits: limits)
+        return try allocate(admittedDescriptor: descriptor, limits: limits)
+    }
+
+    static func allocate(admittedDescriptor descriptor: ImageDescriptor, limits: ResourceLimits) throws -> ImageDestination {
+        let reserved = try OwnedImageStorage.allocateReserved(byteCount: descriptor.requiredByteCount, limits: limits)
+        return Self(admittedOwnedDescriptor: descriptor, storage: reserved.storage, lease: reserved.lease, limits: limits)
     }
 
     /// Advanced unsafe fill boundary. Initialise every sample before returning.
@@ -129,11 +194,10 @@ public final class ImageDestination: Sendable {
         guard try checkedAdd(storage.byteCount, metadataBytes) <= limits.maximumMemoryBytes else {
             throw CodecError(.resourceLimitExceeded, "Destination and metadata exceed the admission budget.")
         }
-        let accepted = lifecycle.withLock { value in
-            guard !value.started else { return false }
-            value.started = true
-            return true
-        }
+        let accepted = lifecycle.compareExchange(
+            expected: Lifecycle.ready.rawValue, desired: Lifecycle.writing.rawValue,
+            ordering: .acquiringAndReleasing
+        ).exchanged
         guard accepted else { throw CodecError(.storageUnavailable, "Destination was already used.") }
         do {
             try Task.checkCancellation()
@@ -145,16 +209,22 @@ public final class ImageDestination: Sendable {
             }
             try Task.checkCancellation()
             let sealed = try storage.finishAndSeal(lease: lease)
-            let image = try Image(descriptor: descriptor, storage: sealed, metadata: metadata, limits: limits)
+            let image: Image
+            if admittedOwnedStorage {
+                image = Image(admittedOwnedDescriptor: descriptor, sealedOwnedStorage: sealed, admittedMetadata: metadata)
+            } else {
+                image = try Image(descriptor: descriptor, storage: sealed, metadata: metadata, limits: limits)
+            }
             // External providers may perform bounded finalisation or validation
-            // work. Cancellation during either callback must prevent publication.
+            // work, and owned sealing still acquires the mutex and allocates the
+            // immutable owner. Cancellation before publication must always reject.
             try Task.checkCancellation()
-            lifecycle.withLock { $0.finished = true }
+            lifecycle.store(Lifecycle.finished.rawValue, ordering: .releasing)
             return image
         } catch {
             do {
                 try storage.abortAndInvalidate(lease: lease)
-                lifecycle.withLock { $0.finished = true }
+                lifecycle.store(Lifecycle.finished.rawValue, ordering: .releasing)
             } catch {
                 // Release retries an abort that the provider could not finish.
             }

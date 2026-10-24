@@ -1,0 +1,136 @@
+{
+  "completed_utc": "2026-10-23T11:05:35.932914+00:00",
+  "status": "passed_after_retained_packaging_only_cli_retry",
+  "source_id": "candidate_004",
+  "source_commit": null,
+  "base_head": "4f6661a4ccec277d02e42b9228c7b574dfbf15cd",
+  "source_receipt_sha256": "4a1b7554778f6f551186f8497d93f599d001d4fe1090eeba6972dcb2436adfed",
+  "source_manifest_sha256": "948255e99284e975198f03f4e7300981ce4b97447ffe114398866876476f8bf7",
+  "library_files": 38,
+  "test_swift_files_including_fixture_generators": 31,
+  "source_named_suite_declarations": 27,
+  "apple": {
+    "sdk_builds": {
+      "iphonesimulator": {
+        "triple": "arm64-apple-ios26.0-simulator",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk",
+        "sdk_version": "27.1"
+      },
+      "appletvsimulator": {
+        "triple": "arm64-apple-tvos26.0-simulator",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator27.0.sdk",
+        "sdk_version": "27.0"
+      },
+      "xrsimulator": {
+        "triple": "arm64-apple-xros26.0-simulator",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator27.0.sdk",
+        "sdk_version": "27.0"
+      },
+      "watchsimulator": {
+        "triple": "arm64-apple-watchos26.0-simulator",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/SDKs/WatchSimulator27.0.sdk",
+        "sdk_version": "27.0"
+      },
+      "watchos": {
+        "triple": "arm64_32-apple-watchos26.0",
+        "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/WatchOS.platform/Developer/SDKs/WatchOS27.0.sdk",
+        "sdk_version": "27.0"
+      }
+    },
+    "simulator_consumers": 5,
+    "exact_runtime": "26.0",
+    "resource_platforms": 4,
+    "resource_frames_each": 32,
+    "simulator_states_restored": true
+  },
+  "native": {
+    "scope": "Host-built Swift6.4 arm64 code executed in hardware-virtualised macOS26.0; not physical hardware qualification",
+    "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.0\nBuildVersion:\t\t25A354\n",
+    "architecture": "arm64",
+    "tests": {
+      "release": {
+        "declarations": 152,
+        "xunit_classnames": 28,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml_sha256": "768d17f6abbc15b07e0d415150bc3a800fca55ece63f04e47b5962cfd0e06b0d"
+      },
+      "debug": {
+        "declarations": 152,
+        "xunit_classnames": 28,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml_sha256": "d9450173379d80b0023cfcc6ed1ac6410237872316d35e67317410fdbb706993"
+      },
+      "asan": {
+        "declarations": 152,
+        "xunit_classnames": 28,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml_sha256": "49e643b77d1e219bcb4d6c33109f2cc9df638fc424662ddca77b5d4ef7261035"
+      },
+      "tsan": {
+        "declarations": 152,
+        "xunit_classnames": 28,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml_sha256": "4c12f3b921b70a6c2cd640c6a611afc93b2e17d7dd8dc781e9a549d2a2d0e1aa"
+      }
+    },
+    "runtime_consumer": "passed",
+    "resource_rows": 4,
+    "resource_frames": 32,
+    "payload_cli_checks": 73,
+    "process_cli_checks": 103,
+    "cli_binary_sha256": "50ec1fecb2bb7015235f20f97c9fd7cd80a6b110073dc590185f825a2c4c78b7",
+    "initial_cli_packaging_failure": {
+      "exit_code": 1,
+      "reason": "Scripts/install-cli.sh omitted from first minimal payload; failure before process checks",
+      "retained_results": "native-results/results.json",
+      "retained_stderr": "native-results/cli-process.stderr"
+    },
+    "retry_scope": "CLI process gate only; same binary/source plus unchanged installer, independently bound to base/live/snapshot and contemporaneous host023 report",
+    "retry_results": "native-cli-retry-results/results.json",
+    "vm_initial_final_state": "stopped"
+  },
+  "host_reuse": {
+    "tests": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/022-candidate004-host-validation/summary.json",
+    "tests_sha256": "5a4f4f80d0d6e00424dabae3660772459babfe9ae0d0280c1b3157e77c946d21",
+    "host_cli_receipts": {
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/023-candidate004-cli-validation/source-pins.json": "1afbd7af0b91f17d9f652e525a366eb154ffb3caaac8aa058dbb95a17d7f6dc2",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/023-candidate004-cli-validation/commands.json": "c38e2adcf69e2437a43b0227ab238773c4f80f9dfb279881ba1a681f54d8b8ae"
+    },
+    "no_host_test_or_cli_rerun": true
+  },
+  "artifact_sha256": {
+    "pins.json": "4de3c9e4af7da858a8bd4270afb7d8831dfbda0d61881cf56be321518c7056c0",
+    "qualification-source.json": "aacce5e05f945f1c10be40402de7058e728a13109a46d9d99d15c6714f64decf",
+    "platform-commands.json": "ee0b478489160242c6380874dec23238724532db29174ced4abcbcdc33155ea1",
+    "apple-results-summary.json": "3554679a8acd8d892436e81f98ae0b6d02f96c12f6e85a038cf097eee9f8a8a8",
+    "apple-value/build-results.json": "1ae070ebbd53ce8a8f18f6754cd3cc9507ed7d2ef038298ccc997ba71fcce174",
+    "apple-value/environment.json": "9edcb5805c4274162641c05a135a322a3148a09a1628a5b56e93657c1fecf87d",
+    "apple-value/binary-manifest.json": "29534844ba4e15992d6b9ab10287754d4f3168b3ae961e2681b7f9dbdfbaefba",
+    "resource26-value/commands.json": "ba0ffa6eb0464049117873210a2c519a5c1ebf5b8c34a762d1984bbf0698589f",
+    "resource26-value/summary.json": "ad49c5a9fd1299e27a98a689cc481eba4980ac41185ff10234ac6924972bae92",
+    "consumer-builds.json": "92b588f7b588317204dcf8568de80194b14f3fc708daf34889668ad387cb8239",
+    "native-payload/manifest.json": "99770057d0280a79dd429fc68304eeee471ff982079f24a105d75241d63a7b0a",
+    "native-results/results.json": "368467204dc91a863b6f7676f7a988aa04d1ec7a55b7a8cd1a1c33821038daa9",
+    "native-driver-commands.json": "57cd9551548b0e59b0df48c14cbfee70b16ad2b642af6ce465ec6ab2298589df",
+    "native-cli-retry-payload/manifest.json": "a8f067ec86e62c6787d26e1008b5b915f903554f30251c723c16b1f8a34ae60a",
+    "native-cli-retry-results/results.json": "d8e3a0c75b730995d4e55fd56213e70a4e5efdc40e21d9065dcec6d2a4578efa",
+    "native-cli-retry-driver-commands.json": "ba17c5c8d02449a16e3b78e519985cc41594399668ce8dba2e3d51919ac49ae2",
+    "native-cli-installer-binding.json": "13e5c6548319cadc2208379d7f0201bb609c6f3639d13b11a6f0b30eca95e334",
+    "runtime-final-marker-review.json": "a56e30c69be364c99b7577bdf965be9d21ae6c353bb9fc408e93b99f6a71a4da",
+    "runtime-final-marker-transient.patch": "23bbe97acbb7aa6333db3301d13e8956279b0751e4e9ecb0d9e3bcac9812082a",
+    "simulator-restore.json": "ab6c78f7ff5fe24cd0a7dfce8823ed00df7b67888e009ced28288b919062e5b4"
+  },
+  "limits": [
+    "SDK27.x targets26.0 and actual26.0 simulator/guest execution are distinct evidence.",
+    "Physical devices, performance acceptance, universal total workspace and milestone5 are not closed by this platform result.",
+    "Runtime driver transient assertion edit and restoration is recorded separately; final success markers were independently checked."
+  ]
+}

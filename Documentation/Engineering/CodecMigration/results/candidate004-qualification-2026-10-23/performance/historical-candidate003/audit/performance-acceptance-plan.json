@@ -1,0 +1,50 @@
+{
+  "type": "read_only_recommendation",
+  "repo_head": "4f6661a4ccec277d02e42b9228c7b574dfbf15cd",
+  "baseline_binary_sha256": {
+    "pinned": "b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45",
+    "three_change": "7f618c0cf8fe1c31bee5a36b212c0dc2943e89fd366b4228a966f63d83aa5231",
+    "factory_002": "b4d9a1372d11ae0da180487ce969b2854a889656087d0f1fe6578bbedf1069dd"
+  },
+  "accepted_input_sha256": {
+    "short516-3arms-002/short516_runner.py": "625695877ec9236653eae284e908b93b2f49ebac21a3d4dbd28bd762966b6b62",
+    "short516-3arms-002/frozen_analyse.py": "f72c4294b16ffd6e04919468980275e538102207e2d8204590f5f40faa8c7746",
+    "short516-3arms-002/frozen_schedule.json": "f9c0a901120c14be71775daa96b5cdf3d19fe0f30f0d17e3e225772fb7c425bc",
+    "p12-flat-diag-001/frozen_runner.py": "41a8603496c18e25672470169f829969b2d7109b5c7a76776f8e68fbc92ef8b6",
+    "p12-flat-diag-001/frozen_analyse.py": "8512c1bae044e32df52c4f19a23eb94e10fa54b750fe2ba4566d22dca67ed132",
+    "p12-flat-diag-001/summary.json": "be97f1e49e60051382abd29781efd91b6833c1698de33aadca1e8fd5a1be9899",
+    "larger15-guard-002/larger15_runner.py": "0a46e04b46f028d480359ec4653a49eba863fd59498f012b67f51a6589993d69"
+  },
+  "diagnostic": {
+    "rounds": 72,
+    "cases": 6,
+    "arms": 4,
+    "processes": 1728,
+    "warmups": 5,
+    "observations": 5,
+    "schedule_seed": 2026102301,
+    "inference": "descriptive_selection_only"
+  },
+  "final": {
+    "rounds": 516,
+    "cases": 6,
+    "arms": 3,
+    "processes": 9288,
+    "warmups": 5,
+    "observations": 5,
+    "family": 48,
+    "gate": 1.05,
+    "resamples": 50000,
+    "seed": 20261022,
+    "schedule": "retain exact 045 order sequence",
+    "acceptance": "all48 primary upper endpoints <=1.05"
+  },
+  "larger": {
+    "cases": 15,
+    "pairs": 4,
+    "arms": 2,
+    "processes": 120,
+    "operation_points": 60
+  },
+  "collection_authorised": false
+}

@@ -1,0 +1,84 @@
+{
+  "producers": {
+    "canonical": {
+      "path": "work/m4-benchmark/successor/.build/release/Benchmark",
+      "sha256": "08cbea5d7629e04794923f67c7564a19384d9cdc8a83a0daabde02b622901261",
+      "source": "bee49a2ad47eae4ea149bdced2043b7a45df3dae"
+    },
+    "isolated": {
+      "path": "work/m4-sample-native-diagnostic/consumer/.build/release/Benchmark",
+      "sha256": "23176acf5d878ac62ffea2f846d003df210ca8fed8192485d259e922ab211d79",
+      "source": "c330b731e250d6b4c054c1c6a91fa9894e32a8c3 plus patch 0dd56230051726c9fd7d6bdf9d9e7023cc3a429ff7f19c4231c166365942d74e; production source bytes identical to bee49a2"
+    },
+    "pinned": {
+      "path": "work/m4-benchmark/predecessor/.build/release/Benchmark",
+      "sha256": "b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45",
+      "source": "15aa75164145414f3d5ffb801401c52d40cc5bcc"
+    }
+  },
+  "controls": {
+    "binary": [
+      "canonical",
+      "isolated"
+    ],
+    "canonical-self": [
+      "canonical",
+      "canonical"
+    ],
+    "pinned-self": [
+      "pinned",
+      "pinned"
+    ]
+  },
+  "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+  "runner_sha256": "ca2a13e667402192ec53894edbb70733de2f28a2371e499722476986c8ae463b",
+  "power_and_conditions_start": {
+    "utc": "2026-10-21T11:03:33.861661+00:00",
+    "power": {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n"
+    },
+    "thermal": {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+    },
+    "load": {
+      "command": [
+        "sysctl",
+        "-n",
+        "vm.loadavg"
+      ],
+      "exit_code": 0,
+      "output": "{ 3.55 4.01 5.61 }\n"
+    }
+  },
+  "swift": {
+    "command": [
+      "swift",
+      "--version"
+    ],
+    "exit_code": 0,
+    "output": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\nswift-driver version: 1.168.6 "
+  },
+  "host_repository_head": {
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "output": "bee49a2ad47eae4ea149bdced2043b7a45df3dae\n"
+  },
+  "methodology": "Original common public-API consumer, unchanged binaries, 37x23 scalar flat at 12/16 bits. Four alternating process blocks, 20,000 warmups and 1,000 measured iterations per process. Canonical generation excluded; preparation and preparation+encode retained. Right/left ratios label producer identities explicitly. Self-comparisons are separate processes of the exact same binary. These controls test reproducibility and binary-linked differences; they do not waive any measured regression.",
+  "performance_qualified": false
+}

@@ -1,0 +1,159 @@
+--- a/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift
++++ b/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift
+@@ -177,7 +177,9 @@
+             var extendedSize: (width: Int, height: Int)?
+             var restartInterval = 0
+             var records: [Scan] = []
+-            var covered = Set<Int>()
++            // Frame admission limits component indices to 0...3. The mask
++            // records the same completed scans without allocating a tiny Set.
++            var covered: UInt8 = 0
+             var spiff: (width: Int, height: Int, bits: Int, components: Int, rgb: Bool, grey: Bool)?
+             var needsDirectoryEnd = false
+             var spiffData = Data()
+@@ -204,7 +206,7 @@
+                 if marker == 0xd9 {
+                     // DICOM may even-pad an odd-length codestream with one zero byte.
+                     let hasDICOMPadding = cursor % 2 == 1 && bytes.count - cursor == 1 && bytes[cursor] == 0
+-                    guard let f = frame, !records.isEmpty, covered.count == f.ids.count,
++                    guard let f = frame, !records.isEmpty, covered.nonzeroBitCount == f.ids.count,
+                           (cursor == bytes.count || hasDICOMPadding), !needsDirectoryEnd else { throw malformed() }
+                     let mapping = try tables.isEmpty ? nil : JPEGLSMappingTables(tables: Array(tables.values), componentTableIDs: selectors)
+                     let outputBits = codecOptions.mappingOutputPrecision ?? f.bits
+@@ -409,7 +411,7 @@
+                     var indices: [Int] = []
+                     for i in 0..<count {
+                         guard let component = f.ids.firstIndex(of: bytes[payload + 1 + 2 * i]),
+-                              !covered.contains(component), !indices.contains(component) else { throw malformed() }
++                              (covered & (UInt8(1) << component)) == 0, !indices.contains(component) else { throw malformed() }
+                         selectors[component] = bytes[payload + 2 + 2 * i]
+                         indices.append(component)
+                     }
+@@ -421,7 +423,7 @@
+                     guard (interleave == .none && count == 1) || (interleave != .none && count > 1) else { throw malformed() }
+                     // No restart boundary occurs at or beyond the frame height.
+                     let hasActiveRestarts = restartInterval > 0 && restartInterval < f.height
+-                    if Set(f.sampling).count > 1 {
++                    if let first = f.sampling.first, f.sampling.contains(where: { $0 != first }) {
+                         guard interleave == .line, count == f.ids.count, !hasActiveRestarts,
+                               transform == nil || transform == CodecOptions.ColourTransform.none else {
+                             throw unsupported("Subsampled decoding requires one line-interleaved scan without HP or restarts.")
+@@ -507,7 +509,9 @@
+                     }
+                     records.append(Scan(components: indices, near: near, interleave: interleave,
+                         parameters: params, ranges: ranges, restartInterval: restartInterval))
+-                    covered.formUnion(indices)
++                    // `indices` contains only validated frame positions, so
++                    // each shift is in 0...3; update only after accepting a scan.
++                    for component in indices { covered |= UInt8(1) << component }
+                     continue
+                 case 0xe0...0xe7, 0xe9...0xef, 0xfe:
+                     try charge(length + 1)
+--- /dev/null
++++ b/Tests/SwiftJLSTests/ParserContainerTests.swift
+@@ -0,0 +1,105 @@
++// SPDX-License-Identifier: Apache-2.0
++import Foundation
++import Testing
++@testable import SwiftJLS
++
++@Suite("Bounded frame and scan bookkeeping")
++struct ParserContainerTests {
++    private let helper = ComponentCodecTests()
++
++    private func rejected(_ data: Data, as expected: CodecError,
++                          destinationFor valid: Data) async throws {
++        let decoder = try Decoder()
++        do {
++            _ = try decoder.inspect(data)
++            Issue.record("Invalid framing was accepted by inspect.")
++        } catch let error as CodecError {
++            #expect(error == expected)
++        }
++        let destination = try ImageDestination.allocate(descriptor: decoder.inspect(valid).descriptor)
++        do {
++            _ = try await decoder.decode(data, into: destination)
++            Issue.record("Invalid framing was accepted by decode.")
++        } catch let error as CodecError {
++            #expect(error == expected)
++        }
++        // Header admission must reject before consuming the caller's write lease.
++        _ = try destination.write { $0.initializeMemory(as: UInt8.self, repeating: 0) }
++    }
++
++    @Test func separateScansCoverEveryComponentExactlyOnceInAnyOrder() async throws {
++        // Four independent CharLS scans exercise the highest admitted component
++        // index as well as repeated/missing coverage across scan boundaries.
++        let name = "c4-i0-p12-n0-17x13-noise"
++        let original = try helper.fixture(name, ext: "jls")
++        let expected = try helper.fixture(name, ext: "decoded.u16le")
++        let header = try JPEGLSHeader.parse(original, budget: .init(limits: .default))
++        #expect(header.records.count == 4)
++        var scans: [Data] = []
++        var firstStart: Int?
++        for record in header.records {
++            let first = try #require(record.ranges.first)
++            let last = try #require(record.ranges.last)
++            let start = first.lowerBound - (8 + 2 * record.components.count)
++            #expect(original[start] == 255 && original[start + 1] == 218)
++            if firstStart == nil { firstStart = start }
++            scans.append(Data(original[start..<last.upperBound]))
++        }
++        let prefix = Data(original.prefix(try #require(firstStart)))
++        func stream(_ order: [Int]) -> Data {
++            var data = prefix
++            for index in order { data.append(scans[index]) }
++            data.append(contentsOf: [255, 217])
++            return data
++        }
++        let reversed = stream([3, 2, 1, 0])
++        let image = try await Decoder().decode(reversed).image
++        try helper.check(image, against: expected, maximumError: 0, padding: false)
++
++        let malformed = CodecError(.malformedInput, "Invalid or truncated JPEG-LS header.")
++        var unknown = original
++        // The selector is a component ID, not the bounded frame-array index.
++        let selector = try #require(firstStart) + 5
++        #expect(!header.componentIDs.contains(255))
++        unknown[selector] = 255
++        for invalid in [stream([0, 1, 2]), stream([0, 0, 1, 2, 3]), unknown] {
++            try await rejected(invalid, as: malformed, destinationFor: original)
++        }
++        // Duplicate selectors within one scan already have a public rejection
++        // regression in ComponentCodecTests.componentLimitsCancellationAndMalformedScans.
++    }
++
++    @Test func samplingEqualityKeepsInactiveRestartAndUnsupportedCombinationRules() async throws {
++        let mixed = try helper.fixture("subsampled-zero-n0", ext: "jls")
++        let header = try JPEGLSHeader.parse(mixed, budget: .init(limits: .default))
++        let record = try #require(header.records.first)
++        let first = try #require(record.ranges.first)
++        let sos = first.lowerBound - (8 + 2 * record.components.count)
++        let interleaveOffset = sos + 6 + 2 * record.components.count
++
++        // DRI at or past the height is inactive, even for mixed sampling.
++        let inactive = helper.withDRI(mixed, interval: UInt32(header.height))
++        let decoded = try await Decoder().decode(inactive).image
++        #expect(try decoded.storage.withUnsafeBytes { $0.allSatisfy { $0 == 0 } })
++
++        var sampleInterleave = mixed
++        sampleInterleave[interleaveOffset] = 2
++        var hp = Data([255, 216, 255, 232, 0, 7, 109, 114, 102, 120, 1])
++        hp.append(mixed.dropFirst(2))
++        let unsupported = CodecError(.unsupportedFeature,
++            "Subsampled decoding requires one line-interleaved scan without HP or restarts.")
++        for invalid in [sampleInterleave, helper.withDRI(mixed, interval: 1), hp] {
++            try await rejected(invalid, as: unsupported, destinationFor: mixed)
++        }
++
++        // Equal non-unit sampling factors remain a full-resolution sample scan;
++        // the predicate must test equality, rather than assuming every byte is 0x11.
++        let uniformName = "c3-i2-p12-n0-17x13-noise"
++        var uniform = try helper.fixture(uniformName, ext: "jls")
++        let sof = try #require(uniform.range(of: Data([255, 247]))).lowerBound
++        for component in 0..<3 { uniform[sof + 11 + 3 * component] = 0x22 }
++        let uniformImage = try await Decoder().decode(uniform).image
++        try helper.check(uniformImage,
++            against: helper.fixture(uniformName, ext: "decoded.u16le"), maximumError: 0, padding: false)
++    }
++}

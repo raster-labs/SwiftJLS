@@ -1,0 +1,101 @@
+{
+  "source_commit": "e6a6436c692f5af226bffceb70b7ee65c774edf3",
+  "binary_sha256": {
+    "predecessor": "b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45",
+    "successor": "2e67435160c617b4d31ed50cd6a1e63ac63c0dfdf067571681f7c7f329eece60"
+  },
+  "reviewed_utc": "2026-10-21T15:52:03.048030+00:00",
+  "reviewer": "Root independent source and raw-evidence review",
+  "reviewed_status": "Reviewed; five decode findings remain unresolved, one size finding explained. No performance waiver or Milestone 4 completion.",
+  "performance_gate_complete": false,
+  "milestone4_complete": false,
+  "findings": [
+    {
+      "id": "tiny-short-confirmation128--p12-flat--decode",
+      "status": "unresolved",
+      "covers": [
+        "tiny-short-confirmation128/p12-flat/decode"
+      ],
+      "explanation": "The fixed 128 paired-round pooled-median ratio is 1.03547062 (absolute median increase 0.541666 microseconds); the predeclared familywise interval [1.01351358, 1.06906074] crosses 1.05. This neither establishes a >5% regression nor supports the measured non-regression gate. The short result remains unresolved. Faster deep-warm/larger results and preceding-candidate A/A/executor controls do not replace this estimand or justify a waiver. No observations were removed, count extended, statistic substituted or executor policy changed.",
+      "evidence": [
+        "performance-recomputed.json",
+        "performance/tiny-short-confirmation128/summary.json",
+        "performance/tiny-deep/summary.json",
+        "diagnostic-measurements-recomputed.json"
+      ]
+    },
+    {
+      "id": "tiny-short-confirmation128--p12-noise--decode",
+      "status": "unresolved",
+      "covers": [
+        "tiny-short-confirmation128/p12-noise/decode"
+      ],
+      "explanation": "The fixed 128 paired-round pooled-median ratio is 1.02662535 (absolute median increase 0.895832 microseconds); the predeclared familywise interval [0.93276322, 1.14643001] crosses 1.05. This neither establishes a >5% regression nor supports the measured non-regression gate. The short result remains unresolved. Faster deep-warm/larger results and preceding-candidate A/A/executor controls do not replace this estimand or justify a waiver. No observations were removed, count extended, statistic substituted or executor policy changed.",
+      "evidence": [
+        "performance-recomputed.json",
+        "performance/tiny-short-confirmation128/summary.json",
+        "performance/tiny-deep/summary.json",
+        "diagnostic-measurements-recomputed.json"
+      ]
+    },
+    {
+      "id": "tiny-short-confirmation128--p16-flat--decode",
+      "status": "unresolved",
+      "covers": [
+        "tiny-short-confirmation128/p16-flat/decode"
+      ],
+      "explanation": "The fixed 128 paired-round pooled-median ratio is 1.04755452 (absolute median increase 0.729169 microseconds); the predeclared familywise interval [1.01351370, 1.07417592] crosses 1.05. This neither establishes a >5% regression nor supports the measured non-regression gate. The short result remains unresolved. Faster deep-warm/larger results and preceding-candidate A/A/executor controls do not replace this estimand or justify a waiver. No observations were removed, count extended, statistic substituted or executor policy changed.",
+      "evidence": [
+        "performance-recomputed.json",
+        "performance/tiny-short-confirmation128/summary.json",
+        "performance/tiny-deep/summary.json",
+        "diagnostic-measurements-recomputed.json"
+      ]
+    },
+    {
+      "id": "tiny-short-confirmation128--p16-noise--decode",
+      "status": "unresolved",
+      "covers": [
+        "tiny-short-confirmation128/p16-noise/decode"
+      ],
+      "explanation": "The fixed 128 paired-round pooled-median ratio is 1.07207796 (absolute median increase 2.312501 microseconds); the predeclared familywise interval [0.96103436, 1.15159747] crosses 1.05. This neither establishes a >5% regression nor supports the measured non-regression gate. The short result remains unresolved. Faster deep-warm/larger results and preceding-candidate A/A/executor controls do not replace this estimand or justify a waiver. No observations were removed, count extended, statistic substituted or executor policy changed.",
+      "evidence": [
+        "performance-recomputed.json",
+        "performance/tiny-short-confirmation128/summary.json",
+        "performance/tiny-deep/summary.json",
+        "diagnostic-measurements-recomputed.json"
+      ]
+    },
+    {
+      "id": "larger--4096x3073-p12-flat-c3-n0-i2--encoded_bytes",
+      "status": "explained_header_only",
+      "covers": [
+        "larger/4096x3073-p12-flat-c3-n0-i2/encoded_bytes"
+      ],
+      "explanation": "The final frozen candidate emits 2159 bytes versus 2115: precisely 44 bytes of SPIFF APP8 signalling, in 34-byte and 10-byte segments at offsets 2 and 36. Direct removal yields the byte-identical full predecessor stream, and 2078 entropy bytes are identical. Both original-Consumer cross-decodes verify 37,761,024 samples with zero error. Preserve explicit RGB interpretation; no entropy compression regression, latency waiver, independent-oracle claim or timing claim is inferred.",
+      "evidence": [
+        "performance-recomputed.json",
+        "size-validation/recomputed.json",
+        "size-validation/summary.json",
+        "size-validation/independent-check.json",
+        "size-validation/predecessor.jls",
+        "size-validation/successor.jls"
+      ]
+    },
+    {
+      "id": "incremental-owned-admission-short16--p16-noise--decode",
+      "status": "unresolved",
+      "covers": [
+        "incremental-owned-admission-short16/p16-noise/decode"
+      ],
+      "explanation": "The direct fourth-versus-third short 16 p16-noise decode ratio 1.13532270 (+4.062500 microseconds) remains an investigation finding. Its paired-ratio percentile 95% interval 0.95498\u20131.38925 and conservative interval 0.90201\u20131.43504 include 1, but absence of confirmation does not prove equivalence. Preparation improves across all six cases and the selected candidate keeps source-proven redundant admission/container removal; those benefits do not waive this decode finding. This is incremental diagnostic evidence, not a second pinned baseline or a production-policy exception.",
+      "evidence": [
+        "performance-recomputed.json",
+        "diagnostic-measurements-recomputed.json",
+        "performance/incremental-owned-admission-short16/summary.json"
+      ]
+    }
+  ],
+  "next_step": "Resolve short decode uncertainty through separately scoped profiling or an independently reviewed implementation change and a new predeclared confirmation; do not extend the completed campaigns until a favourable result appears.",
+  "scope": "Final-source fixed 128 short/deep 16/larger 15 plus incremental 16 diagnostic. Physical-device qualification remains pending; Milestone 5 is deferred. Owner verifies general CI and merges."
+}

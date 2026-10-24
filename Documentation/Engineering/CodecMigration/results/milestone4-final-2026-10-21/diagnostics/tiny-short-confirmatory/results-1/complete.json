@@ -1,0 +1,84 @@
+{
+  "completed": true,
+  "performance_qualified": false,
+  "processes": 192,
+  "source_guards": {
+    "successor_head": {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "output": "bee49a2ad47eae4ea149bdced2043b7a45df3dae\n"
+    },
+    "successor_diff": {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "bee49a2ad47eae4ea149bdced2043b7a45df3dae",
+        "--",
+        "Sources",
+        "Package.swift",
+        "Scripts/Benchmark"
+      ],
+      "exit_code": 0,
+      "output": ""
+    },
+    "predecessor_head": {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "output": "15aa75164145414f3d5ffb801401c52d40cc5bcc\n"
+    },
+    "predecessor_diff": {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+        "--",
+        "Sources",
+        "Package.swift"
+      ],
+      "exit_code": 0,
+      "output": ""
+    }
+  },
+  "end_conditions": {
+    "utc": "2026-10-21T11:16:54.218100+00:00",
+    "power": {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n"
+    },
+    "thermal": {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+    },
+    "load": {
+      "command": [
+        "sysctl",
+        "-n",
+        "vm.loadavg"
+      ],
+      "exit_code": 0,
+      "output": "{ 2.91 3.11 4.10 }\n"
+    }
+  },
+  "schedule_sha256": "5e2840a5f1f776382cc249d4cf3482008d200964aaa96ee072a1c5da0a54625c",
+  "runner_sha256": "c423a2b36e78cff39e1cadfd3dcc0c35cb514fbed595a4692e244d9786bf9824"
+}

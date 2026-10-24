@@ -41,9 +41,11 @@ struct JPEGLSRegularModeDecoder: Sendable {
     private let qbpp: Int
 
     /// Gradient quantisation lookup table for the inner range (−T3, T3),
-    /// indexed by `gradient + gradientTableOffset`. Built in `init` by
-    /// evaluating the reference branch chain, so it is bit-identical to it.
-    private let gradientTable: [Int]
+    /// indexed by `gradient + gradientTableOffset`. Initialised by constant
+    /// interval fills when NEAR < T1, otherwise by the reference branch chain.
+    // Every quantised value is in -4...4. Indices and prediction arithmetic
+    // remain Int; signed widening at lookup preserves the original result.
+    private let gradientTable: [Int8]
     private let gradientTableOffset: Int
 
     // MARK: - Initialization
@@ -73,29 +75,50 @@ struct JPEGLSRegularModeDecoder: Sendable {
             self.range = (parameters.maxValue + 2 * near) / qbpp + 1
         }
 
-        // Build the gradient quantisation table for the inner range from the
-        // reference branch chain (values at/beyond ±T3 are handled by the
-        // early exits in `quantizeGradient`).
+        // Fill the gradient quantisation intervals directly when NEAR < T1;
+        // retain the reference branch chain for the internal NEAR >= T1 case.
+        // Values at/beyond ±T3 use the early exits in `quantizeGradient`.
         let t3 = parameters.threshold3
         self.gradientTableOffset = t3
-        var table = [Int](repeating: 0, count: 2 * t3 + 1)
-        for i in 0..<table.count {
-            table[i] = Self.quantizeGradientReference(
-                i - t3,
-                t1: parameters.threshold1, t2: parameters.threshold2,
-                t3: t3, near: near
-            )
+        let t1 = parameters.threshold1, t2 = parameters.threshold2
+        if near < t1 {
+            let count = 2 * t3 + 1
+            self.gradientTable = Array(unsafeUninitializedCapacity: count) { buffer, initializedCount in
+                // Validated parameters prove 1 <= T1 <= T2 <= T3 <= 65535.
+                // With NEAR < T1, these adjacent half-open ranges partition
+                // 0..<count exactly, including empty runs for equal thresholds.
+                // Initialise every Int8 once; no element is read before initialisation.
+                UnsafeMutableBufferPointer(rebasing: buffer[0..<1]).initialize(repeating: -4)
+                UnsafeMutableBufferPointer(rebasing: buffer[1..<(t3 - t2 + 1)]).initialize(repeating: -3)
+                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t2 + 1)..<(t3 - t1 + 1)]).initialize(repeating: -2)
+                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - t1 + 1)..<(t3 - near)]).initialize(repeating: -1)
+                UnsafeMutableBufferPointer(rebasing: buffer[(t3 - near)..<(t3 + near + 1)]).initialize(repeating: 0)
+                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + near + 1)..<(t3 + t1)]).initialize(repeating: 1)
+                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + t1)..<(t3 + t2)]).initialize(repeating: 2)
+                UnsafeMutableBufferPointer(rebasing: buffer[(t3 + t2)..<(2 * t3)]).initialize(repeating: 3)
+                UnsafeMutableBufferPointer(rebasing: buffer[(2 * t3)..<count]).initialize(repeating: 4)
+                initializedCount = count
+            }
+        } else {
+            // Preserve the existing internal constructor's branch precedence
+            // for NEAR >= T1, although public codestream admission rejects it.
+            var table = [Int8](repeating: 0, count: 2 * t3 + 1)
+            for i in 0..<table.count {
+                table[i] = Self.quantizeGradientReference(
+                    i - t3, t1: t1, t2: t2, t3: t3, near: near
+                )
+            }
+            self.gradientTable = table
         }
-        self.gradientTable = table
     }
 
     /// Reference gradient quantisation using the strict upper interval
     /// boundaries in ITU-T.87 Table A.7.
-    /// Used to build `gradientTable`; kept as the single source of truth
-    /// for the boundary semantics.
+    /// Builds `gradientTable` for the internal NEAR >= T1 fallback;
+    /// the interval fills preserve these semantics when NEAR < T1.
     private static func quantizeGradientReference(
         _ gradient: Int, t1: Int, t2: Int, t3: Int, near: Int
-    ) -> Int {
+    ) -> Int8 {
         if gradient <= -t3 { return -4 }
         if gradient <= -t2 { return -3 }
         if gradient <= -t1 { return -2 }
@@ -146,10 +169,10 @@ struct JPEGLSRegularModeDecoder: Sendable {
     /// - Returns: Quantized gradient in range [-4, 4]
     func quantizeGradient(_ gradient: Int) -> Int {
         // Gradients at/beyond ±T3 always map to ±4; the inner range uses the
-        // pre-computed table (built from the reference branch chain).
+        // pre-computed table (interval fills or the reference fallback).
         if gradient <= -parameters.threshold3 { return -4 }
         if gradient >= parameters.threshold3 { return 4 }
-        return gradientTable[gradient + gradientTableOffset]
+        return Int(gradientTable[gradient + gradientTableOffset])
     }
 
     // MARK: - MED Prediction

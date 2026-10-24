@@ -1,0 +1,107 @@
+[
+  {
+    "label": "apple-build-value",
+    "command": [
+      "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/apple-build-value.py"
+    ],
+    "cwd": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS",
+    "started_epoch": 1792752912.956856,
+    "exit_code": 0,
+    "completed_epoch": 1792752987.628612,
+    "log_sha256": "94233a2142fefa5c45e3d9622c0b1c0cbc94fdf1a9b9ebeb950538a1d0bd6d75"
+  },
+  {
+    "label": "apple-runtime-value",
+    "command": [
+      "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/apple-runtime-value.py"
+    ],
+    "cwd": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS",
+    "started_epoch": 1792752987.724386,
+    "exit_code": 0,
+    "completed_epoch": 1792753042.027738,
+    "log_sha256": "6b9021310d767c775d6b0ce5313759db4bda0dbf21d2bec19fd5cf842753c11e"
+  },
+  {
+    "label": "apple-resource-value",
+    "command": [
+      "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/apple-resource-value.py"
+    ],
+    "cwd": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS",
+    "started_epoch": 1792753042.135998,
+    "exit_code": 0,
+    "completed_epoch": 1792753095.7233548,
+    "log_sha256": "6b629a8a2efd305ddfda0f7fa22a66e71fb66f69e7d224f2a0afc923bbd0fb1a"
+  },
+  {
+    "label": "native-AppleRuntimeConsumer-build",
+    "command": [
+      "/usr/bin/xcrun",
+      "swift",
+      "build",
+      "--build-system",
+      "swiftbuild",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS/Examples/AppleRuntimeConsumer",
+      "--scratch-path",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/native-consumer-build/AppleRuntimeConsumer"
+    ],
+    "cwd": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS",
+    "started_epoch": 1792753095.828449,
+    "exit_code": 0,
+    "completed_epoch": 1792753126.236589,
+    "log_sha256": "b3c73d2cef38e546a760755a74f11a43ebb26808720f1b42cf1776ec445330fa"
+  },
+  {
+    "label": "host-AppleRuntimeConsumer",
+    "command": [
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/native-consumer-build/AppleRuntimeConsumer/out/Products/Release/AppleRuntimeConsumer",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS/Tests/SwiftJLSTests/Fixtures"
+    ],
+    "cwd": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS",
+    "started_epoch": 1792753126.855349,
+    "exit_code": 0,
+    "completed_epoch": 1792753127.197867,
+    "log_sha256": "18c45da08bfacfcb177226ef2e7a9439203c85407171553e3b249f36e26ce9eb"
+  },
+  {
+    "label": "native-ResourceStress-build",
+    "command": [
+      "/usr/bin/xcrun",
+      "swift",
+      "build",
+      "--build-system",
+      "swiftbuild",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS/Examples/ResourceStress",
+      "--scratch-path",
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/native-consumer-build/ResourceStress"
+    ],
+    "cwd": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS",
+    "started_epoch": 1792753127.309963,
+    "exit_code": 0,
+    "completed_epoch": 1792753156.800809,
+    "log_sha256": "843d589ddc4c2d783df9ca35a5c8a475d50a7fb4d1d75bb15f7a35ac91f61eed"
+  },
+  {
+    "label": "host-ResourceStress",
+    "command": [
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004/native-consumer-build/ResourceStress/out/Products/Release/ResourceStress"
+    ],
+    "cwd": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS",
+    "started_epoch": 1792753157.4217758,
+    "exit_code": 0,
+    "completed_epoch": 1792753158.128224,
+    "log_sha256": "aebe38eb5e2a93e3f59507eeb00a0c4ed3931014e19a50ad10f5392683c32524"
+  }
+]

@@ -1,0 +1,11 @@
+--- a/Sources/SwiftJLS/CodecAPI.swift
++++ b/Sources/SwiftJLS/CodecAPI.swift
+@@ -199,7 +199,7 @@
+         try validateInput(data, options)
+         return try ScalarCodec.inspect(data, options: options, codecOptions: configuration.codecOptions)
+     }
+-    @concurrent public func decode(_ data: Data, options: DecodeOptions = .init()) async throws -> DecodedImage {
++    public func decode(_ data: Data, options: DecodeOptions = .init()) throws -> DecodedImage {
+         try Task.checkCancellation()
+         try validateInput(data, options)
+         return try ScalarCodec.decode(data, into: nil, options: options, codecOptions: configuration.codecOptions)

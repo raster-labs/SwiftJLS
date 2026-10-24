@@ -1,0 +1,58 @@
+--- original-Consumer.swift
++++ single-binary-runtime-report-Consumer.swift
+@@ -24,6 +24,7 @@
+       components > 1 || interleave == 0 else { throw Failure() }
+ let maximum = (1 << bits) - 1
+ let endToEnd = ProcessInfo.processInfo.environment["SWIFTJLS_BENCHMARK_END_TO_END"] == "1"
++let retainReport = ProcessInfo.processInfo.environment["SWIFTJLS_DIAGNOSTIC_REPORT"] == "1"
+ func sample(_ x: Int, _ y: Int, _ component: Int = 0) -> Int {
+     switch pattern {
+     case "flat": return (maximum / 2 + component * 17) & maximum
+@@ -91,8 +92,10 @@
+     try await Encoder(configuration: .init(mode: near == 0 ? .lossless : .nearLossless(maximumAbsoluteError: near),
+         codecOptions: .init(restartIntervalLines: 0, interleaveMode: mode))).encode(image, options: .init(resourceLimits: benchmarkLimits, executionPolicy: .scalarCPU)).data
+ }
+-func decode(_ data: Data, verify: Bool) async throws {
+-    let image = try await Decoder().decode(data, options: .init(resourceLimits: benchmarkLimits, executionPolicy: .scalarCPU)).image
++func decode(_ data: Data, verify: Bool) async throws -> Double {
++    let decoded = try await Decoder().decode(data, options: .init(resourceLimits: benchmarkLimits, executionPolicy: .scalarCPU))
++    guard let reportedElapsed = decoded.report.elapsedSeconds else { throw Failure() }
++    let image = decoded.image
+     guard image.descriptor.meaningfulBits == bits else { throw Failure() }
+     if verify {
+         try image.storage.withUnsafeBytes { bytes in
+@@ -106,6 +109,7 @@
+             } }
+         }
+     }
++    return reportedElapsed
+ }
+ #endif
+ let image = try makeImage()
+@@ -124,14 +128,16 @@
+ }
+ var encoding: [Double] = [], decoding: [Double] = []
+ var preparation: [Double] = [], preparedEncoding: [Double] = []
++var reportedDecoding: [Double] = []
+ for _ in 0..<iterations {
+     var start = ProcessInfo.processInfo.systemUptime
+     let encoded = try await encode(image)
+     encoding.append(ProcessInfo.processInfo.systemUptime - start)
+     guard encoded == reference else { throw Failure() }
+     start = ProcessInfo.processInfo.systemUptime
+-    try await decode(reference, verify: false)
++    let reported = try await decode(reference, verify: false)
+     decoding.append(ProcessInfo.processInfo.systemUptime - start)
++    reportedDecoding.append(retainReport ? reported : 0)
+     if endToEnd {
+         let start = ProcessInfo.processInfo.systemUptime
+         let fresh = try makeImage()
+@@ -157,6 +163,8 @@
+     "pattern": pattern, "warmups": warmups, "iterations": iterations,
+     "components": components, "near": near, "interleave": interleave,
+     "encode_seconds": encoding, "decode_seconds": decoding,
++    "reported_decode_seconds": reportedDecoding,
++    "retain_report": retainReport,
+     "end_to_end": endToEnd, "prepare_seconds": preparation,
+     "prepare_encode_seconds": preparedEncoding,
+     "encoded_bytes": reference.count, "peak_process_rss_bytes": peakRSS,

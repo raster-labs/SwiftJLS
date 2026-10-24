@@ -1,0 +1,17 @@
+{
+  "status": "STOP: owned source and four tests frozen; not built or executed",
+  "base_head": "72a9184ae8879fd77364b60a8059d4ad5bc447d4",
+  "files": {
+    "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift": "29f1b4e1be7da189cb12d3444bfcbb0efeeef0e825e1b5149e199b7bf1206af5",
+    "Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift": "f218ee88e7ba234c0bf134f5dfaccab58ab45ebc86dc0bf3ae5c1cea22d655c8",
+    "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift": "2e32232bd50b61f453d93db68b82140f0ec6a500e30cef8137823e18db7ab613",
+    "Tests/SwiftJLSTests/WorkspaceAdmissionTests.swift": "6ac4625471667a1a043a1da616d95dcfa3eb353550328d37f62008559798e6f3"
+  },
+  "tests": 4,
+  "public_api_change": false,
+  "peakWorkspaceBytes": "unchanged nil",
+  "numeric_codec_reservations": "unchanged: fixed 65536 and 2*(2*T3+1)*MemoryLayout<Int>.stride",
+  "parser_admission": "fixed 65536 + metadataBytes*32 + accumulated 2*expectedRangeCount*Range<Int>.stride",
+  "directory_allocation_guard": "after checked admission and before reserveCapacity: expected <= (bytes.count-end)/3",
+  "validation": "static inspection only; parent owns final builds and tests"
+}

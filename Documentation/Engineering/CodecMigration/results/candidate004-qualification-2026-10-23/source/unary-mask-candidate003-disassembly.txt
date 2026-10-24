@@ -1,0 +1,131 @@
+
+/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_003/binaries/Benchmark-candidate_003-bd171975e50f:	file format mach-o arm64
+
+Disassembly of section __TEXT,__text:
+
+000000010002cb54 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF>:
+10002cb54:     	str	x19, [sp, #-0x20]!
+10002cb58:     	stp	x29, x30, [sp, #0x10]
+10002cb5c:     	add	x29, sp, #0x10
+10002cb60:     	mov	x8, #0x0                ; =0
+10002cb64:     	ldr	x9, [x20, #0x10]
+10002cb68:     	ldr	x13, [x20, #0x28]
+10002cb6c:     	add	x10, x9, #0x20
+10002cb70:     	mov	x11, #-0x1              ; =-1
+10002cb74:     	mov	w12, #0x40              ; =64
+10002cb78:     	cbz	x13, 0x10002cbec <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x98>
+10002cb7c:     	tbnz	x13, #0x3f, 0x10002cd2c <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1d8>
+10002cb80:     	cmp	x13, #0x40
+10002cb84:     	b.hi	0x10002cd30 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1dc>
+10002cb88:     	ldr	x14, [x20, #0x20]
+10002cb8c:     	lsl	x15, x11, x13
+10002cb90:     	cmp	x12, x13
+10002cb94:     	csinv	x15, x11, x15, eq
+10002cb98:     	and	x14, x14, x15
+10002cb9c:     	neg	x15, x13
+10002cba0:     	lsl	x14, x14, x15
+10002cba4:     	clz	x15, x14
+10002cba8:     	cmp	x13, x15
+10002cbac:     	csel	x14, x13, x15, lo
+10002cbb0:     	subs	x16, x0, x8
+10002cbb4:     	b.vs	0x10002cd34 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1e0>
+10002cbb8:     	cmp	x16, x14
+10002cbbc:     	b.lt	0x10002cca4 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x150>
+10002cbc0:     	cmp	x15, x13
+10002cbc4:     	b.lo	0x10002ccf8 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1a4>
+10002cbc8:     	adds	x8, x8, x13
+10002cbcc:     	b.vs	0x10002cd38 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1e4>
+10002cbd0:     	ldr	x14, [x20, #0x38]
+10002cbd4:     	adds	x14, x14, x13
+10002cbd8:     	b.vs	0x10002cd3c <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1e8>
+10002cbdc:     	mov	x13, #0x0               ; =0
+10002cbe0:     	str	x14, [x20, #0x38]
+10002cbe4:     	str	xzr, [x20, #0x28]
+10002cbe8:     	cbnz	x13, 0x10002cb7c <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x28>
+10002cbec:     	ldr	x13, [x20, #0x38]
+10002cbf0:     	ldr	x16, [x20, #0x18]
+10002cbf4:     	cbnz	x13, 0x10002cbfc <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0xa8>
+10002cbf8:     	str	x16, [x20, #0x30]
+10002cbfc:     	mov	x13, #0x0               ; =0
+10002cc00:     	ldr	x14, [x9, #0x10]
+10002cc04:     	b	0x10002cc2c <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0xd8>
+10002cc08:     	str	x15, [x20, #0x18]
+10002cc0c:     	ldr	x16, [x20, #0x20]
+10002cc10:     	orr	x16, x17, x16, lsl #8
+10002cc14:     	mov	w17, #0x8               ; =8
+10002cc18:     	add	x13, x13, x17
+10002cc1c:     	stp	x16, x13, [x20, #0x20]
+10002cc20:     	mov	x16, x15
+10002cc24:     	cmp	x13, #0x31
+10002cc28:     	b.hs	0x10002cb80 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x2c>
+10002cc2c:     	cmp	x16, x14
+10002cc30:     	b.ge	0x10002cc70 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x11c>
+10002cc34:     	tbnz	x16, #0x3f, 0x10002cd28 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1d4>
+10002cc38:     	ldrb	w17, [x10, x16]
+10002cc3c:     	add	x15, x16, #0x1
+10002cc40:     	cmp	x17, #0xff
+10002cc44:     	ccmp	x15, x14, #0x0, eq
+10002cc48:     	b.ge	0x10002cc08 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0xb4>
+10002cc4c:     	ldrsb	x1, [x10, x15]
+10002cc50:     	tbnz	x1, #0x3f, 0x10002cc08 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0xb4>
+10002cc54:     	add	x15, x16, #0x2
+10002cc58:     	str	x15, [x20, #0x18]
+10002cc5c:     	ldr	x16, [x20, #0x20]
+10002cc60:     	orr	x16, x1, x16, lsl #15
+10002cc64:     	orr	x16, x16, #0x7f80
+10002cc68:     	mov	w17, #0xf               ; =15
+10002cc6c:     	b	0x10002cc18 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0xc4>
+10002cc70:     	cbnz	x13, 0x10002cb88 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x34>
+10002cc74:     	bl	0x10001fdb8 <_$s8SwiftJLS11JPEGLSErrorOACs5ErrorAAWl>
+10002cc78:     	mov	x1, x0
+10002cc7c:     	adrp	x0, 0x100079000 <_$s8SwiftJLS5ImageVWV+0x50>
+10002cc80:     	add	x0, x0, #0xe08
+10002cc84:     	mov	x2, #0x0                ; =0
+10002cc88:     	mov	w3, #0x0                ; =0
+10002cc8c:     	bl	0x10006afe0 <_swift_willThrow+0x10006afe0>
+10002cc90:     	stp	xzr, xzr, [x1, #0x8]
+10002cc94:     	str	xzr, [x1]
+10002cc98:     	mov	w8, #0x19               ; =25
+10002cc9c:     	strb	w8, [x1, #0x18]
+10002cca0:     	b	0x10002cce4 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x190>
+10002cca4:     	adrp	x8, 0x10006e000 <_swift_willThrow+0x10006e000>
+10002cca8:     	add	x8, x8, #0x670
+10002ccac:     	sub	x8, x8, #0x20
+10002ccb0:     	orr	x19, x8, #0x8000000000000000
+10002ccb4:     	bl	0x10000ae9c <_$s8SwiftJLS10CodecErrorVACs0D0AAWl>
+10002ccb8:     	mov	x1, x0
+10002ccbc:     	adrp	x0, 0x100078000 <__swift_FORCE_LOAD_$_swift_Builtin_float_$_Benchmark>
+10002ccc0:     	add	x0, x0, #0xcd8
+10002ccc4:     	mov	x2, #0x0                ; =0
+10002ccc8:     	mov	w3, #0x0                ; =0
+10002cccc:     	bl	0x10006afe0 <_swift_willThrow+0x10006afe0>
+10002ccd0:     	mov	w8, #0x1                ; =1
+10002ccd4:     	strb	w8, [x1]
+10002ccd8:     	mov	x8, #0x27               ; =39
+10002ccdc:     	movk	x8, #0xd000, lsl #48
+10002cce0:     	stp	x8, x19, [x1, #0x8]
+10002cce4:     	mov	x19, x0
+10002cce8:     	mov	x21, x0
+10002ccec:     	bl	0x10006b220 <_swift_willThrow+0x10006b220>
+10002ccf0:     	mov	x21, x19
+10002ccf4:     	b	0x10002cd1c <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1c8>
+10002ccf8:     	add	x9, x14, #0x1
+10002ccfc:     	sub	x10, x13, x9
+10002cd00:     	str	x10, [x20, #0x28]
+10002cd04:     	ldr	x10, [x20, #0x38]
+10002cd08:     	adds	x9, x10, x9
+10002cd0c:     	b.vs	0x10002cd40 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1ec>
+10002cd10:     	str	x9, [x20, #0x38]
+10002cd14:     	adds	x0, x8, x14
+10002cd18:     	b.vs	0x10002cd44 <_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF+0x1f0>
+10002cd1c:     	ldp	x29, x30, [sp, #0x10]
+10002cd20:     	ldr	x19, [sp], #0x20
+10002cd24:     	ret
+10002cd28:     	brk	#0x1
+10002cd2c:     	brk	#0x1
+10002cd30:     	brk	#0x1
+10002cd34:     	brk	#0x1
+10002cd38:     	brk	#0x1
+10002cd3c:     	brk	#0x1
+10002cd40:     	brk	#0x1
+10002cd44:     	brk	#0x1

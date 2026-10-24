@@ -1,0 +1,124 @@
+[
+  {
+    "command": [
+      "python3",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/reuse-benchmark.py",
+      "--build-identity",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-owned-admission-diagnostic/build-identity.json",
+      "--output",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/benchmark-reuse.json"
+    ],
+    "label": "benchmark-reuse-value",
+    "exit_code": 0,
+    "seconds": 0.403238667
+  },
+  {
+    "command": [
+      "python3",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/apple-build-value.py"
+    ],
+    "label": "apple-build-value",
+    "exit_code": 0,
+    "seconds": 53.203400334
+  },
+  {
+    "command": [
+      "python3",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/apple-runtime-value.py",
+      "26.0"
+    ],
+    "label": "apple-runtime-value",
+    "exit_code": 0,
+    "seconds": 66.097459209
+  },
+  {
+    "command": [
+      "python3",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/apple-resource-value.py"
+    ],
+    "label": "apple-resource-value",
+    "exit_code": 0,
+    "seconds": 54.509302250000005
+  },
+  {
+    "command": [
+      "swift",
+      "build",
+      "--build-system",
+      "swiftbuild",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "Examples/AppleRuntimeConsumer",
+      "--scratch-path",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/build/AppleRuntimeConsumer"
+    ],
+    "label": "native-AppleRuntimeConsumer-value",
+    "exit_code": 0,
+    "seconds": 27.670264333000006
+  },
+  {
+    "command": [
+      "swift",
+      "build",
+      "--build-system",
+      "swiftbuild",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "Examples/ResourceStress",
+      "--scratch-path",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/build/ResourceStress"
+    ],
+    "label": "native-ResourceStress-value",
+    "exit_code": 0,
+    "seconds": 26.62352070899999
+  },
+  {
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/build/AppleRuntimeConsumer/out/Products/Release/AppleRuntimeConsumer",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Tests/SwiftJLSTests/Fixtures"
+    ],
+    "label": "host-AppleRuntimeConsumer-value",
+    "exit_code": 0,
+    "seconds": 0.4237094579999905
+  },
+  {
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/build/ResourceStress/out/Products/Release/ResourceStress"
+    ],
+    "label": "host-ResourceStress-value",
+    "exit_code": 0,
+    "seconds": 0.725223791000019
+  },
+  {
+    "command": [
+      "python3",
+      "Scripts/test-payload-cli.py",
+      "--binary",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/test-build/release/out/Products/Release/swiftjls-cli",
+      "--output",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/cli-payload-value.json"
+    ],
+    "label": "cli-payload-value",
+    "exit_code": 0,
+    "seconds": 1.2185569579999935
+  },
+  {
+    "command": [
+      "python3",
+      "Scripts/test-cli.py",
+      "--binary",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/test-build/release/out/Products/Release/swiftjls-cli",
+      "--output",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21-performance/cli-process-value"
+    ],
+    "label": "cli-process-value",
+    "exit_code": 0,
+    "seconds": 1.4831827910000186
+  }
+]

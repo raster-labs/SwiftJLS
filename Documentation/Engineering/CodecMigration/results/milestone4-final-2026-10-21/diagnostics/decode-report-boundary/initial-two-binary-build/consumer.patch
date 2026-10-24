@@ -1,0 +1,54 @@
+--- original-Consumer.swift
++++ diagnostic-Consumer.swift
+@@ -91,8 +91,10 @@
+     try await Encoder(configuration: .init(mode: near == 0 ? .lossless : .nearLossless(maximumAbsoluteError: near),
+         codecOptions: .init(restartIntervalLines: 0, interleaveMode: mode))).encode(image, options: .init(resourceLimits: benchmarkLimits, executionPolicy: .scalarCPU)).data
+ }
+-func decode(_ data: Data, verify: Bool) async throws {
+-    let image = try await Decoder().decode(data, options: .init(resourceLimits: benchmarkLimits, executionPolicy: .scalarCPU)).image
++func decode(_ data: Data, verify: Bool) async throws -> Double {
++    let decoded = try await Decoder().decode(data, options: .init(resourceLimits: benchmarkLimits, executionPolicy: .scalarCPU))
++    guard let reportedElapsed = decoded.report.elapsedSeconds else { throw Failure() }
++    let image = decoded.image
+     guard image.descriptor.meaningfulBits == bits else { throw Failure() }
+     if verify {
+         try image.storage.withUnsafeBytes { bytes in
+@@ -106,6 +108,12 @@
+             } }
+         }
+     }
++    #if REPORT_ELAPSED
++    return reportedElapsed
++    #else
++    _ = reportedElapsed
++    return 0
++    #endif
+ }
+ #endif
+ let image = try makeImage()
+@@ -124,14 +132,16 @@
+ }
+ var encoding: [Double] = [], decoding: [Double] = []
+ var preparation: [Double] = [], preparedEncoding: [Double] = []
++var reportedDecoding: [Double] = []
+ for _ in 0..<iterations {
+     var start = ProcessInfo.processInfo.systemUptime
+     let encoded = try await encode(image)
+     encoding.append(ProcessInfo.processInfo.systemUptime - start)
+     guard encoded == reference else { throw Failure() }
+     start = ProcessInfo.processInfo.systemUptime
+-    try await decode(reference, verify: false)
++    let reported = try await decode(reference, verify: false)
+     decoding.append(ProcessInfo.processInfo.systemUptime - start)
++    reportedDecoding.append(reported)
+     if endToEnd {
+         let start = ProcessInfo.processInfo.systemUptime
+         let fresh = try makeImage()
+@@ -157,6 +167,7 @@
+     "pattern": pattern, "warmups": warmups, "iterations": iterations,
+     "components": components, "near": near, "interleave": interleave,
+     "encode_seconds": encoding, "decode_seconds": decoding,
++    "reported_decode_seconds": reportedDecoding,
+     "end_to_end": endToEnd, "prepare_seconds": preparation,
+     "prepare_encode_seconds": preparedEncoding,
+     "encoded_bytes": reference.count, "peak_process_rss_bytes": peakRSS,

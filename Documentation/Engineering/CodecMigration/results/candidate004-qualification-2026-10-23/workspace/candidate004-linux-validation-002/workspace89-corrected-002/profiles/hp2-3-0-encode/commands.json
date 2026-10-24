@@ -1,0 +1,40 @@
+[
+  {
+    "command": [
+      "heaptrack",
+      "--version"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack",
+      "-o",
+      "/evidence/profiles/hp2-3-0-encode/allocations",
+      "/original/WorkspaceProbe",
+      "encode",
+      "257",
+      "129",
+      "3",
+      "0",
+      "hp2"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack_print",
+      "-f",
+      "/evidence/profiles/hp2-3-0-encode/allocations.gz",
+      "-n",
+      "1000",
+      "-s",
+      "1000",
+      "-H",
+      "/evidence/profiles/hp2-3-0-encode/sizes.tsv",
+      "-F",
+      "/evidence/profiles/hp2-3-0-encode/allocation-stacks.txt"
+    ],
+    "exit_code": 0
+  }
+]

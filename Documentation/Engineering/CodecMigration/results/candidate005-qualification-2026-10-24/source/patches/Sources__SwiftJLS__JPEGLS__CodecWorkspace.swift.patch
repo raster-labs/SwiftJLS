@@ -1,0 +1,29 @@
+diff --git a/Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift b/Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift
+new file mode 100644
+--- /dev/null
++++ b/Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: Apache-2.0
++// Copyright 2026 Raster Images Private Limited
++
++/// Checked, operation-local admission allowances, not measured allocator/RSS peaks.
++enum CodecWorkspace {
++    // Retain the existing conservative codec allowance for context, fixed state
++    // and bounded component/control containers. Header parsing creates its own
++    // bounded control containers even without ancillary metadata or pixels.
++    // Variable metadata and restart directories are charged separately below.
++    static let fixedControlBytes = 64 * 1024
++
++    static func parserBytes(metadataBytes: Int, directoryBytes: Int) throws -> Int {
++        try checkedAdd(fixedControlBytes,
++            checkedAdd(checkedMultiply(metadataBytes, 32), directoryBytes))
++    }
++
++    static func tableConstructionBytes(threshold3: Int) throws -> Int {
++        // Preserve the previous Int-based, two-table reservation even when a
++        // kernel uses narrower table elements. This is a conservative allowance,
++        // not a claim that two tables coexist or that allocator overhead is known.
++        try checkedMultiply(checkedAdd(checkedMultiply(threshold3, 2), 1),
++            MemoryLayout<Int>.stride * 2)
++    }
++}

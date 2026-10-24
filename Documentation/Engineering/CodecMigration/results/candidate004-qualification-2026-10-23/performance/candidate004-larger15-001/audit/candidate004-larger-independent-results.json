@@ -1,0 +1,713 @@
+{
+  "errors": [],
+  "checks": 2680,
+  "processes": 120,
+  "conditions": 76,
+  "metrics_recomputed": 60,
+  "pair_records_recomputed": 240,
+  "pooled_points_over_1_05": {},
+  "max_pooled_point": [
+    "512x512-p16-ramp-c3-n0-i0|encode",
+    0.9525338096826315
+  ],
+  "pooled_metrics": {
+    "512x512-p12-flat-c1-n0-i0|encode": 0.46059682317090767,
+    "512x512-p12-flat-c1-n0-i0|decode": 0.5550433693423911,
+    "512x512-p12-flat-c1-n0-i0|prepare": 0.34285380984230585,
+    "512x512-p12-flat-c1-n0-i0|prepare_encode": 0.3593240092914071,
+    "512x512-p16-noise-c1-n0-i0|encode": 0.6934449946061269,
+    "512x512-p16-noise-c1-n0-i0|decode": 0.8436582062688822,
+    "512x512-p16-noise-c1-n0-i0|prepare": 0.3722738444031074,
+    "512x512-p16-noise-c1-n0-i0|prepare_encode": 0.6683591803832155,
+    "2048x2048-p12-ramp-c1-n0-i0|encode": 0.8624882515418599,
+    "2048x2048-p12-ramp-c1-n0-i0|decode": 0.848154328845061,
+    "2048x2048-p12-ramp-c1-n0-i0|prepare": 0.33067048171815583,
+    "2048x2048-p12-ramp-c1-n0-i0|prepare_encode": 0.7573857978188873,
+    "4096x3073-p16-noise-c1-n0-i0|encode": 0.7074915607857517,
+    "4096x3073-p16-noise-c1-n0-i0|decode": 0.8344053877027369,
+    "4096x3073-p16-noise-c1-n0-i0|prepare": 0.34755522008308903,
+    "4096x3073-p16-noise-c1-n0-i0|prepare_encode": 0.6728534999712701,
+    "512x512-p12-noise-c1-n3-i0|encode": 0.7138197719679521,
+    "512x512-p12-noise-c1-n3-i0|decode": 0.8568728982820729,
+    "512x512-p12-noise-c1-n3-i0|prepare": 0.34844316146023785,
+    "512x512-p12-noise-c1-n3-i0|prepare_encode": 0.6941789687788193,
+    "512x512-p16-ramp-c1-n3-i0|encode": 0.7859022554754065,
+    "512x512-p16-ramp-c1-n3-i0|decode": 0.8447631764000946,
+    "512x512-p16-ramp-c1-n3-i0|prepare": 0.36010657251299005,
+    "512x512-p16-ramp-c1-n3-i0|prepare_encode": 0.6957005837103625,
+    "512x512-p12-ramp-c3-n0-i2|encode": 0.830400142172817,
+    "512x512-p12-ramp-c3-n0-i2|decode": 0.7238682053466936,
+    "512x512-p12-ramp-c3-n0-i2|prepare": 0.3493127163622115,
+    "512x512-p12-ramp-c3-n0-i2|prepare_encode": 0.7622102904001145,
+    "512x512-p12-ramp-c3-n3-i2|encode": 0.25150776686152954,
+    "512x512-p12-ramp-c3-n3-i2|decode": 0.7305218509703697,
+    "512x512-p12-ramp-c3-n3-i2|prepare": 0.3494128690712777,
+    "512x512-p12-ramp-c3-n3-i2|prepare_encode": 0.2600429942254935,
+    "512x512-p12-noise-c3-n3-i2|encode": 0.3381398209943291,
+    "512x512-p12-noise-c3-n3-i2|decode": 0.9057844750904246,
+    "512x512-p12-noise-c3-n3-i2|prepare": 0.359136071149314,
+    "512x512-p12-noise-c3-n3-i2|prepare_encode": 0.3429790429434951,
+    "512x512-p16-noise-c3-n0-i2|encode": 0.6953060814509722,
+    "512x512-p16-noise-c3-n0-i2|decode": 0.8642024021097677,
+    "512x512-p16-noise-c3-n0-i2|prepare": 0.37600912545161247,
+    "512x512-p16-noise-c3-n0-i2|prepare_encode": 0.6798893540801235,
+    "512x512-p12-noise-c3-n3-i1|encode": 0.36269500942435734,
+    "512x512-p12-noise-c3-n3-i1|decode": 0.898117008488312,
+    "512x512-p12-noise-c3-n3-i1|prepare": 0.3883902660839274,
+    "512x512-p12-noise-c3-n3-i1|prepare_encode": 0.3642828901141335,
+    "512x512-p16-ramp-c3-n0-i0|encode": 0.9525338096826315,
+    "512x512-p16-ramp-c3-n0-i0|decode": 0.8454145308265552,
+    "512x512-p16-ramp-c3-n0-i0|prepare": 0.350428795415914,
+    "512x512-p16-ramp-c3-n0-i0|prepare_encode": 0.8173678514799013,
+    "2048x2048-p12-noise-c3-n3-i2|encode": 0.341554122844354,
+    "2048x2048-p12-noise-c3-n3-i2|decode": 0.904960415495214,
+    "2048x2048-p12-noise-c3-n3-i2|prepare": 0.3584186597811514,
+    "2048x2048-p12-noise-c3-n3-i2|prepare_encode": 0.3400027400145631,
+    "4096x3073-p12-flat-c3-n0-i2|encode": 0.5625100771602273,
+    "4096x3073-p12-flat-c3-n0-i2|decode": 0.09580269316832074,
+    "4096x3073-p12-flat-c3-n0-i2|prepare": 0.3386991936111851,
+    "4096x3073-p12-flat-c3-n0-i2|prepare_encode": 0.35074210732759775,
+    "4096x3073-p16-noise-c3-n0-i2|encode": 0.692070212229593,
+    "4096x3073-p16-noise-c3-n0-i2|decode": 0.8636095888020172,
+    "4096x3073-p16-noise-c3-n0-i2|prepare": 0.32590963216218977,
+    "4096x3073-p16-noise-c3-n0-i2|prepare_encode": 0.6658459865587667
+  },
+  "points_with_any_pair_above_1_05": [],
+  "order_groups_above_1_05": [],
+  "encoded_sizes": [
+    {
+      "case": "512x512-p12-flat-c1-n0-i0",
+      "reference": 188,
+      "candidate": 188,
+      "delta_bytes": 0,
+      "ratio": 1.0,
+      "archived_reference": 188,
+      "archived_candidate": 188,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": false,
+      "explained_proof": null,
+      "retained_for_review": false,
+      "unexpected_from_archived_sizes_flag": false
+    },
+    {
+      "case": "512x512-p16-noise-c1-n0-i0",
+      "reference": 541189,
+      "candidate": 541188,
+      "delta_bytes": -1,
+      "ratio": 0.9999981522166932,
+      "archived_reference": 541189,
+      "archived_candidate": 541188,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": false,
+      "explained_proof": null,
+      "retained_for_review": true,
+      "unexpected_from_archived_sizes_flag": false
+    },
+    {
+      "case": "2048x2048-p12-ramp-c1-n0-i0",
+      "reference": 576058,
+      "candidate": 576058,
+      "delta_bytes": 0,
+      "ratio": 1.0,
+      "archived_reference": 576058,
+      "archived_candidate": 576058,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": false,
+      "explained_proof": null,
+      "retained_for_review": false,
+      "unexpected_from_archived_sizes_flag": false
+    },
+    {
+      "case": "4096x3073-p16-noise-c1-n0-i0",
+      "reference": 25971520,
+      "candidate": 25971496,
+      "delta_bytes": -24,
+      "ratio": 0.9999990759108439,
+      "archived_reference": 25971520,
+      "archived_candidate": 25971496,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": false,
+      "explained_proof": null,
+      "retained_for_review": true,
+      "unexpected_from_archived_sizes_flag": false
+    },
+    {
+      "case": "512x512-p12-noise-c1-n3-i0",
+      "reference": 318407,
+      "candidate": 318371,
+      "delta_bytes": -36,
+      "ratio": 0.9998869371590449,
+      "archived_reference": 318407,
+      "archived_candidate": 318371,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": false,
+      "explained_proof": null,
+      "retained_for_review": true,
+      "unexpected_from_archived_sizes_flag": false
+    },
+    {
+      "case": "512x512-p16-ramp-c1-n3-i0",
+      "reference": 35261,
+      "candidate": 35246,
+      "delta_bytes": -15,
+      "ratio": 0.9995746008337824,
+      "archived_reference": 35261,
+      "archived_candidate": 35246,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": false,
+      "explained_proof": null,
+      "retained_for_review": true,
+      "unexpected_from_archived_sizes_flag": false
+    },
+    {
+      "case": "512x512-p12-ramp-c3-n0-i2",
+      "reference": 111503,
+      "candidate": 111547,
+      "delta_bytes": 44,
+      "ratio": 1.0003946082168194,
+      "archived_reference": 111503,
+      "archived_candidate": 111547,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": false,
+      "explained_proof": null,
+      "retained_for_review": true,
+      "unexpected_from_archived_sizes_flag": false
+    },
+    {
+      "case": "512x512-p12-ramp-c3-n3-i2",
+      "reference": 106329,
+      "candidate": 106358,
+      "delta_bytes": 29,
+      "ratio": 1.000272738387458,
+      "archived_reference": 106329,
+      "archived_candidate": 106358,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": false,
+      "explained_proof": null,
+      "retained_for_review": true,
+      "unexpected_from_archived_sizes_flag": false
+    },
+    {
+      "case": "512x512-p12-noise-c3-n3-i2",
+      "reference": 954119,
+      "candidate": 954119,
+      "delta_bytes": 0,
+      "ratio": 1.0,
+      "archived_reference": 954119,
+      "archived_candidate": 954119,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": false,
+      "explained_proof": null,
+      "retained_for_review": false,
+      "unexpected_from_archived_sizes_flag": false
+    },
+    {
+      "case": "512x512-p16-noise-c3-n0-i2",
+      "reference": 1623044,
+      "candidate": 1623095,
+      "delta_bytes": 51,
+      "ratio": 1.000031422438332,
+      "archived_reference": 1623044,
+      "archived_candidate": 1623095,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": false,
+      "explained_proof": null,
+      "retained_for_review": true,
+      "unexpected_from_archived_sizes_flag": false
+    },
+    {
+      "case": "512x512-p12-noise-c3-n3-i1",
+      "reference": 954118,
+      "candidate": 954146,
+      "delta_bytes": 28,
+      "ratio": 1.0000293464749643,
+      "archived_reference": 954118,
+      "archived_candidate": 954146,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": false,
+      "explained_proof": null,
+      "retained_for_review": true,
+      "unexpected_from_archived_sizes_flag": false
+    },
+    {
+      "case": "512x512-p16-ramp-c3-n0-i0",
+      "reference": 110328,
+      "candidate": 110372,
+      "delta_bytes": 44,
+      "ratio": 1.00039881081865,
+      "archived_reference": 110328,
+      "archived_candidate": 110372,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": false,
+      "explained_proof": null,
+      "retained_for_review": true,
+      "unexpected_from_archived_sizes_flag": false
+    },
+    {
+      "case": "2048x2048-p12-noise-c3-n3-i2",
+      "reference": 15255614,
+      "candidate": 15255610,
+      "delta_bytes": -4,
+      "ratio": 0.9999997378014415,
+      "archived_reference": 15255614,
+      "archived_candidate": 15255610,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": false,
+      "explained_proof": null,
+      "retained_for_review": true,
+      "unexpected_from_archived_sizes_flag": false
+    },
+    {
+      "case": "4096x3073-p12-flat-c3-n0-i2",
+      "reference": 2115,
+      "candidate": 2159,
+      "delta_bytes": 44,
+      "ratio": 1.0208037825059102,
+      "archived_reference": 2115,
+      "archived_candidate": 2159,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": true,
+      "explained_proof": {
+        "finding_id": "larger--4096x3073-p12-flat-c3-n0-i2--encoded_bytes",
+        "readme": "Documentation/Engineering/CodecMigration/results/milestone4-final-2026-10-21-performance/size-validation/README.md",
+        "disposition": "Documentation/Engineering/CodecMigration/results/milestone4-final-2026-10-21-performance/reviewed-performance-disposition.json",
+        "spiff_app8_bytes": 44,
+        "entropy_bytes": 2078
+      },
+      "retained_for_review": false,
+      "unexpected_from_archived_sizes_flag": false
+    },
+    {
+      "case": "4096x3073-p16-noise-c3-n0-i2",
+      "reference": 77915056,
+      "candidate": 77915081,
+      "delta_bytes": 25,
+      "ratio": 1.0000003208622477,
+      "archived_reference": 77915056,
+      "archived_candidate": 77915081,
+      "matches_archived_sizes": true,
+      "explained_spiff_header_difference": false,
+      "explained_proof": null,
+      "retained_for_review": true,
+      "unexpected_from_archived_sizes_flag": false
+    }
+  ],
+  "encoded_delta_counts": {
+    "equal": 3,
+    "smaller": 5,
+    "larger": 7
+  },
+  "rss_ratios": [
+    {
+      "case": "512x512-p12-flat-c1-n0-i0",
+      "ratio": 0.6193812025685931
+    },
+    {
+      "case": "512x512-p16-noise-c1-n0-i0",
+      "ratio": 0.7224181360201511
+    },
+    {
+      "case": "2048x2048-p12-ramp-c1-n0-i0",
+      "ratio": 0.2874789807269435
+    },
+    {
+      "case": "4096x3073-p16-noise-c1-n0-i0",
+      "ratio": 0.3575395234102536
+    },
+    {
+      "case": "512x512-p12-noise-c1-n3-i0",
+      "ratio": 0.560352422907489
+    },
+    {
+      "case": "512x512-p16-ramp-c1-n3-i0",
+      "ratio": 0.5348610433934666
+    },
+    {
+      "case": "512x512-p12-ramp-c3-n0-i2",
+      "ratio": 0.5041908446163765
+    },
+    {
+      "case": "512x512-p12-ramp-c3-n3-i2",
+      "ratio": 0.3777022103473403
+    },
+    {
+      "case": "512x512-p12-noise-c3-n3-i2",
+      "ratio": 0.49577098243331164
+    },
+    {
+      "case": "512x512-p16-noise-c3-n0-i2",
+      "ratio": 0.6245395948434622
+    },
+    {
+      "case": "512x512-p12-noise-c3-n3-i1",
+      "ratio": 0.4702280405405405
+    },
+    {
+      "case": "512x512-p16-ramp-c3-n0-i0",
+      "ratio": 0.509090909090909
+    },
+    {
+      "case": "2048x2048-p12-noise-c3-n3-i2",
+      "ratio": 0.33588761174968074
+    },
+    {
+      "case": "4096x3073-p12-flat-c3-n0-i2",
+      "ratio": 0.16124714811719262
+    },
+    {
+      "case": "4096x3073-p16-noise-c3-n0-i2",
+      "ratio": 0.3403411836652654
+    }
+  ],
+  "cpu_ps_sum_range": [
+    85.1,
+    345.3
+  ],
+  "measurement_span_seconds": 743.437951,
+  "source_guards": {
+    "repo_head": "4f6661a4ccec277d02e42b9228c7b574dfbf15cd",
+    "larger_guard_plan_sha256": "e53e2e11ff679398dbb5de160e72c08a53ca5809fb2117e42777510158048bef",
+    "consumer_sha256": "27e4ca75529bf1a0e27ae4be14ec6c906945cc2ee6f0fa22170594144fe00c34",
+    "package_swift_sha256": "b8c00c41dda983f6cee24c45f3e352ebde71c0f25b42abd379a431f1a556394b",
+    "task_store_sha256": "be02178c4b4325cc73cc2af6e371242455998de5c17b761b1b7bd585cb516d6e",
+    "shared_helper_sha256": "41d857d93c6442ad31c446a2ee82ce86bcd3730bf5f3989f5a1e721108e1b5ea",
+    "binary_sha256": {
+      "reference": "b117c48d9ca62e49ae0c618f6acb25d413165f0cfc2670599774f673b4164f45",
+      "candidate": "1db8b6a3fd92f6d73304ad08827560e852ed584a5d572b7872b86b9d723c92ad"
+    },
+    "verified_38_swiftjls_files": true,
+    "verified_31_test_files": true,
+    "all_swiftjls_source_hashes": {
+      "Sources/SwiftJLS/CodecAPI.swift": "f8cd258111d74a6bea454566feaf2c86d1120965f3dba081c620c86bd0948d21",
+      "Sources/SwiftJLS/Errors.swift": "f71dd532405f2bca468ef39b29117513c686a89c64dd908ef598d1bca4f4fe6b",
+      "Sources/SwiftJLS/Image.swift": "da672c050972e0cfd05996a5be9f411926821f8c188535b80dc63ae3e0ea88fb",
+      "Sources/SwiftJLS/ImageDescriptor.swift": "ba12d371e2583578a726aabde85fc244648821984bcf630ff365ec2a33e1cd26",
+      "Sources/SwiftJLS/ImageStorage.swift": "f92233461c055b57f25402829e2f3fdff4fe6748b24952b100508a57fd308fe2",
+      "Sources/SwiftJLS/JPEGLS/ComponentCodec.swift": "62737239646a1f078a535a493f0370ba3e02e05fd3ba2424eb14af81ca4e1d85",
+      "Sources/SwiftJLS/JPEGLS/ComponentSamples.swift": "1ce0be11dde2105dd795286985802b7c626206ce74063057a9928ae7b8e3d119",
+      "Sources/SwiftJLS/JPEGLS/HPTransform.swift": "3c1b1d61b0de3692a47a555b215f329e9e92e8e86cb7950fe0087bf9f3d6bc83",
+      "Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift": "c1224495271d1b6c0b74b8533557fd92ede7473fdc21e1affbe2389deb6e6704",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift": "5f71d419cb389235dbc756d3a1c0df6f888c860427f40f867250b9f031202485",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift": "8e9419b656ba9f2721702623f569ee0b8da403de56a96105e758655bb101f8ba",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift": "5eeb8a236cb8ca55fb60d1613a60b77999e189518a115c2e08c081129d09ebf4",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSError.swift": "73dd58926e8f15cf96ffffeaba7dc72ccf576a77e43bc10fd9f675170a3d9dc1",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift": "5b4c1388a0651b504fb67206ea88c28d02ab232ee61d66ac126cfa1f461bc5e0",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift": "c57fc4569e1f1683d428a7c9e6ed96e1583219a04a15856af90737d79578abf8",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift": "97f9944dd1a62fe76cc5b05c8d216fd7c71968efa1cac0a2945e5885d83781cd",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift": "f44b40588d5f1f59b90c7f4b3a8d2ed9c968fe700bbe535248bcb5d65597d8ef",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift": "b165f853b2118674183466de4030f8192a6a7e62e5ea4398d38d61774b7af1fa",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift": "8397f5465973a78b316842fc6bbc7345a1df4a7d65ea2f3a8916977c6f072356",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift": "1901bc5deeea95438852c530ba1b1682af07c1fe2304438b446710298b79a0bc",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift": "30e8e774cf84acae49e188cddedc25d5a7c3b4bcfe14c9aa68a8da3f3fca17a8",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift": "e26a0753893f838f68ea42a0c10ea863ac4771e532bfc6978bd1fb764968838e",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift": "3edc9cbf9a5755e193ce0dfebcd9bc0aba0652a2a0d23fd802da8d58d63ed4d6",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift": "b98f40f6701c2d5edf9d6346c9ba142166b9ec45163ace57f75819f4fd8e0b89",
+      "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift": "92cb716f4a1e2b1f978627605695f0bbd98bd3269f51418f564b172ce04846ff",
+      "Sources/SwiftJLS/JPEGLS/ScalarSamples.swift": "2a18c8e246c9fc0dfb37fb41798683c5b3c1bbdbb738fd5c26e5dd3c065faa6f",
+      "Sources/SwiftJLS/Options.swift": "dd43c63592bf4d74c53626374fb4494b0815315f0f64bc1a2831f9c066b5d787",
+      "Sources/SwiftJLS/Qualified/QualifiedContext.swift": "d121db5432eb9e0e5525a1c469ff9bba93db370362ad35ed72f1cd18db003317",
+      "Sources/SwiftJLS/Qualified/QualifiedCursor.swift": "5a10d7649f0c3e3891eb455637be17b8a36103614ef9bb5afa6bd742183c579a",
+      "Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift": "c309c0131ca776e4cc04190c344c28f0da5ecd9da0198cd34ac27c3e7f8abbaf",
+      "Sources/SwiftJLS/Qualified/QualifiedKernel.swift": "e0facfd1d2814d028b285e3a653b1c2de9fe3af40dd6108d7e9084563e941911",
+      "Sources/SwiftJLS/Qualified/QualifiedMarkers.swift": "0b1a28c737b75f778ec1daad14d53426e305fca61b59d90f2d98fe5812cbc72f",
+      "Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift": "74ad31bba36b21bdbb1ad0f67a0b8eccfd442967a906ad862406749c0fb20d69",
+      "Sources/SwiftJLS/Qualified/QualifiedOutcome.swift": "b86193ff4179517f9e305ee662bd65983e6015b189daeb9bdbfef596c87f2fc1",
+      "Sources/SwiftJLS/Qualified/QualifiedParameters.swift": "7ffd5ee528680f280e037519899e25108dca584a5d3ab854d35c9c8e264298ca",
+      "Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift": "19d9bb41c18c03f0f42be564a7f9e78a57cec4ba0c45e987e6a3d01fa1ea7d87",
+      "Sources/SwiftJLS/Qualified/QualifiedParser.swift": "68f856138d0bdcb9f737da659e9cffac0f5f233d96f1dab6fc18f798951467ba",
+      "Sources/SwiftJLS/Qualified/QualifiedPrediction.swift": "4437f09db60927663443b3ee8c1022c44ae8e2de25fc69e16b34395fb6d3fe59"
+    }
+  },
+  "campaign_hashes": {
+    "summary.json": "9eb65366f62039a6ba1ba1338b0d106964d5847bf403ccae8678e0522893bb38",
+    "frozen_runner.py": "8dc2c61bbbe96471fdf3e48f0653bc864605d8732880b924fe3763487b13ad53",
+    "frozen_schedule.json": "d4b14bb73188f39ae66966ea0dde4e220cb6cec2c57f2ca35ececbff9499d167",
+    "events.jsonl": "37ed5f29f83c7bb4d7b9e679792814543b5cbef1640a680445d3fe0377a1da0d",
+    "complete.json": "6d1e50e7f8c2ffe5602576af401b1c0c8dcfab97458b783871b32845033e2f73",
+    "frozen_shared_helper.py": "41d857d93c6442ad31c446a2ee82ce86bcd3730bf5f3989f5a1e721108e1b5ea",
+    "conditions.jsonl": "a62083738ad60b8c3e7e81928409c496bac5bb1be5fc4e671b79776567dd41a6",
+    "environment.json": "ca279451f87ecf9d9a2558171d3610f20a6c95dc494958ff96b6c7a04ffd3e61",
+    "frozen_larger_guard_plan.json": "e53e2e11ff679398dbb5de160e72c08a53ca5809fb2117e42777510158048bef",
+    "raw.jsonl": "1994cee3d35cd070aa29720d53be755ee8a5fcb0493000c8c82ca3444dbbc96c"
+  },
+  "archived_sizes_summary_sha256": "393741cab7140afffa27a1703d38f707b6317d09efbf7320aaea3231bf8f07c4",
+  "claim": "Completed representative descriptive guard only; no family confidence claim and no closure of three unresolved short endpoints; shared host retained.",
+  "command_elapsed_seconds": 744.4288420677185,
+  "max_rss_ratio": {
+    "case": "512x512-p16-noise-c1-n0-i0",
+    "ratio": 0.7224181360201511
+  },
+  "processes_above10_including_measured_benchmarks": {
+    "413|WindowServer": {
+      "count": 76,
+      "max_ps_cpu": 34.2,
+      "first_utc": "2026-10-23T11:33:37.583356+00:00",
+      "last_utc": "2026-10-23T11:46:01.380512+00:00"
+    },
+    "987|com.apple.Virtualization.VirtualMachine": {
+      "count": 28,
+      "max_ps_cpu": 88.7,
+      "first_utc": "2026-10-23T11:33:37.583356+00:00",
+      "last_utc": "2026-10-23T11:46:01.380512+00:00"
+    },
+    "1448|Terminal": {
+      "count": 44,
+      "max_ps_cpu": 12.9,
+      "first_utc": "2026-10-23T11:33:37.583356+00:00",
+      "last_utc": "2026-10-23T11:46:01.380512+00:00"
+    },
+    "39955|python3": {
+      "count": 1,
+      "max_ps_cpu": 17.5,
+      "first_utc": "2026-10-23T11:33:37.583356+00:00",
+      "last_utc": "2026-10-23T11:33:37.583356+00:00"
+    },
+    "64085|TimeChamp.Tracker.MacOS": {
+      "count": 19,
+      "max_ps_cpu": 29.4,
+      "first_utc": "2026-10-23T11:33:37.583356+00:00",
+      "last_utc": "2026-10-23T11:46:01.380512+00:00"
+    },
+    "77970|Codex (Service)": {
+      "count": 1,
+      "max_ps_cpu": 11.6,
+      "first_utc": "2026-10-23T11:33:37.583356+00:00",
+      "last_utc": "2026-10-23T11:33:37.583356+00:00"
+    },
+    "77998|Codex (Renderer)": {
+      "count": 4,
+      "max_ps_cpu": 130.7,
+      "first_utc": "2026-10-23T11:33:37.583356+00:00",
+      "last_utc": "2026-10-23T11:43:35.872238+00:00"
+    },
+    "39983|Benchmark-candidate_004-1db8b6a3fd92": {
+      "count": 1,
+      "max_ps_cpu": 99.0,
+      "first_utc": "2026-10-23T11:33:47.829169+00:00",
+      "last_utc": "2026-10-23T11:33:47.829169+00:00"
+    },
+    "39995|Benchmark": {
+      "count": 1,
+      "max_ps_cpu": 98.4,
+      "first_utc": "2026-10-23T11:33:58.856565+00:00",
+      "last_utc": "2026-10-23T11:33:58.856565+00:00"
+    },
+    "40035|Benchmark": {
+      "count": 3,
+      "max_ps_cpu": 100.6,
+      "first_utc": "2026-10-23T11:34:20.315721+00:00",
+      "last_utc": "2026-10-23T11:34:40.678581+00:00"
+    },
+    "1510|Code Helper (Renderer)": {
+      "count": 1,
+      "max_ps_cpu": 39.9,
+      "first_utc": "2026-10-23T11:34:30.495945+00:00",
+      "last_utc": "2026-10-23T11:34:30.495945+00:00"
+    },
+    "40066|Benchmark-candidate_004-1db8b6a3fd92": {
+      "count": 2,
+      "max_ps_cpu": 98.8,
+      "first_utc": "2026-10-23T11:34:51.000236+00:00",
+      "last_utc": "2026-10-23T11:35:01.180193+00:00"
+    },
+    "1511|Code Helper (Renderer)": {
+      "count": 2,
+      "max_ps_cpu": 20.2,
+      "first_utc": "2026-10-23T11:35:01.180193+00:00",
+      "last_utc": "2026-10-23T11:39:59.530019+00:00"
+    },
+    "1514|Code Helper (Renderer)": {
+      "count": 2,
+      "max_ps_cpu": 40.2,
+      "first_utc": "2026-10-23T11:35:01.180193+00:00",
+      "last_utc": "2026-10-23T11:38:04.569175+00:00"
+    },
+    "1|launchd": {
+      "count": 2,
+      "max_ps_cpu": 18.5,
+      "first_utc": "2026-10-23T11:35:12.082404+00:00",
+      "last_utc": "2026-10-23T11:41:12.111557+00:00"
+    },
+    "40089|Benchmark": {
+      "count": 5,
+      "max_ps_cpu": 100.0,
+      "first_utc": "2026-10-23T11:35:12.082404+00:00",
+      "last_utc": "2026-10-23T11:35:52.824403+00:00"
+    },
+    "78010|Codex (Renderer)": {
+      "count": 1,
+      "max_ps_cpu": 37.5,
+      "first_utc": "2026-10-23T11:35:22.266033+00:00",
+      "last_utc": "2026-10-23T11:35:22.266033+00:00"
+    },
+    "666|duetexpertd": {
+      "count": 1,
+      "max_ps_cpu": 91.3,
+      "first_utc": "2026-10-23T11:35:42.635481+00:00",
+      "last_utc": "2026-10-23T11:35:42.635481+00:00"
+    },
+    "1513|Code Helper (Renderer)": {
+      "count": 1,
+      "max_ps_cpu": 12.0,
+      "first_utc": "2026-10-23T11:35:42.635481+00:00",
+      "last_utc": "2026-10-23T11:35:42.635481+00:00"
+    },
+    "40144|Benchmark-candidate_004-1db8b6a3fd92": {
+      "count": 4,
+      "max_ps_cpu": 100.0,
+      "first_utc": "2026-10-23T11:36:03.402731+00:00",
+      "last_utc": "2026-10-23T11:36:33.944212+00:00"
+    },
+    "40194|Benchmark-candidate_004-1db8b6a3fd92": {
+      "count": 3,
+      "max_ps_cpu": 100.5,
+      "first_utc": "2026-10-23T11:36:52.409160+00:00",
+      "last_utc": "2026-10-23T11:37:12.777304+00:00"
+    },
+    "40228|Benchmark": {
+      "count": 6,
+      "max_ps_cpu": 100.1,
+      "first_utc": "2026-10-23T11:37:23.834514+00:00",
+      "last_utc": "2026-10-23T11:38:14.759137+00:00"
+    },
+    "40239|mdworker_shared": {
+      "count": 1,
+      "max_ps_cpu": 10.6,
+      "first_utc": "2026-10-23T11:37:34.022843+00:00",
+      "last_utc": "2026-10-23T11:37:34.022843+00:00"
+    },
+    "618|cfprefsd": {
+      "count": 1,
+      "max_ps_cpu": 14.9,
+      "first_utc": "2026-10-23T11:38:04.569175+00:00",
+      "last_utc": "2026-10-23T11:38:04.569175+00:00"
+    },
+    "21677|spotlightknowledged.updater": {
+      "count": 2,
+      "max_ps_cpu": 76.2,
+      "first_utc": "2026-10-23T11:38:04.569175+00:00",
+      "last_utc": "2026-10-23T11:43:05.341127+00:00"
+    },
+    "40303|Benchmark-candidate_004-1db8b6a3fd92": {
+      "count": 2,
+      "max_ps_cpu": 100.9,
+      "first_utc": "2026-10-23T11:38:25.477016+00:00",
+      "last_utc": "2026-10-23T11:38:35.668425+00:00"
+    },
+    "3071|com.apple.WebKit.WebContent": {
+      "count": 6,
+      "max_ps_cpu": 90.2,
+      "first_utc": "2026-10-23T11:38:46.063010+00:00",
+      "last_utc": "2026-10-23T11:44:17.272623+00:00"
+    },
+    "40324|Benchmark": {
+      "count": 3,
+      "max_ps_cpu": 100.0,
+      "first_utc": "2026-10-23T11:38:46.063010+00:00",
+      "last_utc": "2026-10-23T11:39:06.414355+00:00"
+    },
+    "40381|Benchmark": {
+      "count": 1,
+      "max_ps_cpu": 100.1,
+      "first_utc": "2026-10-23T11:39:27.581452+00:00",
+      "last_utc": "2026-10-23T11:39:27.581452+00:00"
+    },
+    "40397|Benchmark-candidate_004-1db8b6a3fd92": {
+      "count": 1,
+      "max_ps_cpu": 100.7,
+      "first_utc": "2026-10-23T11:39:38.152723+00:00",
+      "last_utc": "2026-10-23T11:39:38.152723+00:00"
+    },
+    "1376|com.apple.WebKit.Networking": {
+      "count": 1,
+      "max_ps_cpu": 15.7,
+      "first_utc": "2026-10-23T11:39:48.357774+00:00",
+      "last_utc": "2026-10-23T11:39:48.357774+00:00"
+    },
+    "40429|Benchmark-candidate_004-1db8b6a3fd92": {
+      "count": 1,
+      "max_ps_cpu": 97.6,
+      "first_utc": "2026-10-23T11:39:59.530019+00:00",
+      "last_utc": "2026-10-23T11:39:59.530019+00:00"
+    },
+    "40440|Benchmark": {
+      "count": 1,
+      "max_ps_cpu": 101.1,
+      "first_utc": "2026-10-23T11:40:09.828625+00:00",
+      "last_utc": "2026-10-23T11:40:09.828625+00:00"
+    },
+    "40460|Benchmark": {
+      "count": 1,
+      "max_ps_cpu": 101.0,
+      "first_utc": "2026-10-23T11:40:20.124662+00:00",
+      "last_utc": "2026-10-23T11:40:20.124662+00:00"
+    },
+    "40478|Benchmark": {
+      "count": 3,
+      "max_ps_cpu": 100.0,
+      "first_utc": "2026-10-23T11:40:30.635289+00:00",
+      "last_utc": "2026-10-23T11:40:51.003712+00:00"
+    },
+    "40512|Benchmark-candidate_004-1db8b6a3fd92": {
+      "count": 2,
+      "max_ps_cpu": 98.2,
+      "first_utc": "2026-10-23T11:41:01.931024+00:00",
+      "last_utc": "2026-10-23T11:41:12.111557+00:00"
+    },
+    "40533|Benchmark": {
+      "count": 6,
+      "max_ps_cpu": 100.6,
+      "first_utc": "2026-10-23T11:41:22.355430+00:00",
+      "last_utc": "2026-10-23T11:42:13.272063+00:00"
+    },
+    "40594|Benchmark-candidate_004-1db8b6a3fd92": {
+      "count": 3,
+      "max_ps_cpu": 99.7,
+      "first_utc": "2026-10-23T11:42:24.304774+00:00",
+      "last_utc": "2026-10-23T11:42:44.667066+00:00"
+    },
+    "40649|Benchmark-candidate_004-1db8b6a3fd92": {
+      "count": 4,
+      "max_ps_cpu": 100.0,
+      "first_utc": "2026-10-23T11:43:05.341127+00:00",
+      "last_utc": "2026-10-23T11:43:35.872238+00:00"
+    },
+    "40693|Benchmark": {
+      "count": 5,
+      "max_ps_cpu": 100.0,
+      "first_utc": "2026-10-23T11:43:46.716156+00:00",
+      "last_utc": "2026-10-23T11:44:27.455471+00:00"
+    },
+    "40755|Benchmark-candidate_004-1db8b6a3fd92": {
+      "count": 1,
+      "max_ps_cpu": 99.6,
+      "first_utc": "2026-10-23T11:44:48.481949+00:00",
+      "last_utc": "2026-10-23T11:44:48.481949+00:00"
+    },
+    "40770|Benchmark": {
+      "count": 3,
+      "max_ps_cpu": 99.6,
+      "first_utc": "2026-10-23T11:44:59.082058+00:00",
+      "last_utc": "2026-10-23T11:45:19.446587+00:00"
+    },
+    "40804|Benchmark": {
+      "count": 1,
+      "max_ps_cpu": 97.6,
+      "first_utc": "2026-10-23T11:45:29.704691+00:00",
+      "last_utc": "2026-10-23T11:45:29.704691+00:00"
+    },
+    "40827|Benchmark": {
+      "count": 2,
+      "max_ps_cpu": 100.6,
+      "first_utc": "2026-10-23T11:45:40.266536+00:00",
+      "last_utc": "2026-10-23T11:45:50.450234+00:00"
+    },
+    "40848|Benchmark-candidate_004-1db8b6a3fd92": {
+      "count": 1,
+      "max_ps_cpu": 100.2,
+      "first_utc": "2026-10-23T11:46:00.878525+00:00",
+      "last_utc": "2026-10-23T11:46:00.878525+00:00"
+    }
+  },
+  "host_scope": "Shared services and tracking remained running by user choice. Total psCPU includes the measured benchmark processes in during-process snapshots; no dedicated-host precision claim."
+}

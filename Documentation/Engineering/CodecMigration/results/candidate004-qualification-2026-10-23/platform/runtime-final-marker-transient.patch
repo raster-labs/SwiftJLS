@@ -1,0 +1,13 @@
+--- executed-template/apple-runtime-value.py
++++ transient-unexecuted-guard/apple-runtime-value.py
+@@ -122,8 +122,8 @@
+                     str(root / "Tests/SwiftJLSTests/Fixtures"),
+                 ]
+             )
+-            if not spawn_res.stdout.strip():
+-                raise RuntimeError(f"{label}: empty consumer stdout")
++            if "Combined legacy mapping/HP runtime passed." not in spawn_res.stdout:
++                raise RuntimeError(f"{label}: missing final consumer success assertion")
+             print(label + " passed", flush=True)
+         finally:
+             if not was_booted:

@@ -1,0 +1,133 @@
+{
+  "redacted_public_derivative": true,
+  "local_original_sha256": "791574c014bdb2fd1bef2fde430a40606d107c0235c2aa901e51c55e58c8a6bb",
+  "local_original_bytes": 12052,
+  "redaction_note": "Unrelated host process/container arguments omitted for public repository safety; original raw record retained locally.",
+  "schema_version": 1,
+  "generated_at": "2026-10-23T16:57:40+05:30",
+  "status": "source_investigation_concluded_no_further_change_justified",
+  "user_decision": "Keep shared Colima services and TimeChamp running; freeze candidate004 production/tests unchanged; no speculative changes or timing retries; prepare documentation/archive publication inventory only until timing scope is decided.",
+  "base_commit": "4f6661a4ccec277d02e42b9228c7b574dfbf15cd",
+  "branch": "codex/milestone-4-qualification",
+  "frozen_working_tree": {
+    "git_status_short": [
+      "M Scripts/StorageEvidence/measure-operation.py",
+      " M Sources/SwiftJLS/Image.swift",
+      " M Sources/SwiftJLS/ImageStorage.swift",
+      " M Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift",
+      " M Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift",
+      " M Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift",
+      " M Tests/SwiftJLSTests/BitstreamWriterTests.swift",
+      " M Tests/SwiftJLSTests/GradientTableTests.swift",
+      " M Tests/SwiftJLSTests/MappingMetadataTests.swift",
+      " M Tests/SwiftJLSTests/OwnedAdmissionTests.swift"
+    ],
+    "modified_file_sha256": {
+      "Scripts/StorageEvidence/measure-operation.py": "a1d97dca4c65b025992a5fed0a259ad2e76a412c6e202b293ccf70c80b5799d6",
+      "Sources/SwiftJLS/Image.swift": "da672c050972e0cfd05996a5be9f411926821f8c188535b80dc63ae3e0ea88fb",
+      "Sources/SwiftJLS/ImageStorage.swift": "f92233461c055b57f25402829e2f3fdff4fe6748b24952b100508a57fd308fe2",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift": "5f71d419cb389235dbc756d3a1c0df6f888c860427f40f867250b9f031202485",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift": "f44b40588d5f1f59b90c7f4b3a8d2ed9c968fe700bbe535248bcb5d65597d8ef",
+      "Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift": "8397f5465973a78b316842fc6bbc7345a1df4a7d65ea2f3a8916977c6f072356",
+      "Tests/SwiftJLSTests/BitstreamWriterTests.swift": "a6b13c6d22bc7a13453f8d2bf86e0685a7902b92828d841f882d3c1c8502bc79",
+      "Tests/SwiftJLSTests/GradientTableTests.swift": "f3cabf2b17cf178b15a80c618599d192e4d1797396721d96bd0030d16803d137",
+      "Tests/SwiftJLSTests/MappingMetadataTests.swift": "720d4eb523cb9d58643823b4d23fcf7f52e7a00aa28df8642c79fc4d6d152ed8",
+      "Tests/SwiftJLSTests/OwnedAdmissionTests.swift": "f9e2c6c7831b4b7eaf5d00a17053795b493ca853be5ad7ad4e480cac7b724570"
+    },
+    "candidate_004_binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/binaries/Benchmark-candidate_004-1db8b6a3fd92",
+    "candidate_004_binary_sha256": "1db8b6a3fd92f6d73304ad08827560e852ed584a5d572b7872b86b9d723c92ad"
+  },
+  "bounded_source_and_disassembly_conclusion": {
+    "decision": "NO_JUSTIFIED_SOURCE_CHANGE",
+    "rationale": [
+      "Independent source audit and bounded disassembly of Benchmark-candidate_004-1db8b6a3fd92 confirm no further safe redundant preparation work exists.",
+      "candidate_003 / candidate_004 already eliminated all genuinely redundant general work on the prepare/encode/decode paths: (a) OwnedImageStorage.allocateReserved(byteCount:limits:) constructs the storage directly in .writing with its fresh allocationID and StorageWriteLease, eliminating the redundant reserveWrite() atomic+mutex cycle; (b) ImageDescriptor.init computes max sampling factors in a single direct loop without KeyPath/LazyMapSequence machinery; (c) JPEGLSMetadata.validate checks duplicate extension IDs with a direct quadratic loop and removes the 128-byte Set allocation on every encode (verified by Linux WorkspaceProbe -20 calls / -2,560 B across 20 encode profiles); (d) JPEGLSRegularMode builds gradientTable via three contiguous range assignments; and (e) JPEGLSBitstreamReader.readUnaryCount uses the 6-instruction CLZ fast path (~bitBuffer).leadingZeroBitCount.",
+      "Disassembly of _$s9Benchmark9makeImage8SwiftJLS0C0VyKF (0x100005cac), _$s8SwiftJLS16ImageDestinationC8allocate18admittedDescriptor6limitsAcA0cG0V_AA14ResourceLimitsVtKFZTf4nnd_n (0x1000106d4), _$s8SwiftJLS17OwnedImageStorageC16allocateReserved9byteCount6limitsAC7storage_AA0E10WriteLeaseV5leasetSi_AA14ResourceLimitsVtKFZ (0x100015630), _$s8SwiftJLS16ImageDestinationC5write8metadata_AA0C0VAA0C8MetadataV_ySwKXEtKF (0x10000faac), and _$s8SwiftJLS16ImageDestinationCfd (0x10000f844) shows that the remaining instructions in prepare (~2.9-3.0 us = 70-73 ticks of 41.67 ns at 37x23) are required contract admission, UUID/lease identity, mutex/atomic borrow-safety, and pixel fill operations.",
+      "Disassembly of decodeFlatRegion<NativeUInt16Writer> (0x1000452b8) and JPEGLSBitstreamReader.readBits (0x10002cb64) shows that remaining per-pixel checks are checked-arithmetic and bitstream-bounds guards required by the non-negotiable engineering rules. Altering them or adding speculative inlining/layout churn is not justified to chase a 2-tick (83.3 ns) prepare shift or shared-host noise while Colima VM (126.94 CPU-s / 169.7 s), WindowServer (77.97 CPU-s), tracker (15.49 CPU-s), and vpxenc are active."
+    ]
+  },
+  "preserved_campaign_and_validation_records": {
+    "candidate_003_campaigns": {
+      "campaigns_root": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns",
+      "retained_failed_and_partial_runs": {
+        "diag72-001": {
+          "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns/runs/diag72-001",
+          "status": "stopped_guard_exceedance_retained_72_records"
+        },
+        "short516-001": {
+          "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns/runs/short516-001",
+          "status": "stopped_guard_exceedance_retained_216_records"
+        },
+        "larger15-001": {
+          "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns/runs/larger15-001",
+          "status": "stopped_guard_exceedance_retained_32_records"
+        }
+      },
+      "completed_runs": {
+        "diag72-002": {
+          "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns/runs/diag72-002",
+          "records": 1296
+        },
+        "short516-002": {
+          "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns/runs/short516-002",
+          "records": 9288,
+          "primary_family_48": "47 within gate / 1 unresolved (candidate_vs_three_change p12-noise decode ratio 0.985996, CI [0.921371, 1.067329]) / 0 confirmed",
+          "root_audit": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/short516-002-result-review.md"
+        },
+        "larger15-002": {
+          "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns/runs/larger15-002",
+          "records": 480,
+          "guard_endpoints_15": "12 pass / 3 unresolved / 0 confirmed"
+        }
+      }
+    },
+    "candidate_004_campaigns": {
+      "campaigns_root": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns_004",
+      "freeze_receipt": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns_004/campaigns-004-freeze-receipt.json",
+      "preflight_receipt": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns_004/preflight-2x10s-receipt.json",
+      "completed_runs": {
+        "short516-001": {
+          "path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns_004/runs/short516-001",
+          "records": 9288,
+          "primary_family_48": "45 within gate / 3 unresolved (p12-ramp prepare vs pinned ratio 1.028568 CI [1.000010, 1.057964]; p12-noise prepare vs pinned ratio 1.028166 CI [1.000000, 1.070419]; p12-noise decode vs three_change ratio 0.996645 CI [0.940243, 1.067622]) / 0 confirmed",
+          "p12_flat_prepare_encode_vs_three_change": "PASS (ratio 0.955558, CI [0.927445, 0.987262])",
+          "root_audit_dir": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/028-candidate004-short516"
+        }
+      }
+    },
+    "candidate_004_qualification_evidence": {
+      "source_review": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/candidate004-final-source-review.md",
+      "host_validation_152x4": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/022-candidate004-host-validation/summary.json",
+      "cli_validation_73_103": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/023-candidate004-cli-validation/commands.json",
+      "interop_990_and_1026_exports": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004",
+      "linux_validation_failed_001_retained": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/candidate004-linux-validation-001",
+      "linux_validation_002_reconciled_89_plus_20": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/candidate004-linux-validation-002/reconciliation-summary.json",
+      "classifier_review": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/026-classifier-review.json",
+      "platform_qualification_os26": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/platform-candidate004"
+    }
+  },
+  "publication_inventory_plan": {
+    "checklist_source": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/publication-audit-checklist.md",
+    "historical_archive_preserved_untouched": "Documentation/Engineering/CodecMigration/results/factory-qualification-2026-10-22",
+    "historical_manifest_preserved_untouched": "Documentation/Engineering/CodecMigration/results/factory-qualification-2026-10-22.manifest.json",
+    "proposed_new_sibling_archive_dir": "Documentation/Engineering/CodecMigration/results/candidate004-qualification-2026-10-23",
+    "proposed_new_sibling_manifest": "Documentation/Engineering/CodecMigration/results/candidate004-qualification-2026-10-23.manifest.json",
+    "live_documents_to_update_together_after_timing_scope_decision": [
+      "README.md",
+      "IMPLEMENTATION.md",
+      "Documentation/Engineering/CodecMigration/Completion.md",
+      "Documentation/Engineering/CodecMigration/Validation.md",
+      "Documentation/Engineering/CodecMigration/Milestone4Performance.md",
+      "Documentation/Engineering/CodecMigration/WorkspaceAccounting.md",
+      "Documentation/Engineering/CodecMigration/RecentFixes.md",
+      "HISTORY.md"
+    ],
+    "archive_sections_inventory": [
+      "source/ (base 4f6661a4ccec277d02e42b9228c7b574dfbf15cd, candidate_003 and candidate_004 patches, working-tree file hashes, task-storeXCBuildData provenance, Consumer.swift bytes, compiler/SDK/target flags)",
+      "validation/ (host 152x4 debug/release/ASan/TSan XML + console logs showing 152 declarations across 28 console suites / 27 XML classname groups, focused regression receipts, CLI 73 payload / 103 process checks, interop 990 checks + 1026 exports)",
+      "platform/ (Apple SDK/compiler/target records, watchOS arm64_32 build, 5 OS 26.0 simulator consumers, 4 non-Watch resource workloads, native macOS 26.0 guest 4 modes + CLI/consumer/resource, packaging failure/retry provenance)",
+      "memory/ (Linux WorkspaceProbe 001 failed profile-10 receipt + 002 external-classifier patch/self-test + fresh 89 profiles + 178 raw replays + CopyProbe 20 controls + full per-category deltas showing -20 calls / -2,560 B metadata Set removal; retained 22 Oct Apple RSS unresolved records)",
+      "performance/ (candidate_003 retained partials diag72-001 [72], short516-001 [216], larger15-001 [32] and completed diag72-002 [1296], short516-002 [9288, 47/48], larger15-002 [480, 12/15]; candidate_004 freeze/preflight receipts and short516-001 [9288, 45/48] + host Colima/WindowServer/<redacted-encoder-process: unrelated arguments omitted in public derivative; original retained locally>)"
+    ]
+  }
+}

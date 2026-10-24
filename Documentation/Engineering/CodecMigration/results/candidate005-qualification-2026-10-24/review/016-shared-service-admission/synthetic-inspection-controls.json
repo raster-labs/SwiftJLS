@@ -1,0 +1,135 @@
+{
+  "passed": true,
+  "live_commands_run": false,
+  "mocked_inspection_controls": [
+    {
+      "name": "dev_php82",
+      "case": "exact",
+      "admitted": true,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_php82",
+      "case": "inspect_exit_failure",
+      "admitted": false,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_php82",
+      "case": "malformed_json",
+      "admitted": false,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_php82",
+      "case": "multiple_json_objects",
+      "admitted": false,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_php82",
+      "case": "missing_identity",
+      "admitted": false,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_php82",
+      "case": "timeout",
+      "admitted": false,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_php71",
+      "case": "exact",
+      "admitted": true,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_php71",
+      "case": "inspect_exit_failure",
+      "admitted": false,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_php71",
+      "case": "malformed_json",
+      "admitted": false,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_php71",
+      "case": "multiple_json_objects",
+      "admitted": false,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_php71",
+      "case": "missing_identity",
+      "admitted": false,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_php71",
+      "case": "timeout",
+      "admitted": false,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_apache",
+      "case": "exact",
+      "admitted": true,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_apache",
+      "case": "inspect_exit_failure",
+      "admitted": false,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_apache",
+      "case": "malformed_json",
+      "admitted": false,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_apache",
+      "case": "multiple_json_objects",
+      "admitted": false,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_apache",
+      "case": "missing_identity",
+      "admitted": false,
+      "matched_expectation": true
+    },
+    {
+      "name": "dev_apache",
+      "case": "timeout",
+      "admitted": false,
+      "matched_expectation": true
+    }
+  ],
+  "unknown_name_rejected_without_inspection": true,
+  "host_guard_controls": {
+    "host_guard_self_test_passed": true,
+    "persistent_service_identity_controls": {
+      "passed": true,
+      "services": [
+        "dev_php82",
+        "dev_php71",
+        "dev_apache"
+      ],
+      "controls": "exact positive; ten identity mutations; three ps-row mutations; missing inspection; active test command"
+    },
+    "tested_controls": [
+      "attempt1_rejected_ng_test_and_chrome_headless_pid_54525",
+      "vscode_copilot_runtime_headless_negative_control",
+      "simmetalhost_and_runtime_root_quiescent_vs_active",
+      "colima_active_swift_heaptrack_container_vs_quiescent_shared_stack"
+    ]
+  },
+  "package_freeze_sha256": "fe685af50f458b7d4646817cd1b25247186eee40983bf5c65cebce4f62eae41d",
+  "helper_sha256": "795edad8df92ec573e89de0019318e75b395a5f3d40bef27e95918227053978d"
+}

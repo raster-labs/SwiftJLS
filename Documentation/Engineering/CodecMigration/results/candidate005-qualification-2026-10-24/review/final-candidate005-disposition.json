@@ -1,0 +1,167 @@
+{
+  "utc": "2026-10-24T09:45:15.543414+00:00",
+  "publication_mode": "full_evidence",
+  "milestone4_complete": false,
+  "source_receipt_sha256": "87bda184d21845362608a5a0b2198a9d6840a4324c5bdf2e8f6c5d9978e299e6",
+  "short_audit_sha256": "5ace78ac016c8d0ab2dfaf786dea8a3484aa07e07a4b511765ed3f344ccdd67e",
+  "performance_audit_sha256": "bf28a0d5b291a8b2c91dbeb76cf909f15851fab673a47ff02e07f9c81959a1aa",
+  "memory_completion_sha256": "e54983bcf4126af9b16e51528202b6cea7be5037a2106e7b1ade72bc8f4dfcba",
+  "platform_results_sha256": "61a1f1e12a781a4339204e7d832a5240a0f0e53e7c1e5b71c2d3c597c28baa3c",
+  "source_acceptance_sha256": "d9211b83c7b4e7fd41716736d5bbd888d56348c53cce631181d8559388e252e2",
+  "pending_measurements": [],
+  "short_status": {
+    "passed": 48,
+    "uncertain": 0,
+    "confirmed_regressions": 0,
+    "processes": 18576,
+    "prior_uncertain_comparisons": [
+      {
+        "contrast": "candidate_vs_pinned",
+        "case": "p12-ramp",
+        "operation": "prepare",
+        "ratio": 0.9402946174456063,
+        "family48_interval": [
+          0.911773769414085,
+          0.9552235693956485
+        ],
+        "status": "within_measured_gate"
+      },
+      {
+        "contrast": "candidate_vs_pinned",
+        "case": "p12-noise",
+        "operation": "prepare",
+        "ratio": 0.9420351473922902,
+        "family48_interval": [
+          0.9275294832211368,
+          0.9565212989957887
+        ],
+        "status": "within_measured_gate"
+      },
+      {
+        "contrast": "candidate_vs_three_change",
+        "case": "p12-noise",
+        "operation": "decode",
+        "ratio": 0.9372759318231889,
+        "family48_interval": [
+          0.9087718445349913,
+          0.966664941474749
+        ],
+        "status": "within_measured_gate"
+      }
+    ]
+  },
+  "memory_status": "Bounded source-level algorithm storage and scoped requested-heap accounting accepted; parser fixed-control and restart directory preallocation admission enforced.",
+  "memory_measurement_scope": {
+    "profiles": 89,
+    "commands": 267,
+    "copy_checks": 20,
+    "unattributed_codec_allocation_calls": 0,
+    "owned_pixel_allocations": 23,
+    "other66_pixel_allocations": 0,
+    "max_table_algorithm_heap_reduction_bytes": 917497,
+    "peakWorkspaceBytes": null,
+    "pure_algorithm_workspace_complete": false,
+    "unmeasured": "Universal runtime, allocator usable-size, compiler stack and concurrent process totals"
+  },
+  "validation": {
+    "host_test_modes": 4,
+    "tests_per_mode": 157,
+    "named_suites": 28,
+    "xml_classname_groups": 29,
+    "native_macos": "26.0 25A354 arm64 hardware-virtualised",
+    "native_test_modes": 4,
+    "cli_payload_checks": 73,
+    "cli_process_checks": 103,
+    "charls_checks": 990,
+    "exact26_simulator_consumers": 5,
+    "resource_profiles": 4,
+    "frames_per_resource_profile": 32,
+    "watch_arm64_32_build": true
+  },
+  "physical_device_validation_status": "pending_by_owner_direction",
+  "milestone5_status": "deferred_by_owner_direction",
+  "shared_services": "Kept running throughout; exact selected service identity admission for larger/RSS, with all other activity/power/thermal guards retained. Host was not idle. Parent monitoring could overlap measured subprocesses; zero monitoring overhead is not claimed.",
+  "simulator_restoration_receipt": "018-final-simulator-restoration/command.json",
+  "github_workflow": "Commit and push branch; owner verifies CI and merges. No CI acceptance or merge claimed.",
+  "performance_status": "Accepted within unchanged finite measurement criteria on a shared host; independently replayed and reconciled.",
+  "algorithm_workspace_status": "Bounded source accounting and scoped requested-heap attribution accepted; universal runtime/allocator/stack peak is not measured.",
+  "remaining_milestone4_gates": [
+    "Physical-device validation pending by owner direction."
+  ],
+  "larger_status": {
+    "processes": 120,
+    "cases": 15,
+    "paired_blocks_per_case": 4,
+    "passed_pooled_points": 60,
+    "failed_pooled_points": 0,
+    "maximum_pooled_time_ratio": 0.9813847572454526,
+    "maximum_case": "512x512-p16-ramp-c3-n0-i0 encode",
+    "all_expected_encoded_size_pairs_match": true,
+    "scope": "Four-block pooled comparisons; block spreads are descriptive, not population confidence intervals."
+  },
+  "rss_status": {
+    "processes": 2112,
+    "complete_blocks": 528,
+    "bootstrap_resamples": 50000,
+    "family_size": 4,
+    "gate_ratio": 1.05,
+    "candidate_within_finite_criterion_vs_both_baselines": true,
+    "aa_control_review_required": false,
+    "contrasts": {
+      "e66_vs_623": {
+        "median_rss_ratio": 1.0,
+        "bonferroni_95_interval": [
+          1.0,
+          1.0014556040756915
+        ],
+        "reference_max_bytes": 14221312.0,
+        "candidate_max_bytes": 13910016.0,
+        "overall_max_rss_ratio": 0.978110599078341,
+        "control_review_required": false,
+        "disposition": "within_finite_criterion",
+        "passes_1_05_upper_and_max_gate": true
+      },
+      "candidate_vs_623": {
+        "median_rss_ratio": 1.0014556040756915,
+        "bonferroni_95_interval": [
+          1.0,
+          1.0014556040756915
+        ],
+        "reference_max_bytes": 14221312.0,
+        "candidate_max_bytes": 14237696.0,
+        "overall_max_rss_ratio": 1.0011520737327189,
+        "control_review_required": false,
+        "disposition": "within_finite_criterion",
+        "passes_1_05_upper_and_max_gate": true
+      },
+      "candidate_vs_e66": {
+        "median_rss_ratio": 1.0014556040756915,
+        "bonferroni_95_interval": [
+          0.998546511627907,
+          1.0014556040756915
+        ],
+        "reference_max_bytes": 13910016.0,
+        "candidate_max_bytes": 14237696.0,
+        "overall_max_rss_ratio": 1.0235571260306242,
+        "control_review_required": false,
+        "disposition": "within_finite_criterion",
+        "passes_1_05_upper_and_max_gate": true
+      },
+      "candidate_copy_vs_candidate": {
+        "median_rss_ratio": 1.0,
+        "bonferroni_95_interval": [
+          0.9992732558139535,
+          1.0014556040756915
+        ],
+        "reference_max_bytes": 14237696.0,
+        "candidate_max_bytes": 14434304.0,
+        "overall_max_rss_ratio": 1.0138089758342923,
+        "control_review_required": false,
+        "disposition": "control_within_expected_unity",
+        "passes_1_05_upper_and_max_gate": null
+      }
+    },
+    "scope": "Original whole-process getrusage high-water RSS; no pressure relief, subtraction, endpoint change, or universal maximum inference."
+  },
+  "coordination": "User authorized external HRM chat pause/resume coordination, but both sends failed with active-writer errors. No external pause was delivered and no resume message is required. No external processes or shared services were stopped."
+}

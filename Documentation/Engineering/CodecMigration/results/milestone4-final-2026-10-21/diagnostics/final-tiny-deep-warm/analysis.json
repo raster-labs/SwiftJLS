@@ -1,0 +1,962 @@
+{
+  "tiny": {
+    "complete_cases": 6,
+    "excluded_cases": [],
+    "cases": [
+      {
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "producers": {
+          "predecessor": {
+            "encoded_bytes": 56,
+            "process_rss_peak_bytes": 7225344,
+            "encode": {
+              "median_seconds": 1.2041666195727885e-05,
+              "p95_seconds": 1.366666765534319e-05,
+              "min_seconds": 7.333335815928876e-06,
+              "max_seconds": 6.0458332882262766e-05,
+              "samples": 4000,
+              "megapixels_per_second": 70.6712830407071
+            },
+            "decode": {
+              "median_seconds": 1.358333247480914e-05,
+              "p95_seconds": 1.554166738060303e-05,
+              "min_seconds": 9.083330951398239e-06,
+              "max_seconds": 5.824999971082434e-05,
+              "samples": 4000,
+              "megapixels_per_second": 62.650310708231224
+            },
+            "prepare": {
+              "median_seconds": 3.2083335099741817e-06,
+              "p95_seconds": 3.6249984987080097e-06,
+              "min_seconds": 2.2083331714384258e-06,
+              "max_seconds": 2.5249999453080818e-05,
+              "samples": 4000,
+              "megapixels_per_second": 265.2467386430933
+            },
+            "prepare_encode": {
+              "median_seconds": 1.3291664799908176e-05,
+              "p95_seconds": 1.6333331586793065e-05,
+              "min_seconds": 1.041666473611258e-05,
+              "max_seconds": 5.6000000768108293e-05,
+              "samples": 4000,
+              "megapixels_per_second": 64.02508736195928
+            }
+          },
+          "successor": {
+            "encoded_bytes": 56,
+            "process_rss_peak_bytes": 7274496,
+            "encode": {
+              "median_seconds": 1.1541666026460007e-05,
+              "p95_seconds": 1.2958334991708398e-05,
+              "min_seconds": 6.916667189216241e-06,
+              "max_seconds": 2.12500017369166e-05,
+              "samples": 4000,
+              "megapixels_per_second": 73.73285607545982
+            },
+            "decode": {
+              "median_seconds": 1.3916665920987725e-05,
+              "p95_seconds": 1.554166738060303e-05,
+              "min_seconds": 9.541665349388495e-06,
+              "max_seconds": 2.295833473908715e-05,
+              "samples": 4000,
+              "megapixels_per_second": 61.14970387530873
+            },
+            "prepare": {
+              "median_seconds": 2.6666675694286823e-06,
+              "p95_seconds": 2.9999973776284605e-06,
+              "min_seconds": 2.0000006770715117e-06,
+              "max_seconds": 1.2708333088085055e-05,
+              "samples": 4000,
+              "megapixels_per_second": 319.12489196481346
+            },
+            "prepare_encode": {
+              "median_seconds": 1.2583332136273384e-05,
+              "p95_seconds": 1.4541667042067274e-05,
+              "min_seconds": 9.833333024289459e-06,
+              "max_seconds": 2.2166666894918308e-05,
+              "samples": 4000,
+              "megapixels_per_second": 67.62914550644832
+            }
+          }
+        },
+        "comparisons": {
+          "encode": {
+            "median_ratio": 0.958477492969763,
+            "median_delta_us": -0.5000001692678779,
+            "paired_block_ratios": [
+              0.9790939197744383,
+              0.9620688731186253,
+              0.9687497631524298,
+              0.9027777483034135
+            ],
+            "paired_block_delta_us": [
+              -0.2500019036233425,
+              -0.45833439799025655,
+              -0.37500285543501377,
+              -1.1666670616250485
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "decode": {
+            "median_ratio": 1.0245398871592641,
+            "median_delta_us": 0.3333334461785853,
+            "paired_block_ratios": [
+              1.0243161174888897,
+              1.0338462323748323,
+              1.0307693754273226,
+              0.9630769106776581
+            ],
+            "paired_block_delta_us": [
+              0.3333334461785853,
+              0.45833439799025655,
+              0.41666862671263516,
+              -0.5000001692678779
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "prepare": {
+            "median_ratio": 0.8311690667876176,
+            "median_delta_us": -0.5416659405454993,
+            "paired_block_ratios": [
+              0.8831171334618437,
+              0.8831159995464338,
+              0.868420478214067,
+              0.763158469154354
+            ],
+            "paired_block_delta_us": [
+              -0.3749992174562067,
+              -0.37500285543501377,
+              -0.41666862671263516,
+              -0.7499984349124134
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "prepare_encode": {
+            "median_ratio": 0.9467085068501212,
+            "median_delta_us": -0.708332663634792,
+            "paired_block_ratios": [
+              0.9532709441500212,
+              0.9529777046441497,
+              0.9404390482224992,
+              0.8860759178896261
+            ],
+            "paired_block_delta_us": [
+              -0.6250011210795492,
+              -0.6250047590583563,
+              -0.7916642061900347,
+              -1.5000005078036338
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          }
+        },
+        "rss_ratio": 1.0068027210884354,
+        "encoded_size_ratio": 1.0
+      },
+      {
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "producers": {
+          "predecessor": {
+            "encoded_bytes": 255,
+            "process_rss_peak_bytes": 7208960,
+            "encode": {
+              "median_seconds": 2.3958331439644098e-05,
+              "p95_seconds": 2.7999998565064743e-05,
+              "min_seconds": 1.8416667444398627e-05,
+              "max_seconds": 4.12499975936953e-05,
+              "samples": 4000,
+              "megapixels_per_second": 35.52000280753448
+            },
+            "decode": {
+              "median_seconds": 2.4333334295079112e-05,
+              "p95_seconds": 2.8333335649222136e-05,
+              "min_seconds": 1.8333332263864577e-05,
+              "max_seconds": 7.045833262964152e-05,
+              "samples": 4000,
+              "megapixels_per_second": 34.97260135747596
+            },
+            "prepare": {
+              "median_seconds": 3.0000010156072676e-06,
+              "p95_seconds": 3.541666956152767e-06,
+              "min_seconds": 2.2916647139936686e-06,
+              "max_seconds": 1.862499993876554e-05,
+              "samples": 4000,
+              "megapixels_per_second": 283.66657063538975
+            },
+            "prepare_encode": {
+              "median_seconds": 2.5125002139247954e-05,
+              "p95_seconds": 3.033333268831484e-05,
+              "min_seconds": 2.1374999050749466e-05,
+              "max_seconds": 6.70000008540228e-05,
+              "samples": 4000,
+              "megapixels_per_second": 33.87064388228037
+            }
+          },
+          "successor": {
+            "encoded_bytes": 255,
+            "process_rss_peak_bytes": 7290880,
+            "encode": {
+              "median_seconds": 1.9541665096767247e-05,
+              "p95_seconds": 2.3749998945277184e-05,
+              "min_seconds": 1.6333331586793065e-05,
+              "max_seconds": 3.829166598734446e-05,
+              "samples": 4000,
+              "megapixels_per_second": 43.5479779121166
+            },
+            "decode": {
+              "median_seconds": 2.2791668015997857e-05,
+              "p95_seconds": 2.616666824906133e-05,
+              "min_seconds": 1.8208334950031713e-05,
+              "max_seconds": 3.495833516353741e-05,
+              "samples": 4000,
+              "megapixels_per_second": 37.33820619897889
+            },
+            "prepare": {
+              "median_seconds": 2.541666617617011e-06,
+              "p95_seconds": 2.958331606350839e-06,
+              "min_seconds": 2.0833322196267545e-06,
+              "max_seconds": 1.2208332918817177e-05,
+              "samples": 4000,
+              "megapixels_per_second": 334.8196785925731
+            },
+            "prepare_encode": {
+              "median_seconds": 2.112500078510493e-05,
+              "p95_seconds": 2.4541666789446026e-05,
+              "min_seconds": 1.8208331312052906e-05,
+              "max_seconds": 3.6916666431352496e-05,
+              "samples": 4000,
+              "megapixels_per_second": 40.28402217149423
+            }
+          }
+        },
+        "comparisons": {
+          "encode": {
+            "median_ratio": 0.8156521728567229,
+            "median_delta_us": -4.416666342876852,
+            "paired_block_ratios": [
+              0.794520695403162,
+              0.8251633720012443,
+              0.8378839359068073,
+              0.9851063323862823
+            ],
+            "paired_block_delta_us": [
+              -4.999996235710569,
+              -4.4583339331438765,
+              -3.9583337638759986,
+              -0.2916676749009639
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "decode": {
+            "median_ratio": 0.9366438540486816,
+            "median_delta_us": -1.5416662790812552,
+            "paired_block_ratios": [
+              0.8597972824739948,
+              0.8892406676511314,
+              0.9154228156958559,
+              1.0918580668798719
+            ],
+            "paired_block_delta_us": [
+              -3.4583335946081206,
+              -2.9166621970944107,
+              -2.125001628883183,
+              1.833333953982219
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "prepare": {
+            "median_ratio": 0.8472219190574243,
+            "median_delta_us": -0.45833439799025655,
+            "paired_block_ratios": [
+              0.7702704297142318,
+              0.8076930395935313,
+              0.8378377421714609,
+              0.8636366041639657
+            ],
+            "paired_block_delta_us": [
+              -0.708332663634792,
+              -0.6249974831007421,
+              -0.5000001692678779,
+              -0.3749992174562067
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "prepare_encode": {
+            "median_ratio": 0.8407959795595563,
+            "median_delta_us": -4.0000013541430235,
+            "paired_block_ratios": [
+              0.7727273500396871,
+              0.8027736805200913,
+              0.826366638924446,
+              0.8994514859393391
+            ],
+            "paired_block_delta_us": [
+              -5.8333316701464355,
+              -5.3333278628997505,
+              -4.499997885432094,
+              -2.2916683519724756
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          }
+        },
+        "rss_ratio": 1.0113636363636365,
+        "encoded_size_ratio": 1.0
+      },
+      {
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "noise",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "producers": {
+          "predecessor": {
+            "encoded_bytes": 1574,
+            "process_rss_peak_bytes": 7208960,
+            "encode": {
+              "median_seconds": 3.07916670863051e-05,
+              "p95_seconds": 3.537500015227124e-05,
+              "min_seconds": 2.358333222218789e-05,
+              "max_seconds": 5.9833335399162024e-05,
+              "samples": 4000,
+              "megapixels_per_second": 27.63734739060266
+            },
+            "decode": {
+              "median_seconds": 2.6249999791616574e-05,
+              "p95_seconds": 3.0541665182681754e-05,
+              "min_seconds": 1.9458329916233197e-05,
+              "max_seconds": 6.012499943608418e-05,
+              "samples": 4000,
+              "megapixels_per_second": 32.41904787640352
+            },
+            "prepare": {
+              "median_seconds": 2.958331606350839e-06,
+              "p95_seconds": 3.5000011848751456e-06,
+              "min_seconds": 2.1666674001608044e-06,
+              "max_seconds": 9.041668818099424e-06,
+              "samples": 4000,
+              "megapixels_per_second": 287.66213975914803
+            },
+            "prepare_encode": {
+              "median_seconds": 3.1749998015584424e-05,
+              "p95_seconds": 3.729166928678751e-05,
+              "min_seconds": 2.6458332285983488e-05,
+              "max_seconds": 5.829166548210196e-05,
+              "samples": 4000,
+              "megapixels_per_second": 26.803151281530422
+            }
+          },
+          "successor": {
+            "encoded_bytes": 1574,
+            "process_rss_peak_bytes": 7274496,
+            "encode": {
+              "median_seconds": 2.3125001462176442e-05,
+              "p95_seconds": 2.7291669539408758e-05,
+              "min_seconds": 1.7124999430961907e-05,
+              "max_seconds": 3.895833287970163e-05,
+              "samples": 4000,
+              "megapixels_per_second": 36.79999767316369
+            },
+            "decode": {
+              "median_seconds": 2.470833351253532e-05,
+              "p95_seconds": 2.89999989036005e-05,
+              "min_seconds": 1.8416667444398627e-05,
+              "max_seconds": 4.97083346999716e-05,
+              "samples": 4000,
+              "megapixels_per_second": 34.44182099809608
+            },
+            "prepare": {
+              "median_seconds": 2.6666639314498752e-06,
+              "p95_seconds": 3.1249983294401318e-06,
+              "min_seconds": 2.041666448349133e-06,
+              "max_seconds": 4.091666414751671e-05,
+              "samples": 4000,
+              "megapixels_per_second": 319.12532732885774
+            },
+            "prepare_encode": {
+              "median_seconds": 2.412499816273339e-05,
+              "p95_seconds": 2.916666562668979e-05,
+              "min_seconds": 1.9999999494757503e-05,
+              "max_seconds": 6.762499833712354e-05,
+              "samples": 4000,
+              "megapixels_per_second": 35.27461408534179
+            }
+          }
+        },
+        "comparisons": {
+          "encode": {
+            "median_ratio": 0.751014922230746,
+            "median_delta_us": -7.666665624128655,
+            "paired_block_ratios": [
+              0.7126289658797719,
+              0.8376358562677255,
+              0.6950066897572775,
+              0.7655826752239812
+            ],
+            "paired_block_delta_us": [
+              -9.291663445765153,
+              -4.979166988050565,
+              -9.416668035555631,
+              -7.208333045127802
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "decode": {
+            "median_ratio": 0.9412698555687755,
+            "median_delta_us": -1.5416662790812552,
+            "paired_block_ratios": [
+              0.8692762444242194,
+              1.0271132132092404,
+              0.8578199300542558,
+              0.9728866513135852
+            ],
+            "paired_block_delta_us": [
+              -3.6874989746138453,
+              0.708332663634792,
+              -3.749999450519681,
+              -0.7083363016135991
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "prepare": {
+            "median_ratio": 0.9014080523377358,
+            "median_delta_us": -0.2916676749009639,
+            "paired_block_ratios": [
+              0.8648653750855417,
+              1.0,
+              0.8028163471601033,
+              0.9295777072726825
+            ],
+            "paired_block_delta_us": [
+              -0.41666498873382807,
+              0.0,
+              -0.5833353498019278,
+              -0.20833249436691403
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "prepare_encode": {
+            "median_ratio": 0.7598425093095024,
+            "median_delta_us": -7.624999852851033,
+            "paired_block_ratios": [
+              0.718398127971555,
+              0.8326744901135555,
+              0.6942258569674975,
+              0.7852438504348263
+            ],
+            "paired_block_delta_us": [
+              -9.374994988320395,
+              -5.291669367579743,
+              -9.70832843449898,
+              -6.791662599425763
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          }
+        },
+        "rss_ratio": 1.009090909090909,
+        "encoded_size_ratio": 1.0
+      },
+      {
+        "width": 37,
+        "height": 23,
+        "bits": 16,
+        "pattern": "flat",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "producers": {
+          "predecessor": {
+            "encoded_bytes": 77,
+            "process_rss_peak_bytes": 7225344,
+            "encode": {
+              "median_seconds": 1.0875002772081643e-05,
+              "p95_seconds": 1.3374999980442226e-05,
+              "min_seconds": 6.916667189216241e-06,
+              "max_seconds": 6.000000212225132e-05,
+              "samples": 4000,
+              "megapixels_per_second": 78.25285361624837
+            },
+            "decode": {
+              "median_seconds": 1.2499996955739334e-05,
+              "p95_seconds": 1.5291669114958495e-05,
+              "min_seconds": 8.458333468297496e-06,
+              "max_seconds": 5.191666423343122e-05,
+              "samples": 4000,
+              "megapixels_per_second": 68.08001658026532
+            },
+            "prepare": {
+              "median_seconds": 2.8750000637955964e-06,
+              "p95_seconds": 3.541666956152767e-06,
+              "min_seconds": 2.2083331714384258e-06,
+              "max_seconds": 1.9416667782934383e-05,
+              "samples": 4000,
+              "megapixels_per_second": 295.9999934318274
+            },
+            "prepare_encode": {
+              "median_seconds": 1.2041666195727885e-05,
+              "p95_seconds": 1.5749999874969944e-05,
+              "min_seconds": 9.916668204823509e-06,
+              "max_seconds": 6.41250007902272e-05,
+              "samples": 4000,
+              "megapixels_per_second": 70.6712830407071
+            }
+          },
+          "successor": {
+            "encoded_bytes": 77,
+            "process_rss_peak_bytes": 7307264,
+            "encode": {
+              "median_seconds": 1.0750001820269972e-05,
+              "p95_seconds": 1.3333334209164605e-05,
+              "min_seconds": 6.958332960493863e-06,
+              "max_seconds": 2.241666879854165e-05,
+              "samples": 4000,
+              "megapixels_per_second": 79.16277729324405
+            },
+            "decode": {
+              "median_seconds": 1.2833334039896727e-05,
+              "p95_seconds": 1.5833331417525187e-05,
+              "min_seconds": 9.166666131932288e-06,
+              "max_seconds": 4.6124998334562406e-05,
+              "samples": 4000,
+              "megapixels_per_second": 66.31168466077332
+            },
+            "prepare": {
+              "median_seconds": 2.458331437082961e-06,
+              "p95_seconds": 3.0833325581625104e-06,
+              "min_seconds": 2.0000006770715117e-06,
+              "max_seconds": 9.374998626299202e-06,
+              "samples": 4000,
+              "megapixels_per_second": 346.16975854557296
+            },
+            "prepare_encode": {
+              "median_seconds": 1.1500000255182385e-05,
+              "p95_seconds": 1.56666683324147e-05,
+              "min_seconds": 9.666666301200166e-06,
+              "max_seconds": 3.225000182283111e-05,
+              "samples": 4000,
+              "megapixels_per_second": 73.99999835795685
+            }
+          }
+        },
+        "comparisons": {
+          "encode": {
+            "median_ratio": 0.9885056625334777,
+            "median_delta_us": -0.12500095181167126,
+            "paired_block_ratios": [
+              0.9795919761324806,
+              0.9144978770164206,
+              1.3498622258226523,
+              1.0257353826281592
+            ],
+            "paired_block_delta_us": [
+              -0.24999826564453542,
+              -0.958336386247538,
+              2.645832864800468,
+              0.2916676749009639
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "decode": {
+            "median_ratio": 1.0266669732270888,
+            "median_delta_us": 0.3333370841573924,
+            "paired_block_ratios": [
+              1.0360360478466968,
+              0.9668875474141919,
+              1.3272724602871595,
+              1.0983605478008955
+            ],
+            "paired_block_delta_us": [
+              0.5000001692678779,
+              -0.41666498873382807,
+              2.9999973776284605,
+              1.2499986041802913
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "prepare": {
+            "median_ratio": 0.8550717852289206,
+            "median_delta_us": -0.41666862671263516,
+            "paired_block_ratios": [
+              0.9078944496333493,
+              0.8260869015050476,
+              0.8906246589396023,
+              0.9714279299562071
+            ],
+            "paired_block_delta_us": [
+              -0.2916676749009639,
+              -0.5000001692678779,
+              -0.2916676749009639,
+              -0.08333518053404987
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "prepare_encode": {
+            "median_ratio": 0.9550173595795514,
+            "median_delta_us": -0.5416659405454993,
+            "paired_block_ratios": [
+              0.9783283658584451,
+              0.8972124820737664,
+              0.9806947229815625,
+              1.0588234760971944
+            ],
+            "paired_block_delta_us": [
+              -0.2916640369221568,
+              -1.2291675375308841,
+              -0.20833613234572113,
+              0.708332663634792
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          }
+        },
+        "rss_ratio": 1.0113378684807257,
+        "encoded_size_ratio": 1.0
+      },
+      {
+        "width": 37,
+        "height": 23,
+        "bits": 16,
+        "pattern": "ramp",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "producers": {
+          "predecessor": {
+            "encoded_bytes": 367,
+            "process_rss_peak_bytes": 7225344,
+            "encode": {
+              "median_seconds": 2.581250009825453e-05,
+              "p95_seconds": 3.033333268831484e-05,
+              "min_seconds": 1.9625000277301297e-05,
+              "max_seconds": 0.00012179166878922842,
+              "samples": 4000,
+              "megapixels_per_second": 32.96852287692759
+            },
+            "decode": {
+              "median_seconds": 2.662499900907278e-05,
+              "p95_seconds": 3.095833380939439e-05,
+              "min_seconds": 1.9499999325489625e-05,
+              "max_seconds": 0.00011504166832310148,
+              "samples": 4000,
+              "megapixels_per_second": 31.962442504129736
+            },
+            "prepare": {
+              "median_seconds": 3.0000010156072676e-06,
+              "p95_seconds": 3.5833327274303883e-06,
+              "min_seconds": 2.2083331714384258e-06,
+              "max_seconds": 1.1124997399747372e-05,
+              "samples": 4000,
+              "megapixels_per_second": 283.66657063538975
+            },
+            "prepare_encode": {
+              "median_seconds": 2.658333323779516e-05,
+              "p95_seconds": 3.266666681156494e-05,
+              "min_seconds": 2.1333333279471844e-05,
+              "max_seconds": 0.00016133333338075317,
+              "samples": 4000,
+              "megapixels_per_second": 32.01253930000324
+            }
+          },
+          "successor": {
+            "encoded_bytes": 367,
+            "process_rss_peak_bytes": 7258112,
+            "encode": {
+              "median_seconds": 2.2500000341096893e-05,
+              "p95_seconds": 2.6124998839804903e-05,
+              "min_seconds": 1.7583333828952163e-05,
+              "max_seconds": 3.6124998587183654e-05,
+              "samples": 4000,
+              "megapixels_per_second": 37.822221648842564
+            },
+            "decode": {
+              "median_seconds": 2.3791664716554806e-05,
+              "p95_seconds": 2.783333184197545e-05,
+              "min_seconds": 1.866666934802197e-05,
+              "max_seconds": 4.395833457238041e-05,
+              "samples": 4000,
+              "megapixels_per_second": 35.76882955179904
+            },
+            "prepare": {
+              "median_seconds": 2.6666675694286823e-06,
+              "p95_seconds": 3.041666786884889e-06,
+              "min_seconds": 1.9999970390927047e-06,
+              "max_seconds": 1.2833334039896727e-05,
+              "samples": 4000,
+              "megapixels_per_second": 319.12489196481346
+            },
+            "prepare_encode": {
+              "median_seconds": 2.3125001462176442e-05,
+              "p95_seconds": 2.7791669708676636e-05,
+              "min_seconds": 1.908333069877699e-05,
+              "max_seconds": 4.7375000576721504e-05,
+              "samples": 4000,
+              "megapixels_per_second": 36.79999767316369
+            }
+          }
+        },
+        "comparisons": {
+          "encode": {
+            "median_ratio": 0.871670712075595,
+            "median_delta_us": -3.3124997571576387,
+            "paired_block_ratios": [
+              0.9001622916430434,
+              0.9465154154307562,
+              0.7965023211807956,
+              0.8588516478233295
+            ],
+            "paired_block_delta_us": [
+              -2.5625013222452253,
+              -1.3749995559919626,
+              -5.333335138857365,
+              -3.687500793603249
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "decode": {
+            "median_ratio": 0.8935836845833315,
+            "median_delta_us": -2.833334292517975,
+            "paired_block_ratios": [
+              0.9206349624318052,
+              0.9763779094493175,
+              0.8168582780499897,
+              0.8784615983913193
+            ],
+            "paired_block_delta_us": [
+              -2.0833322196267545,
+              -0.6250011210795492,
+              -4.979165169061162,
+              -3.2916650525294244
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "prepare": {
+            "median_ratio": 0.8888888888888888,
+            "median_delta_us": -0.3333334461785853,
+            "paired_block_ratios": [
+              0.9166660603370708,
+              0.9452065935800863,
+              0.8507467743595959,
+              0.8783775652151341
+            ],
+            "paired_block_delta_us": [
+              -0.2500019036233425,
+              -0.16666308511048555,
+              -0.41666498873382807,
+              -0.37500285543501377
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "prepare_encode": {
+            "median_ratio": 0.8699060142427213,
+            "median_delta_us": -3.458331775618717,
+            "paired_block_ratios": [
+              0.87578609509676,
+              0.9252336194394004,
+              0.842880604887186,
+              0.84756091474232
+            ],
+            "paired_block_delta_us": [
+              -3.2916686905082315,
+              -2.0000006770715117,
+              -3.9999977161642164,
+              -4.166668077232316
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          }
+        },
+        "rss_ratio": 1.0045351473922903,
+        "encoded_size_ratio": 1.0
+      },
+      {
+        "width": 37,
+        "height": 23,
+        "bits": 16,
+        "pattern": "noise",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "producers": {
+          "predecessor": {
+            "encoded_bytes": 1851,
+            "process_rss_peak_bytes": 7192576,
+            "encode": {
+              "median_seconds": 3.1416668207384646e-05,
+              "p95_seconds": 3.6333334719529375e-05,
+              "min_seconds": 2.5000001187436283e-05,
+              "max_seconds": 5.837500066263601e-05,
+              "samples": 4000,
+              "megapixels_per_second": 27.08753182808762
+            },
+            "decode": {
+              "median_seconds": 2.6374997105449438e-05,
+              "p95_seconds": 3.0708335543749854e-05,
+              "min_seconds": 2.1333333279471844e-05,
+              "max_seconds": 7.291666770470329e-05,
+              "samples": 4000,
+              "megapixels_per_second": 32.26540638460096
+            },
+            "prepare": {
+              "median_seconds": 2.9583352443296462e-06,
+              "p95_seconds": 3.5000011848751456e-06,
+              "min_seconds": 2.2083331714384258e-06,
+              "max_seconds": 1.2041666195727885e-05,
+              "samples": 4000,
+              "megapixels_per_second": 287.66178600993385
+            },
+            "prepare_encode": {
+              "median_seconds": 3.216666664229706e-05,
+              "p95_seconds": 3.80000019504223e-05,
+              "min_seconds": 2.6958332455251366e-05,
+              "max_seconds": 0.00012725000124191865,
+              "samples": 4000,
+              "megapixels_per_second": 26.455958569265945
+            }
+          },
+          "successor": {
+            "encoded_bytes": 1851,
+            "process_rss_peak_bytes": 7307264,
+            "encode": {
+              "median_seconds": 2.2958331101108342e-05,
+              "p95_seconds": 2.6291669200873002e-05,
+              "min_seconds": 1.804166822694242e-05,
+              "max_seconds": 3.899999865097925e-05,
+              "samples": 4000,
+              "megapixels_per_second": 37.0671542392259
+            },
+            "decode": {
+              "median_seconds": 2.4666667741257697e-05,
+              "p95_seconds": 2.8333335649222136e-05,
+              "min_seconds": 1.862499993876554e-05,
+              "max_seconds": 4.841666668653488e-05,
+              "samples": 4000,
+              "megapixels_per_second": 34.49999849702478
+            },
+            "prepare": {
+              "median_seconds": 2.6666675694286823e-06,
+              "p95_seconds": 3.0000010156072676e-06,
+              "min_seconds": 2.0000006770715117e-06,
+              "max_seconds": 1.4000001101521775e-05,
+              "samples": 4000,
+              "megapixels_per_second": 319.12489196481346
+            },
+            "prepare_encode": {
+              "median_seconds": 2.3749998945277184e-05,
+              "p95_seconds": 2.8291666239965707e-05,
+              "min_seconds": 1.9625000277301297e-05,
+              "max_seconds": 4.604166679200716e-05,
+              "samples": 4000,
+              "megapixels_per_second": 35.83158053862676
+            }
+          }
+        },
+        "comparisons": {
+          "encode": {
+            "median_ratio": 0.73076912387902,
+            "median_delta_us": -8.458337106276304,
+            "paired_block_ratios": [
+              0.7330677734316571,
+              0.73755056105571,
+              0.7343956810382761,
+              0.6634615374524837
+            ],
+            "paired_block_delta_us": [
+              -8.374998287763447,
+              -8.124996384140104,
+              -8.333336154464632,
+              -11.666666978271678
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "decode": {
+            "median_ratio": 0.935229211310936,
+            "median_delta_us": -1.7083293641917408,
+            "paired_block_ratios": [
+              0.9517405726722471,
+              0.9190475563522922,
+              0.947784692086098,
+              0.8705192983298787
+            ],
+            "paired_block_delta_us": [
+              -1.270831489819102,
+              -2.125001628883183,
+              -1.3750031939707696,
+              -3.6875026125926524
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "prepare": {
+            "median_ratio": 0.9014081735800517,
+            "median_delta_us": -0.2916676749009639,
+            "paired_block_ratios": [
+              0.9285716958515804,
+              0.9420289671683492,
+              0.9154923688576098,
+              0.8141025999800751
+            ],
+            "paired_block_delta_us": [
+              -0.20833249436691403,
+              -0.16666672308929265,
+              -0.2500019036233425,
+              -0.604166416451335
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          },
+          "prepare_encode": {
+            "median_ratio": 0.7383419366819779,
+            "median_delta_us": -8.416667697019875,
+            "paired_block_ratios": [
+              0.7551948356043583,
+              0.7408376646233035,
+              0.746113903495468,
+              0.6604651143902328
+            ],
+            "paired_block_delta_us": [
+              -7.854165232856758,
+              -8.250000973930582,
+              -8.16666943137534,
+              -12.166667147539556
+            ],
+            "pooled_over_5_percent": false,
+            "all_blocks_over_5_percent": false
+          }
+        },
+        "rss_ratio": 1.0159453302961277,
+        "encoded_size_ratio": 1.0
+      }
+    ]
+  }
+}

@@ -158,4 +158,104 @@ struct MappingMetadataTests {
         #expect(throws: CodecError.self) { try Decoder().inspect(extended) }
     }
 
+    @Test func encodeMetadataMembershipPrecedenceAndValidation() async throws {
+        let descriptor = try ImageDescriptor.greyscale16(width: 2, height: 2, meaningfulBits: 8)
+        let base = try ImageDestination.allocate(descriptor: descriptor).writeUInt16 { x, y in UInt16(x + 2 * y) }
+        let baselineEncoded = try await Encoder().encode(base)
+        let unsupportedError = CodecError(.unsupportedFeature, "Unrepresentable image metadata cannot be preserved in JPEG-LS.")
+        let missingRequiredError = CodecError(.invalidArgument, "Required metadata has no value.")
+        let limitError = CodecError(.resourceLimitExceeded, "Metadata limit exceeded.")
+
+        // 1. Optional unknown key: rejected under .preserve, permitted and stripped under .discardAncillary
+        // (including empty Data values).
+        for payload in [Data(), Data([0x01, 0x02])] {
+            let optUnknown = try Image(
+                descriptor: descriptor, storage: base.storage,
+                metadata: .init(entries: ["custom.optional": payload])
+            )
+            await #expect(throws: unsupportedError) {
+                _ = try await Encoder().encode(optUnknown, options: .init(metadataPolicy: .preserve))
+            }
+            let discarded = try await Encoder().encode(optUnknown, options: .init(metadataPolicy: .discardAncillary))
+            #expect(discarded.data == baselineEncoded.data)
+            #expect(discarded.report.fidelity == .exactSamples)
+        }
+
+        // 2. Required unknown key: rejected under both .preserve and .discardAncillary.
+        for payload in [Data(), Data([0xAA])] {
+            let reqUnknown = try Image(
+                descriptor: descriptor, storage: base.storage,
+                metadata: .init(entries: ["custom.required": payload], requiredKeys: ["custom.required"])
+            )
+            for policy: MetadataPolicy in [.preserve, .discardAncillary] {
+                await #expect(throws: unsupportedError) {
+                    _ = try await Encoder().encode(reqUnknown, options: .init(metadataPolicy: policy))
+                }
+            }
+        }
+
+        // 3. Precedence: metadata.validate (missing required value, then metadata byte limit)
+        // runs before supported-key membership checks.
+        let missingReqUnknown = Image(
+            admittedOwnedDescriptor: descriptor, sealedOwnedStorage: base.storage,
+            admittedMetadata: .init(entries: ["custom.optional": Data([1])], requiredKeys: ["custom.missing"])
+        )
+        for policy: MetadataPolicy in [.preserve, .discardAncillary] {
+            await #expect(throws: missingRequiredError) {
+                _ = try await Encoder().encode(
+                    missingReqUnknown,
+                    options: .init(resourceLimits: .init(maximumMetadataBytes: 1), metadataPolicy: policy)
+                )
+            }
+        }
+        let overLimitUnknown = try Image(
+            descriptor: descriptor, storage: base.storage,
+            metadata: .init(entries: ["custom.unknown": Data([1, 2, 3])], requiredKeys: ["custom.unknown"])
+        )
+        for policy: MetadataPolicy in [.preserve, .discardAncillary] {
+            await #expect(throws: limitError) {
+                _ = try await Encoder().encode(
+                    overLimitUnknown,
+                    options: .init(resourceLimits: .init(maximumMetadataBytes: 4), metadataPolicy: policy)
+                )
+            }
+        }
+
+        // 4. Supported-key membership precedes known-payload parsing, while malformed
+        // supported metadata is still parsed and rejected when keys are supported.
+        let unknownReqAndBadKnown = try Image(
+            descriptor: descriptor, storage: base.storage,
+            metadata: .init(
+                entries: ["custom.req": Data([1]), JPEGLSMetadata.spiffKey: Data([0xFF, 0xE8])],
+                requiredKeys: ["custom.req", JPEGLSMetadata.spiffKey]
+            )
+        )
+        for policy: MetadataPolicy in [.preserve, .discardAncillary] {
+            await #expect(throws: unsupportedError) {
+                _ = try await Encoder().encode(unknownReqAndBadKnown, options: .init(metadataPolicy: policy))
+            }
+        }
+        let badAncillary = try Image(
+            descriptor: descriptor, storage: base.storage,
+            metadata: .init(entries: [JPEGLSMetadata.key: Data([0xFE, 0x00])])
+        )
+        await #expect(throws: CodecError(.invalidArgument, "Truncated metadata segment.")) {
+            _ = try await Encoder().encode(badAncillary, options: .init(metadataPolicy: .preserve))
+        }
+        let badSPIFF = try Image(
+            descriptor: descriptor, storage: base.storage,
+            metadata: .init(entries: [JPEGLSMetadata.spiffKey: Data([0xFF, 0xE8])], requiredKeys: [JPEGLSMetadata.spiffKey])
+        )
+        await #expect(throws: CodecError(.invalidArgument, "SPIFF metadata disagrees with the image or is malformed.")) {
+            _ = try await Encoder().encode(badSPIFF, options: .init(metadataPolicy: .discardAncillary))
+        }
+        let badMapping = try Image(
+            descriptor: descriptor, storage: base.storage,
+            metadata: .init(entries: [JPEGLSMappingTables.key: Data([0x01])], requiredKeys: [JPEGLSMappingTables.key])
+        )
+        await #expect(throws: CodecError(.invalidArgument, "Invalid mapping table archive.")) {
+            _ = try await Encoder().encode(badMapping, options: .init(metadataPolicy: .discardAncillary))
+        }
+    }
+
 }

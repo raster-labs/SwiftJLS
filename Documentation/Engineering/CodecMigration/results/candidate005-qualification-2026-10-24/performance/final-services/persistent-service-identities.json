@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "source_receipt_sha256": "cec33e8ef20e8ef139bee8001c1a057f389696f0d47efdc31aa809863195aaef",
+  "services": [
+    {
+      "identity": {
+        "name": "dev_php82",
+        "id": "b5f84b840b665b56ee91b7ce2aa316f9ab8666b40be1910583f15b7ffd879de9",
+        "image": "dev-stack-php82",
+        "image_id": "sha256:c4eb5f5fddadbc859622efaa564c768b144309054f4932d9c721c5f040c05b63",
+        "path": "docker-php-entrypoint",
+        "args": [
+          "php-fpm"
+        ],
+        "created": "2026-10-24T07:49:49.020634172Z",
+        "started_at": "2026-10-24T07:49:49.118855481Z",
+        "compose_project": "dev-stack",
+        "compose_service": "php82"
+      },
+      "selected_role_config_sha256": "cd78fe84b837b2c9fb6fd6775a1de6f45cb76cd043b91f7b529ebc312ca624d6"
+    },
+    {
+      "identity": {
+        "name": "dev_php71",
+        "id": "ee3e4d34b586915d820f30ea94e4f8638f104dcb5983a5a653dc499caa1acdb3",
+        "image": "dev-stack-php71",
+        "image_id": "sha256:41607116cdf2bfeb5845e3495b2322308b798a8d733fe0fc20a5df0ddd60b77e",
+        "path": "docker-php-entrypoint",
+        "args": [
+          "php-fpm"
+        ],
+        "created": "2026-10-24T07:49:49.019851366Z",
+        "started_at": "2026-10-24T07:49:49.118339221Z",
+        "compose_project": "dev-stack",
+        "compose_service": "php71"
+      },
+      "selected_role_config_sha256": "20b9e941fd8b98cd18eef6a9c8ce73d5ed85e40827ef89cfe253b53c803b4a0a"
+    },
+    {
+      "identity": {
+        "name": "dev_apache",
+        "id": "df163c51fd6930f21f3cd626767dec26cec574abfa40ad0e7a5ded534a436666",
+        "image": "httpd:2.4-alpine",
+        "image_id": "sha256:1b766f17b84026429b7cb243317b142921b24432336e798bc881c43f45ed9567",
+        "path": "httpd-foreground",
+        "args": [],
+        "created": "2026-09-24T06:29:27.99952599Z",
+        "started_at": "2026-10-24T07:49:49.239784489Z",
+        "compose_project": "dev-stack",
+        "compose_service": "web"
+      },
+      "selected_role_config_sha256": "074d6997d5dbd4bcf498d2a6f8757e7176f058f1eef8c31f5389bd7a879956c0"
+    }
+  ],
+  "scope": "Exact three running shared services; selected fields only, no environment or private compose paths. Missing, restarted, recreated or changed identity fails. No host-idleness claim."
+}

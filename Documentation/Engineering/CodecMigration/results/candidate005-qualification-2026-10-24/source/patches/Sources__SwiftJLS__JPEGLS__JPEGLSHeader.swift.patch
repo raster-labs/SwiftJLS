@@ -1,0 +1,57 @@
+diff --git a/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift b/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift
+--- a/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift
++++ b/Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift
+@@ -162,7 +162,8 @@
+     }
+ 
+     static func parse(_ data: Data, budget: CodecBudget, codecOptions: CodecOptions = .init()) throws -> Self {
+-        try budget.admit(pixelBytes: 0, workspaceBytes: 0, compressedBytes: data.count)
++        try budget.admit(pixelBytes: 0, workspaceBytes: CodecWorkspace.fixedControlBytes,
++            compressedBytes: data.count)
+         return try data.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) in
+             func malformed() -> CodecError { .init(.malformedInput, "Invalid or truncated JPEG-LS header.") }
+             func unsupported(_ message: String) -> CodecError { .init(.unsupportedFeature, message) }
+@@ -206,7 +207,9 @@
+                 guard metadataBytes <= budget.limits.maximumMetadataBytes else {
+                     throw CodecError(.resourceLimitExceeded, "JPEG-LS metadata limit exceeded.")
+                 }
+-                try budget.admit(pixelBytes: 0, workspaceBytes: checkedAdd(checkedMultiply(metadataBytes, 32), directoryBytes), compressedBytes: data.count)
++                try budget.admit(pixelBytes: 0,
++                    workspaceBytes: CodecWorkspace.parserBytes(metadataBytes: metadataBytes, directoryBytes: directoryBytes),
++                    compressedBytes: data.count)
+             }
+             while cursor < bytes.count {
+                 try budget.check()
+@@ -260,7 +263,9 @@
+                         colourTransform: transform ?? .none, records: records, metadata: metadata, mapping: mapping,
+                         outputBits: resolvedOutputBits, mapsSamples: mapsSamples, metadataBytes: max(metadataBytes, retainedBytes),
+                         admittedDescriptor: descriptor)
+-                    try budget.admit(pixelBytes: descriptor.requiredByteCount, workspaceBytes: checkedAdd(checkedMultiply(header.metadataBytes, 32), directoryBytes), compressedBytes: data.count)
++                    try budget.admit(pixelBytes: descriptor.requiredByteCount,
++                        workspaceBytes: CodecWorkspace.parserBytes(metadataBytes: header.metadataBytes, directoryBytes: directoryBytes),
++                        compressedBytes: data.count)
+                     return header
+                 }
+                 guard bytes.count - cursor >= 2 else { throw malformed() }
+@@ -481,8 +486,20 @@
+                     }
+                     let expected = restartInterval > 0 ? 1 + (f.height - 1) / restartInterval : 1
+                     directoryBytes = try checkedAdd(directoryBytes, checkedMultiply(expected, MemoryLayout<Range<Int>>.stride * 2))
+-                    try budget.admit(pixelBytes: 0, workspaceBytes: checkedAdd(directoryBytes, checkedMultiply(metadataBytes, 32)), compressedBytes: data.count)
++                    try budget.admit(pixelBytes: 0,
++                        workspaceBytes: CodecWorkspace.parserBytes(metadataBytes: metadataBytes, directoryBytes: directoryBytes),
++                        compressedBytes: data.count)
++                    // Each admitted range must contain at least one entropy
++                    // byte and end at an FF-prefixed marker (at least two bytes).
++                    // A truncated stream cannot justify reserving a directory
++                    // from its declared height alone. Division avoids overflow.
++                    guard expected <= (bytes.count - end) / 3 else { throw malformed() }
+                     var ranges: [Range<Int>] = [], scanStart = end
++                    // The checked directory allowance already reserves twice
++                    // the expected range payload. Reserving once avoids the
++                    // old/new geometric-growth buffers overlapping mid-scan.
++                    // Allocator rounding remains separate from logical payload.
++                    ranges.reserveCapacity(expected)
+                     while true {
+                         var scanEnd = scanStart
+                         var nextCheckpoint = scanStart

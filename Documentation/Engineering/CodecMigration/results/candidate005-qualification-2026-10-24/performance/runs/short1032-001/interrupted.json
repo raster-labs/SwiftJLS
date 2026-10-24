@@ -1,0 +1,612 @@
+{
+  "completed": false,
+  "error": "RuntimeError(\"Identified interfering compile/test/profiler/VM/simulator workload active: [{'rule': 'simulator_active_cpu_load', 'pid': 52004, 'exe_name': 'xpcproxy_sim', 'ps_cpu_percent': 12.2, 'window_instantaneous_cpu_percent': 0.0, 'full_command': '[redacted unrelated process/container text]'}, {'rule': 'simulator_aggregate_cpu_load', 'summed_ps_cpu_percent': 12.9, 'summed_window_instantaneous_cpu_percent': 0.0, 'process_count': 264}]; partial evidence retained\")",
+  "completed_processes": 468,
+  "current": {
+    "entry": {
+      "block": 25,
+      "position": 5,
+      "case": {
+        "id": "p12-ramp",
+        "width": 37,
+        "height": 23,
+        "bits": 12,
+        "pattern": "ramp",
+        "components": 1,
+        "near": 0,
+        "interleave": 0,
+        "expected_encoded_bytes": 255
+      },
+      "permutation_index": 2,
+      "order": [
+        "three_change",
+        "pinned",
+        "candidate"
+      ]
+    },
+    "producer": "candidate",
+    "command": [
+      "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/candidate005-001/binaries/Benchmark",
+      "37",
+      "23",
+      "12",
+      "ramp",
+      "5",
+      "5",
+      "candidate"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"bits\":12,\"components\":1,\"copy_bytes\":null,\"decode_seconds\":[1.6958336345851421e-05,1.5958328731358051e-05,1.8958351574838161e-05,1.6958336345851421e-05,1.6500009223818779e-05],\"encode_seconds\":[1.6166653949767351e-05,1.583332777954638e-05,1.5583325875923038e-05,1.7875019693747163e-05,1.7375015886500478e-05],\"encoded_bytes\":255,\"end_to_end\":true,\"height\":23,\"interleave\":0,\"iterations\":5,\"label\":\"candidate\",\"near\":0,\"pattern\":\"ramp\",\"peak_process_rss_bytes\":7110656,\"pixel_allocations\":null,\"prepare_encode_seconds\":[1.8791673937812448e-05,1.8333346815779805e-05,1.9125000108033419e-05,1.925000105984509e-05,1.8374994397163391e-05],\"prepare_seconds\":[2.4583423510193825e-06,2.2500171326100826e-06,2.20834044739604e-06,2.3333413992077112e-06,2.20834044739604e-06],\"resource_profile\":\"successor-workspace-1GiB-memory-2GiB-v1\",\"warmups\":5,\"width\":37,\"workspace_peak_bytes\":null}\n",
+    "stderr": "",
+    "started_utc": "2026-10-24T06:41:07.286945+00:00",
+    "completed_utc": "2026-10-24T06:41:07.293452+00:00",
+    "process_seconds": 0.006504874996608123
+  },
+  "utc": "2026-10-24T06:41:07.490394+00:00",
+  "conditions": {
+    "utc": "2026-10-24T06:41:07.664357+00:00",
+    "power": {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t97%; charging; 0:27 remaining present: true\n",
+      "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t97%; charging; 0:27 remaining present: true\n",
+      "stderr": ""
+    },
+    "thermal": {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stderr": ""
+    },
+    "load": {
+      "command": [
+        "sysctl",
+        "-n",
+        "vm.loadavg"
+      ],
+      "exit_code": 0,
+      "output": "{ 3.97 4.03 4.04 }\n",
+      "stdout": "{ 3.97 4.03 4.04 }\n",
+      "stderr": ""
+    },
+    "summed_cpu_percent": 232.0,
+    "processes_above_10_percent": [
+      {
+        "pid": 413,
+        "exe_name": "WindowServer",
+        "cpu": 43.7,
+        "cputime": "1484:14.02",
+        "comm": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+        "full_command": "[redacted unrelated process/container text]"
+      },
+      {
+        "pid": 987,
+        "exe_name": "com.apple.Virtualization.VirtualMachine",
+        "cpu": 79.6,
+        "cputime": "797:46.27",
+        "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+        "full_command": "[redacted unrelated process/container text]"
+      },
+      {
+        "pid": 44281,
+        "exe_name": "Codex (Renderer)",
+        "cpu": 25.7,
+        "cputime": "2:09.91",
+        "comm": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/156.0.8078.48/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)",
+        "full_command": "[redacted unrelated process/container text]"
+      },
+      {
+        "pid": 51345,
+        "exe_name": "python3",
+        "cpu": 17.3,
+        "cputime": "0:01.56",
+        "comm": "/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "full_command": "[redacted unrelated process/container text]"
+      },
+      {
+        "pid": 52004,
+        "exe_name": "pairedsyncd",
+        "cpu": 17.9,
+        "cputime": "0:00.30",
+        "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/PairedSync.framework/Support/pairedsyncd",
+        "full_command": "[redacted unrelated process/container text]"
+      }
+    ],
+    "interfering_process_names_guarded": [
+      "swift-frontend",
+      "swift-build",
+      "swift-test",
+      "swift-package",
+      "swiftc",
+      "swiftbuild",
+      "SWBBuildService",
+      "xcbbuildService",
+      "xcodebuild",
+      "xctest",
+      "SwiftJLSTests",
+      "WorkspaceProbe",
+      "CopyProbe",
+      "MemDiagRelief",
+      "MemDiagVMMap",
+      "AppleRuntimeConsumer",
+      "AppleResourceConsumer",
+      "IndependentConsumer",
+      "CrossCodecConsumer",
+      "ResourceStress",
+      "InteropConsumer",
+      "charls_interop_driver",
+      "charls_mapping_driver",
+      "heaptrack",
+      "heaptrack_print",
+      "sample",
+      "instruments",
+      "xctrace",
+      "leaks",
+      "vmmap",
+      "tart",
+      "qemu-system-aarch64",
+      "clang",
+      "clang++",
+      "ld",
+      "dsymutil",
+      "llvm-profdata",
+      "llvm-cov",
+      "simctl",
+      "karma",
+      "vitest",
+      "jest",
+      "playwright",
+      "cypress",
+      "pytest",
+      "chromedriver"
+    ],
+    "interfering_command_patterns_guarded": [
+      "ng_test_runner",
+      "chromium_headless_worker",
+      "browser_headless_flag",
+      "js_test_runner",
+      "package_manager_test",
+      "lang_test_runner",
+      "simctl_active_command"
+    ],
+    "simulator_inventory": {
+      "process_count": 264,
+      "summed_ps_cpu_percent": 18.4,
+      "summed_window_instantaneous_cpu_percent": 0.0,
+      "quiescent_booted_simulator": false,
+      "simmetalhost_processes": [
+        {
+          "pid": 40916,
+          "exe_name": "SimMetalHost",
+          "ps_cpu_percent": 0.0,
+          "window_instantaneous_cpu_percent": 0.0,
+          "cputime": "0:13.45",
+          "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+          "full_command": "[redacted unrelated process/container text]"
+        },
+        {
+          "pid": 40917,
+          "exe_name": "SimMetalHost",
+          "ps_cpu_percent": 0.0,
+          "window_instantaneous_cpu_percent": 0.0,
+          "cputime": "0:18.30",
+          "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+          "full_command": "[redacted unrelated process/container text]"
+        },
+        {
+          "pid": 40918,
+          "exe_name": "SimMetalHost",
+          "ps_cpu_percent": 0.0,
+          "window_instantaneous_cpu_percent": 0.0,
+          "cputime": "0:00.73",
+          "comm": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/SimRenderingServices.simdeviceio/Contents/XPCServices/SimMetalHost.xpc/Contents/MacOS/SimMetalHost",
+          "full_command": "[redacted unrelated process/container text]"
+        }
+      ],
+      "top_runtime_root_processes": [
+        {
+          "pid": 52004,
+          "exe_name": "pairedsyncd",
+          "ps_cpu_percent": 17.9,
+          "window_instantaneous_cpu_percent": 0.0,
+          "cputime": "0:00.30",
+          "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/PairedSync.framework/Support/pairedsyncd",
+          "full_command": "[redacted unrelated process/container text]"
+        },
+        {
+          "pid": 40922,
+          "exe_name": "SpringBoard",
+          "ps_cpu_percent": 0.4,
+          "window_instantaneous_cpu_percent": 0.0,
+          "cputime": "4:21.68",
+          "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/SpringBoard.app/SpringBoard",
+          "full_command": "[redacted unrelated process/container text]"
+        },
+        {
+          "pid": 23055,
+          "exe_name": "businessservicesd",
+          "ps_cpu_percent": 0.0,
+          "window_instantaneous_cpu_percent": 0.0,
+          "cputime": "0:00.25",
+          "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/BusinessChatService.framework/businessservicesd",
+          "full_command": "[redacted unrelated process/container text]"
+        },
+        {
+          "pid": 40060,
+          "exe_name": "schooltimed",
+          "ps_cpu_percent": 0.0,
+          "window_instantaneous_cpu_percent": 0.0,
+          "cputime": "0:00.35",
+          "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/SchoolTime.framework/Support/schooltimed",
+          "full_command": "[redacted unrelated process/container text]"
+        },
+        {
+          "pid": 40066,
+          "exe_name": "companionmessagesd",
+          "ps_cpu_percent": 0.0,
+          "window_instantaneous_cpu_percent": 0.0,
+          "cputime": "0:00.54",
+          "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/ChatKit.framework/companionmessagesd",
+          "full_command": "[redacted unrelated process/container text]"
+        },
+        {
+          "pid": 40067,
+          "exe_name": "AuthenticationServicesAgent",
+          "ps_cpu_percent": 0.0,
+          "window_instantaneous_cpu_percent": 0.0,
+          "cputime": "0:00.57",
+          "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Cryptexes/App/usr/libexec/AuthenticationServicesAgent",
+          "full_command": "[redacted unrelated process/container text]"
+        },
+        {
+          "pid": 40068,
+          "exe_name": "com.apple.quicklook.ThumbnailsAgent",
+          "ps_cpu_percent": 0.0,
+          "window_instantaneous_cpu_percent": 0.0,
+          "cputime": "0:00.35",
+          "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/QuickLookThumbnailing.framework/Support/com.apple.quicklook.ThumbnailsAgent",
+          "full_command": "[redacted unrelated process/container text]"
+        },
+        {
+          "pid": 40069,
+          "exe_name": "mlruntimed",
+          "ps_cpu_percent": 0.0,
+          "window_instantaneous_cpu_percent": 0.0,
+          "cputime": "0:00.31",
+          "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/mlruntimed",
+          "full_command": "[redacted unrelated process/container text]"
+        },
+        {
+          "pid": 40070,
+          "exe_name": "remindd",
+          "ps_cpu_percent": 0.0,
+          "window_instantaneous_cpu_percent": 0.0,
+          "cputime": "0:01.42",
+          "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/remindd",
+          "full_command": "[redacted unrelated process/container text]"
+        },
+        {
+          "pid": 40071,
+          "exe_name": "privacyaccountingd",
+          "ps_cpu_percent": 0.0,
+          "window_instantaneous_cpu_percent": 0.0,
+          "cputime": "0:00.37",
+          "comm": "/Library/Developer/CoreSimulator/Volumes/iOS_23A343/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/PrivacyAccounting.framework/Versions/A/Resources/privacyaccountingd",
+          "full_command": "[redacted unrelated process/container text]"
+        }
+      ],
+      "interfering_matches": [
+        {
+          "rule": "simulator_active_cpu_load",
+          "pid": 52004,
+          "exe_name": "pairedsyncd",
+          "ps_cpu_percent": 17.9,
+          "window_instantaneous_cpu_percent": 0.0,
+          "full_command": "[redacted unrelated process/container text]"
+        },
+        {
+          "rule": "simulator_aggregate_cpu_load",
+          "summed_ps_cpu_percent": 18.4,
+          "summed_window_instantaneous_cpu_percent": 0.0,
+          "process_count": 264
+        }
+      ]
+    },
+    "colima_vm_inventory": {
+      "vm_process_count": 1,
+      "vm_processes": [
+        {
+          "pid": 987,
+          "exe_name": "com.apple.Virtualization.VirtualMachine",
+          "ps_cpu_percent": 79.6,
+          "cputime": "797:46.27",
+          "comm": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine"
+        }
+      ],
+      "limactl_colima_hostagents": [
+        {
+          "pid": 969,
+          "exe_name": "limactl",
+          "ps_cpu_percent": 0.4,
+          "cputime": "27:50.93",
+          "full_command": "[redacted unrelated process/container text]"
+        },
+        {
+          "pid": 974,
+          "exe_name": "limactl",
+          "ps_cpu_percent": 0.0,
+          "cputime": "0:47.49",
+          "full_command": "[redacted unrelated process/container text]"
+        }
+      ],
+      "running_containers": [
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-17 19:07:46 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "5ea299d54b09",
+          "Image": "raster/one-frontend:dev",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "0",
+          "Mounts": "",
+          "Names": "raster-one-frontend-1",
+          "Networks": "raster-one_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux"
+          },
+          "Ports": "0.0.0.0:4200->8080/tcp",
+          "RunningFor": "6 days ago",
+          "Size": "65.5kB (virtual 58.3MB)",
+          "State": "running",
+          "Status": "Up 3 days (healthy)"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-17 12:13:26 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "5930bc4aec00",
+          "Image": "raster/one-erp:dev",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "0",
+          "Mounts": "",
+          "Names": "raster-one-one-erp-1",
+          "Networks": "raster-one_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux"
+          },
+          "Ports": "8080/tcp, 8088/tcp, 9090/tcp, 127.0.0.1:8090->8090/tcp",
+          "RunningFor": "7 days ago",
+          "Size": "242kB (virtual 406MB)",
+          "State": "running",
+          "Status": "Up 3 days (healthy)"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-15 10:50:15 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "cf24bc615571",
+          "Image": "raster/one-kernel:dev",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "0",
+          "Mounts": "",
+          "Names": "raster-one-kernel-1",
+          "Networks": "raster-one_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux"
+          },
+          "Ports": "127.0.0.1:8080->8080/tcp, 127.0.0.1:9090->9090/tcp, 8088/tcp",
+          "RunningFor": "9 days ago",
+          "Size": "242kB (virtual 427MB)",
+          "State": "running",
+          "Status": "Up 3 days (healthy)"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-15 10:50:14 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "fb2044464f91",
+          "Image": "raster/one-studio:dev",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "0",
+          "Mounts": "",
+          "Names": "raster-one-studio-1",
+          "Networks": "raster-one_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux"
+          },
+          "Ports": "8080/tcp, 9090/tcp, 127.0.0.1:8088->8088/tcp",
+          "RunningFor": "9 days ago",
+          "Size": "143kB (virtual 396MB)",
+          "State": "running",
+          "Status": "Up 3 days (healthy)"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "269d55cfa5af",
+          "Image": "postgres:16-alpine",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "1",
+          "Mounts": "/Users/pushpar\u2026,raster-one_pgd\u2026",
+          "Names": "raster-one-postgres-1",
+          "Networks": "raster-one_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "127.0.0.1:15432->5432/tcp",
+          "RunningFor": "9 days ago",
+          "Size": "20.5kB (virtual 297MB)",
+          "State": "running",
+          "Status": "Up 3 days (healthy)"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "9655b95a4e23",
+          "Image": "rabbitmq:3.13-management-alpine",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "1",
+          "Mounts": "raster-one_rab\u2026",
+          "Names": "raster-one-rabbitmq-1",
+          "Networks": "raster-one_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "4369/tcp, 5671/tcp, 127.0.0.1:5672->5672/tcp, 15671/tcp, 15691-15692/tcp, 25672/tcp, 127.0.0.1:15672->15672/tcp",
+          "RunningFor": "9 days ago",
+          "Size": "4.1kB (virtual 191MB)",
+          "State": "running",
+          "Status": "Up 3 days (healthy)"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-15 10:50:13 +0530 IST",
+          "HealthStatus": "healthy",
+          "ID": "1bca90e3d2e8",
+          "Image": "redis:7-alpine",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "1",
+          "Mounts": "raster-one_red\u2026",
+          "Names": "raster-one-redis-1",
+          "Networks": "raster-one_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "127.0.0.1:16379->6379/tcp",
+          "RunningFor": "9 days ago",
+          "Size": "4.1kB (virtual 41.5MB)",
+          "State": "running",
+          "Status": "Up 3 days (healthy)"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-10-10 11:48:26 +0530 IST",
+          "HealthStatus": "none",
+          "ID": "8c3f3f59c647",
+          "Image": "caddy:2",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "0",
+          "Mounts": "/Users/pushpar\u2026,/Users/pushpar\u2026",
+          "Names": "oosai-lan",
+          "Networks": "bridge",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "80/tcp, 443/tcp, 0.0.0.0:5443->5443/tcp, [::]:5443->5443/tcp, 2019/tcp, 443/udp, 0.0.0.0:8443->8443/tcp, [::]:8443->8443/tcp",
+          "RunningFor": "2 weeks ago",
+          "Size": "49.2kB (virtual 61.9MB)",
+          "State": "running",
+          "Status": "Up 3 days"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-08-27 18:43:46 +0530 IST",
+          "HealthStatus": "none",
+          "ID": "4b02c30d17f7",
+          "Image": "mysql:8.0",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "1",
+          "Mounts": "[redacted unrelated process/container text]_mysq\u2026",
+          "Names": "dev_mysql",
+          "Networks": "[redacted unrelated process/container text]_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp, 33060/tcp",
+          "RunningFor": "8 weeks ago",
+          "Size": "32.8kB (virtual 848MB)",
+          "State": "running",
+          "Status": "Up 3 days"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+          "HealthStatus": "none",
+          "ID": "ab25fd93708d",
+          "Image": "postgres:15-alpine",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "1",
+          "Mounts": "[redacted unrelated process/container text]_post\u2026",
+          "Names": "dev_postgres",
+          "Networks": "[redacted unrelated process/container text]_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp",
+          "RunningFor": "2 months ago",
+          "Size": "28.7kB (virtual 295MB)",
+          "State": "running",
+          "Status": "Up 3 days"
+        },
+        {
+          "Command": "[redacted unrelated process/container text]",
+          "CreatedAt": "2026-08-19 16:08:18 +0530 IST",
+          "HealthStatus": "none",
+          "ID": "c1cfb710c4f1",
+          "Image": "redis:alpine",
+          "Labels": "[redacted unrelated process/container text]",
+          "LocalVolumes": "0",
+          "Mounts": "",
+          "Names": "redis_container",
+          "Networks": "[redacted unrelated process/container text]_default",
+          "Platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "Ports": "0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp",
+          "RunningFor": "2 months ago",
+          "Size": "12.3kB (virtual 120MB)",
+          "State": "running",
+          "Status": "Up 3 days"
+        }
+      ],
+      "quiescent_shared_colima_vm": true,
+      "quiescent_shared_vm_exception_note": "PID 987 is the resident shared Colima Virtualization.Framework VM hosting only the persistent multi-day shared dev stack; never killed per host policy.",
+      "interfering_matches": []
+    },
+    "interfering_workload_matches": [
+      {
+        "rule": "simulator_active_cpu_load",
+        "pid": 52004,
+        "exe_name": "pairedsyncd",
+        "ps_cpu_percent": 17.9,
+        "window_instantaneous_cpu_percent": 0.0,
+        "full_command": "[redacted unrelated process/container text]"
+      },
+      {
+        "rule": "simulator_aggregate_cpu_load",
+        "summed_ps_cpu_percent": 18.4,
+        "summed_window_instantaneous_cpu_percent": 0.0,
+        "process_count": 264
+      }
+    ]
+  }
+}

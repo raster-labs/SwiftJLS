@@ -62,6 +62,38 @@ public final class OwnedImageStorage: WritableImageStorage, Sendable {
         self.state = Mutex(State(bytes: [UInt8](repeating: 0, count: byteCount)))
     }
 
+    private init(reservedByteCount byteCount: Int, allocationID: UUID, lease: StorageWriteLease) {
+        self.byteCount = byteCount; self.allocationID = allocationID
+        self.state = Mutex(State(
+            bytes: [UInt8](repeating: 0, count: byteCount),
+            phase: .writing,
+            lease: lease
+        ))
+    }
+
+    // Internal fresh-reserved constructor for `ImageDestination.allocate`.
+    // Preserves pre-allocation cancellation and byteCount limit checks, creates
+    // fresh allocation and lease UUIDs, and initialises the private state in
+    // `.writing` before the storage reference can escape to any caller.
+    static func allocateReserved(
+        byteCount: Int,
+        limits: ResourceLimits
+    ) throws -> (storage: OwnedImageStorage, lease: StorageWriteLease) {
+        try Task.checkCancellation()
+        guard byteCount > 0 else { throw CodecError(.invalidArgument, "Storage capacity must be positive.") }
+        guard byteCount <= limits.maximumDecodedBytes, byteCount <= limits.maximumMemoryBytes else {
+            throw CodecError(.resourceLimitExceeded, "Storage allocation exceeds the admission budget.")
+        }
+        let allocationID = UUID()
+        let lease = StorageWriteLease()
+        let storage = OwnedImageStorage(
+            reservedByteCount: byteCount,
+            allocationID: allocationID,
+            lease: lease
+        )
+        return (storage, lease)
+    }
+
     public func reserveWrite() throws -> StorageWriteLease {
         try locked { state in
             guard state.phase == .available else {
@@ -97,6 +129,33 @@ public final class OwnedImageStorage: WritableImageStorage, Sendable {
             state.bytes = []
             state.lease = nil; state.phase = .invalid
         }
+    }
+
+    // Internal fresh-owned fill-and-seal helper for `Image.writeAdmittedOwned`.
+    // Allocates one zero-initialised byte array, runs the synchronous fill borrow,
+    // and returns an immutable `SealedImageStorage` with a fresh `allocationID`.
+    // No mutable storage or destination owner escapes, and failed fills never publish.
+    static func fillAndSealAdmittedOwned(
+        byteCount: Int,
+        limits: ResourceLimits,
+        _ body: (UnsafeMutableRawBufferPointer) throws -> Void
+    ) throws -> any ReadOnlyImageStorage {
+        try Task.checkCancellation()
+        guard byteCount > 0 else { throw CodecError(.invalidArgument, "Storage capacity must be positive.") }
+        guard byteCount <= limits.maximumDecodedBytes, byteCount <= limits.maximumMemoryBytes else {
+            throw CodecError(.resourceLimitExceeded, "Storage allocation exceeds the admission budget.")
+        }
+        let allocationID = UUID()
+        var bytes = [UInt8](repeating: 0, count: byteCount)
+        try Task.checkCancellation()
+        try bytes.withUnsafeMutableBytes { rawBytes in
+            guard rawBytes.count == byteCount else {
+                throw CodecError(.storageUnavailable, "Provider returned inconsistent capacity.")
+            }
+            try body(rawBytes)
+        }
+        try Task.checkCancellation()
+        return SealedImageStorage(bytes: bytes, allocationID: allocationID)
     }
 
     private static func check(_ lease: StorageWriteLease, _ state: borrowing State) throws {

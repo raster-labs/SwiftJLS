@@ -9,11 +9,12 @@ enum ComponentCodec {
         let offset: Int, rowBytes: Int, pixelStride: Int
         let width: Int, height: Int, horizontal: Int, vertical: Int
     }
-    static func locations(_ descriptor: ImageDescriptor, limits: ResourceLimits) throws -> [Location] {
+    static func locations(_ descriptor: ImageDescriptor, limits: ResourceLimits,
+                          discardICC: Bool = false) throws -> [Location] {
         try descriptor.validate(limits: limits)
         guard descriptor.sampleType == .unsignedInteger, [8, 16].contains(descriptor.storageBits),
               (2...16).contains(descriptor.meaningfulBits), (1...4).contains(descriptor.components.count),
-              descriptor.alpha == .absent, descriptor.iccProfile == nil,
+              descriptor.alpha == .absent, descriptor.iccProfile == nil || discardICC,
               descriptor.width <= Int(clamping: UInt32.max), descriptor.height <= Int(clamping: UInt32.max) else {
             throw CodecError(.unsupportedFeature, "Component coding requires one to four unsigned components without alpha or ICC.")
         }
@@ -61,7 +62,8 @@ enum ComponentCodec {
         let budget = CodecBudget(limits: options.resourceLimits)
         return try ScalarCodec.mapped {
             let d = image.descriptor
-            let locations = try locations(d, limits: budget.limits)
+            let locations = try locations(d, limits: budget.limits,
+                                          discardICC: options.metadataPolicy == .discardAncillary)
             guard locations.allSatisfy({ $0.width == d.width && $0.height == d.height }) else {
                 throw CodecError(.unsupportedFeature, "Subsampled encoding was not implemented by the predecessor and is not advertised.")
             }
@@ -73,8 +75,15 @@ enum ComponentCodec {
             guard transform == .none || (d.colour == .rgb && [8, 16].contains(d.meaningfulBits)) else {
                 throw CodecError(.unsupportedFeature, "HP transforms require RGB with 8 or 16 meaningful bits.")
             }
-            let metadata = try JPEGMetadataEncoding(image, options: options,
-                additionalBytes: (d.colour == .rgb ? 30 : 0) + (transform == .none ? 0 : 5))
+            let interpretationBytes = (d.colour == .rgb ? 30 : 0) + (transform == .none ? 0 : 5)
+            let discardedICCBytes = d.iccProfile?.count ?? 0
+            if discardedICCBytes > 0 {
+                // Charge the retained profile together with image metadata and
+                // required interpretation markers before borrowing any samples.
+                _ = try image.metadata.validate(limits: budget.limits,
+                    additionalBytes: checkedAdd(discardedICCBytes, interpretationBytes))
+            }
+            let metadata = try JPEGMetadataEncoding(image, options: options, additionalBytes: interpretationBytes)
             guard metadata.mapping == nil || transform == .none else {
                 throw CodecError(.unsupportedFeature, "Mapping tables and HP transforms cannot be combined.")
             }
@@ -103,7 +112,9 @@ enum ComponentCodec {
                 : try checkedMultiply(d.width, componentIDs.count * 4)
             let workspace = try checkedAdd(checkedAdd(ScalarCodec.contextBytes, ScalarCodec.tableBytes(parameters)),
                 checkedAdd(checkedMultiply(outputLimit, 2), predictorBytes))
-            try budget.admit(pixelBytes: image.storage.byteCount, workspaceBytes: checkedAdd(workspace, checkedMultiply(metadata.byteCount, 32)), compressedBytes: outputLimit)
+            try budget.admit(pixelBytes: image.storage.byteCount,
+                workspaceBytes: checkedAdd(checkedAdd(workspace, checkedMultiply(metadata.byteCount, 32)), discardedICCBytes),
+                compressedBytes: outputLimit)
             if budget.limits.maximumMetadataBytes < (d.colour == .rgb ? 30 : 0) + (transform == .none ? 0 : 5) {
                 throw CodecError(.resourceLimitExceeded, "SPIFF header exceeds the metadata budget.")
             }

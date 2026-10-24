@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/Users/pushparaj/.local/bin/docker",
+    "--context",
+    "colima",
+    "image",
+    "inspect",
+    "sha256:31d14d727f4451f25e29bac9c42563a098c39ac66415e8bad970f48038e38aca"
+  ],
+  "exit_code": 0,
+  "stderr": "",
+  "stdout": "[\n    {\n        \"Id\": \"sha256:31d14d727f4451f25e29bac9c42563a098c39ac66415e8bad970f48038e38aca\",\n        \"RepoTags\": [\n            \"swift:6.4-noble\"\n        ],\n        \"RepoDigests\": [\n            \"swift@sha256:31d14d727f4451f25e29bac9c42563a098c39ac66415e8bad970f48038e38aca\"\n        ],\n        \"Comment\": \"buildkit.dockerfile.v0\",\n        \"Created\": \"2026-10-02T01:41:07.888623423Z\",\n        \"Config\": {\n            \"Env\": [\n                \"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\",\n                \"SWIFT_SIGNING_KEY=52BB7E3DE28A71BE22EC05FFEF80A866B47A981F\",\n                \"SWIFT_PLATFORM=ubuntu24.04\",\n                \"SWIFT_BRANCH=swift-6.4.0-release\",\n                \"SWIFT_VERSION=swift-6.4.0-RELEASE\",\n                \"SWIFT_WEBROOT=https://download.swift.org\"\n            ],\n            \"Cmd\": [\n                \"/bin/bash\"\n            ],\n            \"Labels\": {\n                \"description\": \"Docker Container for the Swift programming language\",\n                \"maintainer\": \"Swift Infrastructure <swift-infrastructure@forums.swift.org>\",\n                \"org.opencontainers.image.version\": \"24.04\"\n            }\n        },\n        \"Architecture\": \"arm64\",\n        \"Variant\": \"v8\",\n        \"Os\": \"linux\",\n        \"Size\": 1300173145,\n        \"RootFS\": {\n            \"Type\": \"layers\",\n            \"Layers\": [\n                \"sha256:1e9178dc90058fa454a60803300219ee8c17e515be8718817ed824b96fa1207b\",\n                \"sha256:d5b18aeaaa9b012c08d48521c36fea0c4036294bd6262462abe932dc0d67aa7a\",\n                \"sha256:ec69d530faab389d333a0dac1bf6779a2addcbca0e0439409c755fe5afbab0cf\",\n                \"sha256:2ced93c431ab23c7cc0eb4dc745c4b32ef6b4183672c5cea8ce329f63c110340\"\n            ]\n        },\n        \"Metadata\": {\n            \"LastTagTime\": \"2026-10-08T09:58:19.407635294Z\"\n        },\n        \"Descriptor\": {\n            \"mediaType\": \"application/vnd.oci.image.index.v1+json\",\n            \"digest\": \"sha256:31d14d727f4451f25e29bac9c42563a098c39ac66415e8bad970f48038e38aca\",\n            \"size\": 2629\n        },\n        \"Identity\": {\n            \"Pull\": [\n                {\n                    \"Repository\": \"docker.io/library/swift\"\n                }\n            ]\n        }\n    }\n]\n"
+}

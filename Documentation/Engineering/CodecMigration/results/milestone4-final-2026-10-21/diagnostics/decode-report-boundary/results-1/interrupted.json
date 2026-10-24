@@ -1,0 +1,37 @@
+{
+  "completed": false,
+  "error": "RuntimeError('AC required')",
+  "decode_processes": 0,
+  "micro_processes": 0,
+  "current": null,
+  "conditions": {
+    "utc": "2026-10-21T13:49:39.999615+00:00",
+    "power": {
+      "command": [
+        "pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "output": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=23330915)\t100%; discharging; 12:09 remaining present: true\n"
+    },
+    "thermal": {
+      "command": [
+        "pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+    },
+    "load": {
+      "command": [
+        "sysctl",
+        "-n",
+        "vm.loadavg"
+      ],
+      "exit_code": 0,
+      "output": "{ 3.85 3.33 3.91 }\n"
+    }
+  }
+}

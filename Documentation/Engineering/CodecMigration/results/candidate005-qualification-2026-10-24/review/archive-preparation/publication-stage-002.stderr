@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/memory-publication/package-candidate005.py", line 289, in <module>
+    args=parser.parse_args();(stage if args.mode=='stage' else publish)(args)
+  File "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/memory-publication/package-candidate005.py", line 170, in stage
+    values=[json.loads(x) for x in path.read_text().splitlines()] if path.suffix=='.jsonl' else [read(path)]
+  File "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/memory-publication/package-candidate005.py", line 17, in read
+    def read(p):return json.loads(Path(p).read_text())
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)

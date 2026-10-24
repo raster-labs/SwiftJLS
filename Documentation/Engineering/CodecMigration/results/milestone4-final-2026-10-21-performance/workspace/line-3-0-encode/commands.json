@@ -1,0 +1,40 @@
+[
+  {
+    "command": [
+      "heaptrack",
+      "--version"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack",
+      "-o",
+      "/tmp/workspace-evidence/line-3-0-encode/allocations",
+      "/__w/SwiftJLS/SwiftJLS/Examples/WorkspaceProbe/.build/out/Products/Release-linux-x86_64/WorkspaceProbe",
+      "encode",
+      "257",
+      "129",
+      "3",
+      "0",
+      "line"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "heaptrack_print",
+      "-f",
+      "/tmp/workspace-evidence/line-3-0-encode/allocations.gz",
+      "-n",
+      "1000",
+      "-s",
+      "1000",
+      "-H",
+      "/tmp/workspace-evidence/line-3-0-encode/sizes.tsv",
+      "-F",
+      "/tmp/workspace-evidence/line-3-0-encode/allocation-stacks.txt"
+    ],
+    "exit_code": 0
+  }
+]

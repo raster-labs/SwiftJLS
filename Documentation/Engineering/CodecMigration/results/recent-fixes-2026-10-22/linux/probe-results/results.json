@@ -1,0 +1,62 @@
+{
+  "binary": "/scratch/probe-build-correct-identity/out/Products/Release-linux-aarch64/QualifiedAllocationProbe",
+  "binary_sha256": "973566b1c4f763496d9f1255f592d844dae4cc5f5eb7fb3e6728f74455c8ad92",
+  "platform": "Linux-6.8.0-117-generic-aarch64-with-glibc2.39",
+  "libc": [
+    "glibc",
+    "2.39"
+  ],
+  "results": [
+    {
+      "mode": "cold-inspect",
+      "command": [
+        "/scratch/probe-build-correct-identity/out/Products/Release-linux-aarch64/QualifiedAllocationProbe",
+        "--cold-inspect",
+        "/SwiftJLS/Tests/SwiftJLSTests/Fixtures"
+      ],
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "elapsed_seconds": 0.008647802998893894,
+      "operations": 1,
+      "positive_controls_passed": true,
+      "complete": true,
+      "failed_operations": 0,
+      "cold_identity_valid": true,
+      "passed": true
+    },
+    {
+      "mode": "cold-decode",
+      "command": [
+        "/scratch/probe-build-correct-identity/out/Products/Release-linux-aarch64/QualifiedAllocationProbe",
+        "--cold-decode",
+        "/SwiftJLS/Tests/SwiftJLSTests/Fixtures"
+      ],
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "elapsed_seconds": 0.00825188000453636,
+      "operations": 1,
+      "positive_controls_passed": true,
+      "complete": true,
+      "failed_operations": 0,
+      "cold_identity_valid": true,
+      "passed": true
+    },
+    {
+      "mode": "matrix",
+      "command": [
+        "/scratch/probe-build-correct-identity/out/Products/Release-linux-aarch64/QualifiedAllocationProbe",
+        "--matrix",
+        "/SwiftJLS/Tests/SwiftJLSTests/Fixtures"
+      ],
+      "timeout_seconds": 120,
+      "exit_code": 1,
+      "elapsed_seconds": 0.31542993799666874,
+      "operations": 858,
+      "positive_controls_passed": true,
+      "complete": true,
+      "failed_operations": 10,
+      "cold_identity_valid": true,
+      "passed": false
+    }
+  ]
+}

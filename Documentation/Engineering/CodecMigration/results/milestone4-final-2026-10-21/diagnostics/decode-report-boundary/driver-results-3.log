@@ -1,0 +1,24 @@
+Decode round 1/16 complete; 8/128 processes
+Decode round 2/16 complete; 16/128 processes
+Decode round 3/16 complete; 24/128 processes
+Decode round 4/16 complete; 32/128 processes
+Decode round 5/16 complete; 40/128 processes
+Decode round 6/16 complete; 48/128 processes
+Decode round 7/16 complete; 56/128 processes
+Decode round 8/16 complete; 64/128 processes
+Decode round 9/16 complete; 72/128 processes
+Decode round 10/16 complete; 80/128 processes
+Decode round 11/16 complete; 88/128 processes
+Decode round 12/16 complete; 96/128 processes
+Decode round 13/16 complete; 104/128 processes
+Decode round 14/16 complete; 112/128 processes
+Decode round 15/16 complete; 120/128 processes
+Decode round 16/16 complete; 128/128 processes
+Traceback (most recent call last):
+  File "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/run.py", line 84, in <module>
+    if __name__=='__main__':main()
+  File "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/run.py", line 69, in main
+    row=run(cmd,env);require(row['mode']==entry['constructor'] and row['warmups']==entry['warmups'] and row['iterations']==entry['iterations'],'Micro profile mismatch');require(len(row['seconds'])==entry['iterations'] and all(math.isfinite(v) and v>0 for v in row['seconds']),'Invalid micro samples')
+  File "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/tiny-confirmatory/run.py", line 32, in require
+    raise RuntimeError(message)
+RuntimeError: Invalid micro samples

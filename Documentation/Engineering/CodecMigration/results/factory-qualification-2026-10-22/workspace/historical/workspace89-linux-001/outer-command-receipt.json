@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "started_utc": "2026-10-22T10:29:14.826586+00:00",
+  "completed_utc": "2026-10-22T10:29:47.732279+00:00",
+  "elapsed_seconds": 32.9054,
+  "command": [
+    "/Users/pushparaj/.local/bin/docker",
+    "--context",
+    "colima",
+    "run",
+    "--rm",
+    "--cpus=4",
+    "--mount",
+    "type=bind,source=/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/workspace89-linux-002/SwiftJLS,target=/SwiftJLS,readonly",
+    "--mount",
+    "type=bind,source=/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/campaigns/workspace89-linux-001,target=/evidence",
+    "--workdir",
+    "/SwiftJLS",
+    "--env",
+    "WORKSPACE_REVISION_ID=working-tree:d0728e51b97290d307fbe2573f5f25b8bd318472f7389f1946e55a966b3e19c1",
+    "sha256:31d14d727f4451f25e29bac9c42563a098c39ac66415e8bad970f48038e38aca",
+    "/bin/bash",
+    "-c",
+    "\nset -euo pipefail\napt-get update\nDEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends heaptrack python3\nswift --version\nuname -m\ndpkg-query -W heaptrack python3\nswift build -c release -Xswiftc -g --jobs 4   --package-path Examples/WorkspaceProbe --scratch-path /evidence/build\nprobe_bin_dir=$(swift build -c release --show-bin-path   --package-path Examples/WorkspaceProbe --scratch-path /evidence/build)\ncp \"$probe_bin_dir/WorkspaceProbe\" /evidence/WorkspaceProbe\nsha256sum \"$probe_bin_dir/WorkspaceProbe\" /evidence/WorkspaceProbe\npython3 Scripts/StorageEvidence/measure-operation.py --self-test\npython3 Scripts/StorageEvidence/run-workspace-profiles.py --self-test\ntimeout 1500s python3 Scripts/StorageEvidence/run-workspace-profiles.py   --binary \"$probe_bin_dir/WorkspaceProbe\"   --output /evidence/profiles --revision \"$WORKSPACE_REVISION_ID\"\n"
+  ],
+  "docker_image": "sha256:31d14d727f4451f25e29bac9c42563a098c39ac66415e8bad970f48038e38aca",
+  "snapshot_identity": {
+    "snapshot_root": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/workspace89-linux-002/SwiftJLS",
+    "manifest_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/workspace89-linux-002/source-manifest.json",
+    "manifest_sha256": "d0728e51b97290d307fbe2573f5f25b8bd318472f7389f1946e55a966b3e19c1",
+    "workspace_revision_id": "working-tree:d0728e51b97290d307fbe2573f5f25b8bd318472f7389f1946e55a966b3e19c1",
+    "base_revision": "041c1a3d4861f9956ca49cd994eff618e23908ec",
+    "candidate_sources_patch_sha256": "86884eca7ef6c352d4456e81fbc18f11701cbe298e291fcc6dcf40a6b32de493",
+    "candidate_scripts_patch_sha256": "e7270e7503b6c7cd0b009410916219d1b8be364354b25f0c81232c1a52fbbb23",
+    "file_count": 2890,
+    "reconciliation": {
+      "verified_against_base_revision": "041c1a3d4861f9956ca49cd994eff618e23908ec",
+      "verified_against_validation_snapshot": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/frozen-candidate-validation-001/SwiftJLS",
+      "total_files_verified": 2890,
+      "modified_candidate_files_verified": [
+        "Scripts/StorageEvidence/run-workspace-profiles.py",
+        "Sources/SwiftJLS/Image.swift",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+        "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift"
+      ]
+    },
+    "linked_copy_probe_receipt": {
+      "receipt_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-linux-copy-probe-001.json",
+      "receipt_sha256": "743b431053b91e16b3cf09c991c97e360bdabda1b9f64f30531de9bd7cc8d055",
+      "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/linux-copy-probe-001/CopyProbe",
+      "binary_sha256": "eea41921bf352e8291c87f03514e716cd4fb2b28bc3ae986a5cbd60e566aa8db",
+      "audit_reference": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261022/018-copy-review.md",
+      "total_rows": 20,
+      "normal_zero_copy_rows": 10,
+      "injected_positive_control_rows": 10,
+      "verified": true
+    }
+  },
+  "pre_verified_tree": {
+    "manifest_sha256": "d0728e51b97290d307fbe2573f5f25b8bd318472f7389f1946e55a966b3e19c1",
+    "workspace_revision_id": "working-tree:d0728e51b97290d307fbe2573f5f25b8bd318472f7389f1946e55a966b3e19c1",
+    "file_count": 2890,
+    "reconciliation": {
+      "verified_against_base_revision": "041c1a3d4861f9956ca49cd994eff618e23908ec",
+      "verified_against_validation_snapshot": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/frozen-candidate-validation-001/SwiftJLS",
+      "total_files_verified": 2890,
+      "modified_candidate_files_verified": [
+        "Scripts/StorageEvidence/run-workspace-profiles.py",
+        "Sources/SwiftJLS/Image.swift",
+        "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift",
+        "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift"
+      ]
+    },
+    "linked_copy_probe_receipt": {
+      "receipt_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/diagnostics/frozen-candidate-linux-copy-probe-001.json",
+      "receipt_sha256": "743b431053b91e16b3cf09c991c97e360bdabda1b9f64f30531de9bd7cc8d055",
+      "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/linux-copy-probe-001/CopyProbe",
+      "binary_sha256": "eea41921bf352e8291c87f03514e716cd4fb2b28bc3ae986a5cbd60e566aa8db",
+      "audit_reference": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261022/018-copy-review.md",
+      "total_rows": 20,
+      "normal_zero_copy_rows": 10,
+      "injected_positive_control_rows": 10,
+      "verified": true
+    },
+    "verified": true
+  },
+  "runner_sha256": "3a6f53cb962b502736c24e3d6a56543dd00c982356fb02516952d70ff144e830",
+  "returncode": 1,
+  "stdout": "Get:1 http://ports.ubuntu.com/ubuntu-ports noble InRelease [256 kB]\nGet:2 http://ports.ubuntu.com/ubuntu-ports noble-updates InRelease [126 kB]\nGet:3 http://ports.ubuntu.com/ubuntu-ports noble-backports InRelease [126 kB]\nGet:4 http://ports.ubuntu.com/ubuntu-ports noble-security InRelease [126 kB]\nGet:5 http://ports.ubuntu.com/ubuntu-ports noble/universe arm64 Packages [19.0 MB]\nGet:6 http://ports.ubuntu.com/ubuntu-ports noble/main arm64 Packages [1776 kB]\nGet:7 http://ports.ubuntu.com/ubuntu-ports noble/restricted arm64 Packages [113 kB]\nGet:8 http://ports.ubuntu.com/ubuntu-ports noble/multiverse arm64 Packages [274 kB]\nGet:9 http://ports.ubuntu.com/ubuntu-ports noble-updates/restricted arm64 Packages [3251 kB]\nGet:10 http://ports.ubuntu.com/ubuntu-ports noble-updates/multiverse arm64 Packages [104 kB]\nGet:11 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 Packages [1790 kB]\nGet:12 http://ports.ubuntu.com/ubuntu-ports noble-updates/universe arm64 Packages [2216 kB]\nGet:13 http://ports.ubuntu.com/ubuntu-ports noble-backports/multiverse arm64 Packages [669 B]\nGet:14 http://ports.ubuntu.com/ubuntu-ports noble-backports/universe arm64 Packages [36.3 kB]\nGet:15 http://ports.ubuntu.com/ubuntu-ports noble-backports/main arm64 Packages [49.0 kB]\nGet:16 http://ports.ubuntu.com/ubuntu-ports noble-security/restricted arm64 Packages [3129 kB]\nGet:17 http://ports.ubuntu.com/ubuntu-ports noble-security/main arm64 Packages [1476 kB]\nGet:18 http://ports.ubuntu.com/ubuntu-ports noble-security/multiverse arm64 Packages [99.1 kB]\nGet:19 http://ports.ubuntu.com/ubuntu-ports noble-security/universe arm64 Packages [1638 kB]\nFetched 35.6 MB in 13s (2767 kB/s)\nReading package lists...\nReading package lists...\nBuilding dependency tree...\nReading state information...\nThe following additional packages will be installed:\n  libboost-filesystem1.83.0 libboost-iostreams1.83.0\n  libboost-program-options1.83.0 libdw1t64 libelf1t64 libheaptrack\n  libpython3-stdlib libunwind8 python3-minimal python3.12 python3.12-minimal\nSuggested packages:\n  python3-doc python3-tk python3-venv python3.12-venv python3.12-doc\n  binfmt-support\nThe following NEW packages will be installed:\n  heaptrack libboost-filesystem1.83.0 libboost-iostreams1.83.0\n  libboost-program-options1.83.0 libdw1t64 libelf1t64 libheaptrack\n  libpython3-stdlib libunwind8 python3 python3-minimal python3.12\n  python3.12-minimal\n0 upgraded, 13 newly installed, 0 to remove and 20 not upgraded.\nNeed to get 4379 kB of archives.\nAfter this operation, 18.1 MB of additional disk space will be used.\nGet:1 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 python3.12-minimal arm64 3.12.3-1ubuntu0.17 [2253 kB]\nGet:2 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 python3-minimal arm64 3.12.3-0ubuntu2.1 [27.4 kB]\nGet:3 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 python3.12 arm64 3.12.3-1ubuntu0.17 [651 kB]\nGet:4 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libpython3-stdlib arm64 3.12.3-0ubuntu2.1 [10.1 kB]\nGet:5 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 python3 arm64 3.12.3-0ubuntu2.1 [23.0 kB]\nGet:6 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libelf1t64 arm64 0.190-1.1ubuntu0.1 [58.4 kB]\nGet:7 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libboost-filesystem1.83.0 arm64 1.83.0-2.1ubuntu3.2 [281 kB]\nGet:8 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libboost-iostreams1.83.0 arm64 1.83.0-2.1ubuntu3.2 [258 kB]\nGet:9 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libboost-program-options1.83.0 arm64 1.83.0-2.1ubuntu3.2 [317 kB]\nGet:10 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libdw1t64 arm64 0.190-1.1ubuntu0.1 [258 kB]\nGet:11 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libunwind8 arm64 1.6.2-3build1.1 [53.6 kB]\nGet:12 http://ports.ubuntu.com/ubuntu-ports noble/universe arm64 libheaptrack arm64 1.5.0+dfsg1-2ubuntu3 [75.1 kB]\nGet:13 http://ports.ubuntu.com/ubuntu-ports noble/universe arm64 heaptrack arm64 1.5.0+dfsg1-2ubuntu3 [113 kB]\nFetched 4379 kB in 4s (1169 kB/s)\nSelecting previously unselected package python3.12-minimal.\n(Reading database ... \n(Reading database ... 5%\n(Reading database ... 10%\n(Reading database ... 15%\n(Reading database ... 20%\n(Reading database ... 25%\n(Reading database ... 30%\n(Reading database ... 35%\n(Reading database ... 40%\n(Reading database ... 45%\n(Reading database ... 50%\n(Reading database ... 55%\n(Reading database ... 60%\n(Reading database ... 65%\n(Reading database ... 70%\n(Reading database ... 75%\n(Reading database ... 80%\n(Reading database ... 85%\n(Reading database ... 90%\n(Reading database ... 95%\n(Reading database ... 100%\n(Reading database ... 16766 files and directories currently installed.)\nPreparing to unpack .../python3.12-minimal_3.12.3-1ubuntu0.17_arm64.deb ...\nUnpacking python3.12-minimal (3.12.3-1ubuntu0.17) ...\nSetting up python3.12-minimal (3.12.3-1ubuntu0.17) ...\nSelecting previously unselected package python3-minimal.\n(Reading database ... \n(Reading database ... 5%\n(Reading database ... 10%\n(Reading database ... 15%\n(Reading database ... 20%\n(Reading database ... 25%\n(Reading database ... 30%\n(Reading database ... 35%\n(Reading database ... 40%\n(Reading database ... 45%\n(Reading database ... 50%\n(Reading database ... 55%\n(Reading database ... 60%\n(Reading database ... 65%\n(Reading database ... 70%\n(Reading database ... 75%\n(Reading database ... 80%\n(Reading database ... 85%\n(Reading database ... 90%\n(Reading database ... 95%\n(Reading database ... 100%\n(Reading database ... 16777 files and directories currently installed.)\nPreparing to unpack .../python3-minimal_3.12.3-0ubuntu2.1_arm64.deb ...\nUnpacking python3-minimal (3.12.3-0ubuntu2.1) ...\nSelecting previously unselected package python3.12.\nPreparing to unpack .../python3.12_3.12.3-1ubuntu0.17_arm64.deb ...\nUnpacking python3.12 (3.12.3-1ubuntu0.17) ...\nSelecting previously unselected package libpython3-stdlib:arm64.\nPreparing to unpack .../libpython3-stdlib_3.12.3-0ubuntu2.1_arm64.deb ...\nUnpacking libpython3-stdlib:arm64 (3.12.3-0ubuntu2.1) ...\nSetting up python3-minimal (3.12.3-0ubuntu2.1) ...\nSelecting previously unselected package python3.\n(Reading database ... \n(Reading database ... 5%\n(Reading database ... 10%\n(Reading database ... 15%\n(Reading database ... 20%\n(Reading database ... 25%\n(Reading database ... 30%\n(Reading database ... 35%\n(Reading database ... 40%\n(Reading database ... 45%\n(Reading database ... 50%\n(Reading database ... 55%\n(Reading database ... 60%\n(Reading database ... 65%\n(Reading database ... 70%\n(Reading database ... 75%\n(Reading database ... 80%\n(Reading database ... 85%\n(Reading database ... 90%\n(Reading database ... 95%\n(Reading database ... 100%\n(Reading database ... 16824 files and directories currently installed.)\nPreparing to unpack .../0-python3_3.12.3-0ubuntu2.1_arm64.deb ...\nUnpacking python3 (3.12.3-0ubuntu2.1) ...\nSelecting previously unselected package libelf1t64:arm64.\nPreparing to unpack .../1-libelf1t64_0.190-1.1ubuntu0.1_arm64.deb ...\nUnpacking libelf1t64:arm64 (0.190-1.1ubuntu0.1) ...\nSelecting previously unselected package libboost-filesystem1.83.0:arm64.\nPreparing to unpack .../2-libboost-filesystem1.83.0_1.83.0-2.1ubuntu3.2_arm64.deb ...\nUnpacking libboost-filesystem1.83.0:arm64 (1.83.0-2.1ubuntu3.2) ...\nSelecting previously unselected package libboost-iostreams1.83.0:arm64.\nPreparing to unpack .../3-libboost-iostreams1.83.0_1.83.0-2.1ubuntu3.2_arm64.deb ...\nUnpacking libboost-iostreams1.83.0:arm64 (1.83.0-2.1ubuntu3.2) ...\nSelecting previously unselected package libboost-program-options1.83.0:arm64.\nPreparing to unpack .../4-libboost-program-options1.83.0_1.83.0-2.1ubuntu3.2_arm64.deb ...\nUnpacking libboost-program-options1.83.0:arm64 (1.83.0-2.1ubuntu3.2) ...\nSelecting previously unselected package libdw1t64:arm64.\nPreparing to unpack .../5-libdw1t64_0.190-1.1ubuntu0.1_arm64.deb ...\nUnpacking libdw1t64:arm64 (0.190-1.1ubuntu0.1) ...\nSelecting previously unselected package libunwind8:arm64.\nPreparing to unpack .../6-libunwind8_1.6.2-3build1.1_arm64.deb ...\nUnpacking libunwind8:arm64 (1.6.2-3build1.1) ...\nSelecting previously unselected package libheaptrack.\nPreparing to unpack .../7-libheaptrack_1.5.0+dfsg1-2ubuntu3_arm64.deb ...\nUnpacking libheaptrack (1.5.0+dfsg1-2ubuntu3) ...\nSelecting previously unselected package heaptrack.\nPreparing to unpack .../8-heaptrack_1.5.0+dfsg1-2ubuntu3_arm64.deb ...\nUnpacking heaptrack (1.5.0+dfsg1-2ubuntu3) ...\nSetting up libboost-program-options1.83.0:arm64 (1.83.0-2.1ubuntu3.2) ...\nSetting up python3.12 (3.12.3-1ubuntu0.17) ...\nSetting up libboost-filesystem1.83.0:arm64 (1.83.0-2.1ubuntu3.2) ...\nSetting up libunwind8:arm64 (1.6.2-3build1.1) ...\nSetting up libelf1t64:arm64 (0.190-1.1ubuntu0.1) ...\nSetting up libdw1t64:arm64 (0.190-1.1ubuntu0.1) ...\nSetting up libboost-iostreams1.83.0:arm64 (1.83.0-2.1ubuntu3.2) ...\nSetting up libheaptrack (1.5.0+dfsg1-2ubuntu3) ...\nSetting up heaptrack (1.5.0+dfsg1-2ubuntu3) ...\nSetting up libpython3-stdlib:arm64 (3.12.3-0ubuntu2.1) ...\nSetting up python3 (3.12.3-0ubuntu2.1) ...\nProcessing triggers for libc-bin (2.39-0ubuntu8.9) ...\nSwift version 6.4 (swift-6.4-RELEASE)\nTarget: aarch64-unknown-linux-gnu\naarch64\nheaptrack\t1.5.0+dfsg1-2ubuntu3\npython3\t3.12.3-0ubuntu2.1\nBuilding for production...\n[Planning deferred tasks]\n[30\u2009/\u200939] SwiftJLS\n[38\u2009/\u200941] WorkspaceProbe-product\nBuild complete! (12.49 secs)\n989a3261ea006fed1a4ecd0422d5dac771f8251de1e52ff3bf1de09cb842d305  /evidence/build/out/Products/Release-linux-aarch64/WorkspaceProbe\n989a3261ea006fed1a4ecd0422d5dac771f8251de1e52ff3bf1de09cb842d305  /evidence/WorkspaceProbe\nMarked operation replay controls passed\nWorkspace profile runner controls passed\n",
+  "stderr": "debconf: delaying package configuration, since apt-utils is not installed\nTraceback (most recent call last):\n  File \"/SwiftJLS/Scripts/StorageEvidence/measure-operation.py\", line 326, in <module>\n    with gzip.open(a.profile,'rt') as f: result=replay(f.readlines())\n                                                ^^^^^^^^^^^^^^^^^^^^^\n  File \"/SwiftJLS/Scripts/StorageEvidence/measure-operation.py\", line 193, in replay\n    if begins != 1 or ends != 2: raise ValueError('Missing unique operation markers')\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: Missing unique operation markers\nTraceback (most recent call last):\n  File \"/SwiftJLS/Scripts/StorageEvidence/run-workspace-profiles.py\", line 120, in <module>\n    subprocess.run(['python3','Scripts/StorageEvidence/measure-operation.py','--profile',str(profile_path),'--output',str(report_path),'--revision',a.revision],check=True)\n  File \"/usr/lib/python3.12/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['python3', 'Scripts/StorageEvidence/measure-operation.py', '--profile', '/evidence/profiles/17-1-0-encode/allocations.gz', '--output', '/evidence/profiles/17-1-0-encode/operation.json', '--revision', 'working-tree:d0728e51b97290d307fbe2573f5f25b8bd318472f7389f1946e55a966b3e19c1']' returned non-zero exit status 1.\n",
+  "built_binary_sha256": "989a3261ea006fed1a4ecd0422d5dac771f8251de1e52ff3bf1de09cb842d305"
+}

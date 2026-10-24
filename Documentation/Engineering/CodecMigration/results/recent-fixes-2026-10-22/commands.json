@@ -1,0 +1,167 @@
+[
+  {
+    "label": "debug",
+    "command": [
+      "swift",
+      "test",
+      "--build-system",
+      "swiftbuild",
+      "--jobs",
+      "4",
+      "--scratch-path",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/debug",
+      "--disable-xctest",
+      "--xunit-output",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/debug.xml",
+      "-Xswiftc",
+      "-load-plugin-library",
+      "-Xswiftc",
+      "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+    ],
+    "exit_code": 0,
+    "seconds": 28.785433375,
+    "developer_dir": "/Library/Developer/CommandLineTools",
+    "declarations": 143,
+    "failures": 0,
+    "skipped": 0
+  },
+  {
+    "label": "release",
+    "command": [
+      "swift",
+      "test",
+      "--build-system",
+      "swiftbuild",
+      "--jobs",
+      "4",
+      "--scratch-path",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/release",
+      "--disable-xctest",
+      "--xunit-output",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/release.xml",
+      "-Xswiftc",
+      "-load-plugin-library",
+      "-Xswiftc",
+      "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+      "-c",
+      "release"
+    ],
+    "exit_code": 0,
+    "seconds": 44.442243917,
+    "developer_dir": "/Library/Developer/CommandLineTools",
+    "declarations": 143,
+    "failures": 0,
+    "skipped": 0
+  },
+  {
+    "label": "asan",
+    "command": [
+      "swift",
+      "test",
+      "--build-system",
+      "swiftbuild",
+      "--jobs",
+      "4",
+      "--scratch-path",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/asan",
+      "--disable-xctest",
+      "--xunit-output",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/asan.xml",
+      "-Xswiftc",
+      "-load-plugin-library",
+      "-Xswiftc",
+      "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+      "--sanitize",
+      "address"
+    ],
+    "exit_code": 0,
+    "seconds": 48.03545333299999,
+    "developer_dir": "/Library/Developer/CommandLineTools",
+    "declarations": 143,
+    "failures": 0,
+    "skipped": 0
+  },
+  {
+    "label": "tsan",
+    "command": [
+      "swift",
+      "test",
+      "--build-system",
+      "swiftbuild",
+      "--jobs",
+      "4",
+      "--scratch-path",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/tsan",
+      "--disable-xctest",
+      "--xunit-output",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/tsan.xml",
+      "-Xswiftc",
+      "-load-plugin-library",
+      "-Xswiftc",
+      "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib",
+      "--sanitize",
+      "thread"
+    ],
+    "exit_code": 0,
+    "seconds": 45.501740957999985,
+    "developer_dir": "/Library/Developer/CommandLineTools",
+    "declarations": 143,
+    "failures": 0,
+    "skipped": 0
+  },
+  {
+    "label": "cli-payload",
+    "command": [
+      "python3",
+      "Scripts/test-payload-cli.py",
+      "--binary",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/release/release/swiftjls-cli",
+      "--output",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/cli-payload.json"
+    ],
+    "exit_code": 0,
+    "seconds": 1.5242074159999959,
+    "developer_dir": "/Library/Developer/CommandLineTools"
+  },
+  {
+    "label": "cli-process",
+    "command": [
+      "python3",
+      "Scripts/test-cli.py",
+      "--binary",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/release/release/swiftjls-cli",
+      "--output",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/cli-process"
+    ],
+    "exit_code": 0,
+    "seconds": 1.6064753750000023,
+    "developer_dir": "/Library/Developer/CommandLineTools"
+  },
+  {
+    "label": "consumer-build",
+    "command": [
+      "swift",
+      "build",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "Examples/IndependentConsumer",
+      "--scratch-path",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/consumer-build"
+    ],
+    "exit_code": 0,
+    "seconds": 29.39377670799999,
+    "developer_dir": "/Library/Developer/CommandLineTools"
+  },
+  {
+    "label": "consumer",
+    "command": [
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/recent-fixes-final-2026-10-22/consumer-build/release/Consumer"
+    ],
+    "exit_code": 0,
+    "seconds": 0.34286149999999793,
+    "developer_dir": "/Library/Developer/CommandLineTools"
+  }
+]

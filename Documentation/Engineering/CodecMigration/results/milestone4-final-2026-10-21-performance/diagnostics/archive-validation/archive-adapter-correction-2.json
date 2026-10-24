@@ -1,0 +1,16 @@
+{
+  "recorded_utc": "2026-10-21T15:46:58.914515+00:00",
+  "status": "Adapter schema correction; retry awaits root",
+  "first_failure_log": "archive-publish-prepare-2.log",
+  "first_failure_log_sha256": "f7a0f92e7c5365f46ba625debf8af62b3caf4e62ec941dafd2ba4a0dd8ca9f59",
+  "failure": "KeyError base_revision in incremental reference identity",
+  "cause": "The frozen three-change reference names its base_source field; the selected candidate names its field base_revision. The adapter applied the selected-producer key to the distinct preceding reference.",
+  "correction": "Require exact reference base_source matching the archived preceding source, alongside unchanged reference patch/binary/build and selected-producer guards. No fallback or permissive key omission introduced.",
+  "changed_file": "archive-measurements.py",
+  "measurement_files_changed": false,
+  "measurement_reruns": 0,
+  "evidence_rewritten": false,
+  "failure_log_preserved": true,
+  "archive_published": false,
+  "additional_archive_work": "Added a strict size-validation adapter for the final selected larger size finding. It checks retained stream and command bytes, exact APP8 range removal, full entropy/normalised equality and scoped cross-decode receipts; it does not run binaries or qualify timings/an independent oracle."
+}

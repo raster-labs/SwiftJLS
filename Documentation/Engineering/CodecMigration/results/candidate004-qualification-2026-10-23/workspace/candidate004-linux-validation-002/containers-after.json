@@ -1,0 +1,18 @@
+{
+  "redacted_public_derivative": true,
+  "local_original_sha256": "4866b98821762fc180ef6113609b1882eebed147f1e4a7184273b5ab02521661",
+  "local_original_bytes": 932,
+  "redaction_note": "Unrelated host process/container arguments omitted for public repository safety; original raw record retained locally.",
+  "command": [
+    "/Users/pushparaj/.local/bin/docker",
+    "--context",
+    "colima",
+    "ps",
+    "--format",
+    "{{.ID}} {{.Image}} {{.Names}}"
+  ],
+  "exit_code": 0,
+  "stdout": "6fe5620aee82 33f923b05f64 hrm-a1-007-20261023105358\n5ea299d54b09 raster/one-frontend:dev raster-one-frontend-1\n5930bc4aec00 raster/one-erp:dev raster-one-one-erp-1\ncf24bc615571 raster/one-kernel:dev raster-one-kernel-1\nfb2044464f91 raster/one-studio:dev raster-one-studio-1\n269d55cfa5af postgres:16-alpine raster-one-postgres-1\n9655b95a4e23 rabbitmq:3.13-management-alpine raster-one-rabbitmq-1\n1bca90e3d2e8 redis:7-alpine raster-one-redis-1\n8c3f3f59c647 caddy:2 oosai-lan\n4b02c30d17f7 mysql:8.0 dev_mysql\nab25fd93708d postgres:15-alpine dev_postgres\nc1cfb710c4f1 redis:alpine redis_container\n",
+  "stderr": "",
+  "scope": "Inventory only; no shared container start/stop/kill performed. Workload containers used --rm and exited."
+}

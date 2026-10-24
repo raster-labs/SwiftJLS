@@ -1,0 +1,52 @@
+[
+  {
+    "label": "benchmark-release",
+    "command": [
+      "swift",
+      "build",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--package-path",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-singleton-mapping-diagnostic/benchmark"
+    ],
+    "developer_dir": "/Library/Developer/CommandLineTools",
+    "exit_code": 0,
+    "seconds": 26.108729375,
+    "log_sha256": "80d173e1cf4b17ac0c88f67baa308f3c8aac1bcbdb83f0b034304d5b1da3158e"
+  },
+  {
+    "label": "descriptor-release",
+    "command": [
+      "swift",
+      "test",
+      "--package-path",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-singleton-mapping-diagnostic/source",
+      "--build-system",
+      "swiftbuild",
+      "-c",
+      "release",
+      "--jobs",
+      "4",
+      "--scratch-path",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-singleton-mapping-diagnostic/test-build",
+      "--disable-xctest",
+      "--filter",
+      "DescriptorTests",
+      "--xunit-output",
+      "/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-singleton-mapping-diagnostic/descriptor-release.xml",
+      "-Xswiftc",
+      "-load-plugin-library",
+      "-Xswiftc",
+      "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
+    ],
+    "developer_dir": "/Library/Developer/CommandLineTools",
+    "exit_code": 0,
+    "seconds": 34.955559166,
+    "log_sha256": "afcbf54442aa9df569869ddfbb1a12085bc6a5c6ff1c93bf888bd6cadf68a987",
+    "declarations": 12,
+    "failures": 0,
+    "skipped": 0
+  }
+]

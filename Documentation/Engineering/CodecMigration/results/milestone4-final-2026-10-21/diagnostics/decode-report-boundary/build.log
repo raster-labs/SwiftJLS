@@ -1,0 +1,87 @@
+Building for production...
+[Planning deferred tasks]
+[1 / 8]
+[3 / 10] UUIDMicroCore
+[15 / 64]
+[22 / 64]
+[24 / 64]
+[29 / 64]
+[33 / 64]
+[36 / 64]
+[38 / 64]
+[39 / 64]
+[45 / 64]
+[47 / 64]
+[51 / 64]
+[52 / 64]
+[54 / 64]
+[56 / 64]
+[58 / 64] UUIDMicroCore
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Package.swift: UUIDMicroCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[64 / 69] UUIDBenchmark-product
+[65 / 70] UUIDBenchmark-product
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Package.swift: UUIDBenchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Package.swift: UUIDBenchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[67 / 70] UUIDBenchmark-product
+[67 / 70] SwiftJLS
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/Package.swift: SwiftJLS: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[73 / 78] ZeroBenchmark-product
+[75 / 80] ZeroBenchmark-product
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Sources/ZeroBenchmark/main.swift:121:15: warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+119 | let image = try makeImage()
+120 | if let path = ProcessInfo.processInfo.environment["SWIFTJLS_BENCHMARK_DECODE"] {
+121 |     try await decode(Data(contentsOf: URL(fileURLWithPath: path)), verify: true)
+    |               `- warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+122 | }
+123 | let reference = try await encode(image)
+
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Sources/ZeroBenchmark/main.swift:124:11: warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+122 | }
+123 | let reference = try await encode(image)
+124 | try await decode(reference, verify: true)
+    |           `- warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+125 | // Optional export is for a separate oracle experiment, never a timed benchmark.
+126 | if let path = ProcessInfo.processInfo.environment["SWIFTJLS_BENCHMARK_EXPORT"] {
+
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Sources/ZeroBenchmark/main.swift:130:44: warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+128 | }
+129 | for _ in 0..<warmups {
+130 |     _ = try await encode(image); try await decode(reference, verify: false)
+    |                                            `- warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+131 |     if endToEnd { _ = try await encode(makeImage()) }
+132 | }
+
+[#NoUsage]: <https://docs.swift.org/compiler/documentation/diagnostics/no-usage>
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Sources/ReportBenchmark/main.swift:117:15: warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+115 | let image = try makeImage()
+116 | if let path = ProcessInfo.processInfo.environment["SWIFTJLS_BENCHMARK_DECODE"] {
+117 |     try await decode(Data(contentsOf: URL(fileURLWithPath: path)), verify: true)
+    |               `- warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+118 | }
+119 | let reference = try await encode(image)
+
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Sources/ReportBenchmark/main.swift:120:11: warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+118 | }
+119 | let reference = try await encode(image)
+120 | try await decode(reference, verify: true)
+    |           `- warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+121 | // Optional export is for a separate oracle experiment, never a timed benchmark.
+122 | if let path = ProcessInfo.processInfo.environment["SWIFTJLS_BENCHMARK_EXPORT"] {
+
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Sources/ReportBenchmark/main.swift:126:44: warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+124 | }
+125 | for _ in 0..<warmups {
+126 |     _ = try await encode(image); try await decode(reference, verify: false)
+    |                                            `- warning: result of call to 'decode(_:verify:)' is unused [#NoUsage]
+127 |     if endToEnd { _ = try await encode(makeImage()) }
+128 | }
+
+[#NoUsage]: <https://docs.swift.org/compiler/documentation/diagnostics/no-usage>
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Package.swift: ZeroBenchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Package.swift: ZeroBenchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[79 / 80] ZeroBenchmark-product
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Package.swift: ReportBenchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/pushparaj/Documents/Codex/2026-10-13/che/work/SwiftJLS/work/m4-final-2026-10-21/diagnostics/decode-report-boundary/Package.swift: ReportBenchmark-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[83 / 83] UUIDBenchmark-product
+[86 / 86] ReportBenchmark-product
+Build complete! (25.35 secs)

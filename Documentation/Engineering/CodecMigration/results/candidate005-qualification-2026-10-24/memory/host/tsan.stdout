@@ -1,0 +1,483 @@
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite "Lossless precision admission" started.
+◇ Suite "Migrated scalar JPEG-LS" started.
+◇ Suite "Parsed header descriptor reuse" started.
+◇ Suite "Bounded frame and scan bookkeeping" started.
+◇ Suite "Explicit ICC discard on encode" started.
+◇ Suite "Sample-interleaved native destination views" started.
+◇ Suite "Header frame admission" started.
+◇ Suite "Component precision admission" started.
+◇ Suite "Parser workspace admission" started.
+◇ Suite "Concurrent resource admission" started.
+◇ Suite "Header entropy scan boundaries" started.
+◇ Suite "Descriptor validation" started.
+◇ Suite "Mapping tables and metadata" started.
+◇ Suite "Qualified monochrome caller workspace" started.
+◇ Suite "Owned destination admission and required metadata" started.
+◇ Suite "Load-bearing shared layout expectations" started.
+◇ Suite "Bounded bitstream writer" started.
+◇ Suite "Quantized context mapping" started.
+◇ Suite "Decoder and encoder gradient table intervals" started.
+◇ Suite "Byte-order sample access" started.
+◇ Suite APITests started.
+◇ Suite "Destination lease completion" started.
+◇ Suite "HP RGB transform boundaries" started.
+◇ Suite "Bounded kernel storage" started.
+◇ Suite "Remaining predecessor profiles" started.
+◇ Suite "Bounded scalar run checkpoints" started.
+◇ Test cancellationInProviderFinalisationPreventsPublication(_:) started.
+◇ Test sealedOwnerSupportsConcurrentReadersAndNestedRead() started.
+◇ Suite "Initial marker fill and inspection progress policy" started.
+◇ Test adaptersShareWriterAuthorityAndRejectForgedLease() started.
+◇ Test failedFillInvalidatesDestination() started.
+◇ Suite "Independent component JPEG-LS" started.
+◇ Test actualTaskCancellationDuringFillPreventsPublication() started.
+◇ Test sameTokenCannotAuthoriseConcurrentOverlappingBorrows() started.
+◇ Test abandonedDestinationInvalidatesItsReservedOwner() started.
+◇ Test imageRetainsAdapterUntilLastImageReleaseExactlyOnce() started.
+◇ Test concurrentAdaptersReserveExactlyOneWriter() started.
+◇ Test metadataAndDestinationLimitsUseCallerBudget() started.
+◇ Test reentrantLeaseOperationsRejectWithoutDeadlocking() started.
+◇ Test throwingBorrowReleasesAdmissionWithoutPublishingStorage() started.
+◇ Test cancellationFromCompletionCallbackIsPropagated() started.
+◇ Test nearLosslessAndHPStillValidateOriginalComponentSamples() started.
+◇ Test reusedLayoutRechecksRequestedLimits() started.
+◇ Test eightBitStorageUsesDirectPaddedRows() started.
+◇ Test explicitDiscardMatchesUnprofiledWithoutCopy(components:) started.
+◇ Test invalidPresetThresholdAndDecoderOverridesAreRejected() started.
+◇ Test independentRestartIntervalsAndMarkerSequence() started.
+◇ Test matchesDescriptorLimitsOverflowAndErrorOrder() started.
+◇ Test separateScansCoverEveryComponentExactlyOnceInAnyOrder() started.
+◇ Test invalidRunSamplesAndInterruptionsCannotEscapeValidation() started.
+◇ Test customMaximumChecksRegularSamplesAndRestartRows() started.
+◇ Test componentRunsCheckEveryLaneAndInterleave() started.
+◇ Test dicomPaddingPreservesSamplesAndDestination(_:) started.
+◇ Test independentlyEncodedNearLosslessSamples() started.
+◇ Test componentCustomMaximumChecksRegularSamplesAndPreservesLayouts() started.
+◇ Test preserveAndUnknownRequiredMetadataRejectBeforeBorrow(components:) started.
+◇ Test discardedProfileStillCountsAgainstAdmission(components:) started.
+◇ Test dicomPaddingCountsTowardsCompressedLimit() started.
+◇ Test independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test customPresetTablesAreAdmittedBeforeAllocation() started.
+◇ Test dicomPaddingRejectsOtherTrailingBytesBeforeWriting() started.
+◇ Test lowMaximumNearDefaultsMatchSpecificationAndIndependentVector() started.
+◇ Test oddNativePlanesMatchGeneralLayoutsAcrossCodingTransitions() started.
+◇ Test cancellationPreservesUnwrittenRowsAndLongRunTail() started.
+◇ Test knownRequiredMetadataSurvivesICCDiscard(components:) started.
+◇ Test paddingByteOrderAndTailSamples() started.
+◇ Test smallAlphabetPresetSampleBounds() started.
+◇ Test validationPropagatesCancellation() started.
+◇ Test boundedColourAndNearLosslessWorkers() started.
+◇ Test limitsAndCancellationPrecedePublication() started.
+◇ Test slicedInputUsesRelativeOffsets() started.
+◇ Test truncatedTerminalFailsAtEveryWordLaneAndCheckpointTail() started.
+◇ Test metadataFreeInspectionEnforcesWorkspaceAndTotalBoundaries() started.
+◇ Test decodeCannotSilentlyDiscardDestinationICC(components:) started.
+◇ Test metadataChargeRetainsFixedReservationBeforeAllocatingPayload() started.
+◇ Test truncationAndUnaryBombFailWithoutPublishing() started.
+◇ Test precisionValidationChecksPackedBlocksAndTailsWithoutPadding() started.
+◇ Test rejectsArithmeticOverflowBeforeAllocation() started.
+◇ Test packedRunReadsAndFillsPreserveOtherBytes() started.
+◇ Test sampleOrderAndPaddingDoNotChangeCodestream() started.
+◇ Test rejectsOverlappingPlanesAndIncompleteMapping() started.
+◇ Test rejectsMisalignedOffsetsAndStrides() started.
+◇ Test truncatedRestartDirectoryRejectsBeforeTakingDestinationLease() started.
+◇ Test stuffedFFRemainsEntropyAcrossWordAndCheckpointBoundaries() started.
+◇ Test case passing 1 argument point → .sealing to cancellationInProviderFinalisationPreventsPublication(_:) started.
+◇ Test samplingEqualityKeepsInactiveRestartAndUnsupportedCombinationRules() started.
+◇ Test rejectsInvalidPlaneComponentLists() started.
+◇ Test restartDirectoriesAroundCapacityBoundariesPreserveSamples() started.
+◇ Test markerAndFillAtEveryWordLaneAndCheckpointTail() started.
+◇ Test semanticMetadataMustAgreeWithComponents() started.
+◇ Test surplusEntropyAndNonzeroPaddingAreRejected() started.
+◇ Test rejectsInvalidGeometryAndPrecision() started.
+◇ Test case passing 1 argument point → .validatingSealedStorage to cancellationInProviderFinalisationPreventsPublication(_:) started.
+◇ Test unsignedWireFieldsStayBoundedOnNativeWordSizes() started.
+◇ Test singletonAndGeneralMappingMatrix() started.
+◇ Test malformedMappingsRejectBeforeWritingAndLegacyIsExplicit() started.
+◇ Test singletonMappingErrorPrecedesAlignment() started.
+◇ Test deterministicLayoutMutation() started.
+◇ Test paddedOddDimensionsAndPrecision() started.
+◇ Test spiffDensityAndDirectoryRoundTrip() started.
+◇ Test independentMappingTablesPreserveIndicesAndMapExplicitly() started.
+◇ Test uninterpretedSPIFFIsRequiredAndLimitsPrecedePublication() started.
+◇ Test orderedOpaqueSegmentsAndPolicies() started.
+◇ Test encodeMetadataMembershipPrecedenceAndValidation() started.
+◇ Test cancellationStillFollowsDescriptorPreflight() started.
+◇ Test rejectsTruncationSurplusEntropyAndNonzeroPadding() started.
+◇ Test finalRowNeedsOnlyItsActualSampleBytes() started.
+◇ Test allocatedDestinationExposesReservedStorageAndEnforcesAllLeaseGuards() started.
+◇ Test malformedUnaryAndInterruptedRunCannotGrowContextState() started.
+◇ Test explicitPointTransformAndLowPrecisionProfile() started.
+◇ Test concurrentDestinationWritesPublishExactlyOnce() started.
+◇ Test freshOwnedFactoryLifecycleMetadataAndLimits() started.
+◇ Test ownedWriteMetadataPreflightRejectsBeforeStartAndRetainsReservationForRetry() started.
+◇ Test stuffedBitsAndExactOutputLimits() started.
+◇ Test ownedAllocationKeepsAdmissionOrderAndExactLimits() started.
+◇ Test componentDecoderRespectsStrideAndOrder() started.
+◇ Test restartEnvelopesAndMarkerFill() started.
+◇ Test selectedPaletteMustExistAndCoverEveryIndex() started.
+◇ Test scalarEncoderRespectsStrideAndOrder() started.
+◇ Test pinnedPredecessorNonflatLowPrecisionAndFinalPresetSelection() started.
+◇ Test rejectsUnsupportedMarkersBeforeSampleWrites() started.
+◇ Test independentBudgetsAndFiniteDeadlineAdmission() started.
+◇ Test independentCharLSSamplesAndNearLossless() started.
+◇ Test ownedAndSuppliedDecodeMetadataPolicyFidelityAndDestinationLimits() started.
+◇ Test standardHighNearThresholdsMustBeExplicitInLegacyProfile() started.
+◇ Test requiredMetadataMembershipAndErrorOrder() started.
+◇ Test admittedOwnedWriteRejectsPostFillCancellationAndInvalidatesStorage() started.
+◇ Test combinedIndexAndSignMatchesEveryQuantizedTriple() started.
+◇ Test ownedDecodeAndInspectReuseAdmittedDescriptorAndKeepBudgetGuards() started.
+◇ Test cancellationBeforeAndDuringRunWrites() started.
+◇ Test unaryWindowStuffingOracleAndBoundaryRejection() started.
+◇ Test spansRejectBeforeWriting() started.
+◇ Test everySmallThresholdTripleAndNearValueMatchesReference() started.
+◇ Test scalarDecoderRespectsStrideAndOrder() started.
+◇ Test maximumTableAndFallbackBoundariesMatchEveryGradient() started.
+◇ Test initialisesExternalSampleBytesAtOddAddressWithoutChangingPadding() started.
+◇ Test writesGoldenBytesForPackedAndPadded12And16BitSamples() started.
+◇ Test outOfPrecisionWriteInvalidatesDestination() started.
+◇ Test refusesShortProviderBeforeLoadingSample() started.
+◇ Test nonthrowingSignaturesAndExactScratch() started.
+◇ Test legacyMappingAndExtendedDimensionFixtures() started.
+◇ Test fullCapacityLimitsAndInputOutputAlias() started.
+◇ Test modularBoundaryPixelsAreReversible() started.
+◇ Test rejectsCoordinatesBeforeOffsetArithmetic() started.
+◇ Test readsIndependentGoldenBytesFromOddPhysicalAddress() started.
+◇ Test explicitLegacyMigrationPreservesSamplesAndLayout() started.
+◇ Test incompatibleEncoderRequestsAreRejected() started.
+◇ Test resourceAndRequiredBackendErrorsPrecedeUnsupportedCodec() started.
+◇ Test failedSealedValidationStillAttemptsCleanup() started.
+◇ Test sampleHelperPreservesExplicitBigEndian() started.
+◇ Test defaultsMatchEveryPossibleSampleGradient() started.
+◇ Test packedRunPrefixRespectsMismatchAndRowExtent() started.
+◇ Test cancellationKeepsSwiftCancellationError() started.
+◇ Test outOfRangeTwelveBitSampleInvalidatesDestination() started.
+◇ Test transformOnlyHeaderStillDeclaresRGB() started.
+◇ Test malformedAndIncompatibleSignalsRejectBeforeDestinationWrite() started.
+◇ Test case passing 1 argument components → 1 to explicitDiscardMatchesUnprofiledWithoutCopy(components:) started.
+◇ Test componentEncoderRespectsStrideAndOrder() started.
+◇ Test defaultsAndUnsupportedFidelityAreExplicit() started.
+◇ Test widePrecisionCheckRejectsEveryInvalidLane() started.
+◇ Test exactSamplesAndZeroedPadding(precision:) started.
+◇ Test nativeCodecCapabilitiesAndMalformedInputAreExplicit() started.
+◇ Test scalarCodecPreservesOddPhysicalOriginsAndPadding() started.
+◇ Test legacyPrecisionAndScanSchedules() started.
+◇ Test finiteDeadlineDoesNotRequireIntegerConversion() started.
+◇ Test subsampledRowsRemainInTheirOwnPlanes() started.
+◇ Test case passing 1 argument components → 3 to explicitDiscardMatchesUnprofiledWithoutCopy(components:) started.
+◇ Test nonzeroSubsamplingMatchesPinnedPredecessor() started.
+◇ Test independentlyEncodedExtendedDimensions() started.
+◇ Test successfulPublicationDoesNotAbortSealedOwner() started.
+◇ Test actualLegacyDimensionsAndContinuations() started.
+◇ Test cancellationDuringSealingStillAttemptsCleanup() started.
+◇ Test predecessorCombinedMappingAndHPOrder() started.
+◇ Test abandonedDestinationAbortsReservation() started.
+◇ Test failedFillCleansUpAndRetriesOnlyFailedAbort(_:) started.
+◇ Test encodeCancelsBeforeReadingTheSecondRunChunk() started.
+◇ Test smallPlanesCannotHideDifferentSamplingRatios() started.
+◇ Test shortRunDecodeCancelsBeforeWritingTheNextRow() started.
+◇ Test longRunDecodeChecksAfterParsingBeforeWriting() started.
+◇ Test case passing 1 argument prefix → 0 to dicomPaddingPreservesSamplesAndDestination(_:) started.
+◇ Test case passing 1 argument prefix → 1 to dicomPaddingPreservesSamplesAndDestination(_:) started.
+◇ Test case passing 1 argument prefix → 2 to dicomPaddingPreservesSamplesAndDestination(_:) started.
+◇ Test case passing 1 argument components → 1 to discardedProfileStillCountsAgainstAdmission(components:) started.
+◇ Test case passing 1 argument components → 3 to discardedProfileStillCountsAgainstAdmission(components:) started.
+◇ Test case passing 1 argument components → 1 to preserveAndUnknownRequiredMetadataRejectBeforeBorrow(components:) started.
+◇ Test case passing 1 argument name → "p2-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument components → 3 to preserveAndUnknownRequiredMetadataRejectBeforeBorrow(components:) started.
+◇ Test case passing 1 argument name → "p2-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p2-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p2-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p2-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument components → 1 to knownRequiredMetadataSurvivesICCDiscard(components:) started.
+◇ Test case passing 1 argument name → "p2-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument components → 3 to knownRequiredMetadataSurvivesICCDiscard(components:) started.
+◇ Test case passing 1 argument name → "p3-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p3-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p3-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p3-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p3-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test dicomPaddingParityIncludesLeadingFill() started.
+◇ Test case passing 1 argument name → "p3-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p4-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument components → 1 to decodeCannotSilentlyDiscardDestinationICC(components:) started.
+◇ Test case passing 1 argument name → "p4-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument components → 3 to decodeCannotSilentlyDiscardDestinationICC(components:) started.
+◇ Test synchronousInspectionRejectsProgressBeforeParsing() started.
+◇ Test case passing 1 argument name → "p4-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test leadingFillPreservesSamplesAndSuppliedStorage() started.
+◇ Test case passing 1 argument name → "p4-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p4-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p4-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test truncatedFillAndCompressedLimitsPreserveReservation() started.
+◇ Test case passing 1 argument name → "p5-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p5-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p5-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p5-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p5-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p5-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p6-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p6-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p6-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p6-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p6-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p6-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test activeInterleavedDRIAndStrayMarkersRejectBeforeWriting() started.
+◇ Test case passing 1 argument name → "p7-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p7-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p7-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p7-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p7-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p7-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p8-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test truncatedComponentDirectoryAndMismatchedSPIFFAreRejected() started.
+◇ Test case passing 1 argument name → "p8-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p8-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test componentLimitsCancellationAndMalformedScans() started.
+◇ Test case passing 1 argument name → "p8-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test inactiveInterleavedDRIPreservesSamplesAndStorage() started.
+◇ Test case passing 1 argument name → "p8-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p8-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test twoComponentInterleaveLocalInvariants() started.
+◇ Test case passing 1 argument name → "p9-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test independentPlanarAndPixelLayouts() started.
+◇ Test case passing 1 argument name → "p9-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p9-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p9-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p9-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p9-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p10-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p10-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p10-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p10-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p10-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p10-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p11-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p11-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p11-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p11-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p11-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p11-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p12-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p12-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+✔ Test adaptersShareWriterAuthorityAndRejectForgedLease() passed after 0.120 seconds.
+✔ Test abandonedDestinationInvalidatesItsReservedOwner() passed after 0.120 seconds.
+◇ Test case passing 1 argument name → "p12-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p12-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p12-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p12-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p13-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p13-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p13-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p13-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p13-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+✔ Test sameTokenCannotAuthoriseConcurrentOverlappingBorrows() passed after 0.139 seconds.
+◇ Test case passing 1 argument name → "p13-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p14-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p14-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p14-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p14-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+✔ Test failedFillInvalidatesDestination() passed after 0.147 seconds.
+◇ Test case passing 1 argument name → "p14-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p14-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p15-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+✔ Test imageRetainsAdapterUntilLastImageReleaseExactlyOnce() passed after 0.154 seconds.
+◇ Test case passing 1 argument name → "p15-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p15-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p15-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p15-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p15-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p16-1x1-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p16-1x19-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+✔ Test reentrantLeaseOperationsRejectWithoutDeadlocking() passed after 0.167 seconds.
+◇ Test case passing 1 argument name → "p16-23x1-ramp" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p16-17x13-noise" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p16-33x9-zero" to independentlyEncodedSamplesDecodeExactly(_:) started.
+◇ Test case passing 1 argument name → "p16-33x9-max" to independentlyEncodedSamplesDecodeExactly(_:) started.
+✔ Test throwingBorrowReleasesAdmissionWithoutPublishingStorage() passed after 0.178 seconds.
+◇ Test case passing 1 argument precision → 12 to exactSamplesAndZeroedPadding(precision:) started.
+◇ Test case passing 1 argument precision → 16 to exactSamplesAndZeroedPadding(precision:) started.
+◇ Test case passing 1 argument failFirstAbort → false to failedFillCleansUpAndRetriesOnlyFailedAbort(_:) started.
+✔ Test metadataAndDestinationLimitsUseCallerBudget() passed after 0.226 seconds.
+◇ Test case passing 1 argument failFirstAbort → true to failedFillCleansUpAndRetriesOnlyFailedAbort(_:) started.
+✔ Test explicitDiscardMatchesUnprofiledWithoutCopy(components:) with 2 test cases passed after 0.231 seconds.
+✔ Test invalidPresetThresholdAndDecoderOverridesAreRejected() passed after 0.233 seconds.
+✔ Test dicomPaddingCountsTowardsCompressedLimit() passed after 0.232 seconds.
+✔ Test discardedProfileStillCountsAgainstAdmission(components:) with 2 test cases passed after 0.232 seconds.
+✔ Test dicomPaddingPreservesSamplesAndDestination(_:) with 3 test cases passed after 0.232 seconds.
+✔ Test customPresetTablesAreAdmittedBeforeAllocation() passed after 0.232 seconds.
+✔ Test preserveAndUnknownRequiredMetadataRejectBeforeBorrow(components:) with 2 test cases passed after 0.233 seconds.
+✔ Test independentlyEncodedSamplesDecodeExactly(_:) with 90 test cases passed after 0.233 seconds.
+✔ Test lowMaximumNearDefaultsMatchSpecificationAndIndependentVector() passed after 0.233 seconds.
+✔ Test reusedLayoutRechecksRequestedLimits() passed after 0.233 seconds.
+✔ Test eightBitStorageUsesDirectPaddedRows() passed after 0.233 seconds.
+✔ Test knownRequiredMetadataSurvivesICCDiscard(components:) with 2 test cases passed after 0.233 seconds.
+✔ Test matchesDescriptorLimitsOverflowAndErrorOrder() passed after 0.233 seconds.
+✔ Test validationPropagatesCancellation() passed after 0.249 seconds.
+✔ Test dicomPaddingRejectsOtherTrailingBytesBeforeWriting() passed after 0.249 seconds.
+✔ Test metadataFreeInspectionEnforcesWorkspaceAndTotalBoundaries() passed after 0.249 seconds.
+✔ Test slicedInputUsesRelativeOffsets() passed after 0.249 seconds.
+✔ Test metadataChargeRetainsFixedReservationBeforeAllocatingPayload() passed after 0.251 seconds.
+✔ Test decodeCannotSilentlyDiscardDestinationICC(components:) with 2 test cases passed after 0.251 seconds.
+✔ Test separateScansCoverEveryComponentExactlyOnceInAnyOrder() passed after 0.252 seconds.
+✔ Test rejectsArithmeticOverflowBeforeAllocation() passed after 0.259 seconds.
+✔ Test packedRunReadsAndFillsPreserveOtherBytes() passed after 0.259 seconds.
+✔ Test truncatedTerminalFailsAtEveryWordLaneAndCheckpointTail() passed after 0.259 seconds.
+✔ Test rejectsOverlappingPlanesAndIncompleteMapping() passed after 0.264 seconds.
+✔ Test sampleOrderAndPaddingDoNotChangeCodestream() passed after 0.264 seconds.
+✔ Test rejectsMisalignedOffsetsAndStrides() passed after 0.264 seconds.
+✔ Test truncatedRestartDirectoryRejectsBeforeTakingDestinationLease() passed after 0.264 seconds.
+✔ Test smallAlphabetPresetSampleBounds() passed after 0.264 seconds.
+✔ Test rejectsInvalidPlaneComponentLists() passed after 0.264 seconds.
+✔ Test markerAndFillAtEveryWordLaneAndCheckpointTail() passed after 0.264 seconds.
+✔ Test semanticMetadataMustAgreeWithComponents() passed after 0.264 seconds.
+✔ Test samplingEqualityKeepsInactiveRestartAndUnsupportedCombinationRules() passed after 0.264 seconds.
+✔ Test surplusEntropyAndNonzeroPaddingAreRejected() passed after 0.265 seconds.
+✔ Test precisionValidationChecksPackedBlocksAndTailsWithoutPadding() passed after 0.265 seconds.
+✔ Test rejectsInvalidGeometryAndPrecision() passed after 0.264 seconds.
+✔ Test restartDirectoriesAroundCapacityBoundariesPreserveSamples() passed after 0.277 seconds.
+✔ Test singletonAndGeneralMappingMatrix() passed after 0.278 seconds.
+✔ Test truncationAndUnaryBombFailWithoutPublishing() passed after 0.279 seconds.
+✔ Test paddedOddDimensionsAndPrecision() passed after 0.281 seconds.
+✔ Test unsignedWireFieldsStayBoundedOnNativeWordSizes() passed after 0.281 seconds.
+✔ Test spiffDensityAndDirectoryRoundTrip() passed after 0.284 seconds.
+✔ Test orderedOpaqueSegmentsAndPolicies() passed after 0.284 seconds.
+✔ Test encodeMetadataMembershipPrecedenceAndValidation() passed after 0.296 seconds.
+✔ Test singletonMappingErrorPrecedesAlignment() passed after 0.367 seconds.
+✔ Test stuffedFFRemainsEntropyAcrossWordAndCheckpointBoundaries() passed after 0.368 seconds.
+✔ Test uninterpretedSPIFFIsRequiredAndLimitsPrecedePublication() passed after 0.367 seconds.
+✔ Test deterministicLayoutMutation() passed after 0.367 seconds.
+✔ Test malformedUnaryAndInterruptedRunCannotGrowContextState() passed after 0.367 seconds.
+✔ Test finalRowNeedsOnlyItsActualSampleBytes() passed after 0.367 seconds.
+✔ Test allocatedDestinationExposesReservedStorageAndEnforcesAllLeaseGuards() passed after 0.367 seconds.
+✔ Test concurrentDestinationWritesPublishExactlyOnce() passed after 0.367 seconds.
+✔ Test explicitPointTransformAndLowPrecisionProfile() passed after 0.367 seconds.
+✔ Test ownedWriteMetadataPreflightRejectsBeforeStartAndRetainsReservationForRetry() passed after 0.367 seconds.
+✔ Test stuffedBitsAndExactOutputLimits() passed after 0.368 seconds.
+✔ Test ownedAllocationKeepsAdmissionOrderAndExactLimits() passed after 0.368 seconds.
+✔ Test componentDecoderRespectsStrideAndOrder() passed after 0.368 seconds.
+✔ Test selectedPaletteMustExistAndCoverEveryIndex() passed after 0.368 seconds.
+✔ Test scalarEncoderRespectsStrideAndOrder() passed after 0.368 seconds.
+✔ Test customMaximumChecksRegularSamplesAndRestartRows() passed after 0.369 seconds.
+✔ Test paddingByteOrderAndTailSamples() passed after 0.369 seconds.
+✔ Test independentBudgetsAndFiniteDeadlineAdmission() passed after 0.368 seconds.
+✔ Test rejectsUnsupportedMarkersBeforeSampleWrites() passed after 0.368 seconds.
+✔ Test pinnedPredecessorNonflatLowPrecisionAndFinalPresetSelection() passed after 0.368 seconds.
+✔ Test ownedAndSuppliedDecodeMetadataPolicyFidelityAndDestinationLimits() passed after 0.368 seconds.
+✔ Test requiredMetadataMembershipAndErrorOrder() passed after 0.368 seconds.
+✔ Test cancellationPreservesUnwrittenRowsAndLongRunTail() passed after 0.369 seconds.
+✔ Test spansRejectBeforeWriting() passed after 0.368 seconds.
+✔ Test cancellationBeforeAndDuringRunWrites() passed after 0.368 seconds.
+✔ Test rejectsTruncationSurplusEntropyAndNonzeroPadding() passed after 0.368 seconds.
+✔ Test ownedDecodeAndInspectReuseAdmittedDescriptorAndKeepBudgetGuards() passed after 0.368 seconds.
+✔ Test scalarDecoderRespectsStrideAndOrder() passed after 0.368 seconds.
+✔ Test standardHighNearThresholdsMustBeExplicitInLegacyProfile() passed after 0.368 seconds.
+✔ Test initialisesExternalSampleBytesAtOddAddressWithoutChangingPadding() passed after 0.368 seconds.
+✔ Test restartEnvelopesAndMarkerFill() passed after 0.368 seconds.
+✔ Test combinedIndexAndSignMatchesEveryQuantizedTriple() passed after 0.368 seconds.
+✔ Test nearLosslessAndHPStillValidateOriginalComponentSamples() passed after 0.370 seconds.
+✔ Test writesGoldenBytesForPackedAndPadded12And16BitSamples() passed after 0.368 seconds.
+✔ Test outOfPrecisionWriteInvalidatesDestination() passed after 0.368 seconds.
+✔ Test nonthrowingSignaturesAndExactScratch() passed after 0.368 seconds.
+✔ Test rejectsCoordinatesBeforeOffsetArithmetic() passed after 0.368 seconds.
+✔ Test refusesShortProviderBeforeLoadingSample() passed after 0.368 seconds.
+✔ Test independentCharLSSamplesAndNearLossless() passed after 0.368 seconds.
+✔ Test readsIndependentGoldenBytesFromOddPhysicalAddress() passed after 0.368 seconds.
+✔ Test modularBoundaryPixelsAreReversible() passed after 0.368 seconds.
+✔ Test malformedMappingsRejectBeforeWritingAndLegacyIsExplicit() passed after 0.369 seconds.
+✔ Test failedSealedValidationStillAttemptsCleanup() passed after 0.368 seconds.
+✔ Test sampleHelperPreservesExplicitBigEndian() passed after 0.368 seconds.
+✔ Test resourceAndRequiredBackendErrorsPrecedeUnsupportedCodec() passed after 0.368 seconds.
+✔ Test fullCapacityLimitsAndInputOutputAlias() passed after 0.368 seconds.
+✔ Test outOfRangeTwelveBitSampleInvalidatesDestination() passed after 0.368 seconds.
+✔ Test transformOnlyHeaderStillDeclaresRGB() passed after 0.368 seconds.
+✔ Test unaryWindowStuffingOracleAndBoundaryRejection() passed after 0.369 seconds.
+✔ Test invalidRunSamplesAndInterruptionsCannotEscapeValidation() passed after 0.370 seconds.
+✔ Test defaultsAndUnsupportedFidelityAreExplicit() passed after 0.368 seconds.
+✔ Test widePrecisionCheckRejectsEveryInvalidLane() passed after 0.368 seconds.
+✔ Test exactSamplesAndZeroedPadding(precision:) with 2 test cases passed after 0.368 seconds.
+✔ Test nativeCodecCapabilitiesAndMalformedInputAreExplicit() passed after 0.368 seconds.
+✔ Test incompatibleEncoderRequestsAreRejected() passed after 0.369 seconds.
+✔ Test scalarCodecPreservesOddPhysicalOriginsAndPadding() passed after 0.368 seconds.
+✔ Test finiteDeadlineDoesNotRequireIntegerConversion() passed after 0.368 seconds.
+✔ Test componentEncoderRespectsStrideAndOrder() passed after 0.369 seconds.
+✔ Test subsampledRowsRemainInTheirOwnPlanes() passed after 0.368 seconds.
+✔ Test packedRunPrefixRespectsMismatchAndRowExtent() passed after 0.369 seconds.
+✔ Test successfulPublicationDoesNotAbortSealedOwner() passed after 0.368 seconds.
+✔ Test explicitLegacyMigrationPreservesSamplesAndLayout() passed after 0.369 seconds.
+✔ Test malformedAndIncompatibleSignalsRejectBeforeDestinationWrite() passed after 0.369 seconds.
+✔ Test abandonedDestinationAbortsReservation() passed after 0.368 seconds.
+✔ Test failedFillCleansUpAndRetriesOnlyFailedAbort(_:) with 2 test cases passed after 0.368 seconds.
+✔ Test encodeCancelsBeforeReadingTheSecondRunChunk() passed after 0.368 seconds.
+✔ Test smallPlanesCannotHideDifferentSamplingRatios() passed after 0.368 seconds.
+✔ Test shortRunDecodeCancelsBeforeWritingTheNextRow() passed after 0.368 seconds.
+✔ Test longRunDecodeChecksAfterParsingBeforeWriting() passed after 0.368 seconds.
+✔ Test everySmallThresholdTripleAndNearValueMatchesReference() passed after 0.370 seconds.
+✔ Test legacyPrecisionAndScanSchedules() passed after 0.370 seconds.
+✔ Test dicomPaddingParityIncludesLeadingFill() passed after 0.355 seconds.
+✔ Test synchronousInspectionRejectsProgressBeforeParsing() passed after 0.348 seconds.
+✔ Test leadingFillPreservesSamplesAndSuppliedStorage() passed after 0.347 seconds.
+✔ Test truncatedFillAndCompressedLimitsPreserveReservation() passed after 0.338 seconds.
+✔ Test sealedOwnerSupportsConcurrentReadersAndNestedRead() passed after 0.372 seconds.
+✔ Test truncatedComponentDirectoryAndMismatchedSPIFFAreRejected() passed after 0.305 seconds.
+✔ Test activeInterleavedDRIAndStrayMarkersRejectBeforeWriting() passed after 0.321 seconds.
+✔ Test twoComponentInterleaveLocalInvariants() passed after 0.302 seconds.
+✔ Test cancellationInProviderFinalisationPreventsPublication(_:) with 2 test cases passed after 0.382 seconds.
+✔ Test actualTaskCancellationDuringFillPreventsPublication() passed after 0.382 seconds.
+✔ Test concurrentAdaptersReserveExactlyOneWriter() passed after 0.382 seconds.
+✔ Suite "Explicit ICC discard on encode" passed after 0.383 seconds.
+✔ Suite "Parsed header descriptor reuse" passed after 0.384 seconds.
+✔ Suite "Header frame admission" passed after 0.385 seconds.
+✔ Suite "Component precision admission" passed after 0.396 seconds.
+✔ Test limitsAndCancellationPrecedePublication() passed after 0.395 seconds.
+✔ Suite "Parser workspace admission" passed after 0.396 seconds.
+✔ Suite "Bounded frame and scan bookkeeping" passed after 0.396 seconds.
+✔ Suite "Descriptor validation" passed after 0.396 seconds.
+✔ Suite "Header entropy scan boundaries" passed after 0.396 seconds.
+✔ Suite "Bounded bitstream writer" passed after 0.440 seconds.
+✔ Suite "Load-bearing shared layout expectations" passed after 0.440 seconds.
+✔ Suite "Byte-order sample access" passed after 0.440 seconds.
+✔ Suite "Quantized context mapping" passed after 0.440 seconds.
+✔ Suite "HP RGB transform boundaries" passed after 0.440 seconds.
+✔ Test cancellationKeepsSwiftCancellationError() passed after 0.438 seconds.
+✔ Suite "Bounded kernel storage" passed after 0.440 seconds.
+✔ Test cancellationDuringSealingStillAttemptsCleanup() passed after 0.438 seconds.
+✔ Suite "Bounded scalar run checkpoints" passed after 0.440 seconds.
+✔ Test oddNativePlanesMatchGeneralLayoutsAcrossCodingTransitions() passed after 0.439 seconds.
+✔ Suite "Initial marker fill and inspection progress policy" passed after 0.440 seconds.
+✔ Test cancellationFromCompletionCallbackIsPropagated() passed after 0.441 seconds.
+✔ Test cancellationStillFollowsDescriptorPreflight() passed after 0.452 seconds.
+✔ Test freshOwnedFactoryLifecycleMetadataAndLimits() passed after 0.452 seconds.
+✔ Test admittedOwnedWriteRejectsPostFillCancellationAndInvalidatesStorage() passed after 0.452 seconds.
+✔ Suite APITests passed after 0.454 seconds.
+✔ Suite "Destination lease completion" passed after 0.454 seconds.
+✔ Suite "Sample-interleaved native destination views" passed after 0.454 seconds.
+✔ Test componentLimitsCancellationAndMalformedScans() passed after 0.396 seconds.
+✔ Test inactiveInterleavedDRIPreservesSamplesAndStorage() passed after 0.402 seconds.
+✔ Suite "Owned destination admission and required metadata" passed after 0.477 seconds.
+✔ Test independentRestartIntervalsAndMarkerSequence() passed after 0.492 seconds.
+✔ Test nonzeroSubsamplingMatchesPinnedPredecessor() passed after 0.545 seconds.
+✔ Test boundedColourAndNearLosslessWorkers() passed after 0.640 seconds.
+✔ Suite "Concurrent resource admission" passed after 0.642 seconds.
+✔ Test predecessorCombinedMappingAndHPOrder() passed after 0.652 seconds.
+✔ Test defaultsMatchEveryPossibleSampleGradient() passed after 1.073 seconds.
+✔ Test legacyMappingAndExtendedDimensionFixtures() passed after 1.134 seconds.
+✔ Suite "Qualified monochrome caller workspace" passed after 1.137 seconds.
+✔ Test componentRunsCheckEveryLaneAndInterleave() passed after 1.285 seconds.
+✔ Test actualLegacyDimensionsAndContinuations() passed after 1.354 seconds.
+✔ Test maximumTableAndFallbackBoundariesMatchEveryGradient() passed after 1.355 seconds.
+✔ Suite "Decoder and encoder gradient table intervals" passed after 1.357 seconds.
+✔ Test componentCustomMaximumChecksRegularSamplesAndPreservesLayouts() passed after 1.362 seconds.
+✔ Suite "Lossless precision admission" passed after 1.363 seconds.
+✔ Test independentlyEncodedNearLosslessSamples() passed after 1.407 seconds.
+✔ Suite "Migrated scalar JPEG-LS" passed after 1.408 seconds.
+✔ Test independentMappingTablesPreserveIndicesAndMapExplicitly() passed after 4.938 seconds.
+✔ Suite "Mapping tables and metadata" passed after 4.939 seconds.
+✔ Test independentlyEncodedExtendedDimensions() passed after 10.845 seconds.
+✔ Suite "Remaining predecessor profiles" passed after 10.848 seconds.
+✔ Test independentPlanarAndPixelLayouts() passed after 15.607 seconds.
+✔ Suite "Independent component JPEG-LS" passed after 15.690 seconds.
+✔ Test run with 157 tests in 28 suites passed after 15.691 seconds.

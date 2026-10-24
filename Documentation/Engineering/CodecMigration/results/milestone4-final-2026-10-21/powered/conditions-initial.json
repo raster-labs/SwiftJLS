@@ -1,0 +1,42 @@
+{
+  "utc": "2026-10-21T10:40:53.088171+00:00",
+  "power": {
+    "command": [
+      "pmset",
+      "-g",
+      "batt"
+    ],
+    "exit_code": 0,
+    "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t100%; charged; 0:00 remaining present: true\n",
+    "stderr": ""
+  },
+  "thermal": {
+    "command": [
+      "pmset",
+      "-g",
+      "therm"
+    ],
+    "exit_code": 0,
+    "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+    "stderr": ""
+  },
+  "load": {
+    "command": [
+      "sysctl",
+      "-n",
+      "vm.loadavg"
+    ],
+    "exit_code": 0,
+    "stdout": "{ 6.13 15.60 12.84 }\n",
+    "stderr": ""
+  },
+  "memory": {
+    "command": [
+      "memory_pressure",
+      "-Q"
+    ],
+    "exit_code": 0,
+    "stdout": "The system has 68719476736 (4194304 pages with a page size of 16384).\nSystem-wide memory free percentage: 84%\n",
+    "stderr": ""
+  }
+}

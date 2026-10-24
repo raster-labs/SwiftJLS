@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/Users/pushparaj/.local/bin/docker",
+    "--context",
+    "colima",
+    "run",
+    "--rm",
+    "--cpus=4",
+    "--mount",
+    "type=bind,source=/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS,target=/SwiftJLS,readonly",
+    "--mount",
+    "type=bind,source=/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/candidate004-linux-validation-002/copy-probe20,target=/scratch",
+    "--workdir",
+    "/SwiftJLS",
+    "sha256:31d14d727f4451f25e29bac9c42563a098c39ac66415e8bad970f48038e38aca",
+    "/bin/bash",
+    "-c",
+    "\nset -euo pipefail\nswift --version >&2\nuname -m >&2\nswift build -c release --jobs 4 --package-path /SwiftJLS/Examples/CopyProbe --scratch-path /scratch/copy-probe-build >&2\nbin_dir=$(swift build -c release --show-bin-path --package-path /SwiftJLS/Examples/CopyProbe --scratch-path /scratch/copy-probe-build)\ncp \"$bin_dir/CopyProbe\" /scratch/CopyProbe\nsha256sum \"$bin_dir/CopyProbe\" /scratch/CopyProbe >&2\n\"$bin_dir/CopyProbe\" /SwiftJLS/Tests/SwiftJLSTests/Fixtures\n"
+  ],
+  "docker_image": "sha256:31d14d727f4451f25e29bac9c42563a098c39ac66415e8bad970f48038e38aca",
+  "input_manifest_sha256": "d2184168b0e79f4409b658fbc4d1a20fed08b86d7cef43eacdf510994735f3c8",
+  "scope": "Linux requested-heap/copy evidence only; no Apple RSS or universal-total inference",
+  "source_receipt_sha256": "4a1b7554778f6f551186f8497d93f599d001d4fe1090eeba6972dcb2436adfed",
+  "started_utc": "2026-10-23T10:51:32.045898+00:00"
+}

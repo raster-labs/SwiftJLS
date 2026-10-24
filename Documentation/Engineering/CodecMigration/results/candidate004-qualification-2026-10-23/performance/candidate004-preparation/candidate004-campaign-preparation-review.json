@@ -1,0 +1,116 @@
+{
+  "errors": [],
+  "status": "prepared; fresh coordinated quiet-window preflight and root admission pending",
+  "freeze_receipt_sha256": "28ca863be571c0ebf8ffac18e23374a2fb90977dabae688cdbe26004c9e09f8f",
+  "frozen_files": {
+    "diag72_runner.py": "c55efb22ae61c0b599384f8d5acfcd2277b9ad4dab05c4f6abb8040a59a42f69",
+    "diag72_analyse.py": "620005cf7e973e9d769f10bf68b538e26f0e5bdd25d5df369f3936bf7f686bae",
+    "short516_runner.py": "78843d282ca573524dd32d16ed44a9e113d14641824330e3e31935c9dac7a8b8",
+    "short516_analyse.py": "f72c4294b16ffd6e04919468980275e538102207e2d8204590f5f40faa8c7746",
+    "larger15_runner.py": "591e6d0bd4d0f2538c52db2d47791b30fa7214ed751f308868a133f61e44e94b",
+    "schedules/diag72-4arms-004.json": "4a235370abee5429455fb73010a72a22ba693cd81750231323a83d1ebde55a56",
+    "schedules/short516-3arms-004.json": "bfecc8d099c7af40add39698989b2e6cafa343cc096c20b89d41e3b9a7a3df5c",
+    "schedules/larger15-guard-004.json": "d4b14bb73188f39ae66966ea0dde4e220cb6cec2c57f2ca35ececbff9499d167"
+  },
+  "schedules": {
+    "schedules/diag72-4arms-004.json": {
+      "entries": 432,
+      "processes": 1728,
+      "differing_top_level_keys": [
+        "producers"
+      ]
+    },
+    "schedules/short516-3arms-004.json": {
+      "entries": 3096,
+      "processes": 9288,
+      "differing_top_level_keys": [
+        "producers"
+      ]
+    },
+    "schedules/larger15-guard-004.json": {
+      "entries": 60,
+      "processes": 120,
+      "differing_top_level_keys": [
+        "producers"
+      ]
+    }
+  },
+  "candidate_binary_sha256": "1db8b6a3fd92f6d73304ad08827560e852ed584a5d572b7872b86b9d723c92ad",
+  "candidate_build_receipt_sha256": "4a1b7554778f6f551186f8497d93f599d001d4fe1090eeba6972dcb2436adfed",
+  "sources": 38,
+  "test_files": 31,
+  "recorded_controls": {
+    "short516_analyse_selftest": {
+      "command": [
+        "/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns_004/short516_analyse.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "status": null
+    },
+    "diag72_analyse_selftest": {
+      "command": [
+        "/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns_004/diag72_analyse.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "status": null
+    },
+    "diag72_runner_selftest": {
+      "command": [
+        "/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns_004/diag72_runner.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "status": null
+    },
+    "short516_runner_selftest": {
+      "command": [
+        "/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns_004/short516_runner.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "status": null
+    },
+    "larger15_runner_selftest": {
+      "command": [
+        "/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns_004/larger15_runner.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "status": null
+    },
+    "short516_runner_check_only": {
+      "command": [
+        "/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns_004/short516_runner.py",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "passed": null,
+      "status": "identity-only passed; no execution"
+    },
+    "larger15_runner_check_only": {
+      "command": [
+        "/Users/pushparaj/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/campaigns_004/larger15_runner.py",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "passed": null,
+      "status": "identity-only passed; no execution"
+    }
+  },
+  "all_prior_complete003_and_partial_hashes_preserved": true,
+  "no_benchmark_or_build_executed_by_this_review": true
+}

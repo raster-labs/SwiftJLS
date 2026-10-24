@@ -1,0 +1,189 @@
+{
+  "source_id": "candidate_004",
+  "source_named_suite_declarations": 27,
+  "base_head": "4f6661a4ccec277d02e42b9228c7b574dfbf15cd",
+  "source": null,
+  "sources_patch_sha256": "ad231ebce113fb86265d3a6a2b425f35be7049c99598cd3f78f3ce91294aeded",
+  "source_manifest_sha256": "948255e99284e975198f03f4e7300981ce4b97447ffe114398866876476f8bf7",
+  "guest_verified_bundle_executable_sha256": {
+    "release": "542978d4b4ad4e15d412d38f4b138dc08a8987873ccee652adb821cb1c267596",
+    "debug": "706909e93e9bef1021e1a72bdbe380e1f79dc3d3d42aa5cb119f4229cb229868",
+    "asan": "8369843b1204faf5cf58e046006e463a065bcbb99ba1334599db1960a0ffeb70",
+    "tsan": "9592de1d2c7ae7101d8575825b2478da2ce5bf8a16e98d13b066003bdf96a1e5"
+  },
+  "guest_verified_cli_binary_sha256": "50ec1fecb2bb7015235f20f97c9fd7cd80a6b110073dc590185f825a2c4c78b7",
+  "guest_verified_consumer_binary_sha256": {
+    "AppleRuntimeConsumer": "5e98ea37b3443b5da30bef296a368856de1ce21f66a2e0092e6e02dcc51b4750",
+    "ResourceStress": "7ca3599292c6cd8468796e0fa416291e69398315ffdceaab787197ddc0ba1cda"
+  },
+  "commands": [
+    {
+      "label": "os",
+      "command": [
+        "sw_vers"
+      ],
+      "exit_code": 0,
+      "seconds": 0.01014654200000109
+    },
+    {
+      "label": "architecture",
+      "command": [
+        "uname",
+        "-m"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0035346669999984925
+    },
+    {
+      "label": "hardware",
+      "command": [
+        "sysctl",
+        "hw.model",
+        "hw.memsize",
+        "hw.ncpu"
+      ],
+      "exit_code": 0,
+      "seconds": 0.004106249999999534
+    },
+    {
+      "label": "unit",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results-2026-10-23-candidate004/unit.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 1.4722498329999993
+    },
+    {
+      "label": "unit-debug",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/debug/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results-2026-10-23-candidate004/unit-debug.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 4.355082791000001
+    },
+    {
+      "label": "unit-asan",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/asan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results-2026-10-23-candidate004/unit-asan.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 18.400546083
+    },
+    {
+      "label": "unit-tsan",
+      "command": [
+        "/Volumes/My Shared Files/evidence/swiftpm-testing-helper",
+        "--test-bundle-path",
+        "/Volumes/My Shared Files/evidence/configurations/tsan/SwiftJLSTests.xctest/Contents/MacOS/SwiftJLSTests",
+        "--testing-library",
+        "swift-testing",
+        "--xunit-output",
+        "/Volumes/My Shared Files/results-2026-10-23-candidate004/unit-tsan.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 21.458180082999995
+    },
+    {
+      "label": "consumer",
+      "command": [
+        "/Volumes/My Shared Files/evidence/AppleRuntimeConsumer",
+        "/Volumes/My Shared Files/evidence/repo/Tests/SwiftJLSTests/Fixtures"
+      ],
+      "exit_code": 0,
+      "seconds": 0.010220832999998208
+    },
+    {
+      "label": "resources",
+      "command": [
+        "/Volumes/My Shared Files/evidence/ResourceStress"
+      ],
+      "exit_code": 0,
+      "seconds": 0.35640408300000104
+    },
+    {
+      "label": "cli-payload",
+      "command": [
+        "python3",
+        "/Volumes/My Shared Files/evidence/repo/Scripts/test-payload-cli.py",
+        "--binary",
+        "/Volumes/My Shared Files/evidence/swiftjls-cli",
+        "--output",
+        "/Volumes/My Shared Files/results-2026-10-23-candidate004/cli-payload.json"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0600504579999992
+    },
+    {
+      "label": "cli-process",
+      "command": [
+        "python3",
+        "/Volumes/My Shared Files/evidence/repo/Scripts/test-cli.py",
+        "--binary",
+        "/Volumes/My Shared Files/evidence/swiftjls-cli",
+        "--output",
+        "/Volumes/My Shared Files/results-2026-10-23-candidate004/cli-process"
+      ],
+      "exit_code": 1,
+      "seconds": 0.042051499999999464
+    }
+  ],
+  "scope": "Swift 6.4 host-built arm64 binaries, executed in hardware-virtualised native arm64 macOS 26.0; no Intel emulation or physical-device claim.",
+  "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.0\nBuildVersion:\t\t25A354\n",
+  "architecture": "arm64",
+  "exact_26_0_native_arm64": true,
+  "tests": {
+    "classname_suites": 28,
+    "declarations": 152,
+    "failures": 0,
+    "skipped": 0,
+    "xml_sha256": "768d17f6abbc15b07e0d415150bc3a800fca55ece63f04e47b5962cfd0e06b0d"
+  },
+  "extra_tests": {
+    "debug": {
+      "classname_suites": 28,
+      "declarations": 152,
+      "failures": 0,
+      "skipped": 0,
+      "xml_sha256": "d9450173379d80b0023cfcc6ed1ac6410237872316d35e67317410fdbb706993"
+    },
+    "asan": {
+      "classname_suites": 28,
+      "declarations": 152,
+      "failures": 0,
+      "skipped": 0,
+      "xml_sha256": "49e643b77d1e219bcb4d6c33109f2cc9df638fc424662ddca77b5d4ef7261035"
+    },
+    "tsan": {
+      "classname_suites": 28,
+      "declarations": 152,
+      "failures": 0,
+      "skipped": 0,
+      "xml_sha256": "4c12f3b921b70a6c2cd640c6a611afc93b2e17d7dd8dc781e9a549d2a2d0e1aa"
+    }
+  },
+  "resource_stress_summary": {
+    "row_count": 4,
+    "total_frames": 32,
+    "owned_equal_frames": true,
+    "zero_supplied": true,
+    "zero_copy_bytes": true
+  }
+}

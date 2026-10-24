@@ -1,0 +1,30 @@
+{
+  "checked_utc": "2026-10-23T10:26:50.475015+00:00",
+  "binary_path": "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_003/binaries/Benchmark-candidate_003-bd171975e50f",
+  "binary_sha256_before": "bd171975e50f6b3557df7b5fda39ce431f8b4098ee163f40b2db1ca65fa142ad",
+  "binary_sha256_after": "bd171975e50f6b3557df7b5fda39ce431f8b4098ee163f40b2db1ca65fa142ad",
+  "reader_source_sha256": "3521e0b70581ff2b6cb315daf10c29514ee6eabe7abd7a7c539fb36cae7fabb9",
+  "snapshot_and_linked_source_match": true,
+  "preparation_receipt_sha256": "773497da52574028720c492695a4f09a550323ace57ed95c6d9ff9db280eca97",
+  "command": [
+    "/usr/bin/xcrun",
+    "llvm-objdump",
+    "--disassemble",
+    "--no-show-raw-insn",
+    "--start-address=0x10002cb54",
+    "--stop-address=0x10002cd48",
+    "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_003/binaries/Benchmark-candidate_003-bd171975e50f"
+  ],
+  "exit_code": 0,
+  "stdout_sha256": "baa12f20779aebacb3338bce0c89efeefbbeb8c8244f0d0eefe89ccbae5994b4",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "symbol": "_$s8SwiftJLS21JPEGLSBitstreamReaderC14readUnaryCount7maximumS2i_tKF",
+  "function_address": "0x10002cb54",
+  "retained_mask_addresses": [
+    "0x10002cb8c",
+    "0x10002cb90",
+    "0x10002cb94",
+    "0x10002cb98"
+  ],
+  "finding": "Mask generation/select/AND retained before left-shift and CLZ. No timing effect quantified; no candidate004 build or source review yet."
+}

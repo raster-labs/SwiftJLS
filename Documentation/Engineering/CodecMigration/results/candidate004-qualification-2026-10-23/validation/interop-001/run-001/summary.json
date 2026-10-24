@@ -1,0 +1,204 @@
+{
+  "started_utc": "2026-10-23T10:49:42.534098+00:00",
+  "status": "passed",
+  "plan_sha256": "9a8ad8ae7f47d6c1562f1acc64f77f5b40de2a4bc14d68440fd3c6527680c533",
+  "runner_sha256": "9b2a6bbdb4be6c744673c3e19f3c7763e9b5ebe344a6d8fb3d6687056f85a827",
+  "source_receipt_sha256": "4a1b7554778f6f551186f8497d93f599d001d4fe1090eeba6972dcb2436adfed",
+  "developer_dir": "/Library/Developer/CommandLineTools",
+  "commands": [
+    {
+      "name": "toolchain",
+      "command": [
+        "/usr/bin/xcrun",
+        "swift",
+        "--version"
+      ],
+      "cwd": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004",
+      "started_utc": "2026-10-23T10:49:42.841568+00:00",
+      "stdout": "toolchain.stdout",
+      "stderr": "toolchain.stderr",
+      "completed_utc": "2026-10-23T10:49:42.941495+00:00",
+      "exit_code": 0,
+      "stdout_sha256": "04630ab8fa201f57c63c59730e638135e32584a97e16e004a417eb8ed283dc83",
+      "stderr_sha256": "bbc8b176d3c74d4c5a7fd00b40280f98168e116d5272273bfe8e71407625540e"
+    },
+    {
+      "name": "consumer-build",
+      "command": [
+        "/usr/bin/xcrun",
+        "swift",
+        "build",
+        "--build-system",
+        "swiftbuild",
+        "-c",
+        "release",
+        "--jobs",
+        "4",
+        "--package-path",
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/Consumer",
+        "--scratch-path",
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/run-001/build",
+        "--product",
+        "Consumer"
+      ],
+      "cwd": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004",
+      "started_utc": "2026-10-23T10:49:42.941899+00:00",
+      "stdout": "consumer-build.stdout",
+      "stderr": "consumer-build.stderr",
+      "completed_utc": "2026-10-23T10:50:12.705763+00:00",
+      "exit_code": 0,
+      "stdout_sha256": "6174529c129ff902365f256e93cc391a360de8ab1eb90ac24e3937d1bac63986",
+      "stderr_sha256": "efa1f94bae9be9d35081c714c7d1e2894592743c0227c1bfba4ba523174635fd"
+    },
+    {
+      "name": "consumer-bin-path",
+      "command": [
+        "/usr/bin/xcrun",
+        "swift",
+        "build",
+        "--build-system",
+        "swiftbuild",
+        "-c",
+        "release",
+        "--jobs",
+        "4",
+        "--package-path",
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/Consumer",
+        "--scratch-path",
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/run-001/build",
+        "--show-bin-path"
+      ],
+      "cwd": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004",
+      "started_utc": "2026-10-23T10:50:12.706259+00:00",
+      "stdout": "consumer-bin-path.stdout",
+      "stderr": "consumer-bin-path.stderr",
+      "completed_utc": "2026-10-23T10:50:13.172838+00:00",
+      "exit_code": 0,
+      "stdout_sha256": "3c655d9bd30cd97a9239845ff601e3b771f7c205a88ac6f3fe2d99daacb276d1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "fresh-successor-export",
+      "command": [
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/run-001/build/out/Products/Release/Consumer",
+        "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS/Tests/SwiftJLSTests/Fixtures",
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/run-001/encoded"
+      ],
+      "cwd": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004",
+      "started_utc": "2026-10-23T10:50:13.173880+00:00",
+      "stdout": "fresh-successor-export.stdout",
+      "stderr": "fresh-successor-export.stderr",
+      "completed_utc": "2026-10-23T10:50:13.687717+00:00",
+      "exit_code": 0,
+      "stdout_sha256": "1e4caa4b7aa9678ef2d52ac10a5fdfaeece92269926acf3a009c602d55174832",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "scalar-oracle",
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/scripts/verify.py",
+        "--oracle",
+        "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/frozen-candidate-validation-001/SwiftJLS/charls-driver",
+        "--fixtures",
+        "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS/Tests/SwiftJLSTests/Fixtures",
+        "--encoded",
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/run-001/encoded",
+        "--report",
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/run-001/scalar-report.json",
+        "--exclude-presets"
+      ],
+      "cwd": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004",
+      "started_utc": "2026-10-23T10:50:13.724161+00:00",
+      "stdout": "scalar-oracle.stdout",
+      "stderr": "scalar-oracle.stderr",
+      "completed_utc": "2026-10-23T10:50:15.266488+00:00",
+      "exit_code": 0,
+      "stdout_sha256": "a85ef84031290a5182457b9f9e20007b4604a306daa964187bcdd3f073a2c82b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "component-oracle",
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/scripts/verify-components.py",
+        "--oracle",
+        "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/frozen-candidate-validation-001/SwiftJLS/charls-driver",
+        "--fixtures",
+        "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS/Tests/SwiftJLSTests/Fixtures",
+        "--encoded",
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/run-001/encoded",
+        "--report",
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/run-001/component-report.json"
+      ],
+      "cwd": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004",
+      "started_utc": "2026-10-23T10:50:15.267252+00:00",
+      "stdout": "component-oracle.stdout",
+      "stderr": "component-oracle.stderr",
+      "completed_utc": "2026-10-23T10:50:16.390737+00:00",
+      "exit_code": 0,
+      "stdout_sha256": "7d8c2c486bdc595102f4bb9a9c28f8ae237d05b2aca415404763475938de10be",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "mapping-oracle",
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/scripts/verify-mapping.py",
+        "--oracle",
+        "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/snapshots/frozen-candidate-validation-001/SwiftJLS/mapping-driver",
+        "--fixtures",
+        "/Users/pushparaj/.gemini/antigravity/brain/fe0e1849-2821-43e4-93ba-6e59adfa578b/scratch/m4_20261023/snapshots/candidate_004/SwiftJLS/Tests/SwiftJLSTests/Fixtures",
+        "--encoded",
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/run-001/encoded",
+        "--report",
+        "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/run-001/mapping-report.json"
+      ],
+      "cwd": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004",
+      "started_utc": "2026-10-23T10:50:16.391649+00:00",
+      "stdout": "mapping-oracle.stdout",
+      "stderr": "mapping-oracle.stderr",
+      "completed_utc": "2026-10-23T10:50:16.838218+00:00",
+      "exit_code": 0,
+      "stdout_sha256": "3739539a9ac74ccab0ae0fa5db0a9900669acfe1f48ae9785720c393a7352729",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "reports": {
+    "scalar": {
+      "path": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/run-001/scalar-report.json",
+      "sha256": "734785044b787c285e13e8ae087bdab2353fa8f54a795b0ce45c38f227770c4d",
+      "passed": 482
+    },
+    "component": {
+      "path": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/run-001/component-report.json",
+      "sha256": "66461e596c1a746f8795d263981a30e5696694224862b8ff7d4127211c4122f8",
+      "passed": 372
+    },
+    "mapping": {
+      "path": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/run-001/mapping-report.json",
+      "sha256": "c631c6c82e70bd8977c5853a7fa3105a455607d874cb918128f01c5bc8d7bcdd",
+      "passed": 136
+    }
+  },
+  "preflight": {
+    "checked_utc": "2026-10-23T10:49:42.841490+00:00",
+    "library_files": 38,
+    "test_swift_files": 31,
+    "fixture_files": 2833,
+    "passed": true
+  },
+  "consumer_binary": {
+    "path": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261023/interop-candidate004/run-001/build/out/Products/Release/Consumer",
+    "sha256": "1fcfdfef67469d59b6c8ca092fbbda28e19512490146b50174f886104720a3b7"
+  },
+  "verified_total": 990,
+  "postflight": {
+    "checked_utc": "2026-10-23T10:50:16.969968+00:00",
+    "library_files": 38,
+    "test_swift_files": 31,
+    "fixture_files": 2833,
+    "passed": true
+  },
+  "finished_utc": "2026-10-23T10:50:16.970045+00:00"
+}

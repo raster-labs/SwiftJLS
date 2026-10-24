@@ -1,0 +1,35 @@
+{
+  "status": "completed",
+  "purpose": "Supplementary same-process diagnostic; no automatic performance waiver",
+  "source": "bee49a2ad47eae4ea149bdced2043b7a45df3dae",
+  "predecessor": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "binary_sha256": "6343fc843b92d05c010f996dcc65eada617bc41f284b43d07ca6fc6cbe047ab5",
+  "stages": [
+    {
+      "command": "python3 build.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 preflight.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 compare.py --check-only",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 compare.py",
+      "exit_code": 0
+    }
+  ],
+  "preflight_cases": 6,
+  "timed_processes": 24,
+  "identity_before": "identity-check.json",
+  "identity_after": "results/post-run-identity.json",
+  "analysis": "results/compact-analysis.json",
+  "summary": "results/summary.json",
+  "production_edits": false,
+  "budget_check_bypass": false,
+  "simulator_restored": false,
+  "timing_window_released_to": "source_review"
+}

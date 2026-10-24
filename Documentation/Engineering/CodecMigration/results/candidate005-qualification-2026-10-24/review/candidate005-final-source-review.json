@@ -1,0 +1,23 @@
+{
+  "reviewed_utc": "2026-10-24T06:44:48.233970+00:00",
+  "scope": "Read-only candidate005 eight-file final source review; no builds, measurements, or runtime launches",
+  "host_receipt": "/Users/pushparaj/projects/SwiftJLS-audit/m4-20261024/candidate005-001/prepare-and-validate-receipt.json",
+  "host_receipt_sha256": "87bda184d21845362608a5a0b2198a9d6840a4324c5bdf2e8f6c5d9978e299e6",
+  "source_sha256": {
+    "Sources/SwiftJLS/Image.swift": "63af13c4debf7d4a2bcf309f98a430f4822bd897baf230d69417d75bf575bdda",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift": "29f1b4e1be7da189cb12d3444bfcbb0efeeef0e825e1b5149e199b7bf1206af5",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift": "bc0c729fccb43f3d3b0a2aa1f34a53e3e522e0c672a5cc716e833dbda2f3cb07",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift": "7d92305dd6d68e27cd9a2cdbe1c066a5a66fee1c8f91ee0a22179644ff00c61e",
+    "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift": "2e32232bd50b61f453d93db68b82140f0ec6a500e30cef8137823e18db7ab613",
+    "Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift": "f218ee88e7ba234c0bf134f5dfaccab58ab45ebc86dc0bf3ae5c1cea22d655c8",
+    "Tests/SwiftJLSTests/OwnedAdmissionTests.swift": "bb0e3dd3a40027a204366452e8b87a3cb680a25cc245030e85a0c5a123b3c5c9",
+    "Tests/SwiftJLSTests/WorkspaceAdmissionTests.swift": "6ac4625471667a1a043a1da616d95dcfa3eb353550328d37f62008559798e6f3"
+  },
+  "all_match_frozen_receipt": true,
+  "verdict": "No actionable correctness findings",
+  "limitations": [
+    "Source review is not a new execution result. Existing host and interoperability evidence remain separately identified.",
+    "64 KiB fixed control and Int-based table reservations are logical conservative admission allowances, not measured complete allocator or RSS peaks.",
+    "The intended parser floor can cause a resource-limit error earlier for a malformed input when the caller supplies less than the required fixed workspace allowance."
+  ]
+}
