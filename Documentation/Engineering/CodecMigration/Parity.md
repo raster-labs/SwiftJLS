@@ -1,10 +1,10 @@
-# Predecessor profile coverage and qualification — 12 October 2026
+# Predecessor profile coverage and qualification — updated 24 October 2026
 
-The [22 October maintenance-fix record](RecentFixes.md) documents the new caller-workspace profile, marker fill, ICC discard and inspection policy, with separate final validation. Earlier source-pinned performance/platform results remain historical; physical-device tests and Milestone 5 remain pending, and existing performance findings remain open.
+The [maintenance and qualification record](RecentFixes.md) documents the caller-workspace profile, marker fill, ICC discard and inspection policy, followed by the candidate005 lifecycle, gradient-table and parser-workspace improvements. Current candidate005 performance and scoped workspace evidence is accepted; earlier source-pinned results remain historical. Physical-device testing remains pending, and Milestone 5 is deferred.
 
 Baseline: JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`; suite policy 0.10.0. This record supersedes the older profile limitations in the chronological checkpoint log. No release or consumer cutover is authorised by this record.
 
-[The completion audit](Completion.md) records the merged PR 15 baseline and remaining qualification. The inactive-DRI compatibility gap is closed in runtime checkpoint `4008f21`; this profile inventory does not imply that all release qualification gates have passed.
+[The completion audit](Completion.md) records the candidate005 source at `2967e6b8dc95dcd8d7a262866478b1c9aaa91fea`, earlier merged baselines and remaining qualification. The inactive-DRI compatibility gap was closed in runtime checkpoint `4008f21`; this profile inventory does not imply that all release qualification gates have passed.
 
 ## Migrated behaviour
 
@@ -52,14 +52,20 @@ Use only the options matching the known producer. These options are decoder-only
 
 Malformed/incomplete tables fail before a destination write. The predecessor's fallback of returning an unmapped value for an out-of-range index is deliberately not retained. External-table abbreviated streams and table redefinition are rejected explicitly. Subsampled encode, DNL-driven unknown-height decode and alpha/ICC colour interpretation were not functional predecessor codec paths and are not claimed. The existing owner-approved PNG/TIFF and extended CLI deferrals remain in force.
 
-## Qualification status
+## Current qualification — 24 October
+
+Candidate005 passes 157 tests in each of debug, release, ASan and TSan on the host and hardware-virtualised native macOS 26.0, together with CLI, independent interoperability, Apple SDK, exact OS 26.0 simulator and resource checks. All 48 short timing comparisons and all 60 representative larger-image points pass; the fixed whole-process RSS campaign meets its prescribed criterion against both historical baselines. The three earlier timing uncertainties are resolved within this measured shared-host scope. See [current validation](Validation.md), [performance](Milestone4Performance.md) and the [candidate005 evidence manifest](results/candidate005-qualification-2026-10-24.json).
+
+Scoped workspace accounting includes source bounds, 89 fully attributed observed operations and 20 passing copy controls. Universal runtime, heap-plus-stack and allocator totals remain unknown, as allowed by the measurement contract. The metadata allowance conservatively admits 32 times retained metadata bytes for archives, table copies and container overhead; this is an admission ceiling, not a measured allocation claim. [Workspace accounting](WorkspaceAccounting.md) separates these bounds and measurements; mutation campaigns in [Validation.md](Validation.md) retain their own source revisions.
+
+Physical-device validation is the remaining qualification work for this accepted M4 software scope, including representative iPhone/iPad, Watch and other required devices. Simulator and device-architecture builds do not replace physical execution. The owner still verifies the required hosted CI matrix on the final pushed head and merges in GitHub; local evidence does not establish those CI results. Milestone 5, stable-release preparation and consumer cutover remain deferred or separately assigned.
+
+## Historical qualification — 10–21 October
 
 The 10 October codec checkpoint passes 74 test declarations in local debug, release, ASan and TSan, and the 32-bit Watch device SDK build passes. All 14 hosted contract jobs and four Apple simulator runtime jobs also pass on this final source. A separate CharLS development checkout pinned to `04e44bb760632104ab1209593eea3f8c20ac11e5` independently verifies 136 additional successor outputs: 60 mapping, four extended, 36 legacy HP and 36 combined mapping/HP migrations. CharLS remains test-only, outside the package dependency graph. Exact revisions, commands, duration status and remaining release gates are maintained in [Validation.md](Validation.md).
 
 That oracle splits 3-byte entries across 65,530-byte continuation chunks for 16-bit tables. T.87 requires integral entries per segment. Those four cases are excluded explicitly; they are not accepted conformance vectors. One/two-byte predecessor widths and smaller opaque 3-byte tables are independently covered.
 
 The merged PR 15 runtime passes 80 declarations in ten suites in local debug/release/ASan/TSan runs. The corrected runtime also passes all four Apple simulator jobs and the Watch device-architecture build; see [current validation](Validation.md) for exact hosted revisions and versions. Physical Watch execution is excluded from this task.
-
-Current scoped workspace accounting includes source bounds and 89 fully attributed observed operations; universal heap-plus-stack-plus-allocator totals remain unknown. The metadata allowance conservatively admits 32 times retained metadata bytes for archives, table copies and container overhead; this is an admission ceiling, not a measured allocation claim. Earlier mutation campaigns retain their source revisions; current-source duration evidence is linked from [Validation.md](Validation.md).
 
 The 21 October Milestone 4 checkpoint `e6a6436` passes 120 declarations in 24 suites under debug/release/ASan/TSan on both the host and native arm64 macOS 26.0 (25A354) guest. Five exact OS 26.0 simulator consumers, CLI/resource consumers and SDK builds pass. The native guest uses hardware virtualisation. [Current qualification](Milestone4Performance.md) records native sample-interleaved decode improvements, powered representative measurements, the performance disposition and refreshed workspace evidence. All physical-device tests remain pending; Milestone 5 is deferred.

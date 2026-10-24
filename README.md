@@ -22,7 +22,7 @@ Swift 6.2 manifest minimum with Swift 6.4 as the qualified primary toolchain, Sw
 
 **Moving an application from JLSwift? Read [MIGRATION.md](MIGRATION.md)** for dependency/import changes, the current API mapping, a runnable storage trial and the gates before production cutover. Production cutover requires the application acceptance matrix and the outstanding release qualification gates.
 
-The scalar and component codec paths and predecessor extensions are migrated; final performance qualification remains in progress, with scoped workspace accounting recorded and unknown totals kept explicit. Start with [current evidence](Documentation/Engineering/CodecMigration/README.md) and [AGENTS.md](AGENTS.md).
+The scalar and component codec paths and predecessor extensions are migrated. Candidate005 performance and scoped workspace qualification pass in the recorded scope; unknown memory totals remain explicit. Physical-device testing remains pending, Milestone 5 is deferred, and the owner verifies final-head CI and merges. Start with [current evidence](Documentation/Engineering/CodecMigration/README.md) and [AGENTS.md](AGENTS.md).
 
 - [Coding-agent entry point](AGENTS.md) and [codec-specific implementation plan](IMPLEMENTATION.md).
 - [Suite policy](Documentation/SUITE_POLICY.md) and [common API](Documentation/COMMON_API.md).
