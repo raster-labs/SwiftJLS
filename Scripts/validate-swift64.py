@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
-"""Validate this standalone Milestone 1 package with the pinned Xcode toolchain."""
+"""Validate this standalone native-codec package with an accepted Apple Swift toolchain."""
 from __future__ import annotations
 
 import argparse
@@ -166,9 +166,8 @@ def main() -> int:
 
     try:
         actual_swift = run("swift-version", ["xcrun", "swift", "--version"])
-        # Xcode is recorded when present. It is not required: the Linux gates and
-        # a swift.org toolchain on macOS have no xcodebuild, and demanding one
-        # would fail those runs for a reason unrelated to what is being checked.
+        # This xcrun-based runner is for macOS. Record Xcode when available;
+        # Linux validation has its own CI jobs and is not performed here.
         try:
             actual_xcode = run("xcode-version", ["xcrun", "xcodebuild", "-version"])
         except Exception:
@@ -206,21 +205,24 @@ def main() -> int:
             (consumer / "Sources/Consumer").mkdir(parents=True)
             package_path = json.dumps(str(repo))
             (consumer / "Package.swift").write_text(
-                '// swift-tools-version: 6.4\nimport PackageDescription\n'
-                'let package = Package(name: "FreshConsumer", platforms: [.macOS(.v27)],\n'
-                f' dependencies: [.package(path: {package_path})],\n'
+                '// swift-tools-version: 6.2\nimport PackageDescription\n'
+                'let package = Package(name: "FreshConsumer", platforms: [.macOS(.v26)],\n'
+                f' dependencies: [.package(name: "{name}", path: {package_path})],\n'
                 f' targets: [.executableTarget(name: "Consumer", dependencies: [.product(name: "{name}", package: "{name}")])],\n'
                 ' swiftLanguageModes: [.v6])\n')
-            (consumer / "Sources/Consumer/main.swift").write_text(
-                f'import {name}\n'
-                'let d = try ImageDescriptor.greyscale16(width: 3, height: 1, meaningfulBits: 16, rowBytes: 8)\n'
-                'let image = try ImageDestination.allocate(descriptor: d).writeUInt16 { x, _ in [UInt16(0), 65535, 4095][x] }\n'
-                'guard try image.sampleUInt16(x: 1, y: 0) == 65535 else { throw CodecError(.internalFailure, "Sample mismatch") }\n'
-                'let encoder = try Encoder()\n'
-                'guard !encoder.capabilities.canEncode else { throw CodecError(.internalFailure, "Update this Milestone 1 consumer") }\n'
-                'do { _ = try await encoder.encode(image); throw CodecError(.internalFailure, "Unexpected codec success") }\n'
-                'catch let error as CodecError where error.category == .unsupportedFeature {}\n'
-                'print("Fresh independent consumer passed")\n')
+            # Run the maintained native-codec example unchanged. Giving the local
+            # dependency an explicit name also supports arbitrarily named worktrees.
+            source = repo / "Examples/IndependentConsumer/Sources/Consumer/main.swift"
+            (consumer / "Sources/Consumer/main.swift").write_bytes(source.read_bytes())
+            report["consumer"] = {
+                "source": str(source.relative_to(repo)),
+                "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
+                "manifest_sha256": hashlib.sha256((consumer / "Package.swift").read_bytes()).hexdigest(),
+                "dependency_kind": "local_path",
+                "tools_version": "6.2",
+                "macos_deployment_target": "26.0",
+            }
+            save()
             run("fresh-local-consumer", swift("run", "consumer", consumer) + ["Consumer"])
             report["open_gates"].append("Fresh URL-based consumer resolution is separate from this local consumer check")
         if "repetition" in selected:

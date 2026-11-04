@@ -1,5 +1,15 @@
 # History and provenance — SwiftJLS
 
+## Milestone 5 release preparation — 2026-11-04 (unreleased)
+
+- Add reproducible exact-version packaging rehearsal in an isolated disposable Git repository, hosted revision consumption, executable README/migration examples, lockfile checks and CLI/manual installation validation. No tag is added to the project repository.
+- Preserve Swift 6.2 and hosted Xcode CI type-check failures and simplify the existing test expressions without changing its expected samples.
+- Modernise the reusable compiler runner to exercise the native codec at tools 6.2 / OS 26 and support differently named worktrees. Audit retained fixture, source and licence provenance.
+- Repair the allocator negative-control matcher for private initialiser symbols, retaining exact-ten detection and adding six rejection-control tests. Preserve the original trace and failed classifier result.
+- Include all qualified decoder files in Apple fallback compilation and verify the imported public API; retain the original missing-API negative control.
+- Qualify separately labelled library/CLI SBOMs against official schemas and SPDX semantics, with raw producer defects, source/licence provenance and twenty negative controls retained. Close the library preparation checklist while leaving DICOMKit integration pending by owner direction.
+- Record the selected GitHub private reporting channel (initially disabled, later verified enabled), proposed stable support policy and open device/release gates in [RELEASE.md](RELEASE.md). Codec sources, common contracts, fixtures and historical evidence remain unchanged.
+
 ## Lifecycle, compact tables and workspace admission — 2026-10-24 (unreleased)
 
 - Add `candidate_005` on branch base `72a9184ae8879fd77364b60a8059d4ad5bc447d4`: atomic one-write destination lifecycle, signed `Int8` gradient tables, a shared conservative workspace allowance, and checked parser/restart-directory admission. Six production files and two test files changed; public API and storage-provider protection remain intact.

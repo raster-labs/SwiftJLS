@@ -1,0 +1,68 @@
+{
+  "status": "test expression corrected; both affected suites passed; Linux Swift Build issues remain open",
+  "source": {
+    "base_revision": "68b0b6385bca135e1532a7e22ceb00992af549b9",
+    "test_path": "Tests/SwiftJLSTests/QualifiedMonochromeTests.swift",
+    "test_sha256": "49a6435f2a09162be94d44f3d12682e7ffabb1e8f853d2666accfc8a68d660f2",
+    "patch_sha256": "2f06c79dc3f77824a75835a153b200dc2e646d2b9d116c153d0b1dc046685a70",
+    "recorded_utc": "2026-11-04T06:58:42.891072+00:00"
+  },
+  "production_changes": false,
+  "behaviour": "Expected UInt16((column * 17 + row * 3) & 255) samples unchanged; explicit Int intermediates remove the Swift6.2 macro type-check timeout.",
+  "ci_failure": {
+    "url": "https://github.com/raster-labs/SwiftJLS/actions/runs/41788522422/job/126436169574",
+    "log": "ci-failure.log",
+    "compiler": "Swift 6.2.4",
+    "target": "x86_64-unknown-linux-gnu",
+    "failure": "QualifiedMonochromeTests.swift:157 unable to type-check original #expect expression"
+  },
+  "passed": [
+    {
+      "toolchain": "Apple Swift 6.4.2",
+      "target": "arm64-apple-macosx27.0.0",
+      "engine": "swiftbuild",
+      "commands": "host-commands.json",
+      "exit_code": 0,
+      "report": "host-qualified.xml",
+      "test_cases": 15,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    {
+      "toolchain": "Swift 6.2.4",
+      "target": "aarch64-unknown-linux-gnu",
+      "engine": "native",
+      "commands": "linux-native-staged-qualified-command.json",
+      "exit_code": 0,
+      "report": "linux-native-staged-qualified.xml",
+      "test_cases": 15,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    }
+  ],
+  "preserved_unsuccessful_attempts": [
+    {
+      "commands": "linux-commands.json",
+      "exit_code": 1,
+      "stage": "Swift Build compiled all test sources, then SwiftPM could not spawn missing SwiftJLSTests.xctest; runtime unqualified."
+    },
+    {
+      "commands": "linux-native-command.json",
+      "exit_code": 1,
+      "stage": "Foundation resource copy from macOS bind mount failed before compilation; subsequent explicit native test used container-local inputs."
+    },
+    {
+      "commands": "linux-swiftbuild-consumer-command.json",
+      "exit_code": 1,
+      "stage": "Swift Build release consumer link failed because Modules/SwiftJLS.o was missing; consumer unqualified for this engine/toolchain."
+    }
+  ],
+  "limits": [
+    "The passing affected suite has 15 tests; it is not a full suite rerun.",
+    "No sample/copy/lifetime code changed; no new codec performance or memory claim.",
+    "Native-engine evidence does not replace or relabel failed Swift Build qualification.",
+    "GitHub CI must run on the final pushed head."
+  ]
+}

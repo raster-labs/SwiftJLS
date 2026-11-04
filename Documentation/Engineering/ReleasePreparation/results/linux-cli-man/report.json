@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "cli_process_checks": 103,
+  "image": {
+    "Id": "sha256:e508ef1e4be68087f720de622b91cbf1e32799a7aa96134b35e6f1a1d656db7a",
+    "RepoDigests": [
+      "swift@sha256:e508ef1e4be68087f720de622b91cbf1e32799a7aa96134b35e6f1a1d656db7a"
+    ],
+    "Architecture": "arm64",
+    "Os": "linux"
+  },
+  "compiler": "Swift version 6.2.4 (swift-6.2.4-RELEASE)\nTarget: aarch64-unknown-linux-gnu",
+  "man_before_path": "/usr/bin/man",
+  "man_before": "This system has been minimized by removing packages and content that are\nnot required on a system that users do not log into.\n\nTo restore this content, including manpages, you can run the 'unminimize'\ncommand. You will still need to ensure the 'man-db' package is installed.",
+  "report_sha256": "ad774bee4ab26cb4ff62a6eb0f6c25728d3920ae44eec5eee2e85b35f4d27652",
+  "runtime_and_host_tools_changed": false,
+  "scope": "Container-only actual man-db/mandoc install; real man provisioning; ordinary native-engine release CLI; no weakened assertions",
+  "shell_cached_man_after_path": "/usr/bin/man",
+  "shell_cached_man_after": "This system has been minimized by removing packages and content that are\nnot required on a system that users do not log into.\n\nTo restore this content, including manpages, you can run the 'unminimize'\ncommand. You will still need to ensure the 'man-db' package is installed.",
+  "actual_man_lookup_in_test": {
+    "argv": [
+      "/usr/local/bin/man",
+      "-M",
+      "/evidence/cli-process/cli stage spaces sm4y7gys/stage with spaces/opt/suite tools/share/man",
+      "-w",
+      "swiftjls-cli"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "stdout": "/evidence/cli-process/cli stage spaces sm4y7gys/stage with spaces/opt/suite tools/share/man/man1/swiftjls-cli.1\n",
+    "stderr": ""
+  },
+  "shell_lookup_note": "The same Bash process cached /usr/bin/man before provisioning. Python shutil.which performed a fresh PATH lookup and executed /usr/local/bin/man; its exact staged-manual discovery assertion passed. The retained after log records the cached shell lookup, not the executable used by the test."
+}

@@ -1,0 +1,59 @@
+[
+    {
+        "Id": "sha256:e508ef1e4be68087f720de622b91cbf1e32799a7aa96134b35e6f1a1d656db7a",
+        "RepoTags": [
+            "swift:6.2-noble"
+        ],
+        "RepoDigests": [
+            "swift@sha256:e508ef1e4be68087f720de622b91cbf1e32799a7aa96134b35e6f1a1d656db7a"
+        ],
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-10-26T23:47:44.663090098Z",
+        "Config": {
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "SWIFT_SIGNING_KEY=52BB7E3DE28A71BE22EC05FFEF80A866B47A981F",
+                "SWIFT_PLATFORM=ubuntu24.04",
+                "SWIFT_BRANCH=swift-6.2.4-release",
+                "SWIFT_VERSION=swift-6.2.4-RELEASE",
+                "SWIFT_WEBROOT=https://download.swift.org"
+            ],
+            "Cmd": [
+                "/bin/bash"
+            ],
+            "Labels": {
+                "description": "Docker Container for the Swift programming language",
+                "maintainer": "Swift Infrastructure <swift-infrastructure@forums.swift.org>",
+                "org.opencontainers.image.version": "24.04"
+            }
+        },
+        "Architecture": "arm64",
+        "Variant": "v8",
+        "Os": "linux",
+        "Size": 1182476892,
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:107ffca6dcd3fc87a7bed8c062f5ddc0d6a4b107205c82c0b49efdb7c1aff967",
+                "sha256:28986bae759af8dfe18472504b8291c8a969ba046831ee0b970abfb382d2388f",
+                "sha256:41cf0fc25df344258064d815f709c9cbdbda24b359bba0391687919ac27b9c99",
+                "sha256:cb390ad00a93723187d8aa973c3801c4d204b4ede7ee43716046f5b9cb0214ed"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2026-11-04T06:59:45.969380375Z"
+        },
+        "Descriptor": {
+            "mediaType": "application/vnd.oci.image.index.v1+json",
+            "digest": "sha256:e508ef1e4be68087f720de622b91cbf1e32799a7aa96134b35e6f1a1d656db7a",
+            "size": 2617
+        },
+        "Identity": {
+            "Pull": [
+                {
+                    "Repository": "docker.io/library/swift"
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,20 @@
+diff --git a/Tests/SwiftJLSTests/QualifiedMonochromeTests.swift b/Tests/SwiftJLSTests/QualifiedMonochromeTests.swift
+index 85dcc333..5ecee3b3 100644
+--- a/Tests/SwiftJLSTests/QualifiedMonochromeTests.swift
++++ b/Tests/SwiftJLSTests/QualifiedMonochromeTests.swift
+@@ -154,7 +154,14 @@ struct QualifiedMonochromeTests {
+         for (width, height) in [(65537, 1), (1, 65537)] {
+             let result = try decode(fixture("legacy-extended-\(width)x\(height)"))
+             #expect(result.0.width == width && result.0.height == height)
+-            #expect(result.1 == (0..<(width * height)).map { UInt16((($0 % width) * 17 + ($0 / width) * 3) & 255) })
++            let sampleCount: Int = width * height
++            let expected: [UInt16] = (0..<sampleCount).map { index in
++                let column: Int = index % width
++                let row: Int = index / width
++                let value: Int = column * 17 + row * 3
++                return UInt16(value & 255)
++            }
++            #expect(result.1 == expected)
+         }
+     }
+ 

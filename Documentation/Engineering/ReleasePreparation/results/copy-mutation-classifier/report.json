@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "diagnosis": "Classifier false negative: a private OwnedImageStorage initialiser contains a Swift file discriminator; actual injected sample-array allocations remain visible.",
+  "source_head": "69f31fe8bf79ba679df6482ea9c2b78572a89751",
+  "ci_head": "765009418bc4a2cdc75c75f676d1834eb88e3de7",
+  "ci_job_url": "https://github.com/raster-labs/SwiftJLS/actions/runs/41789843682/job/126440402766",
+  "script_sha256": "da6fd43140dab6d98a67fa274af22a0426942fc229ac03e6527b78a5fa6cbb84",
+  "unchanged_injected_swift_helper": true,
+  "current_scalar_source_matches_ci": true,
+  "scalar_source_sha256": "2e32232bd50b61f453d93db68b82140f0ec6a500e30cef8137823e18db7ab613",
+  "unit_controls": {
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "Scripts/ReleasePreparation",
+      "-p",
+      "test_copy_mutation_classifier.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "test_methods": 6,
+    "log": "controls.log"
+  },
+  "baseline": {
+    "artifact_id": 13303067148,
+    "archive": "original-ci-baseline.zip",
+    "sha256": "672fd0760cfe6709f06b407e5d7825f68a10a1cbfbc2f8e661bf457a483c5bbf",
+    "demangle_command": [
+      "docker",
+      "run",
+      "--rm",
+      "-i",
+      "swift@sha256:e508ef1e4be68087f720de622b91cbf1e32799a7aa96134b35e6f1a1d656db7a",
+      "swift",
+      "demangle"
+    ],
+    "demangle_exit": 0,
+    "detected": false,
+    "sample_array_allocations": 0
+  },
+  "mutant": {
+    "artifact_id": 13303265900,
+    "archive": "original-ci-mutant.zip",
+    "sha256": "428ff59ea6739305c2d65fc7581931e8da71874aafd4732a0c858cd55c06f464",
+    "original_detected": false,
+    "original_sample_array_allocations": 0,
+    "replayed_detected": true,
+    "replayed_sample_array_allocations": 10
+  },
+  "preserved_gates": [
+    "Helper marker must occur in the allocation section.",
+    "The same stack must include the helper, exact SwiftJLS.OwnedImageStorage initialiser and Swift.Array.init(repeating:).",
+    "Exactly ten injected sample-array allocations remain required.",
+    "The consumer must pass and baseline must exclude the injected allocator."
+  ],
+  "scope": "Replay of existing ordinary-build allocation evidence and classifier controls; no production code change or new memory/performance claim. Fresh final-head CI remains required."
+}

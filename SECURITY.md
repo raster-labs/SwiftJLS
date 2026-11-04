@@ -4,9 +4,17 @@ Status: unreleased native codec with bounded parsing, resource admission and san
 
 ## Reporting
 
-Use the repository's private vulnerability reporting option in its Security tab if it is enabled. Otherwise use an established private channel to a Raster-Lab organisation owner to arrange disclosure. Do not post exploitable payloads, credentials or patient information in a public issue. On 12 October 2026 the repository API reported private vulnerability reporting disabled. Enabling it with the available credentials returned HTTP 404, and a subsequent read still reported disabled. An administrator must configure an actionable private reporting channel; no dedicated mailbox is asserted.
+Use [GitHub private vulnerability reporting](https://github.com/raster-labs/SwiftJLS/security/advisories/new), the channel selected by the owner on 4 November 2026. A later same-day read-only API check confirms `enabled: true`; [the verification record](Documentation/Engineering/ReleasePreparation/results/private-reporting-enabled.json) preserves that result. The earlier disabled state remains in the dated evidence. This task did not change the repository setting or submit a test advisory. Do not post exploitable payloads, credentials or patient information in a public issue. The earlier 12 October failed enable attempt remains recorded in the historical qualification evidence.
 
-Include affected version/commit, platform, a minimal safe reproducer, expected/actual behaviour and impact. Use synthetic data where possible. The current `1.1.0-dev.2` candidate is unreleased; there is no published stable successor version with a support window. A maintainer must establish the reporting channel and supported-version policy before the first stable release.
+Include affected version/commit, platform, a minimal safe reproducer, expected/actual behaviour and impact. Use synthetic data where possible. The current `1.1.0-dev.2` candidate is unreleased; there is no published stable successor version with a support window. The reporting channel is configured; a maintainer must accept and publish the supported-version policy before the first stable release.
+
+## Supported versions
+
+| Version | Current status |
+| --- | --- |
+| `1.1.0-dev.2` and other development commits | Unreleased; reports investigated case by case, without a supported-release or response-time guarantee. |
+| `1.1.0` / `1.1.x` stable | Not published or supported yet. The [prepared support policy](RELEASE.md#prepared-first-stable-support-policy) requires maintainer acceptance before publication. |
+| JLSwift predecessor | Separate project and security policy; no change to its support or maintenance follows from this work. |
 
 ## Threat model
 

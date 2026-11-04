@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(name: "QualifiedAllocationProbe", platforms: [.macOS(.v26)],
-    dependencies: [.package(path: "../..")], targets: [
+    dependencies: [.package(name: "SwiftJLS", path: "../..")], targets: [
         .target(name: "AllocationInstrumentation", cSettings: [.unsafeFlags(["-fno-builtin"])]),
         .executableTarget(name: "QualifiedAllocationProbe", dependencies: ["AllocationInstrumentation",
             .product(name: "SwiftJLS", package: "SwiftJLS")],

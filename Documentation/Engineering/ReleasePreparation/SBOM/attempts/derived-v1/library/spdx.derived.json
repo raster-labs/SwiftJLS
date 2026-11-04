@@ -1,0 +1,175 @@
+{
+  "@context": "https://spdx.org/rdf/3.0.1/spdx-context.jsonld",
+  "@graph": [
+    {
+      "comment": "Corrected licence subject from creator Agent to represented software tool; original assertion retained.",
+      "creationInfo": "_:derivedCreationInfo",
+      "from": "urn:swiftjls:build-tool:swift-package-manager:6.4.2",
+      "relationshipType": "hasDeclaredLicense",
+      "spdxId": "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb-hasDeclaredLicense-urn:spdx:Apache-2.0",
+      "to": [
+        "urn:spdx:Apache-2.0"
+      ],
+      "type": "Relationship"
+    },
+    {
+      "creationInfo": "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb:creationInfo",
+      "simplelicensing_licenseExpression": "Apache-2.0",
+      "spdxId": "urn:spdx:Apache-2.0",
+      "type": "simplelicensing_LicenseExpression"
+    },
+    {
+      "@id": "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb:creationInfo",
+      "comment": "Derived correction: producer wrote SwiftPM 6.4.2 in SPDX specVersion.",
+      "created": "2026-11-04T10:08:40Z",
+      "createdBy": [
+        "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb"
+      ],
+      "specVersion": "3.0.1",
+      "type": "CreationInfo"
+    },
+    {
+      "creationInfo": "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb:creationInfo",
+      "name": "swift-package-manager",
+      "spdxId": "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb",
+      "type": "Agent"
+    },
+    {
+      "@id": "_:creationInfo",
+      "created": "2026-11-04T10:08:40Z",
+      "createdBy": [
+        "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb"
+      ],
+      "specVersion": "3.0.1",
+      "type": "CreationInfo"
+    },
+    {
+      "creationInfo": "_:creationInfo",
+      "profileConformance": [
+        "core",
+        "software",
+        "simpleLicensing"
+      ],
+      "rootElement": [
+        "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b:SwiftJLS"
+      ],
+      "spdxId": "urn:uuid:aad6c9ba-039d-4548-b4a3-a4e661aed06a",
+      "type": "software_Sbom"
+    },
+    {
+      "creationInfo": "_:creationInfo",
+      "from": "urn:uuid:aad6c9ba-039d-4548-b4a3-a4e661aed06a",
+      "relationshipType": "describes",
+      "spdxId": "urn:uuid:aad6c9ba-039d-4548-b4a3-a4e661aed06a-describes-urn:spdx:swiftjls-m5-sbom-candidate-53cea07b:SwiftJLS",
+      "to": [
+        "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b:SwiftJLS"
+      ],
+      "type": "Relationship"
+    },
+    {
+      "comment": "Separately derived SwiftJLS build-associated SBOM; raw documents and transformation receipt retained.",
+      "creationInfo": "_:derivedCreationInfo",
+      "profileConformance": [
+        "core",
+        "software",
+        "simpleLicensing"
+      ],
+      "rootElement": [
+        "urn:uuid:aad6c9ba-039d-4548-b4a3-a4e661aed06a"
+      ],
+      "spdxId": "urn:uuid:1d1785ef-6b99-52d3-8188-d75e1e36bbd0",
+      "type": "SpdxDocument"
+    },
+    {
+      "comment": "Derived correction; original SwiftPM URL: pkg:swift/swiftjls-m5-sbom-candidate-53cea07b@53cea07be57fb030451a87bead9a3c3c0e863f04",
+      "creationInfo": "_:derivedCreationInfo",
+      "description": "<ResolvedPackage: swiftjls-m5-sbom-candidate-53cea07b>",
+      "name": "swiftjls-m5-sbom-candidate-53cea07b",
+      "software_homePage": "https://github.com/raster-labs/SwiftJLS",
+      "software_packageUrl": "pkg:swift/github.com/raster-labs/SwiftJLS@53cea07be57fb030451a87bead9a3c3c0e863f04",
+      "software_packageVersion": "53cea07be57fb030451a87bead9a3c3c0e863f04",
+      "software_primaryPurpose": "application",
+      "spdxId": "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b",
+      "summary": "swift-package",
+      "type": "software_Package"
+    },
+    {
+      "comment": "Derived correction; original SwiftPM URL: pkg:swift/swiftjls-m5-sbom-candidate-53cea07b/swiftjls-m5-sbom-candidate-53cea07b:SwiftJLS@53cea07be57fb030451a87bead9a3c3c0e863f04",
+      "creationInfo": "_:derivedCreationInfo",
+      "name": "SwiftJLS",
+      "software_homePage": "https://github.com/raster-labs/SwiftJLS",
+      "software_packageVersion": "53cea07be57fb030451a87bead9a3c3c0e863f04",
+      "software_primaryPurpose": "library",
+      "software_sourceInfo": "SwiftJLS product from https://github.com/raster-labs/SwiftJLS/tree/53cea07be57fb030451a87bead9a3c3c0e863f04",
+      "spdxId": "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b:SwiftJLS",
+      "summary": "swift-product",
+      "type": "software_Package"
+    },
+    {
+      "creationInfo": "_:creationInfo",
+      "from": "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b",
+      "relationshipType": "dependsOn",
+      "spdxId": "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b-dependsOn",
+      "to": [
+        "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b:SwiftJLS"
+      ],
+      "type": "Relationship"
+    },
+    {
+      "@id": "_:derivedCreationInfo",
+      "created": "2026-11-04T10:09:02Z",
+      "createdBy": [
+        "urn:swiftjls:milestone5:sbom-qualification-agent"
+      ],
+      "createdUsing": [
+        "urn:swiftjls:milestone5:derive:316d8922645c58d5edd95adebe7cb7ecefdafb6a6df305f96f013f704c03c5d6"
+      ],
+      "specVersion": "3.0.1",
+      "type": "CreationInfo"
+    },
+    {
+      "creationInfo": "_:derivedCreationInfo",
+      "name": "SwiftJLS Milestone 5 SBOM qualification",
+      "spdxId": "urn:swiftjls:milestone5:sbom-qualification-agent",
+      "type": "Agent"
+    },
+    {
+      "comment": "SHA-256 316d8922645c58d5edd95adebe7cb7ecefdafb6a6df305f96f013f704c03c5d6",
+      "creationInfo": "_:derivedCreationInfo",
+      "name": "qualify.py",
+      "spdxId": "urn:swiftjls:milestone5:derive:316d8922645c58d5edd95adebe7cb7ecefdafb6a6df305f96f013f704c03c5d6",
+      "type": "Tool"
+    },
+    {
+      "comment": "Build tool; not a runtime dependency.",
+      "creationInfo": "_:derivedCreationInfo",
+      "name": "swift-package-manager",
+      "software_packageVersion": "6.4.2",
+      "software_primaryPurpose": "application",
+      "spdxId": "urn:swiftjls:build-tool:swift-package-manager:6.4.2",
+      "type": "software_Package"
+    },
+    {
+      "comment": "Source LICENSE and NOTICE are hash-bound in generation.json; development fixtures are outside this product inventory.",
+      "creationInfo": "_:derivedCreationInfo",
+      "from": "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b",
+      "relationshipType": "hasDeclaredLicense",
+      "spdxId": "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b-declared-apache2-derived",
+      "to": [
+        "urn:spdx:Apache-2.0"
+      ],
+      "type": "Relationship"
+    },
+    {
+      "comment": "Source LICENSE and NOTICE are hash-bound in generation.json; development fixtures are outside this product inventory.",
+      "creationInfo": "_:derivedCreationInfo",
+      "from": "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b:SwiftJLS",
+      "relationshipType": "hasDeclaredLicense",
+      "spdxId": "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b:SwiftJLS-declared-apache2-derived",
+      "to": [
+        "urn:spdx:Apache-2.0"
+      ],
+      "type": "Relationship"
+    }
+  ]
+}

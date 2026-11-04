@@ -5,7 +5,7 @@ let package = Package(
     name: "CrossCodecConsumer",
     platforms: [.macOS(.v26)],
     dependencies: [
-        .package(path: "../.."),
+        .package(name: "SwiftJLS", path: "../.."),
         .package(url: "https://github.com/raster-labs/SwiftJ2K.git",
                  revision: "be4e7a3ad352759e7a78a90f6a2e2c3b7aa0f748")
     ],

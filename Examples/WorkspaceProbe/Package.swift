@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import PackageDescription
 let package = Package(name: "WorkspaceProbe", platforms: [.macOS(.v26)],
-    dependencies: [.package(path: "../..")],
+    dependencies: [.package(name: "SwiftJLS", path: "../..")],
     targets: [
         .target(name: "PhaseMarkers"),
         .executableTarget(name: "WorkspaceProbe", dependencies: ["PhaseMarkers", .product(name: "SwiftJLS", package: "SwiftJLS")])

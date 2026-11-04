@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/pushparaj/projects/SwiftJLS-milestone5/Scripts/ReleasePreparation/SBOM/qualify.py", line 299, in <module>
+    main()
+    ~~~~^^
+  File "/Users/pushparaj/projects/SwiftJLS-milestone5/Scripts/ReleasePreparation/SBOM/qualify.py", line 249, in main
+    require(sha(a.raw / entry['path']) == entry['sha256'], 'Raw SBOM changed')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pushparaj/projects/SwiftJLS-milestone5/Scripts/ReleasePreparation/SBOM/qualify.py", line 43, in require
+    raise ValueError(message)
+ValueError: Raw SBOM changed

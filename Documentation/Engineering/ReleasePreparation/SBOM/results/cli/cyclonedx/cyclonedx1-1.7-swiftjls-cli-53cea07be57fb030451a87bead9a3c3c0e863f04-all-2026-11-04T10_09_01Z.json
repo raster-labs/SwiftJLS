@@ -1,0 +1,100 @@
+{
+  "$schema" : "http://cyclonedx.org/schema/bom-1.7.schema.json",
+  "bomFormat" : "CycloneDX",
+  "components" : [
+    {
+      "bom-ref" : "swiftjls-m5-sbom-candidate-53cea07b",
+      "externalReferences" : [
+
+      ],
+      "name" : "swiftjls-m5-sbom-candidate-53cea07b",
+      "pedigree" : {
+
+      },
+      "properties" : [
+        {
+          "name" : "swift-entity",
+          "value" : "swift-package"
+        }
+      ],
+      "purl" : "pkg:swift/swiftjls-m5-sbom-candidate-53cea07b@53cea07be57fb030451a87bead9a3c3c0e863f04",
+      "scope" : "required",
+      "type" : "application",
+      "version" : "53cea07be57fb030451a87bead9a3c3c0e863f04"
+    },
+    {
+      "bom-ref" : "swiftjls-m5-sbom-candidate-53cea07b:swiftjls-cli",
+      "externalReferences" : [
+
+      ],
+      "name" : "swiftjls-cli",
+      "pedigree" : {
+
+      },
+      "properties" : [
+        {
+          "name" : "swift-entity",
+          "value" : "swift-product"
+        }
+      ],
+      "purl" : "pkg:swift/swiftjls-m5-sbom-candidate-53cea07b/swiftjls-m5-sbom-candidate-53cea07b:swiftjls-cli@53cea07be57fb030451a87bead9a3c3c0e863f04",
+      "scope" : "required",
+      "type" : "application",
+      "version" : "53cea07be57fb030451a87bead9a3c3c0e863f04"
+    }
+  ],
+  "dependencies" : [
+    {
+      "dependsOn" : [
+        "swiftjls-m5-sbom-candidate-53cea07b:swiftjls-cli"
+      ],
+      "ref" : "swiftjls-m5-sbom-candidate-53cea07b"
+    }
+  ],
+  "metadata" : {
+    "component" : {
+      "bom-ref" : "swiftjls-m5-sbom-candidate-53cea07b:swiftjls-cli",
+      "externalReferences" : [
+
+      ],
+      "name" : "swiftjls-cli",
+      "pedigree" : {
+
+      },
+      "properties" : [
+        {
+          "name" : "swift-entity",
+          "value" : "swift-product"
+        }
+      ],
+      "purl" : "pkg:swift/swiftjls-m5-sbom-candidate-53cea07b/swiftjls-m5-sbom-candidate-53cea07b:swiftjls-cli@53cea07be57fb030451a87bead9a3c3c0e863f04",
+      "scope" : "required",
+      "type" : "application",
+      "version" : "53cea07be57fb030451a87bead9a3c3c0e863f04"
+    },
+    "timestamp" : "2026-11-04T10:09:01Z",
+    "tools" : {
+      "components" : [
+        {
+          "bom-ref" : "urn:uuid:8218bb9d-9f1a-4433-bb0c-576c3ca19dff",
+          "licenses" : [
+            {
+              "license" : {
+                "id" : "Apache-2.0",
+                "url" : "http://swift.org/LICENSE.txt"
+              }
+            }
+          ],
+          "name" : "swift-package-manager",
+          "purl" : "pkg:swift/github.com/swiftlang/swift-package-manager@6.4.2",
+          "scope" : "excluded",
+          "type" : "application",
+          "version" : "6.4.2"
+        }
+      ]
+    }
+  },
+  "serialNumber" : "urn:uuid:37443fe9-fdcc-4647-bf24-5c677eb1f9f2",
+  "specVersion" : "1.7",
+  "version" : 1
+}
