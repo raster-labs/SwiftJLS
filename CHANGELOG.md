@@ -1,5 +1,11 @@
 # Change log
 
+## Milestone 5 release preparation — 2026-11-04 (unreleased)
+
+- Add reproducible exact-version packaging rehearsal in an isolated disposable Git repository, hosted revision consumption, executable README/migration examples, lockfile checks and CLI/manual installation validation. No tag is added to the project repository.
+- Modernise the reusable compiler runner to exercise the native codec at tools 6.2 / OS 26 and support differently named worktrees. Audit retained fixture, source and licence provenance.
+- Record the selected GitHub private reporting channel, pending administrator enablement, proposed stable support policy and open device/release gates in [RELEASE.md](RELEASE.md). Codec sources, common contracts, fixtures and historical evidence remain unchanged.
+
 ## Milestone 4 fresh-owned factory qualification — 2026-10-22 (unreleased)
 
 - Add `Image.writeAdmittedOwned`, `OwnedImageStorage.fillAndSealAdmittedOwned`, `Image(admittedOwnedDescriptor:sealedOwnedStorage:admittedMetadata:)` and reused `JPEGLSHeader.admittedDescriptor` (`factory_002`), bypassing the private `ImageDestination` wrapper when `ScalarCodec.decode` has no supplied destination while preserving `ImageDestination.allocate`/`write` for `ComponentCodec.decode` and caller-supplied storage.

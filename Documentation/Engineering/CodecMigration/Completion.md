@@ -1,3 +1,9 @@
+# Current milestone disposition — 4 November 2026
+
+Milestone 5 release preparation is now owner-assigned. Its implementation, command evidence and remaining acceptance gates are tracked in [RELEASE.md](../../../RELEASE.md) and [the preparation evidence](../ReleasePreparation/README.md). The task uses merged baseline `a9bf9e95933fc8135bbcc3922d6ce831ddfe2057`, with unchanged codec sources and fixtures. Clean versioned consumption, executable documentation, CLI packaging and provenance checks are prepared. Full milestone/release acceptance remains blocked by physical-device qualification and administrator enablement of the selected GitHub private reporting channel; stable publication requires its own explicit task.
+
+The following 24 October audit is retained as dated evidence. Its “Milestone 5 deferred” and then-current branch/merge statements describe that historical task, not the 4 November assignment. No historical result is relabelled as a new run.
+
 # Migration completion audit — updated 24 October 2026
 
 The current `candidate_005` follow-up (24 October) addresses destination lifecycle overhead, gradient-table storage and parser workspace admission. The [candidate005 manifest](results/candidate005-qualification-2026-10-24.json) binds the exact source, commands, raw evidence and independent audits. Historical candidate003/004 and factory results below retain their original counts and dispositions.

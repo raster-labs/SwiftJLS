@@ -2,6 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 import PackageDescription
 let package = Package(name: "ResourceStress", platforms: [.macOS(.v26)],
-    dependencies: [.package(path: "../..")],
+    dependencies: [.package(name: "SwiftJLS", path: "../..")],
     targets: [.executableTarget(name: "ResourceStress", dependencies: [.product(name: "SwiftJLS", package: "SwiftJLS")])],
     swiftLanguageModes: [.v6])

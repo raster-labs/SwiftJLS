@@ -223,25 +223,41 @@ jobs:
             swift build --target SwiftJLS -c release --triple "$TARGET_TRIPLE" --sdk "$SDK_PATH"
           fi
 
-  remote-consumer:
-    name: Fresh URL-pinned standalone consumer
+  release-preparation:
+    name: Release preparation / Swift ${{ matrix.swift }}
     runs-on: ubuntu-24.04
-    container: swift:6.2-noble
-    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        swift: ['6.2', '6.4']
+    container: swift:${{ matrix.swift }}-noble
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
-      - name: Resolve and run without a local path dependency
-        env:
-          REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Install preparation prerequisites
+        run: apt-get update && apt-get install -y --no-install-recommends python3 git man-db mandoc
+      - name: Release evidence negative controls
+        run: python3 -m unittest discover -s Scripts/ReleasePreparation -p 'test_*.py' -v
+      - name: Audit pinned source and fixture provenance
         run: |
-          mkdir -p /tmp/swiftjls-remote/Sources/Consumer
-          cp Examples/IndependentConsumer/Sources/Consumer/main.swift /tmp/swiftjls-remote/Sources/Consumer/main.swift
-          cat > /tmp/swiftjls-remote/Package.swift <<EOF
-          // swift-tools-version: 6.2
-          import PackageDescription
-          let package = Package(name: "RemoteConsumer", dependencies: [.package(url: "https://github.com/raster-labs/SwiftJLS.git", revision: "$REVISION")], targets: [.executableTarget(name: "Consumer", dependencies: [.product(name: "SwiftJLS", package: "SwiftJLS")])], swiftLanguageModes: [.v6])
-          EOF
-          cd /tmp/swiftjls-remote
-          swift run -c release
+          git clone --filter=blob:none --no-checkout https://github.com/raster-labs/JLSwift.git /tmp/swiftjls-predecessor
+          python3 Scripts/ReleasePreparation/provenance.py --predecessor /tmp/swiftjls-predecessor --output /tmp/swiftjls-provenance.json
+          python3 Scripts/ReleasePreparation/provenance-controls.py --predecessor /tmp/swiftjls-predecessor --output /tmp/swiftjls-provenance-controls.json
+      - name: Versioned and hosted consumption, documentation and CLI packaging
+        run: python3 Scripts/ReleasePreparation/prepare.py --output /tmp/swiftjls-preparation
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: release-preparation-swift-${{ matrix.swift }}
+          path: |
+            /tmp/swiftjls-provenance.json
+            /tmp/swiftjls-provenance-controls.json
+            /tmp/swiftjls-preparation/report.json
+            /tmp/swiftjls-preparation/*.log
+            /tmp/swiftjls-preparation/*/Package.swift
+            /tmp/swiftjls-preparation/*/Package.resolved
+            /tmp/swiftjls-preparation/cli-process/
+            /tmp/swiftjls-preparation/cli-payload.json
