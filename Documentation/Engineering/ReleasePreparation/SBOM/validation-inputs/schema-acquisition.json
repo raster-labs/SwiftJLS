@@ -1,0 +1,85 @@
+{
+  "startedUTC": "2026-11-03T07:42:36.868364+00:00",
+  "scratch": "/private/tmp/swiftjli-m5-sbom-validator-yr_iy5on",
+  "commands": [
+    {
+      "label": "validator-venv",
+      "command": [
+        "/opt/homebrew/opt/python@3.15/bin/python3.15",
+        "-m",
+        "venv",
+        "/private/tmp/swiftjli-m5-sbom-validator-yr_iy5on/venv"
+      ],
+      "log": "validator-venv.log",
+      "exitCode": 0,
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "validator-install",
+      "command": [
+        "/private/tmp/swiftjli-m5-sbom-validator-yr_iy5on/venv/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "jsonschema==4.25.1"
+      ],
+      "log": "validator-install.log",
+      "exitCode": 0,
+      "logSHA256": "fe3f51e2d8e9e0db1139f12e6748e3b6cc2daeb1c4f7414153490a70671c9bd9"
+    },
+    {
+      "label": "validator-packages",
+      "command": [
+        "/private/tmp/swiftjli-m5-sbom-validator-yr_iy5on/venv/bin/python",
+        "-m",
+        "pip",
+        "freeze",
+        "--all"
+      ],
+      "log": "validator-packages.log",
+      "exitCode": 0,
+      "logSHA256": "63e0eaa9e224b5e7eb6b0aa2c952294435ecd3fce64f5babfc5ad57f95f10c14"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "spdx-json-schema.json",
+      "url": "https://spdx.org/schema/3.0.1/spdx-json-schema.json",
+      "resolvedURL": "https://spdx.org/schema/3.0.1/spdx-json-schema.json",
+      "httpStatus": 200,
+      "sha256": "582c64e809d5b3ef9bd0c4de13a32391b47b0284a3e8d199569fb96f649234b1",
+      "bytes": 265678,
+      "gzipSHA256": "7f57a9f32920952c5ad2b6120c4fbdaff602015abbf94b95d1f273eab9fa3440"
+    },
+    {
+      "file": "bom-1.7.schema.json",
+      "url": "https://raw.githubusercontent.com/CycloneDX/specification/1ce97b2a7b8cf2429da248560d2aa671c6bce74a/schema/bom-1.7.schema.json",
+      "resolvedURL": "https://raw.githubusercontent.com/CycloneDX/specification/1ce97b2a7b8cf2429da248560d2aa671c6bce74a/schema/bom-1.7.schema.json",
+      "httpStatus": 200,
+      "sha256": "73308edec3ab2d38bfffd993e96a042b594314143b6971a6e9ed98bbb6bd76ce",
+      "bytes": 315722,
+      "gzipSHA256": "bcd0fd8765095906c33902554a603415255fc683ea7236cbe578770e38dd8bc0"
+    },
+    {
+      "file": "spdx.schema.json",
+      "url": "https://raw.githubusercontent.com/CycloneDX/specification/1ce97b2a7b8cf2429da248560d2aa671c6bce74a/schema/spdx.schema.json",
+      "resolvedURL": "https://raw.githubusercontent.com/CycloneDX/specification/1ce97b2a7b8cf2429da248560d2aa671c6bce74a/schema/spdx.schema.json",
+      "httpStatus": 200,
+      "sha256": "4b345e2329f209f34e960ae2a8e7cb46a166907e6a45e94978565925dc47b359",
+      "bytes": 63418,
+      "gzipSHA256": "7bd0d787e67d4b5971424a84cdda833173d343d220547afb01055e7378d00ed1"
+    },
+    {
+      "file": "jsf-0.82.schema.json",
+      "url": "https://raw.githubusercontent.com/CycloneDX/specification/1ce97b2a7b8cf2429da248560d2aa671c6bce74a/schema/jsf-0.82.schema.json",
+      "resolvedURL": "https://raw.githubusercontent.com/CycloneDX/specification/1ce97b2a7b8cf2429da248560d2aa671c6bce74a/schema/jsf-0.82.schema.json",
+      "httpStatus": 200,
+      "sha256": "8bae002c25e723db7ee1f26afde680ae1a2b1a8f6b4b4b0fd65dc3becb090aae",
+      "bytes": 8058,
+      "gzipSHA256": "a9e4a22b34ecd9723d8fde0d2da7b403d9b96be08d4e48d30ffb8dd646b532f0"
+    }
+  ],
+  "status": "passed",
+  "validatorPython": "/private/tmp/swiftjli-m5-sbom-validator-yr_iy5on/venv/bin/python",
+  "finishedUTC": "2026-11-03T07:42:42.558397+00:00"
+}

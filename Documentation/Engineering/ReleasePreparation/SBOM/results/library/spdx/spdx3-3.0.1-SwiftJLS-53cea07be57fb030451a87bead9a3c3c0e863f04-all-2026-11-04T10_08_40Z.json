@@ -1,0 +1,110 @@
+{
+  "@context" : "https://spdx.org/rdf/3.0.1/spdx-context.jsonld",
+  "@graph" : [
+    {
+      "creationInfo" : "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb:creationInfo",
+      "from" : "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb",
+      "relationshipType" : "hasDeclaredLicense",
+      "spdxId" : "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb-hasDeclaredLicense-urn:spdx:Apache-2.0",
+      "to" : [
+        "urn:spdx:Apache-2.0"
+      ],
+      "type" : "Relationship"
+    },
+    {
+      "creationInfo" : "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb:creationInfo",
+      "simplelicensing_licenseExpression" : "Apache-2.0",
+      "spdxId" : "urn:spdx:Apache-2.0",
+      "type" : "simplelicensing_LicenseExpression"
+    },
+    {
+      "@id" : "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb:creationInfo",
+      "created" : "2026-11-04T10:08:40Z",
+      "createdBy" : [
+        "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb"
+      ],
+      "specVersion" : "6.4.2",
+      "type" : "CreationInfo"
+    },
+    {
+      "creationInfo" : "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb:creationInfo",
+      "name" : "swift-package-manager",
+      "spdxId" : "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb",
+      "type" : "Agent"
+    },
+    {
+      "@id" : "_:creationInfo",
+      "created" : "2026-11-04T10:08:40Z",
+      "createdBy" : [
+        "urn:uuid:2d8d8a57-78ae-49c9-95c6-ff4588f9b2bb"
+      ],
+      "specVersion" : "3.0.1",
+      "type" : "CreationInfo"
+    },
+    {
+      "creationInfo" : "_:creationInfo",
+      "profileConformance" : [
+        "core",
+        "software"
+      ],
+      "rootElement" : [
+        "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b:SwiftJLS"
+      ],
+      "spdxId" : "urn:uuid:aad6c9ba-039d-4548-b4a3-a4e661aed06a",
+      "type" : "software_Sbom"
+    },
+    {
+      "creationInfo" : "_:creationInfo",
+      "from" : "urn:uuid:aad6c9ba-039d-4548-b4a3-a4e661aed06a",
+      "relationshipType" : "describes",
+      "spdxId" : "urn:uuid:aad6c9ba-039d-4548-b4a3-a4e661aed06a-describes-urn:spdx:swiftjls-m5-sbom-candidate-53cea07b:SwiftJLS",
+      "to" : [
+        "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b:SwiftJLS"
+      ],
+      "type" : "Relationship"
+    },
+    {
+      "creationInfo" : "_:creationInfo",
+      "profileConformance" : [
+        "core",
+        "software"
+      ],
+      "rootElement" : [
+        "urn:uuid:aad6c9ba-039d-4548-b4a3-a4e661aed06a"
+      ],
+      "spdxId" : "urn:uuid:150b78ee-a438-442b-999b-4af3c06a31dc",
+      "type" : "SpdxDocument"
+    },
+    {
+      "creationInfo" : "_:creationInfo",
+      "description" : "<ResolvedPackage: swiftjls-m5-sbom-candidate-53cea07b>",
+      "externalUrl" : "pkg:swift/swiftjls-m5-sbom-candidate-53cea07b@53cea07be57fb030451a87bead9a3c3c0e863f04",
+      "name" : "swiftjls-m5-sbom-candidate-53cea07b",
+      "software_internalVersion" : "53cea07be57fb030451a87bead9a3c3c0e863f04",
+      "software_primaryPurpose" : "application",
+      "spdxId" : "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b",
+      "summary" : "swift-package",
+      "type" : "software_Package"
+    },
+    {
+      "creationInfo" : "_:creationInfo",
+      "externalUrl" : "pkg:swift/swiftjls-m5-sbom-candidate-53cea07b/swiftjls-m5-sbom-candidate-53cea07b:SwiftJLS@53cea07be57fb030451a87bead9a3c3c0e863f04",
+      "name" : "SwiftJLS",
+      "software_internalVersion" : "53cea07be57fb030451a87bead9a3c3c0e863f04",
+      "software_primaryPurpose" : "library",
+      "spdxId" : "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b:SwiftJLS",
+      "summary" : "swift-product",
+      "type" : "software_Package"
+    },
+    {
+      "creationInfo" : "_:creationInfo",
+      "from" : "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b",
+      "relationshipType" : "dependsOn",
+      "spdxId" : "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b-dependsOn",
+      "to" : [
+        "urn:spdx:swiftjls-m5-sbom-candidate-53cea07b:SwiftJLS"
+      ],
+      "type" : "Relationship"
+    }
+  ]
+}

@@ -6,6 +6,8 @@
 - Split two existing expected-sample assertions into typed intermediates so Swift 6.2 and the hosted Xcode toolchain can compile them without changing sample expectations or test coverage.
 - Modernise the reusable compiler runner to exercise the native codec at tools 6.2 / OS 26 and support differently named worktrees. Audit retained fixture, source and licence provenance.
 - Repair the allocator negative-control matcher for private initialiser symbols, retaining exact-ten detection and adding six rejection-control tests. Preserve the original trace and failed classifier result.
+- Include all qualified decoder files in Apple fallback compilation and verify the imported public API; retain the original missing-API negative control.
+- Qualify separately labelled library/CLI SBOMs against official schemas and SPDX semantics, with raw producer defects, source/licence provenance and twenty negative controls retained. Close the library preparation checklist while leaving DICOMKit integration pending by owner direction.
 - Record the selected GitHub private reporting channel (initially disabled, later verified enabled), proposed stable support policy and open device/release gates in [RELEASE.md](RELEASE.md). Codec sources, common contracts, fixtures and historical evidence remain unchanged.
 
 ## Milestone 4 fresh-owned factory qualification — 2026-10-22 (unreleased)

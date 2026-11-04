@@ -1,0 +1,58 @@
+{
+  "recordedUTC": "2026-11-04T10:15:57.724671+00:00",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "Scripts/ReleasePreparation/SBOM/generate.py",
+        "--repository",
+        "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+        "--revision",
+        "53cea07be57fb030451a87bead9a3c3c0e863f04",
+        "--output",
+        "Documentation/Engineering/ReleasePreparation/SBOM/results",
+        "--scratch",
+        "/private/tmp/swiftjls-m5-sbom-build-53cea07b"
+      ],
+      "exitCode": 0,
+      "result": "results/generation.json",
+      "cwd": "/Users/pushparaj/projects/SwiftJLS-milestone5",
+      "helperSHA256": "d40c126cada46c4b3d9d8e0c8e7e15b9de03ebbceb4f389d3e86b3fde478ec05"
+    },
+    {
+      "argv": [
+        "/private/tmp/swiftjli-m5-derived-sbom-ti1ildpy/venv/bin/python",
+        "Scripts/ReleasePreparation/SBOM/qualify.py",
+        "--raw",
+        "Documentation/Engineering/ReleasePreparation/SBOM/results",
+        "--inputs",
+        "Documentation/Engineering/ReleasePreparation/SBOM/validation-inputs",
+        "--output",
+        "Documentation/Engineering/ReleasePreparation/SBOM/derived"
+      ],
+      "exitCode": 0,
+      "result": "derived/summary.json",
+      "cwd": "/Users/pushparaj/projects/SwiftJLS-milestone5",
+      "helperSHA256": "aadc2201a2554785d0e4b84eacebc61a50941cf69ab51e0b3ef2fab488245442"
+    },
+    {
+      "argv": [
+        "/private/tmp/swiftjli-m5-derived-sbom-ti1ildpy/venv/bin/python",
+        "Scripts/ReleasePreparation/SBOM/controls.py",
+        "--evidence",
+        "Documentation/Engineering/ReleasePreparation/SBOM",
+        "--output",
+        "Documentation/Engineering/ReleasePreparation/SBOM/controls"
+      ],
+      "exitCode": 0,
+      "result": "controls/receipt.json",
+      "cwd": "/Users/pushparaj/projects/SwiftJLS-milestone5",
+      "helperSHA256": "9f555f078e15c8d50393e32f8a91bbb24c1421f32f2ac6a5feac7b35f577ab5e"
+    }
+  ],
+  "notes": [
+    "Initial derived and control attempts remain separately retained under attempts/.",
+    "The validator venv was reused without modification; exact installed packages and Python version are retained.",
+    "Commands above exited 0. Raw generator nonconformance is represented by failing raw validation records, not by pretending the build or overall derivative command failed."
+  ]
+}

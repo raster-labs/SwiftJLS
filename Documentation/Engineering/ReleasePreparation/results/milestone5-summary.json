@@ -45,13 +45,35 @@
     "ci-swift62-69f31fe8-independent-audit.json",
     "copy-mutation-classifier/report.json",
     "ci-c843b44e-independent-audit.json",
-    "private-reporting-enabled.json"
+    "private-reporting-enabled.json",
+    "ci-53cea07b.json",
+    "apple-sdk-source-coverage/report.json",
+    "sbom-independent-review.json",
+    "final-scope-link-audit.json",
+    "../SBOM/derived/summary.json"
   ],
   "test_source_change": "Two equivalent typed expected-sample expressions in QualifiedMonochromeTests.swift; fixtures, expected values and assertions preserved",
   "ci_url": "https://github.com/raster-labs/SwiftJLS/pull/18/checks",
   "release_evidence_unit_methods": 13,
   "classifier_change": "Recognise exact private owner initializer with Swift discriminator; preserve same-stack and exact-ten allocation requirements",
-  "verified_ci_head": "c843b44e5f004be97b17663010d0cc369026d704",
+  "verified_ci_head": "53cea07be57fb030451a87bead9a3c3c0e863f04",
   "hosted_checks_passed": 16,
-  "private_reporting": "enabled; verified read-only"
+  "private_reporting": "enabled; verified read-only",
+  "library_preparation": "implemented; final follow-up hosted checks pending",
+  "dicomkit_integration": "excluded and pending by owner direction",
+  "apple_fallback_source_coverage": {
+    "source_count": 39,
+    "previous_source_count": 28,
+    "local_commands": 14,
+    "expected_negative_failure": 1,
+    "hosted_followup": "pending"
+  },
+  "sbom": {
+    "generation_revision": "53cea07be57fb030451a87bead9a3c3c0e863f04",
+    "derived_schema_passes": 4,
+    "spdx_shacl_passes": 2,
+    "negative_controls": 20,
+    "independent_replay": "pass",
+    "raw_generator_conformance": "producer defects retained"
+  }
 }

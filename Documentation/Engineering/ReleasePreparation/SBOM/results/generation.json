@@ -1,0 +1,391 @@
+{
+  "revision": "53cea07be57fb030451a87bead9a3c3c0e863f04",
+  "status": "passed",
+  "commands": [
+    {
+      "label": "compiler",
+      "argv": [
+        "xcrun",
+        "swift",
+        "--version"
+      ],
+      "cwd": "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+      "timeoutSeconds": 1200,
+      "startedUTC": "2026-11-04T10:08:18.570159+00:00",
+      "log": "compiler.log",
+      "exitCode": 0,
+      "logSHA256": "448e3f9c46706640fe62ea0140ecfccbb330baba2076b2916c0423af9642ee06"
+    },
+    {
+      "label": "xcode",
+      "argv": [
+        "xcodebuild",
+        "-version"
+      ],
+      "cwd": "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+      "timeoutSeconds": 1200,
+      "startedUTC": "2026-11-04T10:08:18.704207+00:00",
+      "log": "xcode.log",
+      "exitCode": 0,
+      "logSHA256": "67c5b47bcf0e788aecae2f9b3af345813bdf7fe736faefb9666a7f4b2bf27ba7"
+    },
+    {
+      "label": "host",
+      "argv": [
+        "sw_vers"
+      ],
+      "cwd": "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+      "timeoutSeconds": 1200,
+      "startedUTC": "2026-11-04T10:08:18.805169+00:00",
+      "log": "host.log",
+      "exitCode": 0,
+      "logSHA256": "4ef10a0fc370704ea84699cf3851e51488598c5f1ab35cb572eb6b96278a8e5c"
+    },
+    {
+      "label": "sdk",
+      "argv": [
+        "xcrun",
+        "--sdk",
+        "macosx",
+        "--show-sdk-version"
+      ],
+      "cwd": "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+      "timeoutSeconds": 1200,
+      "startedUTC": "2026-11-04T10:08:18.823485+00:00",
+      "log": "sdk.log",
+      "exitCode": 0,
+      "logSHA256": "53e1ae253beb3b8a3b99dd2d4ec1eb641d392378329fcdccb560779fdf46de0b"
+    },
+    {
+      "label": "sdk-build",
+      "argv": [
+        "xcrun",
+        "--sdk",
+        "macosx",
+        "--show-sdk-build-version"
+      ],
+      "cwd": "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+      "timeoutSeconds": 1200,
+      "startedUTC": "2026-11-04T10:08:18.832356+00:00",
+      "log": "sdk-build.log",
+      "exitCode": 0,
+      "logSHA256": "be9d02ce84e27fe070c363a98de817a40e6f3a370b40bf3069f17f86f6dd8dd5"
+    },
+    {
+      "label": "library-spdx",
+      "argv": [
+        "xcrun",
+        "swift",
+        "build",
+        "--package-path",
+        "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+        "--scratch-path",
+        "/private/tmp/swiftjls-m5-sbom-build-53cea07b/library",
+        "--build-system",
+        "swiftbuild",
+        "-j",
+        "2",
+        "-c",
+        "release",
+        "--product",
+        "SwiftJLS",
+        "--sbom-spec",
+        "spdx",
+        "--sbom-output-dir",
+        "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/SBOM/results/library/spdx",
+        "--sbom-filter",
+        "all"
+      ],
+      "cwd": "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+      "timeoutSeconds": 1200,
+      "startedUTC": "2026-11-04T10:08:18.842479+00:00",
+      "log": "library-spdx.log",
+      "exitCode": 0,
+      "logSHA256": "42998ddf949c74fdc42cab1a404a538fcd70e1036d7f03de9552a8a5969a72b5"
+    },
+    {
+      "label": "library-cyclonedx",
+      "argv": [
+        "xcrun",
+        "swift",
+        "build",
+        "--package-path",
+        "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+        "--scratch-path",
+        "/private/tmp/swiftjls-m5-sbom-build-53cea07b/library",
+        "--build-system",
+        "swiftbuild",
+        "-j",
+        "2",
+        "-c",
+        "release",
+        "--product",
+        "SwiftJLS",
+        "--sbom-spec",
+        "cyclonedx",
+        "--sbom-output-dir",
+        "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/SBOM/results/library/cyclonedx",
+        "--sbom-filter",
+        "all"
+      ],
+      "cwd": "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+      "timeoutSeconds": 1200,
+      "startedUTC": "2026-11-04T10:08:40.575705+00:00",
+      "log": "library-cyclonedx.log",
+      "exitCode": 0,
+      "logSHA256": "e6e4dc51551f60cd33b99fa9b156e19723632b12464f0d381f8d01780abe740f"
+    },
+    {
+      "label": "library-binary-path",
+      "argv": [
+        "xcrun",
+        "swift",
+        "build",
+        "--package-path",
+        "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+        "--scratch-path",
+        "/private/tmp/swiftjls-m5-sbom-build-53cea07b/library",
+        "--build-system",
+        "swiftbuild",
+        "-j",
+        "2",
+        "-c",
+        "release",
+        "--product",
+        "SwiftJLS",
+        "--show-bin-path"
+      ],
+      "cwd": "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+      "timeoutSeconds": 1200,
+      "startedUTC": "2026-11-04T10:08:41.794659+00:00",
+      "log": "library-binary-path.log",
+      "exitCode": 0,
+      "logSHA256": "4856ccf5f2de45fe8ffef12a45c365b1b959734bbd6630b9f642974ede7faa32"
+    },
+    {
+      "label": "cli-spdx",
+      "argv": [
+        "xcrun",
+        "swift",
+        "build",
+        "--package-path",
+        "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+        "--scratch-path",
+        "/private/tmp/swiftjls-m5-sbom-build-53cea07b/cli",
+        "--build-system",
+        "swiftbuild",
+        "-j",
+        "2",
+        "-c",
+        "release",
+        "--product",
+        "swiftjls-cli",
+        "--sbom-spec",
+        "spdx",
+        "--sbom-output-dir",
+        "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/SBOM/results/cli/spdx",
+        "--sbom-filter",
+        "all"
+      ],
+      "cwd": "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+      "timeoutSeconds": 1200,
+      "startedUTC": "2026-11-04T10:08:42.350792+00:00",
+      "log": "cli-spdx.log",
+      "exitCode": 0,
+      "logSHA256": "539fad755e533dda13ce01babb623b2f1b413329d7f10fee354ee0979b1eb4b2"
+    },
+    {
+      "label": "cli-cyclonedx",
+      "argv": [
+        "xcrun",
+        "swift",
+        "build",
+        "--package-path",
+        "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+        "--scratch-path",
+        "/private/tmp/swiftjls-m5-sbom-build-53cea07b/cli",
+        "--build-system",
+        "swiftbuild",
+        "-j",
+        "2",
+        "-c",
+        "release",
+        "--product",
+        "swiftjls-cli",
+        "--sbom-spec",
+        "cyclonedx",
+        "--sbom-output-dir",
+        "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/SBOM/results/cli/cyclonedx",
+        "--sbom-filter",
+        "all"
+      ],
+      "cwd": "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+      "timeoutSeconds": 1200,
+      "startedUTC": "2026-11-04T10:09:00.565647+00:00",
+      "log": "cli-cyclonedx.log",
+      "exitCode": 0,
+      "logSHA256": "f721f7a8d7642306198cdf11df04ca40d2b9e2f657b217cf1a5d0fb9d7a79d03"
+    },
+    {
+      "label": "cli-binary-path",
+      "argv": [
+        "xcrun",
+        "swift",
+        "build",
+        "--package-path",
+        "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+        "--scratch-path",
+        "/private/tmp/swiftjls-m5-sbom-build-53cea07b/cli",
+        "--build-system",
+        "swiftbuild",
+        "-j",
+        "2",
+        "-c",
+        "release",
+        "--product",
+        "swiftjls-cli",
+        "--show-bin-path"
+      ],
+      "cwd": "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+      "timeoutSeconds": 1200,
+      "startedUTC": "2026-11-04T10:09:01.728159+00:00",
+      "log": "cli-binary-path.log",
+      "exitCode": 0,
+      "logSHA256": "9ab7658c37051c3b8d9d5355daaa7d31a6a72308575272b9411628eaec19f97e"
+    },
+    {
+      "label": "cli-version",
+      "argv": [
+        "/private/tmp/swiftjls-m5-sbom-build-53cea07b/cli/out/Products/Release/swiftjls-cli",
+        "--version"
+      ],
+      "cwd": "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+      "timeoutSeconds": 1200,
+      "startedUTC": "2026-11-04T10:09:02.315800+00:00",
+      "log": "cli-version.log",
+      "exitCode": 0,
+      "logSHA256": "772069b00b031700cbd2860d738795e26dd3fc730dc78a2aac9eabaee0f63844"
+    },
+    {
+      "label": "cli-linkage",
+      "argv": [
+        "otool",
+        "-L",
+        "/private/tmp/swiftjls-m5-sbom-build-53cea07b/cli/out/Products/Release/swiftjls-cli"
+      ],
+      "cwd": "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+      "timeoutSeconds": 1200,
+      "startedUTC": "2026-11-04T10:09:02.731888+00:00",
+      "log": "cli-linkage.log",
+      "exitCode": 0,
+      "logSHA256": "ea012634a0d03bf5f0a92561bcc19306ac2516849c176f83da92b94537d4325a"
+    },
+    {
+      "label": "cli-load-commands",
+      "argv": [
+        "otool",
+        "-l",
+        "/private/tmp/swiftjls-m5-sbom-build-53cea07b/cli/out/Products/Release/swiftjls-cli"
+      ],
+      "cwd": "/private/tmp/swiftjls-m5-sbom-candidate-53cea07b",
+      "timeoutSeconds": 1200,
+      "startedUTC": "2026-11-04T10:09:02.749558+00:00",
+      "log": "cli-load-commands.log",
+      "exitCode": 0,
+      "logSHA256": "92da5a5eb858bbbbbcd2e962c8e5ed353c648287b6765b3e9d7fdaee3c87ff52"
+    }
+  ],
+  "helperSHA256": "d40c126cada46c4b3d9d8e0c8e7e15b9de03ebbceb4f389d3e86b3fde478ec05",
+  "products": {
+    "library": {
+      "product": "SwiftJLS",
+      "raw": {
+        "spdx": {
+          "path": "library/spdx/spdx3-3.0.1-SwiftJLS-53cea07be57fb030451a87bead9a3c3c0e863f04-all-2026-11-04T10_08_40Z.json",
+          "sha256": "2744cf9d9cce28b905226e719233647f710146803d66a805f5e44094495bdb93"
+        },
+        "cyclonedx": {
+          "path": "library/cyclonedx/cyclonedx1-1.7-SwiftJLS-53cea07be57fb030451a87bead9a3c3c0e863f04-all-2026-11-04T10_08_41Z.json",
+          "sha256": "dbc9ea5a87aa7095d50117347273a4b8568dca2227056eaef018fd44886f3bbc"
+        }
+      },
+      "artifacts": [
+        {
+          "path": "/private/tmp/swiftjls-m5-sbom-build-53cea07b/library/out/Products/Release/SwiftJLS.o",
+          "sha256": "472bd971fdb5e6fc0695d1f49c9b816f39f040a1832821114e1a013705b56cbc",
+          "bytes": 1049224
+        }
+      ]
+    },
+    "cli": {
+      "product": "swiftjls-cli",
+      "raw": {
+        "spdx": {
+          "path": "cli/spdx/spdx3-3.0.1-swiftjls-cli-53cea07be57fb030451a87bead9a3c3c0e863f04-all-2026-11-04T10_09_00Z.json",
+          "sha256": "3c343231a9c3444bcc02c50d70a0d81aa78afcb5a2e43b95b97c78dbdc91c729"
+        },
+        "cyclonedx": {
+          "path": "cli/cyclonedx/cyclonedx1-1.7-swiftjls-cli-53cea07be57fb030451a87bead9a3c3c0e863f04-all-2026-11-04T10_09_01Z.json",
+          "sha256": "76299278f437f8d8c6c03b21553a33144f7ee61a033644c5870b3cf78d26bae3"
+        }
+      },
+      "artifacts": [
+        {
+          "path": "/private/tmp/swiftjls-m5-sbom-build-53cea07b/cli/out/Products/Release/swiftjls-cli",
+          "sha256": "fb2018c39afc538224a62e10b540a030570bd4048eefdfa745cdf1a98fe13efb",
+          "bytes": 1025024
+        }
+      ]
+    }
+  },
+  "sourceSHA256": {
+    "Sources/SwiftJLS/CodecAPI.swift": "f8cd258111d74a6bea454566feaf2c86d1120965f3dba081c620c86bd0948d21",
+    "Sources/SwiftJLS/Errors.swift": "f71dd532405f2bca468ef39b29117513c686a89c64dd908ef598d1bca4f4fe6b",
+    "Sources/SwiftJLS/Image.swift": "63af13c4debf7d4a2bcf309f98a430f4822bd897baf230d69417d75bf575bdda",
+    "Sources/SwiftJLS/ImageDescriptor.swift": "ba12d371e2583578a726aabde85fc244648821984bcf630ff365ec2a33e1cd26",
+    "Sources/SwiftJLS/ImageStorage.swift": "f92233461c055b57f25402829e2f3fdff4fe6748b24952b100508a57fd308fe2",
+    "Sources/SwiftJLS/JPEGLS/CodecWorkspace.swift": "f218ee88e7ba234c0bf134f5dfaccab58ab45ebc86dc0bf3ae5c1cea22d655c8",
+    "Sources/SwiftJLS/JPEGLS/ComponentCodec.swift": "62737239646a1f078a535a493f0370ba3e02e05fd3ba2424eb14af81ca4e1d85",
+    "Sources/SwiftJLS/JPEGLS/ComponentSamples.swift": "1ce0be11dde2105dd795286985802b7c626206ce74063057a9928ae7b8e3d119",
+    "Sources/SwiftJLS/JPEGLS/HPTransform.swift": "3c1b1d61b0de3692a47a555b215f329e9e92e8e86cb7950fe0087bf9f3d6bc83",
+    "Sources/SwiftJLS/JPEGLS/InterleavedKernel.swift": "c1224495271d1b6c0b74b8533557fd92ede7473fdc21e1affbe2389deb6e6704",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamReader.swift": "5f71d419cb389235dbc756d3a1c0df6f888c860427f40f867250b9f031202485",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSBitstreamWriter.swift": "8e9419b656ba9f2721702623f569ee0b8da403de56a96105e758655bb101f8ba",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSContextModel.swift": "5eeb8a236cb8ca55fb60d1613a60b77999e189518a115c2e08c081129d09ebf4",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSError.swift": "73dd58926e8f15cf96ffffeaba7dc72ccf576a77e43bc10fd9f675170a3d9dc1",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSFrameHeader.swift": "5b4c1388a0651b504fb67206ea88c28d02ab232ee61d66ac126cfa1f461bc5e0",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSHeader.swift": "29f1b4e1be7da189cb12d3444bfcbb0efeeef0e825e1b5149e199b7bf1206af5",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSMarker.swift": "97f9944dd1a62fe76cc5b05c8d216fd7c71968efa1cac0a2945e5885d83781cd",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSMetadata.swift": "f44b40588d5f1f59b90c7f4b3a8d2ed9c968fe700bbe535248bcb5d65597d8ef",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSPresetParameters.swift": "b165f853b2118674183466de4030f8192a6a7e62e5ea4398d38d61774b7af1fa",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSRegularMode.swift": "bc0c729fccb43f3d3b0a2aa1f34a53e3e522e0c672a5cc716e833dbda2f3cb07",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSRegularModeDecoder.swift": "7d92305dd6d68e27cd9a2cdbe1c066a5a66fee1c8f91ee0a22179644ff00c61e",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSRunMode.swift": "30e8e774cf84acae49e188cddedc25d5a7c3b4bcfe14c9aa68a8da3f3fca17a8",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSRunModeDecoder.swift": "e26a0753893f838f68ea42a0c10ea863ac4771e532bfc6978bd1fb764968838e",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSScalarKernel.swift": "3edc9cbf9a5755e193ce0dfebcd9bc0aba0652a2a0d23fd802da8d58d63ed4d6",
+    "Sources/SwiftJLS/JPEGLS/JPEGLSScanHeader.swift": "b98f40f6701c2d5edf9d6346c9ba142166b9ec45163ace57f75819f4fd8e0b89",
+    "Sources/SwiftJLS/JPEGLS/ScalarCodec.swift": "2e32232bd50b61f453d93db68b82140f0ec6a500e30cef8137823e18db7ab613",
+    "Sources/SwiftJLS/JPEGLS/ScalarSamples.swift": "2a18c8e246c9fc0dfb37fb41798683c5b3c1bbdbb738fd5c26e5dd3c065faa6f",
+    "Sources/SwiftJLS/Options.swift": "dd43c63592bf4d74c53626374fb4494b0815315f0f64bc1a2831f9c066b5d787",
+    "Sources/SwiftJLS/Qualified/QualifiedContext.swift": "d121db5432eb9e0e5525a1c469ff9bba93db370362ad35ed72f1cd18db003317",
+    "Sources/SwiftJLS/Qualified/QualifiedCursor.swift": "5a10d7649f0c3e3891eb455637be17b8a36103614ef9bb5afa6bd742183c579a",
+    "Sources/SwiftJLS/Qualified/QualifiedHeaderFields.swift": "c309c0131ca776e4cc04190c344c28f0da5ecd9da0198cd34ac27c3e7f8abbaf",
+    "Sources/SwiftJLS/Qualified/QualifiedKernel.swift": "e0facfd1d2814d028b285e3a653b1c2de9fe3af40dd6108d7e9084563e941911",
+    "Sources/SwiftJLS/Qualified/QualifiedMarkers.swift": "0b1a28c737b75f778ec1daad14d53426e305fca61b59d90f2d98fe5812cbc72f",
+    "Sources/SwiftJLS/Qualified/QualifiedMonochromeDecoder.swift": "74ad31bba36b21bdbb1ad0f67a0b8eccfd442967a906ad862406749c0fb20d69",
+    "Sources/SwiftJLS/Qualified/QualifiedOutcome.swift": "b86193ff4179517f9e305ee662bd65983e6015b189daeb9bdbfef596c87f2fc1",
+    "Sources/SwiftJLS/Qualified/QualifiedParameters.swift": "7ffd5ee528680f280e037519899e25108dca584a5d3ab854d35c9c8e264298ca",
+    "Sources/SwiftJLS/Qualified/QualifiedParseStorage.swift": "19d9bb41c18c03f0f42be564a7f9e78a57cec4ba0c45e987e6a3d01fa1ea7d87",
+    "Sources/SwiftJLS/Qualified/QualifiedParser.swift": "68f856138d0bdcb9f737da659e9cffac0f5f233d96f1dab6fc18f798951467ba",
+    "Sources/SwiftJLS/Qualified/QualifiedPrediction.swift": "4437f09db60927663443b3ee8c1022c44ae8e2de25fc69e16b34395fb6d3fe59",
+    "Sources/SwiftJLSCLI/PayloadCommands.swift": "2eadb7719607fef0cb9787f8060ef8c536b86485c7180958014d2677ca1b0fbf",
+    "Sources/SwiftJLSCLI/PayloadIO.swift": "f759f05c4db55d9994e9895b4890a9da3a697c05132b061c770c1e8d9cad4ec2",
+    "Sources/SwiftJLSCLI/main.swift": "22ef948e4154e8378890ba072ec639d86f1cf207bff41298d112e653858f0432",
+    "Package.swift": "4812930d1d52147b8639649587fc85958ef4b04fd57f4d13652903c9973c6eaf",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "NOTICE": "dbd05e5f8a4c0c7174126171c45c94fdea34a19ee7cd846e8c3646a0a3f7e9d3",
+    "VERSION": "913c1672433548005a2a6b9c862a939558b9f8ce8357ad85350bfc0d26c0e938"
+  },
+  "sourceUnchanged": true,
+  "finishedUTC": "2026-11-04T10:09:02.848723+00:00"
+}

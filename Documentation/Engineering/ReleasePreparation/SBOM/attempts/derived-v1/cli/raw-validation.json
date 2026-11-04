@@ -1,0 +1,45 @@
+{
+  "jsonSchema": {
+    "cyclonedx": {
+      "errors": [],
+      "passed": true,
+      "schemaSHA256": "73308edec3ab2d38bfffd993e96a042b594314143b6971a6e9ed98bbb6bd76ce"
+    },
+    "spdx": {
+      "errors": [
+        {
+          "message": "Unevaluated properties are not allowed ('externalUrl', 'software_internalVersion' were unexpected)",
+          "path": [
+            "@graph",
+            8
+          ]
+        },
+        {
+          "message": "Unevaluated properties are not allowed ('externalUrl', 'software_internalVersion' were unexpected)",
+          "path": [
+            "@graph",
+            9
+          ]
+        }
+      ],
+      "passed": false,
+      "schemaSHA256": "582c64e809d5b3ef9bd0c4de13a32391b47b0284a3e8d199569fb96f649234b1"
+    }
+  },
+  "scope": "Raw schema plus explicit field/reference checks. Raw SPDX SHACL is run separately below.",
+  "semanticFindings": [
+    "SPDX specification version mismatch",
+    "SPDX source revision differs",
+    "SPDX canonical package URL differs",
+    "SPDX source licence missing",
+    "SPDX source revision differs",
+    "SPDX source licence missing",
+    "CycloneDX references duplicated",
+    "CycloneDX source licence missing",
+    "CycloneDX package/product URL differs",
+    "CycloneDX source licence missing",
+    "CycloneDX package/product URL differs",
+    "CycloneDX source licence missing",
+    "CycloneDX package/product URL differs"
+  ]
+}

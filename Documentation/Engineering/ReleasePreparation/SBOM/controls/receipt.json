@@ -1,0 +1,236 @@
+{
+  "controls": [
+    {
+      "details": null,
+      "expected": true,
+      "name": "valid-derived-schema-and-semantic-baseline",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "details": null,
+      "expected": true,
+      "name": "unknown-SPDX-property-rejected",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "details": null,
+      "expected": true,
+      "name": "duplicate-CycloneDX-reference-rejected",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "details": null,
+      "expected": true,
+      "name": "unresolved-CycloneDX-reference-rejected",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "details": null,
+      "expected": true,
+      "name": "stale-SPDX-revision-rejected",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "details": null,
+      "expected": true,
+      "name": "wrong-product-rejected",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "details": null,
+      "expected": true,
+      "name": "missing-product-licence-rejected",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "details": null,
+      "expected": true,
+      "name": "wrong-SPDX-specification-version-rejected",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "details": null,
+      "expected": true,
+      "name": "unresolved-SPDX-reference-rejected",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "details": null,
+      "expected": true,
+      "name": "wrong-package-URL-rejected",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "details": null,
+      "expected": true,
+      "name": "official-SHACL-missing-creator-rejected",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "details": null,
+      "expected": true,
+      "name": "unrecorded-JSONLD-context-rejected",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "details": {
+        "argv": [
+          "/private/tmp/swiftjli-m5-derived-sbom-ti1ildpy/venv/bin/python",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Scripts/ReleasePreparation/SBOM/qualify.py",
+          "--raw",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/SBOM/results",
+          "--inputs",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/SBOM/validation-inputs",
+          "--output",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/SBOM/derived"
+        ],
+        "timeoutSeconds": 60
+      },
+      "expected": 2,
+      "name": "derived-output-preservation",
+      "observed": 2,
+      "passed": true
+    },
+    {
+      "details": {
+        "argv": [
+          "/private/tmp/swiftjli-m5-derived-sbom-ti1ildpy/venv/bin/python",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Scripts/ReleasePreparation/SBOM/generate.py",
+          "--repository",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/SBOM",
+          "--revision",
+          "53cea07be57fb030451a87bead9a3c3c0e863f04",
+          "--output",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/SBOM/results",
+          "--scratch",
+          "/unused-control-scratch"
+        ],
+        "timeoutSeconds": 60
+      },
+      "expected": 2,
+      "name": "generation-output-preservation",
+      "observed": 2,
+      "passed": true
+    },
+    {
+      "details": {
+        "argv": [
+          "/private/tmp/swiftjli-m5-derived-sbom-ti1ildpy/venv/bin/python",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Scripts/ReleasePreparation/SBOM/qualify.py",
+          "--raw",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/SBOM/results",
+          "--inputs",
+          "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-sbom-controls-j4npiibt/inputs",
+          "--output",
+          "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-sbom-controls-j4npiibt/tampered-input-output"
+        ],
+        "timeoutSeconds": 60
+      },
+      "expected": 1,
+      "name": "tampered-validation-input-rejected",
+      "observed": 1,
+      "passed": true
+    },
+    {
+      "details": {
+        "argv": [
+          "/private/tmp/swiftjli-m5-derived-sbom-ti1ildpy/venv/bin/python",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Scripts/ReleasePreparation/SBOM/qualify.py",
+          "--raw",
+          "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-sbom-controls-j4npiibt/raw",
+          "--inputs",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/SBOM/validation-inputs",
+          "--output",
+          "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-sbom-controls-j4npiibt/tampered-raw-output"
+        ],
+        "timeoutSeconds": 60
+      },
+      "expected": 1,
+      "name": "tampered-raw-SBOM-rejected",
+      "observed": 1,
+      "passed": true
+    },
+    {
+      "details": {
+        "argv": [
+          "/private/tmp/swiftjli-m5-derived-sbom-ti1ildpy/venv/bin/python",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Scripts/ReleasePreparation/SBOM/qualify.py",
+          "--raw",
+          "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-sbom-controls-j4npiibt/raw",
+          "--inputs",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/SBOM/validation-inputs",
+          "--output",
+          "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-sbom-controls-j4npiibt/empty-product-set-rejected"
+        ],
+        "timeoutSeconds": 60
+      },
+      "expected": 1,
+      "name": "empty-product-set-rejected",
+      "observed": 1,
+      "passed": true
+    },
+    {
+      "details": {
+        "argv": [
+          "/private/tmp/swiftjli-m5-derived-sbom-ti1ildpy/venv/bin/python",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Scripts/ReleasePreparation/SBOM/qualify.py",
+          "--raw",
+          "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-sbom-controls-j4npiibt/raw",
+          "--inputs",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/SBOM/validation-inputs",
+          "--output",
+          "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-sbom-controls-j4npiibt/missing-CLI-product-rejected"
+        ],
+        "timeoutSeconds": 60
+      },
+      "expected": 1,
+      "name": "missing-CLI-product-rejected",
+      "observed": 1,
+      "passed": true
+    },
+    {
+      "details": {
+        "argv": [
+          "/private/tmp/swiftjli-m5-derived-sbom-ti1ildpy/venv/bin/python",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Scripts/ReleasePreparation/SBOM/qualify.py",
+          "--raw",
+          "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-sbom-controls-j4npiibt/raw",
+          "--inputs",
+          "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/SBOM/validation-inputs",
+          "--output",
+          "/var/folders/cg/kgw5y70x6b57ghbvqqjrsc3w0000gp/T/swiftjls-sbom-controls-j4npiibt/wrong-product-name-rejected"
+        ],
+        "timeoutSeconds": 60
+      },
+      "expected": 1,
+      "name": "wrong-product-name-rejected",
+      "observed": 1,
+      "passed": true
+    },
+    {
+      "details": {
+        "protectedFileCount": 111
+      },
+      "expected": true,
+      "name": "all-original-evidence-preserved",
+      "observed": true,
+      "passed": true
+    }
+  ],
+  "count": 20,
+  "helperSHA256": "9f555f078e15c8d50393e32f8a91bbb24c1421f32f2ac6a5feac7b35f577ab5e",
+  "qualificationHelperSHA256": "aadc2201a2554785d0e4b84eacebc61a50941cf69ab51e0b3ef2fab488245442",
+  "status": "passed"
+}

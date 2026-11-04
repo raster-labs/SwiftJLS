@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/pushparaj/projects/SwiftJLS-milestone5/Scripts/ReleasePreparation/SBOM/qualify.py", line 299, in <module>
+    main()
+    ~~~~^^
+  File "/Users/pushparaj/projects/SwiftJLS-milestone5/Scripts/ReleasePreparation/SBOM/qualify.py", line 242, in main
+    validation = Validation(a.inputs)
+  File "/Users/pushparaj/projects/SwiftJLS-milestone5/Scripts/ReleasePreparation/SBOM/qualify.py", line 55, in __init__
+    require(sha(inputs / entry['path']) == entry['sha256'], 'Validation input digest mismatch: ' + entry['path'])
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pushparaj/projects/SwiftJLS-milestone5/Scripts/ReleasePreparation/SBOM/qualify.py", line 43, in require
+    raise ValueError(message)
+ValueError: Validation input digest mismatch: spdx-model.ttl.gz

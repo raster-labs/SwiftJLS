@@ -1,6 +1,6 @@
 # Milestone 5 evidence — 4 November 2026
 
-Milestone 5 release preparation is now assigned. [RELEASE.md](../../../RELEASE.md) defines its checks and open gates. Stable publication, physical-device qualification and application cutover remain uncompleted.
+The library-only Milestone 5 preparation work is implemented. The [item-by-item closeout](Checklist.md) maps the original assignment to evidence; DICOMKit integration remains pending by owner direction. [RELEASE.md](../../../RELEASE.md) defines its checks and open gates. Stable publication, physical-device qualification and application cutover remain uncompleted.
 
 Baseline: SwiftJLS `a9bf9e95933fc8135bbcc3922d6ce831ddfe2057`, migrated from JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`; qualified extension baseline `d17545284a23e93f3d884a18f1046c4e305daa35`. Suite policy 0.10.0 governs. The seven common documents, supplied compiler-upgrade documents and historical evidence remain unchanged. Codec source, root package manifest and fixtures remain byte-identical to the committed baseline; unrelated uncommitted optimisation work is excluded in a separate worktree.
 
@@ -42,3 +42,36 @@ The [copy-mutation classifier report](results/copy-mutation-classifier/report.js
 Final engineering head `c843b44e5f004be97b17663010d0cc369026d704` passes all **16 hosted checks**: the [15-job contract matrix](https://github.com/raster-labs/SwiftJLS/actions/runs/41791870547) and [independent CharLS oracle](https://github.com/raster-labs/SwiftJLS/actions/runs/41791870548). The [final independent audit](results/ci-c843b44e-independent-audit.json) verifies both compiler preparation reports and the fresh ten-allocation mutation result against committed inputs. [Downloaded evidence](results/ci-c843b44e-evidence.zip) is retained as a lossless repack. This subsequent documentation-only closeout preserves all executable sources, tests and workflows from that head; any later hosted run remains separately identified.
 
 A later 4 November [API verification](results/private-reporting-enabled.json) now confirms GitHub private vulnerability reporting is enabled. No setting was changed by this task and no test advisory was submitted. The prior disabled records remain historical. Physical-device qualification, maintainer acceptance of the proposed support policy, owner review/merge and a separately authorised stable publication remain outstanding. Milestone 5 preparation is implemented and tested; full milestone/release acceptance is not declared complete.
+
+## Library-only completion follow-up
+
+The owner subsequently left DICOMKit integration pending and requested completion
+of all other library preparation tasks. [The checklist](Checklist.md) records
+every original Milestone 5 item and distinguishes completed engineering work
+from the still-open device and release acceptance decisions. Separate integration
+and optimisation worktrees are preserved and excluded. All sixteen hosted checks
+also passed on `53cea07be57fb030451a87bead9a3c3c0e863f04`;
+[the retained snapshot](results/ci-53cea07b.json) identifies that revision and
+its original Apple fallback coverage limitation.
+
+The final audit fixes three direct-compiler workflows that omitted the eleven
+qualified decoder files. They now select all 39 production sources and typecheck
+an imported qualified decoder. [Local evidence](results/apple-sdk-source-coverage/README.md)
+contains 14 commands: thirteen successful commands and the expected missing-API
+negative-control failure, with complete visionOS/Watch SDK compile/link checks
+at the 26.0 deployment floor. The lossless archive retains all inputs, logs and
+outputs; this is compile evidence, not physical-device execution.
+
+[SBOM qualification](SBOM/README.md) now covers library and CLI builds from clean
+`53cea07b`: all four derived documents pass official schema validation, both
+SPDX documents pass the official semantic model, and twenty negative/preservation
+controls pass. An independent fresh replay reproduces the four derived documents
+byte-for-byte and all twenty controls. Original SwiftPM producer defects and
+previous Swift 6.4 records remain unchanged; only explicitly labelled derived
+outputs are qualified. Their product inputs remain byte-identical in this
+workflow/documentation follow-up.
+
+The final hosted CI result for this follow-up is tracked in
+[PR 18](https://github.com/raster-labs/SwiftJLS/pull/18/checks) at its exact head.
+Physical-device admission, maintainer acceptance of the prepared support policy,
+owner review/merge and separately authorised stable publication remain open.

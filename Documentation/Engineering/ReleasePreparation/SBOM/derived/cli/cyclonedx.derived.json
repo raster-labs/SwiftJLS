@@ -1,0 +1,127 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
+  "bomFormat": "CycloneDX",
+  "components": [
+    {
+      "bom-ref": "swiftjls-m5-sbom-candidate-53cea07b",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/raster-labs/SwiftJLS/tree/53cea07be57fb030451a87bead9a3c3c0e863f04"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "name": "swiftjls-m5-sbom-candidate-53cea07b",
+      "pedigree": {},
+      "properties": [
+        {
+          "name": "swift-entity",
+          "value": "swift-package"
+        },
+        {
+          "name": "swiftjls:original-generator-purl",
+          "value": "pkg:swift/swiftjls-m5-sbom-candidate-53cea07b@53cea07be57fb030451a87bead9a3c3c0e863f04"
+        }
+      ],
+      "purl": "pkg:swift/github.com/raster-labs/SwiftJLS@53cea07be57fb030451a87bead9a3c3c0e863f04",
+      "scope": "required",
+      "type": "application",
+      "version": "53cea07be57fb030451a87bead9a3c3c0e863f04"
+    }
+  ],
+  "dependencies": [
+    {
+      "dependsOn": [
+        "swiftjls-m5-sbom-candidate-53cea07b:swiftjls-cli"
+      ],
+      "ref": "swiftjls-m5-sbom-candidate-53cea07b"
+    }
+  ],
+  "metadata": {
+    "component": {
+      "bom-ref": "swiftjls-m5-sbom-candidate-53cea07b:swiftjls-cli",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/raster-labs/SwiftJLS/tree/53cea07be57fb030451a87bead9a3c3c0e863f04"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "name": "swiftjls-cli",
+      "pedigree": {},
+      "properties": [
+        {
+          "name": "swift-entity",
+          "value": "swift-product"
+        },
+        {
+          "name": "swiftjls:original-generator-purl",
+          "value": "pkg:swift/swiftjls-m5-sbom-candidate-53cea07b/swiftjls-m5-sbom-candidate-53cea07b:swiftjls-cli@53cea07be57fb030451a87bead9a3c3c0e863f04"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "53cea07be57fb030451a87bead9a3c3c0e863f04"
+    },
+    "properties": [
+      {
+        "name": "swiftjls:derivation",
+        "value": "Separately derived; exact transformations and raw hashes are in receipt.json."
+      },
+      {
+        "name": "swiftjls:scope",
+        "value": "SwiftPM package and selected product. SDK/runtime inventory and development fixtures excluded; see supplement.json."
+      }
+    ],
+    "timestamp": "2026-11-04T10:09:02Z",
+    "tools": {
+      "components": [
+        {
+          "bom-ref": "urn:uuid:8218bb9d-9f1a-4433-bb0c-576c3ca19dff",
+          "licenses": [
+            {
+              "license": {
+                "id": "Apache-2.0",
+                "url": "http://swift.org/LICENSE.txt"
+              }
+            }
+          ],
+          "name": "swift-package-manager",
+          "purl": "pkg:swift/github.com/swiftlang/swift-package-manager@6.4.2",
+          "scope": "excluded",
+          "type": "application",
+          "version": "6.4.2"
+        },
+        {
+          "bom-ref": "urn:swiftjls:milestone5:derive:aadc2201a2554785d0e4b84eacebc61a50941cf69ab51e0b3ef2fab488245442",
+          "licenses": [
+            {
+              "license": {
+                "id": "Apache-2.0"
+              }
+            }
+          ],
+          "name": "SwiftJLS derived SBOM helper",
+          "scope": "excluded",
+          "type": "application",
+          "version": "aadc2201a2554785d0e4b84eacebc61a50941cf69ab51e0b3ef2fab488245442"
+        }
+      ]
+    }
+  },
+  "serialNumber": "urn:uuid:911660ce-dc6a-585e-9cee-96b7134b9eee",
+  "specVersion": "1.7",
+  "version": 2
+}

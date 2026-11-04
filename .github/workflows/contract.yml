@@ -218,7 +218,10 @@ jobs:
           if [ "$SDK_NAME" = xrsimulator ]; then
             # See apple-runtime.yml: SwiftPM on this runner misparses XR's
             # deployment target as 26.26.0. Keep the explicit 26.0 driver check.
-            xcrun swiftc -O -swift-version 6 -strict-concurrency=complete -parse-as-library -emit-library -emit-module -module-name SwiftJLS -target "$TARGET_TRIPLE" -sdk "$SDK_PATH" Sources/SwiftJLS/*.swift Sources/SwiftJLS/JPEGLS/*.swift -emit-module-path /tmp/SwiftJLS.swiftmodule -o /tmp/libSwiftJLS.dylib
+            SWIFTJLS_SOURCES=()
+            while IFS= read -r SWIFTJLS_SOURCE; do SWIFTJLS_SOURCES+=("$SWIFTJLS_SOURCE"); done < <(find Sources/SwiftJLS -type f -name '*.swift' | LC_ALL=C sort)
+            xcrun swiftc -O -swift-version 6 -strict-concurrency=complete -parse-as-library -emit-library -emit-module -module-name SwiftJLS -target "$TARGET_TRIPLE" -sdk "$SDK_PATH" "${SWIFTJLS_SOURCES[@]}" -emit-module-path /tmp/SwiftJLS.swiftmodule -o /tmp/libSwiftJLS.dylib
+            printf '%s\n' 'import SwiftJLS' 'let decoder = SwiftJLS.QualifiedMonochromeDecoder(profile: .jlswift0101)' | xcrun swiftc -typecheck -swift-version 6 -strict-concurrency=complete -target "$TARGET_TRIPLE" -sdk "$SDK_PATH" -I /tmp -
           else
             swift build --target SwiftJLS -c release --triple "$TARGET_TRIPLE" --sdk "$SDK_PATH"
           fi

@@ -1,0 +1,33 @@
+{
+  "artifacts": {
+    "cli": [
+      {
+        "bytes": 1025024,
+        "path": "/private/tmp/swiftjls-m5-sbom-build-53cea07b/cli/out/Products/Release/swiftjls-cli",
+        "sha256": "fb2018c39afc538224a62e10b540a030570bd4048eefdfa745cdf1a98fe13efb"
+      }
+    ],
+    "library": [
+      {
+        "bytes": 1049224,
+        "path": "/private/tmp/swiftjls-m5-sbom-build-53cea07b/library/out/Products/Release/SwiftJLS.o",
+        "sha256": "472bd971fdb5e6fc0695d1f49c9b816f39f040a1832821114e1a013705b56cbc"
+      }
+    ]
+  },
+  "limits": [
+    "Library build emits an object; it has no standalone dynamic linkage inventory.",
+    "CLI otool load commands are observed platform linkage, not complete transitive SDK/runtime inventory or runtime versions.",
+    "Platform component licences are not inferred from load commands.",
+    "Third-party development fixtures, oracle containers and validation schemas retain separate notices; they are not linked runtime dependencies.",
+    "Raw local package identifiers reflect the clean checkout directory. Original identities are retained; canonical source purl is explicitly derived from the repository URL and commit.",
+    "No stable tag, release publication, vulnerability-free assertion or DICOMKit integration is established."
+  ],
+  "nativeLinkage": "../results/cli-linkage.log",
+  "noticeSHA256": "dbd05e5f8a4c0c7174126171c45c94fdea34a19ee7cd846e8c3646a0a3f7e9d3",
+  "packageManifestSHA256": "4812930d1d52147b8639649587fc85958ef4b04fd57f4d13652903c9973c6eaf",
+  "revision": "53cea07be57fb030451a87bead9a3c3c0e863f04",
+  "sourceLicenceSHA256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+  "sourceReceipt": "../results/generation.json",
+  "swiftPMRuntimeDependencies": []
+}
