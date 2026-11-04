@@ -5,8 +5,8 @@
 - Add reproducible exact-version packaging rehearsal in an isolated disposable Git repository, hosted revision consumption, executable README/migration examples, lockfile checks and CLI/manual installation validation. No tag is added to the project repository.
 - Preserve Swift 6.2 and hosted Xcode CI type-check failures and simplify the existing test expressions without changing its expected samples.
 - Modernise the reusable compiler runner to exercise the native codec at tools 6.2 / OS 26 and support differently named worktrees. Audit retained fixture, source and licence provenance.
-- Repair the allocator negative-control matcher for private initializer symbols, retaining exact-ten detection and adding six rejection-control tests. Preserve the original trace and failed classifier result.
-- Record the selected GitHub private reporting channel, pending administrator enablement, proposed stable support policy and open device/release gates in [RELEASE.md](RELEASE.md). Codec sources, common contracts, fixtures and historical evidence remain unchanged.
+- Repair the allocator negative-control matcher for private initialiser symbols, retaining exact-ten detection and adding six rejection-control tests. Preserve the original trace and failed classifier result.
+- Record the selected GitHub private reporting channel (initially disabled, later verified enabled), proposed stable support policy and open device/release gates in [RELEASE.md](RELEASE.md). Codec sources, common contracts, fixtures and historical evidence remain unchanged.
 
 ## Lifecycle, compact tables and workspace admission — 2026-10-24 (unreleased)
 
