@@ -224,12 +224,16 @@ jobs:
           fi
 
   release-preparation:
-    name: Release preparation / Swift ${{ matrix.swift }}
+    name: Release preparation / Swift ${{ matrix.swift }} / ${{ matrix.engine }}
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
-        swift: ['6.2', '6.4']
+        include:
+          - swift: '6.2'
+            engine: native
+          - swift: '6.4'
+            engine: swiftbuild
     container: swift:${{ matrix.swift }}-noble
     timeout-minutes: 30
     steps:
@@ -239,6 +243,8 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Install preparation prerequisites
         run: apt-get update && apt-get install -y --no-install-recommends python3 git man-db mandoc
+      - name: Trust only this checkout in the job container
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: Release evidence negative controls
         run: python3 -m unittest discover -s Scripts/ReleasePreparation -p 'test_*.py' -v
       - name: Audit pinned source and fixture provenance
@@ -247,7 +253,9 @@ jobs:
           python3 Scripts/ReleasePreparation/provenance.py --predecessor /tmp/swiftjls-predecessor --output /tmp/swiftjls-provenance.json
           python3 Scripts/ReleasePreparation/provenance-controls.py --predecessor /tmp/swiftjls-predecessor --output /tmp/swiftjls-provenance-controls.json
       - name: Versioned and hosted consumption, documentation and CLI packaging
-        run: python3 Scripts/ReleasePreparation/prepare.py --output /tmp/swiftjls-preparation
+        env:
+          BUILD_ENGINE: ${{ matrix.engine }}
+        run: python3 Scripts/ReleasePreparation/prepare.py --build-system "$BUILD_ENGINE" --output /tmp/swiftjls-preparation
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:

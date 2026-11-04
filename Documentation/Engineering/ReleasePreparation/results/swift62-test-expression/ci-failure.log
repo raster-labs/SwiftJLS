@@ -1,0 +1,393 @@
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	﻿2026-11-04T06:53:37.2531743Z Current runner version: '2.338.2'
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2551300Z ##[group]Runner Image Provisioner
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2551951Z Hosted Compute Agent
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2552439Z Version: 20261015.610
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2552905Z Commit: 267fdb4e8bbec4ab5ea31367f3a00d5c480c7656
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2553432Z Build Date: 2026-10-14T17:06:54Z
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2554291Z Worker ID: {1c57dee8-d2f6-479a-af83-5e9c7197a439}
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2554843Z Region: us-east-1
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2555286Z Cloud: AWS
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2555682Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2556685Z ##[group]Operating System
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2557174Z Ubuntu
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2557546Z 24.04.5
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2557915Z LTS
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2558294Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2558678Z ##[group]Runner Image
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2559139Z Image: ubuntu-24.04
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2559574Z Version: 20261018.96.1
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2560491Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261018.96/images/ubuntu/Ubuntu2404-Readme.md
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2561570Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261018.96
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2562307Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2563112Z ##[group]GITHUB_TOKEN Permissions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2565226Z Contents: read
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2565626Z Metadata: read
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2566099Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2567607Z Secret source: Actions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2568287Z Cache mode: write
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.2568782Z Prepare workflow directory
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.3125111Z Prepare all required actions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.3182146Z Getting action download info
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:37.4728014Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:39.9398031Z Complete job name: Swift 6.2 / ubuntu-24.04
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:39.9885983Z ##[group]Checking docker version
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:39.9896551Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.6390636Z '1.48'
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.6397013Z Docker daemon API version: '1.48'
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.6397612Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.6534723Z '1.48'
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.6544433Z Docker client API version: '1.48'
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.6549184Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.6550834Z ##[group]Clean up resources from previous jobs
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.6555458Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=3255e2"
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.6681677Z ##[command]/usr/bin/docker network prune --force --filter "label=3255e2"
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.6805420Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.6805759Z ##[group]Create local container network
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.6812930Z ##[command]/usr/bin/docker network create --label 3255e2 github_network_1f7808bd5b294a68ab9aa4cbe9987c5f
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.7255498Z c0efe52aa7475a1bc929ff25292db376bbf3dc5a2e676865de889a2f83c1f85e
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.7271633Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.7292614Z ##[group]Starting job container
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.7309563Z ##[command]/usr/bin/docker pull swift:6.2-noble
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:41.9993043Z 6.2-noble: Pulling from library/swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:42.0704616Z 7a48b8f0e5c7: Pulling fs layer
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:42.0705048Z b86902419d4e: Pulling fs layer
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:42.0705533Z 1c2595a2d0f3: Pulling fs layer
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:42.0705792Z 1ff2c6c61347: Pulling fs layer
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:42.0706085Z 1ff2c6c61347: Waiting
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:42.3902024Z 7a48b8f0e5c7: Verifying Checksum
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:42.3903023Z 7a48b8f0e5c7: Download complete
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:42.4387863Z 1ff2c6c61347: Verifying Checksum
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:42.4389377Z 1ff2c6c61347: Download complete
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:43.1125975Z 7a48b8f0e5c7: Pull complete
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:43.3952187Z b86902419d4e: Verifying Checksum
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:43.3953016Z b86902419d4e: Download complete
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:46.1308412Z b86902419d4e: Pull complete
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:52.4156563Z 1c2595a2d0f3: Verifying Checksum
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:53:52.4157859Z 1c2595a2d0f3: Download complete
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:04.8647085Z 1c2595a2d0f3: Pull complete
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:05.3474696Z 1ff2c6c61347: Pull complete
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:05.5418107Z Digest: sha256:e508ef1e4be68087f720de622b91cbf1e32799a7aa96134b35e6f1a1d656db7a
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:05.6094925Z Status: Downloaded newer image for swift:6.2-noble
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:05.6275114Z docker.io/library/swift:6.2-noble
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:05.6339362Z ##[command]/usr/bin/docker create --name 72164fba27584c24a272c55c92fa6f7b_swift62noble_108253 --label 3255e2 --workdir /__w/SwiftJLS/SwiftJLS --network github_network_1f7808bd5b294a68ab9aa4cbe9987c5f  -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/actions-runner/cached/2.338.2/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" swift:6.2-noble "-f" "/dev/null"
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.3005894Z 2d04fe1840c980a61819383d02c5ee40cfa11c3f4d532d65ab0fb354a4fbd5f9
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.3025928Z ##[command]/usr/bin/docker start 2d04fe1840c980a61819383d02c5ee40cfa11c3f4d532d65ab0fb354a4fbd5f9
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8418831Z 2d04fe1840c980a61819383d02c5ee40cfa11c3f4d532d65ab0fb354a4fbd5f9
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8437913Z ##[command]/usr/bin/docker ps --all --filter id=2d04fe1840c980a61819383d02c5ee40cfa11c3f4d532d65ab0fb354a4fbd5f9 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8543119Z 2d04fe1840c980a61819383d02c5ee40cfa11c3f4d532d65ab0fb354a4fbd5f9 Up Less than a second
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8557446Z ##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" 2d04fe1840c980a61819383d02c5ee40cfa11c3f4d532d65ab0fb354a4fbd5f9
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8658092Z HOME=/github/home
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8658823Z GITHUB_ACTIONS=true
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8664148Z CI=true
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8664709Z PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8665338Z SWIFT_SIGNING_KEY=52BB7E3DE28A71BE22EC05FFEF80A866B47A981F
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8665763Z SWIFT_PLATFORM=ubuntu24.04
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8666150Z SWIFT_BRANCH=swift-6.2.4-release
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8666666Z SWIFT_VERSION=swift-6.2.4-RELEASE
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8667074Z SWIFT_WEBROOT=https://download.swift.org
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8674552Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8681443Z ##[group]Waiting for all services to be ready
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8682715Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8910423Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8910928Z with:
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8911213Z   persist-credentials: false
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8911483Z   repository: raster-labs/SwiftJLS
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8913813Z   token: ***
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8914108Z   ssh-strict: true
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8914350Z   ssh-user: git
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8915232Z   clean: true
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8915464Z   sparse-checkout-cone-mode: true
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8915706Z   fetch-depth: 1
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8915987Z   fetch-tags: false
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8916214Z   show-progress: true
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8916444Z   lfs: false
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8916650Z   submodules: false
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8916864Z   set-safe-directory: true
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8917154Z   allow-unsafe-pr-checkout: false
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8917635Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:11.8966002Z ##[command]/usr/bin/docker exec  2d04fe1840c980a61819383d02c5ee40cfa11c3f4d532d65ab0fb354a4fbd5f9 sh -c "cat /etc/*release | grep ^ID"
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0498383Z Syncing repository: raster-labs/SwiftJLS
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0500153Z ##[group]Getting Git version info
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0500623Z Working directory is '/__w/SwiftJLS/SwiftJLS'
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0501604Z [command]/usr/bin/git version
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0501977Z git version 2.43.0
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0504772Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0509861Z Temporarily overriding HOME='/__w/_temp/17a86cc4-6613-4b1f-a163-a6a30d630f9d' before making global git config changes
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0510713Z Adding repository directory to the temporary git global config as a safe directory
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0511526Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0514967Z Deleting the contents of '/__w/SwiftJLS/SwiftJLS'
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0520255Z ##[group]Initializing the repository
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0520774Z [command]/usr/bin/git init /__w/SwiftJLS/SwiftJLS
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0543409Z hint: Using 'master' as the name for the initial branch. This default branch name
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0544363Z hint: is subject to change. To configure the initial branch name to use in all
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0545392Z hint: of your new repositories, which will suppress this warning, call:
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0545950Z hint: 
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0546387Z hint: 	git config --global init.defaultBranch <name>
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0546823Z hint: 
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0547257Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0548108Z hint: 'development'. The just-created branch can be renamed via this command:
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0549338Z hint: 
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0549767Z hint: 	git branch -m <name>
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0550317Z Initialized empty Git repository in /__w/SwiftJLS/SwiftJLS/.git/
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0554915Z [command]/usr/bin/git remote add origin https://github.com/raster-labs/SwiftJLS
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0582855Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0583826Z ##[group]Disabling automatic garbage collection
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0604996Z [command]/usr/bin/git config --local gc.auto 0
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0617848Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0618431Z ##[group]Setting up auth
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0621317Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0643442Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0794387Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0813087Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.0979435Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.1003010Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.1150263Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.1175863Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.1176581Z ##[group]Fetching the repository
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:12.1181560Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +4891b208d11dfb5035ce51703ec6639fa88f1fc5:refs/remotes/pull/18/merge
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:14.0416170Z From https://github.com/raster-labs/SwiftJLS
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:14.0416676Z  * [new ref]         4891b208d11dfb5035ce51703ec6639fa88f1fc5 -> pull/18/merge
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:14.0429118Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:14.0429658Z ##[group]Determining the checkout info
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:14.0431330Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:14.0436296Z [command]/usr/bin/git sparse-checkout disable
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:14.0463297Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:14.0486377Z ##[group]Checking out the ref
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:14.0487930Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/18/merge
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0646304Z Updating files:  78% (10667/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0662227Z Updating files:  79% (10775/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0680928Z Updating files:  80% (10911/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0700487Z Updating files:  81% (11047/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0719024Z Updating files:  82% (11184/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0739762Z Updating files:  83% (11320/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0764773Z Updating files:  84% (11456/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0796934Z Updating files:  85% (11593/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0814619Z Updating files:  86% (11729/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0846660Z Updating files:  87% (11866/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0875524Z Updating files:  88% (12002/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0893063Z Updating files:  89% (12138/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0910648Z Updating files:  90% (12275/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0928359Z Updating files:  91% (12411/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0946499Z Updating files:  92% (12547/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0963835Z Updating files:  93% (12684/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.0982883Z Updating files:  94% (12820/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1000148Z Updating files:  95% (12957/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1017911Z Updating files:  96% (13093/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1040624Z Updating files:  97% (13229/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1065728Z Updating files:  98% (13366/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1090906Z Updating files:  99% (13502/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1091275Z Updating files: 100% (13638/13638)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1091635Z Updating files: 100% (13638/13638), done.
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1208170Z Note: switching to 'refs/remotes/pull/18/merge'.
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1208502Z 
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1208754Z You are in 'detached HEAD' state. You can look around, make experimental
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1209513Z changes and commit them, and you can discard any commits you make in this
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1210109Z state without impacting any branches by switching back to a branch.
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1210438Z 
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1210708Z If you want to create a new branch to retain commits you create, you may
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1211294Z do so (now or later) by using -c with the switch command. Example:
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1211629Z 
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1211776Z   git switch -c <new-branch-name>
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1212018Z 
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1212161Z Or undo this operation with:
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1212380Z 
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1212529Z   git switch -
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1212675Z 
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1212955Z Turn off this advice by setting config variable advice.detachedHead to false
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1213323Z 
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1213953Z HEAD is now at 4891b20 Merge 92108afe847c324ca1c98608d63ce277ff5e602e into a9bf9e95933fc8135bbcc3922d6ce831ddfe2057
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1276914Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1316756Z [command]/usr/bin/git log -1 --format=%H
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1336458Z 4891b208d11dfb5035ce51703ec6639fa88f1fc5
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1345195Z ##[group]Removing auth
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1347357Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1368132Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1542495Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1564399Z http.https://github.com/.extraheader
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1565591Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1587653Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1755080Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1775540Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.1937770Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.2097897Z ##[group]Run swift --version
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.2098224Z ^[[36;1mswift --version^[[0m
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.2100851Z shell: sh -e {0}
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.2101084Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.2912368Z Swift version 6.2.4 (swift-6.2.4-RELEASE)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.2912691Z Target: x86_64-unknown-linux-gnu
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.2980386Z ##[group]Run swift build
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.2980678Z ^[[36;1mswift build^[[0m
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.2980994Z shell: sh -e {0}
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.2981237Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.7321932Z Building for debugging...
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.7355719Z [0/7] Write sources
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:15.7785858Z [2/7] Write swift-version-24593BA9C3E375BF.txt
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:17.0245303Z [4/38] Emitting module SwiftJLS
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.3412351Z [5/47] Compiling SwiftJLS QualifiedHeaderFields.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.3449648Z [6/47] Compiling SwiftJLS QualifiedKernel.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.3453244Z [7/47] Compiling SwiftJLS QualifiedMarkers.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.3457186Z [8/47] Compiling SwiftJLS QualifiedMonochromeDecoder.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.3460663Z [9/47] Compiling SwiftJLS QualifiedOutcome.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.3464095Z [10/47] Compiling SwiftJLS QualifiedParameters.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.3467498Z [11/47] Compiling SwiftJLS QualifiedParseStorage.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.3471262Z [12/47] Compiling SwiftJLS QualifiedParser.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.3475144Z [13/47] Compiling SwiftJLS QualifiedPrediction.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4358982Z [14/47] Compiling SwiftJLS JPEGLSRegularModeDecoder.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4362903Z [15/47] Compiling SwiftJLS JPEGLSRunMode.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4367323Z [16/47] Compiling SwiftJLS JPEGLSRunModeDecoder.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4371311Z [17/47] Compiling SwiftJLS JPEGLSScalarKernel.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4374951Z [18/47] Compiling SwiftJLS JPEGLSScanHeader.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4378429Z [19/47] Compiling SwiftJLS ScalarCodec.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4382808Z [20/47] Compiling SwiftJLS ScalarSamples.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4387078Z [21/47] Compiling SwiftJLS Options.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4391055Z [22/47] Compiling SwiftJLS QualifiedContext.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4394854Z [23/47] Compiling SwiftJLS QualifiedCursor.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4774526Z [24/47] Compiling SwiftJLS JPEGLSBitstreamReader.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4775559Z [25/47] Compiling SwiftJLS JPEGLSBitstreamWriter.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4776178Z [26/47] Compiling SwiftJLS JPEGLSContextModel.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4776681Z [27/47] Compiling SwiftJLS JPEGLSError.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4777242Z [28/47] Compiling SwiftJLS JPEGLSFrameHeader.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4777685Z [29/47] Compiling SwiftJLS JPEGLSHeader.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4778055Z [30/47] Compiling SwiftJLS JPEGLSMarker.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4779702Z [31/47] Compiling SwiftJLS JPEGLSMetadata.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4804619Z [32/47] Compiling SwiftJLS JPEGLSPresetParameters.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:21.4805183Z [33/47] Compiling SwiftJLS JPEGLSRegularMode.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:22.5089059Z [34/47] Compiling SwiftJLS CodecAPI.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:22.5089705Z [35/47] Compiling SwiftJLS Errors.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:22.5090123Z [36/47] Compiling SwiftJLS Image.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:22.5090547Z [37/47] Compiling SwiftJLS ImageDescriptor.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:22.5091042Z [38/47] Compiling SwiftJLS ImageStorage.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:22.5091484Z [39/47] Compiling SwiftJLS CodecWorkspace.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:22.5091898Z [40/47] Compiling SwiftJLS ComponentCodec.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:22.5092379Z [41/47] Compiling SwiftJLS ComponentSamples.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:22.5092765Z [42/47] Compiling SwiftJLS HPTransform.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:22.5093216Z [43/47] Compiling SwiftJLS InterleavedKernel.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:22.6477716Z [44/48] Wrapping AST for SwiftJLS for debugging
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.1320417Z [46/52] Compiling SwiftJLSCLI main.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.1321000Z [47/52] Compiling SwiftJLSCLI PayloadIO.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.1321666Z [48/52] Compiling SwiftJLSCLI PayloadCommands.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.1322436Z [49/52] Emitting module SwiftJLSCLI
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.1879401Z [50/53] Wrapping AST for SwiftJLSCLI for debugging
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.1881153Z [51/53] Write Objects.LinkFileList
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.2978317Z [52/53] Linking swiftjls-cli
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.2989805Z Build complete! (7.61s)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.3077976Z ##[group]Run swift test
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.3078299Z ^[[36;1mswift test^[[0m
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.3078648Z shell: sh -e {0}
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.3078885Z ##[endgroup]
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.7486543Z [0/1] Planning build
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.7577223Z Building for debugging...
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.7750705Z [0/14] Write sources
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.8244330Z [1/14] Write swift-version-24593BA9C3E375BF.txt
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:23.8383970Z [2/12] Copying Fixtures
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:29.3176174Z [4/37] Compiling SwiftJLSTests DestinationLifecycleTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:29.3177145Z [5/37] Compiling SwiftJLSTests GradientTableTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:29.3178057Z [6/37] Compiling SwiftJLSTests HPTransformTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:29.3178744Z [7/37] Compiling SwiftJLSTests HeaderDescriptorTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:29.3179475Z [8/37] Compiling SwiftJLSTests HeaderFrameAdmissionTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:29.3180139Z [9/37] Compiling SwiftJLSTests HeaderScanBoundaryTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:29.3180909Z [10/37] Compiling SwiftJLSTests ICCDiscardTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:29.3181507Z [11/37] Compiling SwiftJLSTests KernelWorkspaceTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:36.2466650Z [12/44] Compiling SwiftJLSTests RunCheckpointTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:36.2467891Z [13/44] Compiling SwiftJLSTests SampleAccessTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:36.2468628Z [14/44] Compiling SwiftJLSTests SampleNativeDecodeTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:36.2469219Z [15/44] Compiling SwiftJLSTests ScalarCodecTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:36.2469919Z [16/44] Compiling SwiftJLSTests StorageEvidenceTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:36.2470554Z [17/44] Compiling SwiftJLSTests WorkspaceAdmissionTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:36.2471215Z [18/44] Compiling SwiftJLSTests resource_bundle_accessor.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2899281Z [19/44] Compiling SwiftJLSTests APITests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2900402Z [20/44] Compiling SwiftJLSTests BitstreamWriterTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2901089Z [21/44] Compiling SwiftJLSTests CancellationPublicationTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2901618Z [22/44] Compiling SwiftJLSTests ComponentCodecTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2902100Z [23/44] Compiling SwiftJLSTests ComponentPrecisionTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2902539Z [24/44] Compiling SwiftJLSTests ConcurrentAdmissionTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2903045Z [25/44] Compiling SwiftJLSTests ContextIndexTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2903771Z [26/44] Compiling SwiftJLSTests DescriptorTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2904173Z [27/44] Emitting module SwiftJLSTests
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2904561Z [28/44] Compiling SwiftJLSTests LosslessPrecisionValidationTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2905531Z /__w/SwiftJLS/SwiftJLS/Tests/SwiftJLSTests/QualifiedMonochromeTests.swift:157:13: error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2906325Z 155 |             let result = try decode(fixture("legacy-extended-\(width)x\(height)"))
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2906750Z 156 |             #expect(result.0.width == width && result.0.height == height)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2907296Z 157 |             #expect(result.1 == (0..<(width * height)).map { UInt16((($0 % width) * 17 + ($0 / width) * 3) & 255) })
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2907995Z     |             `- error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2908475Z 158 |         }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2908704Z 159 |     }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2908971Z [29/44] Compiling SwiftJLSTests MappingMetadataTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2909678Z /__w/SwiftJLS/SwiftJLS/Tests/SwiftJLSTests/QualifiedMonochromeTests.swift:157:13: error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2910654Z 155 |             let result = try decode(fixture("legacy-extended-\(width)x\(height)"))
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2911304Z 156 |             #expect(result.0.width == width && result.0.height == height)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2911748Z 157 |             #expect(result.1 == (0..<(width * height)).map { UInt16((($0 % width) * 17 + ($0 / width) * 3) & 255) })
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2912366Z     |             `- error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2912844Z 158 |         }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2913073Z 159 |     }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2913368Z [30/44] Compiling SwiftJLSTests MarkerFillInspectPolicyTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2914262Z /__w/SwiftJLS/SwiftJLS/Tests/SwiftJLSTests/QualifiedMonochromeTests.swift:157:13: error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2915057Z 155 |             let result = try decode(fixture("legacy-extended-\(width)x\(height)"))
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2915458Z 156 |             #expect(result.0.width == width && result.0.height == height)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2915913Z 157 |             #expect(result.1 == (0..<(width * height)).map { UInt16((($0 % width) * 17 + ($0 / width) * 3) & 255) })
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2916529Z     |             `- error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2916990Z 158 |         }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2917220Z 159 |     }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2917474Z [31/44] Compiling SwiftJLSTests OwnedAdmissionTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2918196Z /__w/SwiftJLS/SwiftJLS/Tests/SwiftJLSTests/QualifiedMonochromeTests.swift:157:13: error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2918949Z 155 |             let result = try decode(fixture("legacy-extended-\(width)x\(height)"))
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2919333Z 156 |             #expect(result.0.width == width && result.0.height == height)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2919796Z 157 |             #expect(result.1 == (0..<(width * height)).map { UInt16((($0 % width) * 17 + ($0 / width) * 3) & 255) })
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2920404Z     |             `- error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2920872Z 158 |         }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2921129Z 159 |     }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2921358Z [32/44] Compiling SwiftJLSTests OwnershipTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2922108Z /__w/SwiftJLS/SwiftJLS/Tests/SwiftJLSTests/QualifiedMonochromeTests.swift:157:13: error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2922842Z 155 |             let result = try decode(fixture("legacy-extended-\(width)x\(height)"))
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2923240Z 156 |             #expect(result.0.width == width && result.0.height == height)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2923852Z 157 |             #expect(result.1 == (0..<(width * height)).map { UInt16((($0 % width) * 17 + ($0 / width) * 3) & 255) })
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2924461Z     |             `- error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2924968Z 158 |         }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2925173Z 159 |     }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2925431Z [33/44] Compiling SwiftJLSTests ParserContainerTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2926148Z /__w/SwiftJLS/SwiftJLS/Tests/SwiftJLSTests/QualifiedMonochromeTests.swift:157:13: error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2926951Z 155 |             let result = try decode(fixture("legacy-extended-\(width)x\(height)"))
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2927354Z 156 |             #expect(result.0.width == width && result.0.height == height)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2927865Z 157 |             #expect(result.1 == (0..<(width * height)).map { UInt16((($0 % width) * 17 + ($0 / width) * 3) & 255) })
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2928504Z     |             `- error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2928987Z 158 |         }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2929191Z 159 |     }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2929467Z [34/44] Compiling SwiftJLSTests PredecessorProfileTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2930168Z /__w/SwiftJLS/SwiftJLS/Tests/SwiftJLSTests/QualifiedMonochromeTests.swift:157:13: error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2930889Z 155 |             let result = try decode(fixture("legacy-extended-\(width)x\(height)"))
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2931327Z 156 |             #expect(result.0.width == width && result.0.height == height)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2931760Z 157 |             #expect(result.1 == (0..<(width * height)).map { UInt16((($0 % width) * 17 + ($0 / width) * 3) & 255) })
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2932418Z     |             `- error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2932903Z 158 |         }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2933130Z 159 |     }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2933665Z [35/44] Compiling SwiftJLSTests QualifiedMonochromeTests.swift
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2934418Z /__w/SwiftJLS/SwiftJLS/Tests/SwiftJLSTests/QualifiedMonochromeTests.swift:157:13: error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2935189Z 155 |             let result = try decode(fixture("legacy-extended-\(width)x\(height)"))
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2935597Z 156 |             #expect(result.0.width == width && result.0.height == height)
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2936037Z 157 |             #expect(result.1 == (0..<(width * height)).map { UInt16((($0 % width) * 17 + ($0 / width) * 3) & 255) })
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2936683Z     |             `- error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2937206Z 158 |         }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.2937435Z 159 |     }
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.3301759Z error: fatalError
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.3374238Z ##[error]Process completed with exit code 1.
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.3501833Z Post job cleanup.
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.3510071Z ##[command]/usr/bin/docker exec  2d04fe1840c980a61819383d02c5ee40cfa11c3f4d532d65ab0fb354a4fbd5f9 sh -c "cat /etc/*release | grep ^ID"
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.4877259Z [command]/usr/bin/git version
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.4912243Z git version 2.43.0
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.4944657Z Temporarily overriding HOME='/__w/_temp/98f5da37-fb57-48e5-900a-2787474206b7' before making global git config changes
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.4945651Z Adding repository directory to the temporary git global config as a safe directory
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.4948204Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.4975632Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.4999690Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.5190745Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.5212562Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.5391427Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.5423820Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.5752787Z Stop and remove container: 72164fba27584c24a272c55c92fa6f7b_swift62noble_108253
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.5758801Z ##[command]/usr/bin/docker rm --force 2d04fe1840c980a61819383d02c5ee40cfa11c3f4d532d65ab0fb354a4fbd5f9
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.7087982Z 2d04fe1840c980a61819383d02c5ee40cfa11c3f4d532d65ab0fb354a4fbd5f9
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.7110441Z Remove container network: github_network_1f7808bd5b294a68ab9aa4cbe9987c5f
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.7113431Z ##[command]/usr/bin/docker network rm github_network_1f7808bd5b294a68ab9aa4cbe9987c5f
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.8095165Z github_network_1f7808bd5b294a68ab9aa4cbe9987c5f
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.8162887Z Cleaning up orphan processes
+Swift 6.2 / ubuntu-24.04	UNKNOWN STEP	2026-11-04T06:54:43.8434731Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

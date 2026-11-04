@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-04",
+  "runtime_baseline": "a9bf9e95933fc8135bbcc3922d6ce831ddfe2057",
+  "consumption_validation_revision": "68b0b6385bca135e1532a7e22ceb00992af549b9",
+  "migration_predecessor": "15aa75164145414f3d5ffb801401c52d40cc5bcc",
+  "qualified_predecessor": "d17545284a23e93f3d884a18f1046c4e305daa35",
+  "suite_policy": "0.10.0",
+  "root_version": "1.1.0-dev.2",
+  "unchanged_from_baseline": {
+    "Sources": true,
+    "Package.swift": true,
+    "Tests/SwiftJLSTests/Fixtures": true,
+    "Documentation/COMMON_API.md": true,
+    "Documentation/MEMORY_CONTRACT.md": true,
+    "Documentation/CLI_CONTRACT.md": true,
+    "Documentation/PLATFORMS.md": true,
+    "Documentation/PERFORMANCE.md": true,
+    "Documentation/TESTING.md": true,
+    "Documentation/SUITE_POLICY.md": true,
+    "Documentation/Engineering/Swift64": true
+  },
+  "runtime_api_memory_performance_change": false,
+  "local_preparation": "passed in recorded scope",
+  "release_ready": false,
+  "open_gates": [
+    "physical-device qualification",
+    "administrator enablement of owner-selected GitHub private vulnerability reporting",
+    "maintainer acceptance of first-stable support policy",
+    "final PR-head CI and owner review/merge",
+    "separately assigned stable publication"
+  ],
+  "tooling_limitations": [
+    "Swift6.2.4 Linux Swift Build test launch and independent-consumer link failed; native-engine test run is distinct"
+  ],
+  "reports": [
+    "core/report.json",
+    "local-consumer/report.json",
+    "consumption-001/report.json",
+    "consumption-002/report.json",
+    "consumption-002/independent-audit.json",
+    "provenance-68b0b638.json",
+    "swift62-test-expression/report.json"
+  ],
+  "test_source_change": "Equivalent typed expected-sample expression in QualifiedMonochromeTests.swift; fixtures and expected values preserved",
+  "ci_url": "https://github.com/raster-labs/SwiftJLS/pull/18/checks"
+}

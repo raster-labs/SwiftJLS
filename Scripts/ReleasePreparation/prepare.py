@@ -51,6 +51,8 @@ def main() -> int:
     parser.add_argument("--url", default="https://github.com/raster-labs/SwiftJLS.git")
     parser.add_argument("--jobs", type=int, default=2)
     parser.add_argument("--timeout", type=int, default=900)
+    parser.add_argument("--build-system", choices=("swiftbuild", "native"), default="swiftbuild",
+                        help="Explicit engine selection; no automatic fallback (default: swiftbuild)")
     args = parser.parse_args()
     if not 1 <= args.jobs <= 32 or args.timeout < 1:
         parser.error("Use 1..32 jobs and a positive command timeout")
@@ -64,7 +66,7 @@ def main() -> int:
     out.mkdir(parents=True)
     report = {"schema": 1, "started_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
               "repository": str(repo), "commands": [], "consumers": [], "status": "running",
-              "build_engine": "swiftbuild",
+              "build_engine": args.build_system,
               "release_ready": False,
               "scope": "Release preparation only; no release or repository tag is created",
               "not_run": ["Hosted URL consumer"] if args.local_only else []}
@@ -106,7 +108,7 @@ def main() -> int:
                 "--cache-path", str(out / "cache" / scratch),
                 "--config-path", str(out / "config" / scratch),
                 "--security-path", str(out / "security" / scratch),
-                "--disable-dependency-cache", "--build-system", "swiftbuild", "--jobs", str(args.jobs)]
+                "--disable-dependency-cache", "--build-system", args.build_system, "--jobs", str(args.jobs)]
 
     try:
         dirty = run("source-status", ["git", "status", "--porcelain", "--untracked-files=all"])
