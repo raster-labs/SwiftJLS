@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "docker",
+    "run",
+    "--rm",
+    "--cpus",
+    "2",
+    "--memory",
+    "4g",
+    "-v",
+    "/Users/pushparaj/projects/SwiftJLS-milestone5:/input:ro",
+    "-v",
+    "/Users/pushparaj/projects/SwiftJLS-milestone5/Documentation/Engineering/ReleasePreparation/results/linux-cli-man:/evidence",
+    "-w",
+    "/work",
+    "swift@sha256:e508ef1e4be68087f720de622b91cbf1e32799a7aa96134b35e6f1a1d656db7a",
+    "bash",
+    "-c",
+    "set -euo pipefail\ncp /input/Package.swift /input/VERSION /input/CLI.md .\ncp -R /input/Sources /input/Tests /input/Scripts /input/ManPages .\nswift --version > /evidence/swift-version.log\nuname -a > /evidence/kernel.log\napt-get update > /evidence/apt.log 2>&1\napt-get install -y --no-install-recommends python3 git man-db mandoc >> /evidence/apt.log 2>&1\ncommand -v man > /evidence/man-before-path.log\nman --version > /evidence/man-before.log 2>&1\nif [ -x /usr/bin/man.REAL ]; then\n    install -m 755 /usr/bin/man.REAL /usr/local/bin/man\nfi\ncommand -v man > /evidence/man-after-path.log\nman --version > /evidence/man-after.log 2>&1\nswift build --build-system native --jobs 2 -c release --product swiftjls-cli > /evidence/build.log 2>&1\nbinary=\"$(swift build --build-system native --jobs 2 -c release --show-bin-path)/swiftjls-cli\"\npython3 -I Scripts/test-cli.py --binary \"$binary\" --output /evidence/cli-process > /evidence/cli-process.log 2>&1\n"
+  ],
+  "cwd": "/Users/pushparaj/projects/SwiftJLS-milestone5",
+  "exit_code": 0,
+  "seconds": 50.36790879198816
+}

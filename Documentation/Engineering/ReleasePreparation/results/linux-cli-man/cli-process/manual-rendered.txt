@@ -1,0 +1,118 @@
+SWIFTJLS-CLI(1)          Swift Image Compression Suite         SWIFTJLS-CLI(1)
+
+NNAAMMEE
+       swiftjls-cli - native scalar JPEG-LS codec
+
+SSYYNNOOPPSSIISS
+       sswwiiffttjjllss--ccllii [_o_p_t_i_o_n_s] _c_o_m_m_a_n_d [_o_p_t_i_o_n_s]
+
+DDEESSCCRRIIPPTTIIOONN
+       Native scalar lossless and near-lossless JPEG-LS for unsigned
+       greyscale.  The library supports 2 through 16 meaningful bits in 8-bit
+       or 16-bit storage.  Build with Swift 6.2 or newer in Swift 6 language
+       mode. Apple OS minimum is 26.0.  CLI hosts are macOS and Linux; consult
+       qualification records for executed coverage.
+
+       JPEG-LS input permits one zero byte after an odd-length complete
+       codestream for DICOM even padding. Other trailing bytes, concatenated
+       streams and missing EOI are malformed. Padding counts against input
+       limits. Input is an extracted codestream, not a DICOM container.
+
+CCOOMMMMAANNDDSS
+       ccaappaabbiilliittiieess [[----jjssoonn]]
+              Report actual library encode/decode/inspect support. JSON is one
+              document on stdout.  False support values and empty formats mean
+              unavailable algorithms.
+
+       hheellpp [[ccoommmmaanndd]]
+              Show global or command-specific help. No arguments also show
+              global help.
+
+       vveerrssiioonn
+              Show the development version.
+
+OOPPTTIIOONNSS
+       --hh,, ----hheellpp
+              Show help, including after a command.
+
+       ----vveerrssiioonn
+              Show the development version.
+
+       --vv,, --vvvv,, --vvvvvv,, --vvvvvvvv,, --vvvvvvvvvv
+              Increase diagnostic verbosity, up to 5.
+
+       ----vveerrbboossee LLEEVVEELL,, ----vveerrbboossee==LLEEVVEELL
+              Set level to 1 through 5, or + through +++++. Bare verbose
+              increments once.
+
+       --vveerrbboossee:: LLEEVVEELL,, --vveerrbboossee::LLEEVVEELL
+              Equivalent explicit verbosity spelling; bare -verbose increments
+              once.
+
+       --qq,, ----qquuiieett
+              Suppress optional diagnostics; errors remain visible. Conflicts
+              with verbosity.
+
+DDIIAAGGNNOOSSTTIICC LLEEVVEELLSS
+       Default 0 reports errors only. Levels are cumulative: 1 summary; 2
+       stages; 3 capability/configuration details; 4 elapsed timing; 5 bounded
+       trace. Invalid levels or totals above 5 return 2.  Explicit levels set
+       and repeated flags increment in argument order.  Diagnostics use
+       stderr. Requested help/version/capability data uses stdout.  No payload
+       bytes, metadata, raw addresses or input/output paths are logged.
+
+CCOODDEECC CCOOMMMMAANNDDSS
+       encode reads attached raw 2D uint16 NRRD and writes JPEG-LS.  decode
+       reads JPEG-LS and writes NRRD, requiring 16 meaningful bits.  inspect
+       checks headers and reports dimensions and precision.  validate also
+       decodes the complete sample payload.
+
+       Use -i/--input and -o/--output for files or a single hyphen for
+       streams.  Input/output formats are nrrd and jls as applicable to the
+       command.  Use --mode lossless (default) or near-lossless with --max-
+       error 1 through 255.  The scalar backend uses one worker; --threads is
+       a ceiling.  Copy policy is require-sharing by default; allow-copy is
+       also accepted.  Use --max-memory BYTES and --timeout SECONDS to set
+       finite limits.  Defaults are 1 GiB and 120 seconds. Both must be
+       positive.
+
+       Existing output is refused unless --overwrite is supplied.  Files use a
+       sibling transaction and atomic publication; incomplete files are
+       removed.  Binary stdout cannot be rolled back. A failed stream may
+       contain partial bytes.  JSON inspect/validate output uses stdout;
+       encode/decode JSON reports use stderr.  Pipe serialisation involves
+       copies, independently of in-process shared storage.
+
+       The NRRD profile requires explicit endian and permits no detached
+       references, compression, colour, signed samples or ancillary
+       interpretation fields.  Lower meaningful precision cannot be silently
+       widened for NRRD output.
+
+EEXXIITT SSTTAATTUUSS
+       0 success/help/version; 2 invalid usage; 3 malformed input; 4
+       unsupported format/feature/layout/backend; 5 resource/deadline; 6 I/O
+       failure including a closed pipe; 7 internal failure; 130 cancellation.
+
+EEXXAAMMPPLLEESS
+       swiftjls-cli -h
+       swiftjls-cli help capabilities
+       swiftjls-cli capabilities --json -vv
+       swiftjls-cli capabilities -verbose: 3
+       swiftjls-cli capabilities --verbose=+++++
+
+IINNSSTTAALLLLAATTIIOONN
+       Scripts/install-cli.sh installs or updates the executable and this page
+       together.  Use --prefix for an absolute prefix (default /usr/local),
+       --destdir or DESTDIR for staging, and --binary for a prebuilt binary
+       matching VERSION.  Files are PREFIX/bin/swiftjls-cli and
+       PREFIX/share/man/man1/swiftjls-cli.1.  For custom prefixes use man -M
+       PREFIX/share/man swiftjls-cli, or configure MANPATH.  No index refresh
+       is needed for direct lookup; no sudo runs automatically.
+
+SSEEEE AALLSSOO
+       mmaann(1)
+
+       CLI.md and Documentation/Engineering/CodecMigration/README.md in the
+       SwiftJLS repository.
+
+1.1.0-dev.2                    October 12, 2026                SWIFTJLS-CLI(1)

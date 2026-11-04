@@ -149,7 +149,13 @@ struct QualifiedMonochromeTests {
         for width in [1, 2] {
             let result = try decode(fixture("legacy-mapping-w\(width)"))
             #expect(result.0.hasMappingTables)
-            #expect(result.1 == [0,1,32764,32765,65535].map { UInt16(($0 * 271) & (width == 1 ? 255 : 65535)) })
+            let indices: [Int] = [0, 1, 32764, 32765, 65535]
+            let mask: Int = width == 1 ? 255 : 65535
+            let expected: [UInt16] = indices.map { index in
+                let value: Int = index * 271
+                return UInt16(value & mask)
+            }
+            #expect(result.1 == expected)
         }
         for (width, height) in [(65537, 1), (1, 65537)] {
             let result = try decode(fixture("legacy-extended-\(width)x\(height)"))

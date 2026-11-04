@@ -1,0 +1,492 @@
+{
+  "schema": 1,
+  "started_utc": "2026-11-04T07:06:46.333902+00:00",
+  "repository": "/__w/SwiftJLS/SwiftJLS",
+  "commands": [
+    {
+      "label": "source-status",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=all"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 0.375,
+      "stdout": "source-status.stdout.log",
+      "stderr": "source-status.stderr.log"
+    },
+    {
+      "label": "source-revision",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 0.002,
+      "stdout": "source-revision.stdout.log",
+      "stderr": "source-revision.stderr.log"
+    },
+    {
+      "label": "source-tree",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD^{tree}"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 0.002,
+      "stdout": "source-tree.stdout.log",
+      "stderr": "source-tree.stderr.log"
+    },
+    {
+      "label": "rehearsal-clone",
+      "argv": [
+        "git",
+        "clone",
+        "--bare",
+        "--no-local",
+        "/__w/SwiftJLS/SwiftJLS",
+        "/tmp/swiftjls-preparation/SwiftJLS.git"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 2.437,
+      "stdout": "rehearsal-clone.stdout.log",
+      "stderr": "rehearsal-clone.stderr.log"
+    },
+    {
+      "label": "candidate-clone",
+      "argv": [
+        "git",
+        "clone",
+        "--no-local",
+        "/tmp/swiftjls-preparation/SwiftJLS.git",
+        "/tmp/swiftjls-preparation/candidate"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 4.368,
+      "stdout": "candidate-clone.stdout.log",
+      "stderr": "candidate-clone.stderr.log"
+    },
+    {
+      "label": "candidate-checkout",
+      "argv": [
+        "git",
+        "checkout",
+        "--detach",
+        "765009418bc4a2cdc75c75f676d1834eb88e3de7"
+      ],
+      "cwd": "/tmp/swiftjls-preparation/candidate",
+      "exit_code": 0,
+      "seconds": 0.359,
+      "stdout": "candidate-checkout.stdout.log",
+      "stderr": "candidate-checkout.stderr.log"
+    },
+    {
+      "label": "swift-version",
+      "argv": [
+        "swift",
+        "--version"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 0.061,
+      "stdout": "swift-version.stdout.log",
+      "stderr": "swift-version.stderr.log"
+    },
+    {
+      "label": "target-info",
+      "argv": [
+        "swiftc",
+        "-print-target-info"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 0.054,
+      "stdout": "target-info.stdout.log",
+      "stderr": "target-info.stderr.log"
+    },
+    {
+      "label": "package-manifest",
+      "argv": [
+        "swift",
+        "package",
+        "dump-package"
+      ],
+      "cwd": "/tmp/swiftjls-preparation/candidate",
+      "exit_code": 0,
+      "seconds": 0.741,
+      "stdout": "package-manifest.stdout.log",
+      "stderr": "package-manifest.stderr.log"
+    },
+    {
+      "label": "documented-local-consumer",
+      "argv": [
+        "swift",
+        "run",
+        "--package-path",
+        "/tmp/swiftjls-preparation/candidate/Examples/IndependentConsumer",
+        "--scratch-path",
+        "/tmp/swiftjls-preparation/build/local-example",
+        "--cache-path",
+        "/tmp/swiftjls-preparation/cache/local-example",
+        "--config-path",
+        "/tmp/swiftjls-preparation/config/local-example",
+        "--security-path",
+        "/tmp/swiftjls-preparation/security/local-example",
+        "--disable-dependency-cache",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "2",
+        "-c",
+        "release",
+        "Consumer"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 28.975,
+      "stdout": "documented-local-consumer.stdout.log",
+      "stderr": "documented-local-consumer.stderr.log"
+    },
+    {
+      "label": "rehearsal-tag",
+      "argv": [
+        "git",
+        "--git-dir",
+        "/tmp/swiftjls-preparation/SwiftJLS.git",
+        "tag",
+        "v1.1.0-dev.2",
+        "765009418bc4a2cdc75c75f676d1834eb88e3de7"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 0.002,
+      "stdout": "rehearsal-tag.stdout.log",
+      "stderr": "rehearsal-tag.stderr.log"
+    },
+    {
+      "label": "local-semver-Consumer",
+      "argv": [
+        "swift",
+        "run",
+        "--package-path",
+        "/tmp/swiftjls-preparation/local-semver",
+        "--scratch-path",
+        "/tmp/swiftjls-preparation/build/local-semver",
+        "--cache-path",
+        "/tmp/swiftjls-preparation/cache/local-semver",
+        "--config-path",
+        "/tmp/swiftjls-preparation/config/local-semver",
+        "--security-path",
+        "/tmp/swiftjls-preparation/security/local-semver",
+        "--disable-dependency-cache",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "2",
+        "-c",
+        "release",
+        "Consumer"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 38.207,
+      "stdout": "local-semver-Consumer.stdout.log",
+      "stderr": "local-semver-Consumer.stderr.log"
+    },
+    {
+      "label": "local-semver-ReadmeExample",
+      "argv": [
+        "swift",
+        "run",
+        "--package-path",
+        "/tmp/swiftjls-preparation/local-semver",
+        "--scratch-path",
+        "/tmp/swiftjls-preparation/build/local-semver",
+        "--cache-path",
+        "/tmp/swiftjls-preparation/cache/local-semver",
+        "--config-path",
+        "/tmp/swiftjls-preparation/config/local-semver",
+        "--security-path",
+        "/tmp/swiftjls-preparation/security/local-semver",
+        "--disable-dependency-cache",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "2",
+        "-c",
+        "release",
+        "ReadmeExample"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 1.816,
+      "stdout": "local-semver-ReadmeExample.stdout.log",
+      "stderr": "local-semver-ReadmeExample.stderr.log"
+    },
+    {
+      "label": "local-semver-MigrationExample",
+      "argv": [
+        "swift",
+        "run",
+        "--package-path",
+        "/tmp/swiftjls-preparation/local-semver",
+        "--scratch-path",
+        "/tmp/swiftjls-preparation/build/local-semver",
+        "--cache-path",
+        "/tmp/swiftjls-preparation/cache/local-semver",
+        "--config-path",
+        "/tmp/swiftjls-preparation/config/local-semver",
+        "--security-path",
+        "/tmp/swiftjls-preparation/security/local-semver",
+        "--disable-dependency-cache",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "2",
+        "-c",
+        "release",
+        "MigrationExample"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 1.822,
+      "stdout": "local-semver-MigrationExample.stdout.log",
+      "stderr": "local-semver-MigrationExample.stderr.log"
+    },
+    {
+      "label": "hosted-revision-Consumer",
+      "argv": [
+        "swift",
+        "run",
+        "--package-path",
+        "/tmp/swiftjls-preparation/hosted-revision",
+        "--scratch-path",
+        "/tmp/swiftjls-preparation/build/hosted-revision",
+        "--cache-path",
+        "/tmp/swiftjls-preparation/cache/hosted-revision",
+        "--config-path",
+        "/tmp/swiftjls-preparation/config/hosted-revision",
+        "--security-path",
+        "/tmp/swiftjls-preparation/security/hosted-revision",
+        "--disable-dependency-cache",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "2",
+        "-c",
+        "release",
+        "Consumer"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 36.14,
+      "stdout": "hosted-revision-Consumer.stdout.log",
+      "stderr": "hosted-revision-Consumer.stderr.log"
+    },
+    {
+      "label": "hosted-revision-ReadmeExample",
+      "argv": [
+        "swift",
+        "run",
+        "--package-path",
+        "/tmp/swiftjls-preparation/hosted-revision",
+        "--scratch-path",
+        "/tmp/swiftjls-preparation/build/hosted-revision",
+        "--cache-path",
+        "/tmp/swiftjls-preparation/cache/hosted-revision",
+        "--config-path",
+        "/tmp/swiftjls-preparation/config/hosted-revision",
+        "--security-path",
+        "/tmp/swiftjls-preparation/security/hosted-revision",
+        "--disable-dependency-cache",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "2",
+        "-c",
+        "release",
+        "ReadmeExample"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 1.691,
+      "stdout": "hosted-revision-ReadmeExample.stdout.log",
+      "stderr": "hosted-revision-ReadmeExample.stderr.log"
+    },
+    {
+      "label": "hosted-revision-MigrationExample",
+      "argv": [
+        "swift",
+        "run",
+        "--package-path",
+        "/tmp/swiftjls-preparation/hosted-revision",
+        "--scratch-path",
+        "/tmp/swiftjls-preparation/build/hosted-revision",
+        "--cache-path",
+        "/tmp/swiftjls-preparation/cache/hosted-revision",
+        "--config-path",
+        "/tmp/swiftjls-preparation/config/hosted-revision",
+        "--security-path",
+        "/tmp/swiftjls-preparation/security/hosted-revision",
+        "--disable-dependency-cache",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "2",
+        "-c",
+        "release",
+        "MigrationExample"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 2.016,
+      "stdout": "hosted-revision-MigrationExample.stdout.log",
+      "stderr": "hosted-revision-MigrationExample.stderr.log"
+    },
+    {
+      "label": "cli-build",
+      "argv": [
+        "swift",
+        "build",
+        "--package-path",
+        "/tmp/swiftjls-preparation/candidate",
+        "--scratch-path",
+        "/tmp/swiftjls-preparation/build/cli",
+        "--cache-path",
+        "/tmp/swiftjls-preparation/cache/cli",
+        "--config-path",
+        "/tmp/swiftjls-preparation/config/cli",
+        "--security-path",
+        "/tmp/swiftjls-preparation/security/cli",
+        "--disable-dependency-cache",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "2",
+        "-c",
+        "release",
+        "--product",
+        "swiftjls-cli"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 32.211,
+      "stdout": "cli-build.stdout.log",
+      "stderr": "cli-build.stderr.log"
+    },
+    {
+      "label": "cli-bin-path",
+      "argv": [
+        "swift",
+        "build",
+        "--package-path",
+        "/tmp/swiftjls-preparation/candidate",
+        "--scratch-path",
+        "/tmp/swiftjls-preparation/build/cli",
+        "--cache-path",
+        "/tmp/swiftjls-preparation/cache/cli",
+        "--config-path",
+        "/tmp/swiftjls-preparation/config/cli",
+        "--security-path",
+        "/tmp/swiftjls-preparation/security/cli",
+        "--disable-dependency-cache",
+        "--build-system",
+        "swiftbuild",
+        "--jobs",
+        "2",
+        "-c",
+        "release",
+        "--show-bin-path"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 0,
+      "seconds": 0.593,
+      "stdout": "cli-bin-path.stdout.log",
+      "stderr": "cli-bin-path.stderr.log"
+    },
+    {
+      "label": "cli-process",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "/tmp/swiftjls-preparation/candidate/Scripts/test-cli.py",
+        "--binary",
+        "/tmp/swiftjls-preparation/build/cli/out/Products/Release-linux-x86_64/swiftjls-cli",
+        "--output",
+        "/tmp/swiftjls-preparation/cli-process"
+      ],
+      "cwd": "/__w/SwiftJLS/SwiftJLS",
+      "exit_code": 1,
+      "seconds": 0.9,
+      "stdout": "cli-process.stdout.log",
+      "stderr": "cli-process.stderr.log"
+    }
+  ],
+  "consumers": [
+    {
+      "label": "local-semver",
+      "pin": {
+        "identity": "swiftjls",
+        "kind": "localSourceControl",
+        "location": "/tmp/swiftjls-preparation/SwiftJLS.git",
+        "state": {
+          "revision": "765009418bc4a2cdc75c75f676d1834eb88e3de7",
+          "version": "1.1.0-dev.2"
+        }
+      },
+      "examples": [
+        "Consumer",
+        "ReadmeExample",
+        "MigrationExample"
+      ],
+      "status": "passed"
+    },
+    {
+      "label": "hosted-revision",
+      "pin": {
+        "identity": "swiftjls",
+        "kind": "remoteSourceControl",
+        "location": "https://github.com/raster-labs/SwiftJLS.git",
+        "state": {
+          "revision": "765009418bc4a2cdc75c75f676d1834eb88e3de7"
+        }
+      },
+      "examples": [
+        "Consumer",
+        "ReadmeExample",
+        "MigrationExample"
+      ],
+      "status": "passed"
+    }
+  ],
+  "status": "failed",
+  "build_engine": "swiftbuild",
+  "release_ready": false,
+  "scope": "Release preparation only; no release or repository tag is created",
+  "not_run": [],
+  "revision": "765009418bc4a2cdc75c75f676d1834eb88e3de7",
+  "source_tree": "df5d29da3bf2274fb3358d3d079e5e9cc2a69706",
+  "version": "1.1.0-dev.2",
+  "suite_policy": "0.10.0",
+  "compiler": "Swift version 6.4.2 (swift-6.4.2-RELEASE)\nTarget: x86_64-unknown-linux-gnu",
+  "inputs": {
+    "Package.swift": "4812930d1d52147b8639649587fc85958ef4b04fd57f4d13652903c9973c6eaf",
+    "VERSION": "913c1672433548005a2a6b9c862a939558b9f8ce8357ad85350bfc0d26c0e938",
+    "README.md": "e765542122c0b7d3aec5fa1dae3079f18158eada98bcce819d1a49753034a34a",
+    "MIGRATION.md": "cb92038ecacfa7de211a2fd3e3e5fbbe1d900c4bde7d62d127dd21f601762e20",
+    "CLI.md": "428a11bf63de978065863d2f53abee0487f98d2b5fff14a05950657374eac2e0",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "NOTICE": "dbd05e5f8a4c0c7174126171c45c94fdea34a19ee7cd846e8c3646a0a3f7e9d3",
+    "Scripts/ReleasePreparation/prepare.py": "b97083f55a8da76cdbaaab3f8232f84c15558b3d90c3228b5819852010656ece",
+    "Examples/IndependentConsumer/Sources/Consumer/main.swift": "c590c288bb25777f56cb5e3ae6f9b0f8fddce962e7dcd971ff6dde9359af3ec4"
+  },
+  "error": "cli-process failed; see retained logs"
+}

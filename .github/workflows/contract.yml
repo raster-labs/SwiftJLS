@@ -60,7 +60,7 @@ jobs:
         run: python3 Scripts/test-payload-cli.py --binary .build/release/swiftjls-cli --output /tmp/payload-cli.json
 
   macos:
-    name: macOS 26 / Swift 6.2
+    name: macOS 26 / selected Xcode toolchain
     runs-on: macos-26
     timeout-minutes: 30
     steps:
@@ -242,7 +242,13 @@ jobs:
           persist-credentials: false
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Install preparation prerequisites
-        run: apt-get update && apt-get install -y --no-install-recommends python3 git man-db mandoc
+        run: |
+          apt-get update && apt-get install -y --no-install-recommends python3 git man-db mandoc
+          # Minimal Ubuntu images divert `man` to a success-returning notice.
+          # Exercise the real installed man-db binary against our staged manual.
+          if [ -x /usr/bin/man.REAL ]; then
+            install -m 755 /usr/bin/man.REAL /usr/local/bin/man
+          fi
       - name: Trust only this checkout in the job container
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: Release evidence negative controls

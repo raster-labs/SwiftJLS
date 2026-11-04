@@ -1,0 +1,21 @@
+{
+  "head": "765009418bc4a2cdc75c75f676d1834eb88e3de7",
+  "run": 41789843682,
+  "job": 126440402864,
+  "artifact_id": 13303246073,
+  "artifact_sha256": "86cf605c94da784a42b87df76b89da01f462bd42052e3c7f0d86b37733491ea4",
+  "failed_command": {
+    "argv": [
+      "/usr/bin/man",
+      "-M",
+      "/tmp/swiftjls-preparation/cli-process/cli stage spaces wsagg9kc/stage with spaces/opt/suite tools/share/man",
+      "-w",
+      "swiftjls-cli"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "stdout": "This system has been minimized by removing packages and content that are\nnot required on a system that users do not log into.\n\nTo restore this content, including manpages, you can run the 'unminimize'\ncommand. You will still need to ensure the 'man-db' package is installed.\n",
+    "stderr": ""
+  },
+  "stderr": "Traceback (most recent call last):\n  File \"/tmp/swiftjls-preparation/candidate/Scripts/test-cli.py\", line 112, in <module>\n    if __name__=='__main__':sys.exit(main())\n                                     ^^^^^^\n  File \"/tmp/swiftjls-preparation/candidate/Scripts/test-cli.py\", line 82, in main\n    location=run([man,'-M',installed/'share/man','-w',tool]);assert str(page) in location.stdout\n                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+}
