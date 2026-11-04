@@ -4,8 +4,9 @@ The owner has left DICOMKit integration pending and assigned completion of the
 other library Milestone 5 tasks. The implementation scope is the five release
 preparation items in [IMPLEMENTATION.md](../../../IMPLEMENTATION.md), not a new
 codec milestone or stable publication. Each item below has an implementation,
-repeatable validation and retained evidence. Final hosted checks for the latest
-workflow changes are recorded separately before handover.
+repeatable validation and retained evidence. All 21 hosted checks pass on the library engineering head `16adfe06`, including
+the complete Apple source coverage; [the final CI receipt](results/ci-16adfe06.json)
+and independent artifact audit retain the exact revision and outcomes.
 
 The runtime baseline is `a9bf9e95933fc8135bbcc3922d6ce831ddfe2057`, migration
 predecessor `15aa75164145414f3d5ffb801401c52d40cc5bcc` and qualified extension
@@ -19,7 +20,7 @@ fixture, common contract or supplied Swift 6.4 document changes are included.
 | Clean versioned consumption | [Preparation runner](../../../Scripts/ReleasePreparation/prepare.py) tests a temporary SemVer tag in a disposable repository and the public repository at the exact full revision, with both lockfiles checked. All 23 commands, seven consumer/example executions, 103 CLI process checks and 73 payload checks pass on their recorded revisions, including both hosted compiler lines. No project tag is created. [Independent audits](README.md) retain command, source, lockfile and artifact identities. |
 | Documentation and examples | Native independent consumer and exact README/MIGRATION Swift examples execute; all eight example manifests parse with explicit dependency names. CLI help, VERSION, diagnostics, payloads, staged installer/update and manual discovery are covered. The two typed test-expression corrections retain the same expected values. The compiler runner now uses the native API and current platform floor. |
 | Migration guide | [MIGRATION.md](../../../MIGRATION.md) maps dependency/import, storage, fidelity, metadata, error and profile changes, with executable acceptance examples and an explicit implemented/planned boundary. Application-specific DICOMKit acceptance and dependency cutover remain pending by the owner's direction. No integration candidate is included in this PR. |
-| Licence and fixture notices | [Provenance audit](Provenance.md) verifies 14 fixture manifests, 2,819 fixture/generator files, seven contracts, 20 migration records and 57 pinned predecessor source comparisons; eleven corruption/preservation controls pass. [Library and CLI SBOM qualification](SBOM/README.md) adds four clean build-associated outputs, four independently validated derived schemas, two SPDX semantic-model validations and twenty negative/provenance controls. Raw generator defects and all third-party schema/model notices are preserved. |
+| Licence and fixture notices | [Provenance audit](Provenance.md) verifies 2,819 fixture/generator hash comparisons across 14 manifests, seven contracts, 20 migration records and 57 pinned predecessor source comparisons; eleven corruption/preservation controls pass. [Library and CLI SBOM qualification](SBOM/README.md) adds four clean build-associated outputs, four derived SBOM documents independently validated against official schemas, two SPDX semantic-model validations and twenty negative/provenance controls. Raw generator defects and all third-party schema/model notices are preserved. |
 | Release gates and handover | [RELEASE.md](../../../RELEASE.md) defines candidate selection, version/manual alignment, packaging, security/support, platform and publication acceptance. GitHub private reporting is enabled. The support policy is prepared for maintainer acceptance. [PR 18](https://github.com/raster-labs/SwiftJLS/pull/18) carries reviewable changes and exact checks. Stable publication and owner merge remain separate actions. |
 
 The final preparation audit also corrected incomplete Apple fallback compiler
@@ -33,7 +34,7 @@ checks use installed 27.2 SDKs targeting 26.0; they are not physical-device runs
 The [pre-follow-up hosted snapshot](results/ci-53cea07b.json) records all sixteen
 checks passing on `53cea07be57fb030451a87bead9a3c3c0e863f04`. It does not establish
 the new Apple workflow coverage; the subsequent CI result must be read at its
-own revision. SBOM generation uses that clean commit and binds every production
+own revision: all 21 checks pass at `16adfe06`. SBOM generation uses that clean commit and binds every production
 input, licence, notice, manifest and version hash. Later evidence/workflow changes
 do not alter those compiled product inputs.
 

@@ -25,7 +25,7 @@
   "open_gates": [
     "physical-device qualification",
     "maintainer acceptance of first-stable support policy",
-    "owner review/merge and checking any subsequent documentation-head CI",
+    "owner review/merge",
     "separately assigned stable publication"
   ],
   "tooling_limitations": [
@@ -50,23 +50,26 @@
     "apple-sdk-source-coverage/report.json",
     "sbom-independent-review.json",
     "final-scope-link-audit.json",
-    "../SBOM/derived/summary.json"
+    "../SBOM/derived/summary.json",
+    "ci-16adfe06.json",
+    "ci-16adfe06-independent-audit.json",
+    "checklist-audit-16adfe06.json"
   ],
   "test_source_change": "Two equivalent typed expected-sample expressions in QualifiedMonochromeTests.swift; fixtures, expected values and assertions preserved",
   "ci_url": "https://github.com/raster-labs/SwiftJLS/pull/18/checks",
   "release_evidence_unit_methods": 13,
   "classifier_change": "Recognise exact private owner initializer with Swift discriminator; preserve same-stack and exact-ten allocation requirements",
-  "verified_ci_head": "53cea07be57fb030451a87bead9a3c3c0e863f04",
-  "hosted_checks_passed": 16,
+  "verified_ci_head": "16adfe068c3913f35b9cc72e3006be5a152d7665",
+  "hosted_checks_passed": 21,
   "private_reporting": "enabled; verified read-only",
-  "library_preparation": "implemented; final follow-up hosted checks pending",
+  "library_preparation": "implemented and validated; remaining acceptance boundaries are explicit",
   "dicomkit_integration": "excluded and pending by owner direction",
   "apple_fallback_source_coverage": {
     "source_count": 39,
     "previous_source_count": 28,
     "local_commands": 14,
     "expected_negative_failure": 1,
-    "hosted_followup": "pending"
+    "hosted_followup": "passed; full SDK compilation and four simulator consumers at 16adfe06"
   },
   "sbom": {
     "generation_revision": "53cea07be57fb030451a87bead9a3c3c0e863f04",

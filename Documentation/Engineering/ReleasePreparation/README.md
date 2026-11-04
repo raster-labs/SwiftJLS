@@ -75,3 +75,18 @@ The final hosted CI result for this follow-up is tracked in
 [PR 18](https://github.com/raster-labs/SwiftJLS/pull/18/checks) at its exact head.
 Physical-device admission, maintainer acceptance of the prepared support policy,
 owner review/merge and separately authorised stable publication remain open.
+
+Final library engineering head `16adfe068c3913f35b9cc72e3006be5a152d7665`
+passes **all 21 hosted checks**: 15 contract/compiler/SDK/packaging checks,
+CharLS, four Apple simulator runtime jobs and Watch architecture compilation.
+[The final receipt](results/ci-16adfe06.json) records exact run and device-runtime
+identities. Hosted simulators execute available OS 26.x runtimes, not the exact
+26.0 minimum; Watch `arm64_32` IR confirms a four-byte `Int` and the qualified
+public API typechecks. [Independent artifact review](results/ci-16adfe06-independent-audit.json)
+verifies both 23-command preparation reports, nine committed inputs each, exact
+locks, all CLI cases and the actual ten-allocation injected-copy trace.
+[The lossless evidence archive](results/ci-16adfe06-evidence.zip) retains original
+GitHub artifact ZIPs, full Apple job logs, API job identities and audit attempts.
+The following documentation-only evidence commit preserves all workflows,
+scripts, tests and product inputs from that passing engineering head; its own
+required CI remains visible at the PR checks link above.

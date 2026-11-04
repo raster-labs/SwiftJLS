@@ -1,0 +1,120 @@
+{
+  "head": "16adfe068c3913f35b9cc72e3006be5a152d7665",
+  "recorded_utc": "2026-11-04T10:26:57.021076+00:00",
+  "status": "passed_independent_final_ci_artifact_audit",
+  "artifacts": [
+    {
+      "name": "release-preparation-swift-6.2",
+      "id": 13313531845,
+      "digest": "sha256:65792239a25abe861cd79288e3281f2b9407c5250a8e64b4c2f648cd976cf5a0",
+      "bytes": 128045,
+      "archive_sha256_verified": true,
+      "extracted_files_byte_verified": 59
+    },
+    {
+      "name": "release-preparation-swift-6.4",
+      "id": 13312763924,
+      "digest": "sha256:cfa9dd249687ff6d51274b417cba8d4804a07b80519c93b039e1d44f529a108e",
+      "bytes": 127883,
+      "archive_sha256_verified": true,
+      "extracted_files_byte_verified": 59
+    },
+    {
+      "name": "cross-codec-copy-mutation",
+      "id": 13314031378,
+      "digest": "sha256:b81d3e1b43e4ac9a716e124a9ba77a12a88dfb9b38680257c36009b0d13b1521",
+      "bytes": 536609,
+      "archive_sha256_verified": true,
+      "extracted_files_byte_verified": 18
+    }
+  ],
+  "preparation": [
+    {
+      "compiler": "Swift version 6.2.4 (swift-6.2.4-RELEASE)\nTarget: x86_64-unknown-linux-gnu",
+      "engine": "native",
+      "commands": 23,
+      "all_commands_exit_zero": true,
+      "inputs_verified": 9,
+      "exact_locks_verified": 2,
+      "cli_process_checks": 103,
+      "cli_payload_checks": 73,
+      "cli_support_source_hashes_verified": 3,
+      "source_tags_unchanged": true,
+      "tag_evidence_scope": "Pinned executed harness before/after assertion and temporary-clone tag argv; no separately retained tag-state logs",
+      "provenance_counts": {
+        "fixture_manifests": 14,
+        "fixture_hash_checks": 2819,
+        "unique_fixture_files": 2819,
+        "uncovered_fixture_files": 0,
+        "shared_contract_hash_checks": 7,
+        "migrated_source_records": 20,
+        "predecessor_source_hash_checks": 57,
+        "errors": 0
+      },
+      "provenance_controls": 11,
+      "report_sha256": "0713baa147aab2f7dec7501096f4d9b7d702c56e96f5ff47f72e551943cdfa7d"
+    },
+    {
+      "compiler": "Swift version 6.4.2 (swift-6.4.2-RELEASE)\nTarget: x86_64-unknown-linux-gnu",
+      "engine": "swiftbuild",
+      "commands": 23,
+      "all_commands_exit_zero": true,
+      "inputs_verified": 9,
+      "exact_locks_verified": 2,
+      "cli_process_checks": 103,
+      "cli_payload_checks": 73,
+      "cli_support_source_hashes_verified": 3,
+      "source_tags_unchanged": true,
+      "tag_evidence_scope": "Pinned executed harness before/after assertion and temporary-clone tag argv; no separately retained tag-state logs",
+      "provenance_counts": {
+        "fixture_manifests": 14,
+        "fixture_hash_checks": 2819,
+        "unique_fixture_files": 2819,
+        "uncovered_fixture_files": 0,
+        "shared_contract_hash_checks": 7,
+        "migrated_source_records": 20,
+        "predecessor_source_hash_checks": 57,
+        "errors": 0
+      },
+      "provenance_controls": 11,
+      "report_sha256": "4e607dd5d7c241716e7433cdd74048a27ed04a8d1447dc0b512c90310c88ad8d"
+    }
+  ],
+  "discrepancies": [],
+  "audit_script_sha256": "3ce7529b94a89e46c11010f492e61320c4dc693adbdafa98a9368b8c6578c074",
+  "prior_audit_attempt": "Attempt1 stopped on an audit-script assumption that every CLI payload row had an expected key. Three condition rows instead have expected codes defined by the pinned test script. This was an audit harness error. Attempt2 incorrectly required byte-identical host/Linux demangling of all unrelated symbols. The final audit preserves independent demangling, verifies all allocation row counts and requires exact injected-stack equality. Both prior scripts and receipts are retained.",
+  "copy_mutation": {
+    "fresh_build_and_trace_passed": true,
+    "source_and_mutant_sha256_verified": true,
+    "source_sha256": "2e32232bd50b61f453d93db68b82140f0ec6a500e30cef8137823e18db7ab613",
+    "mutant_sha256": "b76f2ba989bb698a1ab91f748823d99e728040775a1cc5175a7c7bb429d12e9a",
+    "actual_injected_UInt8_array_allocations": 10,
+    "matching_stack_rows": 1,
+    "independent_host_demangle_sha256": "1fa4f18c9bea03c042061b5b91b509cf686225b6c9f30be81e2ef64ce2a2b8eb",
+    "independent_vs_CI_demangle_different_rows": 95,
+    "injected_stack_rows_identical": true,
+    "sample_identity_consumer_passed": true,
+    "sample_cases": [
+      {
+        "bits": 12,
+        "height": 23,
+        "j2kBytes": 1450,
+        "jlsBytes": 1366,
+        "samplesChecked": 2553,
+        "width": 37
+      },
+      {
+        "bits": 16,
+        "height": 23,
+        "j2kBytes": 1737,
+        "jlsBytes": 1572,
+        "samplesChecked": 2553,
+        "width": 37
+      }
+    ],
+    "heap_profile_sha256": "c0e7c4f44489d682710aba55461577f9aa6e67c22a6847738c910c457c4aac6f",
+    "committed_classifier_sha256": "da6fd43140dab6d98a67fa274af22a0426942fc229ac03e6527b78a5fa6cbb84",
+    "scope": "Injected-copy control sensitivity, not production copy-byte measurement. Baseline absence is the executed harness assertion; this requested artifact set does not contain the separate baseline trace."
+  },
+  "release_ready": false
+}
