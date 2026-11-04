@@ -1,0 +1,1127 @@
+Pinned development-only cross-codec consumer	Set up job	﻿2026-11-04T07:07:15.8445557Z Current runner version: '2.338.2'
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8484600Z ##[group]Runner Image Provisioner
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8486241Z Hosted Compute Agent
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8487483Z Version: 20261021.618
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8488726Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8490152Z Build Date: 2026-10-21T00:45:21Z
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8491889Z Worker ID: {58ec976b-d74c-4382-a3eb-c66f1a5eece9}
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8493300Z Region: centralus
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8494363Z Cloud: Azure
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8495555Z ##[endgroup]
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8498105Z ##[group]Operating System
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8499433Z Ubuntu
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8500462Z 24.04.5
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8501701Z LTS
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8502869Z ##[endgroup]
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8503945Z ##[group]Runner Image
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8504721Z Image: ubuntu-24.04
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8505360Z Version: 20261025.353.1
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8506479Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8508412Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8509449Z ##[endgroup]
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8510661Z ##[group]GITHUB_TOKEN Permissions
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8513247Z Contents: read
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8513995Z Metadata: read
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8514630Z ##[endgroup]
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8516865Z Secret source: Actions
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8517887Z Cache mode: write
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8518935Z Prepare workflow directory
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.8998128Z Prepare all required actions
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:15.9069578Z Getting action download info
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:16.1838713Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:16.2939854Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Pinned development-only cross-codec consumer	Set up job	2026-11-04T07:07:16.5499648Z Complete job name: Pinned development-only cross-codec consumer
+Pinned development-only cross-codec consumer	Initialize containers	﻿2026-11-04T07:07:16.6181932Z ##[group]Checking docker version
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.6195378Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.7329205Z '1.48'
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.7347530Z Docker daemon API version: '1.48'
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.7348360Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.7551883Z '1.48'
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.7567124Z Docker client API version: '1.48'
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.7573550Z ##[endgroup]
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.7576521Z ##[group]Clean up resources from previous jobs
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.7582704Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=2f3af3"
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.7758736Z ##[command]/usr/bin/docker network prune --force --filter "label=2f3af3"
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.7922294Z ##[endgroup]
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.7922941Z ##[group]Create local container network
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.7932946Z ##[command]/usr/bin/docker network create --label 2f3af3 github_network_f1802acb39434de98d37c5c99aed1b0c
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.8491594Z aec8a632d6308f96724c2e72b497282f64f515bc815b17bb0a25afe0eb78d01e
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.8516434Z ##[endgroup]
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.8540256Z ##[group]Starting job container
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:16.8563828Z ##[command]/usr/bin/docker pull swift:6.2-noble
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:17.4486284Z 6.2-noble: Pulling from library/swift
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:17.6185237Z 7a48b8f0e5c7: Pulling fs layer
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:17.6186378Z b86902419d4e: Pulling fs layer
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:17.6187263Z 1c2595a2d0f3: Pulling fs layer
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:17.6188156Z 1ff2c6c61347: Pulling fs layer
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:17.6189046Z 1ff2c6c61347: Waiting
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:17.9642279Z 7a48b8f0e5c7: Verifying Checksum
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:17.9644053Z 7a48b8f0e5c7: Download complete
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:18.1124086Z 1ff2c6c61347: Verifying Checksum
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:18.1125481Z 1ff2c6c61347: Download complete
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:18.2743916Z b86902419d4e: Verifying Checksum
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:18.2745224Z b86902419d4e: Download complete
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:19.4237481Z 7a48b8f0e5c7: Pull complete
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:21.4160706Z 1c2595a2d0f3: Verifying Checksum
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:21.4161927Z 1c2595a2d0f3: Download complete
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:26.8893991Z b86902419d4e: Pull complete
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.0302378Z 1c2595a2d0f3: Pull complete
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.0420028Z 1ff2c6c61347: Pull complete
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.0469294Z Digest: sha256:e508ef1e4be68087f720de622b91cbf1e32799a7aa96134b35e6f1a1d656db7a
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.0486769Z Status: Downloaded newer image for swift:6.2-noble
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.0493820Z docker.io/library/swift:6.2-noble
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.0581826Z ##[command]/usr/bin/docker create --name c338c9b6fbb64f7aaab75f7ac59194b1_swift62noble_84deb0 --label 2f3af3 --workdir /__w/SwiftJLS/SwiftJLS --network github_network_f1802acb39434de98d37c5c99aed1b0c  -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/actions-runner/cached/2.338.2/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" swift:6.2-noble "-f" "/dev/null"
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.0891022Z 89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.0920283Z ##[command]/usr/bin/docker start 89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3093940Z 89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3116451Z ##[command]/usr/bin/docker ps --all --filter id=89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3262528Z 89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193 Up Less than a second
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3283981Z ##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" 89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3432038Z GITHUB_ACTIONS=true
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3432881Z CI=true
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3433289Z HOME=/github/home
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3434102Z PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3434819Z SWIFT_SIGNING_KEY=52BB7E3DE28A71BE22EC05FFEF80A866B47A981F
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3435422Z SWIFT_PLATFORM=ubuntu24.04
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3435834Z SWIFT_BRANCH=swift-6.2.4-release
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3436256Z SWIFT_VERSION=swift-6.2.4-RELEASE
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3436908Z SWIFT_WEBROOT=https://download.swift.org
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3455431Z ##[endgroup]
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3464558Z ##[group]Waiting for all services to be ready
+Pinned development-only cross-codec consumer	Initialize containers	2026-11-04T07:07:44.3466739Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	﻿2026-11-04T07:07:44.3792885Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3793696Z with:
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3793955Z   persist-credentials: false
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3794240Z   repository: raster-labs/SwiftJLS
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3796899Z   token: ***
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3797112Z   ssh-strict: true
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3797322Z   ssh-user: git
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3797515Z   clean: true
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3797731Z   sparse-checkout-cone-mode: true
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3797990Z   fetch-depth: 1
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3798189Z   fetch-tags: false
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3798398Z   show-progress: true
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3798606Z   lfs: false
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3798792Z   submodules: false
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3799008Z   set-safe-directory: true
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3799253Z   allow-unsafe-pr-checkout: false
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3799707Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.3864218Z ##[command]/usr/bin/docker exec  89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193 sh -c "cat /etc/*release | grep ^ID"
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8108161Z Syncing repository: raster-labs/SwiftJLS
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8109547Z ##[group]Getting Git version info
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8110235Z Working directory is '/__w/SwiftJLS/SwiftJLS'
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8110763Z [command]/usr/bin/git version
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8151151Z git version 2.43.0
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8184297Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8197498Z Temporarily overriding HOME='/__w/_temp/5b6a8193-a42d-4eb2-a84f-901c7dc15121' before making global git config changes
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8199065Z Adding repository directory to the temporary git global config as a safe directory
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8208207Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8248398Z Deleting the contents of '/__w/SwiftJLS/SwiftJLS'
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8255221Z ##[group]Initializing the repository
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8259234Z [command]/usr/bin/git init /__w/SwiftJLS/SwiftJLS
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8306244Z hint: Using 'master' as the name for the initial branch. This default branch name
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8307770Z hint: is subject to change. To configure the initial branch name to use in all
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8308882Z hint: of your new repositories, which will suppress this warning, call:
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8309714Z hint: 
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8310390Z hint: 	git config --global init.defaultBranch <name>
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8311381Z hint: 
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8312171Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8314144Z hint: 'development'. The just-created branch can be renamed via this command:
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8315173Z hint: 
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8315707Z hint: 	git branch -m <name>
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8316595Z Initialized empty Git repository in /__w/SwiftJLS/SwiftJLS/.git/
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8327746Z [command]/usr/bin/git remote add origin https://github.com/raster-labs/SwiftJLS
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8386839Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8387852Z ##[group]Disabling automatic garbage collection
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8390352Z [command]/usr/bin/git config --local gc.auto 0
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8428825Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8429589Z ##[group]Setting up auth
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8437990Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8479876Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8760248Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.8814774Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.9099688Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.9149317Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.9399905Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.9449849Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.9450314Z ##[group]Fetching the repository
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:44.9464346Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +669585ff90bc3fc5dc99377ea1fabc131b4b5f24:refs/remotes/pull/18/merge
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:51.6145506Z From https://github.com/raster-labs/SwiftJLS
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:51.6147990Z  * [new ref]         669585ff90bc3fc5dc99377ea1fabc131b4b5f24 -> pull/18/merge
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:51.6170084Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:51.6170519Z ##[group]Determining the checkout info
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:51.6172915Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:51.6182146Z [command]/usr/bin/git sparse-checkout disable
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:51.6234315Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:51.6275095Z ##[group]Checking out the ref
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:51.6280276Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/18/merge
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.6785167Z Updating files:  53% (7340/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.6880102Z Updating files:  54% (7429/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.6979197Z Updating files:  55% (7566/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.7071610Z Updating files:  56% (7704/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.7170729Z Updating files:  57% (7841/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.7275109Z Updating files:  58% (7979/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.7672413Z Updating files:  59% (8117/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.7723444Z Updating files:  60% (8254/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.8607037Z Updating files:  61% (8392/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.8705590Z Updating files:  62% (8529/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.8799821Z Updating files:  63% (8667/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.8901583Z Updating files:  64% (8804/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.9000666Z Updating files:  65% (8942/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.9112789Z Updating files:  66% (9079/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.9267658Z Updating files:  67% (9217/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.9350621Z Updating files:  68% (9355/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.9436511Z Updating files:  69% (9492/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.9566363Z Updating files:  70% (9630/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.9653374Z Updating files:  71% (9767/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.9733409Z Updating files:  72% (9905/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.9815664Z Updating files:  73% (10042/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:52.9910728Z Updating files:  74% (10180/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0034586Z Updating files:  75% (10317/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0106004Z Updating files:  76% (10455/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0186888Z Updating files:  77% (10593/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0283776Z Updating files:  78% (10730/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0349409Z Updating files:  79% (10868/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0404173Z Updating files:  80% (11005/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0458975Z Updating files:  81% (11143/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0530664Z Updating files:  82% (11280/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0585386Z Updating files:  83% (11418/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0639242Z Updating files:  84% (11556/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0715360Z Updating files:  85% (11693/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0767720Z Updating files:  86% (11831/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0834342Z Updating files:  87% (11968/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0902509Z Updating files:  88% (12106/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.0954593Z Updating files:  89% (12243/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1005228Z Updating files:  90% (12381/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1057170Z Updating files:  91% (12518/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1110165Z Updating files:  92% (12656/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1161804Z Updating files:  93% (12794/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1213088Z Updating files:  94% (12931/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1266802Z Updating files:  95% (13069/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1320176Z Updating files:  96% (13206/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1373567Z Updating files:  97% (13344/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1426426Z Updating files:  98% (13481/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1484440Z Updating files:  99% (13619/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1485323Z Updating files: 100% (13756/13756)
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1485883Z Updating files: 100% (13756/13756), done.
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1641818Z Note: switching to 'refs/remotes/pull/18/merge'.
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1642447Z 
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1642998Z You are in 'detached HEAD' state. You can look around, make experimental
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1643848Z changes and commit them, and you can discard any commits you make in this
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1644645Z state without impacting any branches by switching back to a branch.
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1645160Z 
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1645465Z If you want to create a new branch to retain commits you create, you may
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1646181Z do so (now or later) by using -c with the switch command. Example:
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1646605Z 
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1646771Z   git switch -c <new-branch-name>
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1647090Z 
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1647253Z Or undo this operation with:
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1647507Z 
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1647941Z   git switch -
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1648137Z 
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1648498Z Turn off this advice by setting config variable advice.detachedHead to false
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1649011Z 
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1649596Z HEAD is now at 669585f Merge 765009418bc4a2cdc75c75f676d1834eb88e3de7 into a9bf9e95933fc8135bbcc3922d6ce831ddfe2057
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1804723Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1861571Z [command]/usr/bin/git log -1 --format=%H
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1895971Z 669585ff90bc3fc5dc99377ea1fabc131b4b5f24
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1907956Z ##[group]Removing auth
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1911793Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.1952473Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.2227766Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.2262972Z http.https://github.com/.extraheader
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.2272172Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.2314316Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.2589491Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.2643036Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Pinned development-only cross-codec consumer	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:07:53.2922024Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	﻿2026-11-04T07:07:53.3174947Z ##[group]Run swift run -c release --package-path Examples/CrossCodecConsumer
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:07:53.3175580Z ^[[36;1mswift run -c release --package-path Examples/CrossCodecConsumer^[[0m
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:07:53.3179067Z shell: sh -e {0}
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:07:53.3179337Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:07:54.0449064Z Fetching https://github.com/raster-labs/SwiftJ2K.git
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:07:55.2902818Z [1/4823] Fetching swiftj2k
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:07:56.0995599Z Fetched https://github.com/raster-labs/SwiftJ2K.git from cache (2.05s)
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:07:56.2998455Z Creating working copy for https://github.com/raster-labs/SwiftJ2K.git
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:07:56.4462316Z Working copy of https://github.com/raster-labs/SwiftJ2K.git resolved at be4e7a3ad352759e7a78a90f6a2e2c3b7aa0f748
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:07:56.7380887Z Building for production...
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:07:56.7433844Z [0/6] Write sources
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:07:56.8010210Z [3/6] Write swift-version-24593BA9C3E375BF.txt
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:15.9182998Z [5/8] Compiling SwiftJ2K BitIO.swift
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:25.0267678Z [6/8] Compiling SwiftJLS CodecAPI.swift
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:29.8150794Z [7/9] Compiling CrossCodecConsumer main.swift
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:29.8195065Z [7/9] Write Objects.LinkFileList
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:29.9827581Z [8/9] Linking CrossCodecConsumer
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:29.9853571Z Build of product 'CrossCodecConsumer' complete! (33.30s)
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0152859Z STORAGE_BEGIN_12
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0192694Z STORAGE_END_12
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0193396Z STORAGE_BEGIN_16
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0222554Z STORAGE_END_16
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0237803Z [
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0238026Z   {
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0238347Z     "bits" : 12,
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0238602Z     "height" : 23,
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0238825Z     "j2kBytes" : 1450,
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0239049Z     "jlsBytes" : 1366,
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0239271Z     "samplesChecked" : 2553,
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0239518Z     "width" : 37
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0239711Z   },
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0239884Z   {
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0240054Z     "bits" : 16,
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0240249Z     "height" : 23,
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0240481Z     "j2kBytes" : 1737,
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0272539Z     "jlsBytes" : 1572,
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0272972Z     "samplesChecked" : 2553,
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0273365Z     "width" : 37
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0273671Z   }
+Pinned development-only cross-codec consumer	Run swift run -c release --package-path Examples/CrossCodecConsumer	2026-11-04T07:08:30.0312237Z ]
+Pinned development-only cross-codec consumer	Measure scoped pixel copies and verify an injected copy is detected	﻿2026-11-04T07:08:30.0353809Z ##[group]Run swift run -c release --package-path Examples/CopyProbe CopyProbe Tests/SwiftJLSTests/Fixtures > /tmp/copy-probe.json
+Pinned development-only cross-codec consumer	Measure scoped pixel copies and verify an injected copy is detected	2026-11-04T07:08:30.0354811Z ^[[36;1mswift run -c release --package-path Examples/CopyProbe CopyProbe Tests/SwiftJLSTests/Fixtures > /tmp/copy-probe.json^[[0m
+Pinned development-only cross-codec consumer	Measure scoped pixel copies and verify an injected copy is detected	2026-11-04T07:08:30.0355495Z shell: sh -e {0}
+Pinned development-only cross-codec consumer	Measure scoped pixel copies and verify an injected copy is detected	2026-11-04T07:08:30.0355704Z ##[endgroup]
+Pinned development-only cross-codec consumer	Measure scoped pixel copies and verify an injected copy is detected	2026-11-04T07:08:30.8104816Z Building for production...
+Pinned development-only cross-codec consumer	Measure scoped pixel copies and verify an injected copy is detected	2026-11-04T07:08:30.8182524Z [0/6] Write sources
+Pinned development-only cross-codec consumer	Measure scoped pixel copies and verify an injected copy is detected	2026-11-04T07:08:30.8936230Z [2/6] Compiling CopyInstrumentation probe.c
+Pinned development-only cross-codec consumer	Measure scoped pixel copies and verify an injected copy is detected	2026-11-04T07:08:30.8936870Z [3/6] Write swift-version-24593BA9C3E375BF.txt
+Pinned development-only cross-codec consumer	Measure scoped pixel copies and verify an injected copy is detected	2026-11-04T07:08:56.8158744Z [5/7] Compiling SwiftJLS CodecAPI.swift
+Pinned development-only cross-codec consumer	Measure scoped pixel copies and verify an injected copy is detected	2026-11-04T07:08:58.2887906Z [6/8] Compiling CopyProbe main.swift
+Pinned development-only cross-codec consumer	Measure scoped pixel copies and verify an injected copy is detected	2026-11-04T07:08:58.2927814Z [6/8] Write Objects.LinkFileList
+Pinned development-only cross-codec consumer	Measure scoped pixel copies and verify an injected copy is detected	2026-11-04T07:08:58.4340961Z [7/8] Linking CopyProbe
+Pinned development-only cross-codec consumer	Measure scoped pixel copies and verify an injected copy is detected	2026-11-04T07:08:58.4366500Z Build of product 'CopyProbe' complete! (27.66s)
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	﻿2026-11-04T07:08:58.4869227Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:58.4869677Z with:
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:58.4869895Z   name: scoped-pixel-copy-probe
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:58.4870170Z   path: /tmp/copy-probe.json
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:58.4870417Z   if-no-files-found: warn
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:58.4870645Z   compression-level: 6
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:58.4870860Z   overwrite: false
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:58.4871079Z   include-hidden-files: false
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:58.4871639Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:58.4875429Z ##[command]/usr/bin/docker exec  89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193 sh -c "cat /etc/*release | grep ^ID"
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:58.7744879Z (node:630) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:58.7746521Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:58.7807442Z With the provided path, there will be 1 file uploaded
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:58.7833763Z Artifact name is valid!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:58.7835737Z Root directory input is valid!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:59.0957945Z Beginning upload of artifact content to blob storage
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:59.1212589Z (node:630) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:59.2654379Z Uploaded bytes 613
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:59.3098470Z Finished uploading artifact content to blob storage!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:59.3099596Z SHA256 digest of uploaded artifact zip is 7da52fa08bc9ffad0ec4072a712799a4021b01d02f0c5d18029f6ad8f0908a19
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:59.3105529Z Finalizing artifact upload
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:59.7330979Z Artifact scoped-pixel-copy-probe.zip successfully finalized. Artifact ID 13302682917
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:59.7332524Z Artifact scoped-pixel-copy-probe has been successfully uploaded! Final size is 613 bytes. Artifact ID is 13302682917
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:08:59.7338515Z Artifact download URL: https://github.com/raster-labs/SwiftJLS/actions/runs/41789843682/artifacts/13302682917
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	﻿2026-11-04T07:08:59.7525911Z ##[group]Run apt-get update && apt-get install -y --no-install-recommends strace python3
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:08:59.7526592Z ^[[36;1mapt-get update && apt-get install -y --no-install-recommends strace python3^[[0m
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:08:59.7527467Z ^[[36;1mpython3 Scripts/StorageEvidence/trace-files.py --binary Examples/CrossCodecConsumer/.build/release/CrossCodecConsumer --output /tmp/file-observation^[[0m
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:08:59.7528275Z shell: sh -e {0}
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:08:59.7528482Z ##[endgroup]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:00.0416966Z Get:1 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:00.0423058Z Get:2 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:00.5645796Z Get:3 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1422 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:00.6211764Z Get:4 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:00.7720601Z Get:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:00.9163186Z Get:6 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:00.9594739Z Get:7 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:01.0724939Z Get:8 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2132 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:01.2071070Z Get:9 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1552 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:01.2771933Z Get:10 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [55.6 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:01.6010613Z Get:11 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:01.6027786Z Get:12 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:01.6133301Z Get:13 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2172 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:01.6285280Z Get:14 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [61.7 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:01.8837248Z Get:15 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2240 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:02.9850134Z Get:16 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1741 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:03.1800459Z Get:17 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.0 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:03.3077237Z Get:18 http://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [669 B]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:03.4343478Z Get:19 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [36.0 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:03.4503984Z Fetched 33.7 MB in 4s (9303 kB/s)
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:04.2466880Z Reading package lists...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.0589866Z Reading package lists...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.2702718Z Building dependency tree...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.2703142Z Reading state information...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.4769893Z The following additional packages will be installed:
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.4777725Z   libpython3-stdlib libunwind8 python3-minimal python3.12 python3.12-minimal
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.4787268Z Suggested packages:
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.4787917Z   python3-doc python3-tk python3-venv python3.12-venv python3.12-doc
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.4788369Z   binfmt-support
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.5231782Z The following NEW packages will be installed:
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.5236129Z   libpython3-stdlib libunwind8 python3 python3-minimal python3.12
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.5237861Z   python3.12-minimal strace
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.6367426Z 0 upgraded, 7 newly installed, 0 to remove and 1 not upgraded.
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.6367933Z Need to get 3685 kB of archives.
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.6368326Z After this operation, 11.4 MB of additional disk space will be used.
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:05.6369053Z Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12-minimal amd64 3.12.3-1ubuntu0.17 [2335 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.1858674Z Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3-minimal amd64 3.12.3-0ubuntu2.1 [27.4 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.1860802Z Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12 amd64 3.12.3-1ubuntu0.17 [651 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.1946759Z Get:4 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpython3-stdlib amd64 3.12.3-0ubuntu2.1 [10.1 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.1958924Z Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3 amd64 3.12.3-0ubuntu2.1 [23.0 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.1960196Z Get:6 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libunwind8 amd64 1.6.2-3build1.1 [55.3 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.1961406Z Get:7 http://archive.ubuntu.com/ubuntu noble/main amd64 strace amd64 6.8-0ubuntu2 [584 kB]
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3319381Z debconf: delaying package configuration, since apt-utils is not installed
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3678022Z Fetched 3685 kB in 1s (5513 kB/s)
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3845221Z Selecting previously unselected package python3.12-minimal.
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3877499Z (Reading database ... 
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3878653Z (Reading database ... 5%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3879151Z (Reading database ... 10%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3879602Z (Reading database ... 15%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3879984Z (Reading database ... 20%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3880256Z (Reading database ... 25%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3880518Z (Reading database ... 30%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3880779Z (Reading database ... 35%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3881037Z (Reading database ... 40%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3881608Z (Reading database ... 45%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3881880Z (Reading database ... 50%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3882146Z (Reading database ... 55%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3882410Z (Reading database ... 60%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3882677Z (Reading database ... 65%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3906992Z (Reading database ... 70%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3913826Z (Reading database ... 75%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3928998Z (Reading database ... 80%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3936629Z (Reading database ... 85%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3947210Z (Reading database ... 90%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3969213Z (Reading database ... 95%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3969609Z (Reading database ... 100%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3970164Z (Reading database ... 16749 files and directories currently installed.)
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.3980821Z Preparing to unpack .../python3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.4025287Z Unpacking python3.12-minimal (3.12.3-1ubuntu0.17) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:06.4565321Z Setting up python3.12-minimal (3.12.3-1ubuntu0.17) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1901341Z Selecting previously unselected package python3-minimal.
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1921147Z (Reading database ... 
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1921840Z (Reading database ... 5%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1922724Z (Reading database ... 10%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1923148Z (Reading database ... 15%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1923538Z (Reading database ... 20%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1923863Z (Reading database ... 25%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1924113Z (Reading database ... 30%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1924371Z (Reading database ... 35%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1924651Z (Reading database ... 40%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1924904Z (Reading database ... 45%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1925154Z (Reading database ... 50%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1925429Z (Reading database ... 55%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1925679Z (Reading database ... 60%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1925928Z (Reading database ... 65%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1940807Z (Reading database ... 70%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1946971Z (Reading database ... 75%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1961713Z (Reading database ... 80%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1969308Z (Reading database ... 85%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.1979561Z (Reading database ... 90%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.2001958Z (Reading database ... 95%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.2002350Z (Reading database ... 100%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.2002864Z (Reading database ... 16760 files and directories currently installed.)
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.2013955Z Preparing to unpack .../python3-minimal_3.12.3-0ubuntu2.1_amd64.deb ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.2022991Z Unpacking python3-minimal (3.12.3-0ubuntu2.1) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.2188476Z Selecting previously unselected package python3.12.
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.2208444Z Preparing to unpack .../python3.12_3.12.3-1ubuntu0.17_amd64.deb ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.2217415Z Unpacking python3.12 (3.12.3-1ubuntu0.17) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.2392414Z Selecting previously unselected package libpython3-stdlib:amd64.
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.2411815Z Preparing to unpack .../libpython3-stdlib_3.12.3-0ubuntu2.1_amd64.deb ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.2419088Z Unpacking libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.2619605Z Setting up python3-minimal (3.12.3-0ubuntu2.1) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3789155Z Selecting previously unselected package python3.
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3809895Z (Reading database ... 
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3810364Z (Reading database ... 5%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3810780Z (Reading database ... 10%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3811851Z (Reading database ... 15%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3812298Z (Reading database ... 20%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3812719Z (Reading database ... 25%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3813551Z (Reading database ... 30%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3813964Z (Reading database ... 35%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3814374Z (Reading database ... 40%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3814809Z (Reading database ... 45%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3815221Z (Reading database ... 50%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3815618Z (Reading database ... 55%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3816035Z (Reading database ... 60%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3816460Z (Reading database ... 65%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3838288Z (Reading database ... 70%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3845059Z (Reading database ... 75%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3859114Z (Reading database ... 80%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3866791Z (Reading database ... 85%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3878230Z (Reading database ... 90%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3898170Z (Reading database ... 95%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3898655Z (Reading database ... 100%
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3899239Z (Reading database ... 16807 files and directories currently installed.)
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3908148Z Preparing to unpack .../python3_3.12.3-0ubuntu2.1_amd64.deb ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.3946277Z Unpacking python3 (3.12.3-0ubuntu2.1) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.4111599Z Selecting previously unselected package libunwind8:amd64.
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.4130585Z Preparing to unpack .../libunwind8_1.6.2-3build1.1_amd64.deb ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.4146591Z Unpacking libunwind8:amd64 (1.6.2-3build1.1) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.4298598Z Selecting previously unselected package strace.
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.4317879Z Preparing to unpack .../strace_6.8-0ubuntu2_amd64.deb ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.4326726Z Unpacking strace (6.8-0ubuntu2) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:07.4620457Z Setting up python3.12 (3.12.3-1ubuntu0.17) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.2551068Z Setting up libunwind8:amd64 (1.6.2-3build1.1) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.2573230Z Setting up strace (6.8-0ubuntu2) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.2594390Z Setting up libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.2617454Z Setting up python3 (3.12.3-0ubuntu2.1) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.2672264Z running python rtupdate hooks for python3.12...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.2673124Z running python post-rtupdate hooks for python3.12...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.3469676Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4590635Z {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4591069Z   "command": [
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4591582Z     "strace",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4591902Z     "-ff",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4592103Z     "-ttt",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4592299Z     "-s",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4592486Z     "512",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4592663Z     "-e",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4593034Z     "trace=open,openat,creat,rename,renameat,unlink,unlinkat,mkdir,mmap,write",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4593463Z     "-o",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4593680Z     "/tmp/file-observation/files.trace",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4594243Z     "/__w/SwiftJLS/SwiftJLS/Examples/CrossCodecConsumer/.build/x86_64-unknown-linux-gnu/release/CrossCodecConsumer"
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4594774Z   ],
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4594959Z   "exit_code": 0,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4595173Z   "phase_bits": [
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4595379Z     12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4595557Z     16
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4595754Z   ],
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4595939Z   "observed_file_events": [
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4596176Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4596349Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4597281Z       "event": "1793776148.435864 openat(AT_FDCWD, \"/sys/fs/cgroup/cpu/cpu.cfs_quota_us\", O_RDONLY|O_NONBLOCK) = -1 ENOENT (No such file or directory)",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4597895Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4598125Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4598292Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4598462Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4598998Z       "event": "1793776148.436043 openat(AT_FDCWD, \"/sys/fs/cgroup/cpuset/cpuset.cpus\", O_RDONLY|O_NONBLOCK) = -1 ENOENT (No such file or directory)",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4599629Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4599844Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4600013Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4600183Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4600598Z       "event": "1793776148.436162 openat(AT_FDCWD, \"/sys/devices/system/cpu/online\", O_RDONLY|O_CLOEXEC) = 3",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4601720Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4601966Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4602146Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4602321Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4602652Z       "event": "1793776148.436440 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 3",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4603044Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4603262Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4603425Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4603597Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4603905Z       "event": "1793776148.436665 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 3",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4604293Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4604503Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4604671Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4604844Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4605148Z       "event": "1793776148.440270 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4605525Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4605732Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4605899Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4606072Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4606386Z       "event": "1793776148.440519 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4606772Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4606990Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4607159Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4607330Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4607879Z       "event": "1793776148.441847 openat(AT_FDCWD, \"/sys/fs/cgroup/cpu/cpu.cfs_quota_us\", O_RDONLY|O_NONBLOCK) = -1 ENOENT (No such file or directory)",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4608489Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4608697Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4608861Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4609034Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4609561Z       "event": "1793776148.441951 openat(AT_FDCWD, \"/sys/fs/cgroup/cpuset/cpuset.cpus\", O_RDONLY|O_NONBLOCK) = -1 ENOENT (No such file or directory)",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4610201Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4610408Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4610579Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4610872Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4611954Z       "event": "1793776148.442039 openat(AT_FDCWD, \"/sys/devices/system/cpu/online\", O_RDONLY|O_CLOEXEC) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4612459Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4612682Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4612850Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4613021Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4613334Z       "event": "1793776148.442728 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4613714Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4613922Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4614091Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4614261Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4614572Z       "event": "1793776148.442921 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4614954Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4615171Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4615452Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4615760Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4616263Z       "event": "1793776148.443338 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4616937Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4617258Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4617650Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4618006Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4618708Z       "event": "1793776148.443532 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4619277Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4619633Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4619943Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4620255Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4620639Z       "event": "1793776148.444584 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4621566Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4621931Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4622306Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4622621Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4638385Z       "event": "1793776148.444778 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4639043Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4639410Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4639685Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4639970Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4640893Z       "event": "1793776148.445634 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4641806Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4642061Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4642243Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4642420Z       "bits": 12,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4642759Z       "event": "1793776148.445830 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4643163Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4643444Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4643724Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4644007Z       "bits": 16,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4644557Z       "event": "1793776148.446791 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4645248Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4645616Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4645910Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4646206Z       "bits": 16,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4646730Z       "event": "1793776148.446941 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4647394Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4647701Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4648051Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4648341Z       "bits": 16,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4648838Z       "event": "1793776148.447753 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4649434Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4649766Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4650056Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4650335Z       "bits": 16,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4650832Z       "event": "1793776148.447948 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4651755Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4652168Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4652414Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4652758Z       "bits": 16,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4653297Z       "event": "1793776148.448981 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4653790Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4654168Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4654495Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4654840Z       "bits": 16,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4655412Z       "event": "1793776148.449248 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4656078Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4656456Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4656778Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4657056Z       "bits": 16,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4657576Z       "event": "1793776148.449708 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4658236Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4658586Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4658897Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4659206Z       "bits": 16,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4659722Z       "event": "1793776148.449913 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4660381Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4660743Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4661044Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4661575Z       "bits": 16,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4662103Z       "event": "1793776148.451287 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4662836Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4663208Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4663524Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4663838Z       "bits": 16,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4664402Z       "event": "1793776148.451463 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4665928Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4666313Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4666626Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4666945Z       "bits": 16,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4667530Z       "event": "1793776148.452339 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4668235Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4668694Z     },
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4668897Z     {
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4669190Z       "bits": 16,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4669515Z       "event": "1793776148.452527 openat(AT_FDCWD, \"/dev/urandom\", O_RDONLY) = 6",
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4670128Z       "system_read": true
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4670445Z     }
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4670701Z   ],
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4670980Z   "prohibited_file_events": [],
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4671693Z   "passed": true,
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4672523Z   "scope": "Ordinary release consumer; kernel file syscalls during marked API routes. Not allocator/copy telemetry."
+Pinned development-only cross-codec consumer	Observe file access during the in-process routes	2026-11-04T07:09:08.4673617Z }
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	﻿2026-11-04T07:09:08.4742324Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:08.4742779Z with:
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:08.4742997Z   name: cross-codec-file-observation
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:08.4743291Z   path: /tmp/file-observation
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:08.4743560Z   if-no-files-found: warn
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:08.4743797Z   compression-level: 6
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:08.4744015Z   overwrite: false
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:08.4744230Z   include-hidden-files: false
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:08.4744470Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:08.4748157Z ##[command]/usr/bin/docker exec  89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193 sh -c "cat /etc/*release | grep ^ID"
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:08.7559458Z (node:940) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:08.7560760Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:08.7659418Z With the provided path, there will be 8 files uploaded
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:08.7667196Z Artifact name is valid!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:08.7669542Z Root directory input is valid!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:09.0480609Z Beginning upload of artifact content to blob storage
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:09.0795993Z (node:940) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:09.2563565Z Uploaded bytes 4925
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:09.2997784Z Finished uploading artifact content to blob storage!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:09.2998825Z SHA256 digest of uploaded artifact zip is 34e3c3ec65644bc0061eac1278ee54788091ac214235b47d9c578439e36b1032
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:09.3000744Z Finalizing artifact upload
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:09.7723837Z Artifact cross-codec-file-observation.zip successfully finalized. Artifact ID 13302528437
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:09.7725136Z Artifact cross-codec-file-observation has been successfully uploaded! Final size is 4925 bytes. Artifact ID is 13302528437
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:09.7726193Z Artifact download URL: https://github.com/raster-labs/SwiftJLS/actions/runs/41789843682/artifacts/13302528437
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	﻿2026-11-04T07:09:09.7929148Z ##[group]Run apt-get install -y --no-install-recommends heaptrack
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:09.7930018Z ^[[36;1mapt-get install -y --no-install-recommends heaptrack^[[0m
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:09.7930941Z ^[[36;1mswift build -c release -Xswiftc -g --package-path Examples/CrossCodecConsumer^[[0m
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:09.7932907Z ^[[36;1mpython3 Scripts/StorageEvidence/trace-heap.py --binary Examples/CrossCodecConsumer/.build/release/CrossCodecConsumer --output /tmp/heap-observation^[[0m
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:09.7934272Z shell: sh -e {0}
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:09.7934655Z ##[endgroup]
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:10.6494102Z Reading package lists...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:10.8595769Z Building dependency tree...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:10.8596231Z Reading state information...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:11.0372253Z The following additional packages will be installed:
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:11.0373094Z   libboost-filesystem1.83.0 libboost-iostreams1.83.0
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:11.0378743Z   libboost-program-options1.83.0 libdw1t64 libelf1t64 libheaptrack
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:11.0827973Z The following NEW packages will be installed:
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:11.0834076Z   heaptrack libboost-filesystem1.83.0 libboost-iostreams1.83.0
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:11.0838228Z   libboost-program-options1.83.0 libdw1t64 libelf1t64 libheaptrack
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:11.3609010Z 0 upgraded, 7 newly installed, 0 to remove and 1 not upgraded.
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:11.3609511Z Need to get 1386 kB of archives.
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:11.3609910Z After this operation, 8718 kB of additional disk space will be used.
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:11.3610600Z Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libelf1t64 amd64 0.190-1.1ubuntu0.1 [57.8 kB]
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:11.7755253Z Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libboost-filesystem1.83.0 amd64 1.83.0-2.1ubuntu3.2 [284 kB]
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.0980819Z Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libboost-iostreams1.83.0 amd64 1.83.0-2.1ubuntu3.2 [260 kB]
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.2164277Z Get:4 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libboost-program-options1.83.0 amd64 1.83.0-2.1ubuntu3.2 [321 kB]
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.2939212Z Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libdw1t64 amd64 0.190-1.1ubuntu0.1 [261 kB]
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.3419552Z Get:6 http://archive.ubuntu.com/ubuntu noble/universe amd64 libheaptrack amd64 1.5.0+dfsg1-2ubuntu3 [83.1 kB]
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.3545242Z Get:7 http://archive.ubuntu.com/ubuntu noble/universe amd64 heaptrack amd64 1.5.0+dfsg1-2ubuntu3 [121 kB]
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.4935247Z debconf: delaying package configuration, since apt-utils is not installed
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5264995Z Fetched 1386 kB in 1s (1086 kB/s)
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5406952Z Selecting previously unselected package libelf1t64:amd64.
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5428044Z (Reading database ... 
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5428609Z (Reading database ... 5%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5429047Z (Reading database ... 10%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5429486Z (Reading database ... 15%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5429941Z (Reading database ... 20%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5430382Z (Reading database ... 25%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5430834Z (Reading database ... 30%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5431470Z (Reading database ... 35%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5431895Z (Reading database ... 40%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5432324Z (Reading database ... 45%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5432736Z (Reading database ... 50%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5433157Z (Reading database ... 55%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5433584Z (Reading database ... 60%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5433995Z (Reading database ... 65%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5455849Z (Reading database ... 70%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5462648Z (Reading database ... 75%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5475214Z (Reading database ... 80%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5482901Z (Reading database ... 85%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5493510Z (Reading database ... 90%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5510920Z (Reading database ... 95%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5511555Z (Reading database ... 100%
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5512126Z (Reading database ... 16848 files and directories currently installed.)
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5518434Z Preparing to unpack .../0-libelf1t64_0.190-1.1ubuntu0.1_amd64.deb ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5535290Z Unpacking libelf1t64:amd64 (0.190-1.1ubuntu0.1) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5685488Z Selecting previously unselected package libboost-filesystem1.83.0:amd64.
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5704117Z Preparing to unpack .../1-libboost-filesystem1.83.0_1.83.0-2.1ubuntu3.2_amd64.deb ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5714586Z Unpacking libboost-filesystem1.83.0:amd64 (1.83.0-2.1ubuntu3.2) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5937326Z Selecting previously unselected package libboost-iostreams1.83.0:amd64.
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5957092Z Preparing to unpack .../2-libboost-iostreams1.83.0_1.83.0-2.1ubuntu3.2_amd64.deb ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.5981066Z Unpacking libboost-iostreams1.83.0:amd64 (1.83.0-2.1ubuntu3.2) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.6206651Z Selecting previously unselected package libboost-program-options1.83.0:amd64.
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.6225998Z Preparing to unpack .../3-libboost-program-options1.83.0_1.83.0-2.1ubuntu3.2_amd64.deb ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.6235818Z Unpacking libboost-program-options1.83.0:amd64 (1.83.0-2.1ubuntu3.2) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.6471975Z Selecting previously unselected package libdw1t64:amd64.
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.6491812Z Preparing to unpack .../4-libdw1t64_0.190-1.1ubuntu0.1_amd64.deb ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.6501168Z Unpacking libdw1t64:amd64 (0.190-1.1ubuntu0.1) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.6674168Z Selecting previously unselected package libheaptrack.
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.6694113Z Preparing to unpack .../5-libheaptrack_1.5.0+dfsg1-2ubuntu3_amd64.deb ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.6702976Z Unpacking libheaptrack (1.5.0+dfsg1-2ubuntu3) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.6856355Z Selecting previously unselected package heaptrack.
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.6876134Z Preparing to unpack .../6-heaptrack_1.5.0+dfsg1-2ubuntu3_amd64.deb ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.6884549Z Unpacking heaptrack (1.5.0+dfsg1-2ubuntu3) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.7112929Z Setting up libboost-program-options1.83.0:amd64 (1.83.0-2.1ubuntu3.2) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.7138903Z Setting up libboost-filesystem1.83.0:amd64 (1.83.0-2.1ubuntu3.2) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.7160994Z Setting up libelf1t64:amd64 (0.190-1.1ubuntu0.1) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.7183912Z Setting up libdw1t64:amd64 (0.190-1.1ubuntu0.1) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.7205467Z Setting up libboost-iostreams1.83.0:amd64 (1.83.0-2.1ubuntu3.2) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.7229370Z Setting up libheaptrack (1.5.0+dfsg1-2ubuntu3) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.7250863Z Setting up heaptrack (1.5.0+dfsg1-2ubuntu3) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:12.7274911Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:13.5310001Z [0/1] Planning build
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:13.5394587Z Building for production...
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:13.6000130Z [0/3] Write swift-version-24593BA9C3E375BF.txt
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:26.8494585Z [2/5] Compiling SwiftJ2K BitIO.swift
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:33.9782523Z [3/5] Compiling SwiftJLS CodecAPI.swift
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:35.4212432Z [4/6] Compiling CrossCodecConsumer main.swift
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:35.5939218Z [4/5] Linking CrossCodecConsumer
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:35.5957756Z Build complete! (22.39s)
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0089592Z {
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0090115Z   "tool": "heaptrack 1.5.0",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0090962Z   "binary_sha256": "4684cf80ea968cb715186aa564f04dece6f9b13a78f7174aad24956ca5508917",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0092230Z   "profile": "allocations.gz",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0093068Z   "profile_sha256": "fb26d3c3b7a913b994d86171da65a6f2fdd0aec7ee11187852972c6d54828d11",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0094090Z   "build": "Swift release with debug symbols, no sanitizers",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0095199Z   "scope": "Whole-process real cross-codec consumer including setup and runtime allocations; not a zero-copy verdict.",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0096093Z   "commands": [
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0096371Z     {
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0096621Z       "command": [
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0096874Z         "heaptrack",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0097128Z         "--version"
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0097376Z       ],
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0097597Z       "exit_code": 0
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0097839Z     },
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0098052Z     {
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0098265Z       "command": [
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0098878Z         "heaptrack",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0099121Z         "-o",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0099383Z         "/tmp/heap-observation/allocations",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0100067Z         "/__w/SwiftJLS/SwiftJLS/Examples/CrossCodecConsumer/.build/x86_64-unknown-linux-gnu/release/CrossCodecConsumer"
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0100718Z       ],
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0100943Z       "exit_code": 0
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0101496Z     },
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0101756Z     {
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0101969Z       "command": [
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0102227Z         "heaptrack_print",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0102525Z         "-f",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0102805Z         "/tmp/heap-observation/allocations.gz",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0103155Z         "-n",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0103375Z         "1000",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0103608Z         "-s",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0103828Z         "1000",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0104053Z         "-H",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0104322Z         "/tmp/heap-observation/sizes.tsv",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0104648Z         "-F",
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0104906Z         "/tmp/heap-observation/allocation-stacks.txt"
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0105207Z       ],
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0105395Z       "exit_code": 0
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0105605Z     }
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0105782Z   ]
+Pinned development-only cross-codec consumer	Collect ordinary-release allocator stacks	2026-11-04T07:09:36.0105956Z }
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	﻿2026-11-04T07:09:36.0260457Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.0260924Z with:
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.0261457Z   name: cross-codec-heap-observation
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.0261894Z   path: /tmp/heap-observation
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.0262184Z   if-no-files-found: warn
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.0262445Z   compression-level: 6
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.0262698Z   overwrite: false
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.0263161Z   include-hidden-files: false
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.0263415Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.0267208Z ##[command]/usr/bin/docker exec  89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193 sh -c "cat /etc/*release | grep ^ID"
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.3132635Z (node:1255) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.3133926Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.3243980Z With the provided path, there will be 12 files uploaded
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.3244649Z Artifact name is valid!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.3244910Z Root directory input is valid!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.6111829Z Beginning upload of artifact content to blob storage
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:36.7551273Z (node:1255) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:37.1190934Z Uploaded bytes 460772
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:37.1695255Z Finished uploading artifact content to blob storage!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:37.1696206Z SHA256 digest of uploaded artifact zip is 672fd0760cfe6709f06b407e5d7825f68a10a1cbfbc2f8e661bf457a483c5bbf
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:37.1697331Z Finalizing artifact upload
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:37.5884443Z Artifact cross-codec-heap-observation.zip successfully finalized. Artifact ID 13303067148
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:37.5885921Z Artifact cross-codec-heap-observation has been successfully uploaded! Final size is 460772 bytes. Artifact ID is 13303067148
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:09:37.5892223Z Artifact download URL: https://github.com/raster-labs/SwiftJLS/actions/runs/41789843682/artifacts/13303067148
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	﻿2026-11-04T07:09:37.6080473Z ##[group]Run swift build -c release -Xswiftc -g --package-path Examples/CopyProbe
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:09:37.6081584Z ^[[36;1mswift build -c release -Xswiftc -g --package-path Examples/CopyProbe^[[0m
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:09:37.6083135Z ^[[36;1mpython3 Scripts/StorageEvidence/trace-heap.py --binary Examples/CopyProbe/.build/release/CopyProbe --output /tmp/profile-heap --scope 'Ordinary release scalar/component/mapping/HP/extended/subsampled profiles; setup and runtime included' -- Tests/SwiftJLSTests/Fixtures --heap-only^[[0m
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:09:37.6085141Z ^[[36;1mpython3 Scripts/StorageEvidence/classify-heap.py --heap /tmp/profile-heap --output /tmp/profile-heap/classification.json --revision "$GITHUB_SHA" --scope 'Ten encode/caller-decode profiles plus legacy, extended, mapping and subsampled caller decodes'^[[0m
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:09:37.6086335Z ^[[36;1mpython3 Scripts/StorageEvidence/measure-peaks.py --self-test^[[0m
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:09:37.6087185Z ^[[36;1mpython3 Scripts/StorageEvidence/measure-peaks.py --profile /tmp/profile-heap/allocations.gz --output /tmp/profile-heap/peaks.json --revision "$GITHUB_SHA"^[[0m
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:09:37.6088043Z shell: sh -e {0}
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:09:37.6088301Z ##[endgroup]
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:09:38.3824659Z [0/1] Planning build
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:09:38.3911035Z Building for production...
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:09:38.4507156Z [0/3] Write swift-version-24593BA9C3E375BF.txt
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:09:59.0032102Z [2/4] Compiling SwiftJLS CodecAPI.swift
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:09:59.9666934Z [3/5] Compiling CopyProbe main.swift
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.1186637Z [3/4] Linking CopyProbe
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.1205610Z Build complete! (21.99s)
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6738291Z {
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6738823Z   "tool": "heaptrack 1.5.0",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6739802Z   "binary_sha256": "196deb0a67b8446f3e6490dadcbce9383cf5d89fe35a078500608b8f10456cf3",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6740544Z   "profile": "allocations.gz",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6741839Z   "profile_sha256": "f1e90140944377e6ccfe91608f6c2c59b882a5c5f543d44c4daa54a44064f71f",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6742697Z   "build": "Swift release with debug symbols, no sanitizers",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6743778Z   "scope": "Ordinary release scalar/component/mapping/HP/extended/subsampled profiles; setup and runtime included",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6744664Z   "commands": [
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6745444Z     {
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6745948Z       "command": [
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6746353Z         "heaptrack",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6746778Z         "--version"
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6747140Z       ],
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6747536Z       "exit_code": 0
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6747860Z     },
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6748224Z     {
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6748538Z       "command": [
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6748917Z         "heaptrack",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6749290Z         "-o",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6749661Z         "/tmp/profile-heap/allocations",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6750328Z         "/__w/SwiftJLS/SwiftJLS/Examples/CopyProbe/.build/x86_64-unknown-linux-gnu/release/CopyProbe",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6751028Z         "Tests/SwiftJLSTests/Fixtures",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6751832Z         "--heap-only"
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6752251Z       ],
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6752530Z       "exit_code": 0
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6752949Z     },
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6753278Z     {
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6753658Z       "command": [
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6753994Z         "heaptrack_print",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6754421Z         "-f",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6754829Z         "/tmp/profile-heap/allocations.gz",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6755255Z         "-n",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6755942Z         "1000",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6756435Z         "-s",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6757103Z         "1000",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6757609Z         "-H",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6758238Z         "/tmp/profile-heap/sizes.tsv",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6758820Z         "-F",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6759470Z         "/tmp/profile-heap/allocation-stacks.txt"
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6759939Z       ],
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6760308Z       "exit_code": 0
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6760661Z     }
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6760975Z   ]
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.6761699Z }
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8616074Z {
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8617669Z   "profile_sha256": "f1e90140944377e6ccfe91608f6c2c59b882a5c5f543d44c4daa54a44064f71f",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8618449Z   "allocation_stack_count": 598,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8619041Z   "allocation_calls": 8603,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8619501Z   "groups": {
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8620016Z     "resource configuration containers": 68,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8620528Z     "validated header and descriptor containers": 8001,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8621057Z     "owner and lease control/error allocations": 52,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8621987Z     "bounded gradient tables": 179,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8622454Z     "bounded entropy contexts": 182,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8623011Z     "caller/runtime stacks referencing SwiftJLS types": 1,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8623673Z     "codec boundary values, closures and errors (not byte-count classified)": 55,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8624313Z     "compressed output writer and final Data": 20,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8624838Z     "metadata validation containers": 45
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8625260Z   },
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8625748Z   "full_sample_arrays_under_encode_or_caller_decode": 0,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8626265Z   "revision": "669585ff90bc3fc5dc99377ea1fabc131b4b5f24",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8627068Z   "scope": "Ten encode/caller-decode profiles plus legacy, extended, mapping and subsampled caller decodes",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8627821Z   "limitations": [
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8628498Z     "Whole-process counts include setup/runtime. Stack classification does not measure arbitrary memcpy bytes.",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8629455Z     "Stack counts do not establish per-operation peak workspace or identify arbitrary inlined copies."
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8630130Z   ],
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8630498Z   "source_review": [
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8631304Z     "IntoJLS and IntoJ2K adapters forward scoped borrows directly without allocating or repacking samples.",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8632395Z     "ScalarSampleReader/Writer retain only borrowed pointer and layout values.",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8633231Z     "Scalar lossless kernels read the source owner and reconstruct in the final caller destination; no full sample array is created.",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8634308Z     "Parser/header, gradient/context and compressed-data allocations are not decoded-image hand-off storage."
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8635239Z   ]
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.8635582Z }
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:00.9251630Z Peak replay controls passed
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0461936Z {
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0463346Z   "process_requested_heap_peak_bytes": 682114,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0464119Z   "process_requested_heap_live_at_exit_bytes": 75506,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0464799Z   "process_allocation_calls": 15269,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0465430Z   "groups": {
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0465924Z     "caller_runtime_unattributed_heap": {
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0466483Z       "live_bytes": 73659,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0466958Z       "peak_bytes": 252786,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0467538Z       "allocation_calls": 6666,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0467983Z       "allocated_bytes": 2039509
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0468551Z     },
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0468970Z     "other_swiftjls_heap": {
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0469565Z       "live_bytes": 1335,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0469995Z       "peak_bytes": 263856,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0470468Z       "allocation_calls": 411,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0470887Z       "allocated_bytes": 1391758
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0471766Z     },
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0472228Z     "codec_nonpixel_heap": {
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0472619Z       "live_bytes": 512,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0473113Z       "peak_bytes": 427711,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0473508Z       "allocation_calls": 8192,
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0474035Z       "allocated_bytes": 10495410
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0474437Z     }
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0474845Z   },
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0475243Z   "revision": "669585ff90bc3fc5dc99377ea1fabc131b4b5f24",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0475911Z   "profile_sha256": "f1e90140944377e6ccfe91608f6c2c59b882a5c5f543d44c4daa54a44064f71f",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0476789Z   "scope": "Peak simultaneously live requested heap bytes by allocation stack over the entire recorded workload.",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0477775Z   "limitations": [
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0478320Z     "Groups peak at different instants; do not sum their individual peaks.",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0479229Z     "codec_nonpixel_heap includes compressed output, metadata, closures and allocator object headers; it is not pure algorithm workspace.",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0480196Z     "Caller/runtime/unattributed allocations and stack storage remain separate; incomplete stacks can prevent codec attribution.",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0480936Z     "Pixel heap includes array headers/capacity; it is not only sample payload.",
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0482090Z     "This does not measure copy bytes, RSS, per-operation workspace or concurrent admission ceilings. Production unknown workspace reports remain unknown."
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0482784Z   ]
+Pinned development-only cross-codec consumer	Collect component, mapping and predecessor-profile allocator stacks	2026-11-04T07:10:01.0482969Z }
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	﻿2026-11-04T07:10:01.0616281Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.0616755Z with:
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.0617012Z   name: predecessor-profile-heap-observation
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.0617343Z   path: /tmp/profile-heap
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.0617607Z   if-no-files-found: warn
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.0617850Z   compression-level: 6
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.0618103Z   overwrite: false
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.0618330Z   include-hidden-files: false
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.0618590Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.0622725Z ##[command]/usr/bin/docker exec  89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193 sh -c "cat /etc/*release | grep ^ID"
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.3438729Z (node:1457) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.3440487Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.3576559Z With the provided path, there will be 15 files uploaded
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.3577869Z Artifact name is valid!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.3578437Z Root directory input is valid!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.6465556Z Beginning upload of artifact content to blob storage
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:01.8362196Z (node:1457) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:02.2096223Z Uploaded bytes 766007
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:02.2693875Z Finished uploading artifact content to blob storage!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:02.2695024Z SHA256 digest of uploaded artifact zip is 8415199ff4485197b4bcdbf4c28c6a15a44e123c210acd5bf54636c611bc40bb
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:02.2696018Z Finalizing artifact upload
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:02.7178671Z Artifact predecessor-profile-heap-observation.zip successfully finalized. Artifact ID 13302419895
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:02.7179809Z Artifact predecessor-profile-heap-observation has been successfully uploaded! Final size is 766007 bytes. Artifact ID is 13302419895
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:02.7187697Z Artifact download URL: https://github.com/raster-labs/SwiftJLS/actions/runs/41789843682/artifacts/13302419895
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	﻿2026-11-04T07:10:02.7402923Z ##[group]Run swift build --package-path Examples/ResourceStress -c release -Xswiftc -g
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:02.7404105Z ^[[36;1mswift build --package-path Examples/ResourceStress -c release -Xswiftc -g^[[0m
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:02.7406260Z ^[[36;1mpython3 Scripts/StorageEvidence/trace-heap.py --binary Examples/ResourceStress/.build/release/ResourceStress --output /tmp/concurrent-heap --scope 'Four bounded workers; 32 512x512 scalar/colour lossless/near-lossless frame transactions'^[[0m
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:02.7408267Z ^[[36;1mpython3 Scripts/StorageEvidence/measure-peaks.py --profile /tmp/concurrent-heap/allocations.gz --output /tmp/concurrent-heap/peaks.json --revision "$GITHUB_SHA"^[[0m
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:02.7409373Z shell: sh -e {0}
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:02.7409816Z ##[endgroup]
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:03.4841807Z Building for production...
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:03.4904262Z [0/5] Write sources
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:03.5469370Z [2/5] Write swift-version-24593BA9C3E375BF.txt
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:29.3800107Z [4/6] Compiling SwiftJLS CodecAPI.swift
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:30.6492537Z [5/7] Compiling ResourceStress main.swift
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:30.6534604Z [5/7] Write Objects.LinkFileList
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:30.7988064Z [6/7] Linking ResourceStress
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:30.8005909Z Build complete! (27.56s)
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0407625Z {
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0410188Z   "tool": "heaptrack 1.5.0",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0411683Z   "binary_sha256": "f2b9a2bbd642b029865479fae5a3c58f703e8ba8110221d2cb5d168966bcd5a6",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0412657Z   "profile": "allocations.gz",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0413588Z   "profile_sha256": "ec938c09ba70cd11a0e1667e68d515b94193f9f72821a1a4a179faede38a5e9a",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0414701Z   "build": "Swift release with debug symbols, no sanitizers",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0415705Z   "scope": "Four bounded workers; 32 512x512 scalar/colour lossless/near-lossless frame transactions",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0416576Z   "commands": [
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0416956Z     {
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0417336Z       "command": [
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0417678Z         "heaptrack",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0434050Z         "--version"
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0434473Z       ],
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0434785Z       "exit_code": 0
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0435034Z     },
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0435257Z     {
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0435453Z       "command": [
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0435727Z         "heaptrack",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0435964Z         "-o",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0436206Z         "/tmp/concurrent-heap/allocations",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0436784Z         "/__w/SwiftJLS/SwiftJLS/Examples/ResourceStress/.build/x86_64-unknown-linux-gnu/release/ResourceStress"
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0437313Z       ],
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0437511Z       "exit_code": 0
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0437748Z     },
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0437942Z     {
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0438135Z       "command": [
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0438365Z         "heaptrack_print",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0438605Z         "-f",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0438847Z         "/tmp/concurrent-heap/allocations.gz",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0439147Z         "-n",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0439340Z         "1000",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0439558Z         "-s",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0439759Z         "1000",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0439957Z         "-H",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0440182Z         "/tmp/concurrent-heap/sizes.tsv",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0441412Z         "-F",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0441825Z         "/tmp/concurrent-heap/allocation-stacks.txt"
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0442307Z       ],
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0442639Z       "exit_code": 0
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0443002Z     }
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0443310Z   ]
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.0443542Z }
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1129213Z {
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1129784Z   "process_requested_heap_peak_bytes": 14135318,
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1130392Z   "process_requested_heap_live_at_exit_bytes": 21102,
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1130940Z   "process_allocation_calls": 3050,
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1131614Z   "groups": {
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1131987Z     "caller_runtime_unattributed_heap": {
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1132439Z       "live_bytes": 18993,
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1132825Z       "peak_bytes": 109657,
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1133637Z       "allocation_calls": 323,
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1134035Z       "allocated_bytes": 135340
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1134413Z     },
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1134732Z     "other_swiftjls_heap": {
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1135130Z       "live_bytes": 1821,
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1135509Z       "peak_bytes": 6819844,
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1135895Z       "allocation_calls": 243,
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1136293Z       "allocated_bytes": 37770801
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1136690Z     },
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1137022Z     "codec_nonpixel_heap": {
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1137449Z       "live_bytes": 288,
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1137842Z       "peak_bytes": 7205897,
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1138257Z       "allocation_calls": 2484,
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1138666Z       "allocated_bytes": 108274936
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1139085Z     }
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1139379Z   },
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1139778Z   "revision": "669585ff90bc3fc5dc99377ea1fabc131b4b5f24",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1140576Z   "profile_sha256": "ec938c09ba70cd11a0e1667e68d515b94193f9f72821a1a4a179faede38a5e9a",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1141890Z   "scope": "Peak simultaneously live requested heap bytes by allocation stack over the entire recorded workload.",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1142705Z   "limitations": [
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1143260Z     "Groups peak at different instants; do not sum their individual peaks.",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1144451Z     "codec_nonpixel_heap includes compressed output, metadata, closures and allocator object headers; it is not pure algorithm workspace.",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1145971Z     "Caller/runtime/unattributed allocations and stack storage remain separate; incomplete stacks can prevent codec attribution.",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1147087Z     "Pixel heap includes array headers/capacity; it is not only sample payload.",
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1148442Z     "This does not measure copy bytes, RSS, per-operation workspace or concurrent admission ceilings. Production unknown workspace reports remain unknown."
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1149606Z   ]
+Pinned development-only cross-codec consumer	Measure bounded concurrent scalar and colour resources	2026-11-04T07:10:32.1149923Z }
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	﻿2026-11-04T07:10:32.1290981Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.1291776Z with:
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.1292040Z   name: concurrent-resource-heap-observation
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.1292424Z   path: /tmp/concurrent-heap
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.1292702Z   if-no-files-found: warn
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.1292956Z   compression-level: 6
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.1293198Z   overwrite: false
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.1293446Z   include-hidden-files: false
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.1293704Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.1297577Z ##[command]/usr/bin/docker exec  89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193 sh -c "cat /etc/*release | grep ^ID"
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.4169906Z (node:1658) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.4171471Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.4284466Z With the provided path, there will be 13 files uploaded
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.4314114Z Artifact name is valid!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.4314995Z Root directory input is valid!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.7102130Z Beginning upload of artifact content to blob storage
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:32.8023718Z (node:1658) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:33.1138195Z Uploaded bytes 275494
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:33.1733641Z Finished uploading artifact content to blob storage!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:33.1734828Z SHA256 digest of uploaded artifact zip is 42e6de7388e4b8ede1fbcb81ff5a29d5582026544d3c88508800ccbe107fbd4c
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:33.1735983Z Finalizing artifact upload
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:33.6332734Z Artifact concurrent-resource-heap-observation.zip successfully finalized. Artifact ID 13302359018
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:33.6334495Z Artifact concurrent-resource-heap-observation has been successfully uploaded! Final size is 275494 bytes. Artifact ID is 13302359018
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:10:33.6341997Z Artifact download URL: https://github.com/raster-labs/SwiftJLS/actions/runs/41789843682/artifacts/13302359018
+Pinned development-only cross-codec consumer	Verify allocator evidence detects a hidden frame copy	﻿2026-11-04T07:10:33.6530240Z ##[group]Run python3 Scripts/StorageEvidence/mutate-copy.py --baseline /tmp/heap-observation --output /tmp/copy-mutation
+Pinned development-only cross-codec consumer	Verify allocator evidence detects a hidden frame copy	2026-11-04T07:10:33.6531553Z ^[[36;1mpython3 Scripts/StorageEvidence/mutate-copy.py --baseline /tmp/heap-observation --output /tmp/copy-mutation^[[0m
+Pinned development-only cross-codec consumer	Verify allocator evidence detects a hidden frame copy	2026-11-04T07:10:33.6532562Z shell: sh -e {0}
+Pinned development-only cross-codec consumer	Verify allocator evidence detects a hidden frame copy	2026-11-04T07:10:33.6532807Z ##[endgroup]
+Pinned development-only cross-codec consumer	Verify allocator evidence detects a hidden frame copy	2026-11-04T07:11:09.3849012Z Traceback (most recent call last):
+Pinned development-only cross-codec consumer	Verify allocator evidence detects a hidden frame copy	2026-11-04T07:11:09.3849913Z   File "/__w/SwiftJLS/SwiftJLS/Scripts/StorageEvidence/mutate-copy.py", line 89, in <module>
+Pinned development-only cross-codec consumer	Verify allocator evidence detects a hidden frame copy	2026-11-04T07:11:09.3850930Z     raise RuntimeError('Allocator telemetry failed to detect the injected frame copy')
+Pinned development-only cross-codec consumer	Verify allocator evidence detects a hidden frame copy	2026-11-04T07:11:09.3874329Z RuntimeError: Allocator telemetry failed to detect the injected frame copy
+Pinned development-only cross-codec consumer	Verify allocator evidence detects a hidden frame copy	2026-11-04T07:11:09.4004694Z ##[error]Process completed with exit code 1.
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	﻿2026-11-04T07:11:09.4078547Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:09.4079019Z with:
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:09.4079261Z   name: cross-codec-copy-mutation
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:09.4079579Z   path: /tmp/copy-mutation
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:09.4079850Z   if-no-files-found: warn
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:09.4080102Z   compression-level: 6
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:09.4080347Z   overwrite: false
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:09.4080595Z   include-hidden-files: false
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:09.4080863Z ##[endgroup]
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:09.4085098Z ##[command]/usr/bin/docker exec  89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193 sh -c "cat /etc/*release | grep ^ID"
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:09.6933537Z (node:1973) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:09.6934929Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:09.7065652Z With the provided path, there will be 18 files uploaded
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:09.7074890Z Artifact name is valid!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:09.7076120Z Root directory input is valid!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:10.0095866Z Beginning upload of artifact content to blob storage
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:10.1582168Z (node:1973) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:10.5324340Z Uploaded bytes 539119
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:10.5788179Z Finished uploading artifact content to blob storage!
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:10.5789404Z SHA256 digest of uploaded artifact zip is 428ff59ea6739305c2d65fc7581931e8da71874aafd4732a0c858cd55c06f464
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:10.5790511Z Finalizing artifact upload
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:10.9832783Z Artifact cross-codec-copy-mutation.zip successfully finalized. Artifact ID 13303265900
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:10.9834544Z Artifact cross-codec-copy-mutation has been successfully uploaded! Final size is 539119 bytes. Artifact ID is 13303265900
+Pinned development-only cross-codec consumer	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-11-04T07:11:10.9841040Z Artifact download URL: https://github.com/raster-labs/SwiftJLS/actions/runs/41789843682/artifacts/13303265900
+Pinned development-only cross-codec consumer	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	﻿2026-11-04T07:11:11.0120487Z Post job cleanup.
+Pinned development-only cross-codec consumer	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:11:11.0129111Z ##[command]/usr/bin/docker exec  89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193 sh -c "cat /etc/*release | grep ^ID"
+Pinned development-only cross-codec consumer	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:11:11.2102358Z [command]/usr/bin/git version
+Pinned development-only cross-codec consumer	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:11:11.2171988Z git version 2.43.0
+Pinned development-only cross-codec consumer	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:11:11.2228304Z Temporarily overriding HOME='/__w/_temp/92572507-f122-47fa-9d32-4b0b19dd29ad' before making global git config changes
+Pinned development-only cross-codec consumer	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:11:11.2248742Z Adding repository directory to the temporary git global config as a safe directory
+Pinned development-only cross-codec consumer	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:11:11.2262239Z [command]/usr/bin/git config --global --add safe.directory /__w/SwiftJLS/SwiftJLS
+Pinned development-only cross-codec consumer	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:11:11.2293239Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Pinned development-only cross-codec consumer	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:11:11.2344575Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Pinned development-only cross-codec consumer	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:11:11.2748112Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Pinned development-only cross-codec consumer	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:11:11.2803157Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Pinned development-only cross-codec consumer	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:11:11.3222326Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Pinned development-only cross-codec consumer	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-04T07:11:11.3264650Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Pinned development-only cross-codec consumer	Stop containers	﻿2026-11-04T07:11:11.3701761Z Stop and remove container: c338c9b6fbb64f7aaab75f7ac59194b1_swift62noble_84deb0
+Pinned development-only cross-codec consumer	Stop containers	2026-11-04T07:11:11.3706356Z ##[command]/usr/bin/docker rm --force 89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193
+Pinned development-only cross-codec consumer	Stop containers	2026-11-04T07:11:11.5655426Z 89a4fdec646abbff8970b32329a58cb97a4aa6549f13dec33877ab3fa6134193
+Pinned development-only cross-codec consumer	Stop containers	2026-11-04T07:11:11.5689774Z Remove container network: github_network_f1802acb39434de98d37c5c99aed1b0c
+Pinned development-only cross-codec consumer	Stop containers	2026-11-04T07:11:11.5695562Z ##[command]/usr/bin/docker network rm github_network_f1802acb39434de98d37c5c99aed1b0c
+Pinned development-only cross-codec consumer	Stop containers	2026-11-04T07:11:11.6620056Z github_network_f1802acb39434de98d37c5c99aed1b0c
+Pinned development-only cross-codec consumer	Complete job	﻿2026-11-04T07:11:11.6705627Z Cleaning up orphan processes
+Pinned development-only cross-codec consumer	Complete job	2026-11-04T07:11:11.7232771Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
