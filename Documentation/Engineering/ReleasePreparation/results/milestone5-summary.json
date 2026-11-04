@@ -24,9 +24,8 @@
   "release_ready": false,
   "open_gates": [
     "physical-device qualification",
-    "administrator enablement of owner-selected GitHub private vulnerability reporting",
     "maintainer acceptance of first-stable support policy",
-    "final PR-head CI and owner review/merge",
+    "owner review/merge and checking any subsequent documentation-head CI",
     "separately assigned stable publication"
   ],
   "tooling_limitations": [
@@ -44,10 +43,15 @@
     "linux-cli-man/report.json",
     "ci-swift64-69f31fe8-independent-audit.json",
     "ci-swift62-69f31fe8-independent-audit.json",
-    "copy-mutation-classifier/report.json"
+    "copy-mutation-classifier/report.json",
+    "ci-c843b44e-independent-audit.json",
+    "private-reporting-enabled.json"
   ],
   "test_source_change": "Two equivalent typed expected-sample expressions in QualifiedMonochromeTests.swift; fixtures, expected values and assertions preserved",
   "ci_url": "https://github.com/raster-labs/SwiftJLS/pull/18/checks",
   "release_evidence_unit_methods": 13,
-  "classifier_change": "Recognise exact private owner initializer with Swift discriminator; preserve same-stack and exact-ten allocation requirements"
+  "classifier_change": "Recognise exact private owner initializer with Swift discriminator; preserve same-stack and exact-ten allocation requirements",
+  "verified_ci_head": "c843b44e5f004be97b17663010d0cc369026d704",
+  "hosted_checks_passed": 16,
+  "private_reporting": "enabled; verified read-only"
 }

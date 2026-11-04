@@ -4,9 +4,9 @@ Status: unreleased native codec with bounded parsing, resource admission and san
 
 ## Reporting
 
-The owner selected [GitHub private vulnerability reporting](https://github.com/raster-labs/SwiftJLS/security/advisories/new) on 4 November 2026; an administrator will enable it. A same-day API check still returned `enabled: false`, so the form is not yet an established reporting channel and stable release remains blocked. Once enabled, use that private form to report vulnerabilities. Until then, use an existing private contact with a repository maintainer to arrange disclosure; no public mailbox or working fallback is asserted. Do not post exploitable payloads, credentials or patient information in a public issue. The earlier 12 October failed enable attempt remains recorded in the historical qualification evidence.
+Use [GitHub private vulnerability reporting](https://github.com/raster-labs/SwiftJLS/security/advisories/new), the channel selected by the owner on 4 November 2026. A later same-day read-only API check confirms `enabled: true`; [the verification record](Documentation/Engineering/ReleasePreparation/results/private-reporting-enabled.json) preserves that result. The earlier disabled state remains in the dated evidence. This task did not change the repository setting or submit a test advisory. Do not post exploitable payloads, credentials or patient information in a public issue. The earlier 12 October failed enable attempt remains recorded in the historical qualification evidence.
 
-Include affected version/commit, platform, a minimal safe reproducer, expected/actual behaviour and impact. Use synthetic data where possible. The current `1.1.0-dev.2` candidate is unreleased; there is no published stable successor version with a support window. A maintainer must establish the reporting channel and supported-version policy before the first stable release.
+Include affected version/commit, platform, a minimal safe reproducer, expected/actual behaviour and impact. Use synthetic data where possible. The current `1.1.0-dev.2` candidate is unreleased; there is no published stable successor version with a support window. The reporting channel is configured; a maintainer must accept and publish the supported-version policy before the first stable release.
 
 ## Supported versions
 

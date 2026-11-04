@@ -1,0 +1,35 @@
+{
+  "status": "passed_independent_final_ci_artifact_audit",
+  "head": "c843b44e5f004be97b17663010d0cc369026d704",
+  "run": 41791870547,
+  "preparation": [
+    {
+      "compiler": "Swift version 6.2.4 (swift-6.2.4-RELEASE)\nTarget: x86_64-unknown-linux-gnu",
+      "engine": "native",
+      "commands": 23,
+      "inputs_verified": 9,
+      "exact_locks_verified": 2,
+      "cli_process_checks": 103,
+      "cli_payload_checks": 73,
+      "source_tags_unchanged": true
+    },
+    {
+      "compiler": "Swift version 6.4.2 (swift-6.4.2-RELEASE)\nTarget: x86_64-unknown-linux-gnu",
+      "engine": "swiftbuild",
+      "commands": 23,
+      "inputs_verified": 9,
+      "exact_locks_verified": 2,
+      "cli_process_checks": 103,
+      "cli_payload_checks": 73,
+      "source_tags_unchanged": true
+    }
+  ],
+  "copy_mutation": {
+    "fresh_build_and_trace_passed": true,
+    "source_and_mutant_sha256_verified": true,
+    "actual_injected_UInt8_array_allocations": 10,
+    "sample_identity_consumer_passed": true,
+    "scope": "Injected-copy control sensitivity, not production copy-byte measurement"
+  },
+  "release_ready": false
+}
