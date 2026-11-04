@@ -13,6 +13,7 @@ import re
 import subprocess
 import sys
 import time
+from urllib.parse import unquote, urlsplit
 
 
 def check_pin(document: dict, revision: str, version: str | None, url: str) -> dict:
@@ -22,7 +23,14 @@ def check_pin(document: dict, revision: str, version: str | None, url: str) -> d
         raise ValueError("Expected exactly one resolved dependency")
     pin = pins[0]
     state = pin.get("state", {})
-    if (pin.get("identity") != "swiftjls" or pin.get("location") != url
+    parsed = urlsplit(url)
+    # SwiftPM records a file URL as an absolute filesystem path, while hosted
+    # source-control URLs retain their URL spelling. Validate both the location
+    # and kind; do not weaken this into suffix/package-name matching.
+    local = parsed.scheme == "file" and not parsed.netloc
+    location = str(Path(unquote(parsed.path)).resolve()) if local else url
+    kind = "localSourceControl" if local else "remoteSourceControl"
+    if (pin.get("identity") != "swiftjls" or pin.get("location") != location or pin.get("kind") != kind
             or state.get("revision") != revision or state.get("version") != version
             or state.get("branch") is not None):
         raise ValueError("Resolved dependency identity, location, revision or version differs")
@@ -46,6 +54,9 @@ def main() -> int:
     args = parser.parse_args()
     if not 1 <= args.jobs <= 32 or args.timeout < 1:
         parser.error("Use 1..32 jobs and a positive command timeout")
+    hosted = urlsplit(args.url)
+    if hosted.scheme != "https" or not hosted.hostname or hosted.username or hosted.password or hosted.query or hosted.fragment:
+        parser.error("Hosted consumption requires an HTTPS repository URL without credentials, query or fragment")
     repo = Path(__file__).resolve().parents[2]
     out = args.output.resolve()
     if out.exists():

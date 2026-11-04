@@ -10,7 +10,7 @@ class ReleaseEvidenceTests(unittest.TestCase):
     def setUp(self):
         self.url = "file:///temporary/SwiftJLS.git"
         self.sha = "a" * 40
-        self.pin = {"identity": "swiftjls", "location": self.url,
+        self.pin = {"identity": "swiftjls", "location": "/temporary/SwiftJLS.git", "kind": "localSourceControl",
                     "state": {"revision": self.sha, "version": "1.1.0-dev.2"}}
 
     def test_accepts_exact_version_and_revision(self):
@@ -44,6 +44,21 @@ class ReleaseEvidenceTests(unittest.TestCase):
         for invalid in ("No example", text + text):
             with self.assertRaises(ValueError):
                 swift_example(invalid)
+
+    def test_file_url_lock_uses_absolute_decoded_path_and_source_control_kind(self):
+        pin = copy.deepcopy(self.pin)
+        pin["location"] = "/temporary/with spaces/SwiftJLS.git"
+        check_pin({"pins": [pin]}, self.sha, "1.1.0-dev.2", "file:///temporary/with%20spaces/SwiftJLS.git")
+        pin["kind"] = "remoteSourceControl"
+        with self.assertRaises(ValueError):
+            check_pin({"pins": [pin]}, self.sha, "1.1.0-dev.2", "file:///temporary/with%20spaces/SwiftJLS.git")
+
+    def test_hosted_lock_keeps_exact_url_and_remote_kind(self):
+        pin = copy.deepcopy(self.pin)
+        pin.update(location="https://github.com/raster-labs/SwiftJLS.git", kind="remoteSourceControl")
+        check_pin({"pins": [pin]}, self.sha, "1.1.0-dev.2", pin["location"])
+        with self.assertRaises(ValueError):
+            check_pin({"pins": [pin]}, self.sha, "1.1.0-dev.2", "https://example.invalid/SwiftJLS.git")
 
 
 if __name__ == "__main__":
