@@ -26,7 +26,7 @@ Evidence: [pinned predecessor manifest](https://github.com/raster-labs/JLSwift/b
 
 For a local migration trial, add `.package(name: "SwiftJLS", path: "../SwiftJLS")` to the consumer's package dependencies and `.product(name: "SwiftJLS", package: "SwiftJLS")` to its executable/application target. Adjust the relative path to your checkout. Alternatively add the local package through Xcode. Keep `JPEGLS` alongside it while the application adapter is being developed.
 
-For a remote trial, use `https://github.com/raster-labs/SwiftJLS.git` and pin an actual reviewed full commit SHA available in that repository. Record it in the migration review and commit the application's resolved dependencies. **Do not use a `from: "1.1.0"` requirement yet:** 1.1.0 is intended, not published. SwiftJLS has no dependency on another suite codec or umbrella; adding all four is unnecessary.
+For a remote dependency, use `https://github.com/raster-labs/SwiftJLS.git` with `.package(url: "https://github.com/raster-labs/SwiftJLS.git", from: "2.0.0")` (or pin an exact reviewed commit SHA / version tag `v2.0.0`). Record the resolved revision in the migration review and commit the application's resolved dependencies. SwiftJLS has no dependency on another suite codec or umbrella; adding all four is unnecessary.
 
 The [release-preparation runner](RELEASE.md#repeatable-preparation) executes this guide’s exact Swift trial and verifies both revision-pinned hosted consumption and a disposable local semantic-version rehearsal. A temporary local tag is not a published release; retain the full reviewed revision until a real version is published.
 

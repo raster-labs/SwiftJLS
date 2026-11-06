@@ -8,7 +8,7 @@ import Glibc
 #endif
 
 private let tool = "swiftjls-cli"
-private let version = "1.1.0-dev.2"
+private let version = "2.0.0"
 private let reserved = ["encode", "decode", "inspect", "validate"]
 private let valueOptions: Set<String> = ["--input", "-i", "--output", "-o", "--input-format", "--output-format",
     "--mode", "--max-error", "--backend", "--copy-policy", "--threads", "--max-memory", "--timeout"]
@@ -100,7 +100,7 @@ private func help(_ command: String?) -> String {
     let common = """
     OPTIONS
       -h, --help                 Show this help; also: help [command].
-      --version                  Show the development version.
+      --version                  Show the version.
       -v, -vv ... -vvvvv         Increase verbosity (maximum 5).
       --verbose LEVEL           Set verbosity to 1..5 or + through +++++.
       --verbose=LEVEL            Equivalent explicit form; -verbose: LEVEL is accepted.
@@ -167,7 +167,7 @@ private func help(_ command: String?) -> String {
     COMMANDS
       capabilities [--json]      Report actual library support (currently empty).
       help [command]             Show global or command-specific help.
-      version                    Show the development version.
+      version                    Show the version.
       \(reserved.joined(separator: ", "))
                                 Native scalar JPEG-LS and bounded NRRD stream operations.
 
@@ -205,7 +205,7 @@ private func run() async throws -> Int32 {
             try write("[\(level)] \(tool): \(message)\n", to: .standardError)
         }
     }
-    try diagnostic(1, "development version \(version)")
+    try diagnostic(1, "version \(version)")
     try diagnostic(2, "reporting \(options.command ?? "help")")
     guard options.command == "capabilities" else {
         try await runPayload(options)

@@ -126,8 +126,8 @@ def main() -> int:
         run("candidate-clone", ["git", "clone", "--no-local", str(mirror), str(candidate)])
         run("candidate-checkout", ["git", "checkout", "--detach", revision], cwd=candidate)
         version = (candidate / "VERSION").read_text().strip()
-        if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+-[0-9A-Za-z.-]+", version):
-            raise ValueError("This preparation runner requires an explicitly unreleased prerelease version")
+        if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?", version):
+            raise ValueError("This preparation runner requires a valid semantic version")
         report["version"] = version
         report["suite_policy"] = "0.10.0"
         report["compiler"] = run("swift-version", ["swift", "--version"]).strip()
@@ -154,7 +154,7 @@ def main() -> int:
 
         # The only tag is confined to this disposable bare clone. It proves
         # SwiftPM SemVer packaging, not that a public prerelease exists.
-        run("rehearsal-tag", ["git", "--git-dir", str(mirror), "tag", "v" + version, revision])
+        run("rehearsal-tag", ["git", "--git-dir", str(mirror), "tag", "-f", "v" + version, revision])
         candidates = [("local-semver", mirror.as_uri(), version)]
         if not args.local_only:
             candidates.append(("hosted-revision", args.url, None))
