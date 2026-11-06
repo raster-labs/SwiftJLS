@@ -1,5 +1,11 @@
 # History and provenance — SwiftJLS
 
+## SwiftJLS 2.0.0 release — 2026-11-06 (`v2.0.0`)
+
+- Publish the first stable release of SwiftJLS (`2.0.0`, tagged `v2.0.0`) over the merged Milestone 5 library preparation baseline `23d35df4ac1055b1af2fd194f5bc7124fb4addea` (runtime baseline `a9bf9e95933fc8135bbcc3922d6ce831ddfe2057`), promoting `1.1.0-dev.2` to `2.0.0`.
+- Verify all 7 shared contract SHA-256 digests (`0.10.0`), 157 release tests in 28 suites, 103 CLI process/manual checks, 73 CLI payload checks, 13 release-preparation unit controls, enabled GitHub private vulnerability reporting, and standalone consumer execution.
+- Record complete release qualification and explicitly disclosed unexecuted/deferred gates (physical Apple devices, downstream DICOMKit cutover, and universal runtime/allocator/stack workspace totals) in [Documentation/RELEASE-v2.0.0.md](Documentation/RELEASE-v2.0.0.md).
+
 ## Milestone 5 release preparation — 2026-11-04 (unreleased)
 
 - Add reproducible exact-version packaging rehearsal in an isolated disposable Git repository, hosted revision consumption, executable README/migration examples, lockfile checks and CLI/manual installation validation. No tag is added to the project repository.

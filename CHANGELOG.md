@@ -1,5 +1,13 @@
 # Change log
 
+## SwiftJLS 2.0.0 — 2026-11-06
+
+First stable release of SwiftJLS (`2.0.0`, tagged `v2.0.0`), the standalone native Swift JPEG-LS (`ISO/IEC 14495-1` / `ITU-T T.87`) library and `swiftjls-cli` executable for the Swift Image Compression Suite (promoted from `1.1.0-dev.2`; suite policy `0.10.0`, Swift `6.2` tools minimum / Swift `6.4` primary in Swift `6` language mode, Apple OS `26.0` deployment floors).
+
+- Promote `VERSION`, `swiftjls-cli` (`Sources/SwiftJLSCLI/main.swift`), and the section 1 manual (`ManPages/swiftjls-cli.1`) to `2.0.0` (`v2.0.0`), and allow release semantic versions in `Scripts/ReleasePreparation/prepare.py`.
+- Ship the complete common owning API (`Encoder`, `Decoder`, `ImageDescriptor`, `Image`, `ImageDestination`, `ReadOnlyImageStorage`, `WritableImageStorage`, `StorageWriteLease`) and the synchronous caller-workspace `QualifiedMonochromeDecoder(profile: .jlswift0101)` profile across unsigned 2–16-bit lossless and near-lossless JPEG-LS, 1–4 components, non-interleaved/line/sample scans, explicit presets, row restarts, lossless HP1/HP2/HP3 RGB transforms, LSE mapping tables and extended dimensions, APP/COM/SPIFF metadata, subsampled line decoding, and DICOM odd-length padding compatibility.
+- Verify release gates on the `2.0.0` candidate: `7/7` shared contract SHA-256 checks, `157` release tests in `28` suites, `103` CLI process/manual checks, `73` CLI payload checks, `13` release-preparation unit controls, and the standalone `Examples/IndependentConsumer` package consumer. Retain explicit disclosures for unexecuted physical-device testing and deferred downstream `DICOMKit` cutover in [Documentation/RELEASE-v2.0.0.md](Documentation/RELEASE-v2.0.0.md).
+
 ## Milestone 5 release preparation — 2026-11-04 (unreleased)
 
 - Add reproducible exact-version packaging rehearsal in an isolated disposable Git repository, hosted revision consumption, executable README/migration examples, lockfile checks and CLI/manual installation validation. No tag is added to the project repository.

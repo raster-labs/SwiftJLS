@@ -1,19 +1,19 @@
 # Security policy and implementation requirements
 
-Status: unreleased native codec with bounded parsing, resource admission and sanitizer/mutation evidence. [Current validation](Documentation/Engineering/CodecMigration/Validation.md) distinguishes tested revisions from open release gates. No stable successor release or vulnerability response-time commitment is claimed.
+Status: stable release `2.0.0` (`v2.0.0`) of the native codec with bounded parsing, resource admission and sanitizer/mutation evidence. [Current validation](Documentation/Engineering/CodecMigration/Validation.md) and [RELEASE-v2.0.0.md](Documentation/RELEASE-v2.0.0.md) distinguish tested revisions from open physical-device gates. No fixed vulnerability response-time deadline is promised.
 
 ## Reporting
 
-Use [GitHub private vulnerability reporting](https://github.com/raster-labs/SwiftJLS/security/advisories/new), the channel selected by the owner on 4 November 2026. A later same-day read-only API check confirms `enabled: true`; [the verification record](Documentation/Engineering/ReleasePreparation/results/private-reporting-enabled.json) preserves that result. The earlier disabled state remains in the dated evidence. This task did not change the repository setting or submit a test advisory. Do not post exploitable payloads, credentials or patient information in a public issue. The earlier 12 October failed enable attempt remains recorded in the historical qualification evidence.
+Use [GitHub private vulnerability reporting](https://github.com/raster-labs/SwiftJLS/security/advisories/new), the channel selected by the owner on 4 November 2026 and verified enabled (`enabled: true`; see [the verification record](Documentation/Engineering/ReleasePreparation/results/private-reporting-enabled.json)). The earlier disabled state remains in the dated evidence. Do not post exploitable payloads, credentials or patient information in a public issue. The earlier 12 October failed enable attempt remains recorded in the historical qualification evidence.
 
-Include affected version/commit, platform, a minimal safe reproducer, expected/actual behaviour and impact. Use synthetic data where possible. The current `1.1.0-dev.2` candidate is unreleased; there is no published stable successor version with a support window. The reporting channel is configured; a maintainer must accept and publish the supported-version policy before the first stable release.
+Include affected version/commit, platform, a minimal safe reproducer, expected/actual behaviour and impact. Use synthetic data where possible. Keep the report private while maintainers reproduce the issue and prepare a correction.
 
 ## Supported versions
 
 | Version | Current status |
 | --- | --- |
-| `1.1.0-dev.2` and other development commits | Unreleased; reports investigated case by case, without a supported-release or response-time guarantee. |
-| `1.1.0` / `1.1.x` stable | Not published or supported yet. The [prepared support policy](RELEASE.md#prepared-first-stable-support-policy) requires maintainer acceptance before publication. |
+| `2.0.x` (latest: `2.0.0`) | Supported for security fixes; reporters on earlier `2.0.x` patches should reproduce against the latest patch when safe. |
+| Current development `main` and snapshots | Investigated case by case; corrections target `main` and the active line without a separate backport guarantee. |
 | JLSwift predecessor | Separate project and security policy; no change to its support or maintenance follows from this work. |
 
 ## Threat model

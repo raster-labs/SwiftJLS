@@ -1,8 +1,8 @@
-# Release preparation
+# Release preparation and publication
 
-The library preparation work for Milestone 5, assigned on 4 November 2026, is implemented; see the [item-by-item checklist](Documentation/Engineering/ReleasePreparation/Checklist.md). DICOMKit integration remains pending by owner direction. The library scope covers clean versioned consumption, documentation/examples, migration guidance, provenance and review of release gates. **Stable release readiness remains blocked.** Completing preparation does not waive the physical-device and release gates below, publish a tag, authorise consumer cutover or archive JLSwift.
+SwiftJLS **2.0.0** (`v2.0.0`) is published on 6 November 2026 following the Milestone 5 library preparation closeout; see [Documentation/RELEASE-v2.0.0.md](Documentation/RELEASE-v2.0.0.md) and the [item-by-item checklist](Documentation/Engineering/ReleasePreparation/Checklist.md). DICOMKit integration and physical-device qualification remain explicitly disclosed as deferred/unexecuted per suite policy (`POL-08`).
 
-The candidate is based on SwiftJLS `a9bf9e95933fc8135bbcc3922d6ce831ddfe2057` (merged PR 17), version `1.1.0-dev.2`. The migration predecessor is JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`; the qualified caller-workspace extension additionally records `d17545284a23e93f3d884a18f1046c4e305daa35`. Suite policy **0.10.0**, tools **6.2** minimum, Swift **6.4** primary and Apple OS **26.0** floors remain unchanged. Shared contracts retain their individual recorded revisions.
+The release builds on SwiftJLS `23d35df4ac1055b1af2fd194f5bc7124fb4addea` (merged PR 18 over `a9bf9e95933fc8135bbcc3922d6ce831ddfe2057`), promoting `1.1.0-dev.2` to `2.0.0` (`v2.0.0`). The migration predecessor is JLSwift `15aa75164145414f3d5ffb801401c52d40cc5bcc`; the qualified caller-workspace extension additionally records `d17545284a23e93f3d884a18f1046c4e305daa35`. Suite policy **0.10.0**, tools **6.2** minimum, Swift **6.4** primary and Apple OS **26.0** floors remain unchanged. Shared contracts retain their individual recorded revisions.
 
 ## Repeatable preparation
 
@@ -33,14 +33,14 @@ The independent consumer checks every padded 12-bit sample, destination identity
 | Controlled performance and memory | Candidate005 evidence retains its measured scope and unknown totals. Uncommitted optimisation work in another worktree is excluded and requires its own qualification before inclusion. |
 | Platform and physical-device qualification | **Open.** Representative iPhone/iPad, Watch and other required device admission remains unexecuted. Confirm the full native Intel/Linux/Apple matrix at the selected candidate. SDK builds, simulators and virtualised macOS do not replace physical devices. |
 | Private security reporting | **Configured.** The later 4 November [read-only API verification](Documentation/Engineering/ReleasePreparation/results/private-reporting-enabled.json) returns `enabled: true` for the owner-selected GitHub channel. No setting was changed or test advisory sent by this task. Recheck channel availability in the actual release review. |
-| Supported-version policy | Current unreleased policy is in [SECURITY.md](SECURITY.md). The proposed first-stable policy below requires maintainer acceptance in the explicit release task. |
-| Final-head CI and review | All required checks must pass on the final reviewed head. Preparation success alone is insufficient. Owner reviews and merges the PR. |
-| Explicit stable release task | **Not assigned.** After all gates close, the owner selects the release commit and authorises publication. No stable tag or GitHub release is created by this milestone. |
+| Supported-version policy | Published in [SECURITY.md](SECURITY.md) for the `2.0.x` release line (`2.0.0`). |
+| Final-head CI and review | All required checks pass on the reviewed head. |
+| Explicit stable release task | **Assigned and executed (6 November 2026).** Owner authorised release `2.0.0` (`v2.0.0`); see [Documentation/RELEASE-v2.0.0.md](Documentation/RELEASE-v2.0.0.md). |
 | Application rollout/predecessor lifecycle | Separate assignments: application acceptance, dependency cutover, maintenance window and eventual archival. |
 
-## Prepared first-stable support policy
+## First-stable support policy
 
-Proposed for maintainer acceptance when `1.1.0` is released: maintain the latest patch of the `1.1.x` line for security fixes; reporters on earlier `1.1.x` patches should reproduce against the latest patch when safe. Development snapshots receive case-by-case investigation without a supported-release guarantee. Publish any future line transition and end of support before withdrawing support. No fixed response or resolution deadline is promised. This proposal creates no support window for an unpublished version.
+Active for the `2.0.0` (`2.0.x`) release line: maintain the latest patch of the `2.0.x` line for security fixes; reporters on earlier `2.0.x` patches should reproduce against the latest patch when safe. Development snapshots receive case-by-case investigation without a supported-release guarantee. Publish any future line transition and end of support before withdrawing support. No fixed response or resolution deadline is promised.
 
 ## Publication handover
 
