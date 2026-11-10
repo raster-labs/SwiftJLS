@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Validate this standalone native-codec package with an accepted Apple Swift toolchain."""
 from __future__ import annotations
 

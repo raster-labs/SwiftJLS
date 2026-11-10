@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Decode successor outputs with the separately built oracle and check each sample."""
 import argparse,json,pathlib,struct,subprocess,tempfile
 p=argparse.ArgumentParser();p.add_argument('--oracle',type=pathlib.Path,required=True);p.add_argument('--encoded',type=pathlib.Path,required=True);p.add_argument('--fixtures',type=pathlib.Path,required=True);p.add_argument('--report',type=pathlib.Path,required=True);p.add_argument('--exclude-presets',action='store_true',help='Use the separately recorded T.87 reference gate for presets');a=p.parse_args();records=[]

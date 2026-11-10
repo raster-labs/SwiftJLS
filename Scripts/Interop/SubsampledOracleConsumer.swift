@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Fixture-only producer linked to the isolated scheduler-adapted predecessor.
 // Its decoder and entropy kernels remain at the pinned predecessor revision.
 import Foundation

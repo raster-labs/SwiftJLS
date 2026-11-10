@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Append to the existing successor interop consumer.
 struct MappingFixture: Decodable { let name: String; let interleave: UInt8 }
 struct MappingManifest: Decodable { let cases: [MappingFixture] }

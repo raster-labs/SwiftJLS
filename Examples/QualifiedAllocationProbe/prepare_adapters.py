@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Make explicit standard presets for a deliberately legacy decoder profile.
 
 Only metadata is inserted. Original bytes, independent expected samples and all

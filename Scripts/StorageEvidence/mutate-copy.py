@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Prove ordinary allocator telemetry sees a hidden full-frame encode copy.
 
 Builds only in a temporary clone. The consumer's sample/identity/report checks

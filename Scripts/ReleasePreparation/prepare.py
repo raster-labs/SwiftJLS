@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Rehearse consumption of a committed SwiftJLS candidate without publishing it."""
 from __future__ import annotations
 
@@ -129,7 +129,7 @@ def main() -> int:
         if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?", version):
             raise ValueError("This preparation runner requires a valid semantic version")
         report["version"] = version
-        report["suite_policy"] = "0.10.0"
+        report["suite_policy"] = "0.11.0"
         report["compiler"] = run("swift-version", ["swift", "--version"]).strip()
         run("target-info", ["swiftc", "-print-target-info"])
         tags_before = run("repository-tags-before", ["git", "show-ref", "--tags"]) if subprocess.run(

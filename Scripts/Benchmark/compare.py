@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Interleave standalone release binaries; retain every timing and environment."""
 import argparse, hashlib, json, math, os, pathlib, platform, statistics, subprocess, time
 p = argparse.ArgumentParser()

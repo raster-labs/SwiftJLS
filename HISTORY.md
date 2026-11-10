@@ -1,5 +1,11 @@
 # History and provenance — SwiftJLS
 
+## MIT relicensing and documentation alignment — 2026-11-10 (unreleased)
+
+- Restore the **MIT** licence (`Copyright (c) 2026 Raster Images Private Limited`) for this repository, its in-house source, scripts, synthetic fixture manifests and documentation under suite policy **0.11.0** (`POL-07`), superseding the Apache-2.0 amendment from contract `0.8.0` while retaining `NOTICE` for copyright attribution.
+- Update `LICENSE`, `Documentation/SUITE_POLICY.md`, `Documentation/COMMON_CONTRACT_SHA256.txt`, in-house `SPDX-License-Identifier: MIT` headers, synthetic fixture manifest licence declarations, and provenance/SBOM validation helpers (`Scripts/ReleasePreparation/provenance.py` and `Scripts/ReleasePreparation/SBOM/qualify.py`).
+- Refresh active repository and engineering status documents to remove stale pre-`2.0.0` phrasing while preserving all dated historical qualification records, third-party notices and published tags unchanged.
+
 ## SwiftJLS 2.0.0 release — 2026-11-06 (`v2.0.0`)
 
 - Publish the first stable release of SwiftJLS (`2.0.0`, tagged `v2.0.0`) over the merged Milestone 5 library preparation baseline `23d35df4ac1055b1af2fd194f5bc7124fb4addea` (runtime baseline `a9bf9e95933fc8135bbcc3922d6ce831ddfe2057`), promoting `1.1.0-dev.2` to `2.0.0`.
@@ -60,7 +66,7 @@ The owner chose four fresh repositories under Raster-Lab, with independent codec
 | Inspected source snapshot | [299b9a2e5bfe36ef104a3464a27d6c4c82874cc2](https://github.com/Raster-Lab/JLSwift/commit/299b9a2e5bfe36ef104a3464a27d6c4c82874cc2) |
 | Highest stable-shaped tag observed | [v0.9.1](https://github.com/Raster-Lab/JLSwift/tree/v0.9.1) |
 | Source-tree licence observed | Apache-2.0 |
-| Successor licence | Apache-2.0, for owner-authorised in-house material (contract 0.8.0) |
+| Successor licence | MIT, for owner-authorised in-house material (contract 0.11.0; Apache-2.0 under contract 0.8.0–0.10.0) |
 | Inspection date | 2026-09-17 |
 
 The tag and the inspected branch snapshot are separate references; this record does not assert they resolve to the same commit. Before migrating a tagged baseline, resolve annotated tags to commits and record the exact chosen SHA. The pinned snapshot above was read for documentation preparation; it was not independently built or regression-tested in this task.
@@ -69,7 +75,7 @@ The tag and the inspected branch snapshot are separate references; this record d
 
 The coding agent must record source repository, commit, original path and successor path for each migrated subsystem, and distinguish copied/adapted in-house material from new implementation. Record retained tests, fixture licences and explicit product/feature dispositions. Keep predecessor bug history accessible through links. Do not import old tags, rewrite predecessor history or imply all historical commits have been relicensed.
 
-The owner states the implementation is in-house and has authorised Apache-2.0 relicensing (contract 0.8.0; the foundation recorded this as MIT). Preserve accurate original copyright years and ownership. Audit any third-party dependencies, tools or fixtures separately. The root licence is not authority to remove another party's notices.
+The owner states the implementation is in-house and has authorised MIT relicensing (contract 0.11.0; contract 0.8.0–0.10.0 used Apache-2.0 after the foundation's original MIT baseline). Preserve accurate original copyright years and ownership. Audit any third-party dependencies, tools or fixtures separately. The root licence is not authority to remove another party's notices.
 
 The originals are intended to become maintenance projects while new development moves here. No predecessor settings, README, branch, release, licence or archive flag was changed during this documentation preparation. Maintenance announcements and downstream DICOMKit/Voxelia migration are separate work.
 

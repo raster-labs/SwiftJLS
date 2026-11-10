@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Negative controls for the release evidence admission checks."""
 import copy
 import unittest

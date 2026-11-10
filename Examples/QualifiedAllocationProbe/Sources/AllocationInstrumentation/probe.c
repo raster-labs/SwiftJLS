@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Development-only glibc executable symbol interposition. No production target
 // depends on this code. Internal glibc entry points avoid recursive dlsym work.
 #define _GNU_SOURCE 1

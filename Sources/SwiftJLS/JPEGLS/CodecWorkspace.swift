@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Copyright 2026 Raster Images Private Limited
 
 /// Checked, operation-local admission allowances, not measured allocator/RSS peaks.

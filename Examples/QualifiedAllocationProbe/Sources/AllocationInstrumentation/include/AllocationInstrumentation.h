@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 #ifndef SWIFTJLS_ALLOCATION_INSTRUMENTATION_H
 #define SWIFTJLS_ALLOCATION_INSTRUMENTATION_H
 #include <stdbool.h>

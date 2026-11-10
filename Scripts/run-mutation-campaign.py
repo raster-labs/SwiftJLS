@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Linux campaign supervisor: retain logs, peak RSS and enforce a heartbeat."""
 import argparse, json, os, pathlib, selectors, signal, subprocess, time
 p = argparse.ArgumentParser()

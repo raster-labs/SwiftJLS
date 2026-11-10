@@ -1,5 +1,5 @@
 // swift-tools-version: 6.2
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 import PackageDescription
 let package = Package(name: "WorkspaceProbe", platforms: [.macOS(.v26)],
     dependencies: [.package(name: "SwiftJLS", path: "../..")],

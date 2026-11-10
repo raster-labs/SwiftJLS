@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Black-box payload, malformed-input, transaction and pipe checks."""
 import argparse,json,pathlib,subprocess,tempfile,os,signal,time,struct
 p=argparse.ArgumentParser();p.add_argument('--binary',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();binary=str(a.binary.resolve());results=[]

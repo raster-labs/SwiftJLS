@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Assemble independent CharLS row groups; verify the complete restart stream."""
 from pathlib import Path
 import argparse, json, struct, subprocess, tempfile, hashlib

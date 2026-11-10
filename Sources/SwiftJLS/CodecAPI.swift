@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 import Foundation
 
 /// Codec-specific controls are added only with independently tested behaviour.

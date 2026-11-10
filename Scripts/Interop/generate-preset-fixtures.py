@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Import synthetic preset vectors produced by the isolated T.87 reference job.
 
 The reference executables are conformance-only and never enter this package.

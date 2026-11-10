@@ -1,4 +1,4 @@
-// Test-only adapter, Apache-2.0. CharLS remains a separate BSD-3-Clause oracle.
+// Test-only adapter, MIT. CharLS remains a separate BSD-3-Clause oracle.
 #include <charls/charls.h>
 #include <fstream>
 #include <iostream>

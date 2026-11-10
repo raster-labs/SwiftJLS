@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Copyright 2026 Raster Images Private Limited
 // Upstream Sources/JPEGLS/Core/JPEGLSContextModel.swift; Core/JPEGLSBorrowedStorage.swift
 // Adapted from raster-labs/JLSwift d17545284a23e93f3d884a18f1046c4e305daa35.

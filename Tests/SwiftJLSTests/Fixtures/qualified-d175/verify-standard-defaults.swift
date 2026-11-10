@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Compile with the exact JLSwift d175452 source files (see provenance.json).
 import Foundation
 let output = URL(fileURLWithPath: CommandLine.arguments[1], isDirectory: true)

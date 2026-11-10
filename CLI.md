@@ -13,7 +13,7 @@ swift run swiftjls-cli encode -i input.nrrd -o near.jls --mode near-lossless --m
 swift run swiftjls-cli capabilities --json
 ```
 
-At the PR 15 candidate, JPEG-LS input accepts one zero byte after an odd-length complete codestream. Other trailing bytes, concatenated streams and missing EOI remain malformed (status 3); padding still counts against input limits. This consumes an extracted codestream, not a DICOM container.
+JPEG-LS input accepts one zero byte after an odd-length complete codestream (merged in PR 15). Other trailing bytes, concatenated streams and missing EOI remain malformed (status 3); padding still counts against input limits. This consumes an extracted codestream, not a DICOM container.
 
 `-` means stdin/stdout. Binary payloads use stdout exclusively; encode/decode `--json` reports use stderr. Pipe serialisation involves copies. Slow pipes obey the deadline and cancellation; a failed binary stdout operation may leave partial bytes. Files use a sibling final-output transaction, atomic no-replace publication by default and atomic replacement with `--overwrite`; failure removes the incomplete transaction.
 

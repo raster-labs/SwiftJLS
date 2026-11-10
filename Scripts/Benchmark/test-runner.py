@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Negative controls: invalid measurements must never become benchmark evidence."""
 import json
 import os

@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Test-only adapter. CharLS is an isolated BSD-3-Clause oracle.
 #include <charls/jpegls_encoder.hpp>
 #include <charls/jpegls_decoder.hpp>

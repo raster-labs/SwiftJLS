@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Append after Consumer.swift and ComponentConsumer.swift in the isolated consumer.
 let legacyManifest = try JSONDecoder().decode(ComponentManifest.self,
     from: Data(contentsOf: directory.appendingPathComponent("components-legacy-hp.json")))
