@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Copyright 2026 Raster Images Private Limited
 // Scalar kernels adapted from JLSwift 15aa75164145414f3d5ffb801401c52d40cc5bcc.
 // See Documentation/Engineering/MigrationPreflight/scalar-provenance.json.

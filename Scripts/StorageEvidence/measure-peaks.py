@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Replay Heaptrack allocation/free events, retaining attribution limitations.
 
 Format reference (not copied implementation): KDE Heaptrack v1.5.0,

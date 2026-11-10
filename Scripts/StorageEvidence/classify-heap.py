@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Classify observed allocator stacks for the strict scalar shared-storage route.
 
 This is allocation evidence plus an explicit source review, not a memcpy tracer.

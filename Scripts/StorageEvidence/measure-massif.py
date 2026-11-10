@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Summarise explicitly bounded Massif snapshots without inventing exact peaks."""
 import argparse, pathlib, re, json, hashlib
 

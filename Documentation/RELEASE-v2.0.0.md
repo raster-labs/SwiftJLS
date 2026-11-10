@@ -9,7 +9,7 @@
 **Linux Baseline (`PLAT-01`):** `Ubuntu 24.04` (`x86_64` and `aarch64`)  
 **Migration Predecessor Baseline:** `raster-labs/JLSwift` at `15aa75164145414f3d5ffb801401c52d40cc5bcc` (`v0.10.1` maintenance line; caller-workspace extension at `d17545284a23e93f3d884a18f1046c4e305daa35`)  
 **Pre-release Engineering Baseline:** `23d35df4ac1055b1af2fd194f5bc7124fb4addea` (Merge pull request #18 over `a9bf9e95933fc8135bbcc3922d6ce831ddfe2057`, promoting `1.1.0-dev.2` to `2.0.0`)  
-**Licence (`POL-07`):** `Apache-2.0` (`LICENSE` and `NOTICE`)  
+**Licence (`POL-07`):** `Apache-2.0` at `v2.0.0` publication; relicensed to **`MIT`** (`LICENSE` and `NOTICE`) on `10 November 2026` under contract `0.11.0`  
 
 ---
 

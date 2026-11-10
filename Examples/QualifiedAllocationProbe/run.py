@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Retain all three ordinary-build probe runs; never retry or discard failures."""
 import argparse
 import hashlib

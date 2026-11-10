@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Diagnostic only: link to the pinned predecessor JLSwift, never to SwiftJLS.
 import Foundation
 import JPEGLS

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Collect the marked workspace matrix; preserve every command and profile."""
 import argparse, hashlib, json, pathlib, subprocess
 

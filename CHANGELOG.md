@@ -1,5 +1,11 @@
 # Change log
 
+## Unreleased — MIT relicensing and documentation alignment, 2026-11-10
+
+- Change the repository licence from Apache-2.0 back to **MIT** (`Copyright (c) 2026 Raster Images Private Limited`) for in-house source, tests, examples, scripts, synthetic fixture manifests and documentation, advancing `Documentation/SUITE_POLICY.md` (`POL-07`) and `Documentation/COMMON_CONTRACT_SHA256.txt` to contract **0.11.0** while retaining `NOTICE` for copyright attribution.
+- Update `SPDX-License-Identifier` headers across in-house Swift, C/C++, Python and shell files, synthetic fixture manifest licence strings under `Tests/SwiftJLSTests/Fixtures/`, and release-preparation provenance/SBOM checks (`Scripts/ReleasePreparation/provenance.py`, `Scripts/ReleasePreparation/prepare.py` and `Scripts/ReleasePreparation/SBOM/qualify.py`).
+- Refresh active root and engineering status documents (`README.md`, `AGENTS.md`, `IMPLEMENTATION.md`, `MIGRATION.md`, `CLI.md`, `CONTRIBUTING.md`, `RELEASE.md`, `HISTORY.md`, `Completion.md`, `Validation.md`, `CodecMigration/README.md` and `Provenance.md`) to remove stale pre-`2.0.0` phrasing while keeping historical qualification archives and published tags unmodified.
+
 ## SwiftJLS 2.0.0 — 2026-11-06
 
 First stable release of SwiftJLS (`2.0.0`, tagged `v2.0.0`), the standalone native Swift JPEG-LS (`ISO/IEC 14495-1` / `ITU-T T.87`) library and `swiftjls-cli` executable for the Swift Image Compression Suite (promoted from `1.1.0-dev.2`; suite policy `0.10.0`, Swift `6.2` tools minimum / Swift `6.4` primary in Swift `6` language mode, Apple OS `26.0` deployment floors).

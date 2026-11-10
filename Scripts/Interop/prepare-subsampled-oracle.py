@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Prepare an isolated fixture producer; never modify the predecessor checkout.
 
 The pinned predecessor decoder is unchanged. Only its fixture encoder's line
@@ -42,10 +42,10 @@ patched=patched[:guard_start]+'''        guard configuration.interleaveMode == .
 '''+patched[guard_end:]
 p.write_text(patched)
 (root/'Package.swift').write_text('''// swift-tools-version: 6.2
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 import PackageDescription
 let package = Package(name: "SubsampledOracle", platforms: [.macOS(.v26)], products: [.executable(name: "Consumer", targets: ["Consumer"])], targets: [.target(name: "JPEGLS"), .executableTarget(name: "Consumer", dependencies: ["JPEGLS"])], swiftLanguageModes: [.v6])
 ''')
 (root/'Sources/Consumer').mkdir(exist_ok=True)
 shutil.copy2(pathlib.Path(__file__).with_name('SubsampledOracleConsumer.swift'),root/'Sources/Consumer/main.swift')
-(root/'provenance.json').write_text(json.dumps(dict(predecessor=revision,source_sha256=hashlib.sha256(source.encode()).hexdigest(),patched_encoder_sha256=hashlib.sha256(patched.encode()).hexdigest(),decoder_sha256=hashlib.sha256((root/'Sources/JPEGLS/JPEGLSDecoder.swift').read_bytes()).hexdigest(),scope='Fixture-only line scheduler adaptation; pinned decoder and entropy kernels unchanged; synthetic Apache-2.0 fixtures'),indent=2)+'\n')
+(root/'provenance.json').write_text(json.dumps(dict(predecessor=revision,source_sha256=hashlib.sha256(source.encode()).hexdigest(),patched_encoder_sha256=hashlib.sha256(patched.encode()).hexdigest(),decoder_sha256=hashlib.sha256((root/'Sources/JPEGLS/JPEGLSDecoder.swift').read_bytes()).hexdigest(),scope='Fixture-only line scheduler adaptation; pinned decoder and entropy kernels unchanged; synthetic MIT fixtures'),indent=2)+'\n')

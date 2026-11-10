@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Independent opaque/scalar mapping vectors, including standard continuations."""
 import argparse, hashlib, json, pathlib, struct, subprocess, tempfile
 p=argparse.ArgumentParser(); p.add_argument('--oracle',type=pathlib.Path,required=True); p.add_argument('--output',type=pathlib.Path,required=True); a=p.parse_args()
@@ -29,5 +29,5 @@ with tempfile.TemporaryDirectory() as tmp:
                 for ext,data in [('jls',(tmp/'out').read_bytes()),('u16le',struct.pack('<'+'H'*len(actual),*actual)),('table',table),('mapped.u16le',struct.pack('<'+'H'*len(actual),*[values[v] for v in actual]))]:
                     (out/(name+'.'+ext)).write_bytes(data);record[ext+'_sha256']=hashlib.sha256(data).hexdigest()
                 cases.append(record)
-(out/'mapping.json').write_text(json.dumps(dict(licence='Apache-2.0 original synthetic samples',oracle='CharLS development mapping API',oracle_revision='04e44bb760632104ab1209593eea3f8c20ac11e5', limitations=['16-bit three-byte tables excluded: this CharLS revision emits 65530-byte chunks, splitting Wt=3 entries contrary to T.87 C.2.4.1.2/3.'],cases=cases),indent=2)+'\n')
+(out/'mapping.json').write_text(json.dumps(dict(licence='MIT original synthetic samples',oracle='CharLS development mapping API',oracle_revision='04e44bb760632104ab1209593eea3f8c20ac11e5', limitations=['16-bit three-byte tables excluded: this CharLS revision emits 65530-byte chunks, splitting Wt=3 entries contrary to T.87 C.2.4.1.2/3.'],cases=cases),indent=2)+'\n')
 print(len(cases),'independent mapping fixtures')

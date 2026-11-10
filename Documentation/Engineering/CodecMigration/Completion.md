@@ -1,4 +1,10 @@
-# Current milestone disposition — 4 November 2026
+# Current milestone disposition — updated 10 November 2026
+
+Stable release **SwiftJLS `2.0.0` (`v2.0.0`)** was published on 6 November 2026 following completion of Milestone 5 library preparation (see [Documentation/RELEASE-v2.0.0.md](../../RELEASE-v2.0.0.md) and [the item-by-item closeout](../ReleasePreparation/Checklist.md)). On 10 November 2026, contract **0.11.0** (`POL-07`) restored the **MIT** licence (`LICENSE` and `NOTICE`) for in-house source, scripts, synthetic fixture manifests and documentation. Physical-device qualification and downstream DICOMKit/VoxeliaValidation cutover remain explicitly disclosed as unexecuted/deferred per `POL-08`; their status is tracked in [RELEASE.md](../../../RELEASE.md) and [the preparation evidence](../ReleasePreparation/README.md).
+
+The 4 November Milestone 5 closeout and 24 October Milestone 4 audit below are retained as dated evidence. Their “Milestone 5 deferred”, `1.1.0-dev.2`, Apache-2.0 and then-current branch/merge statements describe those historical tasks. No historical result is relabelled as a new run.
+
+## Milestone 5 library disposition — 4 November 2026
 
 Milestone 5 library preparation is implemented; [the item-by-item closeout](../ReleasePreparation/Checklist.md) covers the original assignment. DICOMKit integration remains pending by owner direction. Its implementation, command evidence and remaining acceptance gates are tracked in [RELEASE.md](../../../RELEASE.md) and [the preparation evidence](../ReleasePreparation/README.md). The task uses merged baseline `a9bf9e95933fc8135bbcc3922d6ce831ddfe2057`, with unchanged codec sources and fixtures. Clean versioned consumption, executable documentation, CLI packaging, provenance and derived SBOM conformance checks pass on their recorded candidates; hosted CI on the final PR head is a separate acceptance gate. Full milestone/release acceptance remains blocked by physical-device qualification and the remaining release review; the selected GitHub private reporting channel is now enabled. Stable publication requires its own explicit task.
 

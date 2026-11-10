@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 import argparse,base64,hashlib,json,pathlib
 p=argparse.ArgumentParser()
 for name in ['candidates','report','output']:p.add_argument('--'+name,type=pathlib.Path,required=True)
@@ -14,5 +14,5 @@ for result in report['component_cases']:
  for ext,key,value in [('jls','encoded_sha256',result['reference_encoded']),('u16le','samples_sha256',c['samples']),('decoded.u16le','decoded_sha256',result['reference_decoded_u16le'])]:
   data=base64.b64decode(value);(a.output/(c['name']+'.'+ext)).write_bytes(data);record[key]=hashlib.sha256(data).hexdigest()
  records.append(record)
-(a.output/'components-reference.json').write_text(json.dumps(dict(licence='Apache-2.0 original synthetic samples',oracle=report['oracle'],archive_sha256=report['archive_sha256'],cases=records),indent=2)+'\n')
+(a.output/'components-reference.json').write_text(json.dumps(dict(licence='MIT original synthetic samples',oracle=report['oracle'],archive_sha256=report['archive_sha256'],cases=records),indent=2)+'\n')
 print(len(records),'published-reference component fixtures; forward candidate passes',sum(r['successor_oracle_passed'] for r in records))

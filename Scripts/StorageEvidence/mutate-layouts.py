@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Prove layout expectations fail for wrong stride/order; never edit the checkout."""
 import argparse, hashlib, json, pathlib, re, shutil, subprocess, tempfile, time
 p = argparse.ArgumentParser()

@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Copyright 2026 Raster Images Private Limited
 // Adapted from JLSwift 15aa75164145414f3d5ffb801401c52d40cc5bcc, Sources/JPEGLS/Core/JPEGLSError.swift.
 // Internal implementation; the successor public API is defined in CodecAPI.swift.

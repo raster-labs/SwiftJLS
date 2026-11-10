@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Synthetic independent component vectors; canonical sample files are planar UInt16 LE."""
 import argparse, hashlib, json, pathlib, struct, subprocess, tempfile
 p = argparse.ArgumentParser()
@@ -10,7 +10,7 @@ a = p.parse_args()
 oracle, directory = str(a.oracle.resolve()), a.output.resolve()
 path = directory / 'components.json'
 manifest = json.loads(path.read_text()) if path.exists() else dict(
-    licence='Apache-2.0 original synthetic samples', oracle='CharLS 2.4.2',
+    licence='MIT original synthetic samples', oracle='CharLS 2.4.2',
     oracle_revision='36dd3307e070d8fbc765c3ba890b7e681046fa39', cases=[])
 records = [r for r in manifest['cases'] if r['interleave'] != a.interleave]
 manifest['oracleLimitations'] = ['CharLS 2.4.2 does not decode interleaved two-component streams.']

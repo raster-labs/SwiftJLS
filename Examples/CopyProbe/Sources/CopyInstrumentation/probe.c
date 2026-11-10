@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Development-only Linux executable symbol interposition. No production target
 // depends on this code. Ranges are registered only during synchronous borrows.
 #include "CopyInstrumentation.h"

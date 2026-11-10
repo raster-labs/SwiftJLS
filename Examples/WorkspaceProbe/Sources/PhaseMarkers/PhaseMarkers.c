@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 #include <stdlib.h>
 #include "PhaseMarkers.h"
 #if __has_include(<valgrind/valgrind.h>)

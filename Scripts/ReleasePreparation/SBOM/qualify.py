@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 # SPDX/CycloneDX correction and offline validation rules adapted from SwiftJLI's
 # Apache-2.0 derive-prepared.py; exact upstream digest is in adaptation.json.
 """Preserve raw SwiftPM defects and qualify separately labelled derived SBOMs."""
@@ -84,8 +84,10 @@ class Validation:
         return bool(conforms), text, result.serialize(format='turtle')
 
 
-def semantic_findings(spdx, cdx, revision, product):
+def semantic_findings(spdx, cdx, revision, product, licence_id=None):
     findings = []
+    allowed_licences = {licence_id} if licence_id else {'MIT', 'Apache-2.0'}
+    allowed_spdx = {[f'urn:spdx:{lid}'][0] for lid in allowed_licences}
     def check(ok, message):
         if not ok:
             findings.append(message)
@@ -109,7 +111,7 @@ def semantic_findings(spdx, cdx, revision, product):
         else:
             check(item.get('name') == product and 'software_packageUrl' not in item, 'SPDX product identity differs')
         check(any(x.get('relationshipType') == 'hasDeclaredLicense' and x.get('from') == item['spdxId']
-                  and x.get('to') == ['urn:spdx:Apache-2.0'] for x in graph), 'SPDX source licence missing')
+                  and isinstance(x.get('to'), list) and len(x['to']) == 1 and x['to'][0] in allowed_spdx for x in graph), 'SPDX source licence missing')
     refs = []
     def visit(value):
         if isinstance(value, dict):
@@ -127,7 +129,7 @@ def semantic_findings(spdx, cdx, revision, product):
     check(subject['name'] == product, 'CycloneDX selected product differs')
     for item in [subject, *cdx['components']]:
         check(item.get('version') == revision, 'CycloneDX source revision differs')
-        check(item.get('licenses') == [{'license': {'id': 'Apache-2.0'}}], 'CycloneDX source licence missing')
+        check(any(item.get('licenses') == [{'license': {'id': lid}}] for lid in allowed_licences), 'CycloneDX source licence missing')
         kind = next((x['value'] for x in item.get('properties', []) if x['name'] == 'swift-entity'), None)
         check(item.get('purl') == purl if kind == 'swift-package' else 'purl' not in item, 'CycloneDX package/product URL differs')
     parsed = PackageURL.from_string(purl)
@@ -135,7 +137,7 @@ def semantic_findings(spdx, cdx, revision, product):
     return findings
 
 
-def derive(originals, revision, product, timestamp, helper_hash):
+def derive(originals, revision, product, timestamp, helper_hash, licence_id='MIT'):
     spdx, cdx = copy.deepcopy(originals['spdx']), copy.deepcopy(originals['cyclonedx'])
     graph = spdx['@graph']
     packages = [x for x in graph if x['type'] == 'software_Package']
@@ -174,10 +176,11 @@ def derive(originals, revision, product, timestamp, helper_hash):
     require(any(x.get('spdxId') == relation['from'] and x['type'] == 'Agent' and x.get('name') == 'swift-package-manager' for x in graph), 'Unexpected producer licence subject')
     relation.update({'from': software_tool, 'creationInfo': ci,
                      'comment': 'Corrected licence subject from creator Agent to represented software tool; original assertion retained.'})
+    rel_suffix = '-declared-mit-derived' if licence_id == 'MIT' else '-declared-apache2-derived'
     for item in packages:
         item['creationInfo'] = ci
-        graph.append(element('Relationship', item['spdxId'] + '-declared-apache2-derived',
-            **{'from': item['spdxId'], 'to': ['urn:spdx:Apache-2.0'], 'relationshipType': 'hasDeclaredLicense',
+        graph.append(element('Relationship', item['spdxId'] + rel_suffix,
+            **{'from': item['spdxId'], 'to': ['urn:spdx:' + licence_id], 'relationshipType': 'hasDeclaredLicense',
                'comment': 'Source LICENSE and NOTICE are hash-bound in generation.json; development fixtures are outside this product inventory.'}))
     for item in graph:
         if 'profileConformance' in item:
@@ -193,14 +196,14 @@ def derive(originals, revision, product, timestamp, helper_hash):
     cdx['serialNumber'] = 'urn:uuid:' + str(uuid.uuid5(uuid.NAMESPACE_URL, cdx['serialNumber'] + helper_hash))
     cdx['metadata']['timestamp'] = timestamp
     cdx['metadata']['tools']['components'].append({'type': 'application', 'name': 'SwiftJLS derived SBOM helper',
-        'version': helper_hash, 'bom-ref': tool, 'scope': 'excluded', 'licenses': [{'license': {'id': 'Apache-2.0'}}]})
+        'version': helper_hash, 'bom-ref': tool, 'scope': 'excluded', 'licenses': [{'license': {'id': licence_id}}]})
     cdx['metadata']['properties'] = [{'name': 'swiftjls:derivation', 'value': 'Separately derived; exact transformations and raw hashes are in receipt.json.'},
         {'name': 'swiftjls:scope', 'value': 'SwiftPM package and selected product. SDK/runtime inventory and development fixtures excluded; see supplement.json.'}]
     for item in [subject, *cdx['components']]:
         require(item['version'] == revision, 'Raw CycloneDX revision differs')
         old = item.pop('purl')
         item.setdefault('properties', []).append({'name': 'swiftjls:original-generator-purl', 'value': old})
-        item['licenses'] = [{'license': {'id': 'Apache-2.0'}}]
+        item['licenses'] = [{'license': {'id': licence_id}}]
         item['externalReferences'] = [{'type': 'vcs', 'url': URL + '/tree/' + revision}]
         if any(x == {'name': 'swift-entity', 'value': 'swift-package'} for x in item['properties']):
             item['purl'] = purl
@@ -233,7 +236,9 @@ def main():
     generation = read(a.raw / 'generation.json')
     revision = generation['revision']
     require(re.fullmatch('[0-9a-f]{40}', revision) and generation['status'] == 'passed' and generation['sourceUnchanged'], 'Unqualified generation inputs')
-    require((a.raw / 'LICENSE').read_text().lstrip().startswith('Apache License'), 'Expected repository licence')
+    license_text = (a.raw / 'LICENSE').read_text().lstrip()
+    require(license_text.startswith(('MIT License', 'Apache License')), 'Expected repository licence')
+    licence_id = 'MIT' if license_text.startswith('MIT License') else 'Apache-2.0'
     require('Copyright 2026 Raster Images Private Limited' in (a.raw / 'NOTICE').read_text(), 'Expected repository notice')
     for name in ['LICENSE', 'NOTICE', 'Package.swift', 'VERSION']:
         require(sha(a.raw / name) == generation['sourceSHA256'][name], 'Source receipt mismatch: ' + name)
@@ -250,13 +255,13 @@ def main():
             originals[spec] = read(a.raw / entry['path'])
         out = a.output / name
         raw_schema = {spec: validation.schema(spec, doc) for spec, doc in originals.items()}
-        raw_findings = semantic_findings(originals['spdx'], originals['cyclonedx'], revision, record['product'])
+        raw_findings = semantic_findings(originals['spdx'], originals['cyclonedx'], revision, record['product'], licence_id)
         emit(out / 'raw-validation.json', {'jsonSchema': raw_schema, 'semanticFindings': raw_findings,
             'scope': 'Raw schema plus explicit field/reference checks. Raw SPDX SHACL is run separately below.'})
         conforms, text, turtle = validation.shacl(originals['spdx'])
         (out / 'raw-spdx-shacl.txt').write_text(text)
         (out / 'raw-spdx-shacl.ttl').write_text(turtle)
-        derived = derive(originals, revision, record['product'], generation['finishedUTC'].split('.')[0] + 'Z', helper_hash)
+        derived = derive(originals, revision, record['product'], generation['finishedUTC'].split('.')[0] + 'Z', helper_hash, licence_id)
         original_ids = {x['spdxId'] for x in originals['spdx']['@graph'] if x['type'] == 'software_Package'}
         derived_ids = {x['spdxId'] for x in derived['spdx']['@graph'] if x.get('summary') in ['swift-package', 'swift-product']}
         require(original_ids == derived_ids, 'Original package/product identities changed')
@@ -264,7 +269,7 @@ def main():
             emit(out / (spec + '.derived.json'), doc)
         emit(out / 'transformations.json', {spec: diff(originals[spec], derived[spec]) for spec in derived})
         schemas = {spec: validation.schema(spec, doc) for spec, doc in derived.items()}
-        findings = semantic_findings(derived['spdx'], derived['cyclonedx'], revision, record['product'])
+        findings = semantic_findings(derived['spdx'], derived['cyclonedx'], revision, record['product'], licence_id)
         derived_conforms, text, turtle = validation.shacl(derived['spdx'])
         (out / 'spdx-shacl.txt').write_text(text)
         (out / 'spdx-shacl.ttl').write_text(turtle)

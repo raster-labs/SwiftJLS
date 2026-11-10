@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Audit retained fixture/source provenance without regenerating or relicensing it."""
 
 import argparse
@@ -23,9 +23,9 @@ HASH_EXTENSIONS = {
     "u16le_sha256": "u16le", "table_sha256": "table",
     "mapped.u16le_sha256": "mapped.u16le", "sha256": "jls",
 }
-# Retained from the audited a9bf9e9 baseline; a notice change needs explicit review.
+# Retained from the audited contract 0.11.0 MIT baseline; a notice change needs explicit review.
 NOTICE_DIGESTS = {
-    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "LICENSE": "9a6740d5798b34f0e390df81825748674ef4f00678a12b35cb23061684103363",
     "NOTICE": "dbd05e5f8a4c0c7174126171c45c94fdea34a19ee7cd846e8c3646a0a3f7e9d3",
 }
 
@@ -80,10 +80,12 @@ def audit(root, predecessor=None):
                 "actual_sha256": actual, "passed": actual == expected}
 
     for path in sorted((root / FIXTURE_DIRECTORY).rglob("*.json")):
+        if path.name.startswith("._"):
+            continue
         try:
             document = json.loads(path.read_text())
             licence = document.get("licence", document.get("fixture_licence"))
-            if not isinstance(licence, str) or "Apache-2.0" not in licence:
+            if not isinstance(licence, str) or "MIT" not in licence:
                 errors.append(f"missing recorded fixture licence: {path.relative_to(root)}")
             checks = []
             for name, digest in fixture_references(document):
@@ -98,7 +100,7 @@ def audit(root, predecessor=None):
 
     fixture_files = {
         str(path.relative_to(root)) for path in (root / FIXTURE_DIRECTORY).rglob("*")
-        if path.is_file() and path.suffix != ".json"
+        if path.is_file() and not path.name.startswith("._") and path.suffix != ".json"
     }
     uncovered = sorted(fixture_files - covered)
     errors.extend(f"fixture has no retained digest: {path}" for path in uncovered)
@@ -137,7 +139,7 @@ def audit(root, predecessor=None):
             if not destination.is_relative_to(root):
                 raise ValueError("migrated-source destination escapes repository")
             data = destination.read_bytes()
-            if b"SPDX-License-Identifier: Apache-2.0" not in data[:600]:
+            if b"SPDX-License-Identifier: MIT" not in data[:600]:
                 errors.append(f"missing source licence header: {record['destination']}")
             source_checks.append({"destination": record["destination"],
                                   "current_sha256": sha256(data),

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Investigate large-noise byte differences outside all timed measurements."""
 import argparse, array, hashlib, json, os, pathlib, subprocess, sys, tempfile
 p=argparse.ArgumentParser()

@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Append to Consumer.swift in the isolated oracle consumer package.
 struct ComponentFixture: Decodable {
     let transform: Int?

@@ -4,7 +4,7 @@ Applies to Claude, Codex and other coding agents working in this repository.
 
 ## Start here
 
-Current owner-approved baseline: suite policy 0.10.0, Swift tools 6.2 minimum, primary Swift 6.4, Apple OS 26.0 and the native codec/CLI. Contract 0.5.0 reversed the 0.4.0 raise to OS 27; the OS 27 records under Documentation/Engineering/OS27CLI are superseded history, not the current baseline.
+Current owner-approved baseline: suite policy 0.11.0 (MIT licence), Swift tools 6.2 minimum, primary Swift 6.4, Apple OS 26.0 and the native codec/CLI. Contract 0.5.0 reversed the 0.4.0 raise to OS 27; the OS 27 records under Documentation/Engineering/OS27CLI are superseded history, not the current baseline.
 
 For the compiler upgrade, read the [Swift 6.4 manifesto](Documentation/Engineering/Swift64/Swift_6.4_Upgrade_Manifesto_v1.0.0.md), [suite supplement](Documentation/Engineering/Swift64/Swift_Image_Compression_Suite_Swift_6.4_Supplement_v1.0.0.md), then the [historical upgrade record and feature register](Documentation/Engineering/Swift64/README.md). Preserve the supplied files byte-for-byte. The current suite policy governs platform/toolchain requirements; each shared document retains its own recorded revision. Historical evidence is not rewritten.
 
@@ -12,7 +12,7 @@ Read `README.md`, `HISTORY.md`, this file and `IMPLEMENTATION.md`, then all seve
 
 For application dependency/API migration from JLSwift, read [MIGRATION.md](MIGRATION.md). Distinguish application integration from implementing this library's codec algorithms: a consumer migration does not authorise later codec milestones. Preserve the guide's implemented/planned distinction and update its mappings and acceptance gates when public behaviour changes.
 
-This repository began with documentation only. Reading its instructions does not by itself authorise codec migration. When the owner assigns an implementation task, execute only that milestone. The original foundation contained no package or source. Milestones 1–3 have implementation and scoped validation evidence; feature/release qualification remains incomplete. Read [the current completion audit](Documentation/Engineering/CodecMigration/Completion.md) before claiming parity or completion. Documentation/MILESTONE1.md is historical feasibility evidence. Do not report a plan or an older-revision result as current implementation proof.
+This repository began with documentation only. Reading its instructions does not by itself authorise codec migration. When the owner assigns an implementation task, execute only that milestone. The original foundation contained no package or source. Milestones 1–5 and stable release `2.0.0` (`v2.0.0`) have implementation and scoped validation evidence; physical-device qualification and downstream consumer cutover remain explicitly disclosed as deferred/unexecuted. Read [the release record](Documentation/RELEASE-v2.0.0.md) and [the current completion audit](Documentation/Engineering/CodecMigration/Completion.md) before claiming parity or completion. Documentation/MILESTONE1.md is historical feasibility evidence. Do not report a plan or an older-revision result as current implementation proof.
 
 ## Required working method
 
@@ -46,4 +46,4 @@ Later task prompts must name the next milestone explicitly. Repository creation 
 
 ## Current platform and CLI direction
 
-Contract 0.5.0 restored Apple OS 26.0; suite policy 0.10.0 and the current manifest govern. The [OS 27/CLI record](Documentation/Engineering/OS27CLI/README.md) is historical. Read [CLI.md](CLI.md) and [current validation](Documentation/Engineering/CodecMigration/Validation.md) for implemented payload operations and evidence. Preserve archived inputs and records. Keep help, verbosity, VERSION, man pages and installer behaviour aligned. Library code must not terminate a process; the executable alone maps documented CLI exit statuses. Codec implementations still require their assigned milestone.
+Contract 0.5.0 restored Apple OS 26.0; suite policy 0.11.0 and the current manifest govern. The [OS 27/CLI record](Documentation/Engineering/OS27CLI/README.md) is historical. Read [CLI.md](CLI.md) and [current validation](Documentation/Engineering/CodecMigration/Validation.md) for implemented payload operations and evidence. Preserve archived inputs and records. Keep help, verbosity, VERSION, man pages and installer behaviour aligned. Library code must not terminate a process; the executable alone maps documented CLI exit statuses. Codec implementations still require their assigned milestone.

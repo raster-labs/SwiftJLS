@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Copyright 2026 Raster Images Private Limited
 // Original scalar implementation of the HP reversible RGB lifting transforms.
 // APP8 `mrfx` is a private convention, not a claim of T.870 conformance.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Conformance-only use of the separately downloaded ITU T.87 reference decoder.
 The HP reference executables and their licence remain outside this repository.
 """

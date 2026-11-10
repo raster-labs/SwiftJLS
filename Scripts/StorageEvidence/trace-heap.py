@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Retain ordinary-build allocation stacks for the real cross-codec routes.
 
 This collects evidence, not a zero-copy verdict: stack classification and copy

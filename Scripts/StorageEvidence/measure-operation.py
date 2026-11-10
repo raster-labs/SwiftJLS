@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Replay requested heap bytes between explicit consumer allocation markers.
 
 Heaptrack 1.5 interpreted format 3. Categories describe allocation stacks, not

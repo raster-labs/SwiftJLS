@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Controls for the allocator mutation detector; no codec build is performed."""
 import importlib.util
 from pathlib import Path

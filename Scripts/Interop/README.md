@@ -1,6 +1,6 @@
 # Independent JPEG-LS oracle
 
-The Swift package does not fetch or link CharLS. Build this development-only adapter against a separate CharLS checkout at `36dd3307e070d8fbc765c3ba890b7e681046fa39` (2.4.2, BSD-3-Clause). Keep its licence with that external checkout. This directory's adapter, scripts and synthetic fixtures are Apache-2.0.
+The Swift package does not fetch or link CharLS. Build this development-only adapter against a separate CharLS checkout at `36dd3307e070d8fbc765c3ba890b7e681046fa39` (2.4.2, BSD-3-Clause). Keep its licence with that external checkout. This directory's adapter, scripts and synthetic fixtures are MIT.
 
 From the repository, substituting absolute external paths:
 

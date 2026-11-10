@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 // Compile as an independent executable depending only on SwiftJLS.
 import Foundation
 import SwiftJLS
@@ -32,6 +32,6 @@ for f in manifest.cases where f.components == 2 && f.interleave == 0 {
         "preset": ["maximumSampleValue": maximum, "threshold1": t1, "threshold2": t2, "threshold3": t3, "reset": 64],
         "samples": samples.base64EncodedString(), "encoded": encoded.data.base64EncodedString()])
 }
-let report: [String: Any] = ["licence": "Apache-2.0 original synthetic samples", "encoder_revision": "9ca35c57c6f355af547f48a6598ad4efa7f9f492", "cases": candidates]
+let report: [String: Any] = ["licence": "MIT original synthetic samples", "encoder_revision": "9ca35c57c6f355af547f48a6598ad4efa7f9f492", "cases": candidates]
 try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]).write(to: URL(fileURLWithPath: CommandLine.arguments[2]))
 print("Exported \(candidates.count) two-component line candidates.")

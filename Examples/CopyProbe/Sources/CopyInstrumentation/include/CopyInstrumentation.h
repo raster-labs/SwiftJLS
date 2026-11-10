@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 #include <stddef.h>
 #include <stdint.h>
 int sjls_copy_probe_self_test(void);
