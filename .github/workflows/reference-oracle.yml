@@ -12,6 +12,10 @@ jobs:
     runs-on: windows-2025
     timeout-minutes: 15
     steps:
+      - name: Enable Git long paths on Windows
+        run: |
+          git config --system core.longpaths true
+          git config --global core.longpaths true
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
