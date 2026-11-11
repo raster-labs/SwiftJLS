@@ -1,6 +1,6 @@
 # Security policy and implementation requirements
 
-Status: stable release `2.0.0` (`v2.0.0`) of the native codec with bounded parsing, resource admission and sanitizer/mutation evidence. [Current validation](Documentation/Engineering/CodecMigration/Validation.md) and [RELEASE-v2.0.0.md](Documentation/RELEASE-v2.0.0.md) distinguish tested revisions from open physical-device gates. No fixed vulnerability response-time deadline is promised.
+Status: stable release `2.0.1` (`v2.0.1`) of the native codec with bounded parsing, resource admission and sanitizer/mutation evidence. [Current validation](Documentation/Engineering/CodecMigration/Validation.md), [RELEASE-v2.0.1.md](Documentation/RELEASE-v2.0.1.md) and [RELEASE-v2.0.0.md](Documentation/RELEASE-v2.0.0.md) distinguish tested revisions from open physical-device gates. No fixed vulnerability response-time deadline is promised.
 
 ## Reporting
 
@@ -12,7 +12,7 @@ Include affected version/commit, platform, a minimal safe reproducer, expected/a
 
 | Version | Current status |
 | --- | --- |
-| `2.0.x` (latest: `2.0.0`) | Supported for security fixes; reporters on earlier `2.0.x` patches should reproduce against the latest patch when safe. |
+| `2.0.x` (latest: `2.0.1`) | Supported for security fixes; reporters on earlier `2.0.x` patches should reproduce against the latest patch when safe. |
 | Current development `main` and snapshots | Investigated case by case; corrections target `main` and the active line without a separate backport guarantee. |
 | JLSwift predecessor | Separate project and security policy; no change to its support or maintenance follows from this work. |
 

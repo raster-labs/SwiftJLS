@@ -1,10 +1,14 @@
 # Change log
 
-## Unreleased — MIT relicensing and documentation alignment, 2026-11-10
+## SwiftJLS 2.0.1 — 2026-11-11
 
+Patch release of SwiftJLS (`2.0.1`, tagged `v2.0.1`), publishing the **MIT** relicensing under suite policy **0.11.0** (`POL-07`) while keeping published tag `v2.0.0` immutable (Swift `6.2` tools minimum / Swift `6.4` primary in Swift `6` language mode, Apple OS `26.0` deployment floors).
+
+- Promote `VERSION`, `swiftjls-cli` (`Sources/SwiftJLSCLI/main.swift`), and the section 1 manual (`ManPages/swiftjls-cli.1`) to `2.0.1` (`v2.0.1`), and record release qualification in [Documentation/RELEASE-v2.0.1.md](Documentation/RELEASE-v2.0.1.md).
 - Change the repository licence from Apache-2.0 back to **MIT** (`Copyright (c) 2026 Raster Images Private Limited`) for in-house source, tests, examples, scripts, synthetic fixture manifests and documentation, advancing `Documentation/SUITE_POLICY.md` (`POL-07`) and `Documentation/COMMON_CONTRACT_SHA256.txt` to contract **0.11.0** while retaining `NOTICE` for copyright attribution.
-- Update `SPDX-License-Identifier` headers across in-house Swift, C/C++, Python and shell files, synthetic fixture manifest licence strings under `Tests/SwiftJLSTests/Fixtures/`, and release-preparation provenance/SBOM checks (`Scripts/ReleasePreparation/provenance.py`, `Scripts/ReleasePreparation/prepare.py` and `Scripts/ReleasePreparation/SBOM/qualify.py`).
-- Refresh active root and engineering status documents (`README.md`, `AGENTS.md`, `IMPLEMENTATION.md`, `MIGRATION.md`, `CLI.md`, `CONTRIBUTING.md`, `RELEASE.md`, `HISTORY.md`, `Completion.md`, `Validation.md`, `CodecMigration/README.md` and `Provenance.md`) to remove stale pre-`2.0.0` phrasing while keeping historical qualification archives and published tags unmodified.
+- Update `SPDX-License-Identifier` headers across in-house Swift, C/C++, Python and shell files, synthetic fixture manifest licence strings under `Tests/SwiftJLSTests/Fixtures/`, and release-preparation provenance/SBOM checks (`Scripts/ReleasePreparation/provenance.py`, `Scripts/ReleasePreparation/prepare.py` and `Scripts/ReleasePreparation/SBOM/qualify.py`), and enable Git long paths before Windows checkout in `.github/workflows/reference-oracle.yml`.
+- Refresh active root and engineering status documents (`README.md`, `AGENTS.md`, `IMPLEMENTATION.md`, `MIGRATION.md`, `CLI.md`, `CONTRIBUTING.md`, `RELEASE.md`, `HISTORY.md`, `Completion.md`, `Validation.md`, `CodecMigration/README.md` and `Provenance.md`) to reflect `2.0.1` (`v2.0.1`) and contract `0.11.0` while keeping historical qualification archives and published tags unmodified.
+- Verify release gates on the `2.0.1` candidate: `7/7` shared contract SHA-256 checks (`0.11.0`), `157` release tests in `28` suites, `103` CLI process/manual checks, `73` CLI payload checks, `13` release-preparation unit controls, provenance audit (`2,819` fixture hash checks, `0` errors), and the standalone `Examples/IndependentConsumer` package consumer. Retain explicit disclosures for unexecuted physical-device testing and deferred downstream `DICOMKit` cutover in [Documentation/RELEASE-v2.0.1.md](Documentation/RELEASE-v2.0.1.md).
 
 ## SwiftJLS 2.0.0 — 2026-11-06
 

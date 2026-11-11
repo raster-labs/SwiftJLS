@@ -8,7 +8,7 @@ import Glibc
 #endif
 
 private let tool = "swiftjls-cli"
-private let version = "2.0.0"
+private let version = "2.0.1"
 private let reserved = ["encode", "decode", "inspect", "validate"]
 private let valueOptions: Set<String> = ["--input", "-i", "--output", "-o", "--input-format", "--output-format",
     "--mode", "--max-error", "--backend", "--copy-policy", "--threads", "--max-memory", "--timeout"]
