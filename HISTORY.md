@@ -1,10 +1,11 @@
 # History and provenance — SwiftJLS
 
-## MIT relicensing and documentation alignment — 2026-11-10 (unreleased)
+## SwiftJLS 2.0.1 release — 2026-11-11 (`v2.0.1`)
 
+- Publish patch release SwiftJLS `2.0.1` (`v2.0.1`) on preserved release branch `codex/release-2.0.1` over the merged MIT relicensing baseline `a014bac5611ca654079c655e8fd88eb25caeab15`, promoting `2.0.0` to `2.0.1` under suite policy **0.11.0** (`POL-07`) while keeping published tag `v2.0.0` immutable.
 - Restore the **MIT** licence (`Copyright (c) 2026 Raster Images Private Limited`) for this repository, its in-house source, scripts, synthetic fixture manifests and documentation under suite policy **0.11.0** (`POL-07`), superseding the Apache-2.0 amendment from contract `0.8.0` while retaining `NOTICE` for copyright attribution.
-- Update `LICENSE`, `Documentation/SUITE_POLICY.md`, `Documentation/COMMON_CONTRACT_SHA256.txt`, in-house `SPDX-License-Identifier: MIT` headers, synthetic fixture manifest licence declarations, and provenance/SBOM validation helpers (`Scripts/ReleasePreparation/provenance.py` and `Scripts/ReleasePreparation/SBOM/qualify.py`).
-- Refresh active repository and engineering status documents to remove stale pre-`2.0.0` phrasing while preserving all dated historical qualification records, third-party notices and published tags unchanged.
+- Update `LICENSE`, `Documentation/SUITE_POLICY.md`, `Documentation/COMMON_CONTRACT_SHA256.txt`, in-house `SPDX-License-Identifier: MIT` headers, synthetic fixture manifest licence declarations, and provenance/SBOM validation helpers (`Scripts/ReleasePreparation/provenance.py` and `Scripts/ReleasePreparation/SBOM/qualify.py`), and enable Git long paths in `.github/workflows/reference-oracle.yml`.
+- Verify all 7 shared contract SHA-256 digests (`0.11.0`), 157 release tests in 28 suites, 103 CLI process/manual checks, 73 CLI payload checks, 13 release-preparation unit controls, provenance audit, enabled GitHub private vulnerability reporting, and standalone consumer execution; record qualification and explicitly disclosed unexecuted/deferred gates in [Documentation/RELEASE-v2.0.1.md](Documentation/RELEASE-v2.0.1.md).
 
 ## SwiftJLS 2.0.0 release — 2026-11-06 (`v2.0.0`)
 

@@ -1,6 +1,6 @@
 # Contributing
 
-Start with `AGENTS.md` and `IMPLEMENTATION.md`. The native codec, owning-memory paths and Milestone 5 library preparation are implemented (`2.0.0`, tagged `v2.0.0`); [the release record](Documentation/RELEASE-v2.0.0.md) and [the completion audit](Documentation/Engineering/CodecMigration/Completion.md) track the remaining physical-device and downstream consumer gates. Keep pull requests focused and preserve independent package consumption.
+Start with `AGENTS.md` and `IMPLEMENTATION.md`. The native codec, owning-memory paths and Milestone 5 library preparation are implemented (`2.0.1`, tagged `v2.0.1`); [the release record](Documentation/RELEASE-v2.0.1.md) and [the completion audit](Documentation/Engineering/CodecMigration/Completion.md) track the remaining physical-device and downstream consumer gates. Keep pull requests focused and preserve independent package consumption.
 
 Application maintainers and coding agents moving from JLSwift should follow [MIGRATION.md](MIGRATION.md). Update that guide and verify its consumer example whenever public APIs, package products, deployment requirements or advertised capabilities change. Keep application migration advice separate from later library implementation milestones.
 
