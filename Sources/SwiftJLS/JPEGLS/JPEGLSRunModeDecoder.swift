@@ -76,22 +76,11 @@ struct JPEGLSRunModeDecoder: Sendable {
 
     // MARK: - J[RUNindex] Mapping
 
-    /// Standard J table per ITU-T.87 Annex J (Table J.1)
-    private static let jTable: [Int] = [
-        0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3,
-        4, 4, 5, 5, 6, 6, 7, 7, 8, 9, 10, 11, 12, 13, 14, 15
-    ]
-
-    /// Compute the number of bits for encoding/decoding a run length.
-    ///
-    /// Per ITU-T.87 Annex J, J[RUNindex] determines the run length
-    /// block size as 2^J[RUNindex].
-    ///
-    /// - Parameter runIndex: Current run index (0 to 31)
-    /// - Returns: Number of bits for run length encoding (J value)
+    @inline(__always)
     func computeJ(runIndex: Int) -> Int {
-        let idx = max(0, min(runIndex, Self.jTable.count - 1))
-        return Self.jTable[idx]
+        let clamped = max(0, min(runIndex, 31))
+        let word: UInt64 = clamped < 16 ? 0x3333_2222_1111_0000 : 0xFEDC_BA98_7766_5544
+        return Int((word >> UInt64((clamped & 15) &* 4)) & 0xF)
     }
 
     // MARK: - Run-Length Decoding

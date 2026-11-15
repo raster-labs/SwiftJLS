@@ -27,26 +27,13 @@ import Foundation
 struct JPEGLSRegularModeDecoder: Sendable {
     // MARK: - Properties
 
-    /// Preset parameters controlling thresholds and limits
-    private let parameters: JPEGLSPresetParameters
-
-    /// Near-lossless parameter (0 for lossless mode)
-    private let near: Int
-
-    /// Range value: RANGE = (MAXVAL + 2*NEAR)/qbpp + 1
-    /// Used for modular reconstruction of prediction errors
-    private let range: Int
-
-    /// Quantization factor: qbpp = (NEAR == 0) ? 0 : ((NEAR << 1) | 1)
-    private let qbpp: Int
-
-    /// Gradient quantisation lookup table for the inner range (−T3, T3),
-    /// indexed by `gradient + gradientTableOffset`. Initialised by constant
-    /// interval fills when NEAR < T1, otherwise by the reference branch chain.
-    // Every quantised value is in -4...4. Indices and prediction arithmetic
-    // remain Int; signed widening at lookup preserves the original result.
-    private let gradientTable: [Int8]
-    private let gradientTableOffset: Int
+    internal let parameters: JPEGLSPresetParameters
+    internal let near: Int
+    internal let range: Int
+    internal let qbpp: Int
+    internal let wrapRange: Int
+    internal let gradientTable: [Int8]
+    internal let gradientTableOffset: Int
 
     // MARK: - Initialization
 
@@ -74,6 +61,7 @@ struct JPEGLSRegularModeDecoder: Sendable {
         } else {
             self.range = (parameters.maxValue + 2 * near) / qbpp + 1
         }
+        self.wrapRange = near == 0 ? self.range : self.range * self.qbpp
 
         // Fill the gradient quantisation intervals directly when NEAR < T1;
         // retain the reference branch chain for the internal NEAR >= T1 case.
@@ -120,14 +108,14 @@ struct JPEGLSRegularModeDecoder: Sendable {
         _ gradient: Int, t1: Int, t2: Int, t3: Int, near: Int
     ) -> Int8 {
         if gradient <= -t3 { return -4 }
+        if gradient >= t3 { return 4 }
         if gradient <= -t2 { return -3 }
         if gradient <= -t1 { return -2 }
         if gradient < -near { return -1 }
         if gradient <= near { return 0 }
         if gradient < t1 { return 1 }
         if gradient < t2 { return 2 }
-        if gradient < t3 { return 3 }
-        return 4
+        return 3
     }
 
     // MARK: - Gradient Computation
@@ -151,183 +139,75 @@ struct JPEGLSRegularModeDecoder: Sendable {
     ///   - c: Top-left diagonal neighbor pixel value
     ///   - d: Top-right diagonal neighbor pixel value
     /// - Returns: Tuple of (D1, D2, D3) gradients
+    @inline(__always)
     func computeGradients(a: Int, b: Int, c: Int, d: Int) -> (d1: Int, d2: Int, d3: Int) {
-        let d1 = d - b  // Top-right minus top
-        let d2 = b - c  // Top minus top-left
-        let d3 = c - a  // Top-left minus left
-
-        return (d1, d2, d3)
+        return (d - b, b - c, c - a)
     }
 
-    /// Quantize a gradient value into the range [-4, 4].
-    ///
-    /// Per ITU-T.87 Section 4.3.1, gradients are quantized using the
-    /// threshold parameters T1, T2, T3 to produce quantization indices
-    /// in the range [-4, 4].
-    ///
-    /// - Parameter gradient: Raw gradient value
-    /// - Returns: Quantized gradient in range [-4, 4]
+    @inline(__always)
     func quantizeGradient(_ gradient: Int) -> Int {
-        // Gradients at/beyond ±T3 always map to ±4; the inner range uses the
-        // pre-computed table (interval fills or the reference fallback).
-        if gradient <= -parameters.threshold3 { return -4 }
-        if gradient >= parameters.threshold3 { return 4 }
-        return Int(gradientTable[gradient + gradientTableOffset])
+        let t3 = gradientTableOffset
+        let clamped = min(max(gradient, -t3), t3)
+        return Int(gradientTable[clamped &+ t3])
     }
 
     // MARK: - MED Prediction
 
-    /// Compute MED (Median Edge Detector) prediction.
-    ///
-    /// Per ITU-T.87 Section 4.1.1, the MED predictor selects between
-    /// three neighbor pixels based on their gradient pattern:
-    ///
-    /// ```
-    ///   c b
-    ///   a x  (x is current pixel being predicted)
-    /// ```
-    ///
-    /// The prediction logic:
-    /// - If c >= max(a, b): Px = min(a, b)
-    /// - If c <= min(a, b): Px = max(a, b)
-    /// - Otherwise: Px = a + b - c
-    ///
-    /// - Parameters:
-    ///   - a: Left neighbor pixel value
-    ///   - b: Top neighbor pixel value
-    ///   - c: Top-left diagonal neighbor pixel value
-    /// - Returns: Predicted pixel value
+    @inline(__always)
     func computeMEDPrediction(a: Int, b: Int, c: Int) -> Int {
-        // MED prediction per ITU-T.87 Section 4.1.1
-        if c >= max(a, b) {
-            return min(a, b)
-        } else if c <= min(a, b) {
-            return max(a, b)
-        } else {
-            return a + b - c
-        }
+        let maxAB = max(a, b)
+        let minAB = min(a, b)
+        if c >= maxAB { return minAB }
+        if c <= minAB { return maxAB }
+        return a &+ b &- c
     }
 
     // MARK: - Bias Correction
 
-    /// Apply bias correction to prediction.
-    ///
-    /// Per ITU-T.87 Section 4.3.3, bias correction adjusts the prediction
-    /// based on accumulated context statistics to reduce systematic errors.
-    ///
-    /// - Parameters:
-    ///   - prediction: Base prediction value (from MED)
-    ///   - biasC: Bias correction value from context (C array)
-    ///   - sign: Context sign (+1 or -1)
-    /// - Returns: Bias-corrected prediction
+    @inline(__always)
     func applyBiasCorrection(prediction: Int, biasC: Int, sign: Int) -> Int {
-        // Bias correction per ITU-T.87 Section 4.3.3
-        // Corrected prediction = Px + sign × C[context]
-        let corrected = prediction + sign * biasC
-
-        // Clamp to valid range [0, MAXVAL]
+        let corrected = prediction &+ sign &* biasC
         return max(0, min(parameters.maxValue, corrected))
     }
 
     // MARK: - Golomb-Rice Decoding
 
-    /// Decode a Golomb-Rice encoded value.
-    ///
-    /// Per ITU-T.87 Section 4.4, Golomb-Rice decoding reverses the encoding:
-    /// - Read unary code (count zeros until a 1)
-    /// - Read k bits for the remainder
-    /// - Reconstruct value: (quotient << k) | remainder
-    ///
-    /// - Parameters:
-    ///   - unaryCount: Number of zeros in unary prefix (quotient)
-    ///   - remainder: Binary remainder (k bits)
-    ///   - k: Golomb-Rice parameter
-    /// - Returns: Decoded non-negative value (MErrval)
+    @inline(__always)
     func golombDecode(unaryCount: Int, remainder: Int, k: Int) -> Int {
-        // Reconstruct value from unary count and remainder
-        // value = (quotient << k) | remainder
         return (unaryCount << k) | remainder
     }
 
-    /// Compute total bit length for a Golomb-Rice encoded value.
-    ///
-    /// - Parameters:
-    ///   - value: Non-negative value to decode
-    ///   - k: Golomb-Rice parameter
-    /// - Returns: Total number of bits required
     func golombBitLength(value: Int, k: Int) -> Int {
         let quotient = value >> k
-        // Total bits = unary length (quotient + 1) + k bits for remainder
         return quotient + 1 + k
     }
 
     // MARK: - Error Unmapping
 
-    /// Unmap a non-negative error back to signed error.
-    ///
-    /// Per ITU-T.87 Section 4.4.1, this reverses the mapping:
-    /// - If MErrval is even: Errval = MErrval / 2
-    /// - If MErrval is odd: Errval = -(MErrval + 1) / 2
-    ///
-    /// - Parameter mappedError: Non-negative mapped error (MErrval)
-    /// - Returns: Signed prediction error
+    @inline(__always)
     func unmapError(_ mappedError: Int) -> Int {
-        if mappedError % 2 == 0 {
-            // Even: positive error
-            return mappedError / 2
-        } else {
-            // Odd: negative error
-            return -((mappedError + 1) / 2)
-        }
+        return (mappedError >> 1) ^ -(mappedError & 1)
     }
 
     // MARK: - Sample Reconstruction
 
-    /// Dequantise a signed prediction error for near-lossless reconstruction.
-    ///
-    /// Per ITU-T.87 Section 4.2.2, for NEAR > 0 the decoded Errval is a
-    /// quantised approximation; the raw (dequantised) error is:
-    /// - deq = Errval × (2·NEAR + 1)
-    ///
-    /// For lossless (NEAR = 0), the error is returned unchanged.
-    ///
-    /// - Parameter error: Signed quantised prediction error (after unmapping)
-    /// - Returns: Dequantised error suitable for sample reconstruction
+    @inline(__always)
     private func dequantizeError(_ error: Int) -> Int {
         guard near > 0 else { return error }
         return error * qbpp
     }
 
-    /// Reconstruct the sample value from prediction and error.
-    ///
-    /// Per ITU-T.87 Section A.4.4 (code segment A.7):
-    /// - Rx = Px' + Errval × (2·NEAR + 1)
-    /// - If Rx < −NEAR:       Rx += RANGE × (2·NEAR + 1)
-    /// - If Rx > MAXVAL+NEAR: Rx -= RANGE × (2·NEAR + 1)
-    /// - Clamp Rx to [0, MAXVAL]
-    ///
-    /// For lossless (NEAR=0) this simplifies to:
-    /// - Rx = Px' + Errval
-    /// - Modular wrap with RANGE = MAXVAL + 1
-    ///
-    /// - Parameters:
-    ///   - prediction: Bias-corrected prediction value
-    ///   - error: Signed (quantised) prediction error after unmapping
-    /// - Returns: Reconstructed sample value clamped to [0, MAXVAL]
+    @inline(__always)
     func reconstructSample(prediction: Int, error: Int) -> Int {
         let dequantized = dequantizeError(error)
         var sample = prediction + dequantized
 
-        // Per ITU-T.87 §A.4.4 fix_reconstructed_value:
-        // wrap range is RANGE × (2·NEAR + 1); thresholds are −NEAR and MAXVAL+NEAR.
-        let wrapRange = near == 0 ? range : range * qbpp
         if sample < -near {
             sample += wrapRange
         } else if sample > parameters.maxValue + near {
             sample -= wrapRange
         }
 
-        // Clamp to valid range [0, MAXVAL]
         return max(0, min(parameters.maxValue, sample))
     }
 

@@ -34,7 +34,7 @@ struct JPEGLSContextModel: ~Copyable {
     /// load and store (one bounds check, no copy-on-write uniqueness
     /// check) instead of up to ten accesses across four
     /// parallel arrays.
-    private struct ContextRecord: Sendable {
+    internal struct ContextRecord: Sendable {
         var a: Int
         var b: Int
         var c: Int
@@ -85,8 +85,11 @@ struct JPEGLSContextModel: ~Copyable {
 
     /// Hoisted per-pixel constants: RESET threshold and the B-update factor
     /// (2·NEAR + 1), so the update loop does not reload them per sample.
-    private let resetThreshold: Int
-    private let bFactor: Int
+    internal let resetThreshold: Int
+    internal let bFactor: Int
+
+    @inline(__always)
+    internal var rawContextsBuffer: ManagedBuffer<Void, ContextRecord> { contexts }
 
     // MARK: - Initialization
 
@@ -269,6 +272,7 @@ struct JPEGLSContextModel: ~Copyable {
     ///   - contextIndex: Context index (0 to 364)
     ///   - predictionError: The prediction error for this sample
     ///   - sign: Context sign (+1 or -1)
+    @inline(__always)
     mutating func updateContext(contextIndex: Int, predictionError: Int, sign: Int) {
         guard contextIndex >= 0 && contextIndex < Self.regularContextCount else {
             return
@@ -282,17 +286,13 @@ struct JPEGLSContextModel: ~Copyable {
         r.a += abs(predictionError)
 
         // Update B per ITU-T.87 §A.6.2: B[Q] += Errval × (2·NEAR + 1)
-        // The caller passes predictionError = sign × Errval (sign-denormalised),
-        // so sign × predictionError = Errval (sign-normalised error per the standard).
         let errval = sign * predictionError
         r.b += errval * bFactor
 
         // Reset when N reaches RESET value per ITU-T.87 Section A.6.2
-        // Reset check happens BEFORE N is incremented (per standard).
         if r.n >= resetThreshold {
             r.a >>= 1
             r.b >>= 1
-            // Use max(..., 1) to ensure N doesn't become zero after the right-shift.
             r.n = max(r.n >> 1, 1)
         }
 
@@ -300,8 +300,6 @@ struct JPEGLSContextModel: ~Copyable {
         r.n += 1
 
         // Bias correction per ITU-T.87 Section A.6.3 (code segment A.13).
-        // Inner clamping uses max/min instead of nested branches to reduce
-        // branch-predictor pressure in the hot encoding loop.
         if r.b + r.n <= 0 {
             r.b = max(r.b + r.n, 1 - r.n)
             r.c = max(r.c - 1, -128)
@@ -334,24 +332,16 @@ struct JPEGLSContextModel: ~Copyable {
     /// Golomb parameter from raw (A, N) statistics: smallest k ≥ 0 such
     /// that n << k ≥ a, capped at 16.
     @inline(__always)
-    private static func golombParameter(a: Int, n: Int) -> Int {
+    internal static func golombParameter(a: Int, n: Int) -> Int {
         guard n > 0 else { return 0 }
         guard a > n else { return 0 }
 
-        // Fast computation using integer bit widths:
-        // floor(log2(a)) − floor(log2(n)) gives a lower bound on k;
-        // at most one additional increment is ever needed.
-        let logA = Int.bitWidth - 1 - a.leadingZeroBitCount  // floor(log2(a))
-        let logN = Int.bitWidth - 1 - n.leadingZeroBitCount  // floor(log2(n))
-        var k = logA - logN
-        if n << k < a { k += 1 }
+        var k = n.leadingZeroBitCount &- a.leadingZeroBitCount
+        if (n &<< k) < a { k &+= 1 }
         return min(k, 16)
     }
 
-    /// Fetch the full per-pixel regular-mode coding state — bias correction
-    /// C[Q], Golomb parameter k, and the k = 0 error-correction term — from
-    /// a single context-record load. Identical results to calling `getC`,
-    /// `computeGolombParameter`, and `getErrorCorrection` separately.
+    @inline(__always)
     func pixelCodingState(contextIndex: Int) -> (biasC: Int, k: Int, errorCorrection: Int) {
         guard contextIndex >= 0 && contextIndex < Self.regularContextCount else {
             return (0, 0, 0)
@@ -388,6 +378,7 @@ struct JPEGLSContextModel: ~Copyable {
     }
 
     /// Get the current run index.
+    @inline(__always)
     var currentRunIndex: Int {
         return runIndex
     }
@@ -432,6 +423,7 @@ struct JPEGLSContextModel: ~Copyable {
     /// Used by the decoder when the run index is updated during run length decoding.
     ///
     /// - Parameter index: New run index value (0 to 31)
+    @inline(__always)
     mutating func setRunIndex(_ index: Int) {
         runIndex = max(0, min(31, index))
     }
@@ -440,6 +432,7 @@ struct JPEGLSContextModel: ~Copyable {
     ///
     /// Per ITU-T.87, the run index is decremented after a run interruption
     /// pixel has been decoded — not during run-length reading.
+    @inline(__always)
     mutating func decrementRunIndex() {
         if runIndex > 0 {
             runIndex -= 1
@@ -467,35 +460,26 @@ struct JPEGLSContextModel: ~Copyable {
     ///
     /// - Parameter riType: Run interruption type (0 or 1)
     /// - Returns: Golomb-Rice parameter k (non-negative integer)
+    @inline(__always)
     func computeRunInterruptionGolombK(riType: Int = 0) -> Int {
         let idx = min(max(riType, 0), 1)
         let n = runInterruptionN[idx]
         let a = runInterruptionA[idx]
         guard n > 0 else { return 0 }
-        let temp = a + (n >> 1) * idx
-        var k = 0
-        var threshold = n
-        while threshold < temp && k < 32 {
-            threshold <<= 1
-            k += 1
+        let temp = a &+ (n >> 1) &* idx
+        guard temp > n else { return 0 }
+        var k = n.leadingZeroBitCount &- temp.leadingZeroBitCount
+        if k < 32 && (n &<< k) < temp {
+            k &+= 1
         }
-        return k
+        return min(k, 32)
     }
 
-    /// Compute the error value from mapped error for run interruption.
-    ///
-    /// The inverse mapping uses nn (negative error count) and k to determine
-    /// the sign of the error.
-    ///
-    /// - Parameters:
-    ///   - temp: MErrval + riType (the adjusted mapped error)
-    ///   - k: Golomb-Rice parameter
-    ///   - riType: Run interruption type (0 or 1)
-    /// - Returns: Signed error value
+    @inline(__always)
     func computeRunInterruptionErrorValue(temp: Int, k: Int, riType: Int) -> Int {
         let idx = min(max(riType, 0), 1)
         let map = (temp & 1) != 0
-        let errorValueAbs = (temp + (map ? 1 : 0)) / 2
+        let errorValueAbs = (temp &+ (temp & 1)) >> 1
         let nn = runInterruptionNN[idx]
         let n = runInterruptionN[idx]
 
@@ -505,37 +489,18 @@ struct JPEGLSContextModel: ~Copyable {
         return errorValueAbs
     }
 
-    /// Compute the map value for run interruption error mapping (encoder).
-    ///
-    /// Implements the run-interruption error mapping defined by ITU-T.87.
-    ///
-    /// - Parameters:
-    ///   - errorValue: Signed error value
-    ///   - k: Golomb-Rice parameter
-    ///   - riType: Run interruption type (0 or 1)
-    /// - Returns: true if map applies
+    @inline(__always)
     func computeRunInterruptionMap(errorValue: Int, k: Int, riType: Int) -> Bool {
         let idx = min(max(riType, 0), 1)
         let nn = runInterruptionNN[idx]
         let n = runInterruptionN[idx]
 
         if k == 0 && errorValue > 0 && 2 * nn < n { return true }
-        if errorValue < 0 && 2 * nn >= n { return true }
-        if errorValue < 0 && k != 0 { return true }
+        if errorValue < 0 && (k != 0 || 2 * nn >= n) { return true }
         return false
     }
 
-    /// Update run interruption context statistics after coding one interruption sample.
-    ///
-    /// Per ITU-T.87 Code segment A.23:
-    /// - Track negative error count (nn)
-    /// - Update A using (eMappedErrorValue + 1 - riType) >> 1
-    /// - Reset when N reaches RESET
-    ///
-    /// - Parameters:
-    ///   - errorValue: Signed prediction error
-    ///   - eMappedErrorValue: The raw Golomb-decoded mapped error (before riType offset)
-    ///   - riType: Run interruption type (0 or 1)
+    @inline(__always)
     mutating func updateRunInterruptionContext(errorValue: Int, eMappedErrorValue: Int, riType: Int) {
         let idx = min(max(riType, 0), 1)
 

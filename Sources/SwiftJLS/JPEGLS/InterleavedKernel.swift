@@ -77,7 +77,7 @@ extension JPEGLSScalarKernel {
                 if mode == .line { context.setRunIndex(indices[group]) }
                 var x = 0
                 while x < width {
-                    if x & 63 == 0 { try checkpoint(); try writer.checkLimit() }
+                    if x & 1023 == 0 { try checkpoint(); try writer.checkLimit() }
                     var isRun = true
                     for c in active {
                         let n = near == 0 ? sourceNeighbours(views[c], width: width, x: x, y: y)
@@ -114,7 +114,7 @@ extension JPEGLSScalarKernel {
                             x = end
                         }
                         while x < width {
-                            if x & 63 == 0 { try checkpoint(); try writer.checkLimit() }
+                            if x & 1023 == 0 { try checkpoint(); try writer.checkLimit() }
                             var matches = true
                             for c in active {
                                 if abs(Int(views[c][y * width + x]) - neighbours[c].a) > near { matches = false; break }
@@ -188,6 +188,16 @@ extension JPEGLSScalarKernel {
     func decodeInterleaved(views: [ComponentSampleWriter], width: Int, height: Int,
                            mode: JPEGLSInterleaveMode, near: Int, parameters: JPEGLSPresetParameters,
                            bits: Int, reader: JPEGLSBitstreamReader, verticalSampling: [Int]? = nil, checkpoint: () throws -> Void) throws {
+        var mutableReader = reader
+        try decodeInterleaved(
+            views: views, width: width, height: height, mode: mode, near: near, parameters: parameters,
+            bits: bits, reader: &mutableReader, verticalSampling: verticalSampling, checkpoint: checkpoint
+        )
+    }
+
+    func decodeInterleaved<Reader: JPEGLSBitSource>(views: [ComponentSampleWriter], width: Int, height: Int,
+                           mode: JPEGLSInterleaveMode, near: Int, parameters: JPEGLSPresetParameters,
+                           bits: Int, reader: inout Reader, verticalSampling: [Int]? = nil, checkpoint: () throws -> Void) throws {
         guard (1...4).contains(views.count) else { throw CodecError(.unsupportedFeature, "Invalid component count.") }
         let decoder = try JPEGLSRegularModeDecoder(parameters: parameters, near: near)
         let run = try JPEGLSRunModeDecoder(parameters: parameters, near: near)
@@ -213,15 +223,15 @@ extension JPEGLSScalarKernel {
                             let scalar = ScalarSampleWriter(bytes: .init(rebasing: view.bytes[view.offset...]),
                                 littleEndian: view.littleEndian, sampleBytes: view.sampleBytes)
                             try decodeRow(into: scalar, rowStride: view.rowBytes / view.sampleBytes, row: y, width: view.width,
-                                edgeForThisRow: edge, reader: reader, decoder: decoder, runDecoder: run,
+                                edgeForThisRow: edge, reader: &reader, decoder: decoder, runDecoder: run,
                                 context: &context, parameters: parameters, near: near,
-                                limit: coding.limit, qbppBits: coding.qbppBits, checkpointMask: 63,
+                                limit: coding.limit, qbppBits: coding.qbppBits, checkpointMask: 1023,
                                 checkpoint: checkpoint)
                         } else {
                             try decodeRow(into: view, rowStride: view.width, row: y, width: view.width,
-                                edgeForThisRow: edge, reader: reader, decoder: decoder, runDecoder: run,
+                                edgeForThisRow: edge, reader: &reader, decoder: decoder, runDecoder: run,
                                 context: &context, parameters: parameters, near: near,
-                                limit: coding.limit, qbppBits: coding.qbppBits, checkpointMask: 63,
+                                limit: coding.limit, qbppBits: coding.qbppBits, checkpointMask: 1023,
                                 checkpoint: checkpoint)
                         }
                         indices[c] = context.currentRunIndex
@@ -230,11 +240,6 @@ extension JPEGLSScalarKernel {
             }
             return
         }
-        // The sample-interleaved owned destination is a packed UInt16 plane
-        // per component. Select its native format once within the storage
-        // borrow; odd base addresses remain valid for unaligned raw access.
-        // Padded, sparse, byte-sized and opposite-endian layouts use the same
-        // generic loop through their original checked component view.
         if views.allSatisfy({ $0.sampleBytes == 2 && $0.pixelStride == 2 &&
             $0.rowBytes % 2 == 0 && $0.rowBytes / 2 == width &&
             $0.width == width && $0.height == height }) {
@@ -244,22 +249,20 @@ extension JPEGLSScalarKernel {
             }
             if nativeViews.count == views.count {
                 try decodeSampleInterleaved(views: nativeViews, width: width, height: height,
-                    reader: reader, decoder: decoder, run: run, context: &context, parameters: parameters,
+                    reader: &reader, decoder: decoder, run: run, context: &context, parameters: parameters,
                     near: near, limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: checkpoint)
                 return
             }
         }
         try decodeSampleInterleaved(views: views, width: width, height: height,
-            reader: reader, decoder: decoder, run: run, context: &context, parameters: parameters,
+            reader: &reader, decoder: decoder, run: run, context: &context, parameters: parameters,
             near: near, limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: checkpoint)
     }
 
-    private func decodeSampleInterleaved<Writer: JPEGSampleWriter>(views: [Writer], width: Int, height: Int,
-                           reader: JPEGLSBitstreamReader, decoder: JPEGLSRegularModeDecoder, run: JPEGLSRunModeDecoder,
+    private func decodeSampleInterleaved<Writer: JPEGSampleWriter, Reader: JPEGLSBitSource>(views: [Writer], width: Int, height: Int,
+                           reader: inout Reader, decoder: JPEGLSRegularModeDecoder, run: JPEGLSRunModeDecoder,
                            context: inout JPEGLSContextModel, parameters: JPEGLSPresetParameters,
                            near: Int, limit: Int, qbppBits: Int, checkpoint: () throws -> Void) throws {
-        // Header and destination admission allow sample interleaving only
-        // at full resolution: every component uses this width and height.
         var edges = InlineArray<4, Int>(repeating: 0)
         var oldEdges = edges
         var neighbours = InlineArray<4, Neighbours>(repeating: .zero)
@@ -272,7 +275,7 @@ extension JPEGLSScalarKernel {
             }
             var x = 0
             while x < width {
-                if x & 63 == 0 { try checkpoint() }
+                if x & 1023 == 0 { try checkpoint() }
                 var isRun = true
                 for c in active {
                     let n = decodedNeighbours(views[c], width: width, x: x, y: y, edge: oldEdges[c]); neighbours[c] = n
@@ -280,7 +283,7 @@ extension JPEGLSScalarKernel {
                 }
                 if isRun {
                     let remaining = width - x
-                    let length = try readRunLength(reader: reader, runDecoder: run, context: &context, remainingInLine: remaining)
+                    let length = try readRunLength(reader: &reader, runDecoder: run, context: &context, remainingInLine: remaining)
                     for start in stride(from: x, to: x + length, by: 64) {
                         try checkpoint()
                         let end = min(x + length, start + 64)
@@ -294,7 +297,7 @@ extension JPEGLSScalarKernel {
                             let rb = y > 0 ? Int(views[c][(y - 1) * width + x]) : 0
                             let type = 0
                             let k = context.computeRunInterruptionGolombK(riType: type)
-                            let mapped = try readGolombCode(reader: reader, k: k, limit: adjustedLimit, qbppBits: qbppBits)
+                            let mapped = try readGolombCode(reader: &reader, k: k, limit: adjustedLimit, qbppBits: qbppBits)
                             let error = context.computeRunInterruptionErrorValue(temp: mapped + type, k: k, riType: type)
                             let value = run.reconstructSample(prediction: type == 1 ? ra : rb,
                                 error: type == 1 ? error : error * (rb >= ra ? 1 : -1))
@@ -306,7 +309,7 @@ extension JPEGLSScalarKernel {
                 } else {
                     for c in active {
                         let n = neighbours[c]
-                        let value = try decodeSinglePixel(reader: reader, decoder: decoder, runDecoder: run,
+                        let value = try decodeSinglePixel(reader: &reader, decoder: decoder, runDecoder: run,
                             context: &context, a: n.a, b: n.b, c: n.c,
                             q1: decoder.quantizeGradient(n.d - n.b), q2: decoder.quantizeGradient(n.b - n.c),
                             q3: decoder.quantizeGradient(n.c - n.a), parameters: parameters, near: near,

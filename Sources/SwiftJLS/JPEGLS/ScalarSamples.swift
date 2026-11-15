@@ -134,19 +134,36 @@ struct ScalarSampleWriter {
     }
     /// Bounded run fill. The caller checks cancellation between <=256-sample
     /// groups and proves that the range contains only this row's sample bytes.
+    @inline(__always)
     func fill(_ value: UInt16, range: Range<Int>) {
         var i = range.lowerBound
+        guard let base = bytes.baseAddress else { return }
         if sampleBytes == 1 {
-            let packed = UInt32(UInt8(truncatingIfNeeded: value)) * 0x01010101
+            let v8 = UInt8(truncatingIfNeeded: value)
+            let vec16 = SIMD16<UInt8>(repeating: v8)
+            while i + 16 <= range.upperBound {
+                withUnsafeBytes(of: vec16) { src in
+                    base.advanced(by: i).copyMemory(from: src.baseAddress!, byteCount: 16)
+                }
+                i += 16
+            }
+            let packed = UInt32(v8) * 0x01010101
             while i + 4 <= range.upperBound {
                 bytes.storeBytes(of: packed, toByteOffset: i, as: UInt32.self)
                 i += 4
             }
         } else {
             let ordered = littleEndian ? value.littleEndian : value.bigEndian
+            let vec16 = SIMD16<UInt16>(repeating: ordered)
+            while i + 16 <= range.upperBound {
+                withUnsafeBytes(of: vec16) { src in
+                    base.advanced(by: i &* 2).copyMemory(from: src.baseAddress!, byteCount: 32)
+                }
+                i += 16
+            }
             let packed = UInt64(ordered) * 0x0001000100010001
             while i + 4 <= range.upperBound {
-                bytes.storeBytes(of: packed, toByteOffset: i * 2, as: UInt64.self)
+                bytes.storeBytes(of: packed, toByteOffset: i &* 2, as: UInt64.self)
                 i += 4
             }
         }

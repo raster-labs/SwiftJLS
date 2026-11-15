@@ -134,42 +134,14 @@ struct JPEGLSRunMode: Sendable {
 
     // MARK: - J[RUNindex] Mapping
 
-    /// Standard J table per ITU-T.87 Annex J (Table J.1)
-    private static let jTable: [Int] = [
-        0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3,
-        4, 4, 5, 5, 6, 6, 7, 7, 8, 9, 10, 11, 12, 13, 14, 15
-    ]
-
-    /// Compute the number of bits required to encode a run length.
-    ///
-    /// Per ITU-T.87 Annex J, J[RUNindex] determines the run length
-    /// block size as 2^J[RUNindex].
-    ///
-    /// - Parameter runIndex: Current run index (0 to 31)
-    /// - Returns: Number of bits for encoding run length
+    @inline(__always)
     func computeJ(runIndex: Int) -> Int {
-        let idx = max(0, min(runIndex, Self.jTable.count - 1))
-        return Self.jTable[idx]
+        let clamped = max(0, min(runIndex, 31))
+        let word: UInt64 = clamped < 16 ? 0x3333_2222_1111_0000 : 0xFEDC_BA98_7766_5544
+        return Int((word >> UInt64((clamped & 15) &* 4)) & 0xF)
     }
 
-    // MARK: - Run-Length Encoding
-
-    /// Encode a run of matching pixels.
-    ///
-    /// Per ITU-T.87 Section 4.5, run encoding consists of:
-    /// 1. Determine J = J[RUNindex] (number of bits)
-    /// 2. While run continues and exceeds 2^J samples:
-    ///    - Output a '1' bit (indicating continuation)
-    ///    - Subtract 2^J from run length
-    /// 3. When run length < 2^J:
-    ///    - Output a '0' bit (indicating termination)
-    ///    - Output run length remainder in J bits
-    ///
-    /// - Parameters:
-    ///   - runLength: Total length of the run
-    ///   - runIndex: Current run index (determines J value)
-    ///   - remainingInLine: Pixels remaining in line (for end-of-line detection)
-    /// - Returns: Encoded run result with bit sequences
+    @inline(__always)
     func encodeRunLength(runLength: Int, runIndex: Int, remainingInLine: Int = Int.max) -> EncodedRun {
         var currentRunIndex = runIndex
         var remainingLength = runLength

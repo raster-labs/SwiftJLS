@@ -41,17 +41,45 @@ struct JPEGLSBitstreamWriter {
         self.bitsInBuffer = 0
     }
 
+    @inline(__always)
     private mutating func append(_ value: UInt8) {
         guard bytes.count < maximumBytes else { exceededLimit = true; return }
         bytes.append(value)
     }
+    @inline(__always)
     private mutating func append<S: Sequence>(contentsOf values: S) where S.Element == UInt8 {
         for value in values { append(value) }
     }
+    @inline(__always)
+    mutating func appendRawBytes(_ slice: [UInt8]) {
+        let available = maximumBytes - bytes.count
+        if slice.count <= available {
+            bytes.append(contentsOf: slice)
+        } else {
+            if available > 0 {
+                bytes.append(contentsOf: slice.prefix(available))
+            }
+            exceededLimit = true
+        }
+    }
+    @inline(__always)
     func checkLimit() throws {
         guard !exceededLimit else {
             throw CodecError(.resourceLimitExceeded, "Compressed output limit exceeded.")
         }
+    }
+
+    /// Consumes and returns the raw `[UInt8]` buffer after verifying flush & limits.
+    mutating func consumeRawBytes() throws -> [UInt8] {
+        try checkLimit()
+        guard bitsInBuffer == 0 else {
+            throw JPEGLSError.internalError(
+                reason: "Bit buffer not flushed, \(bitsInBuffer) bits remaining"
+            )
+        }
+        let out = bytes
+        bytes = []
+        return out
     }
 
     /// Get the written data
@@ -153,39 +181,53 @@ struct JPEGLSBitstreamWriter {
     /// - Parameters:
     ///   - bits: The bits to write as UInt32
     ///   - count: Number of bits to write (1-32)
+    @inline(__always)
+    private mutating func flushCompleteBytes() {
+        while bitsInBuffer >= 8 {
+            let shift = bitsInBuffer &- 8
+            let byte = UInt8(truncatingIfNeeded: bitBuffer >> UInt64(shift))
+            append(byte)
+            bitsInBuffer &-= 8
+
+            // Bit-level stuffing per ISO 14495-1 §9.1:
+            // After emitting a byte of 0xFF, insert a 0 stuff bit at the next bit position.
+            if byte == 0xFF {
+                bitBuffer &= ~(UInt64(1) << UInt64(bitsInBuffer))
+                bitsInBuffer &+= 1
+            }
+        }
+    }
+
+    @inline(__always)
     mutating func writeBits(_ bits: UInt32, count: Int) {
         guard count > 0 && count <= 32 else {
             return
         }
 
         // Mask to get only the requested bits
-        let mask: UInt32 = count < 32 ? ((1 << count) - 1) : UInt32.max
+        let mask: UInt32 = count < 32 ? ((1 &<< count) &- 1) : UInt32.max
         let maskedBits = bits & mask
 
-        // Add bits to buffer. bitsInBuffer never exceeds 7 on entry, so
-        // 7 + 32 = 39 bits always fit in the 64-bit accumulator. Bits above
-        // position `bitsInBuffer` are stale garbage from earlier shifts —
-        // extraction below masks them out; do not assume they are zero.
+        // Accumulate up to 31 residual bits between calls so `31 + 32 = 63` always fits in UInt64.
         bitBuffer = (bitBuffer << UInt64(count)) | UInt64(maskedBits)
-        bitsInBuffer += count
+        bitsInBuffer &+= count
 
-        // Write complete bytes with bit-level stuffing
-        while bitsInBuffer >= 8 {
-            let shift = bitsInBuffer - 8
-            let byte = UInt8(truncatingIfNeeded: bitBuffer >> UInt64(shift))
-            append(byte)
-            bitsInBuffer -= 8
+        guard bitsInBuffer >= 32 else { return }
 
-            // Bit-level stuffing per ISO 14495-1 §9.1:
-            // After emitting a byte of 0xFF, insert a 0 stuff bit at the next bit position.
-            // This clear is REQUIRED: the bit at position `bitsInBuffer` is the
-            // just-emitted 0xFF's least-significant bit (a 1); clearing it turns
-            // that position into the 0 stuff bit when bitsInBuffer grows past it.
-            if byte == 0xFF {
-                bitBuffer &= ~(UInt64(1) << UInt64(bitsInBuffer))
-                bitsInBuffer += 1
-            }
+        // SWAR 4-byte fast path when none of the top 4 bytes is 0xFF (~98.5% of flushes).
+        let shift32 = bitsInBuffer &- 32
+        let top32 = UInt32(truncatingIfNeeded: bitBuffer >> UInt64(shift32))
+        let inv = ~top32
+        if ((inv &- 0x01010101) & ~inv & 0x80808080) == 0 && bytes.count &+ 4 <= maximumBytes {
+            bytes.append(UInt8(truncatingIfNeeded: top32 >> 24))
+            bytes.append(UInt8(truncatingIfNeeded: top32 >> 16))
+            bytes.append(UInt8(truncatingIfNeeded: top32 >> 8))
+            bytes.append(UInt8(truncatingIfNeeded: top32))
+            bitsInBuffer = shift32
+            return
         }
+
+        flushCompleteBytes()
     }
 
     /// Flush remaining bits in buffer
@@ -194,6 +236,9 @@ struct JPEGLSBitstreamWriter {
     /// final flushed byte because it is immediately followed by a marker (whose
     /// MSB = 1 signals to the decoder that it is not a stuffed byte).
     mutating func flush() {
+        if bitsInBuffer >= 8 {
+            flushCompleteBytes()
+        }
         if bitsInBuffer > 0 {
             let shift = 8 - bitsInBuffer
             let byte = UInt8(truncatingIfNeeded: (bitBuffer << UInt64(shift)) & 0xFF)
@@ -209,28 +254,18 @@ struct JPEGLSBitstreamWriter {
     }
 
     /// Write a unary code: n zero bits followed by a single 1 bit.
-    ///
-    /// This is a performance-optimised alternative to calling `writeBits(0, count: 1)` in a loop
-    /// followed by `writeBits(1, count: 1)`.  Writing in batches of up to 32 bits reduces
-    /// function-call overhead significantly in the Golomb-Rice coding hot path.
-    ///
-    /// - Parameter n: Number of leading zero bits (must be ≥ 0)
+    @inline(__always)
     mutating func writeUnaryCode(_ n: Int) {
         var remaining = n
         while remaining >= 32 {
             writeBits(0, count: 32)
             remaining -= 32
         }
-        // Write the remaining zeros and the terminating 1 in one call
-        // (max count = 32 when remaining == 31).
         writeBits(1, count: remaining + 1)
     }
 
     /// Write n consecutive 1 bits (used for Golomb run-length continuation codes).
-    ///
-    /// This is a performance-optimised alternative to calling `writeBits(1, count: 1)` in a loop.
-    ///
-    /// - Parameter n: Number of 1 bits to write (must be ≥ 0)
+    @inline(__always)
     mutating func writeOnes(_ n: Int) {
         var remaining = n
         while remaining >= 32 {
@@ -238,7 +273,7 @@ struct JPEGLSBitstreamWriter {
             remaining -= 32
         }
         if remaining > 0 {
-            writeBits(UInt32((1 << remaining) - 1), count: remaining)
+            writeBits(UInt32((1 &<< remaining) &- 1), count: remaining)
         }
     }
 

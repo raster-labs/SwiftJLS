@@ -168,6 +168,11 @@ public struct Encoder: Sendable {
 
     /// `@concurrent` explicitly selects the generic executor (available since Swift 6.2).
     @concurrent public func encode(_ image: Image, options: EncodeOptions = .init()) async throws -> EncodedImage {
+        try encodeSynchronously(image, options: options)
+    }
+
+    /// Zero-hop synchronous JPEG-LS encode on the caller's thread.
+    public func encodeSynchronously(_ image: Image, options: EncodeOptions = .init()) throws -> EncodedImage {
         try Task.checkCancellation()
         try validateOperation(options.resourceLimits, options.executionPolicy)
         guard image.storage.byteCount <= options.resourceLimits.maximumDecodedBytes,
@@ -204,13 +209,31 @@ public struct Decoder: Sendable {
         }
         return try ScalarCodec.inspect(data, options: options, codecOptions: configuration.codecOptions)
     }
+
+    /// Alias for synchronous inspection matching the sibling codec family contract.
+    public func inspectSynchronously(_ data: Data, options: DecodeOptions = .init()) throws -> ImageInfo {
+        try inspect(data, options: options)
+    }
+
     @concurrent public func decode(_ data: Data, options: DecodeOptions = .init()) async throws -> DecodedImage {
+        try decodeSynchronously(data, options: options)
+    }
+
+    @concurrent public func decode(_ data: Data, into destination: ImageDestination,
+                                  options: DecodeOptions = .init()) async throws -> DecodedImage {
+        try decodeSynchronously(data, into: destination, options: options)
+    }
+
+    /// Zero-hop synchronous JPEG-LS decode allocating owned sample storage.
+    public func decodeSynchronously(_ data: Data, options: DecodeOptions = .init()) throws -> DecodedImage {
         try Task.checkCancellation()
         try validateInput(data, options)
         return try ScalarCodec.decode(data, into: nil, options: options, codecOptions: configuration.codecOptions)
     }
-    @concurrent public func decode(_ data: Data, into destination: ImageDestination,
-                                  options: DecodeOptions = .init()) async throws -> DecodedImage {
+
+    /// Zero-hop synchronous JPEG-LS decode into caller-supplied destination storage.
+    public func decodeSynchronously(_ data: Data, into destination: ImageDestination,
+                                    options: DecodeOptions = .init()) throws -> DecodedImage {
         try Task.checkCancellation()
         try validateInput(data, options)
         // Preflight rejection performs no write; the caller may still initialise it.
@@ -219,9 +242,7 @@ public struct Decoder: Sendable {
 }
 
 private func validateOperation(_ limits: ResourceLimits, _ policy: ExecutionPolicy) throws {
-    if case .required(.accelerated) = policy {
-        throw CodecError(.backendUnavailable, "No accelerated backend is implemented.")
-    }
+    _ = try AccelerationRuntime.resolve(policy: policy)
 }
 private func validateInput(_ data: Data, _ options: DecodeOptions) throws {
     try validateOperation(options.resourceLimits, options.executionPolicy)

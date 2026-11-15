@@ -37,7 +37,6 @@ func runPayload(_ options: Options) async throws {
     case "accelerated": execution = .required(.accelerated)
     default: throw UsageError(message: "Unsupported --backend value.")
     }
-    guard values["--backend"] != "accelerated" else { throw CodecError(.backendUnavailable, "Accelerated backend unavailable.") }
     let copy: CopyPolicy
     switch values["--copy-policy", default: "require-sharing"] {
     case "require-sharing": copy = .requireSharedStorage
@@ -67,11 +66,18 @@ func runPayload(_ options: Options) async throws {
     let configuration = try EncoderConfiguration(mode: mode)
     let budget = StreamBudget(limits: limits)
     let stream = try InputStreamReader(path: input, budget: budget)
-    var report: [String: Any] = ["command": command, "success": true, "backend": "scalarCPU"]
+    let isScalarRequested: Bool
+    if case .scalarCPU = execution { isScalarRequested = true } else { isScalarRequested = false }
+    var report: [String: Any] = [
+        "command": command,
+        "success": true,
+        "backend": isScalarRequested ? "scalarCPU" : (AccelerationRuntime.isAvailable ? "accelerated" : "scalarCPU"),
+    ]
     if command == "encode" {
         let image = try stream.nrrdImage()
         let encoded = try await Encoder(configuration: configuration).encode(image,
             options: .init(resourceLimits: budget.remainingLimits(), executionPolicy: execution, copyPolicy: copy))
+        report["backend"] = encoded.report.backend == .accelerated ? "accelerated" : "scalarCPU"
         try publish(path: values["--output", default: "-"], overwrite: options.overwrite, budget: budget) { fd in
             try encoded.data.withUnsafeBytes { try writeBytes($0, fd: fd, budget: budget) }
         }
@@ -89,11 +95,13 @@ func runPayload(_ options: Options) async throws {
                 throw CodecError(.unsupportedFeature, "NRRD output requires one greyscale component with 16 meaningful bits.")
             }
             let decoded = try await decoder.decode(data, options: decodeOptions)
+            report["backend"] = decoded.report.backend == .accelerated ? "accelerated" : "scalarCPU"
             try publish(path: values["--output", default: "-"], overwrite: options.overwrite, budget: budget) { fd in
                 try writeNRRD(decoded.image, fd: fd, budget: budget)
             }
         } else if command == "validate" {
-            _ = try await decoder.decode(data, options: decodeOptions)
+            let decoded = try await decoder.decode(data, options: decodeOptions)
+            report["backend"] = decoded.report.backend == .accelerated ? "accelerated" : "scalarCPU"
         }
     }
     try budget.check()

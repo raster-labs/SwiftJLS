@@ -180,23 +180,34 @@ final class JPEGLSBitstreamReader {
             bitRegionStart = position
         }
         let count = bytes.count
-        while bitsInBuffer <= 48 && position < count {
-            let byte = bytes[position]
-            if byte == 0xFF && position + 1 < count {
-                let next = bytes[position + 1]
-                if next < 0x80 {
-                    // Stuffed pair: 0xFF (8 bits) + stuff bit dropped + 7 data bits.
-                    position += 2
-                    bitBuffer = (bitBuffer << 15) | (0xFF << 7) | UInt64(next & 0x7F)
-                    bitsInBuffer += 15
-                    continue
+        bytes.withUnsafeBytes { raw in
+            guard let base = raw.baseAddress?.assumingMemoryBound(to: UInt8.self) else { return }
+            while bitsInBuffer <= 32 && position &+ 4 <= count {
+                let next32 = UInt32(bigEndian: UnsafeRawPointer(base.advanced(by: position)).loadUnaligned(as: UInt32.self))
+                let inv = ~next32
+                if ((inv &- 0x01010101) & ~inv & 0x80808080) == 0 {
+                    position &+= 4
+                    bitBuffer = (bitBuffer << 32) | UInt64(next32)
+                    bitsInBuffer &+= 32
+                } else {
+                    break
                 }
-                // next >= 0x80: marker follows. The FF is added below; decoding
-                // should finish before any marker bytes are consumed.
             }
-            position += 1
-            bitBuffer = (bitBuffer << 8) | UInt64(byte)
-            bitsInBuffer += 8
+            while bitsInBuffer <= 48 && position < count {
+                let byte = base[position]
+                if byte == 0xFF && position &+ 1 < count {
+                    let next = base[position &+ 1]
+                    if next < 0x80 {
+                        position &+= 2
+                        bitBuffer = (bitBuffer << 15) | (0xFF << 7) | UInt64(next & 0x7F)
+                        bitsInBuffer &+= 15
+                        continue
+                    }
+                }
+                position &+= 1
+                bitBuffer = (bitBuffer << 8) | UInt64(byte)
+                bitsInBuffer &+= 8
+            }
         }
     }
 
@@ -337,5 +348,115 @@ final class JPEGLSBitstreamReader {
         bitsConsumedInRegion = 0
         self.position = position
         bitRegionStart = position
+    }
+}
+
+/// Protocol shared by `JPEGLSFastBitReader` (zero-copy register-resident scan cursor)
+/// and `JPEGLSBitstreamReader` (class-based reader retained for existing unit tests).
+protocol JPEGLSBitSource {
+    mutating func readBits(_ count: Int) throws -> UInt32
+    mutating func readUnaryCount(maximum: Int) throws -> Int
+}
+
+extension JPEGLSBitstreamReader: JPEGLSBitSource {}
+
+/// Stack-resident zero-copy bitstream reader over a scoped `UnsafeRawBufferPointer`
+/// slice of a JPEG-LS entropy scan or restart interval.
+struct JPEGLSFastBitReader: JPEGLSBitSource {
+    private let base: UnsafePointer<UInt8>?
+    private let count: Int
+    private var position: Int = 0
+    private var bitBuffer: UInt64 = 0
+    private var bitsInBuffer: Int = 0
+
+    @inline(__always)
+    init(borrowing buffer: UnsafeRawBufferPointer) {
+        self.base = buffer.baseAddress?.assumingMemoryBound(to: UInt8.self)
+        self.count = buffer.count
+    }
+
+    @inline(__always)
+    private mutating func refill() {
+        guard let base else { return }
+        while bitsInBuffer <= 32 && position &+ 4 <= count {
+            let next32 = UInt32(bigEndian: UnsafeRawPointer(base.advanced(by: position)).loadUnaligned(as: UInt32.self))
+            let inv = ~next32
+            if ((inv &- 0x01010101) & ~inv & 0x80808080) == 0 {
+                position &+= 4
+                bitBuffer = (bitBuffer << 32) | UInt64(next32)
+                bitsInBuffer &+= 32
+            } else {
+                break
+            }
+        }
+        while bitsInBuffer <= 48 && position < count {
+            let byte = base[position]
+            if byte == 0xFF && position &+ 1 < count {
+                let next = base[position &+ 1]
+                if next < 0x80 {
+                    position &+= 2
+                    bitBuffer = (bitBuffer << 15) | (0xFF << 7) | UInt64(next & 0x7F)
+                    bitsInBuffer &+= 15
+                    continue
+                }
+            }
+            position &+= 1
+            bitBuffer = (bitBuffer << 8) | UInt64(byte)
+            bitsInBuffer &+= 8
+        }
+    }
+
+    @inline(__always)
+    mutating func readBits(_ bitCount: Int) throws -> UInt32 {
+        guard bitCount > 0 && bitCount <= 32 else {
+            throw JPEGLSError.internalError(reason: "Invalid bit count: \(bitCount)")
+        }
+        if bitsInBuffer < bitCount {
+            refill()
+            guard bitsInBuffer >= bitCount else {
+                throw JPEGLSError.prematureEndOfStream
+            }
+        }
+        let shift = bitsInBuffer &- bitCount
+        let mask: UInt32 = bitCount < 32 ? ((1 &<< bitCount) &- 1) : UInt32.max
+        let bits = UInt32(truncatingIfNeeded: bitBuffer >> UInt64(shift)) & mask
+        bitsInBuffer = shift
+        return bits
+    }
+
+    @inline(__always)
+    mutating func readUnaryCount(maximum: Int = Int.max) throws -> Int {
+        var totalZeros = 0
+        while true {
+            if bitsInBuffer == 0 {
+                refill()
+                guard bitsInBuffer > 0 else {
+                    throw JPEGLSError.prematureEndOfStream
+                }
+            }
+            let window = bitBuffer &<< (64 &- bitsInBuffer)
+            let zeros = min(window.leadingZeroBitCount, bitsInBuffer)
+            guard zeros <= maximum - totalZeros else {
+                throw CodecError(.malformedInput, "Golomb prefix exceeds its coding limit.")
+            }
+            if zeros < bitsInBuffer {
+                bitsInBuffer &-= zeros &+ 1
+                return totalZeros &+ zeros
+            }
+            totalZeros &+= bitsInBuffer
+            bitsInBuffer = 0
+        }
+    }
+
+    @inline(__always)
+    mutating func validateEndOfScan() throws {
+        refill()
+        guard position == count, bitsInBuffer <= 7 else {
+            throw CodecError(.malformedInput, "Unexpected entropy data after the final sample.")
+        }
+        let mask: UInt64 = (1 << bitsInBuffer) - 1
+        guard (bitBuffer & mask) == 0 else {
+            throw CodecError(.malformedInput, "Nonzero JPEG-LS padding bits.")
+        }
     }
 }

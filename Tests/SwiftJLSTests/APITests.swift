@@ -37,9 +37,12 @@ import SwiftJLS
         #expect(throws: CodecError(.resourceLimitExceeded, "Compressed input exceeds operation limits.")) {
             try decoder.inspect(Data([1, 2, 3]), options: DecodeOptions(resourceLimits: small))
         }
-        #expect(throws: CodecError(.backendUnavailable, "No accelerated backend is implemented.")) {
-            try decoder.inspect(Data(), options: DecodeOptions(executionPolicy: .required(.accelerated)))
+        AccelerationRuntime.withSimulatedUnavailable {
+            #expect(throws: CodecError(.backendUnavailable, "No accelerated backend is implemented.")) {
+                try decoder.inspect(Data(), options: DecodeOptions(executionPolicy: .required(.accelerated)))
+            }
         }
+        #expect(decoder.capabilities.availableBackends.contains(.accelerated))
         #expect(throws: CodecError.self) { try OwnedImageStorage(byteCount: 5, limits: small) }
         #expect(throws: CodecError.self) { try ResourceLimits(deadlineSeconds: .infinity) }
         #expect(throws: CodecError.self) { try ResourceLimits(maximumWorkers: 0) }
