@@ -152,10 +152,17 @@ def classify(frames, size=None):
         growth += [native + 'Array.append(__owned A) -> ()',
             'generic specialization <[SwiftJLS.ComponentSampleWriter], SwiftJLS.NativeUInt16Writer> of (extension in Swift):Swift.Sequence.compactMap<A>((A.Element) throws -> A1?) throws -> [A1]']
         caller = 3 + len(growth)
-        kernel = 'SwiftJLS.JPEGLSScalarKernel.decodeInterleaved(views: [SwiftJLS.ComponentSampleWriter], width: Swift.Int, height: Swift.Int, mode: SwiftJLS.JPEGLSInterleaveMode, near: Swift.Int, parameters: SwiftJLS.JPEGLSPresetParameters, bits: Swift.Int, reader: SwiftJLS.JPEGLSBitstreamReader, verticalSampling: [Swift.Int]?, checkpoint: () throws -> ()) throws -> ()'
+        kernel_re = re.compile(
+            r'SwiftJLS\.JPEGLSScalarKernel\.decodeInterleaved'
+            r'(?:<A where A: SwiftJLS\.JPEGLSBitSource>)?'
+            r'\(views: \[SwiftJLS\.ComponentSampleWriter\], width: Swift\.Int, height: Swift\.Int, '
+            r'mode: SwiftJLS\.JPEGLSInterleaveMode, near: Swift\.Int, parameters: SwiftJLS\.JPEGLSPresetParameters, '
+            r'bits: Swift\.Int, reader: (?:SwiftJLS\.JPEGLSBitstreamReader|inout A), '
+            r'verticalSampling: \[Swift\.Int\]\?, checkpoint: \(\) throws -> \(\)\) throws -> \(\)$'
+        )
         if (frames[3:caller] == growth and len(frames) > caller + 1
-                and frames[caller].endswith(kernel)
-                and re.match(r'^closure #7 \(Swift.UnsafeMutableRawBufferPointer\) throws -> \(\) in static SwiftJLS.ComponentCodec.decode\(', frames[caller + 1])):
+                and kernel_re.search(frames[caller])
+                and re.match(r'^closure #\d+ \(Swift\.UnsafeMutableRawBufferPointer\) throws -> \(\) in static SwiftJLS\.ComponentCodec\.decode\(', frames[caller + 1])):
             return 'algorithm_state'
     if any(s in allocation for s in ['<SwiftJLS.ComponentSampleReader>', '<SwiftJLS.ComponentSampleWriter>', '<SwiftJLS.HPComponentReader>', 'SwiftJLS.JPEGLSScalarKernel.PredictorRows', 'SwiftJLS.JPEGLSScalarKernel.Neighbours']):
         return 'algorithm_state'
@@ -189,7 +196,7 @@ def classify(frames, size=None):
             # Five Int preset values (ScalarCodec:103, ComponentCodec:127),
             # or five UInt8 HP marker bytes (ComponentCodec:119).
             return 'metadata_and_descriptors'
-        if size == 34 and re.match(r'^closure #3 \(Swift.UnsafeRawBufferPointer\) throws -> \(\) in closure #1 \(\) throws -> SwiftJLS.EncodedImage in static SwiftJLS.ComponentCodec.encode\(', entry):
+        if size == 34 and re.match(r'^closure #\d+ \(Swift\.UnsafeRawBufferPointer\) throws -> \(\) in closure #1 \(\) throws -> SwiftJLS\.EncodedImage in static SwiftJLS\.ComponentCodec\.encode\(', entry):
             # One two-byte ScanComponent selector, ComponentCodec:170-172;
             # exactly one allocation per non-interleaved component scan.
             return 'metadata_and_descriptors'
