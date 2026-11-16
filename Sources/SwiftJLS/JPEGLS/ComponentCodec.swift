@@ -9,6 +9,204 @@ enum ComponentCodec {
         let offset: Int, rowBytes: Int, pixelStride: Int
         let width: Int, height: Int, horizontal: Int, vertical: Int
     }
+
+    @inline(__always)
+    private static func isPackedInterleavedTriplet(
+        _ locations: [Location],
+        planesCount: Int,
+        sampleBytes: Int,
+        width: Int,
+        height: Int
+    ) -> Bool {
+        guard planesCount == 1, locations.count == 3 else { return false }
+        let pStride = 3 * sampleBytes
+        let l0 = locations[0], l1 = locations[1], l2 = locations[2]
+        return l0.width == width && l0.height == height &&
+            l1.width == width && l1.height == height &&
+            l2.width == width && l2.height == height &&
+            l0.pixelStride == pStride && l1.pixelStride == pStride && l2.pixelStride == pStride &&
+            l0.rowBytes == l1.rowBytes && l1.rowBytes == l2.rowBytes &&
+            l1.offset == l0.offset + sampleBytes &&
+            l2.offset == l0.offset + 2 * sampleBytes
+    }
+
+    private static func deinterleaveTriplet(
+        from bytes: UnsafeRawBufferPointer,
+        baseOffset: Int,
+        rowBytes: Int,
+        width: Int,
+        height: Int,
+        sampleBytes: Int,
+        into planar: inout [UInt8],
+        workers: Int,
+        budget: CodecBudget
+    ) throws {
+        let planeSamples = width * height
+        try planar.withUnsafeMutableBytes { dstRaw in
+            let sharedSrc = SendableRawBorrow(buffer: bytes)
+            let sharedDst = SendableMutableRawBorrow(buffer: dstRaw)
+            let rowBands = workers > 1 && height >= 16 ? min(workers, height) : 1
+            let bandRows = (height + rowBands - 1) / rowBands
+
+            @Sendable
+            func processRows(_ y0: Int, _ y1: Int) throws {
+                let srcBase = sharedSrc.buffer.baseAddress!.assumingMemoryBound(to: UInt8.self)
+                let dstBase = sharedDst.buffer.baseAddress!.assumingMemoryBound(to: UInt8.self)
+                if sampleBytes == 1 {
+                    let p0 = dstBase
+                    let p1 = dstBase + planeSamples
+                    let p2 = dstBase + 2 * planeSamples
+                    for y in y0..<y1 {
+                        if (y & 15) == 0 { try budget.check() }
+                        let sRow = srcBase + baseOffset + y &* rowBytes
+                        let dOff = y &* width
+                        var x = 0
+                        while x &+ 4 <= width {
+                            let sx = x &* 3
+                            p0[dOff &+ x] = sRow[sx]
+                            p1[dOff &+ x] = sRow[sx &+ 1]
+                            p2[dOff &+ x] = sRow[sx &+ 2]
+                            p0[dOff &+ x &+ 1] = sRow[sx &+ 3]
+                            p1[dOff &+ x &+ 1] = sRow[sx &+ 4]
+                            p2[dOff &+ x &+ 1] = sRow[sx &+ 5]
+                            p0[dOff &+ x &+ 2] = sRow[sx &+ 6]
+                            p1[dOff &+ x &+ 2] = sRow[sx &+ 7]
+                            p2[dOff &+ x &+ 2] = sRow[sx &+ 8]
+                            p0[dOff &+ x &+ 3] = sRow[sx &+ 9]
+                            p1[dOff &+ x &+ 3] = sRow[sx &+ 10]
+                            p2[dOff &+ x &+ 3] = sRow[sx &+ 11]
+                            x &+= 4
+                        }
+                        while x < width {
+                            let sx = x &* 3
+                            p0[dOff &+ x] = sRow[sx]
+                            p1[dOff &+ x] = sRow[sx &+ 1]
+                            p2[dOff &+ x] = sRow[sx &+ 2]
+                            x &+= 1
+                        }
+                    }
+                } else {
+                    let srcRaw = sharedSrc.buffer.baseAddress!
+                    let dstRawPtr = sharedDst.buffer.baseAddress!
+                    let planeBytes = planeSamples &* 2
+                    for y in y0..<y1 {
+                        if (y & 15) == 0 { try budget.check() }
+                        let sRowByte = baseOffset + y &* rowBytes
+                        let dRowByte = (y &* width) &* 2
+                        for x in 0..<width {
+                            let sb = sRowByte &+ x &* 6
+                            let db = dRowByte &+ x &* 2
+                            let w0 = srcRaw.loadUnaligned(fromByteOffset: sb, as: UInt16.self)
+                            let w1 = srcRaw.loadUnaligned(fromByteOffset: sb &+ 2, as: UInt16.self)
+                            let w2 = srcRaw.loadUnaligned(fromByteOffset: sb &+ 4, as: UInt16.self)
+                            dstRawPtr.storeBytes(of: w0, toByteOffset: db, as: UInt16.self)
+                            dstRawPtr.storeBytes(of: w1, toByteOffset: planeBytes &+ db, as: UInt16.self)
+                            dstRawPtr.storeBytes(of: w2, toByteOffset: (2 &* planeBytes) &+ db, as: UInt16.self)
+                        }
+                    }
+                }
+            }
+
+            if rowBands <= 1 {
+                try processRows(0, height)
+            } else {
+                try BoundedParallelPool.forEach(count: rowBands, workers: rowBands) { b in
+                    let y0 = b * bandRows
+                    let y1 = min(height, y0 + bandRows)
+                    if y0 < y1 { try processRows(y0, y1) }
+                }
+            }
+        }
+    }
+
+    private static func interleaveTriplet(
+        from planar: [UInt8],
+        into bytes: UnsafeMutableRawBufferPointer,
+        baseOffset: Int,
+        rowBytes: Int,
+        width: Int,
+        height: Int,
+        sampleBytes: Int,
+        workers: Int,
+        budget: CodecBudget
+    ) throws {
+        let planeSamples = width * height
+        try planar.withUnsafeBytes { srcRaw in
+            let sharedSrc = SendableRawBorrow(buffer: srcRaw)
+            let sharedDst = SendableMutableRawBorrow(buffer: bytes)
+            let rowBands = workers > 1 && height >= 16 ? min(workers, height) : 1
+            let bandRows = (height + rowBands - 1) / rowBands
+
+            @Sendable
+            func processRows(_ y0: Int, _ y1: Int) throws {
+                let srcBase = sharedSrc.buffer.baseAddress!.assumingMemoryBound(to: UInt8.self)
+                let dstBase = sharedDst.buffer.baseAddress!.assumingMemoryBound(to: UInt8.self)
+                if sampleBytes == 1 {
+                    let p0 = srcBase
+                    let p1 = srcBase + planeSamples
+                    let p2 = srcBase + 2 * planeSamples
+                    for y in y0..<y1 {
+                        if (y & 15) == 0 { try budget.check() }
+                        let dRow = dstBase + baseOffset + y &* rowBytes
+                        let sOff = y &* width
+                        var x = 0
+                        while x &+ 4 <= width {
+                            let dx = x &* 3
+                            dRow[dx] = p0[sOff &+ x]
+                            dRow[dx &+ 1] = p1[sOff &+ x]
+                            dRow[dx &+ 2] = p2[sOff &+ x]
+                            dRow[dx &+ 3] = p0[sOff &+ x &+ 1]
+                            dRow[dx &+ 4] = p1[sOff &+ x &+ 1]
+                            dRow[dx &+ 5] = p2[sOff &+ x &+ 1]
+                            dRow[dx &+ 6] = p0[sOff &+ x &+ 2]
+                            dRow[dx &+ 7] = p1[sOff &+ x &+ 2]
+                            dRow[dx &+ 8] = p2[sOff &+ x &+ 2]
+                            dRow[dx &+ 9] = p0[sOff &+ x &+ 3]
+                            dRow[dx &+ 10] = p1[sOff &+ x &+ 3]
+                            dRow[dx &+ 11] = p2[sOff &+ x &+ 3]
+                            x &+= 4
+                        }
+                        while x < width {
+                            let dx = x &* 3
+                            dRow[dx] = p0[sOff &+ x]
+                            dRow[dx &+ 1] = p1[sOff &+ x]
+                            dRow[dx &+ 2] = p2[sOff &+ x]
+                            x &+= 1
+                        }
+                    }
+                } else {
+                    let srcRawPtr = sharedSrc.buffer.baseAddress!
+                    let dstRawPtr = sharedDst.buffer.baseAddress!
+                    let planeBytes = planeSamples &* 2
+                    for y in y0..<y1 {
+                        if (y & 15) == 0 { try budget.check() }
+                        let dRowByte = baseOffset + y &* rowBytes
+                        let sRowByte = (y &* width) &* 2
+                        for x in 0..<width {
+                            let db = dRowByte &+ x &* 6
+                            let sb = sRowByte &+ x &* 2
+                            let w0 = srcRawPtr.loadUnaligned(fromByteOffset: sb, as: UInt16.self)
+                            let w1 = srcRawPtr.loadUnaligned(fromByteOffset: planeBytes &+ sb, as: UInt16.self)
+                            let w2 = srcRawPtr.loadUnaligned(fromByteOffset: (2 &* planeBytes) &+ sb, as: UInt16.self)
+                            dstRawPtr.storeBytes(of: w0, toByteOffset: db, as: UInt16.self)
+                            dstRawPtr.storeBytes(of: w1, toByteOffset: db &+ 2, as: UInt16.self)
+                            dstRawPtr.storeBytes(of: w2, toByteOffset: db &+ 4, as: UInt16.self)
+                        }
+                    }
+                }
+            }
+
+            if rowBands <= 1 {
+                try processRows(0, height)
+            } else {
+                try BoundedParallelPool.forEach(count: rowBands, workers: rowBands) { b in
+                    let y0 = b * bandRows
+                    let y1 = min(height, y0 + bandRows)
+                    if y0 < y1 { try processRows(y0, y1) }
+                }
+            }
+        }
+    }
     static func locations(_ descriptor: ImageDescriptor, limits: ResourceLimits,
                           discardICC: Bool = false) throws -> [Location] {
         try descriptor.validate(limits: limits)
@@ -129,8 +327,21 @@ enum ComponentCodec {
                 }
                 effectiveWorkers -= 1
             }
+            let sampleBytesForPlanar = d.storageBits / 8
+            let planarCandidateBytes = try checkedMultiply(samples, sampleBytesForPlanar)
+            let workerWs = baseTotalWorkspace + (effectiveWorkers - 1) * perExtraWorker
+            let usePlanarEncode = resolvedBackend == .accelerated &&
+                effectiveWorkers > 1 &&
+                configuration.codecOptions.interleaveMode == .none &&
+                isPackedInterleavedTriplet(
+                    locations, planesCount: d.planes.count,
+                    sampleBytes: sampleBytesForPlanar, width: d.width, height: d.height
+                ) &&
+                workerWs + planarCandidateBytes <= budget.limits.maximumWorkspaceBytes &&
+                image.storage.byteCount + workerWs + planarCandidateBytes + outputLimit <= budget.limits.maximumMemoryBytes
+            let admittedEncodeWs = usePlanarEncode ? (workerWs + planarCandidateBytes) : workerWs
             try budget.admit(pixelBytes: image.storage.byteCount,
-                workspaceBytes: baseTotalWorkspace + (effectiveWorkers - 1) * perExtraWorker,
+                workspaceBytes: admittedEncodeWs,
                 compressedBytes: outputLimit)
             if budget.limits.maximumMetadataBytes < (d.colour == .rgb ? 30 : 0) + (transform == .none ? 0 : 5) {
                 throw CodecError(.resourceLimitExceeded, "SPIFF header exceeds the metadata budget.")
@@ -206,9 +417,19 @@ enum ComponentCodec {
                 let run = near == 0 ? try JPEGLSRunMode(parameters: parameters) : nil
                 let coding = kernel.computeGolombLimitInternal(parameters: parameters, near: near, bitsPerSample: d.meaningfulBits)
 
+                var planarStorage: [UInt8] = []
+                if usePlanarEncode {
+                    planarStorage = [UInt8](unsafeUninitializedCapacity: planarCandidateBytes) { _, initCount in
+                        initCount = planarCandidateBytes
+                    }
+                    try deinterleaveTriplet(
+                        from: bytes, baseOffset: locations[0].offset, rowBytes: locations[0].rowBytes,
+                        width: d.width, height: d.height, sampleBytes: sampleBytesForPlanar,
+                        into: &planarStorage, workers: effectiveWorkers, budget: budget
+                    )
+                }
+
                 if effectiveWorkers > 1 {
-                    let sharedInput = SendableRawBorrow(buffer: bytes)
-                    let chunkStorage = ChunkOutputCollector(count: totalUnits)
                     let sampleBytes = d.storageBits / 8
                     let littleEndian = d.byteOrder == .littleEndian
                     let width = d.width
@@ -216,39 +437,85 @@ enum ComponentCodec {
                     let meaningfulBits = d.meaningfulBits
                     let chunkRows = interval > 0 ? interval : height
                     let chunkCap = max(256, min(outputLimit, (width * chunkRows * sampleBytes) / 2))
-                    try BoundedParallelPool.forEach(count: totalUnits, workers: effectiveWorkers) { unit in
-                        let component = unit / chunks
-                        let chunk = unit % chunks
-                        let location = locations[component]
-                        let localView = ComponentSampleReader(
-                            bytes: sharedInput.buffer, width: width, height: height,
-                            offset: location.offset, rowBytes: location.rowBytes, pixelStride: location.pixelStride,
-                            sampleBytes: sampleBytes, littleEndian: littleEndian
-                        )
-                        let first = interval > 0 ? chunk * interval : 0
-                        let last = interval > 0 ? first + min(interval, height - first) : height
-                        let localKernel = JPEGLSScalarKernel()
-                        var localWriter = JPEGLSBitstreamWriter(capacity: chunkCap, maximumBytes: outputLimit)
-                        if near > 0 {
-                            try localKernel.encodeNearLossless(
-                                buf: localView.rows(first..<last), rowStride: width,
-                                width: width, height: last - first, near: near, parameters: parameters,
-                                writer: &localWriter, bits: meaningfulBits, checkpoint: { try budget.check() }
-                            )
-                        } else {
-                            guard let regular, let run else {
-                                throw CodecError(.internalFailure, "Lossless coding state is unavailable.")
+                    let chunkStorage = ChunkOutputCollector(count: totalUnits)
+                    if usePlanarEncode {
+                        let planeBytes = width * height * sampleBytes
+                        try planarStorage.withUnsafeBytes { planarRaw in
+                            let sharedPlanar = SendableRawBorrow(buffer: planarRaw)
+                            try BoundedParallelPool.forEach(count: totalUnits, workers: effectiveWorkers) { unit in
+                                let component = unit / chunks
+                                let chunk = unit % chunks
+                                let first = interval > 0 ? chunk * interval : 0
+                                let last = interval > 0 ? first + min(interval, height - first) : height
+                                let compOffset = component * planeBytes
+                                let localKernel = JPEGLSScalarKernel()
+                                var localWriter = JPEGLSBitstreamWriter(capacity: chunkCap, maximumBytes: outputLimit)
+                                if near > 0 {
+                                    let rowView = ScalarSampleReader(
+                                        bytes: .init(rebasing: sharedPlanar.buffer[(compOffset + first * width * sampleBytes)..<(compOffset + last * width * sampleBytes)]),
+                                        littleEndian: littleEndian, sampleBytes: sampleBytes
+                                    )
+                                    try localKernel.encodeNearLossless(
+                                        buf: rowView, rowStride: width,
+                                        width: width, height: last - first, near: near, parameters: parameters,
+                                        writer: &localWriter, bits: meaningfulBits, checkpoint: { try budget.check() }
+                                    )
+                                } else {
+                                    guard let regular, let run else {
+                                        throw CodecError(.internalFailure, "Lossless coding state is unavailable.")
+                                    }
+                                    let compView = ScalarSampleReader(
+                                        bytes: .init(rebasing: sharedPlanar.buffer[compOffset..<(compOffset + planeBytes)]),
+                                        littleEndian: littleEndian, sampleBytes: sampleBytes
+                                    )
+                                    var context = try JPEGLSContextModel(parameters: parameters)
+                                    try localKernel.encodeFlatRowsLossless(
+                                        buf: compView, rowStride: width, rowRange: first..<last,
+                                        sampleMaximum: sampleMaximum, width: width,
+                                        regularMode: regular, runMode: run, context: &context, writer: &localWriter,
+                                        limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() }
+                                    )
+                                }
+                                localWriter.flush()
+                                chunkStorage.store(index: unit, bytes: try localWriter.consumeRawBytes())
                             }
-                            var context = try JPEGLSContextModel(parameters: parameters)
-                            try localKernel.encodeFlatRowsLossless(
-                                buf: localView, rowStride: width, rowRange: first..<last,
-                                sampleMaximum: sampleMaximum, width: width,
-                                regularMode: regular, runMode: run, context: &context, writer: &localWriter,
-                                limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() }
-                            )
                         }
-                        localWriter.flush()
-                        chunkStorage.store(index: unit, bytes: try localWriter.consumeRawBytes())
+                    } else {
+                        let sharedInput = SendableRawBorrow(buffer: bytes)
+                        try BoundedParallelPool.forEach(count: totalUnits, workers: effectiveWorkers) { unit in
+                            let component = unit / chunks
+                            let chunk = unit % chunks
+                            let location = locations[component]
+                            let localView = ComponentSampleReader(
+                                bytes: sharedInput.buffer, width: width, height: height,
+                                offset: location.offset, rowBytes: location.rowBytes, pixelStride: location.pixelStride,
+                                sampleBytes: sampleBytes, littleEndian: littleEndian
+                            )
+                            let first = interval > 0 ? chunk * interval : 0
+                            let last = interval > 0 ? first + min(interval, height - first) : height
+                            let localKernel = JPEGLSScalarKernel()
+                            var localWriter = JPEGLSBitstreamWriter(capacity: chunkCap, maximumBytes: outputLimit)
+                            if near > 0 {
+                                try localKernel.encodeNearLossless(
+                                    buf: localView.rows(first..<last), rowStride: width,
+                                    width: width, height: last - first, near: near, parameters: parameters,
+                                    writer: &localWriter, bits: meaningfulBits, checkpoint: { try budget.check() }
+                                )
+                            } else {
+                                guard let regular, let run else {
+                                    throw CodecError(.internalFailure, "Lossless coding state is unavailable.")
+                                }
+                                var context = try JPEGLSContextModel(parameters: parameters)
+                                try localKernel.encodeFlatRowsLossless(
+                                    buf: localView, rowStride: width, rowRange: first..<last,
+                                    sampleMaximum: sampleMaximum, width: width,
+                                    regularMode: regular, runMode: run, context: &context, writer: &localWriter,
+                                    limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() }
+                                )
+                            }
+                            localWriter.flush()
+                            chunkStorage.store(index: unit, bytes: try localWriter.consumeRawBytes())
+                        }
                     }
                     let encodedChunks = chunkStorage.takeAll()
                     for component in 0..<views.count {
@@ -260,6 +527,47 @@ enum ComponentCodec {
                             writer.appendRawBytes(encodedChunks[component * chunks + chunk])
                             try writer.checkLimit()
                             if chunk + 1 < chunks { writer.writeByte(255); writer.writeByte(0xd0 + UInt8(chunk % 8)) }
+                        }
+                    }
+                } else if usePlanarEncode {
+                    let sampleBytes = d.storageBits / 8
+                    let littleEndian = d.byteOrder == .littleEndian
+                    let planeBytes = d.width * d.height * sampleBytes
+                    try planarStorage.withUnsafeBytes { planarRaw in
+                        for component in 0..<views.count {
+                            let compOffset = component * planeBytes
+                            let scan = try JPEGLSScanHeader(componentCount: 1,
+                                components: [.init(id: componentIDs[component], mappingTableID: metadata.mapping?.componentTableIDs[component] ?? 0)],
+                                near: near, interleaveMode: .none, pointTransform: 0)
+                            try kernel.writeScanHeaderInternal(scan, to: &writer)
+                            for chunk in 0..<chunks {
+                                let first = interval > 0 ? chunk * interval : 0
+                                let last = interval > 0 ? first + min(interval, d.height - first) : d.height
+                                if near > 0 {
+                                    let rowView = ScalarSampleReader(
+                                        bytes: .init(rebasing: planarRaw[(compOffset + first * d.width * sampleBytes)..<(compOffset + last * d.width * sampleBytes)]),
+                                        littleEndian: littleEndian, sampleBytes: sampleBytes
+                                    )
+                                    try kernel.encodeNearLossless(buf: rowView, rowStride: d.width,
+                                        width: d.width, height: last - first, near: near, parameters: parameters,
+                                        writer: &writer, bits: d.meaningfulBits, checkpoint: { try budget.check() })
+                                } else {
+                                    guard let regular, let run else {
+                                        throw CodecError(.internalFailure, "Lossless coding state is unavailable.")
+                                    }
+                                    let compView = ScalarSampleReader(
+                                        bytes: .init(rebasing: planarRaw[compOffset..<(compOffset + planeBytes)]),
+                                        littleEndian: littleEndian, sampleBytes: sampleBytes
+                                    )
+                                    var context = try JPEGLSContextModel(parameters: parameters)
+                                    try kernel.encodeFlatRowsLossless(buf: compView, rowStride: d.width, rowRange: first..<last,
+                                        sampleMaximum: sampleMaximum, width: d.width,
+                                        regularMode: regular, runMode: run, context: &context, writer: &writer,
+                                        limit: coding.limit, qbppBits: coding.qbppBits, checkpoint: { try budget.check() })
+                                }
+                                writer.flush()
+                                if chunk + 1 < chunks { writer.writeByte(255); writer.writeByte(0xd0 + UInt8(chunk % 8)) }
+                            }
                         }
                     }
                 } else {
@@ -343,8 +651,26 @@ enum ComponentCodec {
             }
             effectiveWorkers -= 1
         }
-        try budget.admit(pixelBytes: pixelBytes, workspaceBytes: baseTotalWorkspace + (effectiveWorkers - 1) * ScalarCodec.contextBytes, compressedBytes: data.count)
         let samples = try checkedMultiply(checkedMultiply(d.width, d.height), d.components.count)
+        let sampleBytesForPlanar = d.storageBits / 8
+        let planarDecodeBytes = try checkedMultiply(samples, sampleBytesForPlanar)
+        let workerWs = baseTotalWorkspace + (effectiveWorkers - 1) * ScalarCodec.contextBytes
+        let distinctTripleScans = allNonInterleaved &&
+            header.records.count == 3 &&
+            header.records[0].components[0] != header.records[1].components[0] &&
+            header.records[0].components[0] != header.records[2].components[0] &&
+            header.records[1].components[0] != header.records[2].components[0]
+        let usePlanarDecode = distinctTripleScans &&
+            resolvedBackend == .accelerated &&
+            effectiveWorkers > 1 &&
+            isPackedInterleavedTriplet(
+                locations, planesCount: d.planes.count,
+                sampleBytes: sampleBytesForPlanar, width: d.width, height: d.height
+            ) &&
+            workerWs + planarDecodeBytes <= budget.limits.maximumWorkspaceBytes &&
+            pixelBytes + workerWs + planarDecodeBytes + data.count <= budget.limits.maximumMemoryBytes
+        let admittedDecodeWs = usePlanarDecode ? (workerWs + planarDecodeBytes) : workerWs
+        try budget.admit(pixelBytes: pixelBytes, workspaceBytes: admittedDecodeWs, compressedBytes: data.count)
         options.progress?(try .init(phase: .processing, completedUnits: 0, totalUnits: samples))
         try budget.check()
         let destination = try supplied ?? ImageDestination.allocate(descriptor: d, limits: budget.limits)
@@ -352,7 +678,101 @@ enum ComponentCodec {
         let fidelity = try header.fidelity(budget: budget)
         let image = try destination.write(metadata: header.retainedMetadata(options.metadataPolicy)) { bytes in
             try data.withUnsafeBytes { compressedRaw in
-                if allNonInterleaved && effectiveWorkers > 1 {
+                if usePlanarDecode {
+                    let sampleBytes = sampleBytesForPlanar
+                    let littleEndian = d.byteOrder == .littleEndian
+                    let width = d.width
+                    let height = d.height
+                    let planeBytes = width * height * sampleBytes
+                    var planarDecode = [UInt8](unsafeUninitializedCapacity: planarDecodeBytes) { _, initCount in
+                        initCount = planarDecodeBytes
+                    }
+                    if effectiveWorkers > 1 {
+                        struct DecodeUnit: Sendable {
+                            let scanIndex: Int
+                            let chunkIndex: Int
+                            let range: Range<Int>
+                        }
+                        var units: [DecodeUnit] = []
+                        units.reserveCapacity(totalNonInterleavedUnits)
+                        var scanDecoders: [(regular: JPEGLSRegularModeDecoder, run: JPEGLSRunModeDecoder, limit: Int, qbppBits: Int)] = []
+                        scanDecoders.reserveCapacity(header.records.count)
+                        for (sIdx, scan) in header.records.enumerated() {
+                            let regDec = try JPEGLSRegularModeDecoder(parameters: scan.parameters, near: scan.near)
+                            let runDec = try JPEGLSRunModeDecoder(parameters: scan.parameters, near: scan.near)
+                            let coding = kernel.computeGolombLimitInternal(parameters: scan.parameters, near: scan.near, bitsPerSample: header.bits)
+                            scanDecoders.append((regDec, runDec, coding.limit, coding.qbppBits))
+                            for (cIdx, r) in scan.ranges.enumerated() {
+                                units.append(DecodeUnit(scanIndex: sIdx, chunkIndex: cIdx, range: r))
+                            }
+                        }
+                        let immutableUnits = units
+                        let immutableDecoders = scanDecoders
+                        let records = header.records
+                        let sharedCompressed = SendableRawBorrow(buffer: compressedRaw)
+                        try planarDecode.withUnsafeMutableBytes { planarMutable in
+                            let sharedPlanar = SendableMutableRawBorrow(buffer: planarMutable)
+                            try BoundedParallelPool.forEach(count: immutableUnits.count, workers: effectiveWorkers) { uIdx in
+                                let unit = immutableUnits[uIdx]
+                                let scan = records[unit.scanIndex]
+                                let dec = immutableDecoders[unit.scanIndex]
+                                let comp = scan.components[0]
+                                let first = scan.restartInterval > 0 ? unit.chunkIndex * scan.restartInterval : 0
+                                let last = scan.restartInterval > 0 ? first + min(scan.restartInterval, height - first) : height
+                                let sliceStart = comp * planeBytes + first * width * sampleBytes
+                                let sliceEnd = comp * planeBytes + last * width * sampleBytes
+                                var reader = JPEGLSFastBitReader(borrowing: .init(rebasing: sharedCompressed.buffer[unit.range]))
+                                let scalar = ScalarSampleWriter(
+                                    bytes: .init(rebasing: sharedPlanar.buffer[sliceStart..<sliceEnd]),
+                                    littleEndian: littleEndian, sampleBytes: sampleBytes
+                                )
+                                let localKernel = JPEGLSScalarKernel()
+                                try localKernel.decodeFlatRegion(
+                                    into: scalar, rowStride: width, reader: &reader,
+                                    rows: last - first, width: width, parameters: scan.parameters, near: scan.near,
+                                    limit: dec.limit, qbppBits: dec.qbppBits,
+                                    sharedDecoder: dec.regular, sharedRunDecoder: dec.run,
+                                    checkpoint: { try budget.check() }
+                                )
+                                try reader.validateEndOfScan()
+                            }
+                        }
+                    } else {
+                        try planarDecode.withUnsafeMutableBytes { planarMutable in
+                            for scan in header.records {
+                                let comp = scan.components[0]
+                                let coding = kernel.computeGolombLimitInternal(parameters: scan.parameters, near: scan.near, bitsPerSample: header.bits)
+                                let sharedDecoder = try JPEGLSRegularModeDecoder(parameters: scan.parameters, near: scan.near)
+                                let sharedRunDecoder = try JPEGLSRunModeDecoder(parameters: scan.parameters, near: scan.near)
+                                for (chunk, range) in scan.ranges.enumerated() {
+                                    let first = scan.restartInterval > 0 ? chunk * scan.restartInterval : 0
+                                    let last = scan.restartInterval > 0 ? first + min(scan.restartInterval, height - first) : height
+                                    let sliceStart = comp * planeBytes + first * width * sampleBytes
+                                    let sliceEnd = comp * planeBytes + last * width * sampleBytes
+                                    var reader = JPEGLSFastBitReader(borrowing: .init(rebasing: compressedRaw[range]))
+                                    let scalar = ScalarSampleWriter(
+                                        bytes: .init(rebasing: planarMutable[sliceStart..<sliceEnd]),
+                                        littleEndian: littleEndian, sampleBytes: sampleBytes
+                                    )
+                                    try kernel.decodeFlatRegion(
+                                        into: scalar, rowStride: width, reader: &reader,
+                                        rows: last - first, width: width, parameters: scan.parameters, near: scan.near,
+                                        limit: coding.limit, qbppBits: coding.qbppBits,
+                                        sharedDecoder: sharedDecoder, sharedRunDecoder: sharedRunDecoder,
+                                        checkpoint: { try budget.check() }
+                                    )
+                                    try reader.validateEndOfScan()
+                                }
+                            }
+                        }
+                    }
+                    try interleaveTriplet(
+                        from: planarDecode, into: bytes,
+                        baseOffset: locations[0].offset, rowBytes: locations[0].rowBytes,
+                        width: width, height: height, sampleBytes: sampleBytes,
+                        workers: effectiveWorkers, budget: budget
+                    )
+                } else if allNonInterleaved && effectiveWorkers > 1 {
                     struct DecodeUnit: Sendable {
                         let scanIndex: Int
                         let chunkIndex: Int

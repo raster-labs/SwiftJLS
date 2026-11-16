@@ -9,12 +9,22 @@ protocol JPEGSampleReader {
     subscript(index: Int) -> UInt16 { get }
     func fourEqual(at index: Int, to value: UInt16) -> Bool
     func matchingPrefix(in range: Range<Int>, to value: UInt16) -> Int
+    func matchingNearPrefix(in range: Range<Int>, lo: UInt16, hi: UInt16) -> Int
 }
 extension JPEGSampleReader {
     var scalarLayout: (view: ScalarSampleReader, rowStride: Int)? { nil }
     var nativeLayout: NativeUInt16Reader? { nil }
     func matchingPrefix(in range: Range<Int>, to value: UInt16) -> Int {
         scalarMatchingPrefix(self, in: range, to: value)
+    }
+    func matchingNearPrefix(in range: Range<Int>, lo: UInt16, hi: UInt16) -> Int {
+        var i = range.lowerBound
+        while i < range.upperBound {
+            let s = self[i]
+            if s < lo || s > hi { break }
+            i &+= 1
+        }
+        return i &- range.lowerBound
     }
 }
 private func scalarMatchingPrefix<R: JPEGSampleReader>(_ view: R, in range: Range<Int>, to value: UInt16) -> Int {
@@ -93,6 +103,21 @@ struct ComponentSampleReader: JPEGSampleReader {
             return view.matchingPrefix(in: 0..<range.count, to: value)
         }
         return scalarMatchingPrefix(self, in: range, to: value)
+    }
+    func matchingNearPrefix(in range: Range<Int>, lo: UInt16, hi: UInt16) -> Int {
+        if pixelStride == sampleBytes {
+            let at = byteOffset(range.lowerBound)
+            let view = ScalarSampleReader(bytes: .init(rebasing: bytes[at...]),
+                littleEndian: littleEndian, sampleBytes: sampleBytes)
+            return view.matchingNearPrefix(in: 0..<range.count, lo: lo, hi: hi)
+        }
+        var i = range.lowerBound
+        while i < range.upperBound {
+            let s = self[i]
+            if s < lo || s > hi { break }
+            i &+= 1
+        }
+        return i &- range.lowerBound
     }
     /// Reuse the bounded scalar precision check when samples are contiguous
     /// within each row. Odd byte strides and interleaved samples retain the

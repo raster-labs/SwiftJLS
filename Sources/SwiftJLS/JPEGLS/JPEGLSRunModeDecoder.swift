@@ -33,6 +33,10 @@ struct JPEGLSRunModeDecoder: Sendable {
     /// Maximum run length that can be decoded in one iteration
     private let maxRunLength: Int
 
+    /// Precomputed quantization step (2*NEAR + 1, or 1 for lossless) and modular wrap range
+    internal let qbpp: Int
+    internal let wrapRange: Int
+
     // MARK: - Initialization
 
     /// Initialize run mode decoder with preset parameters.
@@ -54,6 +58,10 @@ struct JPEGLSRunModeDecoder: Sendable {
         self.parameters = parameters
         self.near = near
         self.maxRunLength = maxRunLength
+        let q = near == 0 ? 1 : (2 * near + 1)
+        self.qbpp = q
+        let r = near == 0 ? (parameters.maxValue + 1) : ((parameters.maxValue + 2 * near) / q + 1)
+        self.wrapRange = r * q
     }
 
     // MARK: - Run Detection
@@ -245,23 +253,13 @@ struct JPEGLSRunModeDecoder: Sendable {
     ///   - prediction: The prediction value (Ra or Rb depending on RItype)
     ///   - error: Signed error value (possibly sign-corrected)
     /// - Returns: Reconstructed sample value
+    @inline(__always)
     func reconstructSample(prediction: Int, error: Int) -> Int {
-        let qbpp = near == 0 ? 1 : (2 * near + 1)
-        let dequantized = error * qbpp
-        var sample = prediction + dequantized
-
-        // Per ITU-T.87 §A.4.4 fix_reconstructed_value
-        let range: Int
-        if near == 0 {
-            range = parameters.maxValue + 1
-        } else {
-            range = (parameters.maxValue + 2 * near) / qbpp + 1
-        }
-        let wrapRange = range * qbpp
+        var sample = prediction &+ (error &* qbpp)
         if sample < -near {
-            sample += wrapRange
-        } else if sample > parameters.maxValue + near {
-            sample -= wrapRange
+            sample &+= wrapRange
+        } else if sample > parameters.maxValue &+ near {
+            sample &-= wrapRange
         }
         return max(0, min(parameters.maxValue, sample))
     }

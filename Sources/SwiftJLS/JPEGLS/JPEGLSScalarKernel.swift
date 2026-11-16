@@ -262,62 +262,193 @@ struct JPEGLSScalarKernel {
         let run = try JPEGLSRunMode(parameters: parameters, near: near)
         var context = try JPEGLSContextModel(parameters: parameters, near: near)
         let coding = computeGolombLimitInternal(parameters: parameters, near: near, bitsPerSample: bits)
-        var previous = [UInt16](repeating: 0, count: width)
-        var current = [UInt16](repeating: 0, count: width)
-        var edge = 0
-        for y in 0..<height {
-            try checkpoint(); try writer.checkLimit()
-            let oldEdge = edge
-            edge = Int(previous[0])
-            // One synchronous mutable borrow avoids a uniqueness check for
-            // every reconstructed sample. It ends before swapping the rows;
-            // no pointer escapes, and neither owner is resized during it.
-            try current.withUnsafeMutableBufferPointer { row in
-                var x = 0
-                while x < width {
-                    // Row entry already checked before processing any samples.
-                    if x & 255 == 0 && x != 0 { try checkpoint(); try writer.checkLimit() }
-                    let a = x == 0 ? Int(previous[0]) : Int(row[x - 1])
-                    let b = Int(previous[x])
-                    let c = x == 0 ? oldEdge : Int(previous[x - 1])
-                    let d = Int(previous[min(x + 1, width - 1)])
-                    let q1 = regular.quantizeGradient(d - b)
-                    let q2 = regular.quantizeGradient(b - c)
-                    let q3 = regular.quantizeGradient(c - a)
-                    if q1 == 0 && q2 == 0 && q3 == 0 {
-                        let start = x
-                        while x < width && abs(Int(buf[y * rowStride + x]) - a) <= near {
-                            if x != start && x & 255 == 0 { try checkpoint(); try writer.checkLimit() }
-                            row[x] = UInt16(a)
-                            x += 1
+
+        let t3 = regular.gradientTableOffset
+        let negT3 = -t3
+        let maxVal = parameters.maxValue
+        let rangeVal = regular.range
+        let halfHigh = regular.halfRangeHigh
+        let halfLow = regular.halfRangeLow
+        let qbppVal = near > 0 ? (2 &* near &+ 1) : 1
+        let qbppRecip: UInt64 = near > 0 ? ((UInt64(1) &<< 32) / UInt64(qbppVal) &+ 1) : 0
+        let wrapRangeVal = regular.wrapRange
+        let resetThresh = context.resetThreshold
+        let bFactor = context.bFactor
+        let limit = coding.limit
+        let qbppBits = coding.qbppBits
+        let limitThreshold = limit &- qbppBits &- 1
+        let ctxBuffer = context.rawContextsBuffer
+
+        var rowArena = [UInt16](repeating: 0, count: width * 2)
+        try rowArena.withUnsafeMutableBufferPointer { arenaBuf in
+            let arenaBase = arenaBuf.baseAddress!
+            var prevOffset = 0
+            var currOffset = width
+            var edge = 0
+
+            try regular.gradientTable.withUnsafeBufferPointer { gradBuf in
+                let gradPtr = gradBuf.baseAddress!
+                try ctxBuffer.withUnsafeMutablePointerToElements { ctxPtr in
+                    for y in 0..<height {
+                        try checkpoint(); try writer.checkLimit()
+                        let prevPtr = arenaBase + prevOffset
+                        let rowPtr = arenaBase + currOffset
+                        let rowRaw = UnsafeMutableRawPointer(rowPtr)
+                        let srcRowBase = y &* rowStride
+                        let oldEdge = edge
+                        edge = Int(prevPtr[0])
+
+                        var x = 0
+                        while x < width {
+                            if (x & 255) == 0 && x != 0 { try checkpoint(); try writer.checkLimit() }
+                            let a = x == 0 ? Int(prevPtr[0]) : Int(rowPtr[x &- 1])
+                            let b = Int(prevPtr[x])
+                            let c = x == 0 ? oldEdge : Int(prevPtr[x &- 1])
+                            let d = x &+ 1 < width ? Int(prevPtr[x &+ 1]) : b
+
+                            let q1 = Int(gradPtr[min(max(d &- b, negT3), t3) &+ t3])
+                            let q2 = Int(gradPtr[min(max(b &- c, negT3), t3) &+ t3])
+                            let q3 = Int(gradPtr[min(max(c &- a, negT3), t3) &+ t3])
+
+                            if (q1 | q2 | q3) == 0 {
+                                let start = x
+                                let lo16 = UInt16(truncatingIfNeeded: max(0, a &- near))
+                                let hi16 = UInt16(truncatingIfNeeded: min(65535, a &+ near))
+                                let srcEnd = srcRowBase &+ width
+                                var srcPos = srcRowBase &+ x
+                                while srcPos < srcEnd {
+                                    if srcPos != (srcRowBase &+ start) { try checkpoint(); try writer.checkLimit() }
+                                    let chunkStop = min(srcEnd, srcPos &+ 256)
+                                    srcPos &+= buf.matchingNearPrefix(in: srcPos..<chunkStop, lo: lo16, hi: hi16)
+                                    if srcPos < chunkStop { break }
+                                }
+                                let runLen = srcPos &- (srcRowBase &+ start)
+                                x &+= runLen
+
+                                if runLen > 0 {
+                                    let rv16 = UInt16(truncatingIfNeeded: a)
+                                    var f = start
+                                    if f &+ 8 <= x {
+                                        let vec8 = SIMD8<UInt16>(repeating: rv16)
+                                        while f &+ 8 <= x {
+                                            rowRaw.storeBytes(of: vec8, toByteOffset: f &* 2, as: SIMD8<UInt16>.self)
+                                            f &+= 8
+                                        }
+                                    }
+                                    while f < x {
+                                        rowPtr[f] = rv16
+                                        f &+= 1
+                                    }
+                                }
+
+                                let encoded = run.encodeRunLength(runLength: runLen, runIndex: context.currentRunIndex)
+                                writer.writeOnes(encoded.continuationBits)
+                                let finalIndex = min(encoded.runIndex &+ encoded.continuationBits, 31)
+                                context.setRunIndex(finalIndex)
+                                if x < width {
+                                    writeRunTermination(encoded: encoded, writer: &writer)
+                                    let reconstructed = writeRunInterruptionBits(
+                                        interruptionValue: Int(buf[srcRowBase &+ x]), runValue: a,
+                                        rb: Int(prevPtr[x]), near: near, context: &context,
+                                        regularMode: regular, runMode: run, writer: &writer,
+                                        limit: limit, qbppBits: qbppBits)
+                                    rowPtr[x] = UInt16(truncatingIfNeeded: reconstructed)
+                                    context.setRunIndex(max(finalIndex &- 1, 0))
+                                    x &+= 1
+                                } else if encoded.remainder > 0 {
+                                    writer.writeBits(1, count: 1)
+                                }
+                            } else {
+                                // Fused in-register near-lossless regular-mode step
+                                let actual = Int(buf[srcRowBase &+ x])
+                                let raw = (q1 &* 9 &+ q2) &* 9 &+ q3
+                                let signMask = raw >> (Int.bitWidth - 1)
+                                let ctxIdx = (raw ^ signMask) &- signMask
+                                var r = ctxPtr[ctxIdx]
+
+                                let k = JPEGLSContextModel.golombParameter(a: r.a, n: r.n)
+                                let errorCorrection = (near == 0 && k == 0 && (2 &* r.b &+ r.n &- 1) < 0) ? -1 : 0
+
+                                let maxAB = max(a, b)
+                                let minAB = min(a, b)
+                                let px = c >= maxAB ? minAB : (c <= minAB ? maxAB : (a &+ b &- c))
+                                let correctedPrediction = max(0, min(maxVal, px &+ ((r.c ^ signMask) &- signMask)))
+
+                                let signNormalisedDiff = ((actual &- correctedPrediction) ^ signMask) &- signMask
+                                var errval: Int
+                                if near > 0 {
+                                    if signNormalisedDiff >= 0 {
+                                        errval = Int((UInt64(signNormalisedDiff &+ near) &* qbppRecip) >> 32)
+                                    } else {
+                                        errval = -Int((UInt64((-signNormalisedDiff) &+ near) &* qbppRecip) >> 32)
+                                    }
+                                } else {
+                                    errval = signNormalisedDiff
+                                }
+
+                                if errval > halfHigh {
+                                    errval &-= rangeVal
+                                } else if errval < halfLow {
+                                    errval &+= rangeVal
+                                }
+
+                                let correctedError = errval ^ errorCorrection
+                                let mappedError = (correctedError << 1) ^ (correctedError >> (Int.bitWidth - 1))
+                                let unaryLength = mappedError >> k
+                                let remainder = mappedError & ((1 &<< k) &- 1)
+
+                                if unaryLength >= limitThreshold {
+                                    writer.writeUnaryCode(limitThreshold)
+                                    writer.writeBits(UInt32(mappedError &- 1), count: qbppBits)
+                                } else if unaryLength &+ 1 &+ k <= 32 {
+                                    writer.writeBits((UInt32(1) &<< k) | UInt32(remainder),
+                                                     count: unaryLength &+ 1 &+ k)
+                                } else {
+                                    writer.writeUnaryCode(unaryLength)
+                                    if k > 0 {
+                                        writer.writeBits(UInt32(remainder), count: k)
+                                    }
+                                }
+
+                                let reconstructed: Int
+                                if near == 0 {
+                                    reconstructed = actual
+                                } else {
+                                    let quantisedError = (errval ^ signMask) &- signMask
+                                    var rv = correctedPrediction &+ (quantisedError &* qbppVal)
+                                    if rv < -near {
+                                        rv &+= wrapRangeVal
+                                    } else if rv > maxVal &+ near {
+                                        rv &-= wrapRangeVal
+                                    }
+                                    reconstructed = max(0, min(maxVal, rv))
+                                }
+                                rowPtr[x] = UInt16(truncatingIfNeeded: reconstructed)
+
+                                r.a &+= abs(errval)
+                                r.b &+= errval &* bFactor
+                                if r.n >= resetThresh {
+                                    r.a >>= 1
+                                    r.b >>= 1
+                                    r.n = max(r.n >> 1, 1)
+                                }
+                                r.n &+= 1
+                                if r.b &+ r.n <= 0 {
+                                    r.b = max(r.b &+ r.n, 1 &- r.n)
+                                    r.c = max(r.c &- 1, -128)
+                                } else if r.b > 0 {
+                                    r.b = min(r.b &- r.n, 0)
+                                    r.c = min(r.c &+ 1, 127)
+                                }
+                                ctxPtr[ctxIdx] = r
+
+                                x &+= 1
+                            }
                         }
-                        let encoded = run.encodeRunLength(runLength: x - start, runIndex: context.currentRunIndex)
-                        writer.writeOnes(encoded.continuationBits)
-                        let finalIndex = min(encoded.runIndex + encoded.continuationBits, 31)
-                        context.setRunIndex(finalIndex)
-                        if x < width {
-                            writeRunTermination(encoded: encoded, writer: &writer)
-                            let reconstructed = writeRunInterruptionBits(
-                                interruptionValue: Int(buf[y * rowStride + x]), runValue: a,
-                                rb: Int(previous[x]), near: near, context: &context,
-                                regularMode: regular, runMode: run, writer: &writer,
-                                limit: coding.limit, qbppBits: coding.qbppBits)
-                            row[x] = UInt16(reconstructed)
-                            context.decrementRunIndex()
-                            x += 1
-                        } else if encoded.remainder > 0 {
-                            writer.writeBits(1, count: 1)
-                        }
-                    } else {
-                        let reconstructed = encodePixel(actual: Int(buf[y * rowStride + x]),
-                            a: a, b: b, c: c, q1: q1, q2: q2, q3: q3, regularMode: regular,
-                            context: &context, writer: &writer, limit: coding.limit, qbppBits: coding.qbppBits)
-                        row[x] = UInt16(reconstructed)
-                        x += 1
+                        swap(&prevOffset, &currOffset)
                     }
                 }
             }
-            swap(&previous, &current)
         }
     }
 
@@ -415,47 +546,46 @@ struct JPEGLSScalarKernel {
         }
 
         // Quantize and modular-reduce the interruption error per ITU-T.87.
-        let params = parameters(regularMode)
-        let qbpp = near > 0 ? (2 * near + 1) : 1
-        let range: Int
-        if near == 0 {
-            range = params.maxValue + 1
-        } else {
-            range = (params.maxValue + 2 * near) / qbpp + 1
-        }
+        let maxVal = regularMode.presetParameters.maxValue
+        let qbpp = near > 0 ? regularMode.qbpp : 1
+        let range = regularMode.range
 
         // Quantize for near-lossless (identity for lossless)
         var reducedError: Int
         if near > 0 {
+            let qbppRecip = (UInt64(1) << 32) / UInt64(qbpp) + 1
             if rawError >= 0 {
-                reducedError = (rawError + near) / qbpp
+                reducedError = Int((UInt64(rawError &+ near) &* qbppRecip) >> 32)
             } else {
-                reducedError = -((abs(rawError) + near) / qbpp)
+                reducedError = -Int((UInt64((-rawError) &+ near) &* qbppRecip) >> 32)
             }
         } else {
             reducedError = rawError
         }
 
         // Modular reduction with RANGE
-        if reducedError < 0 { reducedError += range }
-        if reducedError >= ((range + 1) / 2) { reducedError -= range }
+        if reducedError < 0 { reducedError &+= range }
+        if reducedError >= ((range &+ 1) >> 1) { reducedError &-= range }
 
         let k = context.computeRunInterruptionGolombK(riType: riType)
         let map = context.computeRunInterruptionMap(errorValue: reducedError, k: k, riType: riType)
 
         // Map to the non-negative interruption code per ITU-T.87:
         // e_mapped = 2 * |error| - riType - map
-        let eMappedErrorValue = 2 * abs(reducedError) - riType - (map ? 1 : 0)
+        let eMappedErrorValue = (abs(reducedError) &<< 1) &- riType &- (map ? 1 : 0)
 
         // Adjusted limit for run interruption
         let j = runMode.computeJ(runIndex: context.currentRunIndex)
-        let adjustedLimit = limit - j - 1
-        let limitThreshold = adjustedLimit - qbppBits - 1
+        let adjustedLimit = limit &- j &- 1
+        let limitThreshold = adjustedLimit &- qbppBits &- 1
 
-        let (unaryLength, remainder) = regularMode.golombEncode(value: eMappedErrorValue, k: k)
+        let unaryLength = eMappedErrorValue >> k
+        let remainder = eMappedErrorValue & ((1 &<< k) &- 1)
         if unaryLength >= limitThreshold {
             writer.writeUnaryCode(limitThreshold)
-            writer.writeBits(UInt32(eMappedErrorValue - 1), count: qbppBits)
+            writer.writeBits(UInt32(eMappedErrorValue &- 1), count: qbppBits)
+        } else if unaryLength &+ 1 &+ k <= 32 {
+            writer.writeBits((UInt32(1) &<< k) | UInt32(remainder), count: unaryLength &+ 1 &+ k)
         } else {
             writer.writeUnaryCode(unaryLength)
             if k > 0 {
@@ -470,31 +600,24 @@ struct JPEGLSScalarKernel {
         )
 
         // Compute what the decoder will reconstruct
-        let dequantized = reducedError * qbpp
-        let signedError: Int
-        if riType == 1 {
-            signedError = dequantized
-        } else {
-            signedError = dequantized * (rb >= ra ? 1 : -1)
-        }
-        var rv = prediction + signedError
-        let wrapRange = range * qbpp
-        if rv < -near { rv += wrapRange }
-        else if rv > params.maxValue + near { rv -= wrapRange }
-        return max(0, min(params.maxValue, rv))
+        let dequantized = reducedError &* qbpp
+        let signedError = (riType == 1 || rb >= ra) ? dequantized : -dequantized
+        var rv = prediction &+ signedError
+        let wrapRange = regularMode.wrapRange
+        if rv < -near { rv &+= wrapRange }
+        else if rv > maxVal &+ near { rv &-= wrapRange }
+        return max(0, min(maxVal, rv))
     }
 
-    private func parameters(_ regularMode: JPEGLSRegularMode) -> JPEGLSPresetParameters {
-        regularMode.presetParameters
-    }
-
+    @inline(__always)
     func writeRunTermination(
         encoded: EncodedRun,
         writer: inout JPEGLSBitstreamWriter
     ) {
-        writer.writeBits(0, count: 1)  // Termination bit
         if encoded.j > 0 {
-            writer.writeBits(UInt32(encoded.remainder), count: encoded.j)
+            writer.writeBits(UInt32(encoded.remainder), count: encoded.j &+ 1)
+        } else {
+            writer.writeBits(0, count: 1)
         }
     }
 
@@ -794,13 +917,20 @@ struct JPEGLSScalarKernel {
                         if runLength > 0 {
                             let rv = UInt16(truncatingIfNeeded: a)
                             let start = rowBase &+ col
-                            let end = start &+ runLength
-                            if runLength <= 256 {
-                                buf.fill(rv, range: start..<end)
+                            if runLength == 1 {
+                                buf[start] = rv
+                            } else if runLength == 2 {
+                                buf[start] = rv
+                                buf[start &+ 1] = rv
                             } else {
-                                for first in stride(from: start, to: end, by: 256) {
-                                    try checkpoint()
-                                    buf.fill(rv, range: first..<min(end, first &+ 256))
+                                let end = start &+ runLength
+                                if runLength <= 256 {
+                                    buf.fill(rv, range: start..<end)
+                                } else {
+                                    for first in stride(from: start, to: end, by: 256) {
+                                        try checkpoint()
+                                        buf.fill(rv, range: first..<min(end, first &+ 256))
+                                    }
                                 }
                             }
                             col &+= runLength
@@ -1008,17 +1138,17 @@ struct JPEGLSScalarKernel {
         var runIndex = context.currentRunIndex
 
         while true {
-            let bit = try reader.readBits(1)
+            let bit = try reader.readSingleBit()
             if bit == 0 {
                 break
             }
             let j = runDecoder.computeJ(runIndex: runIndex)
-            let blockSize = 1 << j
-            let count = min(blockSize, remainingInLine - runLength)
-            runLength += count
+            let blockSize = 1 &<< j
+            let count = min(blockSize, remainingInLine &- runLength)
+            runLength &+= count
 
             if count == blockSize && runIndex < 31 {
-                runIndex += 1
+                runIndex &+= 1
             }
             if runLength >= remainingInLine {
                 break

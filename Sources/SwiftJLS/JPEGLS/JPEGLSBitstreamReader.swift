@@ -354,11 +354,25 @@ final class JPEGLSBitstreamReader {
 /// Protocol shared by `JPEGLSFastBitReader` (zero-copy register-resident scan cursor)
 /// and `JPEGLSBitstreamReader` (class-based reader retained for existing unit tests).
 protocol JPEGLSBitSource {
+    mutating func readSingleBit() throws -> UInt32
     mutating func readBits(_ count: Int) throws -> UInt32
     mutating func readUnaryCount(maximum: Int) throws -> Int
 }
 
-extension JPEGLSBitstreamReader: JPEGLSBitSource {}
+extension JPEGLSBitstreamReader: JPEGLSBitSource {
+    @inline(__always)
+    func readSingleBit() throws -> UInt32 {
+        if bitsInBuffer == 0 {
+            refill()
+            guard bitsInBuffer > 0 else {
+                throw JPEGLSError.prematureEndOfStream
+            }
+        }
+        bitsInBuffer &-= 1
+        bitsConsumedInRegion &+= 1
+        return UInt32(truncatingIfNeeded: (bitBuffer >> UInt64(bitsInBuffer)) & 1)
+    }
+}
 
 /// Stack-resident zero-copy bitstream reader over a scoped `UnsafeRawBufferPointer`
 /// slice of a JPEG-LS entropy scan or restart interval.
@@ -404,6 +418,18 @@ struct JPEGLSFastBitReader: JPEGLSBitSource {
             bitBuffer = (bitBuffer << 8) | UInt64(byte)
             bitsInBuffer &+= 8
         }
+    }
+
+    @inline(__always)
+    mutating func readSingleBit() throws -> UInt32 {
+        if bitsInBuffer == 0 {
+            refill()
+            guard bitsInBuffer > 0 else {
+                throw JPEGLSError.prematureEndOfStream
+            }
+        }
+        bitsInBuffer &-= 1
+        return UInt32(truncatingIfNeeded: (bitBuffer >> UInt64(bitsInBuffer)) & 1)
     }
 
     @inline(__always)

@@ -71,6 +71,50 @@ struct ScalarSampleReader {
         return i &- range.lowerBound
     }
 
+    @inline(__always)
+    func matchingNearPrefix(in range: Range<Int>, lo: UInt16, hi: UInt16) -> Int {
+        var i = range.lowerBound
+        guard i < range.upperBound else { return 0 }
+        let first = self[i]
+        guard first >= lo, first <= hi else { return 0 }
+        i &+= 1
+        if sampleBytes == 1 {
+            let lo8 = UInt8(truncatingIfNeeded: lo)
+            let hi8 = UInt8(truncatingIfNeeded: min(hi, 255))
+            if i &+ 16 <= range.upperBound {
+                let loVec = SIMD16<UInt8>(repeating: lo8)
+                let hiVec = SIMD16<UInt8>(repeating: hi8)
+                while i &+ 16 <= range.upperBound {
+                    let v = bytes.loadUnaligned(fromByteOffset: i, as: SIMD16<UInt8>.self)
+                    if any((v .< loVec) .| (v .> hiVec)) { break }
+                    i &+= 16
+                }
+            }
+            while i < range.upperBound {
+                let b = bytes[i]
+                if b < lo8 || b > hi8 { break }
+                i &+= 1
+            }
+            return i &- range.lowerBound
+        } else if littleEndian == nativeUInt16LittleEndian {
+            if i &+ 8 <= range.upperBound {
+                let loVec = SIMD8<UInt16>(repeating: lo)
+                let hiVec = SIMD8<UInt16>(repeating: hi)
+                while i &+ 8 <= range.upperBound {
+                    let v = bytes.loadUnaligned(fromByteOffset: i &* 2, as: SIMD8<UInt16>.self)
+                    if any((v .< loVec) .| (v .> hiVec)) { break }
+                    i &+= 8
+                }
+            }
+        }
+        while i < range.upperBound {
+            let s = self[i]
+            if s < lo || s > hi { break }
+            i &+= 1
+        }
+        return i &- range.lowerBound
+    }
+
     /// No padding is included. Full-width samples cannot exceed their storage
     /// range; narrower power-of-two alphabets can be checked four at a time.
     func validate(width: Int, height: Int, rowStride: Int, maximum: Int,
@@ -196,6 +240,9 @@ struct NativeUInt16Reader: JPEGSampleReader {
     }
     func fourEqual(at index: Int, to value: UInt16) -> Bool { original.fourEqual(at: index, to: value) }
     func matchingPrefix(in range: Range<Int>, to value: UInt16) -> Int { original.matchingPrefix(in: range, to: value) }
+    func matchingNearPrefix(in range: Range<Int>, lo: UInt16, hi: UInt16) -> Int {
+        original.matchingNearPrefix(in: range, lo: lo, hi: hi)
+    }
 }
 struct NativeUInt16Writer: JPEGSampleWriter {
     let base: UnsafeMutableRawPointer
