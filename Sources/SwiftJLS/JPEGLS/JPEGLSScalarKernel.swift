@@ -127,14 +127,15 @@ struct JPEGLSScalarKernel {
                             let runValue = a
                             let rv16 = UInt16(truncatingIfNeeded: runValue)
                             let rowEnd = rowBase &+ width
-                            var i = rowBase &+ col
+                            let start = rowBase &+ col
+                            var i = start
                             while i < rowEnd {
-                                if i != rowBase { try checkpoint(); try writer.checkLimit() }
+                                if i != start { try checkpoint(); try writer.checkLimit() }
                                 let end = min(rowEnd, i &+ 256)
                                 i &+= buf.matchingPrefix(in: i..<end, to: rv16)
                                 if i < end { break }
                             }
-                            let actualRunLength = i &- (rowBase &+ col)
+                            let actualRunLength = i &- start
                             let remainingInLine = width &- col
 
                             let encoded = runMode.encodeRunLength(
@@ -286,7 +287,7 @@ struct JPEGLSScalarKernel {
                     if q1 == 0 && q2 == 0 && q3 == 0 {
                         let start = x
                         while x < width && abs(Int(buf[y * rowStride + x]) - a) <= near {
-                            if x & 255 == 0 { try checkpoint(); try writer.checkLimit() }
+                            if x != start && x & 255 == 0 { try checkpoint(); try writer.checkLimit() }
                             row[x] = UInt16(a)
                             x += 1
                         }
@@ -643,21 +644,33 @@ struct JPEGLSScalarKernel {
         let runDecoder = try sharedRunDecoder ?? JPEGLSRunModeDecoder(parameters: parameters, near: near)
         var context = try JPEGLSContextModel(parameters: parameters, near: near)
 
-        var prevRowEdge = 0
-        for row in 0..<rows {
-            try checkpoint()
-            let rowBase = row * rowStride
-            let prevBase = rowBase - rowStride
-            let edgeForThisRow = prevRowEdge
-            if row > 0 {
-                prevRowEdge = Int(buf[prevBase])
+        let limitThreshold = limit - qbppBits - 1
+        guard (1...16).contains(qbppBits), limitThreshold > 0 else {
+            throw CodecError(.malformedInput, "Invalid Golomb coding state.")
+        }
+        let ctxBuffer = context.rawContextsBuffer
+
+        try decoder.gradientTable.withUnsafeBufferPointer { gradBuf in
+            let gradPtr = gradBuf.baseAddress!
+            try ctxBuffer.withUnsafeMutablePointerToElements { ctxPtr in
+                var prevRowEdge = 0
+                for row in 0..<rows {
+                    try checkpoint()
+                    let rowBase = row &* rowStride
+                    let prevBase = rowBase &- rowStride
+                    let edgeForThisRow = prevRowEdge
+                    if row > 0 {
+                        prevRowEdge = Int(buf[prevBase])
+                    }
+                    try decodeRowCore(
+                        into: buf, rowStride: rowStride, row: row, width: width,
+                        edgeForThisRow: edgeForThisRow, reader: &reader, decoder: decoder,
+                        runDecoder: runDecoder, context: &context, gradPtr: gradPtr, ctxPtr: ctxPtr,
+                        parameters: parameters, near: near, limit: limit, limitThreshold: limitThreshold,
+                        qbppBits: qbppBits, checkpointMask: 255, checkpoint: checkpoint
+                    )
+                }
             }
-            try decodeRow(
-                into: buf, rowStride: rowStride, row: row, width: width,
-                edgeForThisRow: edgeForThisRow, reader: &reader, decoder: decoder,
-                runDecoder: runDecoder, context: &context, parameters: parameters,
-                near: near, limit: limit, qbppBits: qbppBits, checkpoint: checkpoint
-            )
         }
     }
 
@@ -705,6 +718,34 @@ struct JPEGLSScalarKernel {
         guard (1...16).contains(qbppBits), limitThreshold > 0 else {
             throw CodecError(.malformedInput, "Invalid Golomb coding state.")
         }
+        let ctxBuffer = context.rawContextsBuffer
+
+        try decoder.gradientTable.withUnsafeBufferPointer { gradBuf in
+            let gradPtr = gradBuf.baseAddress!
+            try ctxBuffer.withUnsafeMutablePointerToElements { ctxPtr in
+                try decodeRowCore(
+                    into: buf, rowStride: rowStride, row: row, width: width,
+                    edgeForThisRow: edgeForThisRow, reader: &reader, decoder: decoder,
+                    runDecoder: runDecoder, context: &context, gradPtr: gradPtr, ctxPtr: ctxPtr,
+                    parameters: parameters, near: near, limit: limit, limitThreshold: limitThreshold,
+                    qbppBits: qbppBits, checkpointMask: checkpointMask, checkpoint: checkpoint
+                )
+            }
+        }
+    }
+
+    @inline(__always)
+    private func decodeRowCore<Writer: JPEGSampleWriter, Reader: JPEGLSBitSource>(
+        into buf: Writer, rowStride: Int,
+        row: Int, width: Int, edgeForThisRow: Int, reader: inout Reader,
+        decoder: JPEGLSRegularModeDecoder, runDecoder: JPEGLSRunModeDecoder,
+        context: inout JPEGLSContextModel,
+        gradPtr: UnsafePointer<Int8>,
+        ctxPtr: UnsafeMutablePointer<JPEGLSContextModel.ContextRecord>,
+        parameters: JPEGLSPresetParameters,
+        near: Int, limit: Int, limitThreshold: Int, qbppBits: Int, checkpointMask: Int,
+        checkpoint: () throws -> Void
+    ) throws {
         let maxMappedError = 2 << qbppBits
         let t3 = decoder.gradientTableOffset
         let negT3 = -t3
@@ -715,11 +756,9 @@ struct JPEGLSScalarKernel {
         let bFactor = context.bFactor
         let rowBase = row &* rowStride
         let prevBase = rowBase &- rowStride
-        let ctxBuffer = context.rawContextsBuffer
 
-        try decoder.gradientTable.withUnsafeBufferPointer { gradBuf in
-            let gradPtr = gradBuf.baseAddress!
-            try ctxBuffer.withUnsafeMutablePointerToElements { ctxPtr in
+        do {
+            do {
                 var col = 0
                 while col < width {
                     if (col & checkpointMask) == 0 && col != 0 { try checkpoint() }
@@ -754,11 +793,12 @@ struct JPEGLSScalarKernel {
                         )
                         if runLength > 0 {
                             let rv = UInt16(truncatingIfNeeded: a)
-                            let end = rowBase &+ col &+ runLength
-                            if col == 0 && runLength <= 256 {
-                                buf.fill(rv, range: rowBase..<end)
+                            let start = rowBase &+ col
+                            let end = start &+ runLength
+                            if runLength <= 256 {
+                                buf.fill(rv, range: start..<end)
                             } else {
-                                for first in stride(from: rowBase &+ col, to: end, by: 256) {
+                                for first in stride(from: start, to: end, by: 256) {
                                     try checkpoint()
                                     buf.fill(rv, range: first..<min(end, first &+ 256))
                                 }

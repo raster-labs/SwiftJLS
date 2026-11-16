@@ -14,7 +14,7 @@ struct CodecBudget {
         Double(DispatchTime.now().uptimeNanoseconds - started) / 1_000_000_000
     }
     func check() throws {
-        try Task.checkCancellation()
+        try BoundedParallelPool.checkCancellation()
         guard elapsedSeconds < limits.deadlineSeconds else {
             throw CodecError(.resourceLimitExceeded, "Codec operation deadline exceeded.")
         }

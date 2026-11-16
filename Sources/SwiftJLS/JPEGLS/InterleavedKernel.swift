@@ -77,7 +77,7 @@ extension JPEGLSScalarKernel {
                 if mode == .line { context.setRunIndex(indices[group]) }
                 var x = 0
                 while x < width {
-                    if x & 1023 == 0 { try checkpoint(); try writer.checkLimit() }
+                    if x != 0 && x & 1023 == 0 { try checkpoint(); try writer.checkLimit() }
                     var isRun = true
                     for c in active {
                         let n = near == 0 ? sourceNeighbours(views[c], width: width, x: x, y: y)
@@ -88,21 +88,12 @@ extension JPEGLSScalarKernel {
                     if isRun {
                         let first = x
                         if near == 0 {
-                            // Each causal run value is zero or already validated;
-                            // every skipped sample equals that value exactly.
-                            // Taking the shortest prefix proves the joint run,
-                            // while regular and interruption samples are checked
-                            // before coding, without an extra outer-loop read.
-                            // Any failure discards the unpublished encoded data.
-                            // Scan each component through its scoped local view.
-                            // The shortest matching prefix is the joint run;
-                            // later components never scan beyond that prefix.
                             var end = width
                             for c in active {
                                 let view = views[c], value = UInt16(neighbours[c].a)
                                 var candidate = first
                                 while candidate < end {
-                                    try checkpoint(); try writer.checkLimit()
+                                    if candidate != first { try checkpoint(); try writer.checkLimit() }
                                     let stop = min(end, candidate + 256)
                                     let base = y * width
                                     candidate += view.matchingPrefix(in: (base + candidate)..<(base + stop), to: value)
@@ -112,20 +103,21 @@ extension JPEGLSScalarKernel {
                                 if end == first { break }
                             }
                             x = end
-                        }
-                        while x < width {
-                            if x & 1023 == 0 { try checkpoint(); try writer.checkLimit() }
-                            var matches = true
-                            for c in active {
-                                if abs(Int(views[c][y * width + x]) - neighbours[c].a) > near { matches = false; break }
+                        } else {
+                            while x < width {
+                                if x != first && x & 1023 == 0 { try checkpoint(); try writer.checkLimit() }
+                                var matches = true
+                                for c in active {
+                                    if abs(Int(views[c][y * width + x]) - neighbours[c].a) > near { matches = false; break }
+                                }
+                                if !matches { break }
+                                x += 1
                             }
-                            if !matches { break }
-                            x += 1
                         }
                         // Reconstruct a whole bounded run slice per component.
                         // Predictor rows are not read again until the run ends.
                         for start in stride(from: first, to: near == 0 ? first : x, by: 64) {
-                            try checkpoint(); try writer.checkLimit()
+                            if start != first { try checkpoint(); try writer.checkLimit() }
                             let end = min(x, start + 64)
                             for c in active {
                                 let value = UInt16(neighbours[c].a)

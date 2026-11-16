@@ -43,25 +43,32 @@ struct ScalarSampleReader {
 
     /// The kernel restricts each call to at most 256 samples in one row.
     /// Wider comparisons do not cross padding or alter checkpoint frequency.
+    @inline(__always)
     func matchingPrefix(in range: Range<Int>, to value: UInt16) -> Int {
         var i = range.lowerBound
+        guard i < range.upperBound, self[i] == value else { return 0 }
+        i &+= 1
         if sampleBytes == 2 {
             let ordered = littleEndian ? value.littleEndian : value.bigEndian
-            let repeated = SIMD16<UInt16>(repeating: ordered)
-            while i + 16 <= range.upperBound {
-                if bytes.loadUnaligned(fromByteOffset: i * 2, as: SIMD16<UInt16>.self) != repeated { break }
-                i += 16
+            if i &+ 16 <= range.upperBound {
+                let repeated = SIMD16<UInt16>(repeating: ordered)
+                while i &+ 16 <= range.upperBound {
+                    if bytes.loadUnaligned(fromByteOffset: i &* 2, as: SIMD16<UInt16>.self) != repeated { break }
+                    i &+= 16
+                }
             }
         } else {
-            let repeated = SIMD16<UInt8>(repeating: UInt8(truncatingIfNeeded: value))
-            while i + 16 <= range.upperBound {
-                if bytes.loadUnaligned(fromByteOffset: i, as: SIMD16<UInt8>.self) != repeated { break }
-                i += 16
+            if i &+ 16 <= range.upperBound {
+                let repeated = SIMD16<UInt8>(repeating: UInt8(truncatingIfNeeded: value))
+                while i &+ 16 <= range.upperBound {
+                    if bytes.loadUnaligned(fromByteOffset: i, as: SIMD16<UInt8>.self) != repeated { break }
+                    i &+= 16
+                }
             }
         }
-        while i + 4 <= range.upperBound && fourEqual(at: i, to: value) { i += 4 }
-        while i < range.upperBound && self[i] == value { i += 1 }
-        return i - range.lowerBound
+        while i &+ 4 <= range.upperBound && fourEqual(at: i, to: value) { i &+= 4 }
+        while i < range.upperBound && self[i] == value { i &+= 1 }
+        return i &- range.lowerBound
     }
 
     /// No padding is included. Full-width samples cannot exceed their storage
@@ -137,37 +144,41 @@ struct ScalarSampleWriter {
     @inline(__always)
     func fill(_ value: UInt16, range: Range<Int>) {
         var i = range.lowerBound
-        guard let base = bytes.baseAddress else { return }
+        guard i < range.upperBound, bytes.baseAddress != nil else { return }
         if sampleBytes == 1 {
             let v8 = UInt8(truncatingIfNeeded: value)
-            let vec16 = SIMD16<UInt8>(repeating: v8)
-            while i + 16 <= range.upperBound {
-                withUnsafeBytes(of: vec16) { src in
-                    base.advanced(by: i).copyMemory(from: src.baseAddress!, byteCount: 16)
+            if i &+ 16 <= range.upperBound {
+                let vec16 = SIMD16<UInt8>(repeating: v8)
+                while i &+ 16 <= range.upperBound {
+                    bytes.storeBytes(of: vec16, toByteOffset: i, as: SIMD16<UInt8>.self)
+                    i &+= 16
                 }
-                i += 16
             }
-            let packed = UInt32(v8) * 0x01010101
-            while i + 4 <= range.upperBound {
-                bytes.storeBytes(of: packed, toByteOffset: i, as: UInt32.self)
-                i += 4
+            if i &+ 4 <= range.upperBound {
+                let packed = UInt32(v8) &* 0x01010101
+                while i &+ 4 <= range.upperBound {
+                    bytes.storeBytes(of: packed, toByteOffset: i, as: UInt32.self)
+                    i &+= 4
+                }
             }
         } else {
             let ordered = littleEndian ? value.littleEndian : value.bigEndian
-            let vec16 = SIMD16<UInt16>(repeating: ordered)
-            while i + 16 <= range.upperBound {
-                withUnsafeBytes(of: vec16) { src in
-                    base.advanced(by: i &* 2).copyMemory(from: src.baseAddress!, byteCount: 32)
+            if i &+ 16 <= range.upperBound {
+                let vec16 = SIMD16<UInt16>(repeating: ordered)
+                while i &+ 16 <= range.upperBound {
+                    bytes.storeBytes(of: vec16, toByteOffset: i &* 2, as: SIMD16<UInt16>.self)
+                    i &+= 16
                 }
-                i += 16
             }
-            let packed = UInt64(ordered) * 0x0001000100010001
-            while i + 4 <= range.upperBound {
-                bytes.storeBytes(of: packed, toByteOffset: i &* 2, as: UInt64.self)
-                i += 4
+            if i &+ 4 <= range.upperBound {
+                let packed = UInt64(ordered) &* 0x0001000100010001
+                while i &+ 4 <= range.upperBound {
+                    bytes.storeBytes(of: packed, toByteOffset: i &* 2, as: UInt64.self)
+                    i &+= 4
+                }
             }
         }
-        while i < range.upperBound { self[i] = value; i += 1 }
+        while i < range.upperBound { self[i] = value; i &+= 1 }
     }
 
 }

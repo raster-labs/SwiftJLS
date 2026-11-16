@@ -199,4 +199,126 @@ struct ParallelAccelerationTests {
             #expect(decoded.report.fallbackReason == "Acceleration unavailable; scalar CPU selected.")
         }
     }
+
+    @Test func hpColourTransformsSIMD8Parity() throws {
+        let width = 77
+        let height = 43
+        for bits in [8, 16] {
+            let sampleBytes = bits / 8
+            for planar in [true, false] {
+                let planes: [PlaneDescriptor]
+                if planar {
+                    let row = width * sampleBytes
+                    let planeBytes = row * height
+                    planes = try (0..<3).map { c in
+                        try PlaneDescriptor(
+                            width: width, height: height, components: [c],
+                            offset: c * planeBytes, sampleStride: sampleBytes, pixelStride: sampleBytes,
+                            rowBytes: row, byteCount: (c + 1) * planeBytes
+                        )
+                    }
+                } else {
+                    let row = width * 3 * sampleBytes
+                    planes = [
+                        try PlaneDescriptor(
+                            width: width, height: height, components: [0, 1, 2],
+                            offset: 0, sampleStride: sampleBytes, pixelStride: 3 * sampleBytes,
+                            rowBytes: row, byteCount: row * height
+                        )
+                    ]
+                }
+                let descriptor = try ImageDescriptor(
+                    width: width, height: height, storageBits: bits, meaningfulBits: bits,
+                    components: [.red, .green, .blue], colour: .rgb, planes: planes
+                )
+                let mask = (1 << bits) - 1
+                let image = try ImageDestination.allocate(descriptor: descriptor).write { bytes in
+                    for y in 0..<height {
+                        for x in 0..<width {
+                            for c in 0..<3 {
+                                let v: Int
+                                if y % 7 == 0 && x >= 8 && x < 48 {
+                                    v = (c * 1021 + y * 19) & mask
+                                } else {
+                                    v = (x * 4099 + y * 131 + c * 16381) & mask
+                                }
+                                let off = planar
+                                    ? ((c * width * height + y * width + x) * sampleBytes)
+                                    : (((y * width + x) * 3 + c) * sampleBytes)
+                                if sampleBytes == 1 {
+                                    bytes[off] = UInt8(truncatingIfNeeded: v)
+                                } else {
+                                    bytes.storeBytes(of: UInt16(truncatingIfNeeded: v), toByteOffset: off, as: UInt16.self)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for transform: CodecOptions.ColourTransform in [.hp1, .hp2, .hp3] {
+                    for ilv: CodecOptions.InterleaveMode in [.line, .sample] {
+                        let config = try EncoderConfiguration(
+                            mode: .lossless,
+                            codecOptions: try CodecOptions(restartIntervalLines: 0, interleaveMode: ilv, colourTransform: transform)
+                        )
+                        let encoder = try SwiftJLS.Encoder(configuration: config)
+                        let decoder = try SwiftJLS.Decoder()
+                        let encoded = try encoder.encodeSynchronously(
+                            image,
+                            options: EncodeOptions(executionPolicy: .required(.accelerated))
+                        )
+                        let dst = try ImageDestination.allocate(descriptor: descriptor)
+                        let decoded = try decoder.decodeSynchronously(
+                            encoded.data, into: dst,
+                            options: DecodeOptions(executionPolicy: .required(.accelerated))
+                        )
+                        try image.storage.withUnsafeBytes { expected in
+                            try decoded.image.storage.withUnsafeBytes { actual in
+                                #expect(Array(actual) == Array(expected))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test func asyncTaskCancellationPropagatesToParallelWorkers() async throws {
+        let width = 256
+        let height = 256
+        let descriptor = try ImageDescriptor.greyscale16(width: width, height: height, meaningfulBits: 16)
+        let image = try ImageDestination.allocate(descriptor: descriptor).writeUInt16 { x, y in
+            UInt16(truncatingIfNeeded: (x * 7919 + y * 65521) ^ 0x5A5A)
+        }
+        let config = try EncoderConfiguration(
+            mode: .lossless,
+            codecOptions: try CodecOptions(restartIntervalLines: 8)
+        )
+        let encoder = try SwiftJLS.Encoder(configuration: config)
+        let decoder = try SwiftJLS.Decoder()
+        let baseline = try encoder.encodeSynchronously(image)
+        let limits8T = try ResourceLimits(maximumWorkers: 8)
+
+        let preCancelledEncode = Task { () throws -> EncodedImage in
+            withUnsafeCurrentTask { $0?.cancel() }
+            return try await encoder.encode(
+                image,
+                options: EncodeOptions(resourceLimits: limits8T, executionPolicy: .required(.accelerated))
+            )
+        }
+        await #expect(throws: CancellationError.self) {
+            _ = try await preCancelledEncode.value
+        }
+
+        let preCancelledDecode = Task { () throws -> DecodedImage in
+            withUnsafeCurrentTask { $0?.cancel() }
+            return try await decoder.decode(
+                baseline.data,
+                options: DecodeOptions(resourceLimits: limits8T, executionPolicy: .required(.accelerated))
+            )
+        }
+        await #expect(throws: CancellationError.self) {
+            _ = try await preCancelledDecode.value
+        }
+    }
 }

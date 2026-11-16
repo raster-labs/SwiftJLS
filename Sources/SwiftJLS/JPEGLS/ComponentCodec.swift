@@ -479,15 +479,26 @@ enum ComponentCodec {
                 }
                 // Prediction is complete. Invert in the final caller allocation,
                 // before sealing; no transformed frame or repack is allocated.
-                for i in 0..<(d.width * d.height) {
-                    if i & 63 == 0 { try budget.check() }
-                    func value(_ component: Int) -> Int {
-                        let sample = Int(views[component][i])
-                        return mappingTables[component].map { Int($0.sample(sample)) } ?? sample
+                if mappingTables.allSatisfy({ $0 == nil }) {
+                    try HPTransform.inverseInPlace(
+                        views: views,
+                        count: d.width * d.height,
+                        transform: header.colourTransform,
+                        bits: header.bits,
+                        interpretation: hpInterpretation,
+                        checkpoint: { try budget.check() }
+                    )
+                } else {
+                    for i in 0..<(d.width * d.height) {
+                        if i & 63 == 0 { try budget.check() }
+                        func value(_ component: Int) -> Int {
+                            let sample = Int(views[component][i])
+                            return mappingTables[component].map { Int($0.sample(sample)) } ?? sample
+                        }
+                        let rgb = HPTransform.inverse(value(0), value(1), value(2),
+                            transform: header.colourTransform, bits: header.bits, interpretation: hpInterpretation)
+                        views[0][i] = UInt16(rgb.0); views[1][i] = UInt16(rgb.1); views[2][i] = UInt16(rgb.2)
                     }
-                    let rgb = HPTransform.inverse(value(0), value(1), value(2),
-                        transform: header.colourTransform, bits: header.bits, interpretation: hpInterpretation)
-                    views[0][i] = UInt16(rgb.0); views[1][i] = UInt16(rgb.1); views[2][i] = UInt16(rgb.2)
                 }
             }
             if header.colourTransform == .none { try header.mapSamples(in: bytes, descriptor: d, budget: budget) }
