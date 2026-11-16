@@ -72,6 +72,75 @@ enum ComponentCodec {
             l2.offset == l0.offset + 2 * sampleBytes
     }
 
+    private static func deinterleaveBand(
+        sharedSrc: SendableRawBorrow,
+        sharedDst: SendableMutableRawBorrow,
+        baseOffset: Int,
+        rowBytes: Int,
+        width: Int,
+        planeSamples: Int,
+        sampleBytes: Int,
+        y0: Int,
+        y1: Int,
+        budget: CodecBudget
+    ) throws {
+        let srcBase = sharedSrc.buffer.baseAddress!.assumingMemoryBound(to: UInt8.self)
+        let dstBase = sharedDst.buffer.baseAddress!.assumingMemoryBound(to: UInt8.self)
+        if sampleBytes == 1 {
+            let p0 = dstBase
+            let p1 = dstBase + planeSamples
+            let p2 = dstBase + 2 * planeSamples
+            for y in y0..<y1 {
+                if (y & 15) == 0 { try budget.check() }
+                let sRow = srcBase + baseOffset + y &* rowBytes
+                let dOff = y &* width
+                var x = 0
+                while x &+ 4 <= width {
+                    let sx = x &* 3
+                    p0[dOff &+ x] = sRow[sx]
+                    p1[dOff &+ x] = sRow[sx &+ 1]
+                    p2[dOff &+ x] = sRow[sx &+ 2]
+                    p0[dOff &+ x &+ 1] = sRow[sx &+ 3]
+                    p1[dOff &+ x &+ 1] = sRow[sx &+ 4]
+                    p2[dOff &+ x &+ 1] = sRow[sx &+ 5]
+                    p0[dOff &+ x &+ 2] = sRow[sx &+ 6]
+                    p1[dOff &+ x &+ 2] = sRow[sx &+ 7]
+                    p2[dOff &+ x &+ 2] = sRow[sx &+ 8]
+                    p0[dOff &+ x &+ 3] = sRow[sx &+ 9]
+                    p1[dOff &+ x &+ 3] = sRow[sx &+ 10]
+                    p2[dOff &+ x &+ 3] = sRow[sx &+ 11]
+                    x &+= 4
+                }
+                while x < width {
+                    let sx = x &* 3
+                    p0[dOff &+ x] = sRow[sx]
+                    p1[dOff &+ x] = sRow[sx &+ 1]
+                    p2[dOff &+ x] = sRow[sx &+ 2]
+                    x &+= 1
+                }
+            }
+        } else {
+            let srcRaw = sharedSrc.buffer.baseAddress!
+            let dstRawPtr = sharedDst.buffer.baseAddress!
+            let planeBytes = planeSamples &* 2
+            for y in y0..<y1 {
+                if (y & 15) == 0 { try budget.check() }
+                let sRowByte = baseOffset + y &* rowBytes
+                let dRowByte = (y &* width) &* 2
+                for x in 0..<width {
+                    let sb = sRowByte &+ x &* 6
+                    let db = dRowByte &+ x &* 2
+                    let w0 = srcRaw.loadUnaligned(fromByteOffset: sb, as: UInt16.self)
+                    let w1 = srcRaw.loadUnaligned(fromByteOffset: sb &+ 2, as: UInt16.self)
+                    let w2 = srcRaw.loadUnaligned(fromByteOffset: sb &+ 4, as: UInt16.self)
+                    dstRawPtr.storeBytes(of: w0, toByteOffset: db, as: UInt16.self)
+                    dstRawPtr.storeBytes(of: w1, toByteOffset: planeBytes &+ db, as: UInt16.self)
+                    dstRawPtr.storeBytes(of: w2, toByteOffset: (2 &* planeBytes) &+ db, as: UInt16.self)
+                }
+            }
+        }
+    }
+
     private static func deinterleaveTriplet(
         from bytes: UnsafeRawBufferPointer,
         baseOffset: Int,
@@ -90,72 +159,92 @@ enum ComponentCodec {
             let rowBands = workers > 1 && height >= 16 ? min(workers, height) : 1
             let bandRows = (height + rowBands - 1) / rowBands
 
-            @Sendable
-            func processRows(_ y0: Int, _ y1: Int) throws {
-                let srcBase = sharedSrc.buffer.baseAddress!.assumingMemoryBound(to: UInt8.self)
-                let dstBase = sharedDst.buffer.baseAddress!.assumingMemoryBound(to: UInt8.self)
-                if sampleBytes == 1 {
-                    let p0 = dstBase
-                    let p1 = dstBase + planeSamples
-                    let p2 = dstBase + 2 * planeSamples
-                    for y in y0..<y1 {
-                        if (y & 15) == 0 { try budget.check() }
-                        let sRow = srcBase + baseOffset + y &* rowBytes
-                        let dOff = y &* width
-                        var x = 0
-                        while x &+ 4 <= width {
-                            let sx = x &* 3
-                            p0[dOff &+ x] = sRow[sx]
-                            p1[dOff &+ x] = sRow[sx &+ 1]
-                            p2[dOff &+ x] = sRow[sx &+ 2]
-                            p0[dOff &+ x &+ 1] = sRow[sx &+ 3]
-                            p1[dOff &+ x &+ 1] = sRow[sx &+ 4]
-                            p2[dOff &+ x &+ 1] = sRow[sx &+ 5]
-                            p0[dOff &+ x &+ 2] = sRow[sx &+ 6]
-                            p1[dOff &+ x &+ 2] = sRow[sx &+ 7]
-                            p2[dOff &+ x &+ 2] = sRow[sx &+ 8]
-                            p0[dOff &+ x &+ 3] = sRow[sx &+ 9]
-                            p1[dOff &+ x &+ 3] = sRow[sx &+ 10]
-                            p2[dOff &+ x &+ 3] = sRow[sx &+ 11]
-                            x &+= 4
-                        }
-                        while x < width {
-                            let sx = x &* 3
-                            p0[dOff &+ x] = sRow[sx]
-                            p1[dOff &+ x] = sRow[sx &+ 1]
-                            p2[dOff &+ x] = sRow[sx &+ 2]
-                            x &+= 1
-                        }
-                    }
-                } else {
-                    let srcRaw = sharedSrc.buffer.baseAddress!
-                    let dstRawPtr = sharedDst.buffer.baseAddress!
-                    let planeBytes = planeSamples &* 2
-                    for y in y0..<y1 {
-                        if (y & 15) == 0 { try budget.check() }
-                        let sRowByte = baseOffset + y &* rowBytes
-                        let dRowByte = (y &* width) &* 2
-                        for x in 0..<width {
-                            let sb = sRowByte &+ x &* 6
-                            let db = dRowByte &+ x &* 2
-                            let w0 = srcRaw.loadUnaligned(fromByteOffset: sb, as: UInt16.self)
-                            let w1 = srcRaw.loadUnaligned(fromByteOffset: sb &+ 2, as: UInt16.self)
-                            let w2 = srcRaw.loadUnaligned(fromByteOffset: sb &+ 4, as: UInt16.self)
-                            dstRawPtr.storeBytes(of: w0, toByteOffset: db, as: UInt16.self)
-                            dstRawPtr.storeBytes(of: w1, toByteOffset: planeBytes &+ db, as: UInt16.self)
-                            dstRawPtr.storeBytes(of: w2, toByteOffset: (2 &* planeBytes) &+ db, as: UInt16.self)
-                        }
-                    }
-                }
-            }
-
             if rowBands <= 1 {
-                try processRows(0, height)
+                try deinterleaveBand(
+                    sharedSrc: sharedSrc, sharedDst: sharedDst, baseOffset: baseOffset,
+                    rowBytes: rowBytes, width: width, planeSamples: planeSamples,
+                    sampleBytes: sampleBytes, y0: 0, y1: height, budget: budget
+                )
             } else {
                 try BoundedParallelPool.forEach(count: rowBands, workers: rowBands) { b in
                     let y0 = b * bandRows
                     let y1 = min(height, y0 + bandRows)
-                    if y0 < y1 { try processRows(y0, y1) }
+                    if y0 < y1 {
+                        try deinterleaveBand(
+                            sharedSrc: sharedSrc, sharedDst: sharedDst, baseOffset: baseOffset,
+                            rowBytes: rowBytes, width: width, planeSamples: planeSamples,
+                            sampleBytes: sampleBytes, y0: y0, y1: y1, budget: budget
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    private static func interleaveBand(
+        sharedSrc: SendableRawBorrow,
+        sharedDst: SendableMutableRawBorrow,
+        baseOffset: Int,
+        rowBytes: Int,
+        width: Int,
+        planeSamples: Int,
+        sampleBytes: Int,
+        y0: Int,
+        y1: Int,
+        budget: CodecBudget
+    ) throws {
+        let srcBase = sharedSrc.buffer.baseAddress!.assumingMemoryBound(to: UInt8.self)
+        let dstBase = sharedDst.buffer.baseAddress!.assumingMemoryBound(to: UInt8.self)
+        if sampleBytes == 1 {
+            let p0 = srcBase
+            let p1 = srcBase + planeSamples
+            let p2 = srcBase + 2 * planeSamples
+            for y in y0..<y1 {
+                if (y & 15) == 0 { try budget.check() }
+                let dRow = dstBase + baseOffset + y &* rowBytes
+                let sOff = y &* width
+                var x = 0
+                while x &+ 4 <= width {
+                    let dx = x &* 3
+                    dRow[dx] = p0[sOff &+ x]
+                    dRow[dx &+ 1] = p1[sOff &+ x]
+                    dRow[dx &+ 2] = p2[sOff &+ x]
+                    dRow[dx &+ 3] = p0[sOff &+ x &+ 1]
+                    dRow[dx &+ 4] = p1[sOff &+ x &+ 1]
+                    dRow[dx &+ 5] = p2[sOff &+ x &+ 1]
+                    dRow[dx &+ 6] = p0[sOff &+ x &+ 2]
+                    dRow[dx &+ 7] = p1[sOff &+ x &+ 2]
+                    dRow[dx &+ 8] = p2[sOff &+ x &+ 2]
+                    dRow[dx &+ 9] = p0[sOff &+ x &+ 3]
+                    dRow[dx &+ 10] = p1[sOff &+ x &+ 3]
+                    dRow[dx &+ 11] = p2[sOff &+ x &+ 3]
+                    x &+= 4
+                }
+                while x < width {
+                    let dx = x &* 3
+                    dRow[dx] = p0[sOff &+ x]
+                    dRow[dx &+ 1] = p1[sOff &+ x]
+                    dRow[dx &+ 2] = p2[sOff &+ x]
+                    x &+= 1
+                }
+            }
+        } else {
+            let srcRawPtr = sharedSrc.buffer.baseAddress!
+            let dstRawPtr = sharedDst.buffer.baseAddress!
+            let planeBytes = planeSamples &* 2
+            for y in y0..<y1 {
+                if (y & 15) == 0 { try budget.check() }
+                let dRowByte = baseOffset + y &* rowBytes
+                let sRowByte = (y &* width) &* 2
+                for x in 0..<width {
+                    let db = dRowByte &+ x &* 6
+                    let sb = sRowByte &+ x &* 2
+                    let w0 = srcRawPtr.loadUnaligned(fromByteOffset: sb, as: UInt16.self)
+                    let w1 = srcRawPtr.loadUnaligned(fromByteOffset: planeBytes &+ sb, as: UInt16.self)
+                    let w2 = srcRawPtr.loadUnaligned(fromByteOffset: (2 &* planeBytes) &+ sb, as: UInt16.self)
+                    dstRawPtr.storeBytes(of: w0, toByteOffset: db, as: UInt16.self)
+                    dstRawPtr.storeBytes(of: w1, toByteOffset: db &+ 2, as: UInt16.self)
+                    dstRawPtr.storeBytes(of: w2, toByteOffset: db &+ 4, as: UInt16.self)
                 }
             }
         }
@@ -179,72 +268,23 @@ enum ComponentCodec {
             let rowBands = workers > 1 && height >= 16 ? min(workers, height) : 1
             let bandRows = (height + rowBands - 1) / rowBands
 
-            @Sendable
-            func processRows(_ y0: Int, _ y1: Int) throws {
-                let srcBase = sharedSrc.buffer.baseAddress!.assumingMemoryBound(to: UInt8.self)
-                let dstBase = sharedDst.buffer.baseAddress!.assumingMemoryBound(to: UInt8.self)
-                if sampleBytes == 1 {
-                    let p0 = srcBase
-                    let p1 = srcBase + planeSamples
-                    let p2 = srcBase + 2 * planeSamples
-                    for y in y0..<y1 {
-                        if (y & 15) == 0 { try budget.check() }
-                        let dRow = dstBase + baseOffset + y &* rowBytes
-                        let sOff = y &* width
-                        var x = 0
-                        while x &+ 4 <= width {
-                            let dx = x &* 3
-                            dRow[dx] = p0[sOff &+ x]
-                            dRow[dx &+ 1] = p1[sOff &+ x]
-                            dRow[dx &+ 2] = p2[sOff &+ x]
-                            dRow[dx &+ 3] = p0[sOff &+ x &+ 1]
-                            dRow[dx &+ 4] = p1[sOff &+ x &+ 1]
-                            dRow[dx &+ 5] = p2[sOff &+ x &+ 1]
-                            dRow[dx &+ 6] = p0[sOff &+ x &+ 2]
-                            dRow[dx &+ 7] = p1[sOff &+ x &+ 2]
-                            dRow[dx &+ 8] = p2[sOff &+ x &+ 2]
-                            dRow[dx &+ 9] = p0[sOff &+ x &+ 3]
-                            dRow[dx &+ 10] = p1[sOff &+ x &+ 3]
-                            dRow[dx &+ 11] = p2[sOff &+ x &+ 3]
-                            x &+= 4
-                        }
-                        while x < width {
-                            let dx = x &* 3
-                            dRow[dx] = p0[sOff &+ x]
-                            dRow[dx &+ 1] = p1[sOff &+ x]
-                            dRow[dx &+ 2] = p2[sOff &+ x]
-                            x &+= 1
-                        }
-                    }
-                } else {
-                    let srcRawPtr = sharedSrc.buffer.baseAddress!
-                    let dstRawPtr = sharedDst.buffer.baseAddress!
-                    let planeBytes = planeSamples &* 2
-                    for y in y0..<y1 {
-                        if (y & 15) == 0 { try budget.check() }
-                        let dRowByte = baseOffset + y &* rowBytes
-                        let sRowByte = (y &* width) &* 2
-                        for x in 0..<width {
-                            let db = dRowByte &+ x &* 6
-                            let sb = sRowByte &+ x &* 2
-                            let w0 = srcRawPtr.loadUnaligned(fromByteOffset: sb, as: UInt16.self)
-                            let w1 = srcRawPtr.loadUnaligned(fromByteOffset: planeBytes &+ sb, as: UInt16.self)
-                            let w2 = srcRawPtr.loadUnaligned(fromByteOffset: (2 &* planeBytes) &+ sb, as: UInt16.self)
-                            dstRawPtr.storeBytes(of: w0, toByteOffset: db, as: UInt16.self)
-                            dstRawPtr.storeBytes(of: w1, toByteOffset: db &+ 2, as: UInt16.self)
-                            dstRawPtr.storeBytes(of: w2, toByteOffset: db &+ 4, as: UInt16.self)
-                        }
-                    }
-                }
-            }
-
             if rowBands <= 1 {
-                try processRows(0, height)
+                try interleaveBand(
+                    sharedSrc: sharedSrc, sharedDst: sharedDst, baseOffset: baseOffset,
+                    rowBytes: rowBytes, width: width, planeSamples: planeSamples,
+                    sampleBytes: sampleBytes, y0: 0, y1: height, budget: budget
+                )
             } else {
                 try BoundedParallelPool.forEach(count: rowBands, workers: rowBands) { b in
                     let y0 = b * bandRows
                     let y1 = min(height, y0 + bandRows)
-                    if y0 < y1 { try processRows(y0, y1) }
+                    if y0 < y1 {
+                        try interleaveBand(
+                            sharedSrc: sharedSrc, sharedDst: sharedDst, baseOffset: baseOffset,
+                            rowBytes: rowBytes, width: width, planeSamples: planeSamples,
+                            sampleBytes: sampleBytes, y0: y0, y1: y1, budget: budget
+                        )
+                    }
                 }
             }
         }
@@ -356,19 +396,17 @@ enum ComponentCodec {
             let baseTotalWorkspace = try checkedAdd(checkedAdd(baseWorkspace, checkedMultiply(metadata.byteCount, 32)), discardedICCBytes)
 
             let totalUnits = configuration.codecOptions.interleaveMode == .none ? componentIDs.count * chunks : 1
-            var effectiveWorkers = (resolvedBackend == .accelerated && totalUnits > 1)
-                ? min(totalUnits, BoundedParallelPool.workerCount(requested: budget.limits.maximumWorkers))
-                : 1
             let perExtraWorker = ScalarCodec.contextBytes + predictorBytes
-            while effectiveWorkers > 1 {
-                let extra = (effectiveWorkers - 1) * perExtraWorker
-                let candidateWs = baseTotalWorkspace + extra
-                if candidateWs <= budget.limits.maximumWorkspaceBytes,
-                   image.storage.byteCount + candidateWs + outputLimit <= budget.limits.maximumMemoryBytes {
-                    break
-                }
-                effectiveWorkers -= 1
-            }
+            let effectiveWorkers = BoundedParallelPool.clampedWorkerCount(
+                enabled: resolvedBackend == .accelerated,
+                units: totalUnits,
+                requestedWorkers: budget.limits.maximumWorkers,
+                baseWorkspaceBytes: baseTotalWorkspace,
+                perExtraWorkerBytes: perExtraWorker,
+                maximumWorkspaceBytes: budget.limits.maximumWorkspaceBytes,
+                fixedMemoryBytes: image.storage.byteCount + outputLimit,
+                maximumMemoryBytes: budget.limits.maximumMemoryBytes
+            )
             let sampleBytesForPlanar = d.storageBits / 8
             let planarCandidateBytes = try checkedMultiply(samples, sampleBytesForPlanar)
             let workerWs = baseTotalWorkspace + (effectiveWorkers - 1) * perExtraWorker
@@ -679,18 +717,16 @@ enum ComponentCodec {
 
         let allNonInterleaved = header.records.allSatisfy { $0.interleave == .none && $0.components.count == 1 }
         let totalNonInterleavedUnits = allNonInterleaved ? ranges : 1
-        var effectiveWorkers = (resolvedBackend == .accelerated && totalNonInterleavedUnits > 1)
-            ? min(totalNonInterleavedUnits, BoundedParallelPool.workerCount(requested: budget.limits.maximumWorkers))
-            : 1
-        while effectiveWorkers > 1 {
-            let extra = (effectiveWorkers - 1) * ScalarCodec.contextBytes
-            let candidateWs = baseTotalWorkspace + extra
-            if candidateWs <= budget.limits.maximumWorkspaceBytes,
-               pixelBytes + candidateWs + data.count <= budget.limits.maximumMemoryBytes {
-                break
-            }
-            effectiveWorkers -= 1
-        }
+        let effectiveWorkers = BoundedParallelPool.clampedWorkerCount(
+            enabled: resolvedBackend == .accelerated,
+            units: totalNonInterleavedUnits,
+            requestedWorkers: budget.limits.maximumWorkers,
+            baseWorkspaceBytes: baseTotalWorkspace,
+            perExtraWorkerBytes: ScalarCodec.contextBytes,
+            maximumWorkspaceBytes: budget.limits.maximumWorkspaceBytes,
+            fixedMemoryBytes: pixelBytes + data.count,
+            maximumMemoryBytes: budget.limits.maximumMemoryBytes
+        )
         let samples = try checkedMultiply(checkedMultiply(d.width, d.height), d.components.count)
         let sampleBytesForPlanar = d.storageBits / 8
         let planarDecodeBytes = try checkedMultiply(samples, sampleBytesForPlanar)

@@ -55,6 +55,29 @@ internal enum BoundedParallelPool {
         return max(1, min(requested, hw))
     }
 
+    internal static func clampedWorkerCount(
+        enabled: Bool,
+        units: Int,
+        requestedWorkers: Int,
+        baseWorkspaceBytes: Int,
+        perExtraWorkerBytes: Int,
+        maximumWorkspaceBytes: Int,
+        fixedMemoryBytes: Int,
+        maximumMemoryBytes: Int
+    ) -> Int {
+        guard enabled, units > 1 else { return 1 }
+        var workers = min(units, workerCount(requested: requestedWorkers))
+        while workers > 1 {
+            let candidateWs = baseWorkspaceBytes + (workers - 1) * perExtraWorkerBytes
+            if candidateWs <= maximumWorkspaceBytes,
+               fixedMemoryBytes + candidateWs <= maximumMemoryBytes {
+                break
+            }
+            workers -= 1
+        }
+        return workers
+    }
+
     internal static func forEach(
         count: Int,
         workers: Int,

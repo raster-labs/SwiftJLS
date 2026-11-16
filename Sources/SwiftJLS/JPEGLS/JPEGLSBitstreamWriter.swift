@@ -33,6 +33,7 @@ struct JPEGLSBitstreamWriter {
     /// Initialize writer with optional initial capacity
     ///
     /// - Parameter capacity: Initial buffer capacity in bytes
+    @inline(never)
     init(capacity: Int = 4096, maximumBytes: Int = ResourceLimits.default.maximumCompressedBytes) {
         self.maximumBytes = max(0, maximumBytes)
         self.bytes = []
@@ -50,7 +51,7 @@ struct JPEGLSBitstreamWriter {
     private mutating func append<S: Sequence>(contentsOf values: S) where S.Element == UInt8 {
         for value in values { append(value) }
     }
-    @inline(__always)
+    @inline(never)
     mutating func appendRawBytes(_ slice: [UInt8]) {
         let available = maximumBytes - bytes.count
         if slice.count <= available {

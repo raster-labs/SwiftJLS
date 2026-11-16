@@ -96,19 +96,17 @@ enum ScalarCodec {
             let baseWorkspace = try checkedAdd(checkedAdd(contextBytes, tableBytes(parameters)), checkedAdd(checkedMultiply(outputLimit, 2), perWorkerPredictor))
             let baseTotalWorkspace = try checkedAdd(checkedAdd(baseWorkspace, checkedMultiply(metadata.byteCount, 32)), discardedICCBytes)
 
-            var effectiveWorkers = (resolvedBackend == .accelerated && chunks > 1)
-                ? min(chunks, BoundedParallelPool.workerCount(requested: budget.limits.maximumWorkers))
-                : 1
             let perExtraWorker = contextBytes + perWorkerPredictor
-            while effectiveWorkers > 1 {
-                let extra = (effectiveWorkers - 1) * perExtraWorker
-                let candidateWs = baseTotalWorkspace + extra
-                if candidateWs <= budget.limits.maximumWorkspaceBytes,
-                   image.storage.byteCount + candidateWs + outputLimit <= budget.limits.maximumMemoryBytes {
-                    break
-                }
-                effectiveWorkers -= 1
-            }
+            let effectiveWorkers = BoundedParallelPool.clampedWorkerCount(
+                enabled: resolvedBackend == .accelerated,
+                units: chunks,
+                requestedWorkers: budget.limits.maximumWorkers,
+                baseWorkspaceBytes: baseTotalWorkspace,
+                perExtraWorkerBytes: perExtraWorker,
+                maximumWorkspaceBytes: budget.limits.maximumWorkspaceBytes,
+                fixedMemoryBytes: image.storage.byteCount + outputLimit,
+                maximumMemoryBytes: budget.limits.maximumMemoryBytes
+            )
             let admittedWorkspace = baseTotalWorkspace + (effectiveWorkers - 1) * perExtraWorker
             try budget.admit(pixelBytes: image.storage.byteCount,
                 workspaceBytes: admittedWorkspace,
@@ -286,18 +284,16 @@ enum ScalarCodec {
             let baseTotalWorkspace = try checkedAdd(baseWorkspace, checkedMultiply(header.metadataBytes, 32))
             let pixelBytes = supplied?.storage.byteCount ?? descriptor.requiredByteCount
 
-            var effectiveWorkers = (resolvedBackend == .accelerated && header.scans.count > 1)
-                ? min(header.scans.count, BoundedParallelPool.workerCount(requested: budget.limits.maximumWorkers))
-                : 1
-            while effectiveWorkers > 1 {
-                let extra = (effectiveWorkers - 1) * contextBytes
-                let candidateWs = baseTotalWorkspace + extra
-                if candidateWs <= budget.limits.maximumWorkspaceBytes,
-                   pixelBytes + candidateWs + data.count <= budget.limits.maximumMemoryBytes {
-                    break
-                }
-                effectiveWorkers -= 1
-            }
+            let effectiveWorkers = BoundedParallelPool.clampedWorkerCount(
+                enabled: resolvedBackend == .accelerated,
+                units: header.scans.count,
+                requestedWorkers: budget.limits.maximumWorkers,
+                baseWorkspaceBytes: baseTotalWorkspace,
+                perExtraWorkerBytes: contextBytes,
+                maximumWorkspaceBytes: budget.limits.maximumWorkspaceBytes,
+                fixedMemoryBytes: pixelBytes + data.count,
+                maximumMemoryBytes: budget.limits.maximumMemoryBytes
+            )
             try budget.admit(pixelBytes: pixelBytes, workspaceBytes: baseTotalWorkspace + (effectiveWorkers - 1) * contextBytes, compressedBytes: data.count)
             let samples = try checkedMultiply(header.width, header.height)
             options.progress?(try ProgressUpdate(phase: .processing, completedUnits: 0, totalUnits: samples))

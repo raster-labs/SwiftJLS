@@ -205,14 +205,15 @@ def classify(frames, size=None):
             return 'compressed_buffer'
     top8 = '\n'.join(frames[:8])
     if ('SwiftJLS.ChunkOutputCollector.init(' in top8
-            and '<[Swift.UInt8]>' in top8 and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']):
+            and ('<[Swift.UInt8]>' in top8 or 'Swift._ContiguousArrayBuffer.' in top8)
+            and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']):
         return 'compressed_buffer'
     if ('SwiftJLS.JPEGLSScalarKernel.PredictorRows.' in top8
-            and ('<Swift.UInt16>' in top8 or '<Swift.UInt8>' in top8 or 'Swift._ContiguousArrayBuffer.init' in top8)
+            and ('<Swift.UInt16>' in top8 or '<Swift.UInt8>' in top8 or 'Swift._ContiguousArrayBuffer.' in top8)
             and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']):
         return 'algorithm_state'
-    if ('static SwiftJLS.ParallelDecodeSchedule.build(' in top8
-            and ('<SwiftJLS.ParallelDecodeUnit>' in top8 or '<SwiftJLS.ParallelScanDecoder>' in top8)
+    if ('SwiftJLS.ParallelDecodeSchedule.build(' in top8
+            and ('<SwiftJLS.ParallelDecodeUnit>' in top8 or '<SwiftJLS.ParallelScanDecoder>' in top8 or 'Swift._ContiguousArrayBuffer.' in top8)
             and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']):
         return 'algorithm_state'
     # Reviewed destination-borrow closure: the only Int array constructed
