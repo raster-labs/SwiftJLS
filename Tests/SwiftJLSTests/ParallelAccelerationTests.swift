@@ -321,4 +321,117 @@ struct ParallelAccelerationTests {
             _ = try await preCancelledDecode.value
         }
     }
+
+    @Test func extremeNear255UInt16AndPaddedOddOffsetPlanarRGBParity() throws {
+        // 1. 16-bit MAXVAL=65535 at extreme NEAR=255 (qbpp=511): alternating 0/65535 checkerboard + odd-column near-runs
+        let w16 = 93, h16 = 45
+        let desc16 = try ImageDescriptor.greyscale16(width: w16, height: h16, meaningfulBits: 16)
+        let img16 = try ImageDestination.allocate(descriptor: desc16).writeUInt16 { x, y in
+            if y % 5 == 0 && x >= 1 && x <= 40 {
+                // Near-run starting at odd column x=1 with jitter within +-255
+                return UInt16(30000 + ((x * 37 + y * 13) % 500) - 250)
+            } else if y % 3 == 0 && x >= 3 && x <= 30 {
+                // Near-run starting at x=3 near upper clamp 65535
+                return UInt16(65535 - ((x * 19 + y) % 255))
+            } else {
+                // Extreme 0 / 65535 checkerboard exercising maximum |actual - pred| + near = 65790 reciprocal quantization
+                return ((x + y) & 1) == 0 ? 0 : 65535
+            }
+        }
+        let cfgNear255 = try EncoderConfiguration(
+            mode: .nearLossless(maximumAbsoluteError: 255),
+            codecOptions: try CodecOptions(restartIntervalLines: 9)
+        )
+        let encNear255 = try SwiftJLS.Encoder(configuration: cfgNear255)
+        let dec = try SwiftJLS.Decoder()
+        let lim1 = try ResourceLimits(maximumWorkers: 1)
+        let lim8 = try ResourceLimits(maximumWorkers: 8)
+
+        let outScalar16 = try encNear255.encodeSynchronously(img16, options: .init(resourceLimits: lim1, executionPolicy: .scalarCPU))
+        let outAccel16 = try encNear255.encodeSynchronously(img16, options: .init(resourceLimits: lim8, executionPolicy: .required(.accelerated)))
+        #expect(outScalar16.data == outAccel16.data)
+
+        let decScalar16 = try dec.decodeSynchronously(outAccel16.data, options: .init(resourceLimits: lim1, executionPolicy: .scalarCPU))
+        let decAccel16 = try dec.decodeSynchronously(outAccel16.data, options: .init(resourceLimits: lim8, executionPolicy: .required(.accelerated)))
+        for y in 0..<h16 {
+            for x in 0..<w16 {
+                let s0 = try decScalar16.image.sampleUInt16(x: x, y: y)
+                let s1 = try decAccel16.image.sampleUInt16(x: x, y: y)
+                let orig = try img16.sampleUInt16(x: x, y: y)
+                #expect(s0 == s1)
+                #expect(abs(Int(s1) - Int(orig)) <= 255)
+            }
+        }
+
+        // 2. Odd-width (75x47) 8-bit and 16-bit packed ILV=0 RGB with non-zero base offset and row padding
+        let rw = 75, rh = 47
+        for bits in [8, 16] {
+            let sb = bits / 8
+            let padBytes = 7 * sb
+            let rowBytes = rw * 3 * sb + padBytes
+            let baseOffset = 3 * sb
+            let tailBytes = 5 * sb
+            let totalBytes = baseOffset + rowBytes * rh + tailBytes
+            let plane = try PlaneDescriptor(
+                width: rw, height: rh, components: [0, 1, 2],
+                offset: baseOffset, sampleStride: sb, pixelStride: 3 * sb,
+                rowBytes: rowBytes, byteCount: totalBytes
+            )
+            let rgbDesc = try ImageDescriptor(
+                width: rw, height: rh, storageBits: bits, meaningfulBits: bits,
+                components: [.red, .green, .blue], colour: .rgb, planes: [plane]
+            )
+            let srcImg = try ImageDestination.allocate(descriptor: rgbDesc).write { bytes in
+                for i in 0..<totalBytes { bytes[i] = 0xA5 }
+                for y in 0..<rh {
+                    let rowStart = baseOffset + y * rowBytes
+                    for x in 0..<rw {
+                        for c in 0..<3 {
+                            let v = (bits == 8)
+                                ? ((x * 17 + y * 31 + c * 83) & 0xFF)
+                                : ((x * 4099 + y * 257 + c * 16381) & 0xFFFF)
+                            let off = rowStart + (x * 3 + c) * sb
+                            if sb == 1 {
+                                bytes[off] = UInt8(truncatingIfNeeded: v)
+                            } else {
+                                bytes[off] = UInt8(truncatingIfNeeded: v)
+                                bytes[off + 1] = UInt8(truncatingIfNeeded: v >> 8)
+                            }
+                        }
+                    }
+                }
+            }
+
+            for mode: CompressionMode in [.lossless, .nearLossless(maximumAbsoluteError: 7)] {
+                for interval in [0, 11] {
+                    let cfg = try EncoderConfiguration(
+                        mode: mode,
+                        codecOptions: try CodecOptions(restartIntervalLines: interval, interleaveMode: .none)
+                    )
+                    let enc = try SwiftJLS.Encoder(configuration: cfg)
+                    let e1 = try enc.encodeSynchronously(srcImg, options: .init(resourceLimits: lim1, executionPolicy: .scalarCPU))
+                    let e8 = try enc.encodeSynchronously(srcImg, options: .init(resourceLimits: lim8, executionPolicy: .required(.accelerated)))
+                    #expect(e1.data == e8.data)
+
+                    let dst1 = try ImageDestination.allocate(descriptor: rgbDesc)
+                    let dst8 = try ImageDestination.allocate(descriptor: rgbDesc)
+                    let d1 = try dec.decodeSynchronously(e8.data, into: dst1, options: .init(resourceLimits: lim1, executionPolicy: .scalarCPU))
+                    let d8 = try dec.decodeSynchronously(e8.data, into: dst8, options: .init(resourceLimits: lim8, executionPolicy: .required(.accelerated)))
+
+                    try d1.image.storage.withUnsafeBytes { b1 in
+                        try d8.image.storage.withUnsafeBytes { b8 in
+                            // Active pixel bytes must match bit-for-bit, and padding bytes must remain untouched (0 since OwnedImageStorage zero-inits)
+                            #expect(Array(b1) == Array(b8))
+                            #expect(b8.prefix(baseOffset).allSatisfy { $0 == 0 })
+                            #expect(b8.suffix(tailBytes).allSatisfy { $0 == 0 })
+                            for y in 0..<rh {
+                                let padStart = baseOffset + y * rowBytes + rw * 3 * sb
+                                #expect(b8[padStart..<(padStart + padBytes)].allSatisfy { $0 == 0 })
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
