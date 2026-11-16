@@ -1,5 +1,14 @@
 # Change log
 
+## SwiftJLS 2.1.1 — 2026-11-16
+
+Patch release of SwiftJLS (`2.1.1`, tagged `v2.1.1`) under suite policy **0.11.0** (`MIT` licence), restoring `Swift 6.2` test compilation, `watchOS` / `visionOS` explicit `swiftc` qualification, and complete `heaptrack` per-operation workspace attribution while keeping published tag `v2.1.0` immutable:
+
+- Decompose the `writeUInt16` closure in `Tests/SwiftJLSTests/ParallelAccelerationTests.swift` so `Swift 6.2` (`swift:6.2-noble`) test compilation type-checks without expression timeouts.
+- Pass `-package-name swiftjls` in explicit `xcrun swiftc` qualification steps (`contract.yml`, `apple-runtime.yml`, `watch-device.yml`) for `xrsimulator` and `arm64_32-apple-watchos26.0`.
+- Capture `OperationCancellationToken` on `CodecBudget`, eliminate redundant GCD worker `TaskLocal` re-binding in `BoundedParallelPool.forEach`, route accelerated workspace/schedule buffers through non-inlined helpers, and attribute parallel control/workspace stacks in `Scripts/StorageEvidence/measure-operation.py`.
+- Promote `VERSION`, `swiftjls-cli` (`Sources/SwiftJLSCLI/main.swift`), and `ManPages/swiftjls-cli.1` to `2.1.1` (`v2.1.1`), and record release qualification in [Documentation/RELEASE-v2.1.1.md](Documentation/RELEASE-v2.1.1.md).
+
 ## SwiftJLS 2.1.0 — 2026-11-16
 
 Feature and performance release of SwiftJLS (`2.1.0`, tagged `v2.1.0`) under suite policy **0.11.0** (`MIT` licence, Swift `6.2` tools minimum / Swift `6.4` primary in Swift `6` language mode, Apple OS `26.0` deployment floors), keeping published tags `v2.0.0` and `v2.0.1` immutable:

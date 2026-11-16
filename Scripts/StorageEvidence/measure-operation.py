@@ -69,6 +69,19 @@ def classify(frames, size=None):
             'one-time initialization function for ' + name in runtime_origin
             for name in ['processInfo', 'cfsQuotaURL', 'cfsPeriodURL', 'cpuSetURL']):
         return 'runtime_or_unattributed'
+    task_local_inits = {
+        ('generic specialization <SwiftJLS.OperationCancellationToken?> of Swift.TaskLocal.__allocating_init(wrappedValue: A) -> Swift.TaskLocal<A>',
+         'one-time initialization function for $activeCancellation',
+         'SwiftJLS.BoundedParallelPool.$activeCancellation.unsafeMutableAddressor : Swift.TaskLocal<SwiftJLS.OperationCancellationToken?>'): 24,
+        ('generic specialization <Swift.Bool> of Swift.TaskLocal.__allocating_init(wrappedValue: A) -> Swift.TaskLocal<A>',
+         'one-time initialization function for $forceUnavailable',
+         'SwiftJLS.AccelerationRuntime.$forceUnavailable.unsafeMutableAddressor : Swift.TaskLocal<Swift.Bool>'): 17,
+    }
+    if (len(frames) >= 6 and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']
+            and frames[4] == 'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)'):
+        expected_tl_size = task_local_inits.get((frames[2], frames[3], frames[5]))
+        if expected_tl_size is not None and size == expected_tl_size:
+            return 'runtime_or_unattributed'
     if 'SwiftJLS.OwnedImageStorage.init' in stack and 'Swift.Array.init(repeating:' in stack:
         return 'owned_pixel_buffer'
     owned_factory_pixel_stack = [
@@ -182,6 +195,30 @@ def classify(frames, size=None):
             return 'metadata_and_descriptors'
     if any(s in stack for s in ['ImageDestination.__allocating_init', 'OwnedImageStorage.__allocating_init', 'SealedImageStorage.__allocating_init']):
         return 'storage_control_objects'
+    if (size == 17 and len(frames) >= 3 and frames[:3] == [
+            'swift_slowAlloc', 'swift_allocObject',
+            'SwiftJLS.OperationCancellationToken.__allocating_init() -> SwiftJLS.OperationCancellationToken']):
+        return 'storage_control_objects'
+    if (size is not None and 16 <= size <= 128 and len(frames) >= 3
+            and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']
+            and frames[2].startswith('SwiftJLS.ParallelFailureState.__allocating_init(')):
+        return 'storage_control_objects'
+    top8 = '\n'.join(frames[:8])
+    if (size is not None and 16 <= size <= 64 and len(frames) >= 3
+            and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']
+            and frames[2] == 'SwiftJLS.ChunkOutputCollector.__allocating_init(count: Swift.Int) -> SwiftJLS.ChunkOutputCollector'):
+        return 'compressed_buffer'
+    if ('SwiftJLS.ChunkOutputCollector.init(count: Swift.Int) -> SwiftJLS.ChunkOutputCollector' in top8
+            and '<[Swift.UInt8]>' in top8 and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']):
+        return 'compressed_buffer'
+    if ('SwiftJLS.JPEGLSScalarKernel.PredictorRows.' in top8
+            and ('<Swift.UInt16>' in top8 or '<Swift.UInt8>' in top8 or 'Swift._ContiguousArrayBuffer.init' in top8)
+            and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']):
+        return 'algorithm_state'
+    if ('static SwiftJLS.ParallelDecodeSchedule.build(' in top8
+            and ('<SwiftJLS.ParallelDecodeUnit>' in top8 or '<SwiftJLS.ParallelScanDecoder>' in top8)
+            and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']):
+        return 'algorithm_state'
     # Reviewed destination-borrow closure: the only Int array constructed
     # directly here is the scan's vertical sampling schedule. Header maxima
     # use reductions and do not materialise arrays.
@@ -481,6 +518,45 @@ def self_test():
     ]
     assert classify(compressed_reader_array_stack, 404) == 'compressed_buffer'
     assert classify(compressed_reader_array_stack, 64) == 'compressed_buffer'
+    cancel_token_stack = prefix + ['SwiftJLS.OperationCancellationToken.__allocating_init() -> SwiftJLS.OperationCancellationToken']
+    assert classify(cancel_token_stack, 17) == 'storage_control_objects'
+    for bad_size in [None, 16, 18, 64]:
+        assert classify(cancel_token_stack, bad_size) == 'unattributed_codec'
+    assert classify(['malloc'] + cancel_token_stack[1:], 17) == 'unattributed_codec'
+    tl_cancel_stack = prefix + [
+        'generic specialization <SwiftJLS.OperationCancellationToken?> of Swift.TaskLocal.__allocating_init(wrappedValue: A) -> Swift.TaskLocal<A>',
+        'one-time initialization function for $activeCancellation',
+        'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)',
+        'SwiftJLS.BoundedParallelPool.$activeCancellation.unsafeMutableAddressor : Swift.TaskLocal<SwiftJLS.OperationCancellationToken?>',
+    ]
+    assert classify(tl_cancel_stack, 24) == 'runtime_or_unattributed'
+    assert classify(tl_cancel_stack, 17) == 'unattributed_codec'
+    tl_force_stack = prefix + [
+        'generic specialization <Swift.Bool> of Swift.TaskLocal.__allocating_init(wrappedValue: A) -> Swift.TaskLocal<A>',
+        'one-time initialization function for $forceUnavailable',
+        'swift::threading_impl::once_slow(swift::threading_impl::once_t&, void (*)(void*), void*)',
+        'SwiftJLS.AccelerationRuntime.$forceUnavailable.unsafeMutableAddressor : Swift.TaskLocal<Swift.Bool>',
+    ]
+    assert classify(tl_force_stack, 17) == 'runtime_or_unattributed'
+    assert classify(tl_force_stack, 24) == 'unattributed_codec'
+    chunk_collector_obj = prefix + ['SwiftJLS.ChunkOutputCollector.__allocating_init(count: Swift.Int) -> SwiftJLS.ChunkOutputCollector']
+    assert classify(chunk_collector_obj, 32) == 'compressed_buffer'
+    assert classify(chunk_collector_obj, 128) == 'unattributed_codec'
+    planar_ws_stack = prefix + [
+        'Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>',
+        'generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)',
+        'generic specialization <Swift.UInt8> of Swift.Array.init(unsafeUninitializedCapacity: Swift.Int, initializingWith: (inout Swift.UnsafeMutableBufferPointer<A>, inout Swift.Int) throws -> ()) rethrows -> [A]',
+        'static SwiftJLS.JPEGLSScalarKernel.PredictorRows.makePlanarWorkspace(byteCount: Swift.Int) -> [Swift.UInt8]',
+    ]
+    assert classify(planar_ws_stack, 198950) == 'algorithm_state'
+    schedule_stack = prefix + [
+        'generic specialization <SwiftJLS.ParallelDecodeUnit> of Swift._ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> Swift._ContiguousArrayBuffer<A>',
+        'generic specialization <SwiftJLS.ParallelDecodeUnit> of Swift.Array._createNewBuffer(bufferIsUnique: Swift.Bool, minimumCapacity: Swift.Int, growForAppend: Swift.Bool) -> ()',
+        'generic specialization <SwiftJLS.ParallelDecodeUnit> of Swift.Array._reserveCapacityAssumingUniqueBuffer(oldCount: Swift.Int) -> ()',
+        'generic specialization <SwiftJLS.ParallelDecodeUnit> of Swift.Array.reserveCapacity(Swift.Int) -> ()',
+        'static SwiftJLS.ParallelDecodeSchedule.build(records: [SwiftJLS.JPEGLSHeader.Scan], totalUnits: Swift.Int, bits: Swift.Int, kernel: SwiftJLS.JPEGLSScalarKernel) throws -> (units: [SwiftJLS.ParallelDecodeUnit], decoders: [SwiftJLS.ParallelScanDecoder])',
+    ]
+    assert classify(schedule_stack, 160) == 'algorithm_state'
     r = replay(lines)
     assert r['phase_total_requested_heap_peak_bytes'] == 120
     assert r['baseline_total_requested_heap_bytes'] == 100

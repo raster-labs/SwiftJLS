@@ -18,6 +18,16 @@ extension JPEGLSScalarKernel {
             previous = .init(repeating: 0, count: width)
             current = .init(repeating: 0, count: width)
         }
+        @inline(never)
+        static func makeArena(width: Int) -> [UInt16] {
+            [UInt16](repeating: 0, count: width * 2)
+        }
+        @inline(never)
+        static func makePlanarWorkspace(byteCount: Int) -> [UInt8] {
+            [UInt8](unsafeUninitializedCapacity: byteCount) { _, initCount in
+                initCount = byteCount
+            }
+        }
         mutating func beginRow() { oldEdge = edge; edge = Int(previous[0]) }
         mutating func finishRow() { swap(&previous, &current) }
         func neighbours(x: Int) -> Neighbours {

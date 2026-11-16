@@ -1,5 +1,9 @@
 # History and provenance — SwiftJLS
 
+## SwiftJLS 2.1.1 release — 2026-11-16 (`v2.1.1`)
+
+- Publish patch release SwiftJLS `2.1.1` (`v2.1.1`) over `v2.1.0` (`a96ae9c`), keeping published tag `v2.1.0` immutable: restore `Swift 6.2` test compilation in `ParallelAccelerationTests.swift`, supply `-package-name swiftjls` in explicit `watchOS` / `visionOS` `swiftc` qualification gates, capture `OperationCancellationToken` on `CodecBudget` without worker-thread `TaskLocal` re-binding, and complete `heaptrack` per-operation workspace stack attribution in `Scripts/StorageEvidence/measure-operation.py`; see [Documentation/RELEASE-v2.1.1.md](Documentation/RELEASE-v2.1.1.md).
+
 ## SwiftJLS 2.1.0 release — 2026-11-16 (`v2.1.0`)
 
 - Publish feature and performance release SwiftJLS `2.1.0` (`v2.1.0`) over `v2.0.1` (`c49b5d6`), shipping 64-bit buffered bit-I/O, branchless MED prediction/LUTs, SIMD run-length scanning, vectorised HP1/HP2/HP3 colour transforms, accelerated near-lossless (`NEAR > 0`) coding, `BoundedParallelPool` multi-worker `ILV=0` and `DRI` restart-segment parallelism, cooperative async cancellation bridging, and zero-hop synchronous `encodeSynchronously`/`decodeSynchronously` entry points (`df1405b`, `1ba7e50`, `1512ab9`, `eb01686`); see [Documentation/RELEASE-v2.1.0.md](Documentation/RELEASE-v2.1.0.md).

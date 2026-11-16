@@ -2,6 +2,48 @@
 // Copyright 2026 Raster Images Private Limited
 import Foundation
 
+internal struct ParallelDecodeUnit: Sendable {
+    let scanIndex: Int
+    let chunkIndex: Int
+    let range: Range<Int>
+}
+
+internal struct ParallelScanDecoder: Sendable {
+    let regular: JPEGLSRegularModeDecoder
+    let run: JPEGLSRunModeDecoder
+    let limit: Int
+    let qbppBits: Int
+}
+
+internal enum ParallelDecodeSchedule {
+    @inline(never)
+    static func build(
+        records: [JPEGLSHeader.Scan],
+        totalUnits: Int,
+        bits: Int,
+        kernel: JPEGLSScalarKernel
+    ) throws -> (units: [ParallelDecodeUnit], decoders: [ParallelScanDecoder]) {
+        var units: [ParallelDecodeUnit] = []
+        units.reserveCapacity(totalUnits)
+        var scanDecoders: [ParallelScanDecoder] = []
+        scanDecoders.reserveCapacity(records.count)
+        for (sIdx, scan) in records.enumerated() {
+            let regDec = try JPEGLSRegularModeDecoder(parameters: scan.parameters, near: scan.near)
+            let runDec = try JPEGLSRunModeDecoder(parameters: scan.parameters, near: scan.near)
+            let coding = kernel.computeGolombLimitInternal(
+                parameters: scan.parameters, near: scan.near, bitsPerSample: bits
+            )
+            scanDecoders.append(ParallelScanDecoder(
+                regular: regDec, run: runDec, limit: coding.limit, qbppBits: coding.qbppBits
+            ))
+            for (cIdx, r) in scan.ranges.enumerated() {
+                units.append(ParallelDecodeUnit(scanIndex: sIdx, chunkIndex: cIdx, range: r))
+            }
+        }
+        return (units, scanDecoders)
+    }
+}
+
 /// Non-interleaved component scans share the scalar entropy kernels and borrow
 /// each component directly through its descriptor. No planarisation is needed.
 enum ComponentCodec {
@@ -419,9 +461,7 @@ enum ComponentCodec {
 
                 var planarStorage: [UInt8] = []
                 if usePlanarEncode {
-                    planarStorage = [UInt8](unsafeUninitializedCapacity: planarCandidateBytes) { _, initCount in
-                        initCount = planarCandidateBytes
-                    }
+                    planarStorage = JPEGLSScalarKernel.PredictorRows.makePlanarWorkspace(byteCount: planarCandidateBytes)
                     try deinterleaveTriplet(
                         from: bytes, baseOffset: locations[0].offset, rowBytes: locations[0].rowBytes,
                         width: d.width, height: d.height, sampleBytes: sampleBytesForPlanar,
@@ -684,30 +724,14 @@ enum ComponentCodec {
                     let width = d.width
                     let height = d.height
                     let planeBytes = width * height * sampleBytes
-                    var planarDecode = [UInt8](unsafeUninitializedCapacity: planarDecodeBytes) { _, initCount in
-                        initCount = planarDecodeBytes
-                    }
+                    var planarDecode = JPEGLSScalarKernel.PredictorRows.makePlanarWorkspace(byteCount: planarDecodeBytes)
                     if effectiveWorkers > 1 {
-                        struct DecodeUnit: Sendable {
-                            let scanIndex: Int
-                            let chunkIndex: Int
-                            let range: Range<Int>
-                        }
-                        var units: [DecodeUnit] = []
-                        units.reserveCapacity(totalNonInterleavedUnits)
-                        var scanDecoders: [(regular: JPEGLSRegularModeDecoder, run: JPEGLSRunModeDecoder, limit: Int, qbppBits: Int)] = []
-                        scanDecoders.reserveCapacity(header.records.count)
-                        for (sIdx, scan) in header.records.enumerated() {
-                            let regDec = try JPEGLSRegularModeDecoder(parameters: scan.parameters, near: scan.near)
-                            let runDec = try JPEGLSRunModeDecoder(parameters: scan.parameters, near: scan.near)
-                            let coding = kernel.computeGolombLimitInternal(parameters: scan.parameters, near: scan.near, bitsPerSample: header.bits)
-                            scanDecoders.append((regDec, runDec, coding.limit, coding.qbppBits))
-                            for (cIdx, r) in scan.ranges.enumerated() {
-                                units.append(DecodeUnit(scanIndex: sIdx, chunkIndex: cIdx, range: r))
-                            }
-                        }
-                        let immutableUnits = units
-                        let immutableDecoders = scanDecoders
+                        let schedule = try ParallelDecodeSchedule.build(
+                            records: header.records, totalUnits: totalNonInterleavedUnits,
+                            bits: header.bits, kernel: kernel
+                        )
+                        let immutableUnits = schedule.units
+                        let immutableDecoders = schedule.decoders
                         let records = header.records
                         let sharedCompressed = SendableRawBorrow(buffer: compressedRaw)
                         try planarDecode.withUnsafeMutableBytes { planarMutable in
@@ -773,26 +797,12 @@ enum ComponentCodec {
                         workers: effectiveWorkers, budget: budget
                     )
                 } else if allNonInterleaved && effectiveWorkers > 1 {
-                    struct DecodeUnit: Sendable {
-                        let scanIndex: Int
-                        let chunkIndex: Int
-                        let range: Range<Int>
-                    }
-                    var units: [DecodeUnit] = []
-                    units.reserveCapacity(totalNonInterleavedUnits)
-                    var scanDecoders: [(regular: JPEGLSRegularModeDecoder, run: JPEGLSRunModeDecoder, limit: Int, qbppBits: Int)] = []
-                    scanDecoders.reserveCapacity(header.records.count)
-                    for (sIdx, scan) in header.records.enumerated() {
-                        let regDec = try JPEGLSRegularModeDecoder(parameters: scan.parameters, near: scan.near)
-                        let runDec = try JPEGLSRunModeDecoder(parameters: scan.parameters, near: scan.near)
-                        let coding = kernel.computeGolombLimitInternal(parameters: scan.parameters, near: scan.near, bitsPerSample: header.bits)
-                        scanDecoders.append((regDec, runDec, coding.limit, coding.qbppBits))
-                        for (cIdx, r) in scan.ranges.enumerated() {
-                            units.append(DecodeUnit(scanIndex: sIdx, chunkIndex: cIdx, range: r))
-                        }
-                    }
-                    let immutableUnits = units
-                    let immutableDecoders = scanDecoders
+                    let schedule = try ParallelDecodeSchedule.build(
+                        records: header.records, totalUnits: totalNonInterleavedUnits,
+                        bits: header.bits, kernel: kernel
+                    )
+                    let immutableUnits = schedule.units
+                    let immutableDecoders = schedule.decoders
                     let records = header.records
                     let sharedCompressed = SendableRawBorrow(buffer: compressedRaw)
                     let sharedOutput = SendableMutableRawBorrow(buffer: bytes)

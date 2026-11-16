@@ -326,16 +326,20 @@ struct ParallelAccelerationTests {
         // 1. 16-bit MAXVAL=65535 at extreme NEAR=255 (qbpp=511): alternating 0/65535 checkerboard + odd-column near-runs
         let w16 = 93, h16 = 45
         let desc16 = try ImageDescriptor.greyscale16(width: w16, height: h16, meaningfulBits: 16)
-        let img16 = try ImageDestination.allocate(descriptor: desc16).writeUInt16 { x, y in
+        let dst16 = try ImageDestination.allocate(descriptor: desc16)
+        let img16 = try dst16.writeUInt16 { (x: Int, y: Int) -> UInt16 in
             if y % 5 == 0 && x >= 1 && x <= 40 {
                 // Near-run starting at odd column x=1 with jitter within +-255
-                return UInt16(30000 + ((x * 37 + y * 13) % 500) - 250)
+                let jitter: Int = ((x * 37 + y * 13) % 500) - 250
+                return UInt16(30000 + jitter)
             } else if y % 3 == 0 && x >= 3 && x <= 30 {
                 // Near-run starting at x=3 near upper clamp 65535
-                return UInt16(65535 - ((x * 19 + y) % 255))
+                let drop: Int = (x * 19 + y) % 255
+                return UInt16(65535 - drop)
             } else {
                 // Extreme 0 / 65535 checkerboard exercising maximum |actual - pred| + near = 65790 reciprocal quantization
-                return ((x + y) & 1) == 0 ? 0 : 65535
+                let parity: Int = (x + y) & 1
+                return parity == 0 ? 0 : 65535
             }
         }
         let cfgNear255 = try EncoderConfiguration(

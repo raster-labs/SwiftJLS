@@ -279,7 +279,7 @@ struct JPEGLSScalarKernel {
         let limitThreshold = limit &- qbppBits &- 1
         let ctxBuffer = context.rawContextsBuffer
 
-        var rowArena = [UInt16](repeating: 0, count: width * 2)
+        var rowArena = PredictorRows.makeArena(width: width)
         try rowArena.withUnsafeMutableBufferPointer { arenaBuf in
             let arenaBase = arenaBuf.baseAddress!
             var prevOffset = 0

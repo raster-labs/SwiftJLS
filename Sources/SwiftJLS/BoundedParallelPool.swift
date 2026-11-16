@@ -6,6 +6,7 @@ import Synchronization
 internal final class OperationCancellationToken: Sendable {
     private let cancelledFlag = Atomic<Bool>(false)
 
+    @inline(never)
     internal init() {}
 
     internal func cancel() {
@@ -76,21 +77,19 @@ internal enum BoundedParallelPool {
         let nextIndex = Atomic<Int>(0)
 
         DispatchQueue.concurrentPerform(iterations: effectiveWorkers) { _ in
-            Self.$activeCancellation.withValue(token) {
-                while true {
-                    if state.hasFailed { return }
-                    let idx = nextIndex.wrappingAdd(1, ordering: .relaxed).oldValue
-                    if idx >= count { return }
-                    if state.isCancelled {
-                        state.record(CancellationError())
-                        return
-                    }
-                    do {
-                        try body(idx)
-                    } catch {
-                        state.record(error)
-                        return
-                    }
+            while true {
+                if state.hasFailed { return }
+                let idx = nextIndex.wrappingAdd(1, ordering: .relaxed).oldValue
+                if idx >= count { return }
+                if state.isCancelled {
+                    state.record(CancellationError())
+                    return
+                }
+                do {
+                    try body(idx)
+                } catch {
+                    state.record(error)
+                    return
                 }
             }
         }
@@ -100,13 +99,14 @@ internal enum BoundedParallelPool {
     }
 }
 
-private final class ParallelFailureState: Sendable {
+internal final class ParallelFailureState: Sendable {
     let initiallyCancelled: Bool
     let token: OperationCancellationToken?
     private let failedFlag: Atomic<Bool>
     private let errorLock: Mutex<(any Error)?>
 
-    init(initiallyCancelled: Bool, token: OperationCancellationToken?) {
+    @inline(never)
+    internal init(initiallyCancelled: Bool, token: OperationCancellationToken?) {
         self.initiallyCancelled = initiallyCancelled
         self.token = token
         self.failedFlag = Atomic<Bool>(false)
@@ -140,6 +140,7 @@ private final class ParallelFailureState: Sendable {
 internal final class ChunkOutputCollector: Sendable {
     private let slots: Mutex<[[UInt8]]>
 
+    @inline(never)
     internal init(count: Int) {
         self.slots = Mutex(Array(repeating: [], count: count))
     }

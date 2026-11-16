@@ -4,8 +4,9 @@ import Foundation
 import Dispatch
 
 /// Operation-local, monotonic admission and cancellation budget. No shared state.
-struct CodecBudget {
+struct CodecBudget: Sendable {
     let limits: ResourceLimits
+    let cancellationToken: OperationCancellationToken? = BoundedParallelPool.activeCancellation
     // Compare elapsed seconds without converting a potentially huge finite
     // deadline to an integer. Dispatch uses the monotonic uptime clock without
     // the Foundation object lookup at every bounded kernel checkpoint.
@@ -14,7 +15,10 @@ struct CodecBudget {
         Double(DispatchTime.now().uptimeNanoseconds - started) / 1_000_000_000
     }
     func check() throws {
-        try BoundedParallelPool.checkCancellation()
+        if Task.isCancelled { throw CancellationError() }
+        if let cancellationToken, cancellationToken.isCancelled {
+            throw CancellationError()
+        }
         guard elapsedSeconds < limits.deadlineSeconds else {
             throw CodecError(.resourceLimitExceeded, "Codec operation deadline exceeded.")
         }
