@@ -8,7 +8,7 @@ For applications replacing the predecessor dependency, use [MIGRATION.md](MIGRAT
 
 ## Source and destination
 
-Current migration baseline: [raster-labs/JLSwift](https://github.com/raster-labs/JLSwift) at `15aa75164145414f3d5ffb801401c52d40cc5bcc`. Target module/product: `SwiftJLS`. Target CLI: `swiftjls-cli`. Suite policy 0.11.0 (MIT licence): tools 6.2, qualified primary Swift 6.4, Swift 6 language mode and Apple OS 26.0 floors. Stable library release: `2.0.1` (`v2.0.1`, following `2.0.0` / `v2.0.0`; see [Documentation/RELEASE-v2.0.1.md](Documentation/RELEASE-v2.0.1.md) and [Documentation/RELEASE-v2.0.0.md](Documentation/RELEASE-v2.0.0.md)).
+Current migration baseline: [raster-labs/JLSwift](https://github.com/raster-labs/JLSwift) at `15aa75164145414f3d5ffb801401c52d40cc5bcc`. Target module/product: `SwiftJLS`. Target CLI: `swiftjls-cli`. Suite policy 0.11.0 (MIT licence): tools 6.2, qualified primary Swift 6.4, Swift 6 language mode and Apple OS 26.0 floors. Stable library release: `2.1.0` (`v2.1.0`, following `2.0.1` / `v2.0.1` and `2.0.0` / `v2.0.0`; see [Documentation/RELEASE-v2.1.0.md](Documentation/RELEASE-v2.1.0.md), [Documentation/RELEASE-v2.0.1.md](Documentation/RELEASE-v2.0.1.md) and [Documentation/RELEASE-v2.0.0.md](Documentation/RELEASE-v2.0.0.md)).
 
 The older inventory at `299b9a2e5bfe36ef104a3464a27d6c4c82874cc2` and the September product decisions below are historical inputs, not the selected codec baseline. CLI-01 renamed the executable after that inventory.
 

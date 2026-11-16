@@ -1,5 +1,12 @@
 # Change log
 
+## SwiftJLS 2.1.0 — 2026-11-16
+
+Feature and performance release of SwiftJLS (`2.1.0`, tagged `v2.1.0`) under suite policy **0.11.0** (`MIT` licence, Swift `6.2` tools minimum / Swift `6.4` primary in Swift `6` language mode, Apple OS `26.0` deployment floors), keeping published tags `v2.0.0` and `v2.0.1` immutable:
+
+- Add 64-bit buffered bit-I/O, branchless MED prediction and context-index LUTs, SIMD run-length scanning, vectorised HP1/HP2/HP3 colour transforms, accelerated near-lossless (`NEAR > 0`) quantisation/reconstruction, `BoundedParallelPool` multi-worker `ILV=0` & `DRI` restart-segment parallel encode/decode, cooperative async cancellation bridging, and zero-hop synchronous `encodeSynchronously`/`decodeSynchronously` entry points (`df1405b`, `1ba7e50`, `1512ab9`, `eb01686`).
+- Promote `VERSION`, `swiftjls-cli` (`Sources/SwiftJLSCLI/main.swift`), and the section 1 manual (`ManPages/swiftjls-cli.1`) to `2.1.0` (`v2.1.0`), and record release qualification in [Documentation/RELEASE-v2.1.0.md](Documentation/RELEASE-v2.1.0.md).
+
 ## SwiftJLS 2.0.1 — 2026-11-11
 
 Patch release of SwiftJLS (`2.0.1`, tagged `v2.0.1`), publishing the **MIT** relicensing under suite policy **0.11.0** (`POL-07`) while keeping published tag `v2.0.0` immutable (Swift `6.2` tools minimum / Swift `6.4` primary in Swift `6` language mode, Apple OS `26.0` deployment floors).
