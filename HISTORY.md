@@ -1,5 +1,9 @@
 # History and provenance — SwiftJLS
 
+## SwiftJLS 2.1.2 release — 2026-11-16 (`v2.1.2`)
+
+- Publish patch release SwiftJLS `2.1.2` (`v2.1.2`) over `v2.1.1` (`8527cf4`), keeping published tags `v2.1.0` and `v2.1.1` immutable: eliminate `effectiveWorkers` and planar band closure capture boxes, cache Linux cgroup processor counts in `BoundedParallelPool`, and pass all 85/85 `heaptrack` per-operation workspace attribution profiles (`f1b6044`); see [Documentation/RELEASE-v2.1.2.md](Documentation/RELEASE-v2.1.2.md).
+
 ## SwiftJLS 2.1.1 release — 2026-11-16 (`v2.1.1`)
 
 - Publish patch release SwiftJLS `2.1.1` (`v2.1.1`) over `v2.1.0` (`a96ae9c`), keeping published tag `v2.1.0` immutable: restore `Swift 6.2` test compilation in `ParallelAccelerationTests.swift`, supply `-package-name swiftjls` in explicit `watchOS` / `visionOS` `swiftc` qualification gates, capture `OperationCancellationToken` on `CodecBudget` without worker-thread `TaskLocal` re-binding, and complete `heaptrack` per-operation workspace stack attribution in `Scripts/StorageEvidence/measure-operation.py`; see [Documentation/RELEASE-v2.1.1.md](Documentation/RELEASE-v2.1.1.md).

@@ -1,5 +1,13 @@
 # Change log
 
+## SwiftJLS 2.1.2 — 2026-11-16
+
+Performance and workspace-qualification patch release of SwiftJLS (`2.1.2`, tagged `v2.1.2`) under suite policy **0.11.0** (`MIT` licence), keeping published tags `v2.1.0` and `v2.1.1` immutable:
+
+- Eliminate heap capture boxes in `ScalarCodec` and `ComponentCodec` (`BoundedParallelPool.clampedWorkerCount`, static `deinterleaveBand`/`interleaveBand` helpers) and cache `ProcessInfo.processInfo.activeProcessorCount` once in `BoundedParallelPool` so Linux containers do not re-read `/sys/fs/cgroup/*` per operation.
+- Complete 85/85 per-operation `heaptrack` workspace attribution (`Scripts/StorageEvidence/measure-operation.py`) across specialized control allocators, generic `JPEGLSBitSource` interleaved decode, and `libdispatch` `concurrentPerform` runtime frames.
+- Promote `VERSION`, `swiftjls-cli` (`Sources/SwiftJLSCLI/main.swift`), and `ManPages/swiftjls-cli.1` to `2.1.2` (`v2.1.2`), and record release qualification in [Documentation/RELEASE-v2.1.2.md](Documentation/RELEASE-v2.1.2.md).
+
 ## SwiftJLS 2.1.1 — 2026-11-16
 
 Patch release of SwiftJLS (`2.1.1`, tagged `v2.1.1`) under suite policy **0.11.0** (`MIT` licence), restoring `Swift 6.2` test compilation, `watchOS` / `visionOS` explicit `swiftc` qualification, and complete `heaptrack` per-operation workspace attribution while keeping published tag `v2.1.0` immutable:
