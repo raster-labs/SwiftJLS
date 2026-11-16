@@ -195,20 +195,16 @@ def classify(frames, size=None):
             return 'metadata_and_descriptors'
     if any(s in stack for s in ['ImageDestination.__allocating_init', 'OwnedImageStorage.__allocating_init', 'SealedImageStorage.__allocating_init']):
         return 'storage_control_objects'
-    if (size == 17 and len(frames) >= 3 and frames[:3] == [
-            'swift_slowAlloc', 'swift_allocObject',
-            'SwiftJLS.OperationCancellationToken.__allocating_init() -> SwiftJLS.OperationCancellationToken']):
-        return 'storage_control_objects'
-    if (size is not None and 16 <= size <= 128 and len(frames) >= 3
-            and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']
-            and frames[2].startswith('SwiftJLS.ParallelFailureState.__allocating_init(')):
-        return 'storage_control_objects'
+    if len(frames) >= 3 and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']:
+        f2_unspec = re.sub(r'^function signature specialization <[^>]+> of ', '', frames[2])
+        if size == 17 and f2_unspec == 'SwiftJLS.OperationCancellationToken.__allocating_init() -> SwiftJLS.OperationCancellationToken':
+            return 'storage_control_objects'
+        if size is not None and 16 <= size <= 128 and f2_unspec.startswith('SwiftJLS.ParallelFailureState.__allocating_init('):
+            return 'storage_control_objects'
+        if size is not None and 16 <= size <= 64 and f2_unspec == 'SwiftJLS.ChunkOutputCollector.__allocating_init(count: Swift.Int) -> SwiftJLS.ChunkOutputCollector':
+            return 'compressed_buffer'
     top8 = '\n'.join(frames[:8])
-    if (size is not None and 16 <= size <= 64 and len(frames) >= 3
-            and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']
-            and frames[2] == 'SwiftJLS.ChunkOutputCollector.__allocating_init(count: Swift.Int) -> SwiftJLS.ChunkOutputCollector'):
-        return 'compressed_buffer'
-    if ('SwiftJLS.ChunkOutputCollector.init(count: Swift.Int) -> SwiftJLS.ChunkOutputCollector' in top8
+    if ('SwiftJLS.ChunkOutputCollector.init(' in top8
             and '<[Swift.UInt8]>' in top8 and frames[:2] == ['swift_slowAlloc', 'swift_allocObject']):
         return 'compressed_buffer'
     if ('SwiftJLS.JPEGLSScalarKernel.PredictorRows.' in top8
@@ -519,9 +515,15 @@ def self_test():
     assert classify(compressed_reader_array_stack, 404) == 'compressed_buffer'
     assert classify(compressed_reader_array_stack, 64) == 'compressed_buffer'
     cancel_token_stack = prefix + ['SwiftJLS.OperationCancellationToken.__allocating_init() -> SwiftJLS.OperationCancellationToken']
+    cancel_token_spec_stack = prefix + [
+        'function signature specialization <Arg[0] = Dead> of SwiftJLS.OperationCancellationToken.__allocating_init() -> SwiftJLS.OperationCancellationToken',
+        'SwiftJLS.OperationCancellationToken.__allocating_init() -> SwiftJLS.OperationCancellationToken',
+    ]
     assert classify(cancel_token_stack, 17) == 'storage_control_objects'
+    assert classify(cancel_token_spec_stack, 17) == 'storage_control_objects'
     for bad_size in [None, 16, 18, 64]:
         assert classify(cancel_token_stack, bad_size) == 'unattributed_codec'
+        assert classify(cancel_token_spec_stack, bad_size) == 'unattributed_codec'
     assert classify(['malloc'] + cancel_token_stack[1:], 17) == 'unattributed_codec'
     tl_cancel_stack = prefix + [
         'generic specialization <SwiftJLS.OperationCancellationToken?> of Swift.TaskLocal.__allocating_init(wrappedValue: A) -> Swift.TaskLocal<A>',
