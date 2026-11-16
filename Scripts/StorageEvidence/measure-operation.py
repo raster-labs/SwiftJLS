@@ -65,10 +65,20 @@ def classify(frames, size=None):
     # process-runtime storage. Require their named initialiser and ProcessInfo
     # frame before the first codec frame, not merely somewhere in a call stack.
     runtime_origin = stack.split('SwiftJLS.', 1)[0]
-    if 'FoundationEssentials.ProcessInfo.' in runtime_origin and any(
-            'one-time initialization function for ' + name in runtime_origin
-            for name in ['processInfo', 'cfsQuotaURL', 'cfsPeriodURL', 'cpuSetURL']):
+    if 'FoundationEssentials.ProcessInfo.' in runtime_origin and (
+            any('one-time initialization function for ' + name in runtime_origin
+                for name in ['processInfo', 'cfsQuotaURL', 'cfsPeriodURL', 'cpuSetURL'])
+            or (frames[:2] == ['swift_slowAlloc', 'swift_allocObject']
+                and 'FoundationEssentials.ProcessInfo.activeProcessorCount.getter' in runtime_origin
+                and 'FoundationEssentials.readDataFromFile' in runtime_origin)):
         return 'runtime_or_unattributed'
+    concurrent_perform_sym = 'static Dispatch.DispatchQueue.concurrentPerform(iterations: Swift.Int, execute: (Swift.Int) -> ()) -> ()'
+    if concurrent_perform_sym in frames[:7]:
+        cp_idx = frames.index(concurrent_perform_sym)
+        if (1 <= cp_idx <= 6 and cp_idx + 1 < len(frames)
+                and 'BoundedParallelPool.forEach(' in frames[cp_idx + 1]
+                and not any('SwiftJLS.' in f for f in frames[:cp_idx])):
+            return 'runtime_or_unattributed'
     task_local_inits = {
         ('generic specialization <SwiftJLS.OperationCancellationToken?> of Swift.TaskLocal.__allocating_init(wrappedValue: A) -> Swift.TaskLocal<A>',
          'one-time initialization function for $activeCancellation',
@@ -460,6 +470,14 @@ def self_test():
         'FoundationEssentials.ProcessInfo.activeProcessorCount.getter', 'SwiftJLS.ResourceLimits.init']
     assert classify(foundation_cache, 176) == 'runtime_or_unattributed'
     assert classify(prefix + ['SwiftJLS.Other.allocate'] + foundation_cache[2:], 176) == 'unattributed_codec'
+    cp_sym = 'static Dispatch.DispatchQueue.concurrentPerform(iterations: Swift.Int, execute: (Swift.Int) -> ()) -> ()'
+    pool_sym = 'static SwiftJLS.BoundedParallelPool.forEach(count: Swift.Int, workers: Swift.Int, body: @Sendable (Swift.Int) throws -> ()) throws -> ()'
+    assert classify(prefix + [cp_sym, pool_sym], 32) == 'runtime_or_unattributed'
+    assert classify(['_Block_copy', cp_sym, pool_sym], 48) == 'runtime_or_unattributed'
+    assert classify(['_dispatch_continuation_alloc_from_heap', 'dispatch_apply_f', cp_sym, pool_sym], 64) == 'runtime_or_unattributed'
+    assert classify(['_dl_allocate_tls', 'pthread_create', '_dispatch_root_queue_poke_slow', 'dispatch_apply_f', cp_sym, pool_sym], 400) == 'runtime_or_unattributed'
+    assert classify(prefix + ['SwiftJLS.WorkerClosure', cp_sym, pool_sym], 32) == 'unattributed_codec'
+    assert classify(['_dispatch_continuation_alloc_from_heap', 'dispatch_apply_f', cp_sym, 'SwiftJLS.Other.allocate'], 64) == 'unattributed_codec'
     owned_factory_stack = prefix + [
         'Swift._ContiguousArrayBuffer.init(_uninitializedCount: Swift.Int, minimumCapacity: Swift.Int) -> Swift._ContiguousArrayBuffer<A>',
         'generic specialization <Swift.UInt8> of static Swift.Array._allocateUninitialized(Swift.Int) -> ([A], Swift.UnsafeMutablePointer<A>)',

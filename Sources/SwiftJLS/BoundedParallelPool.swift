@@ -50,9 +50,10 @@ internal enum BoundedParallelPool {
         }
     }
 
+    private static let cachedProcessorCount: Int = max(1, ProcessInfo.processInfo.activeProcessorCount)
+
     internal static func workerCount(requested: Int) -> Int {
-        let hw = max(1, ProcessInfo.processInfo.activeProcessorCount)
-        return max(1, min(requested, hw))
+        return max(1, min(requested, cachedProcessorCount))
     }
 
     internal static func clampedWorkerCount(
